@@ -16,10 +16,21 @@ class QuantumWalk:
         return eigh(self.adjacency)
         
     def evolution(self, t = 0, initial = None):
-        D = -1j*t*self.eigenvalues
+        D = np.exp(-1j*t*self.eigenvalues)
         D = np.diag(D)
         
         U = (self.eigenvectors @ D @ self.eigenvectors.H)
         
         return np.abs(np.array(U @ initial))**2
              
+    def pst(self, a = 0, b = 0):
+        return
+    
+    def localization(self):
+        return
+    
+    def pgst(self):
+        return
+    
+    def energy(self):
+        return
