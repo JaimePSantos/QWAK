@@ -53,23 +53,3 @@ if __name__ == '__main__':
 
     plt.plot(probDist.getProbDist())
     plt.show()
-
-    # op2 = Operator(hamilt,10,10)
-    # op2.buildOperator()
-    # walk2 = QuantumWalk(initState,op2)
-    # walk2.buildWalk()
-    # # print("Walk 2\n %s\n"%walk2.getWalk())
-    #
-    # walk.setWalk(walk2)
-    # # print("walk 1 + 2\n %s\n"%walk.getWalk())
-    #
-    # # probs = np.zeros((n,1))
-    # # for x in range(n):
-    # #     probs[x]=walk[x]*np.conjugate(walk[x])
-    # # print(probs)
-    # graph = Graph2()
-    # graph.completeGraph(5)
-    # graph.addNode(5)
-    # graph.addEdge(4,5)
-    # graph.drawGraph()
-    # plt.show()

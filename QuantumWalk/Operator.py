@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
+from numpy.linalg import eigh
 from scipy import linalg
-
 import QuantumWalk.Graph
 from QuantumWalk.graphs import Graph
 
@@ -25,6 +25,11 @@ class Operator:
 
     def buildOperator(self):
         self._operator = linalg.expm(-1j * self._gamma * self._adjacencyMatrix * self._time)
+
+    def buildDiagonalOperator(self):
+        self._eigenvalues, self._eigenvectors = eigh(self._adjacencyMatrix)
+        D = np.diag(np.exp(-1j * self._time * self._gamma * self._eigenvalues))
+        self._operator = (self._eigenvectors @ D @ self._eigenvectors.H)
 
     def setTime(self,newTime):
         self._time = newTime
