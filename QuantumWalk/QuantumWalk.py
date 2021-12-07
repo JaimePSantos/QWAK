@@ -10,6 +10,9 @@ class QuantumWalk:
         self._operator = operator.getOperator()
         self._finalState = State(self._n)
 
+    def __str__(self):
+        return '%s' % self._finalState.getStateVec()
+
     def buildWalk(self):
         self._finalState.setStateVec(np.matmul(self._operator, self._initState))
 
@@ -39,8 +42,11 @@ class QuantumWalk:
     def getWalk(self):
         return self._finalState
 
-    def toProbability(self):
-        probs = np.zeros((self._n, 1))
-        for st in range(self._n):
-            probs[st] = self._finalState.getStateVec()[st] * np.conjugate(self._finalState.getStateVec()[st])
-        return probs
+
+    # def toProbability(self):
+    #     probs = np.zeros((self._n, 1))
+    #     for st in range(self._n):
+    #         probs[st] = self._finalState.getStateVec()[st] * np.conjugate(self._finalState.getStateVec()[st])
+    #     return probs
+
+

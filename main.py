@@ -43,7 +43,7 @@ if __name__ == '__main__':
     walk.buildWalk()
     # print("Walk 1 \n%s\n"%(walk.getWalk().getStateVec()))
     # print("Walk 1 Prob \n%s\n"%walk.toProbability())
-    print("Walk 1 stdev \n%s\n"%(np.std(walk.getWalk().getStateVec())))
+    print("Walk 1 \n%s\n"%(walk.getWalk()))
 
     probDist = ProbabilityDistribution(walk.getWalk())
     probDist.buildProbDist()

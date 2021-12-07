@@ -20,6 +20,9 @@ class Operator:
     def __rmul__(self,other):
         return other*self._operator
 
+    def __str__(self):
+        return '%s' % self._operator
+
     def buildOperator(self):
         self._operator = linalg.expm(-1j * self._gamma * self._adjacencyMatrix * self._time)
 
@@ -41,6 +44,12 @@ class Operator:
     def getDim(self):
         return self._n
 
+    def getAdjacencyMatrix(self):
+        return self._adjacencyMatrix
+
+    def setAdjacencyMatrix(self,adjacencyMatrix):
+        self._adjacencyMatrix = adjacencyMatrix
+
     def setOperator(self,newOperator):
         self._n = newOperator.getDim()
         self._gamma = newOperator.getGamma()
@@ -50,5 +59,3 @@ class Operator:
     def getOperator(self):
         return self._operator
 
-    def getAdjacencyMatrix(self):
-        return self._adjacencyMatrix
