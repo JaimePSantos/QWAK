@@ -11,7 +11,7 @@ class QuantumWalk:
         self._finalState = State(self._n)
 
     def buildWalk(self):
-        self._finalState.setStateVec(np.dot(self._operator, self._initState))
+        self._finalState.setStateVec(np.matmul(self._operator, self._initState))
 
     def setInitState(self,newInitState):
         self._initState = newInitState

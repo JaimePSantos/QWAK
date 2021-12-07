@@ -1,12 +1,17 @@
+import networkx as nx
 import numpy as np
 from scipy import linalg
 
+import QuantumWalk.Graph
+from QuantumWalk.graphs import Graph
+
 class Operator:
-    def __init__(self,ham,time=0,gamma=1):
-        self._ham = ham
+    def __init__(self,graph,n,time=0,gamma=1):
+        self._graph = graph
+        self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
         self._time = time
         self._gamma = gamma
-        self._n = self._ham.getDim()
+        self._n = n
         self._operator = np.zeros((self._n,self._n))
 
     def __mul__(self,other):
@@ -16,7 +21,7 @@ class Operator:
         return other*self._operator
 
     def buildOperator(self):
-        self._operator = linalg.expm(-1j * self._gamma * self._ham * self._time)
+        self._operator = linalg.expm(-1j * self._gamma * self._adjacencyMatrix * self._time)
 
     def setTime(self,newTime):
         self._time = newTime
@@ -44,3 +49,6 @@ class Operator:
 
     def getOperator(self):
         return self._operator
+
+    def getAdjacencyMatrix(self):
+        return self._adjacencyMatrix
