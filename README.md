@@ -1,2 +1,2 @@
 # qwak
-continuous-time quantum walk analysis framework
+continuous-time quantum walk analysis framework.
