@@ -44,6 +44,3 @@ class State:
         self._n = newState.getDim()
         self._stateList = newState.getStateList()
         self._stateVec = newState.getState()
-
-    # def getState(self):
-    #     return self._stateVec
