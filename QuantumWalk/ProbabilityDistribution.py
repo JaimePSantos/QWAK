@@ -20,3 +20,4 @@ class ProbabilityDistribution:
 
     def getProbDist(self):
         return self._probVec
+

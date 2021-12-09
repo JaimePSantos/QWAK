@@ -41,12 +41,3 @@ class QuantumWalk:
 
     def getWalk(self):
         return self._finalState
-
-
-    # def toProbability(self):
-    #     probs = np.zeros((self._n, 1))
-    #     for st in range(self._n):
-    #         probs[st] = self._finalState.getStateVec()[st] * np.conjugate(self._finalState.getStateVec()[st])
-    #     return probs
-
-
