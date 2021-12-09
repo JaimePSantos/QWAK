@@ -1,28 +1,12 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
 
 from QuantumWalk.State import State
-from QuantumWalk.graphs import Graph
-from QuantumWalk.Hamiltonian import Hamiltonian
 from QuantumWalk.Operator import Operator
 from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
-from QuantumWalk.Graph import Graph2
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-def flatten(t):
-    return [item for sublist in t for item in sublist]
 if __name__ == '__main__':
     n = 200
     t=120
@@ -52,4 +36,4 @@ if __name__ == '__main__':
     print("Prob 1 time: \n\t%s\nProb Dist 1 std \n\t%s\n Sqrt of time\n\t%s\n"%(t,std,0.54*t))
 
     plt.plot(probDist.getProbDist())
-    plt.show()
+    # plt.show()
