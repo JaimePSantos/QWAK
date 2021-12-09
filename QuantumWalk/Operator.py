@@ -2,8 +2,6 @@ import networkx as nx
 import numpy as np
 from numpy.linalg import eigh
 from scipy import linalg
-import QuantumWalk.Graph
-from QuantumWalk.graphs import Graph
 
 class Operator:
     def __init__(self,graph,n,time=0,gamma=1):
