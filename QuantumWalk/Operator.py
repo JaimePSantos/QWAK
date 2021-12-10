@@ -2,14 +2,15 @@ import networkx as nx
 import numpy as np
 from numpy.linalg import eigh
 from scipy import linalg
+import timeit
 
 class Operator:
-    def __init__(self,graph,n,time=0,gamma=1):
+    def __init__(self,graph,time=0,gamma=1):
         self._graph = graph
         self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
         self._time = time
         self._gamma = gamma
-        self._n = n
+        self._n = len(graph)
         self._operator = np.zeros((self._n,self._n))
 
     def __mul__(self,other):
@@ -28,6 +29,13 @@ class Operator:
         self._eigenvalues, self._eigenvectors = eigh(self._adjacencyMatrix)
         D = np.diag(np.exp(-1j * self._time * self._gamma * self._eigenvalues))
         self._operator = (self._eigenvectors @ D @ self._eigenvectors.H)
+
+    def timedBuildDiagonalOperator(self):
+        startTimeExpm = timeit.default_timer()
+        self.buildDiagonalOperator()
+        endTimeExpm = timeit.default_timer()
+        executionTimeExpm = (endTimeExpm - startTimeExpm)
+        print("Diagonal operator took %s seconds." % executionTimeExpm)
 
     def setTime(self,newTime):
         self._time = newTime
