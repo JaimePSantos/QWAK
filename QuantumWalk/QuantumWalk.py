@@ -1,5 +1,6 @@
 import numpy as np
 from QuantumWalk.State import State
+import timeit
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -15,6 +16,13 @@ class QuantumWalk:
 
     def buildWalk(self):
         self._finalState.setStateVec(np.matmul(self._operator, self._initState))
+
+    def timedBuildWalk(self):
+        startTimeWalk = timeit.default_timer()
+        self.buildWalk()
+        endTimeWalk = timeit.default_timer()
+        executionTimeWalk = (endTimeWalk - startTimeWalk)
+        print("Walk took %s seconds." % executionTimeWalk)
 
     def setInitState(self,newInitState):
         self._initState = newInitState

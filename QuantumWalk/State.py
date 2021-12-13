@@ -1,3 +1,5 @@
+import timeit
+
 import numpy as np
 
 
@@ -20,6 +22,13 @@ class State:
         if self._stateList is not None:
             for state in self._stateList:
                 self._stateVec[state] = 1 / np.sqrt(len(self._stateList))
+
+    def timedBuildState(self):
+        startTimeState = timeit.default_timer()
+        self.buildState()
+        endTimeState = timeit.default_timer()
+        executionTimeState = (endTimeState - startTimeState)
+        print("State took %s seconds." % executionTimeState)
 
     def setDim(self,newN):
         self._n = newN

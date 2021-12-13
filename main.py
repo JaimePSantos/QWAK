@@ -24,7 +24,7 @@ if __name__ == '__main__':
     executionTimeGraph = (endTimeGraph - startTimeGraph)
     print("\tGraph took %s seconds." % executionTimeGraph)
 
-    op = Operator(graph2,n,t,gamma)
+    op = Operator(graph2,t,gamma)
     # print(op.getAdjacencyMatrix())
     startTimeExpm = timeit.default_timer()
     op.buildOperator()
