@@ -24,7 +24,7 @@ class Operator:
         return '%s' % self._operator
 
     def buildOperator(self):
-        self._operator = linalg.expm(-1j * self._gamma * self._adjacencyMatrix * self._time)
+        self._operator = ln.expm(-1j * self._gamma * self._adjacencyMatrix * self._time)
 
     def buildDiagonalOperator(self):
         startTimeExpm = timeit.default_timer()
