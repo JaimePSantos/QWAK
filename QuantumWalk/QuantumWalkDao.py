@@ -48,7 +48,7 @@ class QuantumWalkDao:
         return self._probDist.getProbDist()
 
     def getStateAmplitude(self,state):
-        return self._quantumWalk.getWalk().getStateVec().item(state)
+        return self._quantumWalk.getStateAmplitude(state)
 
     def getStateProbability(self,state):
-        return self._probDist.getProbDist().item(state)
+        return self._probDist.getStateProbability(state)

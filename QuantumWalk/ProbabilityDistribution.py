@@ -29,3 +29,6 @@ class ProbabilityDistribution:
     def getProbDist(self):
         return self._probVec
 
+    def getStateProbability(self,state):
+        return self._probVec.item(state)
+
