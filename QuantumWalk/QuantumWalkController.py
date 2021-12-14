@@ -47,3 +47,5 @@ class QuantumWalkController:
     def getProbDist(self):
         return self._probDist.getProbDist()
 
+    def searchState(self,state):
+        return self._quantumWalk

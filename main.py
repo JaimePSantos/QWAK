@@ -10,13 +10,15 @@ from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 from QuantumWalk.QuantumWalkController import QuantumWalkController
 
 if __name__ == '__main__':
-    n = 10
-    t=3
+    n = 5
+    t=1
     gamma=1/(2*np.sqrt(2))
     marked = [int(n/2)]
 
     qwController = QuantumWalkController(n,nx.cycle_graph(n),t,gamma,marked)
     qwAmplitudes = qwController.getWalk()
+    qwProbabilities = qwController.getProbDist()
+    print("Probability:\n %s \n Mean: \n\t%s"%(qwProbabilities,np.mean(qwProbabilities)))
     # print(qwAmplitudes)
     # initState = State(n,marked)
     # initState.buildState()
