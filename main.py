@@ -7,7 +7,7 @@ from QuantumWalk.State import State
 from QuantumWalk.Operator import Operator
 from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
-from QuantumWalk.QuantumWalkController import QuantumWalkController
+from QuantumWalk.QuantumWalkDao import QuantumWalkDao
 
 if __name__ == '__main__':
     n = 5
@@ -15,10 +15,13 @@ if __name__ == '__main__':
     gamma=1/(2*np.sqrt(2))
     marked = [int(n/2)]
 
-    qwController = QuantumWalkController(n,nx.cycle_graph(n),t,gamma,marked)
+    qwController = QuantumWalkDao(n,nx.cycle_graph(n),t,gamma,marked)
     qwAmplitudes = qwController.getWalk()
     qwProbabilities = qwController.getProbDist()
-    print("Probability:\n %s \n Mean: \n\t%s"%(qwProbabilities,np.mean(qwProbabilities)))
+    print("Amplitudes: \n %s \n Probability:\n %s \n Mean: \n\t%s"%(qwAmplitudes,qwProbabilities,np.mean(qwProbabilities)))
+    searchedState = 2
+    print("Amplitude of state %s \n\t %s"%(searchedState,qwController.getStateAmplitude(searchedState)))
+    print("Probability of state %s \n\t %s"%(searchedState,qwController.getStateProbability(searchedState)))
     # print(qwAmplitudes)
     # initState = State(n,marked)
     # initState.buildState()

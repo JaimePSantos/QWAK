@@ -5,7 +5,7 @@ from QuantumWalk.Operator import Operator
 from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 
-class QuantumWalkController:
+class QuantumWalkDao:
     def __init__(self,n,graph,time=0,gamma=1,initStateList=0):
         self._initState = State(n,initStateList)
         self._initState.timedBuildState()
@@ -47,5 +47,8 @@ class QuantumWalkController:
     def getProbDist(self):
         return self._probDist.getProbDist()
 
-    def searchState(self,state):
-        return self._quantumWalk
+    def getStateAmplitude(self,state):
+        return self._quantumWalk.getWalk().getStateVec().item(state)
+
+    def getStateProbability(self,state):
+        return self._probDist.getProbDist().item(state)
