@@ -19,6 +19,18 @@ class QuantumWalkController:
         self._quantumWalk.timedBuildWalk()
         self._probDist.timedBuildProbDist()
 
+    def runWalk(self):
+        self._initState.buildState()
+        self._operator.buildDiagonalOperator()
+        self._quantumWalk.buildWalk()
+        self._probDist.buildProbDist()
+
+    def setWalk(self,newWalk):
+        self._quantumWalk.setWalk(newWalk)
+
+    def getWalk(self):
+        self._quantumWalk.getWalk()
+
     def setProbDist(self,probDist):
         self._probDist = probDist
 
