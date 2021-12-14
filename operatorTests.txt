@@ -1,0 +1,27 @@
+First optimization:
+
+    ######### Diag Operator: USING ONLY MATMUL ##########
+    
+    	Eigh took 14.976243827997678 seconds.
+    	Diag took 0.003548590000718832 seconds.
+    	MatMul took 46.15132921999975 seconds.
+    Diagonal operator took 61.132028560001345 seconds.
+    
+    #####################################################
+    ######## Diag Operator: MULTIPLYING DIAGONAL ########
+    
+    	Eigh took 15.076269641998806 seconds.
+    	Diag took 0.0035383649992581923 seconds.
+    	MatMul took 23.56448060600087 seconds.
+    Faster Diagonal operator took 38.644923412000935 seconds.
+     
+    #####################################################
+    
+    ######## Diag Operator: Better EIGH #################
+    
+    	Eigh took 1.121090392996848 seconds.
+    	Diag took 0.009693850002804538 seconds.
+    	MatMul took 24.440660978998494 seconds.
+    Faster Diagonal operator took 25.571537842999533 seconds.
+     
+    #####################################################
