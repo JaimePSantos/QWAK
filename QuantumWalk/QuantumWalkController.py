@@ -39,7 +39,7 @@ class QuantumWalkController:
         self._quantumWalk.setWalk(newWalk)
 
     def getWalk(self):
-        return self._quantumWalk
+        return self._quantumWalk.getWalk()
 
     def setProbDist(self,probDist):
         self._probDist = probDist
