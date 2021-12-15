@@ -5,6 +5,7 @@ import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
 import timeit
+import json
 
 from QuantumWalk.State import State
 from QuantumWalk.Operator import Operator
@@ -90,6 +91,12 @@ def runWalk():
     qwController = QuantumWalkDao(n,nx.cycle_graph(n),t,gamma,marked)
     qwAmplitudes = qwController.getWalk()
     qwProbabilities = qwController.getProbDist()
-    return qwProbabilities
+    probLists = qwProbabilities.tolist()
+    probJson = json.dumps(probLists)
+    return probJson
+
+def print_num(n):
+    print('Got this from Javascript:', n)
+
 
 eel.start('index.html',port=8080,cmdline_args=['--start-maximized'])

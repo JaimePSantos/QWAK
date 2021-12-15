@@ -1,4 +1,3 @@
-
 let thing  = eel.runWalk();
 goButton = document.getElementById("goButton");
 
@@ -7,5 +6,5 @@ function print_arr(n){
 }
 
 let goButtonPress = goButton.onclick = () => {
-    eel.runWalk()(print_arr)
+    console.log(eel.runWalk()());
 }
