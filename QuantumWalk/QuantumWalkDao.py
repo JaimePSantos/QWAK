@@ -9,30 +9,15 @@ from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 class QuantumWalkDao:
     def __init__(self, n, graph, time=0, gamma=1, initStateList=0):
         self._initState = State(n, initStateList)
-        self._initState.timedBuildState()
+        self._initState.buildState()
         self._graph = graph
         self._operator = Operator(self._graph, time, gamma)
-        print("######### Diag Operator: USING ONLY MATMUL ##########\n")
-        self._operator.timedBuildDiagonalOperator()
-        print("#####################################################")
-        print("######## Diag Operator: MULTIPLYING DIAGONAL ########\n")
-        self._operator.timedBuildDiagonalOperator2()
-        print("#####################################################\n")
-        print("######## Diag Operator: Better EIGH #################\n")
-        self._operator.timedBuildDiagonalOperator3()
-        print("#####################################################\n")
-
+        self._operator.buildDiagonalOperator3()
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._quantumWalk.timedBuildWalk()
+        self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
-        self._probDist.timedBuildProbDist()
-
-    def timedRunWalk(self):
-        self._initState.timedBuildState()
-        self._operator.timedBuildDiagonalOperator()
-        self._quantumWalk.timedBuildWalk()
-        self._probDist.timedBuildProbDist()
-
+        self._probDist.buildProbDist()
+        
     def setInitState(self, newInitState):
         self._initState.setState(newInitState)
 

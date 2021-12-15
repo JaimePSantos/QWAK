@@ -13,14 +13,14 @@ from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 from QuantumWalk.QuantumWalkDao import QuantumWalkDao
 
 if __name__ == '__main__':
-    n = 1000
-    t= n/2
-    gamma=1/(2*np.sqrt(2))
-    marked = [int(n/2)]
+    # n = 1000
+    # t= n/2
+    # gamma=1/(2*np.sqrt(2))
+    # marked = [int(n/2)]
 
-    qwController = QuantumWalkDao(n,nx.cycle_graph(n),t,gamma,marked)
-    qwAmplitudes = qwController.getWalk()
-    qwProbabilities = qwController.getProbDist()
+    # qwController = QuantumWalkDao(n,nx.cycle_graph(n),t,gamma,marked)
+    # qwAmplitudes = qwController.getWalk()
+    # qwProbabilities = qwController.getProbDist()
     # plt.plot(qwProbabilities)
     # plt.show()
     # print("Amplitudes: \n %s \n Probability:\n %s \n Mean: \n\t%s"%(qwAmplitudes,qwProbabilities,np.mean(qwProbabilities)))
@@ -78,14 +78,18 @@ if __name__ == '__main__':
     # probDist.buildProbDist()
     # plt.plot(probDist.getProbDist())
     # plt.show()
+    pass
 
-appOptions = {
-    "mode": "chrome-app",  
-    "port": 8080,
-    "chromeFlags": [
-        "--start-fullscreen",
-        # "--window-size=800,600",
-        # "--window-position=0,0",
-     ]
- }
+n = 5
+t= n/2
+gamma=1/(2*np.sqrt(2))
+marked = [int(n/2)]
+
+@eel.expose
+def runWalk():
+    qwController = QuantumWalkDao(n,nx.cycle_graph(n),t,gamma,marked)
+    qwAmplitudes = qwController.getWalk()
+    qwProbabilities = qwController.getProbDist()
+    return qwProbabilities
+
 eel.start('index.html',port=8080,cmdline_args=['--start-maximized'])
