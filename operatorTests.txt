@@ -1,4 +1,6 @@
-First optimization:
+On PyCharm:
+
+    N = 2000
 
     ######### Diag Operator: USING ONLY MATMUL ##########
     
@@ -8,6 +10,7 @@ First optimization:
     Diagonal operator took 61.132028560001345 seconds.
     
     #####################################################
+    
     ######## Diag Operator: MULTIPLYING DIAGONAL ########
     
     	Eigh took 15.076269641998806 seconds.
@@ -25,3 +28,63 @@ First optimization:
     Faster Diagonal operator took 25.571537842999533 seconds.
      
     #####################################################
+    
+On terminal:
+
+	N=4000
+	
+	State took 1.9401000827201642e-05 seconds.
+	######### Diag Operator: USING ONLY MATMUL ##########
+
+		Eigh took 9.95594166200135 seconds.
+		Diag took 0.007433112999933655 seconds.
+		MatMul took 12.59215883899924 seconds.
+	Diagonal operator took 22.557886611999493 seconds.
+
+	#####################################################
+	######## Diag Operator: MULTIPLYING DIAGONAL ########
+
+		Eigh took 10.092077482000605 seconds.
+		Diag took 0.007228910000776523 seconds.
+		MatMul took 6.341450832000191 seconds.
+	Faster Diagonal operator took 16.442453229999956 seconds.
+	 
+	#####################################################
+
+	######## Diag Operator: Better EIGH #################
+
+		Eigh took 9.65395686500051 seconds.
+		Diag took 0.008299360999444616 seconds.
+		MatMul took 6.416805843000475 seconds.
+	Faster Diagonal operator took 16.080951404999723 seconds.
+	 
+	#####################################################
+
+	N = 5000
+
+	######### Diag Operator: USING ONLY MATMUL ##########
+
+		Eigh took 9.95594166200135 seconds.
+		Diag took 0.007433112999933655 seconds.
+		MatMul took 12.59215883899924 seconds.
+	Diagonal operator took 22.557886611999493 seconds.
+
+	#####################################################
+	######## Diag Operator: MULTIPLYING DIAGONAL ########
+
+		Eigh took 10.092077482000605 seconds.
+		Diag took 0.007228910000776523 seconds.
+		MatMul took 6.341450832000191 seconds.
+	Faster Diagonal operator took 16.442453229999956 seconds.
+	
+	#####################################################
+
+	######## Diag Operator: Better EIGH #################
+
+		Eigh took 9.65395686500051 seconds.
+		Diag took 0.008299360999444616 seconds.
+		MatMul took 6.416805843000475 seconds.
+	Faster Diagonal operator took 16.080951404999723 seconds.
+	
+	#####################################################
+
