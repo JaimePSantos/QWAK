@@ -1,6 +1,5 @@
-# import eel
-# eel.init('frontend')
-# eel.start('index.html')
+import eel
+eel.init('frontend')
 
 import networkx as nx
 import numpy as np
@@ -14,7 +13,7 @@ from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 from QuantumWalk.QuantumWalkDao import QuantumWalkDao
 
 if __name__ == '__main__':
-    n = 5000
+    n = 1000
     t= n/2
     gamma=1/(2*np.sqrt(2))
     marked = [int(n/2)]
@@ -22,10 +21,10 @@ if __name__ == '__main__':
     qwController = QuantumWalkDao(n,nx.cycle_graph(n),t,gamma,marked)
     qwAmplitudes = qwController.getWalk()
     qwProbabilities = qwController.getProbDist()
-    plt.plot(qwProbabilities)
-    plt.show()
+    # plt.plot(qwProbabilities)
+    # plt.show()
     # print("Amplitudes: \n %s \n Probability:\n %s \n Mean: \n\t%s"%(qwAmplitudes,qwProbabilities,np.mean(qwProbabilities)))
-    searchedState = 2
+    # searchedState = 2
     # print("Amplitude of state %s \n\t %s"%(searchedState,qwController.getStateAmplitude(searchedState)))
     # print("Probability of state %s \n\t %s"%(searchedState,qwController.getStateProbability(searchedState)))
     # print(qwAmplitudes)
@@ -79,3 +78,14 @@ if __name__ == '__main__':
     # probDist.buildProbDist()
     # plt.plot(probDist.getProbDist())
     # plt.show()
+
+appOptions = {
+    "mode": "chrome-app",  
+    "port": 8080,
+    "chromeFlags": [
+        "--start-fullscreen",
+        # "--window-size=800,600",
+        # "--window-position=0,0",
+     ]
+ }
+eel.start('index.html',port=8080,cmdline_args=['--start-maximized'])
