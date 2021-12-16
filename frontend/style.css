@@ -52,13 +52,17 @@ body{
     gap:20px;
 }
 
-.prob-dist-char{
+.prob-dist-chart-container{
+    display:flex;
     background-color: var(--primary-light);
-    min-width: 600px;
+    width: 600px;
     border-style:double;
     border-color: var(--primary-dark);
     border-width: 5px;
     padding:10px;
+}
+.prob-dist-chart{
+    display:flex;
 }
 
 .single-conversion{
