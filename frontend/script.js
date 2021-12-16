@@ -39,7 +39,7 @@ function print_arr(n) {
 }
 
 let goButtonPress = goButton.onclick = async () => {
-   myDist = await getWalk()
+    myDist = await getWalk()
     let distList = myDist.flat();
     newData.data.datasets[0].data = distList
     newData.data.labels = [...Array(distList.length).keys()]
@@ -47,11 +47,11 @@ let goButtonPress = goButton.onclick = async () => {
     myChart = new Chart(ctx, data)
 }
 
-let getWalk = () =>{
+let getWalk = () => {
     return eel.runWalk()().then(
         (a) => {
-            return a ? a: Promise.reject(Error('Get Prob failed.'))
-        }).catch((e)=>console.log(e));
+            return a ? a : Promise.reject(Error('Get Prob failed.'))
+        }).catch((e) => console.log(e));
 }
 
 function getPromisedData(promise) {
