@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coordinate Converter</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
     <script type="text/javascript" src="/eel.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js" defer></script>
+    <script src="script.js" defer></script>
     <meta http-equiv='cache-control' content='no-cache'> 
     <meta http-equiv='expires' content='0'> 
     <meta http-equiv='pragma' content='no-cache'>
@@ -18,9 +18,10 @@
     <div id = 'container' class='converter'>
         <div id = 'conversionContainer' class ='conversion-container'>
             <button id='goButton' class='function-button'> GO! </button>
+            <div><canvas id="myChart" class = 'prob-dist-char'></canvas></div>
         </div>
         <div id = 'functionContainer' class = 'function-container'></div>
-        <div id = 'convertMultipleContainer' class='convert-multiple-container'></div>
+        <div id = 'convertMultipleContainer' class='convert-multiple-container'></div>        
     </div>
 </body>
 </html>

@@ -33,21 +33,32 @@ body{
     border-radius: 7px;
 }
 
+
+
 .placeholder{
     background-color: var(--primary-light);
     width: 40px;
     height: 40px;
     border-style: solid;
     border-width: 2px;
+    background-color: rgb(21, 52, 228);
 }
-
 .conversion-container{
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: center;
     width:100%;
-    gap:9px;
+    gap:20px;
+}
+
+.prob-dist-char{
+    background-color: var(--primary-light);
+    min-width: 600px;
+    border-style:double;
+    border-color: var(--primary-dark);
+    border-width: 5px;
+    padding:10px;
 }
 
 .single-conversion{

@@ -81,7 +81,7 @@ if __name__ == '__main__':
     # plt.show()
     pass
 
-n = 5
+n = 1000
 t= n/2
 gamma=1/(2*np.sqrt(2))
 marked = [int(n/2)]
@@ -92,11 +92,9 @@ def runWalk():
     qwAmplitudes = qwController.getWalk()
     qwProbabilities = qwController.getProbDist()
     probLists = qwProbabilities.tolist()
-    probJson = json.dumps(probLists)
-    return probJson
+    return probLists
 
 def print_num(n):
     print('Got this from Javascript:', n)
-
 
 eel.start('index.html',port=8080,cmdline_args=['--start-maximized'])
