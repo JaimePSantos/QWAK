@@ -19,13 +19,15 @@ def getAvgTime(timeList):
 
 if __name__ == '__main__':
     # Weird behavior on windows: scipy.linalg is 10x slower up until exactly 960.
-    n = 959
+    n = 1000
     print(n)
     t = int(n/2)
     gamma = 1/(2*np.sqrt(2))
     marked = [int(n/2)]
+    # graph = nx.cycle_graph(n)
+    graph = nx.complete_graph(n)
 
-    samples = 10
+    samples = 100
     eighTimeList = []
     eighTimeList2 = []
     eighTimeList3 = []
@@ -36,7 +38,7 @@ if __name__ == '__main__':
 
     for i in range(samples):
         print("\n--------- Trial #%s -------------------\n" % i)
-        qwCont = QuantumWalkDaoTest(n, nx.cycle_graph(n), t, gamma, marked)
+        qwCont = QuantumWalkDaoTest(n, graph , t, gamma, marked)
         eighTimeList.append(qwCont.eighExecutionTime)
         eighTimeList2.append(qwCont.eighExecutionTime2)
         eighTimeList3.append(qwCont.eighExecutionTime3)
