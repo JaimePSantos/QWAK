@@ -83,7 +83,7 @@ class OperatorTest:
 
     def buildDiagonalOperator3(self):
         startTimeEigh = timeit.default_timer()
-        self._eigenvalues, self._eigenvectors = ln.eigh(self._adjacencyMatrix)
+        self._eigenvalues, self._eigenvectors = ln.eigh(self._adjacencyMatrix,driver='evd')
         endTimeEigh = timeit.default_timer()
         executionTimeEigh = (endTimeEigh - startTimeEigh)
         self.eighExecutionTime3 = executionTimeEigh

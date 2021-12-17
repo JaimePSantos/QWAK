@@ -19,7 +19,7 @@ def getAvgTime(timeList):
 
 if __name__ == '__main__':
     # Weird behavior on windows: scipy.linalg is 10x slower up until exactly 960.
-    n = 960
+    n = 959
     print(n)
     t = int(n/2)
     gamma = 1/(2*np.sqrt(2))
