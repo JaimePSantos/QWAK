@@ -1,17 +1,17 @@
 import numpy as np
 
-from QuantumWalk.State import State
-from QuantumWalk.Operator import Operator
-from QuantumWalk.QuantumWalk import QuantumWalk
-from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
+from QuantumWalkTest.StateTest import StateTest
+from QuantumWalkTest.OperatorTest import OperatorTest
+from QuantumWalkTest.QuantumWalkTest import QuantumWalkTest
+from QuantumWalkTest.ProbabilityDistributionTest import ProbabilityDistributionTest
 
 
 class QuantumWalkDaoTest:
     def __init__(self, n, graph, time=0, gamma=1, initStateList=0):
-        self._initState = State(n, initStateList)
+        self._initState = StateTest(n, initStateList)
         self._initState.timedBuildState()
         self._graph = graph
-        self._operator = Operator(self._graph, time, gamma)
+        self._operator = OperatorTest(self._graph, time, gamma)
         print("######### Diag Operator: USING ONLY MATMUL ##########\n")
         self._operator.timedBuildDiagonalOperator()
         print("#####################################################")
@@ -22,9 +22,9 @@ class QuantumWalkDaoTest:
         self._operator.timedBuildDiagonalOperator3()
         print("#####################################################\n")
 
-        self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        self._quantumWalk = QuantumWalkTest(self._initState, self._operator)
         self._quantumWalk.timedBuildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
+        self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
 
     def timedRunWalk(self):

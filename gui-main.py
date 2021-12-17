@@ -1,5 +1,5 @@
 import eel
-eel.init('frontend')
+eel.init('GraphicalInterface')
 
 import networkx as nx
 import numpy as np
