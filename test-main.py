@@ -17,23 +17,55 @@ if __name__ == '__main__':
     marked = [int(n/2)]
 
     qwController = QuantumWalkDaoTest(n,nx.cycle_graph(n),t,gamma,marked)
-    print("\t np.Eig @ D @ np.EigH")
-    print("\t\tFull run time: %s"%round(qwController.fullExecutionTime,3))
-    print("\t\t--> Eigh time: %s"%round(qwController.eighExecutionTime,3))
-    print("\t\t--> Diag time: %s"%round(qwController.diagExecutionTime,3))
-    print("\t\t--> MatMul time: %s"%round(qwController.matMulExecutionTime,2))
-    print("\t (np.Eig * D.toList) @ np.EigH")
-    print("\t\tFull run time: %s"%round(qwController.fullExecutionTime2,3))
-    print("\t\t--> Eigh time: %s"%round(qwController.eighExecutionTime2,3))
-    print("\t\t--> Diag time: %s"%round(qwController.diagExecutionTime2,3))
-    print("\t\t--> MatMul time: %s"%round(qwController.matMulExecutionTime2,3))
-    print("\t(ln.Eig * D.toList) @ ln.EigH")
-    print("\t\tFull run time: %s"%round(qwController.fullExecutionTime3,3))
-    print("\t\t--> Eigh time: %s"%round(qwController.eighExecutionTime2,3))
-    print("\t\t--> Diag time: %s"%round(qwController.diagExecutionTime2,3))
-    print("\t\t--> MatMul time: %s"%round(qwController.matMulExecutionTime2,3))
-    # qwAmplitudes = qwController.getWalk()
-    # qwProbabilities = qwController.getProbDist()
-    # plt.plot(qwProbabilities)
-    # plt.show()
-    # searchedState = 2
+    print("Version: np.Eig @ D @ np.EigH\n")
+    print("\tFull run time: %ss"%round(qwController.fullExecutionTime,5))
+    print("\t\t--> Eigh time:   %ss"%round(qwController.eighExecutionTime,5))
+    print("\t\t--> Diag time:   %ss"%round(qwController.diagExecutionTime,5))
+    print("\t\t--> MatMul time: %ss\n"%round(qwController.matMulExecutionTime,2))
+    print("Version: (np.Eig * D.toList) @ np.EigH\n")
+    print("\tFull run time: %ss"%round(qwController.fullExecutionTime2,5))
+    print("\t\t--> Eigh time: %ss"%round(qwController.eighExecutionTime2,5))
+    print("\t\t--> Diag time: %ss"%round(qwController.diagExecutionTime2,5))
+    print("\t\t--> MatMul time: %ss\n"%round(qwController.matMulExecutionTime2,5))
+    print("Version: (ln.Eig * D.toList) @ ln.EigH\n")
+    print("\tFull run time: %ss"%round(qwController.fullExecutionTime3,5))
+    print("\t\t--> Eigh time: %ss"%round(qwController.eighExecutionTime3,5))
+    print("\t\t--> Diag time: %ss"%round(qwController.diagExecutionTime3,5))
+    print("\t\t--> MatMul time: %ss\n"%round(qwController.matMulExecutionTime3,5))
+
+    samples = 20
+    eighTimeList = []
+    eighTimeList2 = []
+    eighTimeList3 = []
+
+    matMulTimeList = []
+    matMulTimeList2 = []
+    matMulTimeList3 = []
+
+    for i in range(samples):
+        print("\n--------- Trial #%s -------------------\n"%i)
+        qwCont = QuantumWalkDaoTest(n,nx.cycle_graph(n),t,gamma,marked)
+        eighTimeList.append(qwCont.eighExecutionTime)
+        eighTimeList2.append(qwCont.eighExecutionTime2)
+        eighTimeList3.append(qwCont.eighExecutionTime3)
+        matMulTimeList.append(qwCont.matMulExecutionTime)
+        matMulTimeList2.append(qwCont.matMulExecutionTime2)
+        matMulTimeList3.append(qwCont.matMulExecutionTime3)
+
+    k=1
+    for eigh in [eighTimeList,eighTimeList2,eighTimeList3]:
+        plt.plot(eigh,label='%s'%k)
+        k+=1
+        plt.legend()
+
+    # k=1
+    # for eigh in [matMulTimeList,matMulTimeList2,matMulTimeList3]:
+    #     plt.plot(eigh,label='%s'%k)
+    #     k+=1
+    #     plt.legend()
+
+
+    ax = plt.gca()
+    ax.set_ylim([-0.1, 0.4])
+    plt.show()
+

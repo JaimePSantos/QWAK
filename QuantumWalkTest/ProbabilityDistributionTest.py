@@ -21,7 +21,7 @@ class ProbabilityDistributionTest:
         self.buildProbDist()
         endTimeProbDist = timeit.default_timer()
         executionTimeProbDist = (endTimeProbDist - startTimeProbDist)
-        print("ProbDist took %s seconds." % executionTimeProbDist)
+        # print("ProbDist took %s seconds." % executionTimeProbDist)
 
     def setProbDist(self,newProbDist):
         self._probVec = newProbDist.getProbDist()

@@ -28,7 +28,7 @@ class StateTest:
         self.buildState()
         endTimeState = timeit.default_timer()
         executionTimeState = (endTimeState - startTimeState)
-        print("State took %s seconds." % executionTimeState)
+        # print("State took %s seconds." % executionTimeState)
 
     def setDim(self,newN):
         self._n = newN

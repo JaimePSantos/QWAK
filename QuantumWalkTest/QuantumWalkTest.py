@@ -22,7 +22,7 @@ class QuantumWalkTest:
         self.buildWalk()
         endTimeWalk = timeit.default_timer()
         executionTimeWalk = (endTimeWalk - startTimeWalk)
-        print("Walk took %s seconds." % executionTimeWalk)
+        # print("Walk took %s seconds." % executionTimeWalk)
 
     def setInitState(self,newInitState):
         self._initState = newInitState
