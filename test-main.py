@@ -18,13 +18,14 @@ def getAvgTime(timeList):
 
 
 if __name__ == '__main__':
-    n = 200
+    # Weird behavior on windows: scipy.linalg is 10x slower up until exactly 960.
+    n = 960
     print(n)
-    t = 100
+    t = int(n/2)
     gamma = 1/(2*np.sqrt(2))
     marked = [int(n/2)]
 
-    samples = 100
+    samples = 10
     eighTimeList = []
     eighTimeList2 = []
     eighTimeList3 = []
@@ -49,8 +50,10 @@ if __name__ == '__main__':
 
     print("Avg eigh: %ss\nAvg eigh2: %ss\nAvg eigh3: %s\n\t for N = %s and %s samples." % (
         avgTimeEigh, avgTimeEigh2, avgTimeEigh3, n, samples))
-    print("Eigh3 is %s times faster than Eigh2&1" %
-          (avgTimeEigh2/avgTimeEigh3))
+    print(avgTimeEigh2)
+    print(avgTimeEigh3)
+    print("\n> Eigh3 is %s times faster than Eigh2&1" %
+          (avgTimeEigh/avgTimeEigh3))
 
     avgTimeMatMult = getAvgTime(matMulTimeList)
     avgTimeMatMult2 = getAvgTime(matMulTimeList2)
@@ -59,7 +62,7 @@ if __name__ == '__main__':
     print("\nAvg MatMult: %ss\nAvg MatMult2: %ss\nAvg MatMult3: %s\n\t for N = %s and %s samples." % (
         avgTimeMatMult, avgTimeMatMult2, avgTimeMatMult3, n, samples))
 
-    print("\nMatMult2 is %s times faster than MatMult" %
+    print("\n> MatMult2 is %s times faster than MatMult" %
           (avgTimeMatMult/avgTimeMatMult2))
 
     # qwController = QuantumWalkDaoTest(n, nx.cycle_graph(n), t, gamma, marked)
