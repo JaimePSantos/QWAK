@@ -10,7 +10,8 @@ from QuantumWalkTest.ProbabilityDistributionTest import ProbabilityDistributionT
 from QuantumWalkTest.QuantumWalkDaoTest import QuantumWalkDaoTest
 
 if __name__ == '__main__':
-    n = 2000
+    n = 5000
+    print(n)
     t= 600
     gamma=1/(2*np.sqrt(2))
     marked = [int(n/2)]
