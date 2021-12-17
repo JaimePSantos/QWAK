@@ -26,7 +26,22 @@ class QuantumWalkDaoTest:
         self._quantumWalk.timedBuildWalk()
         self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
+        self.eighExecutionTime = self._operator.eighExecutionTime
+        self.eighExecutionTime2 = self._operator.eighExecutionTime2
+        self.eighExecutionTime3 = self._operator.eighExecutionTime3
 
+        self.diagExecutionTime = self._operator.diagExecutionTime
+        self.diagExecutionTime2 = self._operator.diagExecutionTime2
+        self.diagExecutionTime3 = self._operator.diagExecutionTime3
+
+        self.matMulExecutionTime = self._operator.matMulExecutionTime
+        self.matMulExecutionTime2 = self._operator.matMulExecutionTime2
+        self.matMulExecutionTime3 = self._operator.matMulExecutionTime3
+
+        self.fullExecutionTime = self._operator.fullExecutionTime
+        self.fullExecutionTime2 = self._operator.fullExecutionTime2
+        self.fullExecutionTime3 = self._operator.fullExecutionTime3
+        
     def timedRunWalk(self):
         self._initState.timedBuildState()
         self._operator.timedBuildDiagonalOperator()
