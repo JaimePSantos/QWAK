@@ -32,9 +32,10 @@ def getAvgTime(timeList):
         tf += timeList[i+6]
         tf2 += timeList[i+7]
         tf3 += timeList[i+8]
-    return [te/len(timeList), te2/len(timeList), te3/len(timeList), 
-            tm/len(timeList), tm2/len(timeList), tm3/len(timeList), 
-            tf/len(timeList), tf2/len(timeList), tf3/len(timeList)]
+
+    return [te/(len(timeList)/9), te2/(len(timeList)/9), te3/(len(timeList)/9), 
+            tm/(len(timeList)/9), tm2/(len(timeList)/9), tm3/(len(timeList)/9), 
+            tf/(len(timeList)/9), tf2/(len(timeList)/9), tf3/(len(timeList)/9)]
 
 
 def createTimeList(samples, n, graph, t, gamma, marked):
@@ -49,7 +50,7 @@ def createTimeList(samples, n, graph, t, gamma, marked):
 
 
 if __name__ == '__main__':
-    n = 200
+    n = 5000
     print(n)
     t = int(n/2)
     gamma = 1/(2*np.sqrt(2))
@@ -57,27 +58,35 @@ if __name__ == '__main__':
     graph = nx.cycle_graph(n)
     # graph = nx.complete_graph(n)
 
-    samples = 100
-    timeList = createTimeList(samples, n, graph, t, gamma, marked)
-    avgTimeList = getAvgTime(timeList)
+    # samples = 1
+    # timeList = createTimeList(samples, n, graph, t, gamma, marked)
+    # avgTimeList = getAvgTime(timeList)
 
-    print("Avg eigh: %ss\nAvg eigh2: %ss\nAvg eigh3: %s\n\t for N = %s and %s samples." % (
-        avgTimeList[0], avgTimeList[1], avgTimeList[2], n, samples))
-    print("\n> Eigh3 is %s times faster than Eigh2&1" %
-          (avgTimeList[0]/avgTimeList[2]))
-    print("\nAvg MatMult: %ss\nAvg MatMult2: %ss\nAvg MatMult3: %s\n\t for N = %s and %s samples." % (
-        avgTimeList[3], avgTimeList[4], avgTimeList[5], n, samples))
-    print("\n> MatMult2 is %s times faster than MatMult\n" %
-          (avgTimeList[3]/avgTimeList[4]))
+    # print("Avg eigh: %ss\nAvg eigh2: %ss\nAvg eigh3: %s\n\t for N = %s and %s samples." % (
+    #     avgTimeList[0], avgTimeList[1], avgTimeList[2], n, samples))
+    # print("\n> Eigh3 is %s times faster than Eigh2&1" %
+    #       (avgTimeList[0]/avgTimeList[2]))
+    # print("\nAvg MatMult: %ss\nAvg MatMult2: %ss\nAvg MatMult3: %s\n\t for N = %s and %s samples." % (
+    #     avgTimeList[3], avgTimeList[4], avgTimeList[5], n, samples))
+    # print("\n> MatMult2 is %s times faster than MatMult\n" %
+    #       (avgTimeList[3]/avgTimeList[4]))
 
-    print("Avg full: %ss\nAvg full2: %ss\nAvg full3: %s\n\t for N = %s and %s samples." % (
-        avgTimeList[6], avgTimeList[7], avgTimeList[8], n, samples))
-    print("\n> Full2 is %s times faster than Full" %
-          (avgTimeList[6]/avgTimeList[7]))
-    print("\n> Full3 is %s times faster than Full2" %
-          (avgTimeList[7]/avgTimeList[8]))
+    # print("Avg full: %ss\nAvg full2: %ss\nAvg full3: %s\n\t for N = %s and %s samples." % (
+    #     avgTimeList[6], avgTimeList[7], avgTimeList[8], n, samples))
+    # print("\n> Full2 is %s times faster than Full" %
+    #       (avgTimeList[6]/avgTimeList[7]))
+    # print("\n> Full3 is %s times faster than Full2" %
+    #       (avgTimeList[7]/avgTimeList[8]))
 
-
+    nList = range(2,1000)
+    multTimeList = []
+    for n in nList:
+        tList = createTimeList(10, n, nx.cycle_graph(n), t, gamma, [int(n/2)])
+        avgTList = getAvgTime(tList)
+        multTimeList.append(avgTList[7])
+    
+    plt.plot(multTimeList)
+    plt.show()
         # k=1
         # for eigh in [eighTimeList,eighTimeList2,eighTimeList3]:
         #     plt.plot(eigh,label='%s'%k)
