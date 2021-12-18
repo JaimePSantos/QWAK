@@ -1,12 +1,9 @@
 import {defaultDist, cy} from "./tools.js";
 
-let thing = eel.runWalk();
 let goButton = document.getElementById("goButton");
+let graphButton = document.getElementById("graphButton");
 let ctx = document.getElementById("myChart").getContext("2d");
 let myDist = new Array();
-console.log(`Init MyDist: ${myDist}`);
-console.log(defaultDist)
-
 
 let data = {
   type: "line",
@@ -53,6 +50,14 @@ function print_arr(n) {
   console.log(`Got this from python: ${n}`);
 }
 
+let graphButtonPress = (graphButton.onclick = async () => {
+  let myGraphString = await getGraph();
+  let myGraph = JSON.parse(myGraphString)
+  // console.log(cy.elements)
+  // console.log(myGraph)
+  cy.json({elements:myGraph})
+})
+
 let goButtonPress = (goButton.onclick = async () => {
   myDist = await getWalk();
   let distList = myDist.flat();
@@ -65,6 +70,15 @@ let goButtonPress = (goButton.onclick = async () => {
 let getWalk = () => {
   return eel
     .runWalk()()
+    .then((a) => {
+      return a ? a : Promise.reject(Error("Get Prob failed."));
+    })
+    .catch((e) => console.log(e));
+};
+
+let getGraph = () => {
+  return eel
+    .graphToJson()()
     .then((a) => {
       return a ? a : Promise.reject(Error("Get Prob failed."));
     })

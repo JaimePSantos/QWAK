@@ -1,22 +1,24 @@
+let getGraph = () => {
+  return eel
+    .graphToJson()()
+    .then((a) => {
+      return a ? a : Promise.reject(Error("Get Prob failed."));
+    })
+    .catch((e) => console.log(e));
+};
+
+let myGraphString = await getGraph();
+console.log(myGraphString)
+// let myGraph = JSON.parse(myGraphString)
+// console.log(myGraph.elements)
+// console.log(myGraph.edges)
+
 export let cy = cytoscape({
   container: document.getElementById("cy"), // container to render in
 
-  elements: [
-    // list of graph elements to start with
-    {
-      // node a
-      data: { id: "a" },
-    },
-    {
-      // node b
-      data: { id: "b" },
-    },
-    {
-      // edge ab
-      data: { id: "ab", source: "a", target: "b" },
-    },
-  ],
-
+  elements: myGraphString.elements,
+  directed:myGraphString.directed,
+  multigraph:myGraphString.multigraph,
   style: [
     // the stylesheet for the graph
     {
@@ -32,8 +34,6 @@ export let cy = cytoscape({
       style: {
         width: 3,
         "line-color": "red",
-        "target-arrow-color": "blue",
-        "target-arrow-shape": "triangle",
         "curve-style": "bezier",
       },
     },
@@ -82,4 +82,3 @@ export let defaultDist = [
   (30, 0.00016666666666666666),
   (32, 3.3333333333333335e-5),
 ];
-console.log(defaultDist)
