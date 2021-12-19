@@ -50,10 +50,9 @@ if __name__ == '__main__':
 
     @eel.expose
     def graphToJson():
-        graph = nx.cycle_graph(10)
+        graph = nx.complete_graph(5)
         myCytGraph = convert2cytoscapeJSON(graph)
         myCytGraph2 = nx.cytoscape_data(graph)
-        print(myCytGraph2['elements'])
         return myCytGraph2
 
     def print_num(n):

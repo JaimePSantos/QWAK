@@ -1,5 +1,6 @@
 import {defaultDist, cy} from "./tools.js";
 
+
 let goButton = document.getElementById("goButton");
 let graphButton = document.getElementById("graphButton");
 let ctx = document.getElementById("myChart").getContext("2d");
@@ -41,6 +42,7 @@ cy.on('mouseup', function (e) {
         if (tg.position().y < 0) tg.position().y = 0;
     }
 })
+cy.layout({ name: 'circle' }).run();
 
 let newData = { ...data };
 

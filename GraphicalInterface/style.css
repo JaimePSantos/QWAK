@@ -65,8 +65,8 @@ body{
 
 .graph-display {
     background-color: var(--primary-light);
-    height:200px;
     width:600px;
+    height:600px;
     border-style: solid;
     border-width: 2px;
   }

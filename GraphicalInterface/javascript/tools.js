@@ -15,10 +15,15 @@ console.log(myGraphString)
 
 export let cy = cytoscape({
   container: document.getElementById("cy"), // container to render in
-
+  boxSelectionEnabled: false,
+  autounselectify: true,
+  wheelSensitivity: 0.1,
   elements: myGraphString.elements,
   directed:myGraphString.directed,
   multigraph:myGraphString.multigraph,
+  layout:{
+    name:'circle',
+  },
   style: [
     // the stylesheet for the graph
     {
