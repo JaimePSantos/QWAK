@@ -9,7 +9,7 @@ import timeit
 
 
 class QuantumWalkDaoTest:
-    def __init__(self, graph, time=0, gamma=1, initStateList=0,version=None):
+    def __init__(self, graph, time=0, gamma=1, initStateList=[0],version=None):
         startTimeDao = timeit.default_timer()
 
         self._graph = graph
@@ -128,7 +128,7 @@ class QuantumWalkDaoTest:
 
         self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
-        
+
         self.initTimes()
         self.daoExecutionTime = endTimeOptDao - startTimeOptDao
 

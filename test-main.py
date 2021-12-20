@@ -68,12 +68,13 @@ if __name__ == '__main__':
     markedList = [marked,[marked[0],marked[0]+1],[marked[0],marked[0]-1,marked[0]+1]]
     
     qwContTime = 0
+    print(marked)
     for t in time:
-        qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='2')
+        qwCont = QuantumWalkDaoTest(graph, t, gamma, [0],version='2')
         qwContTime += qwCont.daoExecutionTime
 
     qwContOptTime = 0
-    qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
+    qwContOpt = QuantumWalkDaoTest(graph, t, gamma, marked,version='opt')
     for t in time:
         qwContOpt.optRunWalk(t,gamma,marked)
         qwContOptTime += qwContOpt.daoExecutionTime
@@ -83,11 +84,11 @@ if __name__ == '__main__':
 
     qwContTime = 0
     for marked1 in markedList:
-        qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked1,version='2')
+        qwCont = QuantumWalkDaoTest(graph, t, gamma, marked1,version='2')
         qwContTime += qwCont.daoExecutionTime
 
     qwContOptTime = 0
-    qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked1,version='opt')
+    qwContOpt = QuantumWalkDaoTest(graph, t, gamma, marked1,version='opt')
     for marked1 in markedList:
         qwContOpt.optRunWalk(t,gamma,marked1)
         qwContOptTime += qwContOpt.daoExecutionTime
