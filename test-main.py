@@ -50,12 +50,29 @@ def createTimeList(samples, n, graph, t, gamma, marked):
 
 
 if __name__ == '__main__':
-    n = 5000
+    n = 1000
     print(n)
     t = int(n/2)
     gamma = 1/(2*np.sqrt(2))
     marked = [int(n/2)]
     graph = nx.cycle_graph(n)
+
+    time = range(0,50)
+    qwContTime = 0
+    for t in time:
+        qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked)
+        qwContTime += qwCont.daoExecutionTime
+    print("Old dao: %s "%qwContTime)
+
+    qwContOptTime = 0
+    for t in time:
+        qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
+        qwContOpt.optRunWalk(t,gamma)
+        qwContOptTime += qwContOpt.daoExecutionTime
+
+    print("New dao: %s "%qwContOptTime)
+
+
     # graph = nx.complete_graph(n)
 
     # samples = 1
@@ -78,16 +95,17 @@ if __name__ == '__main__':
     # print("\n> Full3 is %s times faster than Full2" %
     #       (avgTimeList[7]/avgTimeList[8]))
 
-    nList = range(2,1000)
-    multTimeList = []
-    for n in nList:
-        tList = createTimeList(10, n, nx.cycle_graph(n), t, gamma, [int(n/2)])
-        avgTList = getAvgTime(tList)
-        multTimeList.append(avgTList[7])
+    # nList = range(2,1000)
+    # multTimeList = []
+    # for n in nList:
+    #     tList = createTimeList(10, n, nx.cycle_graph(n), t, gamma, [int(n/2)])
+    #     avgTList = getAvgTime(tList)
+    #     multTimeList.append(avgTList[7])
     
-    f = open("2-1000_10Samples_Test","w")
-    f.write(str(multTimeList))
-    f.close()
+    # f = open("2-1000_10Samples_Test","w")
+    # f.write(str(multTimeList))
+    # f.close()
+
     #plt.plot(multTimeList)
     #plt.show()
         # k=1

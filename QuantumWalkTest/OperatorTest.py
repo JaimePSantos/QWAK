@@ -42,18 +42,6 @@ class OperatorTest:
             endTimeEigh = timeit.default_timer()
             executionTimeEigh = (endTimeEigh - startTimeEigh)
             self.eighExecutionTime = executionTimeEigh
-
-            self.diagExecutionTime = 0
-            self.diagExecutionTime2 = 0
-            self.diagExecutionTime3 = 0
-
-            self.matMulExecutionTime = 0
-            self.matMulExecutionTime2 = 0
-            self.matMulExecutionTime3 = 0
-
-            self.fullExecutionTime = 0
-            self.fullExecutionTime2 = 0
-            self.fullExecutionTime3 = 0
         
         else:
             print("%s Wrong operator mode")
@@ -130,7 +118,7 @@ class OperatorTest:
         executionTimeMatMul = (endTimeMatMul - startTimeMatMul)
         self.matMulExecutionTime3 = executionTimeMatMul
     
-    def buildDiagonalOperator4(self,time = 0, gamma = 1):
+    def buildDiagonalOperator4(self,time, gamma):
         self._time = time
         self._gamma = gamma
 
@@ -167,12 +155,12 @@ class OperatorTest:
         executionTimeFullExec = (endTimeFullExec - startTimeFullExec)
         self.fullExecutionTime3 = executionTimeFullExec
 
-    def timedBuildDiagonalOperator4(self):
+    def timedBuildDiagonalOperator4(self,time=0,gamma=1):
         startTimeFullExec = timeit.default_timer()
-        self.buildDiagonalOperator4()
+        self.buildDiagonalOperator4(time,gamma)
         endTimeFullExec = timeit.default_timer()
         executionTimeFullExec = (endTimeFullExec - startTimeFullExec)
-        self.fullExecutionTime3 = executionTimeFullExec
+        self.fullExecutionTime = executionTimeFullExec
     
     
     #### ------- ####
