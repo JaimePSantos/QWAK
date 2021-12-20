@@ -78,15 +78,18 @@ if __name__ == '__main__':
     # print("\n> Full3 is %s times faster than Full2" %
     #       (avgTimeList[7]/avgTimeList[8]))
 
-    nList = range(2,100)
+    nList = range(2,1000)
     multTimeList = []
     for n in nList:
-        tList = createTimeList(30, n, nx.cycle_graph(n), t, gamma, [int(n/2)])
+        tList = createTimeList(10, n, nx.cycle_graph(n), t, gamma, [int(n/2)])
         avgTList = getAvgTime(tList)
         multTimeList.append(avgTList[7])
     
-    plt.plot(multTimeList)
-    plt.show()
+    f = open("2-1000_10Samples_Test","w")
+    f.write(str(multTimeList))
+    f.close()
+    #plt.plot(multTimeList)
+    #plt.show()
         # k=1
         # for eigh in [eighTimeList,eighTimeList2,eighTimeList3]:
         #     plt.plot(eigh,label='%s'%k)
