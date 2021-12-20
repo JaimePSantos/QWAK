@@ -82,14 +82,14 @@ if __name__ == '__main__':
     print("Time - New dao: %s "%qwContOptTime)
 
     qwContTime = 0
-    for marked in markedList:
-        qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='2')
+    for marked1 in markedList:
+        qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked1,version='2')
         qwContTime += qwCont.daoExecutionTime
 
     qwContOptTime = 0
-    qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
-    for marked in markedList:
-        qwContOpt.optRunWalk(t,gamma,marked)
+    qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked1,version='opt')
+    for marked1 in markedList:
+        qwContOpt.optRunWalk(t,gamma,marked1)
         qwContOptTime += qwContOpt.daoExecutionTime
     
     print("InitList - Old dao: %s "%qwContTime)
