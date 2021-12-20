@@ -68,7 +68,7 @@ if __name__ == '__main__':
     qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
     for t in time:
         qwContOpt.optRunWalk(t,gamma)
-        qwContOptTime += qwContOpt.daoExecutionTime
+    qwContOptTime = qwContOpt.daoExecutionTime
 
     print("New dao: %s "%qwContOptTime)
 

@@ -123,7 +123,7 @@ class QuantumWalkDaoTest:
         self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
         self.initTimes()
-        self.daoExecutionTime += endTimeOptDao - startTimeOptDao
+        self.daoExecutionTime = endTimeOptDao - startTimeOptDao
 
     def timedRunWalk(self):
         self._initState.timedBuildState()
