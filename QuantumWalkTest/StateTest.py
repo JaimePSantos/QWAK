@@ -3,11 +3,12 @@ import timeit
 import numpy as np
 
 
-class State:
+class StateTest:
     def __init__(self, n, stateList=None):
         self._n = n
         self._stateList = stateList
         self._stateVec = np.zeros((self._n, 1))
+        self.stateExecutionTime = 0
 
     def __mul__(self, other):
         return self._stateVec * other
@@ -22,6 +23,12 @@ class State:
         if self._stateList is not None:
             for state in self._stateList:
                 self._stateVec[state] = 1 / np.sqrt(len(self._stateList))
+
+    def timedBuildState(self):
+        startTimeState = timeit.default_timer()
+        self.buildState()
+        endTimeState = timeit.default_timer()
+        self.stateExecutionTime = (endTimeState - startTimeState)
 
     def setDim(self,newN):
         self._n = newN
