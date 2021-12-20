@@ -17,29 +17,35 @@ class QuantumWalkDaoTest:
         
         self._graph = graph
 
-        self._operator = OperatorTest(self._graph, time, gamma)
         if version is None:
+            self._operator = OperatorTest(self._graph, time, gamma)
             print("######### Running: np.Eig @ D @ np.EigH ###################\n")
             self._operator.timedBuildDiagonalOperator()
             print("######### Completed: np.Eig @ D @ np.EigH ###################\n")
-            print("######### Running: (np.Eig * D.toList) @ np.EigH ##########\n")
+            print("######### Running: (np.Eig * D.toList) @ np.EigH ############\n")
             self._operator.timedBuildDiagonalOperator2()
             print("######### Completed: (np.Eig * D.toList) @ np.EigH ##########\n")
-            print("######### Running: (ln.Eig * D.toList) @ ln.EigH ##########\n")
+            print("######### Running: (ln.Eig * D.toList) @ ln.EigH ############\n")
             self._operator.timedBuildDiagonalOperator3()
             print("######### Completed: (ln.Eig * D.toList) @ ln.EigH ##########\n")
         elif version == '1':
-            print("######### Running: np.Eig @ D @ np.EigH ###################\n")
+            self._operator = OperatorTest(self._graph, time, gamma)
+            print("######### Running: np.Eig @ D @ np.EigH #####################\n")
             self._operator.timedBuildDiagonalOperator()
             print("######### Completed: np.Eig @ D @ np.EigH ###################\n")
         elif version == '2':
-            print("######### Running: (np.Eig * D.toList) @ np.EigH ##########\n")
+            self._operator = OperatorTest(self._graph, time, gamma)
+            print("######### Running: (np.Eig * D.toList) @ np.EigH ############\n")
             self._operator.timedBuildDiagonalOperator2()
             print("######### Completed: (np.Eig * D.toList) @ np.EigH ##########\n")
         elif version == '3':
-            print("######### Running: (ln.Eig * D.toList) @ ln.EigH ##########\n")
+            self._operator = OperatorTest(self._graph, time, gamma)
+            print("######### Running: (ln.Eig * D.toList) @ ln.EigH #############\n")
             self._operator.timedBuildDiagonalOperator3()
-            print("######### Completed: (ln.Eig * D.toList) @ ln.EigH ##########\n")
+            print("######### Completed: (ln.Eig * D.toList) @ ln.EigH ###########\n")
+        elif version == 'opt':
+            self._operator = OperatorTest(self._graph, mode='opt')
+
         else:
             print("Invalid version.")
             return
@@ -74,7 +80,12 @@ class QuantumWalkDaoTest:
         self.probDistExecutionTime = self._probDist.probDistExecutionTime
 
         self.daoExecutionTime = endTimeDao - startTimeDao
-        
+    
+    def optRunWalk(self,time,gamma):
+        print("######### Running Optimized: (np.Eig * D.toList) @ np.EigH ##########\n")
+        self._operator.timedBuildDiagonalOperator4(time,gamma)
+        print("######### Completed Optimized: (ln.Eig * D.toList) @ ln.EigH ########\n")
+
     def timedRunWalk(self):
         self._initState.timedBuildState()
         self._operator.timedBuildDiagonalOperator()
