@@ -65,8 +65,8 @@ if __name__ == '__main__':
     print("Old dao: %s "%qwContTime)
 
     qwContOptTime = 0
+    qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
     for t in time:
-        qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
         qwContOpt.optRunWalk(t,gamma)
         qwContOptTime += qwContOpt.daoExecutionTime
 
