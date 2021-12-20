@@ -8,6 +8,7 @@ class ProbabilityDistributionTest:
         self._n = state.getDim()
         self._stateVec = state.getStateVec()
         self._probVec = np.zeros((self._n, 1))
+        self.probDistExecutionTime = 0
 
     def __str__(self):
         return '%s' % self._probVec
@@ -20,8 +21,7 @@ class ProbabilityDistributionTest:
         startTimeProbDist = timeit.default_timer()
         self.buildProbDist()
         endTimeProbDist = timeit.default_timer()
-        executionTimeProbDist = (endTimeProbDist - startTimeProbDist)
-        # print("ProbDist took %s seconds." % executionTimeProbDist)
+        self.probDistExecutionTime = (endTimeProbDist - startTimeProbDist)
 
     def setProbDist(self,newProbDist):
         self._probVec = newProbDist.getProbDist()

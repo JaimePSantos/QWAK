@@ -10,6 +10,7 @@ class QuantumWalkTest:
         self._initState = state.getStateVec()
         self._operator = operator.getOperator()
         self._finalState = StateTest(self._n)
+        self.walkExecutionTime = 0
 
     def __str__(self):
         return '%s' % self._finalState.getStateVec()
@@ -21,8 +22,7 @@ class QuantumWalkTest:
         startTimeWalk = timeit.default_timer()
         self.buildWalk()
         endTimeWalk = timeit.default_timer()
-        executionTimeWalk = (endTimeWalk - startTimeWalk)
-        # print("Walk took %s seconds." % executionTimeWalk)
+        self.walkExecutionTime = (endTimeWalk - startTimeWalk)
 
     def setInitState(self,newInitState):
         self._initState = newInitState

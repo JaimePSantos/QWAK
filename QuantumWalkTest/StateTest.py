@@ -8,6 +8,7 @@ class StateTest:
         self._n = n
         self._stateList = stateList
         self._stateVec = np.zeros((self._n, 1))
+        self.stateExecutionTime = 0
 
     def __mul__(self, other):
         return self._stateVec * other
@@ -27,8 +28,7 @@ class StateTest:
         startTimeState = timeit.default_timer()
         self.buildState()
         endTimeState = timeit.default_timer()
-        executionTimeState = (endTimeState - startTimeState)
-        # print("State took %s seconds." % executionTimeState)
+        self.stateExecutionTime = (endTimeState - startTimeState)
 
     def setDim(self,newN):
         self._n = newN
