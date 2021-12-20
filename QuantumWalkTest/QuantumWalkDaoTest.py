@@ -9,13 +9,14 @@ import timeit
 
 
 class QuantumWalkDaoTest:
-    def __init__(self, n, graph, time=0, gamma=1, initStateList=0,version=None):
+    def __init__(self, graph, time=0, gamma=1, initStateList=0,version=None):
         startTimeDao = timeit.default_timer()
 
-        self._initState = StateTest(n, initStateList)
+        self._graph = graph
+        self._n = len(self._graph)
+        self._initState = StateTest(self._n, initStateList)
         self._initState.timedBuildState()
         
-        self._graph = graph
 
         if version is None:
             self._operator = OperatorTest(self._graph, time, gamma)
@@ -112,16 +113,22 @@ class QuantumWalkDaoTest:
         self.walkExecutionTime = self._quantumWalk.walkExecutionTime
         self.probDistExecutionTime = self._probDist.probDistExecutionTime
 
-    def optRunWalk(self,time,gamma):
+    def optRunWalk(self,time,gamma,initStateList):
         print("######### Running Optimized: (np.Eig * D.toList) @ np.EigH ##########\n")
         startTimeOptDao = timeit.default_timer()
         self._operator.timedBuildDiagonalOperator4(time,gamma)
         endTimeOptDao = timeit.default_timer()
         print("######### Completed Optimized: (ln.Eig * D.toList) @ ln.EigH ########\n")
+
+        self._initState = StateTest(self._n, initStateList)
+        self._initState.timedBuildState()
+        
         self._quantumWalk = QuantumWalkTest(self._initState, self._operator)
         self._quantumWalk.timedBuildWalk()
+
         self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
+        
         self.initTimes()
         self.daoExecutionTime = endTimeOptDao - startTimeOptDao
 
