@@ -64,7 +64,7 @@ if __name__ == '__main__':
     # qwContOptProb = qwContOpt.getProbDist()
     # print(qwContOptProb == qwContProb)
 
-    time = range(0,50)
+    time = range(0,100)
     qwContTime = 0
     for t in time:
         qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked,'2')
