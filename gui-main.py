@@ -72,6 +72,9 @@ if __name__ == '__main__':
 
     def print_num(n):
         print('Got this from Javascript:', n)
+    
+    functionName = 'nx.cycle_graph'
+    print(eval(functionName + "(%s)"%n))
 
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
     pass

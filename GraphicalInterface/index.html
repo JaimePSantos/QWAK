@@ -26,24 +26,46 @@
   </head>
 
   <body>
-    <div id="container" class="converter">
-      <div id="conversionContainer" class="conversion-container">
-        <div id="cy" class="graph-display"></div>
-        <button id="graphButton" class="function-button">GO!</button>
-        <div class="prob-dist-chart-container">
-          <canvas id="myChart" class="prob-dist-chart"></canvas>
-        </div>
-        <button id="goButton" class="function-button">GO!</button>
-        <div class="prob-dist-chart-container">
-          <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
-        </div>
-        <button id="goMultipleButton" class="function-button">GO!</button>
+    <div id="container" class="qwak">
+      <div id="functionContainer" class="walk-container">
+
+          <div class = 'first-half'>
+
+            <div class = 'grid-element'>
+              <div id="cy" class="graph-display"></div>
+              <button id="graphButton" class="function-button">GO!</button>
+            </div>
+            <div class = 'grid-element'>
+              <div class="prob-dist-chart-container">
+                <canvas id="myChart" class="prob-dist-chart"></canvas>
+              </div>
+              <button id="goButton" class="function-button">GO!</button>
+            </div>
+
+          </div>
+
+
+          <div class = 'second-half'>
+
+            <div class = 'grid-element'>
+                <div class = 'placeholder'></div>
+                <button id="goMultipleButton" class="function-button">GO!</button>
+                <div class = 'input-fields'>
+                  
+                </div>
+            </div>
+            <div class = 'grid-element'>
+              <div class="prob-dist-chart-container">
+                <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
+              </div>
+              <button id="goMultipleButton" class="function-button">GO!</button>
+            </div>
+
+          </div>
+
+
       </div>
-      <div id="functionContainer" class="function-container"></div>
-      <div
-        id="convertMultipleContainer"
-        class="convert-multiple-container"
-      ></div>
+
     </div>
   </body>
 </html>

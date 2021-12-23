@@ -13,7 +13,7 @@ let data = {
     labels: [...Array(defaultDist.length).keys()],
     datasets: [
       {
-        label: "# of Votes",
+        label: "Probability",
         data: defaultDist,
         borderWidth: 1,
         fill: false,
@@ -38,10 +38,11 @@ let data2 = {
     labels: [...Array(100).keys()],
     datasets: [
       {
-        label: "Looping tension",
+        label: "Probability",
         data: [],
         fill: false,
         borderColor: "rgb(75, 192, 192)",
+        pointRadius: 0,
       },
     ],
   },
