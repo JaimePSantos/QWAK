@@ -1,71 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coordinate Converter</title>
-    <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript" src="/eel.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
-      integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
-      integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script type= 'module' src="javascript/script.js" defer></script>
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="expires" content="0" />
-    <meta http-equiv="pragma" content="no-cache" />
-  </head>
 
-  <body>
-    <div id="container" class="qwak">
-      <div id="functionContainer" class="walk-container">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QWAK</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="text/javascript" src="/eel.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+    integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+    integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script type='module' src="javascript/script.js" defer></script>
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
+</head>
 
-          <div class = 'first-half'>
+<body>
+  <div id="container" class="qwak">
+    <div id="functionContainer" class="walk-container">
 
-            <div class = 'grid-element'>
-              <div id="cy" class="graph-display"></div>
-              <button id="graphButton" class="function-button">GO!</button>
-            </div>
-            <div class = 'grid-element'>
-              <div class="prob-dist-chart-container">
-                <canvas id="myChart" class="prob-dist-chart"></canvas>
-              </div>
-              <button id="goButton" class="function-button">GO!</button>
-            </div>
+      <div class='first-half'>
 
+        <div class='grid-element'>
+          <div id="cy" class="graph-display"></div>
+          <button id="graphButton" class="function-button">GO!</button>
+        </div>
+        <div class='grid-element'>
+          <div class="prob-dist-chart-container">
+            <canvas id="myChart" class="prob-dist-chart"></canvas>
           </div>
-
-
-          <div class = 'second-half'>
-
-            <div class = 'grid-element'>
-                <div class = 'placeholder'></div>
-                <button id="goMultipleButton" class="function-button">GO!</button>
-                <div class = 'input-fields'>
-                  
-                </div>
-            </div>
-            <div class = 'grid-element'>
-              <div class="prob-dist-chart-container">
-                <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
-              </div>
-              <button id="goMultipleButton" class="function-button">GO!</button>
-            </div>
-
-          </div>
-
+          <button id="goButton" class="function-button">GO!</button>
+        </div>
 
       </div>
 
+
+      <div class='second-half'>
+
+        <div class='grid-element'>
+          <div class='placeholder'></div>
+          <button id="goMultipleButton" class="function-button">GO!</button>
+          <div class='input-fields'>
+            <script>
+              function validateForm() {
+                let x = document.forms["myForm"]["fname"].value;
+                if (x == "") {
+                  alert("Name must be filled out");
+                  return false;
+                }
+              }
+            </script>
+            <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
+              Name: <input type="text" name="fname">
+              <input type="submit" value="Submit">
+            </form>
+          </div>
+        </div>
+        <div class='grid-element'>
+          <div class="prob-dist-chart-container">
+            <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
+          </div>
+          <button id="goMultipleButton" class="function-button">GO!</button>
+        </div>
+
+      </div>
+
+
     </div>
-  </body>
+
+  </div>
+</body>
+
 </html>

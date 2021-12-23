@@ -109,8 +109,6 @@ body{
     background: var(--primary-light);
 }
 
-
-
 .placeholder{
     background-color: var(--primary-light);
     width:300px;
