@@ -6,29 +6,46 @@ from scipy.sparse import issparse
 import timeit
 
 class OperatorTest:
-    def __init__(self,graph,time=0,gamma=1):
-        self._graph = graph
-        self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
-        self._time = time
-        self._gamma = gamma
-        self._n = len(graph)
-        self._operator = np.zeros((self._n,self._n))
+    def __init__(self,graph,time=0,gamma=1,mode='default'):
+        if mode == 'default':
+            self._graph = graph
+            self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
+            self._time = time
+            self._gamma = gamma
+            self._n = len(graph)
+            self._operator = np.zeros((self._n,self._n))
 
-        self.eighExecutionTime = 0
-        self.eighExecutionTime2 = 0
-        self.eighExecutionTime3 = 0
+            self.eighExecutionTime = 0
+            self.eighExecutionTime2 = 0
+            self.eighExecutionTime3 = 0
 
-        self.diagExecutionTime = 0
-        self.diagExecutionTime2 = 0
-        self.diagExecutionTime3 = 0
+            self.diagExecutionTime = 0
+            self.diagExecutionTime2 = 0
+            self.diagExecutionTime3 = 0
 
-        self.matMulExecutionTime = 0
-        self.matMulExecutionTime2 = 0
-        self.matMulExecutionTime3 = 0
+            self.matMulExecutionTime = 0
+            self.matMulExecutionTime2 = 0
+            self.matMulExecutionTime3 = 0
 
-        self.fullExecutionTime = 0
-        self.fullExecutionTime2 = 0
-        self.fullExecutionTime3 = 0
+            self.fullExecutionTime = 0
+            self.fullExecutionTime2 = 0
+            self.fullExecutionTime3 = 0
+
+        elif mode == 'opt':
+            self._graph = graph
+            self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
+            self._n = len(graph)
+            self._operator = np.zeros((self._n,self._n))    
+
+            startTimeEigh = timeit.default_timer()
+            self._eigenvalues, self._eigenvectors = np.linalg.eigh(self._adjacencyMatrix)
+            endTimeEigh = timeit.default_timer()
+            executionTimeEigh = (endTimeEigh - startTimeEigh)
+            self.eighExecutionTime = executionTimeEigh
+        
+        else:
+            print("%s Wrong operator mode")
+            return
 
     def __mul__(self,other):
         return self._operator*other
@@ -100,6 +117,22 @@ class OperatorTest:
         endTimeMatMul = timeit.default_timer()
         executionTimeMatMul = (endTimeMatMul - startTimeMatMul)
         self.matMulExecutionTime3 = executionTimeMatMul
+    
+    def buildDiagonalOperator4(self,time, gamma):
+        self._time = time
+        self._gamma = gamma
+
+        startTimeDiag = timeit.default_timer()
+        D = np.diag(np.exp(-1j * self._time * self._gamma * self._eigenvalues))
+        endTimeDiag = timeit.default_timer()
+        executionTimeDiag = (endTimeDiag - startTimeDiag)
+        self.diagExecutionTime = executionTimeDiag
+
+        startTimeMatMul = timeit.default_timer()
+        self._operator = (self._eigenvectors @ D @ self._eigenvectors.H)
+        endTimeMatMul = timeit.default_timer()
+        executionTimeMatMul = (endTimeMatMul - startTimeMatMul)
+        self.matMulExecutionTime = executionTimeMatMul
 
     def timedBuildDiagonalOperator(self):
         startTimeFullExec = timeit.default_timer()
@@ -121,6 +154,14 @@ class OperatorTest:
         endTimeFullExec = timeit.default_timer()
         executionTimeFullExec = (endTimeFullExec - startTimeFullExec)
         self.fullExecutionTime3 = executionTimeFullExec
+
+    def timedBuildDiagonalOperator4(self,time=0,gamma=1):
+        startTimeFullExec = timeit.default_timer()
+        self.buildDiagonalOperator4(time,gamma)
+        endTimeFullExec = timeit.default_timer()
+        executionTimeFullExec = (endTimeFullExec - startTimeFullExec)
+        self.fullExecutionTime = executionTimeFullExec
+    
     
     #### ------- ####
 

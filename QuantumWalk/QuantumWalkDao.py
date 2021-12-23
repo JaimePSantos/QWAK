@@ -7,12 +7,15 @@ from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 
 
 class QuantumWalkDao:
-    def __init__(self, n, graph, time=0, gamma=1, initStateList=0):
-        self._initState = State(n, initStateList)
-        self._initState.buildState()
+    def __init__(self,graph):
         self._graph = graph
-        self._operator = Operator(self._graph, time, gamma)
-        self._operator.buildDiagonalOperator3()
+        self._operator = Operator(self._graph)
+        self._n = len(self._graph)
+
+    def runWalk(self,time,gamma,initStateList):
+        self._initState = State(self._n, initStateList)
+        self._initState.buildState()
+        self._operator.buildDiagonalOperator(time,gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())

@@ -13,10 +13,11 @@ eel.init('GraphicalInterface')
 
 
 if __name__ == '__main__':
-    n = 1000
+    n = 100
     t = n/2
     gamma = 1/(2*np.sqrt(2))
     marked = [int(n/2)]
+    graph = nx.cycle_graph(n)
 
     def convert2cytoscapeJSON(G):
         # load all nodes into nodes array
@@ -42,11 +43,25 @@ if __name__ == '__main__':
 
     @eel.expose
     def runWalk():
-        qwController = QuantumWalkDao(n, nx.cycle_graph(n), t, gamma, marked)
+        qwController = QuantumWalkDao(graph)
+        qwController.runWalk(t,gamma,marked)
         qwAmplitudes = qwController.getWalk()
         qwProbabilities = qwController.getProbDist()
         probLists = qwProbabilities.tolist()
         return probLists
+    
+    @eel.expose
+    def runMultipleWalks(time=[0],):
+        qwController = QuantumWalkDao(graph)
+        qwProbList = []
+        for t in time:
+            qwController.runWalk(t,gamma,marked)
+            qwAmplitudes = qwController.getWalk()
+            qwProbabilities = qwController.getProbDist()
+            probLists = qwProbabilities.tolist()
+            qwProbList.append(probLists)
+        return qwProbList
+
 
     @eel.expose
     def graphToJson():
