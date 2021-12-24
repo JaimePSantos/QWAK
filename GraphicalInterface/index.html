@@ -45,21 +45,20 @@
         <div class='grid-element'>
           <div class='placeholder'></div>
           <button id="goMultipleButton" class="function-button">GO!</button>
-          <div class='input-fields'>
-            <script>
-              function validateForm() {
-                let x = document.forms["myForm"]["fname"].value;
-                if (x == "") {
-                  alert("Name must be filled out");
-                  return false;
-                }
-              }
-            </script>
-            <form name="myForm" action="/action_page.php" onsubmit="return validateForm()" method="post">
-              Name: <input type="text" name="fname">
-              <input type="submit" value="Submit">
-            </form>
-          </div>
+          <ul class='input-fields'>
+            <li class='input-combo'>
+              <input type="number" name="dim" id="inputDim" value="value" class="input-box"></input>
+              <button id="setDim" class="function-button">n</button>
+            </li>
+            <li class='input-combo'>
+              <input type="number" name="time" id="inputTime" value="value" class="input-box"></input>
+              <button id="setDim" class="function-button">t</button>
+            </li>
+            <li class='input-combo'>
+              <input type="number" name="gamma" id="inputGamma" value="value" class="input-box"></input>
+              <button id="setDim" class="function-button">γ</button>
+            </li>
+          </ul>
         </div>
         <div class='grid-element'>
           <div class="prob-dist-chart-container">

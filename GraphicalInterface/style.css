@@ -85,7 +85,7 @@ body{
     border-width:2px;
     width:50%;
     height:100%;
-    padding:5px;
+    padding:10px;
 }
 
 
@@ -117,3 +117,39 @@ body{
     border-width: 5px;
     background-color: var(--primary-light);
 }
+
+.input-fields{
+    display:flex;
+    justify-content: space-between;
+    width:100%;
+    padding:0px;
+}
+
+.input-fields .function-button{
+    width:30px;
+    font-size: 10px;
+    padding:3px;
+}
+
+.input-fields .function-button:hover{
+    background: rgb(159, 252, 131);
+}
+
+.input-fields .function-button:active{
+    background: var(--primary-light);
+}
+
+.input-combo{
+    display:flex;
+    gap:5px;
+}
+
+label {
+    display: flex;
+}
+
+.input-box{
+    width:100px;
+    height:15px;
+}
+
