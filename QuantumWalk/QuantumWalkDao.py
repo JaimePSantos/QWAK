@@ -11,11 +11,26 @@ class QuantumWalkDao:
         self._graph = graph
         self._operator = Operator(self._graph)
         self._n = len(self._graph)
+        self._time = 0
+        self._gamma = 1
+        self._initStateList = [0]
 
-    def runWalk(self,time,gamma,initStateList):
+    def runWalk(self,time=0,gamma=1,initStateList=[0]):
+        self._time = time
+        self._gamma = gamma
+        self._initStateList = initStateList
         self._initState = State(self._n, initStateList)
         self._initState.buildState()
-        self._operator.buildDiagonalOperator(time,gamma)
+        self._operator.buildDiagonalOperator(self._time,self._gamma)
+        self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        self._quantumWalk.buildWalk()
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
+        self._probDist.buildProbDist()
+    
+    def buildWalk(self):
+        self._initState = State(self._n, self._initStateList)
+        self._initState.buildState()
+        self._operator.buildDiagonalOperator(self._time,self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
@@ -26,6 +41,18 @@ class QuantumWalkDao:
 
     def getInitState(self):
         return self._initState
+    
+    def setTime(self, newTime):
+        self._time = newTime
+
+    def getTime(self):
+        return self._time
+
+    def setGamma(self, newGamma):
+        self._gamma = newGamma
+
+    def getGamma(self):
+        return self._gamma
 
     def setOperator(self, newOperator):
         self._operator.setOperator(newOperator)

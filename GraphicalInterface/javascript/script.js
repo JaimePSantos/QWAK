@@ -1,11 +1,36 @@
 import { defaultDist, cy } from "./tools.js";
 
+let defaultN = 100
+let defaultT = Math.floor(defaultN/2)
+let defaultGamma = 1/(2*Math.sqrt())
+let defaultInitState = [Math.floor(defaultN/2)]
+let defaultGraph = 'nx.cycle_graph'
+
+
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
 let graphButton = document.getElementById("graphButton");
+let setTimeButton = document.getElementById("setTime");
 let ctx = document.getElementById("myChart").getContext("2d");
 let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
 let myDist = new Array();
+
+let getDim = () => defaultN
+eel.expose(getDim)
+
+let getT = () => defaultT
+eel.expose(getT)
+
+let getGamma = () => defaultGamma
+eel.expose(getGamma)
+
+let getInitState = () => defaultInitState
+eel.expose(getInitState)
+
+let getNxGraph = () => defaultGraph
+eel.expose(getNxGraph)
+
+eel.startWalk()
 
 let data = {
   type: "line",
@@ -77,8 +102,8 @@ let newData2 = { ...data2 };
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
-function print_arr(n) {
-  console.log(`Got this from python: ${n}`);
+let setTimeButtonPress = (setTimeButton.onclick) = async() => {
+  eel.setTime(20)
 }
 
 let goMultipleButtonPress = (goMultipleButton.onclick = async () => {
@@ -140,11 +165,11 @@ let getGraph = () => {
     .catch((e) => console.log(e));
 };
 
-function getPromisedData(promise) {
-  let myData = promise()
-    .then((data) => {
-      return data;
-    })
-    .catch((e) => console.log(e));
-  return myData;
+let getTime = () => {
+  return eel
+  .getTime()()
+  .then((a) => {
+    return a ? a : Promise.reject(Error("Get Prob failed."));
+  })
+  .catch((e) => console.log(e));
 }

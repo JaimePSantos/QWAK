@@ -14,10 +14,29 @@ eel.init('GraphicalInterface')
 
 if __name__ == '__main__':
     n = 100
-    t = n/2
+    t = 1
     gamma = 1/(2*np.sqrt(2))
-    marked = [int(n/2)]
+    initState = [int(n/2)]
     graph = nx.cycle_graph(n)
+    qwController = QuantumWalkDao(graph)
+    qwController.runWalk(t,gamma,initState)
+
+    def defaultWalk(defaultN,defaultT,defaultGamma,defaultInitState,defaultGraph):
+        n = defaultN
+        t = defaultT
+        gamma = defaultGamma
+        initState = defaultInitState
+        graph = eval(defaultGraph + "(%s)"%n)
+        qwController = QuantumWalkDao(graph)
+        qwController.runWalk(t,gamma,initState)
+
+    @eel.expose
+    def setTime(newTime):
+        qwController.setTime(newTime)
+    
+    @eel.expose
+    def getTime():
+        return qwController.getTime()
 
     def convert2cytoscapeJSON(G):
         # load all nodes into nodes array
@@ -43,9 +62,7 @@ if __name__ == '__main__':
 
     @eel.expose
     def runWalk():
-        qwController = QuantumWalkDao(graph)
-        qwController.runWalk(t,gamma,marked)
-        qwAmplitudes = qwController.getWalk()
+        qwController.buildWalk()
         qwProbabilities = qwController.getProbDist()
         probLists = qwProbabilities.tolist()
         return probLists
@@ -70,11 +87,20 @@ if __name__ == '__main__':
         myCytGraph2 = nx.cytoscape_data(graph)
         return myCytGraph2
 
-    def print_num(n):
-        print('Got this from Javascript:', n)
-    
-    functionName = 'nx.cycle_graph'
-    print(eval(functionName + "(%s)"%n))
+
+    @eel.expose
+    def startWalk():
+        defaultN = eel.getDim()
+        defaultT = eel.getT()
+        defaultGamma = eel.getGamma()
+        defaultInitState = eel.getInitState()
+        print(defaultInitState)
+        graphStr = 'nx.cycle_graph'
+        print(graphStr)
+        graph = eval(graphStr + "(%s)"%defaultN)
+        defaultWalk(defaultN,defaultT,defaultGamma,defaultInitState,graph)
 
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
+
+        
     pass
