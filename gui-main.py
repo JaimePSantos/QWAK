@@ -18,16 +18,28 @@ if __name__ == '__main__':
     gamma = 1/(2*np.sqrt(2))
     initState = [int(n/2)]
     graph = nx.cycle_graph(n)
+    graph2 = nx.cycle_graph(int(n/5))
+    graph = graph.update(graph2)
+    nx.draw(graph)
+    plt.show()
     qwController = QuantumWalkDao(graph)
     qwController.runWalk(t,gamma,initState)
 
+    @eel.expose
+    def setDim(newDim):
+        qwController.setDim(newDim)
+
+    @eel.expose
+    def getDim():
+        return qwController.getDim()
+        
     @eel.expose
     def setGraph(newGraph):
         newGraph = eval(newGraph + "(%s)"%qwController.getDim())
         qwController.setGraph(newGraph)
 
     @eel.expose
-    def getGraph(newGraph):
+    def getGraph():
         return qwController.getGraph()
 
     @eel.expose
@@ -95,7 +107,7 @@ if __name__ == '__main__':
         myCytGraph2 = nx.cytoscape_data(graph)
         return myCytGraph2
 
-    eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
+    # eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
 
         
     pass

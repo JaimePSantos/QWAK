@@ -12,13 +12,18 @@ let goMultipleButton = document.getElementById("goMultipleButton");
 let graphButton = document.getElementById("graphButton");
 let setTimeButton = document.getElementById("setTimeButton");
 let setGammaButton = document.getElementById("setGammaButton");
+let setDimButton = document.getElementById("setDimButton");
+let setGraphButton = document.getElementById("setGraphButton");
 
 let inputTime = document.getElementById("inputTime");
 let inputGamma = document.getElementById("inputGamma");
+let inputDim =  document.getElementById("inputDim");
+let inputGraph =  document.getElementById("inputGraph");
 let inputInit = () => {
   inputTime.value = 0;
   inputGamma.value = (1/(2*Math.sqrt(2))).toFixed(2);
-  console.log(`hello ${inputGamma.value}`)
+  inputDim.value = 100;
+  inputGraph.value = 'nx.cycle_graph'
 }
 inputInit()
 
@@ -102,8 +107,15 @@ let setTimeButtonPress = (setTimeButton.onclick) = async() => {
 
 let setGammaButtonPress = (setGammaButton.onclick = async () => {
   eel.setGamma(parseInt(inputGamma.value))
-
 })
+
+let setDimButtonPress = setDimButton.onclick = async () => {
+  eel.setDim(parseInt(inputDim.value))
+}
+
+let setGraphButtonPress = setGraphButton.onclick = async () => {
+  eel.setGraph(inputGraph.value)
+}
 
 let goMultipleButtonPress = (goMultipleButton.onclick = async () => {
   let walk = await getMultipleWalks();
