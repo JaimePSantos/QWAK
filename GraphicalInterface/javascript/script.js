@@ -10,27 +10,21 @@ let defaultGraph = 'nx.cycle_graph'
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
 let graphButton = document.getElementById("graphButton");
-let setTimeButton = document.getElementById("setTime");
+let setTimeButton = document.getElementById("setTimeButton");
+let setGammaButton = document.getElementById("setGammaButton");
+
+let inputTime = document.getElementById("inputTime");
+let inputGamma = document.getElementById("inputGamma");
+let inputInit = () => {
+  inputTime.value = 0;
+  inputGamma.value = (1/(2*Math.sqrt(2))).toFixed(2);
+  console.log(`hello ${inputGamma.value}`)
+}
+inputInit()
+
 let ctx = document.getElementById("myChart").getContext("2d");
 let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
 let myDist = new Array();
-
-let getDim = () => defaultN
-eel.expose(getDim)
-
-let getT = () => defaultT
-eel.expose(getT)
-
-let getGamma = () => defaultGamma
-eel.expose(getGamma)
-
-let getInitState = () => defaultInitState
-eel.expose(getInitState)
-
-let getNxGraph = () => defaultGraph
-eel.expose(getNxGraph)
-
-eel.startWalk()
 
 let data = {
   type: "line",
@@ -103,8 +97,13 @@ let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
 let setTimeButtonPress = (setTimeButton.onclick) = async() => {
-  eel.setTime(20)
+  eel.setTime(parseInt(inputTime.value))
 }
+
+let setGammaButtonPress = (setGammaButton.onclick = async () => {
+  eel.setGamma(parseInt(inputGamma.value))
+
+})
 
 let goMultipleButtonPress = (goMultipleButton.onclick = async () => {
   let walk = await getMultipleWalks();
@@ -137,6 +136,7 @@ let goButtonPress = (goButton.onclick = async () => {
   myChart.destroy();
   myChart = new Chart(ctx, data);
 });
+
 
 let getWalk = () => {
   return eel
