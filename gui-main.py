@@ -14,12 +14,21 @@ eel.init('GraphicalInterface')
 
 if __name__ == '__main__':
     n = 100
-    t = 1
+    t = 0
     gamma = 1/(2*np.sqrt(2))
     initState = [int(n/2)]
     graph = nx.cycle_graph(n)
     qwController = QuantumWalkDao(graph)
     qwController.runWalk(t,gamma,initState)
+
+    @eel.expose
+    def setGraph(newGraph):
+        newGraph = eval(newGraph + "(%s)"%qwController.getDim())
+        qwController.setGraph(newGraph)
+
+    @eel.expose
+    def getGraph(newGraph):
+        return qwController.getGraph()
 
     @eel.expose
     def setTime(newTime):

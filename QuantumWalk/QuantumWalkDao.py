@@ -35,6 +35,20 @@ class QuantumWalkDao:
         self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
         self._probDist.buildProbDist()
+    
+    def setDim(self, newDim):
+        self._n = newDim
+    
+    def getDim(self):
+        return self._n
+        
+    def setGraph(self,newGraph):
+        self._graph = newGraph
+        self._operator = Operator(self._graph)
+        self._n = len(self._graph)
+    
+    def getGraph(self):
+        return self._graph
         
     def setInitState(self, newInitState):
         self._initState.setState(newInitState)
