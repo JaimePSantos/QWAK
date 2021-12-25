@@ -1,11 +1,16 @@
 import { defaultDist, cy } from "./tools.js";
 
-let defaultN = 100
-let defaultT = Math.floor(defaultN/2)
-let defaultGamma = 1/(2*Math.sqrt())
-let defaultInitState = [Math.floor(defaultN/2)]
-let defaultGraph = 'nx.cycle_graph'
+let defaultN = 100;
+let defaultT = 30;
+let defaultGamma = (1/(2*Math.sqrt(2))).toFixed(2);
+let defaultInitState = [Math.floor(defaultN/2)];
+let defaultGraph = 'nx.cycle_graph';
 
+let currentN = defaultN;
+let currentT = defaultT;
+let currentGamma = defaultGamma;
+let curentInitState = defaultInitState;
+let currentGraph = defaultGraph;
 
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
@@ -20,10 +25,10 @@ let inputGamma = document.getElementById("inputGamma");
 let inputDim =  document.getElementById("inputDim");
 let inputGraph =  document.getElementById("inputGraph");
 let inputInit = () => {
-  inputTime.value = 0;
-  inputGamma.value = (1/(2*Math.sqrt(2))).toFixed(2);
-  inputDim.value = 100;
-  inputGraph.value = 'nx.cycle_graph'
+  inputTime.value = defaultT;
+  inputGamma.value = defaultGamma;
+  inputDim.value = defaultN;
+  inputGraph.value = defaultGraph;
 }
 inputInit()
 
@@ -93,6 +98,7 @@ cy.on("mouseup", function (e) {
     if (tg.position().y < 0) tg.position().y = 0;
   }
 });
+
 cy.layout({ name: "circle" }).run();
 
 let newData = { ...data };
@@ -101,23 +107,28 @@ let newData2 = { ...data2 };
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
-let setTimeButtonPress = (setTimeButton.onclick) = async() => {
-  eel.setTime(parseInt(inputTime.value))
+let setTimeButtonPress = setTimeButton.onclick = async() => {
+  currentT = parseInt(inputTime.value);
+  eel.setTime(currentT);
 }
 
-let setGammaButtonPress = (setGammaButton.onclick = async () => {
-  eel.setGamma(parseInt(inputGamma.value))
-})
+let setGammaButtonPress =setGammaButton.onclick = async () => {
+  currentGamma = parseInt(inputGamma.value);
+  eel.setGamma(currentGamma);
+}
 
 let setDimButtonPress = setDimButton.onclick = async () => {
-  eel.setDim(parseInt(inputDim.value))
+  currentN = parseInt(inputDim.value);
+  currentGraph = inputGraph.value;
+  eel.setDim(currentN,currentGraph);
 }
 
 let setGraphButtonPress = setGraphButton.onclick = async () => {
-  eel.setGraph(inputGraph.value)
+  currentGraph = inputGraph.value;
+  eel.setGraph(currentGraph);
 }
 
-let goMultipleButtonPress = (goMultipleButton.onclick = async () => {
+let goMultipleButtonPress = goMultipleButton.onclick = async () => {
   let walk = await getMultipleWalks();
   let distListList = walk;
   let i = 0;
@@ -130,31 +141,27 @@ let goMultipleButtonPress = (goMultipleButton.onclick = async () => {
     }, 100 * i);
     i++;
   }
-});
+};
 
-let graphButtonPress = (graphButton.onclick = async () => {
-  let myGraphString = await getGraph();
-  let myGraph = JSON.parse(myGraphString);
-  // console.log(cy.elements)
-  // console.log(myGraph)
-  cy.json({ elements: myGraph });
-});
+let graphButtonPress = graphButton.onclick = async () => {
+  let myGraph = await getGraph();
+  updateGraph(myGraph)
+};
 
-let goButtonPress = (goButton.onclick = async () => {
+let goButtonPress = goButton.onclick = async () => {
   myDist = await getWalk();
   let distList = myDist.flat();
   newData.data.datasets[0].data = distList;
   newData.data.labels = [...Array(distList.length).keys()];
   myChart.destroy();
   myChart = new Chart(ctx, data);
-});
-
+};
 
 let getWalk = () => {
   return eel
     .runWalk()()
     .then((a) => {
-      return a ? a : Promise.reject(Error("Get Prob failed."));
+      return a ? a : Promise.reject(Error("Get Walk failed."));
     })
     .catch((e) => console.log(e));
 };
@@ -163,7 +170,7 @@ let getMultipleWalks = () => {
   return eel
     .runMultipleWalks([...Array(100).keys()])()
     .then((a) => {
-      return a ? a : Promise.reject(Error("Get Prob failed."));
+      return a ? a : Promise.reject(Error("Get Multiple Walks failed."));
     })
     .catch((e) => console.log(e));
 };
@@ -172,7 +179,7 @@ let getGraph = () => {
   return eel
     .graphToJson()()
     .then((a) => {
-      return a ? a : Promise.reject(Error("Get Prob failed."));
+      return a ? a : Promise.reject(Error("Get Graph failed."));
     })
     .catch((e) => console.log(e));
 };
@@ -181,7 +188,13 @@ let getTime = () => {
   return eel
   .getTime()()
   .then((a) => {
-    return a ? a : Promise.reject(Error("Get Prob failed."));
+    return a ? a : Promise.reject(Error("Get Time failed."));
   })
   .catch((e) => console.log(e));
+}
+
+let updateGraph = (graph) =>{
+  cy.elements().remove()  
+  cy.add(graph.elements)
+  cy.layout({ name: "circle" }).run();
 }

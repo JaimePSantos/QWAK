@@ -14,20 +14,16 @@ eel.init('GraphicalInterface')
 
 if __name__ == '__main__':
     n = 100
-    t = 0
+    t = 30
     gamma = 1/(2*np.sqrt(2))
     initState = [int(n/2)]
     graph = nx.cycle_graph(n)
-    graph2 = nx.cycle_graph(int(n/5))
-    graph = graph.update(graph2)
-    nx.draw(graph)
-    plt.show()
     qwController = QuantumWalkDao(graph)
     qwController.runWalk(t,gamma,initState)
 
     @eel.expose
-    def setDim(newDim):
-        qwController.setDim(newDim)
+    def setDim(newDim,graphStr):
+        qwController.setDim(newDim,graphStr)
 
     @eel.expose
     def getDim():
@@ -102,12 +98,11 @@ if __name__ == '__main__':
 
     @eel.expose
     def graphToJson():
-        graph = nx.complete_graph(5)
-        myCytGraph = convert2cytoscapeJSON(graph)
-        myCytGraph2 = nx.cytoscape_data(graph)
-        return myCytGraph2
+        graph = qwController.getGraph()
+        myCytGraph = nx.cytoscape_data(graph)
+        return myCytGraph
 
-    # eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
+    eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
 
         
     pass

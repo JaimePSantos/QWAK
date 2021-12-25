@@ -1,4 +1,6 @@
 import numpy as np
+import networkx as nx
+from matplotlib import pyplot as plt
 
 from QuantumWalk.State import State
 from QuantumWalk.Operator import Operator
@@ -13,7 +15,7 @@ class QuantumWalkDao:
         self._n = len(self._graph)
         self._time = 0
         self._gamma = 1
-        self._initStateList = [0]
+        self._initStateList = [1]
 
     def runWalk(self,time=0,gamma=1,initStateList=[0]):
         self._time = time
@@ -36,8 +38,11 @@ class QuantumWalkDao:
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
         self._probDist.buildProbDist()
     
-    def setDim(self, newDim):
+    def setDim(self,newDim,graphStr):
         self._n = newDim
+        self._graph = eval(graphStr + "(%s)"%self._n)
+        self._initStateList = [int(self._n/2)]
+        self._operator = Operator(self._graph)
     
     def getDim(self):
         return self._n
