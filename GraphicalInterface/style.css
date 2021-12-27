@@ -24,8 +24,8 @@ body{
     align-items: center;
     min-height:100%;
     min-width: 90%;
-    padding: 40px 40px;
-    margin: 0 auto;
+    padding: 20px 20px;
+    margin: 0 0px;
     border:2px;
     border-style: solid;
     gap:30px;
@@ -41,13 +41,13 @@ body{
     height:100%;
     width: 100%;
     gap: 0px;
-    padding:5px;
+    padding:0px;
 }
 
 .prob-dist-chart-container{
     display:flex;
     background-color: var(--primary-light);
-
+    width:50%;
     border-style:double;
     border-color: var(--primary-dark);
     border-width: 5px;
@@ -56,14 +56,14 @@ body{
 
 .prob-dist-chart{
     display:flex;
-    width: 300px;
-    height:175px;
+    width: 100%;
+    height:100%;
 }
 
 .graph-display {
     background-color: var(--primary-light);
-    width:300px;
-    height:170px;
+    width:70%;
+    height:100%;
     border-style: double;
     border-color: var(--primary-dark);
     border-width: 5px;
@@ -73,6 +73,7 @@ body{
     display: flex;
     justify-content: space-between;
     width:100%;
+    height:100%;
 }
 
 .grid-element{
@@ -84,7 +85,7 @@ body{
     border-style: dashed;
     border-width:2px;
     width:50%;
-    height:100%;
+    height:330px;
     padding:10px;
 }
 
@@ -92,7 +93,7 @@ body{
 .function-button{
     width:50px;
     height:25px;
-    background:var(--primary-light);
+    background:rgb(198, 205, 221);
     border-style: solid;
     border-color: black;
     border-radius: 4px;
@@ -111,20 +112,27 @@ body{
 
 .placeholder{
     background-color: var(--primary-light);
-    width:300px;
-    height:170px;
+    width:70%;
+    height:66%;
     border-style: double;
     border-width: 5px;
     background-color: var(--primary-light);
 }
 
+.input-row{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width:100%;
+}
 .input-fields{
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width:100%;
+    width: 100%;
     padding:0px;
+    gap:2px;
 }
 
 .input-fields .function-button{
@@ -143,7 +151,9 @@ body{
 
 .input-combo{
     display:flex;
-    gap:5px;
+    gap:4px;
+    justify-content: center;
+    align-items: center;
 }
 
 label {
@@ -152,6 +162,9 @@ label {
 
 .input-box{
     width:100px;
-    height:15px;
+    height:16px;
+    border:solid;
+    border-width: 3px;
+    border-color: rgb(1, 2, 63);
 }
 

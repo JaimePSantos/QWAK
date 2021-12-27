@@ -16,11 +16,34 @@ if __name__ == '__main__':
     n = 100
     t = 30
     gamma = 1/(2*np.sqrt(2))
-    initState = [int(n/2)]
+    initState = [int(n/2),int(n/2)+1]
     graph = nx.cycle_graph(n)
     qwController = QuantumWalkDao(graph)
     qwController.runWalk(t,gamma,initState)
 
+    global timeList
+    timeList = [0,100]
+    gammaList = [gamma]
+    initStateList = [initState]
+
+    @eel.expose
+    def setTimeList(newTimeList):
+        global timeList
+        print(timeList)
+        timeList = list(map(int,newTimeList.split(',')))
+        print(timeList)
+
+    @eel.expose
+    def setInitState(initStateStr):
+        initStateList = list(map(int,initStateStr.split(',')))
+        newState = State(qwController.getDim())
+        newState.buildState(initStateList)
+        qwController.setInitState(newState)
+
+    @eel.expose
+    def getInitState():
+        return qwController.getInitState()
+        
     @eel.expose
     def setDim(newDim,graphStr):
         qwController.setDim(newDim,graphStr)
@@ -31,7 +54,7 @@ if __name__ == '__main__':
         
     @eel.expose
     def setGraph(newGraph):
-        newGraph = eval(newGraph + "(%s)"%qwController.getDim())
+        newGraph = eval(newGraph + f"({qwController.getDim()})")
         qwController.setGraph(newGraph)
 
     @eel.expose
@@ -54,28 +77,6 @@ if __name__ == '__main__':
     def getGamma():
         return qwController.getGamma()
 
-    def convert2cytoscapeJSON(G):
-        # load all nodes into nodes array
-        final = {}
-        final["elements"] = []
-        final["edges"] = []
-        for node in G.nodes():
-            nx = {}
-            nx["data"] = {}
-            nx["data"]["id"] = node
-            nx["data"]["label"] = node
-            final["elements"].append(nx.copy())
-        # load all edges to edges array
-        for edge in G.edges():
-            nx = {}
-            nx["data"] = {}
-            myEdges = edge[0]+edge[1]
-            nx["data"]["id"] = myEdges
-            nx["data"]["source"] = str(edge[0])
-            nx["data"]["target"] = str(edge[1])
-            final["edges"].append(nx)
-        return json.dumps(final)
-
     @eel.expose
     def runWalk():
         qwController.buildWalk()
@@ -84,17 +85,16 @@ if __name__ == '__main__':
         return probLists
     
     @eel.expose
-    def runMultipleWalks(time=[0],):
-        qwController = QuantumWalkDao(graph)
+    def runMultipleWalks():
         qwProbList = []
-        for t in time:
+        global timeList
+        print(qwController.getDim())
+        for t in range(timeList[0],timeList[1]):
             qwController.runWalk(t,gamma,initState)
-            qwAmplitudes = qwController.getWalk()
             qwProbabilities = qwController.getProbDist()
             probLists = qwProbabilities.tolist()
             qwProbList.append(probLists)
         return qwProbList
-
 
     @eel.expose
     def graphToJson():

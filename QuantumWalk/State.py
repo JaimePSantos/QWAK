@@ -18,7 +18,8 @@ class State:
     def __str__(self):
         return '%s' % self._stateVec
 
-    def buildState(self):
+    def buildState(self,stateList):
+        self._stateList = stateList
         if self._stateList is not None:
             for state in self._stateList:
                 self._stateVec[state] = 1 / np.sqrt(len(self._stateList))
@@ -45,4 +46,4 @@ class State:
     def setState(self, newState):
         self._n = newState.getDim()
         self._stateList = newState.getStateList()
-        self._stateVec = newState.getState()
+        self._stateVec = newState.getStateVec()
