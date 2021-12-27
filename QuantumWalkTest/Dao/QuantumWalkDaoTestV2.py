@@ -39,7 +39,7 @@ class QuantumWalkDaoTestV2:
         self.eighExecutionTime = self._operator.eighExecutionTime
         self.diagExecutionTime = self._operator.diagExecutionTime
         self.matMulExecutionTime = self._operator.matMulExecutionTime
-        self.fullExecutionTime = self._operator.fullExecutionTime
+        self.fullOperatorExecutionTime = self._operator.fullExecutionTime
         self.walkExecutionTime = self._quantumWalk.walkExecutionTime
         self.probDistExecutionTime = self._probDist.probDistExecutionTime
 

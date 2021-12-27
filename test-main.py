@@ -2,6 +2,7 @@ import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
 import timeit
+from collections import Counter
 
 from QuantumWalkTest.StateTest import StateTest
 from QuantumWalkTest.OperatorTest import OperatorTest
@@ -13,6 +14,7 @@ from QuantumWalkTest.Dao.QuantumWalkDaoTestV1 import QuantumWalkDaoTestV1
 from QuantumWalkTest.Dao.QuantumWalkDaoTestV2 import QuantumWalkDaoTestV2
 from QuantumWalkTest.Dao.QuantumWalkDaoTestV3 import QuantumWalkDaoTestV3
 from QuantumWalkTest.Dao.QuantumWalkDaoTestV4 import QuantumWalkDaoTestV4
+
 
 def getAvgTime(timeList):
     te = 0
@@ -37,8 +39,8 @@ def getAvgTime(timeList):
         tf2 += timeList[i+7]
         tf3 += timeList[i+8]
 
-    return [te/(len(timeList)/9), te2/(len(timeList)/9), te3/(len(timeList)/9), 
-            tm/(len(timeList)/9), tm2/(len(timeList)/9), tm3/(len(timeList)/9), 
+    return [te/(len(timeList)/9), te2/(len(timeList)/9), te3/(len(timeList)/9),
+            tm/(len(timeList)/9), tm2/(len(timeList)/9), tm3/(len(timeList)/9),
             tf/(len(timeList)/9), tf2/(len(timeList)/9), tf3/(len(timeList)/9)]
 
 
@@ -53,6 +55,36 @@ def createTimeList(samples, n, graph, t, gamma, marked):
     return timeList
 
 
+def getTimes(quantumWalk):
+    timeDict = dict()
+    timeDict['daoExecTime'] = quantumWalk.daoExecutionTime
+    timeDict['initStateExecTime'] = quantumWalk.initStateExecutionTime
+    timeDict['fullOperatorExecTime'] = quantumWalk.fullOperatorExecutionTime
+    timeDict['eighExecTime'] = quantumWalk.eighExecutionTime
+    timeDict['diagExecTime'] = quantumWalk.diagExecutionTime
+    timeDict['matMulExecTime'] = quantumWalk.matMulExecutionTime
+    timeDict['walkExecTime'] = quantumWalk.walkExecutionTime
+    timeDict['probDistExecTime'] = quantumWalk.probDistExecutionTime
+    return timeDict
+
+
+def timeDictToString(timeDict):
+    daoString = f"Dao Execution time = {round(timeDict['daoExecTime'],5)} seconds."
+    initStateString = f"\n\tInitState Execution time = {round(timeDict['initStateExecTime'],5)} seconds."
+    operatorString = f"\n\tOperator Execution time = {round(timeDict['fullOperatorExecTime'],5)} seconds."
+    eighString = f"\n\t\tEigh Execution time = {round(timeDict['eighExecTime'],5)} seconds."
+    diagString = f"\n\t\tDiag Execution time = {round(timeDict['diagExecTime'],5)} seconds."
+    matMulString = f"\n\t\tMatMul Execution time = {round(timeDict['matMulExecTime'],5)} seconds."
+    walkString = f"\n\tWalk Execution time = {round(timeDict['walkExecTime'],5)} seconds."
+    probDistString = f"\n\t ProbDist Execution time = {round(timeDict['probDistExecTime'],5)} seconds."
+    return daoString + initStateString + operatorString + eighString + diagString + matMulString + walkString + probDistString
+
+def mergeAdd(timedict1, timedict2):
+    A = Counter(timedict1)
+    B = Counter(timedict2)
+    return A+B
+
+
 if __name__ == '__main__':
     n = 1000
     print(n)
@@ -60,28 +92,33 @@ if __name__ == '__main__':
     gamma = 1/(2*np.sqrt(2))
     marked = [int(n/2)]
     graph = nx.cycle_graph(n)
-    time = range(0,10)
-
+    time = range(0, 10)
+    
     startTimeV2Dao = timeit.default_timer()
     qwContV2Time = 0
+    timeDictV2 = dict()
     for t in time:
         qwContV2 = QuantumWalkDaoTestV2(graph, t, gamma, marked)
-        qwContV2Time += qwContV2.daoExecutionTime
+        qwContV2Times = getTimes(qwContV2)
+        timeDictV2 = mergeAdd(timeDictV2,qwContV2Times)
     endTimeV2Dao = timeit.default_timer()
 
     startTimeV4Dao = timeit.default_timer()
     qwContV4Time = 0
     qwContV4 = QuantumWalkDaoTestV4(graph, t, gamma, marked)
+    timeDictV4 = dict()
     for t in time:
-        qwContV4.optRunWalk(t,gamma,marked)
-        qwContV4Time += qwContV4.daoExecutionTime
+        qwContV4.optRunWalk(t, gamma, marked)
+        qwContV4Times = getTimes(qwContV4)
+        timeDictV4 = mergeAdd(timeDictV4,qwContV4Times)
     endTimeV4Dao = timeit.default_timer()
-    
-    print("Time - Old dao: %s "%(endTimeV2Dao-startTimeV2Dao))
-    print("Time - New dao: %s "%(endTimeV4Dao-startTimeV4Dao))
+
+    qwContV2Times = getTimes(qwContV2)
+    qwContV4Times = getTimes(qwContV4)
+    print(timeDictToString(timeDictV2))
     print()
-    print("Time - Old dao: %s "%(qwContV2Time))
-    print("Time - New dao: %s "%(qwContV4Time))
+    print(timeDictToString(timeDictV4))
+
     # qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked,'2')
     # qwContProb = qwCont.getProbDist()
     # qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
@@ -89,7 +126,7 @@ if __name__ == '__main__':
     # qwContOptProb = qwContOpt.getProbDist()
     # print(qwContOptProb == qwContProb)
 
-    # 
+    #
     # markedList = [marked,[marked[0],marked[0]+1],[marked[0],marked[0]-1,marked[0]+1]]
 
     # qwContTime = 0
@@ -102,7 +139,7 @@ if __name__ == '__main__':
     # for marked1 in markedList:
     #     qwContOpt.optRunWalk(t,gamma,marked1)
     #     qwContOptTime += qwContOpt.daoExecutionTime
-    
+
     # print("InitList - Old dao: %s "%qwContTime)
     # print("InitList - New dao: %s "%qwContOptTime)
 
@@ -134,25 +171,25 @@ if __name__ == '__main__':
     #     tList = createTimeList(10, n, nx.cycle_graph(n), t, gamma, [int(n/2)])
     #     avgTList = getAvgTime(tList)
     #     multTimeList.append(avgTList[7])
-    
+
     # f = open("2-1000_10Samples_Test","w")
     # f.write(str(multTimeList))
     # f.close()
 
-    #plt.plot(multTimeList)
-    #plt.show()
-        # k=1
-        # for eigh in [eighTimeList,eighTimeList2,eighTimeList3]:
-        #     plt.plot(eigh,label='%s'%k)
-        #     k+=1
-        #     plt.legend()
+    # plt.plot(multTimeList)
+    # plt.show()
+    # k=1
+    # for eigh in [eighTimeList,eighTimeList2,eighTimeList3]:
+    #     plt.plot(eigh,label='%s'%k)
+    #     k+=1
+    #     plt.legend()
 
-        # k=1
-        # for eigh in [matMulTimeList,matMulTimeList2,matMulTimeList3]:
-        #     plt.plot(eigh,label='%s'%k)
-        #     k+=1
-        #     plt.legend()
+    # k=1
+    # for eigh in [matMulTimeList,matMulTimeList2,matMulTimeList3]:
+    #     plt.plot(eigh,label='%s'%k)
+    #     k+=1
+    #     plt.legend()
 
-        # ax = plt.gca()
-        # ax.set_ylim([-0.1, 0.4])
-        # plt.show()
+    # ax = plt.gca()
+    # ax.set_ylim([-0.1, 0.4])
+    # plt.show()
