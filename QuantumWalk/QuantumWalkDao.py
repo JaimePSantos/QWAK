@@ -32,6 +32,7 @@ class QuantumWalkDao:
     def buildWalk(self):
         self._initState = State(self._n, self._initStateList)
         self._initState.buildState()
+        print(self._initState)
         self._operator.buildDiagonalOperator(self._time,self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -56,6 +57,7 @@ class QuantumWalkDao:
         return self._graph
         
     def setInitState(self, newInitState):
+        self._initStateList = newInitState.getStateList()
         self._initState.setState(newInitState)
 
     def getInitState(self):

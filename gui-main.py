@@ -21,6 +21,19 @@ if __name__ == '__main__':
     qwController = QuantumWalkDao(graph)
     qwController.runWalk(t,gamma,initState)
 
+
+    @eel.expose
+    def setInitState(initStateStr):
+        initStateList = list(map(int,initStateStr.split(',')))
+        print(initStateList)
+        newState = State(qwController.getDim(), initStateList)
+        newState.buildState()
+        qwController.setInitState(newState)
+
+    @eel.expose
+    def getInitState():
+        return qwController.getInitState()
+        
     @eel.expose
     def setDim(newDim,graphStr):
         qwController.setDim(newDim,graphStr)

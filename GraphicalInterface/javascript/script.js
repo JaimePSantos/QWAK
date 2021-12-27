@@ -3,13 +3,13 @@ import { defaultDist, cy } from "./tools.js";
 let defaultN = 100;
 let defaultT = 30;
 let defaultGamma = (1/(2*Math.sqrt(2))).toFixed(2);
-let defaultInitState = [Math.floor(defaultN/2)];
+let defaultInitState = [Math.floor(defaultN/2),Math.floor(defaultN/2)+1];
 let defaultGraph = 'nx.cycle_graph';
 
 let currentN = defaultN;
 let currentT = defaultT;
 let currentGamma = defaultGamma;
-let curentInitState = defaultInitState;
+let currentInitState = defaultInitState;
 let currentGraph = defaultGraph;
 
 let goButton = document.getElementById("goButton");
@@ -19,16 +19,19 @@ let setTimeButton = document.getElementById("setTimeButton");
 let setGammaButton = document.getElementById("setGammaButton");
 let setDimButton = document.getElementById("setDimButton");
 let setGraphButton = document.getElementById("setGraphButton");
+let setInitStateButton = document.getElementById("setInitStateButton");
 
 let inputTime = document.getElementById("inputTime");
 let inputGamma = document.getElementById("inputGamma");
 let inputDim =  document.getElementById("inputDim");
 let inputGraph =  document.getElementById("inputGraph");
+let inputInitState = document.getElementById("inputInitState");
 let inputInit = () => {
   inputTime.value = defaultT;
   inputGamma.value = defaultGamma;
   inputDim.value = defaultN;
   inputGraph.value = defaultGraph;
+  inputInitState.value = defaultInitState
 }
 inputInit()
 
@@ -107,13 +110,18 @@ let newData2 = { ...data2 };
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
-let setTimeButtonPress = setTimeButton.onclick = async() => {
+let setInitStateButtonPress = setInitStateButton.onclick = async () => {
+  currentInitState = inputInitState.value;
+  eel.setInitState(currentInitState)
+}
+
+let setTimeButtonPress = setTimeButton.onclick = async () => {
   currentT = parseInt(inputTime.value);
   eel.setTime(currentT);
 }
 
-let setGammaButtonPress =setGammaButton.onclick = async () => {
-  currentGamma = parseInt(inputGamma.value);
+let setGammaButtonPress = setGammaButton.onclick = async () => {
+  currentGamma = parseFloat(inputGamma.value);
   eel.setGamma(currentGamma);
 }
 
