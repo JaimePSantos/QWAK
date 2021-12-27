@@ -7,20 +7,22 @@ let getGraph = () => {
     .catch((e) => console.log(e));
 };
 
-let myGraphString = await getGraph();
-console.log(myGraphString)
-// let myGraph = JSON.parse(myGraphString)
-// console.log(myGraph.elements)
-// console.log(myGraph.edges)
+let initGraph = async () => {
+  let graphStr = 'nx.cycle_graph'
+  eel.setDim(100,graphStr)
+  eel.setGraph(graphStr)
+}
+
+initGraph()
+let myGraph = await getGraph();
 
 export let cy = cytoscape({
   container: document.getElementById("cy"), // container to render in
   boxSelectionEnabled: false,
   autounselectify: true,
-  wheelSensitivity: 0.1,
-  elements: myGraphString.elements,
-  directed:myGraphString.directed,
-  multigraph:myGraphString.multigraph,
+  elements: myGraph.elements,
+  directed: myGraph.directed,
+  multigraph: myGraph.multigraph,
   layout:{
     name:'circle',
   },

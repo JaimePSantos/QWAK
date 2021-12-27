@@ -14,10 +14,45 @@ eel.init('GraphicalInterface')
 
 if __name__ == '__main__':
     n = 100
-    t = n/2
+    t = 30
     gamma = 1/(2*np.sqrt(2))
-    marked = [int(n/2)]
+    initState = [int(n/2)]
     graph = nx.cycle_graph(n)
+    qwController = QuantumWalkDao(graph)
+    qwController.runWalk(t,gamma,initState)
+
+    @eel.expose
+    def setDim(newDim,graphStr):
+        qwController.setDim(newDim,graphStr)
+
+    @eel.expose
+    def getDim():
+        return qwController.getDim()
+        
+    @eel.expose
+    def setGraph(newGraph):
+        newGraph = eval(newGraph + "(%s)"%qwController.getDim())
+        qwController.setGraph(newGraph)
+
+    @eel.expose
+    def getGraph():
+        return qwController.getGraph()
+
+    @eel.expose
+    def setTime(newTime):
+        qwController.setTime(newTime)
+    
+    @eel.expose
+    def getTime():
+        return qwController.getTime()
+
+    @eel.expose
+    def setGamma(newGamma):
+        qwController.setGamma(newGamma)
+    
+    @eel.expose
+    def getGamma():
+        return qwController.getGamma()
 
     def convert2cytoscapeJSON(G):
         # load all nodes into nodes array
@@ -43,9 +78,7 @@ if __name__ == '__main__':
 
     @eel.expose
     def runWalk():
-        qwController = QuantumWalkDao(graph)
-        qwController.runWalk(t,gamma,marked)
-        qwAmplitudes = qwController.getWalk()
+        qwController.buildWalk()
         qwProbabilities = qwController.getProbDist()
         probLists = qwProbabilities.tolist()
         return probLists
@@ -55,7 +88,7 @@ if __name__ == '__main__':
         qwController = QuantumWalkDao(graph)
         qwProbList = []
         for t in time:
-            qwController.runWalk(t,gamma,marked)
+            qwController.runWalk(t,gamma,initState)
             qwAmplitudes = qwController.getWalk()
             qwProbabilities = qwController.getProbDist()
             probLists = qwProbabilities.tolist()
@@ -65,13 +98,11 @@ if __name__ == '__main__':
 
     @eel.expose
     def graphToJson():
-        graph = nx.complete_graph(5)
-        myCytGraph = convert2cytoscapeJSON(graph)
-        myCytGraph2 = nx.cytoscape_data(graph)
-        return myCytGraph2
-
-    def print_num(n):
-        print('Got this from Javascript:', n)
+        graph = qwController.getGraph()
+        myCytGraph = nx.cytoscape_data(graph)
+        return myCytGraph
 
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
+
+        
     pass
