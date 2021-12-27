@@ -44,10 +44,12 @@ class OperatorTestV4:
         self.matMulExecutionTime = endTimeMatMul - startTimeMatMul
 
     def timedBuildDiagonalOperator(self, time=0, gamma=1):
+        self.diagExecutionTime = 0
+        self.matMulExecutionTime = 0
         startTimeFullExec = timeit.default_timer()
         self.buildDiagonalOperator(time, gamma)
         endTimeFullExec = timeit.default_timer()
-        self.fullExecutionTime = endTimeFullExec - startTimeFullExec
+        self.fullExecutionTime = self.eighExecutionTime + self.diagExecutionTime + self.matMulExecutionTime
 
     #### ------- ####
 

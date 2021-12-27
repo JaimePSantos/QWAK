@@ -60,20 +60,28 @@ if __name__ == '__main__':
     gamma = 1/(2*np.sqrt(2))
     marked = [int(n/2)]
     graph = nx.cycle_graph(n)
+    time = range(0,10)
 
-    qwCont1 = QuantumWalkDaoTestV1(graph, t, gamma, marked)
-    print(qwCont1.fullExecutionTime)
+    startTimeV2Dao = timeit.default_timer()
+    qwContV2Time = 0
+    for t in time:
+        qwContV2 = QuantumWalkDaoTestV2(graph, t, gamma, marked)
+        qwContV2Time += qwContV2.daoExecutionTime
+    endTimeV2Dao = timeit.default_timer()
 
-    qwCont2 = QuantumWalkDaoTestV2(graph, t, gamma, marked)
-    print(qwCont2.fullExecutionTime)
-
-    qwCont3 = QuantumWalkDaoTestV3(graph, t, gamma, marked)
-    print(qwCont3.fullExecutionTime)
-
-    qwCont4 = QuantumWalkDaoTestV4(graph, t, gamma, marked)
-    qwCont4.optRunWalk(t,gamma,marked)
-    print(qwCont4.daoExecutionTime)
-
+    startTimeV4Dao = timeit.default_timer()
+    qwContV4Time = 0
+    qwContV4 = QuantumWalkDaoTestV4(graph, t, gamma, marked)
+    for t in time:
+        qwContV4.optRunWalk(t,gamma,marked)
+        qwContV4Time += qwContV4.daoExecutionTime
+    endTimeV4Dao = timeit.default_timer()
+    
+    print("Time - Old dao: %s "%(endTimeV2Dao-startTimeV2Dao))
+    print("Time - New dao: %s "%(endTimeV4Dao-startTimeV4Dao))
+    print()
+    print("Time - Old dao: %s "%(qwContV2Time))
+    print("Time - New dao: %s "%(qwContV4Time))
     # qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked,'2')
     # qwContProb = qwCont.getProbDist()
     # qwContOpt = QuantumWalkDaoTest(n, graph, t, gamma, marked,version='opt')
@@ -81,23 +89,8 @@ if __name__ == '__main__':
     # qwContOptProb = qwContOpt.getProbDist()
     # print(qwContOptProb == qwContProb)
 
-    # time = range(0,100)
+    # 
     # markedList = [marked,[marked[0],marked[0]+1],[marked[0],marked[0]-1,marked[0]+1]]
-    
-    # qwContTime = 0
-    # print(marked)
-    # for t in time:
-    #     qwCont = QuantumWalkDaoTest(graph, t, gamma, [0],version='2')
-    #     qwContTime += qwCont.daoExecutionTime
-
-    # qwContOptTime = 0
-    # qwContOpt = QuantumWalkDaoTest(graph, t, gamma, marked,version='opt')
-    # for t in time:
-    #     qwContOpt.optRunWalk(t,gamma,marked)
-    #     qwContOptTime += qwContOpt.daoExecutionTime
-    
-    # print("Time - Old dao: %s "%qwContTime)
-    # print("Time - New dao: %s "%qwContOptTime)
 
     # qwContTime = 0
     # for marked1 in markedList:
