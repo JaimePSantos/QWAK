@@ -13,16 +13,16 @@ class QuantumWalkDao:
         self._graph = graph
         self._operator = Operator(self._graph)
         self._n = len(self._graph)
+        self._initState = State(self._n)
         self._time = 0
         self._gamma = 1
         self._initStateList = [1]
 
-    def runWalk(self,time=0,gamma=1,initStateList=[0]):
+    def runWalk(self,time=0,gamma=1,initStateList=[1]):
         self._time = time
         self._gamma = gamma
         self._initStateList = initStateList
-        self._initState = State(self._n, initStateList)
-        self._initState.buildState()
+        self._initState.buildState(self._initStateList)
         self._operator.buildDiagonalOperator(self._time,self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -30,9 +30,7 @@ class QuantumWalkDao:
         self._probDist.buildProbDist()
     
     def buildWalk(self):
-        self._initState = State(self._n, self._initStateList)
-        self._initState.buildState()
-        print(self._initState)
+        self._initState.buildState(self._initStateList)
         self._operator.buildDiagonalOperator(self._time,self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -41,8 +39,9 @@ class QuantumWalkDao:
     
     def setDim(self,newDim,graphStr):
         self._n = newDim
-        self._graph = eval(graphStr + "(%s)"%self._n)
+        self._graph = eval(graphStr + f"({self._n})")
         self._initStateList = [int(self._n/2)]
+        self._initState = State(self._n)
         self._operator = Operator(self._graph)
     
     def getDim(self):
@@ -57,8 +56,8 @@ class QuantumWalkDao:
         return self._graph
         
     def setInitState(self, newInitState):
-        self._initStateList = newInitState.getStateList()
         self._initState.setState(newInitState)
+        self._initStateList = self._initState.getStateList()
 
     def getInitState(self):
         return self._initState
