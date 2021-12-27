@@ -1,21 +1,28 @@
 import numpy as np
-from QuantumWalk.State import State
+from QuantumWalkTest.StateTest import StateTest
 import timeit
 import warnings
 warnings.filterwarnings("ignore")
 
-class QuantumWalk:
+class QuantumWalkTest:
     def __init__(self,state,operator):
         self._n = state.getDim()
         self._initState = state.getStateVec()
         self._operator = operator.getOperator()
-        self._finalState = State(self._n)
+        self._finalState = StateTest(self._n)
+        self.walkExecutionTime = 0
 
     def __str__(self):
         return '%s' % self._finalState.getStateVec()
 
     def buildWalk(self):
         self._finalState.setStateVec(np.matmul(self._operator, self._initState))
+
+    def timedBuildWalk(self):
+        startTimeWalk = timeit.default_timer()
+        self.buildWalk()
+        endTimeWalk = timeit.default_timer()
+        self.walkExecutionTime = (endTimeWalk - startTimeWalk)
 
     def setInitState(self,newInitState):
         self._initState = newInitState

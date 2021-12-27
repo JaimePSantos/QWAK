@@ -1,16 +1,19 @@
 import networkx as nx
 import numpy as np
-from numpy.linalg import eigh
-from scipy import linalg
+from scipy import linalg as ln
+from scipy import sparse
+from scipy.sparse import issparse
+import timeit
 
 class Operator:
-    def __init__(self,graph,n,time=0,gamma=1):
+    def __init__(self,graph):
         self._graph = graph
         self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
-        self._time = time
-        self._gamma = gamma
-        self._n = n
+        self._n = len(graph)
         self._operator = np.zeros((self._n,self._n))
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(self._adjacencyMatrix)
+        self._time = 0
+        self._gamma = 1
 
     def __mul__(self,other):
         return self._operator*other
@@ -21,13 +24,12 @@ class Operator:
     def __str__(self):
         return '%s' % self._operator
 
-    def buildOperator(self):
-        self._operator = linalg.expm(-1j * self._gamma * self._adjacencyMatrix * self._time)
-
-    def buildDiagonalOperator(self):
-        self._eigenvalues, self._eigenvectors = eigh(self._adjacencyMatrix)
-        D = np.diag(np.exp(-1j * self._time * self._gamma * self._eigenvalues))
-        self._operator = (self._eigenvectors @ D @ self._eigenvectors.H)
+    def buildDiagonalOperator(self,time=0,gamma=1):
+        self._time = time
+        self._gamma = gamma
+        D = np.diag(np.exp(-1j * self._time * self._gamma * self._eigenvalues)).diagonal()
+        self._operator = np.multiply(self._eigenvectors,D)
+        self._operator = self._operator @ self._eigenvectors.H
 
     def setTime(self,newTime):
         self._time = newTime

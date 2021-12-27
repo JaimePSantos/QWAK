@@ -1,0 +1,157 @@
+:root {
+    --primary-dark: rgb(0, 0, 0);
+    --primary-light: rgb(214, 211, 211);
+    --secondary-light: #fefefe;
+  }
+
+body{
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-family: 'Courier New', sans-serif;
+    line-height: 1.6;
+    margin:0;
+    min-height: 100vh;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding:0;
+}
+
+.qwak{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    min-height:100%;
+    min-width: 90%;
+    padding: 40px 40px;
+    margin: 0 auto;
+    border:2px;
+    border-style: solid;
+    gap:30px;
+    background-color: rgb(141, 141, 143);
+    border-radius: 7px;
+}
+
+.walk-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height:100%;
+    width: 100%;
+    gap: 0px;
+    padding:5px;
+}
+
+.prob-dist-chart-container{
+    display:flex;
+    background-color: var(--primary-light);
+
+    border-style:double;
+    border-color: var(--primary-dark);
+    border-width: 5px;
+    padding:10px;
+}
+
+.prob-dist-chart{
+    display:flex;
+    width: 300px;
+    height:175px;
+}
+
+.graph-display {
+    background-color: var(--primary-light);
+    width:300px;
+    height:170px;
+    border-style: double;
+    border-color: var(--primary-dark);
+    border-width: 5px;
+  }
+
+.first-half, .second-half{
+    display: flex;
+    justify-content: space-between;
+    width:100%;
+}
+
+.grid-element{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:5px;
+    border-style: dashed;
+    border-width:2px;
+    width:50%;
+    height:100%;
+    padding:10px;
+}
+
+
+.function-button{
+    width:50px;
+    height:25px;
+    background:var(--primary-light);
+    border-style: solid;
+    border-color: black;
+    border-radius: 4px;
+    border-width: 3px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.function-button:hover{
+    background: rgb(252, 131, 131);
+}
+
+.function-button:active{
+    background: var(--primary-light);
+}
+
+.placeholder{
+    background-color: var(--primary-light);
+    width:300px;
+    height:170px;
+    border-style: double;
+    border-width: 5px;
+    background-color: var(--primary-light);
+}
+
+.input-fields{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    padding:0px;
+}
+
+.input-fields .function-button{
+    width:30px;
+    font-size: 10px;
+    padding:3px;
+}
+
+.input-fields .function-button:hover{
+    background: rgb(159, 252, 131);
+}
+
+.input-fields .function-button:active{
+    background: var(--primary-light);
+}
+
+.input-combo{
+    display:flex;
+    gap:5px;
+}
+
+label {
+    display: flex;
+}
+
+.input-box{
+    width:100px;
+    height:15px;
+}
+
