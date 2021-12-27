@@ -15,6 +15,7 @@ let currentGraph = defaultGraph;
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
 let graphButton = document.getElementById("graphButton");
+
 let setTimeButton = document.getElementById("setTimeButton");
 let setGammaButton = document.getElementById("setGammaButton");
 let setDimButton = document.getElementById("setDimButton");
@@ -34,6 +35,28 @@ let inputInit = () => {
   inputInitState.value = defaultInitState
 }
 inputInit()
+
+let defaultTimeList = [0,100];
+let defaultGammaList = [(1/(2*Math.sqrt(2))).toFixed(2)];
+let defaultInitStateList = [[Math.floor(defaultN/2),Math.floor(defaultN/2)+1]];
+
+let currentTimeList = defaultTimeList;
+let currentGammaList = defaultGammaList;
+let currentInitStateList = defaultInitStateList;
+
+let setTimeRangeButton = document.getElementById("setTimeRangeButton");
+let setGammaRangeButton = document.getElementById("setGammaRangeButton");
+let setInitStateRangeButton = document.getElementById("setInitStateRangeButton");
+
+let inputTimeRange = document.getElementById("inputTimeRange");
+let inputGammaRange = document.getElementById("inputGammaRange");
+let inputInitStateRange = document.getElementById("inputInitStateRange");
+let inputRangeInit = () => {
+  inputTimeRange.value = defaultTimeList;
+  inputGammaRange.value = defaultGammaList;
+  inputInitStateRange.value = defaultInitStateList;
+}
+inputRangeInit()
 
 let ctx = document.getElementById("myChart").getContext("2d");
 let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
@@ -81,34 +104,29 @@ let data2 = {
   type: "line",
   options: {
     scales: {
-      y: {
-        // defining min and max so hiding the dataset does not change scale range
-        min: 0,
-        max: 0.5,
+      x: {
+        grid: {
+          display: false
+        }
       },
+      y: {
+        grid: {
+          display: false
+        }
+      }
     },
   },
 };
 
-cy.on("mouseup", function (e) {
-  let tg = e.target;
-  if (tg.group != undefined && tg.group() == "nodes") {
-    let w = cy.width();
-    let h = cy.height();
-    if (tg.position().x > w) tg.position().x = w;
-    if (tg.position().x < 0) tg.position().x = 0;
-    if (tg.position().y > h) tg.position().y = h;
-    if (tg.position().y < 0) tg.position().y = 0;
-  }
-});
-
 cy.layout({ name: "circle" }).run();
-
-let newData = { ...data };
-let newData2 = { ...data2 };
 
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
+
+let setTimeRangeButtonPress = setTimeRangeButton.onclick = async () => {
+  currentTimeList = inputTimeRange.value;
+  eel.setTimeList(currentTimeList)
+}
 
 let setInitStateButtonPress = setInitStateButton.onclick = async () => {
   currentInitState = inputInitState.value;
@@ -137,16 +155,15 @@ let setGraphButtonPress = setGraphButton.onclick = async () => {
 }
 
 let goMultipleButtonPress = goMultipleButton.onclick = async () => {
-  let walk = await getMultipleWalks();
-  let distListList = walk;
+  let multipleWalks = await getMultipleWalks();
   let i = 0;
-  for (const distList of distListList) {
+  myAnimatedChart.clear();
+  for (const walk of multipleWalks) {
     setTimeout(() => {
-      console.log(distList);
-      data2.data.datasets[0].data = distList.flat();
-      data2.data.labels = [...Array(distList.length).keys()];
+      data2.data.datasets[0].data = walk.flat();
+      data2.data.labels = [...Array(walk.length).keys()];
       myAnimatedChart.update();
-    }, 100 * i);
+    }, 80 * i);
     i++;
   }
 };
@@ -159,8 +176,8 @@ let graphButtonPress = graphButton.onclick = async () => {
 let goButtonPress = goButton.onclick = async () => {
   myDist = await getWalk();
   let distList = myDist.flat();
-  newData.data.datasets[0].data = distList;
-  newData.data.labels = [...Array(distList.length).keys()];
+  data.data.datasets[0].data = distList;
+  data.data.labels = [...Array(distList.length).keys()];
   myChart.destroy();
   myChart = new Chart(ctx, data);
 };
@@ -176,7 +193,7 @@ let getWalk = () => {
 
 let getMultipleWalks = () => {
   return eel
-    .runMultipleWalks([...Array(100).keys()])()
+    .runMultipleWalks()()
     .then((a) => {
       return a ? a : Promise.reject(Error("Get Multiple Walks failed."));
     })

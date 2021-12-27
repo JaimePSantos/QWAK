@@ -76,13 +76,35 @@
       <div class='second-half'>
         <div class='grid-element'>
           <div class='placeholder'></div>
-          <button id="goMultipleButton" class="function-button">GO!</button>
+          <button id="placeholder3" class="function-button">GO!</button>
         </div>
         <div class='grid-element'>
           <div class="prob-dist-chart-container">
             <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
           </div>
           <button id="goMultipleButton" class="function-button">GO!</button>
+          <div class='input-row'>
+            <ul class='input-fields'>
+              <li class='input-combo'>
+                <input type="text" name="timeRange" id="inputTimeRange" class="input-box"></input>
+                <button id="setTimeRangeButton" class="function-button">[t]</button>
+              </li>
+              <li class='input-combo'>
+                <input type="number" step=0.01 min=0 name="gammaRange" id="inputGammaRange" class="input-box"></input>
+                <button id="setGammaRangeButton" class="function-button">[γ]</button>
+              </li>
+            </ul>
+            <ul class='input-fields'>
+              <li class='input-combo'>
+                <input type="text" name="initStateRange" id="inputInitStateRange" class="input-box"></input>
+                <button id="setInitStateRangeButton" class="function-button">[Ψ0]</button>
+              </li>
+              <li class='input-combo'>
+                <input type="number" step="0.01" min=0 name="placeholder" id="placeholder2" class="input-box"></input>
+                <button id="setPlaceholderButton2" class="function-button"></button>
+              </li>
+            </ul>
+          </div>
         </div>
 
       </div>

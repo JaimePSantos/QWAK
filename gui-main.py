@@ -21,6 +21,17 @@ if __name__ == '__main__':
     qwController = QuantumWalkDao(graph)
     qwController.runWalk(t,gamma,initState)
 
+    global timeList
+    timeList = [0,100]
+    gammaList = [gamma]
+    initStateList = [initState]
+
+    @eel.expose
+    def setTimeList(newTimeList):
+        global timeList
+        print(timeList)
+        timeList = list(map(int,newTimeList.split(',')))
+        print(timeList)
 
     @eel.expose
     def setInitState(initStateStr):
@@ -43,7 +54,7 @@ if __name__ == '__main__':
         
     @eel.expose
     def setGraph(newGraph):
-        newGraph = eval(newGraph + "(%s)"%qwController.getDim())
+        newGraph = eval(newGraph + f"({qwController.getDim()})")
         qwController.setGraph(newGraph)
 
     @eel.expose
@@ -74,12 +85,12 @@ if __name__ == '__main__':
         return probLists
     
     @eel.expose
-    def runMultipleWalks(time=[0],):
-        qwController = QuantumWalkDao(graph)
+    def runMultipleWalks():
         qwProbList = []
-        for t in time:
+        global timeList
+        print(qwController.getDim())
+        for t in range(timeList[0],timeList[1]):
             qwController.runWalk(t,gamma,initState)
-            qwAmplitudes = qwController.getWalk()
             qwProbabilities = qwController.getProbDist()
             probLists = qwProbabilities.tolist()
             qwProbList.append(probLists)

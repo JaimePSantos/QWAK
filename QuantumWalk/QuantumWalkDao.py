@@ -40,6 +40,7 @@ class QuantumWalkDao:
     def setDim(self,newDim,graphStr):
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
+        self._n = len(self._graph)
         self._initStateList = [int(self._n/2)]
         self._initState = State(self._n)
         self._operator = Operator(self._graph)
