@@ -3,8 +3,6 @@ import numpy as np
 import timeit
 from collections import Counter
 
-from QuantumWalkTest.QuantumWalkDaoTest import QuantumWalkDaoTest
-
 from QuantumWalkTest.Dao.QuantumWalkDaoTestV2 import QuantumWalkDaoTestV2
 from QuantumWalkTest.Dao.QuantumWalkDaoTestV4 import QuantumWalkDaoTestV4
 

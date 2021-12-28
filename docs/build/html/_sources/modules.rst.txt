@@ -1,7 +1,7 @@
-QuantumWalk
-===========
+QuantumWalkTest
+===============
 
 .. toctree::
    :maxdepth: 4
 
-   QuantumWalk
+   QuantumWalkTest
