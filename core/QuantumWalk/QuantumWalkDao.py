@@ -173,7 +173,7 @@ class QuantumWalkDao:
         self._gamma = newGamma
 
     def getGamma(self) -> float:
-        """[summary]
+        """
         Gets the current walk transition rate.
 
         Returns:
@@ -203,7 +203,7 @@ class QuantumWalkDao:
         return self._operator
 
     def setWalk(self, newWalk: State) -> ():
-        """[summary]
+        """
         Changes current walk amplitudes to a user defined state.
         This might not be needed and removed in the future.
 
@@ -223,8 +223,8 @@ class QuantumWalkDao:
         """
         return self._quantumWalk.getWalk()
 
-    def setProbDist(self, newProbDist: object) -> object:
-        """[summary]
+    def setProbDist(self, newProbDist: object) -> ():
+        """
         Changes current walk probability distribution to a user defined one.
         This might not be needed and removed in the future.
 
@@ -260,7 +260,7 @@ class QuantumWalkDao:
         return self._quantumWalk.getStateAmplitude(searchNode)
 
     def getNodeProbability(self, searchNode: int) -> float:
-        """[summary]
+        """
         Searches and gets the probability associated with a given node.
 
         Args:
