@@ -1,9 +1,7 @@
+import timeit
+
 import networkx as nx
 import numpy as np
-from scipy import linalg as ln
-from scipy import sparse
-from scipy.sparse import issparse
-import timeit
 
 
 class OperatorTestV4:
@@ -36,7 +34,7 @@ class OperatorTestV4:
         Returns:
             [type]: [description]
         """
-        return self._operator*other
+        return self._operator * other
 
     def __rmul__(self, other):
         """[summary]
@@ -47,7 +45,7 @@ class OperatorTestV4:
         Returns:
             [type]: [description]
         """
-        return other*self._operator
+        return other * self._operator
 
     def __str__(self):
         """[summary]
@@ -69,7 +67,7 @@ class OperatorTestV4:
 
         startTimeDiag = timeit.default_timer()
         D = np.diag(np.exp(-1j * self._time * self._gamma *
-                    self._eigenvalues)).diagonal()
+                           self._eigenvalues)).diagonal()
         endTimeDiag = timeit.default_timer()
         self.diagExecutionTime = endTimeDiag - startTimeDiag
 
@@ -92,7 +90,7 @@ class OperatorTestV4:
         self.buildDiagonalOperator(time, gamma)
         endTimeFullExec = timeit.default_timer()
         self.fullExecutionTime = self.eighExecutionTime + \
-            self.diagExecutionTime + self.matMulExecutionTime
+                                 self.diagExecutionTime + self.matMulExecutionTime
 
     #### ------- ####
 

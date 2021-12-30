@@ -1,10 +1,9 @@
-from QuantumWalkTest.StateTest import StateTest
-from QuantumWalkTest.QuantumWalkTest import QuantumWalkTest
-from QuantumWalkTest.ProbabilityDistributionTest import ProbabilityDistributionTest
+import timeit
 
 from QuantumWalkTest.Operator.OperatorTestV1 import OperatorTestV1
-
-import timeit
+from QuantumWalkTest.ProbabilityDistributionTest import ProbabilityDistributionTest
+from QuantumWalkTest.QuantumWalkTest import QuantumWalkTest
+from QuantumWalkTest.StateTest import StateTest
 
 
 class QuantumWalkDaoTestV1:

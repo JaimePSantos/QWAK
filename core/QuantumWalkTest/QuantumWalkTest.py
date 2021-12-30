@@ -1,7 +1,10 @@
-import numpy as np
-from QuantumWalkTest.StateTest import StateTest
 import timeit
 import warnings
+
+import numpy as np
+
+from QuantumWalkTest.StateTest import StateTest
+
 warnings.filterwarnings("ignore")
 
 

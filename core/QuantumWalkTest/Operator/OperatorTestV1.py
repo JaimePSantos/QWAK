@@ -1,9 +1,7 @@
+import timeit
+
 import networkx as nx
 import numpy as np
-from scipy import linalg as ln
-from scipy import sparse
-from scipy.sparse import issparse
-import timeit
 
 
 class OperatorTestV1:
@@ -39,7 +37,7 @@ class OperatorTestV1:
         Returns:
             [type]: [description]
         """
-        return self._operator*other
+        return self._operator * other
 
     def __rmul__(self, other):
         """[summary]
@@ -50,7 +48,7 @@ class OperatorTestV1:
         Returns:
             [type]: [description]
         """
-        return other*self._operator
+        return other * self._operator
 
     def __str__(self):
         """[summary]

@@ -1,6 +1,7 @@
-import numpy as np
-import timeit
 import warnings
+
+import numpy as np
+
 warnings.filterwarnings("ignore")
 
 
@@ -31,7 +32,7 @@ class ProbabilityDistribution:
         """
         for st in range(self._n):
             self._probVec[st] = self._stateVec[st] * \
-                np.conjugate(self._stateVec[st])
+                                np.conjugate(self._stateVec[st])
 
     def setProbDist(self, newProbDist):
         """[summary]

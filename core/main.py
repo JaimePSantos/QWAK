@@ -11,14 +11,13 @@ from QuantumWalk.QuantumWalkDao import QuantumWalkDao
 
 if __name__ == '__main__':
     n = 1000
-    t= 600
-    gamma=1/(2*np.sqrt(2))
+    t = 600
+    gamma = 1 / (2 * np.sqrt(2))
     graph = nx.cycle_graph(n)
-    marked = [int(n/2)]
-
+    marked = [int(n / 2)]
 
     qwController = QuantumWalkDao(graph)
-    qwController.runWalk(t,gamma,marked)
+    qwController.runWalk(t, gamma, marked)
     qwProbabilities = qwController.getProbDist()
     plt.plot(qwProbabilities)
     plt.show()

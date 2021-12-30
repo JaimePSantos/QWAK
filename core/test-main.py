@@ -18,31 +18,31 @@ def getAvgTime(timeList):
     tf2 = 0
     tf3 = 0
     for i in range(0, len(timeList), 9):
-        if(i + 9 > len(timeList)):
+        if (i + 9 > len(timeList)):
             break
         te += timeList[i]
-        te2 += timeList[i+1]
-        te3 += timeList[i+2]
-        tm += timeList[i+3]
-        tm2 += timeList[i+4]
-        tm3 += timeList[i+5]
-        tf += timeList[i+6]
-        tf2 += timeList[i+7]
-        tf3 += timeList[i+8]
+        te2 += timeList[i + 1]
+        te3 += timeList[i + 2]
+        tm += timeList[i + 3]
+        tm2 += timeList[i + 4]
+        tm3 += timeList[i + 5]
+        tf += timeList[i + 6]
+        tf2 += timeList[i + 7]
+        tf3 += timeList[i + 8]
 
-    return [te/(len(timeList)/9), te2/(len(timeList)/9), te3/(len(timeList)/9),
-            tm/(len(timeList)/9), tm2/(len(timeList)/9), tm3/(len(timeList)/9),
-            tf/(len(timeList)/9), tf2/(len(timeList)/9), tf3/(len(timeList)/9)]
+    return [te / (len(timeList) / 9), te2 / (len(timeList) / 9), te3 / (len(timeList) / 9),
+            tm / (len(timeList) / 9), tm2 / (len(timeList) / 9), tm3 / (len(timeList) / 9),
+            tf / (len(timeList) / 9), tf2 / (len(timeList) / 9), tf3 / (len(timeList) / 9)]
 
 
 def createTimeList(samples, n, graph, t, gamma, marked):
     timeList = []
     for i in range(samples):
         print("\n--------- Trial #%s -------------------\n" % i)
-        qwCont = QuantumWalkDaoTest(n, graph, t, gamma, marked)
+        qwCont = QuantumWalkDaoTestV2(n, graph, t, gamma, marked)
         timeList.extend([qwCont.eighExecutionTime, qwCont.eighExecutionTime2, qwCont.eighExecutionTime3,
-                        qwCont.matMulExecutionTime, qwCont.matMulExecutionTime2, qwCont.matMulExecutionTime3,
-                        qwCont.fullExecutionTime, qwCont.fullExecutionTime2, qwCont.fullExecutionTime3])
+                         qwCont.matMulExecutionTime, qwCont.matMulExecutionTime2, qwCont.matMulExecutionTime3,
+                         qwCont.fullExecutionTime, qwCont.fullExecutionTime2, qwCont.fullExecutionTime3])
     return timeList
 
 
@@ -52,6 +52,7 @@ def getTimes(quantumWalk):
     timeDict['initStateExecTime'] = quantumWalk.initStateExecutionTime
     timeDict['fullOperatorExecTime'] = quantumWalk.fullOperatorExecutionTime
     timeDict['eighExecTime'] = quantumWalk.eighExecutionTime
+    print(f'eigh in get times: {timeDict["eighExecTime"]}')
     timeDict['diagExecTime'] = quantumWalk.diagExecutionTime
     timeDict['matMulExecTime'] = quantumWalk.matMulExecutionTime
     timeDict['walkExecTime'] = quantumWalk.walkExecutionTime
@@ -60,38 +61,40 @@ def getTimes(quantumWalk):
 
 
 def timeDictToString(timeDict):
-    daoString = f"Dao Execution time = {round(timeDict['daoExecTime'],5)} seconds."
-    initStateString = f"\n\tInitState Execution time = {round(timeDict['initStateExecTime'],5)} seconds."
-    operatorString = f"\n\tOperator Execution time = {round(timeDict['fullOperatorExecTime'],5)} seconds."
-    eighString = f"\n\t\tEigh Execution time = {round(timeDict['eighExecTime'],5)} seconds."
-    diagString = f"\n\t\tDiag Execution time = {round(timeDict['diagExecTime'],5)} seconds."
-    matMulString = f"\n\t\tMatMul Execution time = {round(timeDict['matMulExecTime'],5)} seconds."
-    walkString = f"\n\tWalk Execution time = {round(timeDict['walkExecTime'],5)} seconds."
-    probDistString = f"\n\t ProbDist Execution time = {round(timeDict['probDistExecTime'],5)} seconds."
+    daoString = f"{timeDict['class']} Execution time = {round(timeDict['daoExecTime'], 5)} seconds."
+    initStateString = f"\n\tInitState time = {round(timeDict['initStateExecTime'], 5)} seconds."
+    operatorString = f"\n\tOperator time = {round(timeDict['fullOperatorExecTime'], 5)} seconds."
+    eighString = f"\n\t\tEigh time = {round(timeDict['eighExecTime'], 5)} seconds."
+    diagString = f"\n\t\tDiag time = {round(timeDict['diagExecTime'], 5)} seconds."
+    matMulString = f"\n\t\tMatMul time = {round(timeDict['matMulExecTime'], 5)} seconds."
+    walkString = f"\n\tWalk time = {round(timeDict['walkExecTime'], 5)} seconds."
+    probDistString = f"\n\tProbDist time = {round(timeDict['probDistExecTime'], 5)} seconds."
     return daoString + initStateString + operatorString + eighString + diagString + matMulString + walkString + probDistString
+
 
 def mergeAdd(timedict1, timedict2):
     A = Counter(timedict1)
     B = Counter(timedict2)
-    return A+B
+    return A + B
 
 
 if __name__ == '__main__':
     n = 1000
     print(n)
-    t = int(n/2)
-    gamma = 1/(2*np.sqrt(2))
-    marked = [int(n/2)]
+    t = int(n / 2)
+    gamma = 1 / (2 * np.sqrt(2))
+    marked = [int(n / 2)]
     graph = nx.cycle_graph(n)
-    time = range(0, 10)
-    
+    time = range(0, 5)
+
     startTimeV2Dao = timeit.default_timer()
     qwContV2Time = 0
     timeDictV2 = dict()
     for t in time:
         qwContV2 = QuantumWalkDaoTestV2(graph, t, gamma, marked)
         qwContV2Times = getTimes(qwContV2)
-        timeDictV2 = mergeAdd(timeDictV2,qwContV2Times)
+        timeDictV2 = mergeAdd(timeDictV2, qwContV2Times)
+    timeDictV2['class'] = type(qwContV2).__name__
     endTimeV2Dao = timeit.default_timer()
 
     startTimeV4Dao = timeit.default_timer()
@@ -101,7 +104,10 @@ if __name__ == '__main__':
     for t in time:
         qwContV4.optRunWalk(t, gamma, marked)
         qwContV4Times = getTimes(qwContV4)
-        timeDictV4 = mergeAdd(timeDictV4,qwContV4Times)
+        print(qwContV4Times['daoExecTime'])
+        timeDictV4 = mergeAdd(timeDictV4, qwContV4Times)
+        timeDictV4['eighExecTime'] = qwContV4Times['eighExecTime']
+    timeDictV4['class'] = type(qwContV4).__name__
     endTimeV4Dao = timeit.default_timer()
 
     qwContV2Times = getTimes(qwContV2)

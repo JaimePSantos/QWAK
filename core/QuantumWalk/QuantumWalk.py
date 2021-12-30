@@ -1,7 +1,8 @@
+import warnings
+
 import numpy as np
 from QuantumWalk.State import State
-import timeit
-import warnings
+
 warnings.filterwarnings("ignore")
 
 
