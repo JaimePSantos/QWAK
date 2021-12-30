@@ -52,7 +52,6 @@ def getTimes(quantumWalk):
     timeDict['initStateExecTime'] = quantumWalk.initStateExecutionTime
     timeDict['fullOperatorExecTime'] = quantumWalk.fullOperatorExecutionTime
     timeDict['eighExecTime'] = quantumWalk.eighExecutionTime
-    print(f'eigh in get times: {timeDict["eighExecTime"]}')
     timeDict['diagExecTime'] = quantumWalk.diagExecutionTime
     timeDict['matMulExecTime'] = quantumWalk.matMulExecutionTime
     timeDict['walkExecTime'] = quantumWalk.walkExecutionTime
@@ -80,7 +79,6 @@ def mergeAdd(timedict1, timedict2):
 
 if __name__ == '__main__':
     n = 1000
-    print(n)
     t = int(n / 2)
     gamma = 1 / (2 * np.sqrt(2))
     marked = [int(n / 2)]

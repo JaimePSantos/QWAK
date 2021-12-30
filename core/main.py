@@ -18,11 +18,15 @@ if __name__ == '__main__':
 
     qwController = QuantumWalkDao(graph)
     qwController.runWalk(t, gamma, marked)
+
     qwProbabilities = qwController.getProbDist()
-    plt.plot(qwProbabilities)
-    plt.show()
+    print(type(qwController.getNodeAmplitude(500)))
+    print(type(qwController.getNodeProbability(500)))
+
+    # plt.plot(qwProbabilities)
+    # plt.show()
     # print("Amplitudes: \n %s \n Probability:\n %s \n Mean: \n\t%s"%(qwAmplitudes,qwProbabilities,np.mean(qwProbabilities)))
-    searchedState = 2
+    # searchedState = 2
     # print("Amplitude of state %s \n\t %s"%(searchedState,qwController.getStateAmplitude(searchedState)))
     # print("Probability of state %s \n\t %s"%(searchedState,qwController.getStateProbability(searchedState)))
     # print(qwAmplitudes)
