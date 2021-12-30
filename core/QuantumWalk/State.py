@@ -1,117 +1,150 @@
+from __future__ import annotations
 import numpy as np
 
-
 class State:
-    """[summary]
+    """
+    Class that represents the states that will be used in a quantum walk.
+    States are generally represented by column vectors in quantum mechanics,
+    therefore Numpy is used to generate lists of lists which represent these column vectors.
     """
 
-    def __init__(self, n, stateList=None):
-        """[summary]
+    def __init__(self, n: int, nodeList: list = [0]) -> ():
+        """
+        Object is initialized with a mandatory user inputted dimension, an optional
+        stateList parameter which will be used to create the amplitudes for each node in the state
+        and an internal stateVec which will be a Numpy ndarray representing the column vector.
 
         Args:
-            n ([type]): [description]
-            stateList ([type], optional): [description]. Defaults to None.
+            :param n: Desired dimension of the state.
+            :type n: int
+            :param nodeList: List containing what nodes will have amplitudes in the state.
+            :type nodeList: (list,optional)
         """
         self._n = n
-        self._stateList = stateList
+        self._nodeList = nodeList
         self._stateVec = np.zeros((self._n, 1))
 
-    def __mul__(self, other):
-        """[summary]
+    def __mul__(self, other: np.ndarray) -> np.ndarray:
+        """
+        Left-side multiplication for the State class.
 
         Args:
-            other ([type]): [description]
+            :param other: Another Numpy ndarray to multiply the state by.
+            :type other: Numpy.ndarray
 
         Returns:
-            [type]: [description]
+            :return: self._stateVec * other
+            :rtype: Numpy.ndarray
         """
         return self._stateVec * other
 
-    def __rmul__(self, other):
-        """[summary]
+    def __rmul__(self, other: np.ndarray) -> np.ndarray:
+        """
+        Right-side multiplication for the State class.
 
         Args:
-            other ([type]): [description]
+            :param other: Another Numpy ndarray to multiply the state by.
+            :type other: Numpy.ndarray
 
         Returns:
-            [type]: [description]
+            :return: self._stateVec * other
+            :rtype: Numpy.ndarray
         """
         return other * self._stateVec
 
-    def __str__(self):
-        """[summary]
+    def __str__(self) -> str:
+        """
+        String representation of the State class.
 
         Returns:
-            [type]: [description]
+            :return: f"{self._stateVec}"
+            :rtype: str
         """
-        return '%s' % self._stateVec
+        return f"{self._stateVec}"
 
-    def buildState(self, stateList):
-        """[summary]
+    def buildState(self, nodeList: list) -> ():
+        """
+        Builds state vector from state list, by creating a balanced superposition of all
+        nodes in the nodeList.
+        This will be changed in the future to make nodeList make more sense.
 
         Args:
-            stateList ([type]): [description]
+            :param nodeList: List of nodes that will have an amplitude in the state vector.
+            :type nodeList: list
         """
-        self._stateList = stateList
-        if self._stateList is not None:
-            for state in self._stateList:
-                self._stateVec[state] = 1 / np.sqrt(len(self._stateList))
+        self._nodeList = nodeList
+        for state in self._nodeList:
+            self._stateVec[state] = 1 / np.sqrt(len(self._nodeList))
 
-    def setDim(self, newN):
-        """[summary]
+    def setDim(self, newDim: int) -> ():
+        """
+        Changes the current state dimension to a user defined one.
 
         Args:
-            newN ([type]): [description]
+            :param newDim: New state dimension.
+            :type newDim: int
         """
-        self._n = newN
+        self._n = newDim
 
-    def getDim(self):
-        """[summary]
+    def getDim(self) -> int:
+        """
+        Gets the current state dimension.
 
         Returns:
-            [type]: [description]
+            :return: self._n
+            :rtype: int
         """
         return self._n
 
-    # TODO: This might not be needed.
-    def setStateList(self, newState):
-        """[summary]
+    def setNodeList(self, newNodeList: list) -> ():
+        """
+        Changes current node list to a user inputted one.
+        This might not be needed and removed in the future.
 
         Args:
-            newState ([type]): [description]
+            :param newNodeList: List containing the new nodes.
+            :type newNodeList: list
         """
-        self._stateList = newState
+        self._nodeList = newNodeList
 
-    def getStateList(self):
-        """[summary]
+    def getNodeList(self) -> list:
+        """
+        Gets the current list of nodes.
 
         Returns:
-            [type]: [description]
+            :return: self._nodeList
+            :rtype: list
         """
-        return self._stateList
+        return self._nodeList
 
-    def setStateVec(self, newVec):
-        """[summary]
+    def setStateVec(self, newVec: np.ndarray) -> ():
+        """
+        Changes the column vector associated with the state to a user defined one.
 
         Args:
-            newVec ([type]): [description]
+            :param newVec: New column vector for the state
+            :type newVec: Numpy.ndarray
         """
         self._stateVec = newVec
 
-    def getStateVec(self):
-        """[summary]
+    def getStateVec(self) -> np.ndarray:
+        """
+        Gets the column vector associated with the state.
 
         Returns:
-            [type]: [description]
+            :return: self._stateVec
+            :rtype: Numpy.ndarray
         """
         return self._stateVec
 
-    def setState(self, newState):
+    def setState(self, newState: State) -> ():
         """[summary]
+        Changes all the parameters of the current state to a new user defined state.
 
         Args:
-            newState ([type]): [description]
+            :param newState: New state.
+            :type newState: State
         """
         self._n = newState.getDim()
-        self._stateList = newState.getStateList()
+        self._nodeList = newState.getNodeList()
         self._stateVec = newState.getStateVec()

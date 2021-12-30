@@ -120,5 +120,5 @@ class StateTest:
             newState ([type]): [description]
         """
         self._n = newState.getDim()
-        self._stateList = newState.getStateList()
+        self._stateList = newState.getNodeList()
         self._stateVec = newState.getState()

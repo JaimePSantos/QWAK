@@ -375,14 +375,14 @@ operator ([type]): [description]</p>
 <span id="quantumwalk-quantumwalkdao-module"></span><h2>QuantumWalk.QuantumWalkDao module<a class="headerlink" href="#module-QuantumWalk.QuantumWalkDao" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.QuantumWalkDao.</span></span><span class="sig-name descname"><span class="pre">QuantumWalkDao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.QuantumWalkDao.</span></span><span class="sig-name descname"><span class="pre">QuantumWalkDao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data access class that combines all three components required to perform a continuous-time quantum walk,
 given by the multiplication of an operator (represented by the Operator class) by an initial
 state (State class).
 This multiplication is achieved in the QuantumWalk class, which returns a final state (State
 Class) representing the amplitudes of each state associated with a graph node.
-These amplitudes can then be transformed in to probability distributions (ProbabilityDistribution class) suitable
+These amplitudes can then be transformed to probability distributions (ProbabilityDistribution class) suitable
 for plotting with matplotlib, or your package of choice.</p>
 <p>Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
 respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.</p>
@@ -417,7 +417,7 @@ with the given parameters. These can be accessed with their respective get metho
 <dd class="field-even"><p>(int, optional)</p>
 </dd>
 <dt class="field-odd">param initStateList</dt>
-<dd class="field-odd"><p>List with chosen initial states. Defaults to [1].</p>
+<dd class="field-odd"><p>List with chosen initial states. Defaults to [0].</p>
 </dd>
 <dt class="field-even">type initStateList</dt>
 <dd class="field-even"><p>(list, optional)</p>
@@ -780,91 +780,167 @@ Searches and gets the probability associated with a given node.</p>
 <span id="quantumwalk-state-module"></span><h2>QuantumWalk.State module<a class="headerlink" href="#module-QuantumWalk.State" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.State.State">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.State.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.State.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>[summary]</p>
-<p>[summary]</p>
+<p>Class that represents the states that will be used in a quantum walk.
+States are generally represented by column vectors in quantum mechanics,
+therefore Numpy is used to generate lists of lists which represent these column vectors.</p>
+<p>Object is initialized with a mandatory user inputted dimension, an optional
+stateList parameter which will be used to create the amplitudes for each node in the state
+and an internal stateVec which will be a Numpy ndarray representing the column vector.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>n ([type]): [description]
-stateList ([type], optional): [description]. Defaults to None.</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param n</dt>
+<dd class="field-odd"><p>Desired dimension of the state.</p>
+</dd>
+<dt class="field-even">type n</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">param nodeList</dt>
+<dd class="field-odd"><p>List containing what nodes will have amplitudes in the state.</p>
+</dd>
+<dt class="field-even">type nodeList</dt>
+<dd class="field-even"><p>(list,optional)</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.State.State.buildState">
-<span class="sig-name descname"><span class="pre">buildState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stateList</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.buildState" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">buildState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.buildState" title="Permalink to this definition"></a></dt>
+<dd><p>Builds state vector from state list, by creating a balanced superposition of all
+nodes in the nodeList.
+This will be changed in the future to make nodeList make more sense.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>stateList ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param nodeList</dt>
+<dd class="field-odd"><p>List of nodes that will have an amplitude in the state vector.</p>
+</dd>
+<dt class="field-even">type nodeList</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.State.State.setDim">
-<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newN</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setDim" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setDim" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the current state dimension to a user defined one.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>newN ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param newDim</dt>
+<dd class="field-odd"><p>New state dimension.</p>
+</dd>
+<dt class="field-even">type newDim</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.State.State.getDim">
-<span class="sig-name descname"><span class="pre">getDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.getDim" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">getDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#QuantumWalk.State.State.getDim" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the current state dimension.</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._n</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="QuantumWalk.State.State.setStateList">
-<span class="sig-name descname"><span class="pre">setStateList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newState</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setStateList" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dt class="sig sig-object py" id="QuantumWalk.State.State.setNodeList">
+<span class="sig-name descname"><span class="pre">setNodeList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newNodeList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setNodeList" title="Permalink to this definition"></a></dt>
+<dd><p>Changes current node list to a user inputted one.
+This might not be needed and removed in the future.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>newState ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param newNodeList</dt>
+<dd class="field-odd"><p>List containing the new nodes.</p>
+</dd>
+<dt class="field-even">type newNodeList</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="QuantumWalk.State.State.getStateList">
-<span class="sig-name descname"><span class="pre">getStateList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.getStateList" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dt class="sig sig-object py" id="QuantumWalk.State.State.getNodeList">
+<span class="sig-name descname"><span class="pre">getNodeList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#QuantumWalk.State.State.getNodeList" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the current list of nodes.</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._nodeList</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.State.State.setStateVec">
-<span class="sig-name descname"><span class="pre">setStateVec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newVec</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setStateVec" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">setStateVec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newVec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setStateVec" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the column vector associated with the state to a user defined one.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>newVec ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param newVec</dt>
+<dd class="field-odd"><p>New column vector for the state</p>
+</dd>
+<dt class="field-even">type newVec</dt>
+<dd class="field-even"><p>Numpy.ndarray</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.State.State.getStateVec">
-<span class="sig-name descname"><span class="pre">getStateVec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.getStateVec" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">getStateVec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#QuantumWalk.State.State.getStateVec" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the column vector associated with the state.</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._stateVec</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>Numpy.ndarray</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.State.State.setState">
-<span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newState</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setState" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">State</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setState" title="Permalink to this definition"></a></dt>
+<dd><p>[summary]
+Changes all the parameters of the current state to a new user defined state.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>newState ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param newState</dt>
+<dd class="field-odd"><p>New state.</p>
+</dd>
+<dt class="field-even">type newState</dt>
+<dd class="field-even"><p>State</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

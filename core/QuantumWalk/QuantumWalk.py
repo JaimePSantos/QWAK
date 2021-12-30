@@ -1,6 +1,7 @@
 import warnings
 
 import numpy as np
+
 from QuantumWalk.State import State
 
 warnings.filterwarnings("ignore")

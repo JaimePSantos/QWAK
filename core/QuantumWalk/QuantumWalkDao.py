@@ -1,9 +1,9 @@
+import networkx as nx
+
 from QuantumWalk.Operator import Operator
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.State import State
-
-import networkx as nx
 
 
 class QuantumWalkDao:
@@ -13,11 +13,11 @@ class QuantumWalkDao:
         state (State class).
         This multiplication is achieved in the QuantumWalk class, which returns a final state (State
         Class) representing the amplitudes of each state associated with a graph node.
-        These amplitudes can then be transformed in to probability distributions (ProbabilityDistribution class) suitable
+        These amplitudes can then be transformed to probability distributions (ProbabilityDistribution class) suitable
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph):
+    def __init__(self, graph: nx.Graph) -> (()):
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -130,7 +130,7 @@ class QuantumWalkDao:
             :type newInitState: State
         """
         self._initState.setState(newInitState)
-        self._initStateList = self._initState.getStateList()
+        self._initStateList = self._initState.getNodeList()
 
     def getInitState(self) -> State:
         """
