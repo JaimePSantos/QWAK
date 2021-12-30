@@ -1,16 +1,28 @@
 import networkx as nx
 import numpy as np
 
-
 class Operator:
-    """[summary]
+    """
+    Class that represents the operators that will be used in a quantum walk.
+    States are represented by matrices in quantum mechanics,
+    therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph):
-        """[summary]
+    def __init__(self, graph: nx.Graph) -> ():
+        """
+        Object is initialized with a user inputted graph, which is then used to
+        generate the dimension of the operator and the adjacency matrix, which is
+        the central structure required to perform walks on regular graphs. Note that this
+        version of the software only supports regular undirected graphs, which will change
+        in the future.
+        The eigenvalues and eigenvectors of the adjacency matrix are also calculated at
+        initialization, which are then used to calculate the diagonal operator for the walk.
+        This is known as a spectral decomposition, and it was the chosen method since it is
+        computationally cheaper than calculating the matrix exponent directly.
 
         Args:
-            graph ([type]): [description]
+            :param graph: Graph where the walk will be performed.
+            :type graph: NetworkX.Graph
         """
         self._graph = graph
         self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()

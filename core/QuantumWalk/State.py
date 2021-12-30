@@ -6,8 +6,8 @@ import numpy as np
 class State:
     """
     Class that represents the states that will be used in a quantum walk.
-    States are generally represented by column vectors in quantum mechanics,
-    therefore Numpy is used to generate lists of lists which represent these column vectors.
+    States are represented by column vectors in quantum mechanics,
+    therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
 
     def __init__(self, n: int, nodeList: list = [0]) -> ():
