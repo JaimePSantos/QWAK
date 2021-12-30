@@ -104,9 +104,7 @@ if __name__ == '__main__':
     for t in time:
         qwContV4.optRunWalk(t, gamma, marked)
         qwContV4Times = getTimes(qwContV4)
-        print(qwContV4Times['daoExecTime'])
         timeDictV4 = mergeAdd(timeDictV4, qwContV4Times)
-        timeDictV4['eighExecTime'] = qwContV4Times['eighExecTime']
     timeDictV4['class'] = type(qwContV4).__name__
     endTimeV4Dao = timeit.default_timer()
 

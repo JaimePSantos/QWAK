@@ -23,8 +23,6 @@ class QuantumWalkDaoTestV4:
 
         self._operator = OperatorTestV4(self._graph)
         self.eighExecutionTime = self._operator.eighExecutionTime
-        # So eigh execution time is only added once.
-        self.tempEigh = self.eighExecutionTime
 
     def initTimes(self):
         """[summary]
@@ -60,9 +58,9 @@ class QuantumWalkDaoTestV4:
         self._probDist.timedBuildProbDist()
 
         self.initTimes()
-        self.fullOperatorExecutionTime = self.tempEigh + self.diagExecutionTime + self.matMulExecutionTime
+        self.fullOperatorExecutionTime = self.eighExecutionTime + self.diagExecutionTime + self.matMulExecutionTime
         self.daoExecutionTime = self.initStateExecutionTime + self.fullOperatorExecutionTime + self.walkExecutionTime + self.probDistExecutionTime
-        self.tempEigh = 0
+        self.eighExecutionTime = 0
 
     def setInitState(self, newInitState):
         """[summary]
