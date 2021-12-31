@@ -82,12 +82,29 @@
 <span id="quantumwalk-operator-module"></span><h2>QuantumWalk.Operator module<a class="headerlink" href="#module-QuantumWalk.Operator" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.Operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.Operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>[summary]</p>
-<p>[summary]</p>
+<p>Class that represents the operators that will be used in a quantum walk.
+States are represented by matrices in quantum mechanics,
+therefore Numpy is used to generate ndarrays which contain these matrices.</p>
+<p>Object is initialized with a user inputted graph, which is then used to
+generate the dimension of the operator and the adjacency matrix, which is
+the central structure required to perform walks on regular graphs. Note that this
+version of the software only supports regular undirected graphs, which will change
+in the future.</p>
+<p>The eigenvalues and eigenvectors of the adjacency matrix are also calculated at
+initialization, which are then used to calculate the diagonal operator for the walk.
+This is known as a spectral decomposition, and it was the chosen method since it is
+computationally cheaper than calculating the matrix exponent directly.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>graph ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param graph</dt>
+<dd class="field-odd"><p>Graph where the walk will be performed.</p>
+</dd>
+<dt class="field-even">type graph</dt>
+<dd class="field-even"><p>NetworkX.Graph</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <dl class="py method">
@@ -599,8 +616,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.getGamma">
 <span class="sig-name descname"><span class="pre">getGamma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getGamma" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]
-Gets the current walk transition rate.</p>
+<dd><p>Gets the current walk transition rate.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">return</dt>
@@ -651,8 +667,7 @@ Gets the current walk transition rate.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.setWalk">
 <span class="sig-name descname"><span class="pre">setWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newWalk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setWalk" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]
-Changes current walk amplitudes to a user defined state.
+<dd><p>Changes current walk amplitudes to a user defined state.
 This might not be needed and removed in the future.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -686,9 +701,8 @@ This might not be needed and removed in the future.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.setProbDist">
-<span class="sig-name descname"><span class="pre">setProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newProbDist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">object</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setProbDist" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]
-Changes current walk probability distribution to a user defined one.
+<span class="sig-name descname"><span class="pre">setProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newProbDist</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setProbDist" title="Permalink to this definition"></a></dt>
+<dd><p>Changes current walk probability distribution to a user defined one.
 This might not be needed and removed in the future.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -749,8 +763,7 @@ This might not be needed and removed in the future.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.getNodeProbability">
 <span class="sig-name descname"><span class="pre">getNodeProbability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">searchNode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getNodeProbability" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]
-Searches and gets the probability associated with a given node.</p>
+<dd><p>Searches and gets the probability associated with a given node.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">param searchNode</dt>
@@ -783,8 +796,8 @@ Searches and gets the probability associated with a given node.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.State.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that represents the states that will be used in a quantum walk.
-States are generally represented by column vectors in quantum mechanics,
-therefore Numpy is used to generate lists of lists which represent these column vectors.</p>
+States are represented by column vectors in quantum mechanics,
+therefore Numpy is used to generate ndarrays which contain these column vectors.</p>
 <p>Object is initialized with a mandatory user inputted dimension, an optional
 stateList parameter which will be used to create the amplitudes for each node in the state
 and an internal stateVec which will be a Numpy ndarray representing the column vector.</p>

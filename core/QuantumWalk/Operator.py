@@ -15,6 +15,7 @@ class Operator:
         the central structure required to perform walks on regular graphs. Note that this
         version of the software only supports regular undirected graphs, which will change
         in the future.
+
         The eigenvalues and eigenvectors of the adjacency matrix are also calculated at
         initialization, which are then used to calculate the diagonal operator for the walk.
         This is known as a spectral decomposition, and it was the chosen method since it is
@@ -32,43 +33,57 @@ class Operator:
             self._adjacencyMatrix)
         self._time = 0
         self._gamma = 1
+        print(f"Operator {type(self._operator)}")
 
     def __mul__(self, other):
-        """[summary]
+        """
+        Left-side multiplication for the Operator class.
 
         Args:
-            other ([type]): [description]
+            :param other: Another Numpy ndarray to multiply the operator by.
+            :type other: Numpy.ndarray
 
         Returns:
-            [type]: [description]
+            :return: self._operator * other
+            :rtype: Numpy.ndarray
         """
         return self._operator * other
 
     def __rmul__(self, other):
-        """[summary]
+        """
+        Right-side multiplication for the Operator class.
 
         Args:
-            other ([type]): [description]
+            :param other: Another Numpy ndarray to multiply the operator by.
+            :type other: Numpy.ndarray
 
         Returns:
-            [type]: [description]
+            :return: self._operator * other
+            :rtype: Numpy.ndarray
         """
         return other * self._operator
 
     def __str__(self):
-        """[summary]
+        """
+        String representation of the State class.
 
         Returns:
-            [type]: [description]
+            :return: f"{self._stateVec}"
+            :rtype: str
         """
-        return '%s' % self._operator
+        return f"{self._operator}"
 
-    def buildDiagonalOperator(self, time=0, gamma=1):
-        """[summary]
+    def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> ():
+        """
+        Builds operator matrix from optional time and transition rate parameters, defined by user.
+        Creates the entries resulting of the diagonalizing of the exponentiation of time multiplied by gamma and the eigenvalues
+        We then multiply the eigenvectors by the diagonal entries, then perform matrix multiplication with the complex conjugate of the eigenvalues.
 
         Args:
             time (int, optional): [description]. Defaults to 0.
             gamma (int, optional): [description]. Defaults to 1.
+            :param time:
+            :param gamma:
         """
         self._time = time
         self._gamma = gamma
@@ -77,11 +92,12 @@ class Operator:
         self._operator = np.multiply(self._eigenvectors, D)
         self._operator = self._operator @ self._eigenvectors.H
 
-    def setTime(self, newTime):
-        """[summary]
+    def setTime(self, newTime: float) -> ():
+        """
+        Changes the current walk time to a user defined one.
 
         Args:
-            newTime ([type]): [description]
+            :param newTime: New walk time.
         """
         self._time = newTime
 
