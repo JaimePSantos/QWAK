@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import networkx as nx
 import numpy as np
 
@@ -10,16 +12,16 @@ class Operator:
 
     def __init__(self, graph: nx.Graph) -> ():
         """
-        Object is initialized with a user inputted graph, which is then used to
+        This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
         the central structure required to perform walks on regular graphs. Note that this
-        version of the software only supports regular undirected graphs, which will change
-        in the future.
+        version of the software only supports regular undirected graphs, which will hopefully
+        be generalized in the future.
 
-        The eigenvalues and eigenvectors of the adjacency matrix are also calculated at
-        initialization, which are then used to calculate the diagonal operator for the walk.
-        This is known as a spectral decomposition, and it was the chosen method since it is
-        computationally cheaper than calculating the matrix exponent directly.
+        The eigenvalues and eigenvectors of the adjacency matrix are also calculated during
+        initialization, which are then used to calculate the diagonal operator through spectral
+        decomposition. This was the chosen method since it is computationally cheaper than calculating
+        the matrix exponent directly.
 
         Args:
             :param graph: Graph where the walk will be performed.
@@ -76,14 +78,16 @@ class Operator:
     def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> ():
         """
         Builds operator matrix from optional time and transition rate parameters, defined by user.
-        Creates the entries resulting of the diagonalizing of the exponentiation of time multiplied by gamma and the eigenvalues
-        We then multiply the eigenvectors by the diagonal entries, then perform matrix multiplication with the complex conjugate of the eigenvalues.
+        The first step is to calculate the diagonal matrix that takes in time, transition rate and
+        eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
+        by the eigenvectors, and the last step is to perform matrix multiplication with the complex
+        conjugate of the eigenvectors.
 
         Args:
-            time (int, optional): [description]. Defaults to 0.
-            gamma (int, optional): [description]. Defaults to 1.
-            :param time:
-            :param gamma:
+            :param time: Time for which to calculate the operator. Defaults to 0.
+            :type time: (int, optional)
+            :param gamma: Transition rate of the given operator. Defaults to 1.
+            :type gamma: (int, optional)
         """
         self._time = time
         self._gamma = gamma
@@ -92,86 +96,108 @@ class Operator:
         self._operator = np.multiply(self._eigenvectors, D)
         self._operator = self._operator @ self._eigenvectors.H
 
-    def setTime(self, newTime: float) -> ():
+    def setDim(self, newDim: int) -> ():
         """
-        Changes the current walk time to a user defined one.
-
-        Args:
-            :param newTime: New walk time.
-        """
-        self._time = newTime
-
-    def getTime(self):
-        """[summary]
-
-        Returns:
-            [type]: [description]
-        """
-        return self._time
-
-    def setGamma(self, newGamma):
-        """[summary]
-
-        Args:
-            newGamma ([type]): [description]
-        """
-        self._gamma = newGamma
-
-    def getGamma(self):
-        """[summary]
-
-        Returns:
-            [type]: [description]
-        """
-        return self._gamma
-
-    def setDim(self, newDim):
-        """[summary]
+        Changes the current operator dimensions to a user defined one.
 
         Args:
             newDim ([type]): [description]
+            :param newDim:
+            :type newDim:
         """
         self._n = newDim
 
-    def getDim(self):
-        """[summary]
+    def getDim(self) -> int:
+        """
+        Gets the current graph dimension.
 
         Returns:
-            [type]: [description]
+            :return: self._n
+            :rtype: int
         """
         return self._n
 
-    def getAdjacencyMatrix(self):
-        """[summary]
-
-        Returns:
-            [type]: [description]
+    def setTime(self, newTime: float) -> ():
         """
-        return self._adjacencyMatrix
-
-    def setAdjacencyMatrix(self, adjacencyMatrix):
-        """[summary]
+        Changes the current operator time to a user defined one.
 
         Args:
-            adjacencyMatrix ([type]): [description]
+            :param newTime: New operator time.
+            :type newTime: float
+        """
+        self._time = newTime
+
+    def getTime(self) -> float:
+        """
+        Gets the current operator time.
+
+        Returns:
+            :return: self._time
+            :rtype: float
+        """
+        return self._time
+
+    def setGamma(self, newGamma: float) -> ():
+        """
+        Changes the current operator transition rate to a user defined one.
+
+        Args:
+            :param newGamma: New transition rate.
+            :type newGamma: float
+        """
+        self._gamma = newGamma
+
+    def getGamma(self) -> float:
+        """
+        Gets the current walk transition rate.
+
+        Returns:
+            :return: self._gamma
+            :rtype: float
+        """
+        return self._gamma
+
+    def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> ():
+        """
+        Changes the adjacency matrix of the operator to a user defined one.
+        Might make more sense to not give the user control over this parameter, and make
+        them instead change the graph entirely.
+
+        Args:
+            :param adjacencyMatrix: New Numpy.ndarray adjacency matrix.
+            :type adjacencyMatrix: Numpy.ndarray
         """
         self._adjacencyMatrix = adjacencyMatrix
 
-    def setOperator(self, newOperator):
-        """[summary]
+    def getAdjacencyMatrix(self) -> np.ndarray:
+        """
+        Gets the current adjacency matrix of the operator.
+
+        Returns:
+            :return: self._adjacencyMatrix
+            :rtype: Numpy.ndarray
+        """
+        return self._adjacencyMatrix
+
+    def setOperator(self, newOperator: Operator) -> ():
+        """
+        Changes all the parameters of the current operator to user defined ones.
 
         Args:
-            newOperator ([type]): [description]
+            :param newOperator: New operator.
+            :type newOperator: Operator
         """
         self._n = newOperator.getDim()
         self._gamma = newOperator.getGamma()
         self._time = newOperator.getTime()
         self._operator = newOperator.getOperator()
 
-    def getOperator(self):
-        """[summary]
+    def getOperator(self) -> np.matrix:
+        """
+        Gets the numpy matrix associated with the current operator.
 
         Returns:
-            [type]: [description]
+            :return: self._operator
+            :rtype: Numpy.matrix
         """
         return self._operator

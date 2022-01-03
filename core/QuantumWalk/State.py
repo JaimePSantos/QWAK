@@ -141,7 +141,7 @@ class State:
 
     def setState(self, newState: State) -> ():
         """[summary]
-        Changes all the parameters of the current state to a new user defined state.
+        Changes all the parameters of the current state to user defined ones.
 
         Args:
             :param newState: New state.

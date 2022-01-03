@@ -82,20 +82,20 @@
 <span id="quantumwalk-operator-module"></span><h2>QuantumWalk.Operator module<a class="headerlink" href="#module-QuantumWalk.Operator" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.Operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.Operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nx.Graph</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that represents the operators that will be used in a quantum walk.
 States are represented by matrices in quantum mechanics,
 therefore Numpy is used to generate ndarrays which contain these matrices.</p>
-<p>Object is initialized with a user inputted graph, which is then used to
+<p>This object is initialized with a user inputted graph, which is then used to
 generate the dimension of the operator and the adjacency matrix, which is
 the central structure required to perform walks on regular graphs. Note that this
-version of the software only supports regular undirected graphs, which will change
-in the future.</p>
-<p>The eigenvalues and eigenvectors of the adjacency matrix are also calculated at
-initialization, which are then used to calculate the diagonal operator for the walk.
-This is known as a spectral decomposition, and it was the chosen method since it is
-computationally cheaper than calculating the matrix exponent directly.</p>
+version of the software only supports regular undirected graphs, which will hopefully
+be generalized in the future.</p>
+<p>The eigenvalues and eigenvectors of the adjacency matrix are also calculated during
+initialization, which are then used to calculate the diagonal operator through spectral
+decomposition. This was the chosen method since it is computationally cheaper than calculating
+the matrix exponent directly.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">param graph</dt>
@@ -109,111 +109,194 @@ computationally cheaper than calculating the matrix exponent directly.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.buildDiagonalOperator">
-<span class="sig-name descname"><span class="pre">buildDiagonalOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.buildDiagonalOperator" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">buildDiagonalOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.buildDiagonalOperator" title="Permalink to this definition"></a></dt>
+<dd><p>Builds operator matrix from optional time and transition rate parameters, defined by user.
+The first step is to calculate the diagonal matrix that takes in time, transition rate and
+eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
+by the eigenvectors, and the last step is to perform matrix multiplication with the complex
+conjugate of the eigenvectors.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>time (int, optional): [description]. Defaults to 0.
-gamma (int, optional): [description]. Defaults to 1.</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param time</dt>
+<dd class="field-odd"><p>Time for which to calculate the operator. Defaults to 0.</p>
+</dd>
+<dt class="field-even">type time</dt>
+<dd class="field-even"><p>(int, optional)</p>
+</dd>
+<dt class="field-odd">param gamma</dt>
+<dd class="field-odd"><p>Transition rate of the given operator. Defaults to 1.</p>
+</dd>
+<dt class="field-even">type gamma</dt>
+<dd class="field-even"><p>(int, optional)</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setTime">
-<span class="sig-name descname"><span class="pre">setTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newTime</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setTime" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>newTime ([type]): [description]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getTime">
-<span class="sig-name descname"><span class="pre">getTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getTime" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setGamma">
-<span class="sig-name descname"><span class="pre">setGamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newGamma</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setGamma" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
-<dl class="simple">
-<dt>Args:</dt><dd><p>newGamma ([type]): [description]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getGamma">
-<span class="sig-name descname"><span class="pre">getGamma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getGamma" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setDim">
-<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setDim" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setDim" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the current operator dimensions to a user defined one.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>newDim ([type]): [description]</p>
+<dt>Args:</dt><dd><p>newDim ([type]): [description]
+:param newDim:
+:type newDim:</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getDim">
-<span class="sig-name descname"><span class="pre">getDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getDim" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">getDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getDim" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the current graph dimension.</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._n</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getAdjacencyMatrix">
-<span class="sig-name descname"><span class="pre">getAdjacencyMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getAdjacencyMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setTime">
+<span class="sig-name descname"><span class="pre">setTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newTime</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setTime" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the current operator time to a user defined one.</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param newTime</dt>
+<dd class="field-odd"><p>New operator time.</p>
+</dd>
+<dt class="field-even">type newTime</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getTime">
+<span class="sig-name descname"><span class="pre">getTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getTime" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the current operator time.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._time</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setGamma">
+<span class="sig-name descname"><span class="pre">setGamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newGamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setGamma" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the current operator transition rate to a user defined one.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param newGamma</dt>
+<dd class="field-odd"><p>New transition rate.</p>
+</dd>
+<dt class="field-even">type newGamma</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getGamma">
+<span class="sig-name descname"><span class="pre">getGamma</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getGamma" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the current walk transition rate.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._gamma</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setAdjacencyMatrix">
-<span class="sig-name descname"><span class="pre">setAdjacencyMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adjacencyMatrix</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setAdjacencyMatrix" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">setAdjacencyMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">adjacencyMatrix</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">np.ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setAdjacencyMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Changes the adjacency matrix of the operator to a user defined one.
+Might make more sense to not give the user control over this parameter, and make
+them instead change the graph entirely.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>adjacencyMatrix ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param adjacencyMatrix</dt>
+<dd class="field-odd"><p>New Numpy.ndarray adjacency matrix.</p>
+</dd>
+<dt class="field-even">type adjacencyMatrix</dt>
+<dd class="field-even"><p>Numpy.ndarray</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getAdjacencyMatrix">
+<span class="sig-name descname"><span class="pre">getAdjacencyMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.ndarray</span></span></span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getAdjacencyMatrix" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the current adjacency matrix of the operator.</p>
+<dl class="simple">
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._adjacencyMatrix</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>Numpy.ndarray</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setOperator">
-<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setOperator" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="QuantumWalk.Operator.Operator"><span class="pre">Operator</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setOperator" title="Permalink to this definition"></a></dt>
+<dd><p>Changes all the parameters of the current operator to user defined ones.</p>
 <dl class="simple">
-<dt>Args:</dt><dd><p>newOperator ([type]): [description]</p>
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param newOperator</dt>
+<dd class="field-odd"><p>New operator.</p>
+</dd>
+<dt class="field-even">type newOperator</dt>
+<dd class="field-even"><p>Operator</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.getOperator">
-<span class="sig-name descname"><span class="pre">getOperator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getOperator" title="Permalink to this definition"></a></dt>
-<dd><p>[summary]</p>
+<span class="sig-name descname"><span class="pre">getOperator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">numpy.matrix</span></span></span><a class="headerlink" href="#QuantumWalk.Operator.Operator.getOperator" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the numpy matrix associated with the current operator.</p>
 <dl class="simple">
-<dt>Returns:</dt><dd><p>[type]: [description]</p>
+<dt>Returns:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">return</dt>
+<dd class="field-odd"><p>self._operator</p>
+</dd>
+<dt class="field-even">rtype</dt>
+<dd class="field-even"><p>Numpy.matrix</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>
@@ -944,7 +1027,7 @@ This might not be needed and removed in the future.</p>
 <dt class="sig sig-object py" id="QuantumWalk.State.State.setState">
 <span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">State</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State.setState" title="Permalink to this definition"></a></dt>
 <dd><p>[summary]
-Changes all the parameters of the current state to a new user defined state.</p>
+Changes all the parameters of the current state to user defined ones.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
 <dt class="field-odd">param newState</dt>
