@@ -35,7 +35,6 @@ class Operator:
             self._adjacencyMatrix)
         self._time = 0
         self._gamma = 1
-        print(f"Operator {type(self._operator)}")
 
     def __mul__(self, other):
         """

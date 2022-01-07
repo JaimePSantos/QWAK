@@ -242,7 +242,7 @@ class QuantumWalkDao:
             :return: self._probDist.getProbDist()
             :rtype: ProbabilityDistribution
         """
-        return self._probDist.getProbDist()
+        return self._probDist
 
     def getNodeAmplitude(self, searchNode: int) -> complex:
         """
