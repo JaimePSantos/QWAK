@@ -8,12 +8,6 @@ let defaultInitState = [Math.floor(defaultN/2),Math.floor(defaultN/2)+1];
 let defaultGraph = 'nx.cycle_graph';
 let quantumWalk = new QuantumWalk(defaultN,defaultT,defaultGamma,defaultInitState,defaultGraph)
 
-let currentN = defaultN;
-let currentT = defaultT;
-let currentGamma = defaultGamma;
-let currentInitState = defaultInitState;
-let currentGraph = defaultGraph;
-
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
 let graphButton = document.getElementById("graphButton");
@@ -76,29 +70,29 @@ let setTimeRangeButtonPress = setTimeRangeButton.onclick = async () => {
 }
 
 let setInitStateButtonPress = setInitStateButton.onclick = async () => {
-  currentInitState = inputInitState.value;
-  eel.setInitState(currentInitState)
+  quantumWalk.initState = inputInitState.value;
+  eel.setInitState(quantumWalk.initState)
 }
 
 let setTimeButtonPress = setTimeButton.onclick = async () => {
-  currentT = parseInt(inputTime.value);
-  eel.setTime(currentT);
+  quantumWalk.time = parseInt(inputTime.value);
+  eel.setTime(quantumWalk.time);
 }
 
 let setGammaButtonPress = setGammaButton.onclick = async () => {
-  currentGamma = parseFloat(inputGamma.value);
-  eel.setGamma(currentGamma);
+  quantumWalk.gamma = parseFloat(inputGamma.value);
+  eel.setGamma(quantumWalk.gamma);
 }
 
 let setDimButtonPress = setDimButton.onclick = async () => {
-  currentN = parseInt(inputDim.value);
-  currentGraph = inputGraph.value;
-  eel.setDim(currentN,currentGraph);
+  quantumWalk.dim = parseInt(inputDim.value);
+  quantumWalk.graph = inputGraph.value;
+  eel.setDim(quantumWalk.dim,quantumWalk.graph);
 }
 
 let setGraphButtonPress = setGraphButton.onclick = async () => {
-  currentGraph = inputGraph.value;
-  eel.setGraph(currentGraph);
+  quantumWalk.graph = inputGraph.value;
+  eel.setGraph(quantumWalk.graph);
 }
 
 let goMultipleButtonPress = goMultipleButton.onclick = async () => {
