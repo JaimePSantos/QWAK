@@ -1,4 +1,4 @@
-import { defaultDist, cy } from "./tools.js";
+import { defaultDist, cy,data,data2 } from "./tools.js";
 import { QuantumWalk } from "./quantumwalk.js";
 
 let defaultN = 100;
@@ -53,6 +53,7 @@ let setInitStateRangeButton = document.getElementById("setInitStateRangeButton")
 let inputTimeRange = document.getElementById("inputTimeRange");
 let inputGammaRange = document.getElementById("inputGammaRange");
 let inputInitStateRange = document.getElementById("inputInitStateRange");
+
 let inputRangeInit = () => {
   inputTimeRange.value = defaultTimeList;
   inputGammaRange.value = defaultGammaList;
@@ -63,61 +64,6 @@ inputRangeInit()
 let ctx = document.getElementById("myChart").getContext("2d");
 let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
 let myDist = new Array();
-
-let data = {
-  type: "line",
-  data: {
-    labels: [...Array(defaultDist.length).keys()],
-    datasets: [
-      {
-        label: "Probability",
-        data: defaultDist,
-        borderWidth: 1,
-        fill: false,
-        borderColor: "rgb(21, 52, 228)",
-        tension: 0.1,
-        pointRadius: 0,
-      },
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-};
-
-let data2 = {
-  type: "line",
-  data: {
-    labels: [...Array(100).keys()],
-    datasets: [
-      {
-        label: "Probability",
-        data: [],
-        fill: false,
-        borderColor: "rgb(75, 192, 192)",
-        pointRadius: 0,
-      },
-    ],
-  },
-  options: {
-    scales: {
-      x: {
-        grid: {
-          display: false
-        }
-      },
-      y: {
-        grid: {
-          display: false
-        }
-      }
-    },
-  },
-};
 
 cy.layout({ name: "circle" }).run();
 

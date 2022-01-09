@@ -45,11 +45,6 @@ export let cy = cytoscape({
       },
     },
   ],
-
-  layout: {
-    name: "grid",
-    rows: 1,
-  },
 });
 
 
@@ -89,3 +84,58 @@ export let defaultDist = [
   (30, 0.00016666666666666666),
   (32, 3.3333333333333335e-5),
 ];
+
+export let data = {
+  type: "line",
+  data: {
+    labels: [...Array(defaultDist.length).keys()],
+    datasets: [
+      {
+        label: "Probability",
+        data: defaultDist,
+        borderWidth: 1,
+        fill: false,
+        borderColor: "rgb(21, 52, 228)",
+        tension: 0.1,
+        pointRadius: 0,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+};
+
+export let data2 = {
+  type: "line",
+  data: {
+    labels: [...Array(100).keys()],
+    datasets: [
+      {
+        label: "Probability",
+        data: [],
+        fill: false,
+        borderColor: "rgb(75, 192, 192)",
+        pointRadius: 0,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      x: {
+        grid: {
+          display: false
+        }
+      },
+      y: {
+        grid: {
+          display: false
+        }
+      }
+    },
+  },
+};
