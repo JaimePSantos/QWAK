@@ -34,7 +34,7 @@ class ProbabilityDistribution:
             self._probVec[st] = self._stateVec[st] * \
                                 np.conjugate(self._stateVec[st])
 
-    def setProbDist(self, newProbDist):
+    def setProbVec(self, newProbDist):
         """[summary]
 
         Args:
@@ -42,7 +42,7 @@ class ProbabilityDistribution:
         """
         self._probVec = newProbDist.getProbDist()
 
-    def getProbDist(self):
+    def getProbVec(self):
         """[summary]
 
         Returns:
@@ -60,3 +60,18 @@ class ProbabilityDistribution:
             [type]: [description]
         """
         return self._probVec.item(state)
+
+    def mean(self):
+        pos = np.arange(0,self._n)
+        m = 0
+        for x in range(self._n):
+            m += pos[x]*self._probVec[x]
+        return m
+
+    def std(self):
+        pos = np.arange(0,self._n)
+        std = 0
+        mean = self.mean()
+        for x in range(self._n):
+            std += self._probVec[x]*(pos[x] - mean)**2
+        return std
