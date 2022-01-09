@@ -101,7 +101,6 @@ let data2 = {
       },
     ],
   },
-  type: "line",
   options: {
     scales: {
       x: {
