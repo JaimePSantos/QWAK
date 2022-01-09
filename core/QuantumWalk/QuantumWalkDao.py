@@ -17,7 +17,7 @@ class QuantumWalkDao:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph) -> (()):
+    def __init__(self, graph: nx.Graph) -> ():
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.

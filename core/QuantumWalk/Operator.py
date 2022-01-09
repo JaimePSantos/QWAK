@@ -23,6 +23,10 @@ class Operator:
         decomposition. This was the chosen method since it is computationally cheaper than calculating
         the matrix exponent directly.
 
+        TODO: Permitir pesos no grafo.
+        TODO: Adicionar uma flag para usar o laplaciano ou adjacencia. Adj por default.
+        TODO: Verificar se a matriz ponderada e hermitiana ou nao.
+
         Args:
             :param graph: Graph where the walk will be performed.
             :type graph: NetworkX.Graph
@@ -35,7 +39,6 @@ class Operator:
             self._adjacencyMatrix)
         self._time = 0
         self._gamma = 1
-        print(f"Operator {type(self._operator)}")
 
     def __mul__(self, other):
         """

@@ -75,8 +75,9 @@ class State:
             :type nodeList: list
         """
         self._nodeList = nodeList
+        nodeAmp = np.sqrt(len(self._nodeList))
         for state in self._nodeList:
-            self._stateVec[state] = 1 / np.sqrt(len(self._nodeList))
+            self._stateVec[state] = 1 / nodeAmp
 
     def setDim(self, newDim: int) -> ():
         """
