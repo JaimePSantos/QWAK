@@ -1,10 +1,12 @@
 import { defaultDist, cy } from "./tools.js";
+import { QuantumWalk } from "./quantumwalk.js";
 
 let defaultN = 100;
 let defaultT = 30;
 let defaultGamma = (1/(2*Math.sqrt(2))).toFixed(2);
 let defaultInitState = [Math.floor(defaultN/2),Math.floor(defaultN/2)+1];
 let defaultGraph = 'nx.cycle_graph';
+let quantumWalk = new QuantumWalk(defaultN,defaultT,defaultGamma,defaultInitState,defaultGraph)
 
 let currentN = defaultN;
 let currentT = defaultT;

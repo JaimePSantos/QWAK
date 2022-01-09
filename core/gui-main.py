@@ -85,7 +85,8 @@ if __name__ == '__main__':
     def runWalk():
         qwController.buildWalk()
         qwProbabilities = qwController.getProbDist()
-        probLists = qwProbabilities.tolist()
+        qwProbVec = qwProbabilities.getProbVec()
+        probLists = qwProbVec.tolist()
         return probLists
     
     @eel.expose
@@ -96,7 +97,8 @@ if __name__ == '__main__':
         for t in range(timeList[0],timeList[1]):
             qwController.runWalk(t,gamma,initState)
             qwProbabilities = qwController.getProbDist()
-            probLists = qwProbabilities.tolist()
+            qwProbVec = qwProbabilities.getProbVec()
+            probLists = qwProbVec.tolist()
             qwProbList.append(probLists)
         return qwProbList
 
