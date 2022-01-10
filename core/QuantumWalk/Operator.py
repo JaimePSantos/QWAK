@@ -10,7 +10,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph) -> ():
+    def __init__(self, graph: nx.Graph,laplacian:bool=False) -> ():
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -28,11 +28,16 @@ class Operator:
         TODO: Verificar se a matriz ponderada e hermitiana ou nao.
 
         Args:
+            :param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
+            :type laplacian: bool
             :param graph: Graph where the walk will be performed.
             :type graph: NetworkX.Graph
         """
         self._graph = graph
-        self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
+        if laplacian:
+            self._adjacencyMatrix = nx.laplacian_matrix(graph).todense()
+        else:
+            self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(

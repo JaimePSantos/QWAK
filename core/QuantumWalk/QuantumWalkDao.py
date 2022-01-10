@@ -17,17 +17,19 @@ class QuantumWalkDao:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph) -> ():
+    def __init__(self, graph: nx.Graph,laplacian:bool = False) -> ():
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
 
         Args:
+            :param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
+            :type laplacian: bool
             :param graph: NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.
             :type graph: NetworkX.Graph
         """
         self._graph = graph
-        self._operator = Operator(self._graph)
+        self._operator = Operator(self._graph,laplacian)
         self._n = len(self._graph)
         self._initState = State(self._n)
         self._time = 0
