@@ -10,7 +10,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool=False) -> ():
+    def __init__(self, graph: nx.Graph,laplacian:bool=False) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -23,8 +23,6 @@ class Operator:
         decomposition. This was the chosen method since it is computationally cheaper than calculating
         the matrix exponent directly.
 
-        TODO: Permitir pesos no grafo.
-        TODO: Adicionar uma flag para usar o laplaciano ou adjacencia. Adj por default.
         TODO: Verificar se a matriz ponderada e hermitiana ou nao.
 
         Args:
@@ -83,7 +81,7 @@ class Operator:
         """
         return f"{self._operator}"
 
-    def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> ():
+    def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> None:
         """
         Builds operator matrix from optional time and transition rate parameters, defined by user.
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
@@ -104,7 +102,7 @@ class Operator:
         self._operator = np.multiply(self._eigenvectors, D)
         self._operator = self._operator @ self._eigenvectors.H
 
-    def setDim(self, newDim: int) -> ():
+    def setDim(self, newDim: int) -> None:
         """
         Changes the current operator dimensions to a user defined one.
 
@@ -125,7 +123,7 @@ class Operator:
         """
         return self._n
 
-    def setTime(self, newTime: float) -> ():
+    def setTime(self, newTime: float) -> None:
         """
         Changes the current operator time to a user defined one.
 
@@ -145,7 +143,7 @@ class Operator:
         """
         return self._time
 
-    def setGamma(self, newGamma: float) -> ():
+    def setGamma(self, newGamma: float) -> None:
         """
         Changes the current operator transition rate to a user defined one.
 
@@ -165,7 +163,7 @@ class Operator:
         """
         return self._gamma
 
-    def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> ():
+    def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
         """
         Changes the adjacency matrix of the operator to a user defined one.
         Might make more sense to not give the user control over this parameter, and make
@@ -187,7 +185,7 @@ class Operator:
         """
         return self._adjacencyMatrix
 
-    def setOperator(self, newOperator: Operator) -> ():
+    def setOperator(self, newOperator: Operator) -> None:
         """
         Changes all the parameters of the current operator to user defined ones.
 

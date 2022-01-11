@@ -3,20 +3,33 @@ import warnings
 import numpy as np
 
 from QuantumWalk.State import State
+from QuantumWalk.Operator import Operator
 
 warnings.filterwarnings("ignore")
 
 
 class QuantumWalk:
-    """[summary]
+    """
+    Class that represents the final state containing the amplitudes of a
+    continuous-time quantum walk.
+
     """
 
-    def __init__(self, state, operator):
-        """[summary]
+    def __init__(self, state: State, operator: Operator) -> None:
+        """
+        This object is initialized with a user inputted initial state and
+        operator.
+        The dimension of the quantum walk will then be loaded from the initial
+        state.
+        The final state will contain the amplitudes of the time evolution of
+        the initial state, as a function of the operator. This variable is initialized
+        as a state class.
 
         Args:
-            state ([type]): [description]
-            operator ([type]): [description]
+            :param state: Initial state which will be the basis of the time dependant evolution.
+            :type state: State
+            :param operator: Operator which will evolve the initial state.
+            :type operator: Operator.
         """
         self._n = state.getDim()
         self._initState = state.getStateVec()

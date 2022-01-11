@@ -17,7 +17,7 @@ class QuantumWalkDao:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool = False) -> ():
+    def __init__(self, graph: nx.Graph,laplacian:bool = False) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -36,7 +36,7 @@ class QuantumWalkDao:
         self._gamma = 1
         self._initStateList = [0]
 
-    def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> ():
+    def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
         with the given parameters. These can be accessed with their respective get methods.
@@ -59,7 +59,7 @@ class QuantumWalkDao:
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
         self._probDist.buildProbDist()
 
-    def buildWalk(self) -> ():
+    def buildWalk(self) -> None:
         """
         Given the current values of the class' attributes, runs the walk and calculates the amplitudes and probability
         distributions.
@@ -71,7 +71,7 @@ class QuantumWalkDao:
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
         self._probDist.buildProbDist()
 
-    def setDim(self, newDim: int, graphStr: str) -> ():
+    def setDim(self, newDim: int, graphStr: str) -> None:
         """
         Changes the current walk dimensions to a user defined one.
         Also takes a graph string to be
@@ -100,7 +100,7 @@ class QuantumWalkDao:
         """
         return self._n
 
-    def setGraph(self, newGraph: nx.Graph) -> ():
+    def setGraph(self, newGraph: nx.Graph) -> None:
         """
         Changes the current graph to a user defined one.
         Also recalculates the current operator and walk dimension.
@@ -123,7 +123,7 @@ class QuantumWalkDao:
         """
         return self._graph
 
-    def setInitState(self, newInitState: State) -> ():
+    def setInitState(self, newInitState: State) -> None:
         """
         Changes the current initial state to a user defined one.
 
@@ -144,7 +144,7 @@ class QuantumWalkDao:
         """
         return self._initState
 
-    def setTime(self, newTime: float) -> ():
+    def setTime(self, newTime: float) -> None:
         """
         Changes the current walk time to a user defined one.
 
@@ -164,7 +164,7 @@ class QuantumWalkDao:
         """
         return self._time
 
-    def setGamma(self, newGamma: float) -> ():
+    def setGamma(self, newGamma: float) -> None:
         """
         Changes the current walk transition rate to a user defined one.
 
@@ -184,7 +184,7 @@ class QuantumWalkDao:
         """
         return self._gamma
 
-    def setOperator(self, newOperator: Operator) -> ():
+    def setOperator(self, newOperator: Operator) -> None:
         """
         Changes the current walk operator a user defined one.
 
@@ -204,7 +204,7 @@ class QuantumWalkDao:
         """
         return self._operator
 
-    def setWalk(self, newWalk: State) -> ():
+    def setWalk(self, newWalk: State) -> None:
         """
         Changes current walk amplitudes to a user defined state.
         This might not be needed and removed in the future.
@@ -225,7 +225,7 @@ class QuantumWalkDao:
         """
         return self._quantumWalk.getWalk()
 
-    def setProbDist(self, newProbDist: object) -> ():
+    def setProbDist(self, newProbDist: object) -> None:
         """
         Changes current walk probability distribution to a user defined one.
         This might not be needed and removed in the future.

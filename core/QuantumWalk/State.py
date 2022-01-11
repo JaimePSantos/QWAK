@@ -10,7 +10,7 @@ class State:
     therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
 
-    def __init__(self, n: int, nodeList: list = [0]) -> ():
+    def __init__(self, n: int, nodeList: list = [0]) -> None:
         """
         Object is initialized with a mandatory user inputted dimension, an optional
         stateList parameter which will be used to create the amplitudes for each node in the state
@@ -64,7 +64,7 @@ class State:
         """
         return f"{self._stateVec}"
 
-    def buildState(self, nodeList: list) -> ():
+    def buildState(self, nodeList: list) -> None:
         """
         Builds state vector from state list, by creating a balanced superposition of all
         nodes in the nodeList.
@@ -79,7 +79,7 @@ class State:
         for state in self._nodeList:
             self._stateVec[state] = 1 / nodeAmp
 
-    def setDim(self, newDim: int) -> ():
+    def setDim(self, newDim: int) -> None:
         """
         Changes the current state dimension to a user defined one.
 
@@ -99,7 +99,7 @@ class State:
         """
         return self._n
 
-    def setNodeList(self, newNodeList: list) -> ():
+    def setNodeList(self, newNodeList: list) -> None:
         """
         Changes current node list to a user inputted one.
         This might not be needed and removed in the future.
@@ -120,7 +120,7 @@ class State:
         """
         return self._nodeList
 
-    def setStateVec(self, newVec: np.ndarray) -> ():
+    def setStateVec(self, newVec: np.ndarray) -> None:
         """
         Changes the column vector associated with the state to a user defined one.
 
@@ -140,7 +140,7 @@ class State:
         """
         return self._stateVec
 
-    def setState(self, newState: State) -> ():
+    def setState(self, newState: State) -> None:
         """[summary]
         Changes all the parameters of the current state to user defined ones.
 
