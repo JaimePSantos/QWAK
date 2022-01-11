@@ -25,23 +25,63 @@
     <div id="functionContainer" class="walk-container">
 
       <div class='first-half'>
-
-        <div class='grid-element'>
-          <div id="cy" class="graph-display"></div>
-          <button id="graphButton" class="function-button">GO!</button>
-
-            <ul class='input-fields'>
-              <li class='input-combo'>
-                <input type="number" step="1" min=2 name="time" id="inputDim" class="input-box"></input>
-                <button id="setDimButton" class="function-button">n</button>
-              </li>
-              <li class='input-combo'>
-                <input type="text" name="graph" id="inputGraph" class="input-box"></input>
-                <button id="setGraphButton" class="function-button">G</button>
-              </li>
-            </ul>
-
+        <!-- Tab links -->
+        <div class="tab">
+          <button class="tablinks" onclick="openGraph(event, 'GraphGenerator')" id = 'defaultOpen'>Graph Generator</button>
+          <button class="tablinks" onclick="openGraph(event, 'CustomGraph')">Custom Graph</button>
         </div>
+
+        <!-- Tab content -->
+        <div id="GraphGenerator" class="tabcontent">
+          <div class='grid-element'>
+            <div id="cy" class="graph-display"></div>
+            <button id="graphButton" class="function-button">GO!</button>
+              <ul class='input-fields'>
+                <li class='input-combo'>
+                  <input type="number" step="1" min=2 name="time" id="inputDim" class="input-box"></input>
+                  <button id="setDimButton" class="function-button">n</button>
+                </li>
+                <li class='input-combo'>
+                  <input type="text" name="graph" id="inputGraph" class="input-box"></input>
+                  <button id="setGraphButton" class="function-button">G</button>
+                </li>
+              </ul>
+          </div>
+        </div>
+        <div id="CustomGraph" class="tabcontent">
+          <div class='grid-element'>
+            <div id="cyCustom" class="graph-display"></div>
+            <button id="graphCustomButton" class="function-button">GO!</button>
+            <div class='input-row'>
+              <ul class='input-fields'>
+                <li class='input-combo'>
+                  <button id="addNodeButton" class="function-button">Node</button>
+                </li>
+                <li class='input-combo'>
+                  <button id="addEdgeButton" class="function-button">Edge</button>
+                </li>
+              </ul>
+            <ul class='input-fields'>
+                <li class='input-combo'>
+                  <button id="clearGraphButton" class="function-button">Clear</button>
+                </li>
+                <li class='input-combo'>
+                  <button id="placeHolderButtonGen" class="function-button">Pl</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='second-half'>
+         <!-- Tab links -->
+        <div class="tab2">
+          <button class="tablinks" onclick="openProb(event, 'ProbDist')" id = 'defaultOpen2'>Probability Distribution</button>
+          <button class="tablinks" onclick="openProb(event, 'ProbDistAnimation')">Animation</button>
+        </div>
+        <!-- Tab content -->
+        <div id="ProbDist" class="tabcontent2">
         <div class='grid-element'>
           <div class="prob-dist-chart-container">
             <canvas id="myChart" class="prob-dist-chart"></canvas>
@@ -70,14 +110,9 @@
             </ul>
           </div>
         </div>
-
-      </div>
-
-      <div class='second-half'>
-        <div class='grid-element'>
-          <div class='placeholder'></div>
-          <button id="placeholder3" class="function-button">GO!</button>
         </div>
+
+        <div id="ProbDistAnimation" class="tabcontent2">
         <div class='grid-element'>
           <div class="prob-dist-chart-container">
             <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
@@ -106,12 +141,59 @@
             </ul>
           </div>
         </div>
-
+        </div>
       </div>
 
     </div>
 
   </div>
+  <script>
+    function openGraph(evt, graph) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(graph).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    function openProb(evt, prob) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent2");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(prob).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    document.getElementById("defaultOpen").click();
+    document.getElementById("defaultOpen2").click();
+
+  </script>
 </body>
 
 </html>

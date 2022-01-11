@@ -10,38 +10,34 @@ from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 from QuantumWalk.QuantumWalkDao import QuantumWalkDao
 
 if __name__ == '__main__':
-    n = 102
-    t = 50
+    n = 200
+    t = 60
     gamma = 1 / (2 * np.sqrt(2))
     graph = nx.cycle_graph(n)
     G = nx.Graph()
-
-
-
-    for i in range(0,50):
-        G.add_edge(f"{i}",f"{i+1}",weight=2)
-
-    G.add_edge("50","51", weight=2)
-    G.add_edge("50","a", weight=2)
-    G.add_edge("50","b", weight=2)
-    G.add_edge("50","c", weight=2)
-
-    for i in range(51, 100):
-        G.add_edge(f"{i}", f"{i + 1}", weight=2)
-
-    G.add_edge("100", "0", weight=2)
-
-
     marked = [int(n / 2)]
-    print(nx.adjacency_matrix(G))
-    graph=G
 
+    for i in range(0,100):
+        G.add_edge(f"{i}",f"{i+1}",weight=2)
+        print(f" {i} ---- {i+1}")
+    G.add_edge("100","101", weight=2)
+    # G.add_edge("50","a", weight=2)
+    # G.add_edge("50","b", weight=2)
+    # G.add_edge("50","c", weight=2)
+    for i in range(101, 199):
+        G.add_edge(f"{i}", f"{i + 1}", weight=2)
+        print(f" {i} ---- {i+1}")
+    G.add_edge("199", "0", weight=2)
+
+    # print(nx.adjacency_matrix(G))
+
+    graph=G
     qwController = QuantumWalkDao(graph,True)
-    qwController.runWalk(30, gamma, [50,51])
+    qwController.runWalk(t, gamma, [100])
 
     qwProbabilities = qwController.getProbDist()
-
     qwProbVec = qwProbabilities.getProbVec()
+
     m = 0
     std = 0
     pos = np.arange(0,len(qwProbVec))
@@ -49,12 +45,14 @@ if __name__ == '__main__':
         m += pos[x] * qwProbVec[x]
 
     for x in range(len(qwProbVec)):
-        std += qwProbVec[x] * (pos[x] - m)**2
-    print(std)
+        std += (qwProbVec[x] * (pos[x] - m)**2)/(t**2)
 
+    print(G)
+    print(std)
+    nx.draw(G)
+    plt.show()
     plt.plot(qwProbVec)
     plt.show()
-
 
 
     # print(qwProbabilities.mean())
