@@ -71,7 +71,7 @@ class Operator:
         """
         return other * self._operator
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         String representation of the State class.
 
@@ -104,7 +104,7 @@ class Operator:
 
     def setDim(self, newDim: int) -> None:
         """
-        Changes the current operator dimensions to a user defined one.
+        Sets the current operator dimensions to a user defined one.
 
         Args:
             newDim ([type]): [description]
@@ -125,7 +125,7 @@ class Operator:
 
     def setTime(self, newTime: float) -> None:
         """
-        Changes the current operator time to a user defined one.
+        Sets the current operator time to a user defined one.
 
         Args:
             :param newTime: New operator time.
@@ -145,7 +145,7 @@ class Operator:
 
     def setGamma(self, newGamma: float) -> None:
         """
-        Changes the current operator transition rate to a user defined one.
+        Sets the current operator transition rate to a user defined one.
 
         Args:
             :param newGamma: New transition rate.
@@ -165,7 +165,7 @@ class Operator:
 
     def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
         """
-        Changes the adjacency matrix of the operator to a user defined one.
+        Sets the adjacency matrix of the operator to a user defined one.
         Might make more sense to not give the user control over this parameter, and make
         them instead change the graph entirely.
 
@@ -187,7 +187,7 @@ class Operator:
 
     def setOperator(self, newOperator: Operator) -> None:
         """
-        Changes all the parameters of the current operator to user defined ones.
+        Sets all the parameters of the current operator to user defined ones.
 
         Args:
             :param newOperator: New operator.

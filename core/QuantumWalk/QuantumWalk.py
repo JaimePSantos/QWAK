@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import warnings
 
 import numpy as np
@@ -23,7 +25,7 @@ class QuantumWalk:
         state.
         The final state will contain the amplitudes of the time evolution of
         the initial state, as a function of the operator. This variable is initialized
-        as a state class.
+        as an instance of State class.
 
         Args:
             :param state: Initial state which will be the basis of the time dependant evolution.
@@ -36,93 +38,116 @@ class QuantumWalk:
         self._operator = operator.getOperator()
         self._finalState = State(self._n)
 
-    def __str__(self):
-        """[summary]
+    def __str__(self) -> str:
+        """
+        String representation of the QuantumWalk class.
 
         Returns:
-            [type]: [description]
+            :return: f'{self._finalState.getStateVec()}'
+            :rtype: str
         """
-        return '%s' % self._finalState.getStateVec()
+        return f'{self._finalState.getStateVec()}'
 
-    def buildWalk(self):
-        """[summary]
+    def buildWalk(self) -> None:
+        """
+        Builds the final state of the quantum walk by setting it to the matrix
+        multiplication of the operator by the initial state.
         """
         self._finalState.setStateVec(
             np.matmul(self._operator, self._initState))
 
-    def setInitState(self, newInitState):
-        """[summary]
+    def setInitState(self, newInitState: State) -> None:
+        """
+        Sets the initial state of the quantum walk to a new user inputted one.
 
         Args:
-            newInitState ([type]): [description]
+            :param newInitState: New initial state for the quantum walk.
+            :type newInitState: State
         """
-        self._initState = newInitState
+        self._initState.setState(newInitState)
 
-    def getInitState(self):
-        """[summary]
+    def getInitState(self) -> State:
+        """
+        Gets the initial state of the quantum walk.
 
         Returns:
-            [type]: [description]
+            :return: self._initState
+            :rtype: State
         """
         return self._initState
 
-    def setDim(self, newDim):
-        """[summary]
+    def setDim(self, newDim: int) -> None:
+        """
+        Sets the current quantum walk dimension to a user defined one.
 
         Args:
-            newDim ([type]): [description]
+            :param newDim: New quantum walk dimension.
+            :type newDim: int
         """
         self._n = newDim
 
-    def getDim(self):
-        """[summary]
+    def getDim(self) -> int:
+        """
+        Gets the current state dimension.
 
         Returns:
-            [type]: [description]
+            :return: self._n
+            :rtype: int
         """
         return self._n
 
-    def setOperator(self, newOperator):
-        """[summary]
+    def setOperator(self, newOperator: Operator) -> None:
+        """
+        Sets the current operator to a user defined one.
 
         Args:
-            newOperator ([type]): [description]
+            :param newOperator: New quantum walk operator.
+            :type newOperator: Operator
         """
-        self._operator = newOperator
+        self._operator.setOperator(newOperator)
 
-    def getOperator(self):
-        """[summary]
+    def getOperator(self) -> Operator:
+        """
+        Gets the current operator.
 
         Returns:
-            [type]: [description]
+            :return: self._operator
+            :rtype: Operator
         """
         return self._operator
 
-    def setWalk(self, newWalk):
-        """[summary]
+    def setWalk(self, newWalk: QuantumWalk) -> None:
+        """
+        Sets all the parameters of the current quantum walk to user defined ones.
 
         Args:
-            newWalk ([type]): [description]
+            :param newWalk: New quantum walk.
+            :type newWalk: QuantumWalk
         """
-        self._initState = newWalk.getInitState()
-        self._operator = newWalk.getOperator()
-        self._finalState = newWalk.getWalk()
+        self._initState.setState(newWalk.getInitState())
+        self._operator.setOperator(newWalk.getOperator())
+        self._finalState.setState(newWalk.getWalk())
 
-    def getWalk(self):
-        """[summary]
+    def getWalk(self) -> State:
+        """
+        Gets the final state associated with the walk.
 
         Returns:
-            [type]: [description]
+            :return: self._finalState
+            :rtype: State
         """
         return self._finalState
 
-    def getStateAmplitude(self, state):
-        """[summary]
+    def searchNodeAmplitude(self, searchNode):
+        """
+        Searches and gets the amplitude associated with a given node.
 
         Args:
-            state ([type]): [description]
+            :param searchNode: User inputted node for the search.
+            :type searchNode: int
 
         Returns:
-            [type]: [description]
+            :return: self._finalState.getStateVec().item(searchNode)
+            :rtype: complex
         """
-        return self._finalState.getStateVec().item(state)
+        return self._finalState.getStateVec().item(searchNode)

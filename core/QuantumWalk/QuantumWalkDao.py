@@ -73,7 +73,7 @@ class QuantumWalkDao:
 
     def setDim(self, newDim: int, graphStr: str) -> None:
         """
-        Changes the current walk dimensions to a user defined one.
+        Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
 
@@ -102,7 +102,7 @@ class QuantumWalkDao:
 
     def setGraph(self, newGraph: nx.Graph) -> None:
         """
-        Changes the current graph to a user defined one.
+        Sets the current graph to a user defined one.
         Also recalculates the current operator and walk dimension.
 
         Args:
@@ -125,7 +125,7 @@ class QuantumWalkDao:
 
     def setInitState(self, newInitState: State) -> None:
         """
-        Changes the current initial state to a user defined one.
+        Sets the current initial state to a user defined one.
 
         Args:
             :param newInitState: New initial state.
@@ -146,7 +146,7 @@ class QuantumWalkDao:
 
     def setTime(self, newTime: float) -> None:
         """
-        Changes the current walk time to a user defined one.
+        Sets the current walk time to a user defined one.
 
         Args:
             :param newTime: New time.
@@ -166,7 +166,7 @@ class QuantumWalkDao:
 
     def setGamma(self, newGamma: float) -> None:
         """
-        Changes the current walk transition rate to a user defined one.
+        Sets the current walk transition rate to a user defined one.
 
         Args:
             :param newGamma: New transition rate.
@@ -186,7 +186,7 @@ class QuantumWalkDao:
 
     def setOperator(self, newOperator: Operator) -> None:
         """
-        Changes the current walk operator a user defined one.
+        Sets the current walk operator a user defined one.
 
         Args:
             :param newOperator: New operator.
@@ -206,7 +206,7 @@ class QuantumWalkDao:
 
     def setWalk(self, newWalk: State) -> None:
         """
-        Changes current walk amplitudes to a user defined state.
+        Sets current walk amplitudes to a user defined state.
         This might not be needed and removed in the future.
 
         Args:
@@ -227,7 +227,7 @@ class QuantumWalkDao:
 
     def setProbDist(self, newProbDist: object) -> None:
         """
-        Changes current walk probability distribution to a user defined one.
+        Sets current walk probability distribution to a user defined one.
         This might not be needed and removed in the future.
 
         Args:
@@ -246,7 +246,7 @@ class QuantumWalkDao:
         """
         return self._probDist
 
-    def getNodeAmplitude(self, searchNode: int) -> complex:
+    def searchNodeAmplitude(self, searchNode: int) -> complex:
         """
         Searches and gets the amplitude associated with a given node.
 
@@ -255,13 +255,13 @@ class QuantumWalkDao:
             :type searchNode: int
 
         Returns:
-            :return: self._quantumWalk.getStateAmplitude(searchNode)
+            :return: self._quantumWalk.searchNodeAmplitude(searchNode)
             :rtype: complex
 
         """
-        return self._quantumWalk.getStateAmplitude(searchNode)
+        return self._quantumWalk.searchNodeAmplitude(searchNode)
 
-    def getNodeProbability(self, searchNode: int) -> float:
+    def searchNodeProbability(self, searchNode: int) -> float:
         """
         Searches and gets the probability associated with a given node.
 
@@ -270,7 +270,7 @@ class QuantumWalkDao:
             :type searchNode: int
 
         Returns:
-            :return: self._probDist.getStateProbability(searchNode)
+            :return: self._probDist.getNodeProbability(searchNode)
             :rtype: float
         """
         return self._probDist.getStateProbability(searchNode)

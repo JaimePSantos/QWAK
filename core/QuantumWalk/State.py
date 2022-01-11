@@ -81,7 +81,7 @@ class State:
 
     def setDim(self, newDim: int) -> None:
         """
-        Changes the current state dimension to a user defined one.
+        Sets the current state dimension to a user defined one.
 
         Args:
             :param newDim: New state dimension.
@@ -101,7 +101,7 @@ class State:
 
     def setNodeList(self, newNodeList: list) -> None:
         """
-        Changes current node list to a user inputted one.
+        Sets current node list to a user inputted one.
         This might not be needed and removed in the future.
 
         Args:
@@ -122,7 +122,7 @@ class State:
 
     def setStateVec(self, newVec: np.ndarray) -> None:
         """
-        Changes the column vector associated with the state to a user defined one.
+        Sets the column vector associated with the state to a user defined one.
 
         Args:
             :param newVec: New column vector for the state
@@ -142,7 +142,7 @@ class State:
 
     def setState(self, newState: State) -> None:
         """[summary]
-        Changes all the parameters of the current state to user defined ones.
+        Sets all the parameters of the current state to user defined ones.
 
         Args:
             :param newState: New state.
