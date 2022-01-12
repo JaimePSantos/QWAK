@@ -270,7 +270,7 @@ class QuantumWalkDao:
             :type searchNode: int
 
         Returns:
-            :return: self._probDist.getNodeProbability(searchNode)
+            :return: self._probDist.searchNodeProbability(searchNode)
             :rtype: float
         """
-        return self._probDist.getStateProbability(searchNode)
+        return self._probDist.searchNodeProbability(searchNode)
