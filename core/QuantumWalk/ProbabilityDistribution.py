@@ -111,4 +111,4 @@ class ProbabilityDistribution:
         std = 0
         for x in range(self._n):
             std += self._probVec[x]*(pos[x] - self.mean())**2
-        return float(std)
+        return float(np.sqrt(std))

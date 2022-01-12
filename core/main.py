@@ -21,9 +21,9 @@ if __name__ == '__main__':
         G.add_edge(f"{i}",f"{i+1}",weight=2)
         # print(f" {i} ---- {i+1}")
     G.add_edge("100","101", weight=2)
-    # G.add_edge("50","a", weight=2)
-    # G.add_edge("50","b", weight=2)
-    # G.add_edge("50","c", weight=2)
+    G.add_edge("100","a", weight=2)
+    G.add_edge("100","b", weight=2)
+    G.add_edge("100","c", weight=2)
     for i in range(101, 199):
         G.add_edge(f"{i}", f"{i + 1}", weight=2)
         # print(f" {i} ---- {i+1}")
@@ -31,8 +31,8 @@ if __name__ == '__main__':
 
     # print(nx.adjacency_matrix(G))
 
-    graph=G
-    qwController = QuantumWalkDao(graph,True)
+    # graph=G
+    qwController = QuantumWalkDao(graph,laplacian=True)
     qwController.runWalk(t, gamma, [100])
 
     qwProbabilities = qwController.getProbDist()

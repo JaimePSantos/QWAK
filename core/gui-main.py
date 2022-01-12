@@ -15,6 +15,7 @@ dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, '../GraphicalInterface')
 eel.init(guiPath)
 
+#TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
 
 if __name__ == '__main__':
     n = 100
