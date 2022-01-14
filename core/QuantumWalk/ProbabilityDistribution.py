@@ -2,76 +2,112 @@ import warnings
 
 import numpy as np
 
+from QuantumWalk.State import State
+
 warnings.filterwarnings("ignore")
 
 
 class ProbabilityDistribution:
-    """[summary]
+    """
+    Class containing the vector containing the probabilities associated with the
+    final state of a continuous-time quantum walk.
+
     """
 
-    def __init__(self, state):
-        """[summary]
+    def __init__(self, state: State) -> None:
+        """
+        The dimension of the probability vector will then be loaded from
+        the state inputted by the user.
+        The vector containing the probabilities will be initialized full of zeros
+        with the dimension obtained from the state.
 
         Args:
-            state ([type]): [description]
+            :param state: State to be converted into a probability.
+            :type state: State
         """
         self._n = state.getDim()
         self._stateVec = state.getStateVec()
         self._probVec = np.zeros((self._n, 1))
 
-    def __str__(self):
-        """[summary]
+    def __str__(self) -> str:
+        """
+        String representation of the Probability Distribution class.
 
         Returns:
-            [type]: [description]
+            :return: f'{self._probVec}'
+            :rtype: str
         """
-        return '%s' % self._probVec
+        return f'{self._probVec}'
 
-    def buildProbDist(self):
-        """[summary]
+    def buildProbDist(self) -> None:
+        """
+        Builds the probability vector by multiplying the user inputted
+        amplitude state by its conjugate.
+        TODO: Nao devia ser pelo complexo conjugado?
+
         """
         for st in range(self._n):
             self._probVec[st] = self._stateVec[st] * \
                                 np.conjugate(self._stateVec[st])
 
-    def setProbVec(self, newProbDist):
-        """[summary]
+    def setProbVec(self, newProbVec: np.ndarray) -> None:
+        """
+        Sets the current probability vector to a user inputted one.
 
         Args:
-            newProbDist ([type]): [description]
+            :param newProbVec: New probability vector for the distribution.
+            :type newProbVec: Numpy.ndarray
         """
-        self._probVec = newProbDist.getProbDist()
+        self._probVec = newProbVec.getProbDist()
 
-    def getProbVec(self):
-        """[summary]
+    def getProbVec(self) -> np.ndarray:
+        """
+        Gets the probability vector associated with a distribution.
 
         Returns:
-            [type]: [description]
+            :return: self._probVec
+            :rtype: Numpy.ndarray
         """
         return self._probVec
 
-    def getStateProbability(self, state):
-        """[summary]
+    def searchNodeProbability(self, searchNode: int) -> float:
+        """
+        Searches and gets the probability associated with a given node.
 
         Args:
-            state ([type]): [description]
+            :param node: User inputted node for the search.
+            :type state: int
 
         Returns:
-            [type]: [description]
+            :return: self._probVec.item(searchNode)
+            :rtype: float
         """
-        return self._probVec.item(state)
+        return self._probVec.item(searchNode)
 
-    def mean(self):
+    def mean(self) -> float:
+        """
+        Gets the mean of the current probability distribution.
+
+        Returns:
+            :return: float(m)
+            :rtype: float
+        """
         pos = np.arange(0,self._n)
         m = 0
         for x in range(self._n):
             m += pos[x]*self._probVec[x]
-        return m
+        return float(m)
 
-    def std(self):
+    def stdev(self) -> float:
+        """
+        Gets the standard deviation of the current probability distribution.
+
+        Returns:
+            :return: float(std)
+            :rtype: float
+        """
         pos = np.arange(0,self._n)
         std = 0
-        mean = self.mean()
         for x in range(self._n):
-            std += self._probVec[x]*(pos[x] - mean)**2
-        return std
+            std += self._probVec[x]*(pos[x] - self.mean())**2
+        return float(np.sqrt(std))

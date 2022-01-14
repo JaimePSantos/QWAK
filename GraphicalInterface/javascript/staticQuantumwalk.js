@@ -1,13 +1,10 @@
-export class QuantumWalk {
-    constructor(_dim,_time,_gamma,_initState,_graph,_timeList,_gammaList,_initStateList) {
+export class StaticQuantumwalk {
+    constructor(_dim,_time,_gamma,_initState,_graph) {
         this._dim = _dim;
         this._time = _time;
         this._gamma = _gamma;
         this._initState = _initState;
         this._graph = _graph;
-        this._timeList = _timeList;
-        this._gammaList = _gammaList;
-        this._initStateList = _initStateList;
     }
 
     get dim(){
@@ -48,29 +45,5 @@ export class QuantumWalk {
 
     set graph(newGraph){
         this._graph = newGraph;
-    }
-
-    get timeList(){
-        return this._timeList;
-    }
-
-    set timeList(newTimeList){
-        this._timeList = newTimeList;
-    }
-
-    get gammaList(){
-        return this._gammaList;
-    }
-
-    set gammaList(newGammaList){
-        this._gammaList = newGammaList;
-    }
-
-    get initStateList(){
-        return this._initStateList;
-    }
-
-    set initStateList(newInitStateList){
-        this._initStateList = newInitStateList;
     }
 }

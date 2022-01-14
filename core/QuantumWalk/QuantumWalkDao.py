@@ -11,7 +11,7 @@ class QuantumWalkDao:
         Data access class that combines all three components required to perform a continuous-time quantum walk,
         given by the multiplication of an operator (represented by the Operator class) by an initial
         state (State class).
-        This multiplication is achieved in the QuantumWalk class, which returns a final state (State
+        This multiplication is achieved in the StaticQuantumwalk class, which returns a final state (State
         Class) representing the amplitudes of each state associated with a graph node.
         These amplitudes can then be transformed to probability distributions (ProbabilityDistribution class) suitable
         for plotting with matplotlib, or your package of choice.
@@ -31,10 +31,11 @@ class QuantumWalkDao:
         self._graph = graph
         self._operator = Operator(self._graph,laplacian)
         self._n = len(self._graph)
-        self._initState = State(self._n)
+        self._initStateList = [0]
+        self._initState = State(self._n,self._initStateList)
         self._time = 0
         self._gamma = 1
-        self._initStateList = [0]
+
 
     def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> None:
         """
@@ -53,6 +54,7 @@ class QuantumWalkDao:
         self._gamma = gamma
         self._initStateList = initStateList
         self._initState.buildState(self._initStateList)
+        print(f"Inside RUnwalk {self._initState.getNodeList()}")
         self._operator.buildDiagonalOperator(self._time, self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -61,15 +63,17 @@ class QuantumWalkDao:
 
     def buildWalk(self) -> None:
         """
+        DEPRECATED: Please user runWalk instead.
         Given the current values of the class' attributes, runs the walk and calculates the amplitudes and probability
         distributions.
         """
-        self._initState.buildState(self._initStateList)
-        self._operator.buildDiagonalOperator(self._time, self._gamma)
-        self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._quantumWalk.buildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
-        self._probDist.buildProbDist()
+        print(f"Deprecated function, please user runWalk instead.")
+        # self._initState.buildState(self._initStateList)
+        # self._operator.buildDiagonalOperator(self._time, self._gamma)
+        # self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        # self._quantumWalk.buildWalk()
+        # self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
+        # self._probDist.buildProbDist()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
         """
@@ -270,7 +274,7 @@ class QuantumWalkDao:
             :type searchNode: int
 
         Returns:
-            :return: self._probDist.getNodeProbability(searchNode)
+            :return: self._probDist.searchNodeProbability(searchNode)
             :rtype: float
         """
-        return self._probDist.getStateProbability(searchNode)
+        return self._probDist.searchNodeProbability(searchNode)

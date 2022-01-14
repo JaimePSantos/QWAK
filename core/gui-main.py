@@ -15,76 +15,97 @@ dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, '../GraphicalInterface')
 eel.init(guiPath)
 
+#TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
+#TODO: Grafico de animacao do JavaScript mexe com o tamanho dos picos.
 
 if __name__ == '__main__':
+    global n, t, gamma, initState, staticQuantumWalk
     n = 100
     t = 30
     gamma = 1/(2*np.sqrt(2))
-    initState = [int(n/2),int(n/2)+1]
+    # initState = [int(n/2),int(n/2)+1]
+    initState = [50,51]
     graph = nx.cycle_graph(n)
-    qwController = QuantumWalkDao(graph)
-    qwController.runWalk(t,gamma,initState)
+    staticQuantumWalk = QuantumWalkDao(graph)
+    staticQuantumWalk.runWalk(t, gamma, initState)
 
-    global timeList
+    global timeList,gammaList,initStateList,dynamicQuantumWalk
     timeList = [0,100]
-    gammaList = [gamma]
-    initStateList = [initState]
+    gammaList = [1/(2*np.sqrt(2))]
+    initStateList = [[int(n/2),int(n/2)+1]]
+    dynamicQuantumWalk = QuantumWalkDao(graph)
+    dynamicQuantumWalk.runWalk(timeList[0], gammaList[0], initStateList[0])
 
     @eel.expose
     def setTimeList(newTimeList):
         global timeList
         print(timeList)
-        timeList = list(map(int,newTimeList.split(',')))
+        timeList = list(map(float,newTimeList.split(',')))
         print(timeList)
+
+    @eel.expose
+    def setGammaList(newGammaList):
+        global gammaList
+        gammaList = list(map(float,newGammaList.split(',')))
+
+    @eel.expose
+    def setInitStateList(newInitStateList):
+        global initStateList
+        initStateList = []
+        parsedInitState = newInitStateList.split(';')
+        for initState in parsedInitState:
+            initStateList.append(list(map(int,initState.split(','))))
 
     @eel.expose
     def setInitState(initStateStr):
         initStateList = list(map(int,initStateStr.split(',')))
-        newState = State(qwController.getDim())
+        print(f"InitStatestr {initStateStr}\t initStateList {initStateList}")
+        newState = State(staticQuantumWalk.getDim())
         newState.buildState(initStateList)
-        qwController.setInitState(newState)
+        staticQuantumWalk.setInitState(newState)
 
     @eel.expose
     def getInitState():
-        return qwController.getInitState()
+        return staticQuantumWalk.getInitState()
         
     @eel.expose
     def setDim(newDim,graphStr):
-        qwController.setDim(newDim,graphStr)
+        staticQuantumWalk.setDim(newDim, graphStr)
 
     @eel.expose
     def getDim():
-        return qwController.getDim()
+        return staticQuantumWalk.getDim()
         
     @eel.expose
     def setGraph(newGraph):
-        newGraph = eval(newGraph + f"({qwController.getDim()})")
-        qwController.setGraph(newGraph)
+        newGraph = eval(newGraph + f"({staticQuantumWalk.getDim()})")
+        staticQuantumWalk.setGraph(newGraph)
 
     @eel.expose
     def getGraph():
-        return qwController.getGraph()
+        return staticQuantumWalk.getGraph()
 
     @eel.expose
     def setTime(newTime):
-        qwController.setTime(newTime)
+        staticQuantumWalk.setTime(newTime)
     
     @eel.expose
     def getTime():
-        return qwController.getTime()
+        return staticQuantumWalk.getTime()
 
     @eel.expose
     def setGamma(newGamma):
-        qwController.setGamma(newGamma)
+        staticQuantumWalk.setGamma(newGamma)
     
     @eel.expose
     def getGamma():
-        return qwController.getGamma()
+        return staticQuantumWalk.getGamma()
 
     @eel.expose
     def runWalk():
-        qwController.buildWalk()
-        qwProbabilities = qwController.getProbDist()
+        global staticQuantumWalk,n,t,gamma,initState
+        staticQuantumWalk.runWalk(t,gamma,initState)
+        qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()
         return probLists
@@ -92,11 +113,11 @@ if __name__ == '__main__':
     @eel.expose
     def runMultipleWalks():
         qwProbList = []
-        global timeList
-        print(qwController.getDim())
-        for t in range(timeList[0],timeList[1]):
-            qwController.runWalk(t,gamma,initState)
-            qwProbabilities = qwController.getProbDist()
+        global timeList,gammaList,initStateList,dynamicQuantumWalk
+        timeRange = np.linspace(timeList[0],timeList[1],int(timeList[1]))
+        for t in timeRange:
+            dynamicQuantumWalk.runWalk(t, gammaList[0], initStateList[0])
+            qwProbabilities = dynamicQuantumWalk.getProbDist()
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
             qwProbList.append(probLists)
@@ -104,7 +125,7 @@ if __name__ == '__main__':
 
     @eel.expose
     def graphToJson():
-        graph = qwController.getGraph()
+        graph = staticQuantumWalk.getGraph()
         myCytGraph = nx.cytoscape_data(graph)
         return myCytGraph
 

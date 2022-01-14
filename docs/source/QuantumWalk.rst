@@ -1,45 +1,45 @@
-QuantumWalk package
+StaticQuantumwalk package
 ===================
 
 Submodules
 ----------
 
-QuantumWalk.Operator module
+StaticQuantumwalk.Operator module
 ---------------------------
 
-.. automodule:: QuantumWalk.Operator
+.. automodule:: StaticQuantumwalk.Operator
    :members:
    :undoc-members:
    :show-inheritance:
 
-QuantumWalk.ProbabilityDistribution module
+StaticQuantumwalk.ProbabilityDistribution module
 ------------------------------------------
 
-.. automodule:: QuantumWalk.ProbabilityDistribution
+.. automodule:: StaticQuantumwalk.ProbabilityDistribution
    :members:
    :undoc-members:
    :show-inheritance:
 
-QuantumWalk.QuantumWalk module
+StaticQuantumwalk.StaticQuantumwalk module
 ------------------------------
 
-.. automodule:: QuantumWalk.QuantumWalk
+.. automodule:: StaticQuantumwalk.StaticQuantumwalk
    :members:
    :undoc-members:
    :show-inheritance:
 
-QuantumWalk.QuantumWalkDao module
+StaticQuantumwalk.QuantumWalkDao module
 ---------------------------------
 
-.. automodule:: QuantumWalk.QuantumWalkDao
+.. automodule:: StaticQuantumwalk.QuantumWalkDao
    :members:
    :undoc-members:
    :show-inheritance:
 
-QuantumWalk.State module
+StaticQuantumwalk.State module
 ------------------------
 
-.. automodule:: QuantumWalk.State
+.. automodule:: StaticQuantumwalk.State
    :members:
    :undoc-members:
    :show-inheritance:
@@ -47,7 +47,7 @@ QuantumWalk.State module
 Module contents
 ---------------
 
-.. automodule:: QuantumWalk
+.. automodule:: StaticQuantumwalk
    :members:
    :undoc-members:
    :show-inheritance:

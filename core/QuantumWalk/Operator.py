@@ -24,6 +24,7 @@ class Operator:
         the matrix exponent directly.
 
         TODO: Verificar se a matriz ponderada e hermitiana ou nao.
+        TODO: Funcao para fazermos um loading screen na criacao do operador.
 
         Args:
             :param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
