@@ -31,10 +31,11 @@ class QuantumWalkDao:
         self._graph = graph
         self._operator = Operator(self._graph,laplacian)
         self._n = len(self._graph)
-        self._initState = State(self._n)
+        self._initStateList = [0]
+        self._initState = State(self._n,self._initStateList)
         self._time = 0
         self._gamma = 1
-        self._initStateList = [0]
+
 
     def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> None:
         """
@@ -53,6 +54,7 @@ class QuantumWalkDao:
         self._gamma = gamma
         self._initStateList = initStateList
         self._initState.buildState(self._initStateList)
+        print(f"Inside RUnwalk {self._initState.getNodeList()}")
         self._operator.buildDiagonalOperator(self._time, self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -61,15 +63,17 @@ class QuantumWalkDao:
 
     def buildWalk(self) -> None:
         """
+        DEPRECATED: Please user runWalk instead.
         Given the current values of the class' attributes, runs the walk and calculates the amplitudes and probability
         distributions.
         """
-        self._initState.buildState(self._initStateList)
-        self._operator.buildDiagonalOperator(self._time, self._gamma)
-        self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._quantumWalk.buildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
-        self._probDist.buildProbDist()
+        print(f"Deprecated function, please user runWalk instead.")
+        # self._initState.buildState(self._initStateList)
+        # self._operator.buildDiagonalOperator(self._time, self._gamma)
+        # self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        # self._quantumWalk.buildWalk()
+        # self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
+        # self._probDist.buildProbDist()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
         """

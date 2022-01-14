@@ -19,10 +19,12 @@ eel.init(guiPath)
 #TODO: Grafico de animacao do JavaScript mexe com o tamanho dos picos.
 
 if __name__ == '__main__':
+    global n, t, gamma, initState, staticQuantumWalk
     n = 100
     t = 30
     gamma = 1/(2*np.sqrt(2))
-    initState = [int(n/2),int(n/2)+1]
+    # initState = [int(n/2),int(n/2)+1]
+    initState = [50,51]
     graph = nx.cycle_graph(n)
     staticQuantumWalk = QuantumWalkDao(graph)
     staticQuantumWalk.runWalk(t, gamma, initState)
@@ -57,6 +59,7 @@ if __name__ == '__main__':
     @eel.expose
     def setInitState(initStateStr):
         initStateList = list(map(int,initStateStr.split(',')))
+        print(f"InitStatestr {initStateStr}\t initStateList {initStateList}")
         newState = State(staticQuantumWalk.getDim())
         newState.buildState(initStateList)
         staticQuantumWalk.setInitState(newState)
@@ -100,7 +103,8 @@ if __name__ == '__main__':
 
     @eel.expose
     def runWalk():
-        staticQuantumWalk.buildWalk()
+        global staticQuantumWalk,n,t,gamma,initState
+        staticQuantumWalk.runWalk(t,gamma,initState)
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()

@@ -55,7 +55,6 @@ inputRangeInit()
 
 let ctx = document.getElementById("myChart").getContext("2d");
 let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
-let myDist = new Array();
 
 cy.layout({name: "circle"}).run();
 
@@ -124,8 +123,8 @@ let graphButtonPress = graphButton.onclick = async () => {
 };
 
 let goButtonPress = goButton.onclick = async () => {
-    myDist = await getWalk();
-    let distList = myDist.flat();
+    let walk = await getWalk();
+    let distList = walk.flat();
     data.data.datasets[0].data = distList;
     data.data.labels = [...Array(distList.length).keys()];
     myChart.destroy();
