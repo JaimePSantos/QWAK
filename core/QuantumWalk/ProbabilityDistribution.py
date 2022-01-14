@@ -28,7 +28,6 @@ class ProbabilityDistribution:
         self._n = state.getDim()
         self._stateVec = state.getStateVec()
         self._probVec = np.zeros((self._n, 1))
-        print(type(self._probVec))
 
     def __str__(self) -> str:
         """

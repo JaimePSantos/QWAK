@@ -89,7 +89,7 @@ if __name__ == '__main__':
     # print("\tNormal operator took %s seconds. (linalg.expm)" % executionTimeExpm)
     # # print(op.getOperator())
     #
-    # walk = QuantumWalk(initState,op)
+    # walk = StaticQuantumwalk(initState,op)
     # startTimeWalk = timeit.default_timer()
     # walk.buildWalk()
     # endTimeWalk = timeit.default_timer()

@@ -1,5 +1,5 @@
 import {defaultDist, cy, data, data2} from "./tools.js";
-import {QuantumWalk} from "./quantumwalk.js";
+import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
@@ -33,7 +33,8 @@ let defaultGraph = 'nx.cycle_graph';
 let defaultTimeList = [0, 100];
 let defaultGammaList = [(1 / (2 * Math.sqrt(2))).toFixed(2)];
 let defaultInitStateList = [[Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1]];
-let quantumWalk = new QuantumWalk(defaultN, defaultT, defaultGamma, defaultInitState, defaultGraph, defaultTimeList, defaultGammaList, defaultInitStateList)
+let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultGamma, defaultInitState, defaultGraph)
+let dynamicQuantumWalk = new StaticQuantumwalk(defaultGraph,defaultTimeList, defaultGammaList,defaultInitStateList)
 
 let inputInit = () => {
     inputTime.value = defaultT;
@@ -61,35 +62,45 @@ cy.layout({name: "circle"}).run();
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
+let setInitStateRangeButtonPress = setInitStateRangeButton.onclick = async () => {
+    dynamicQuantumWalk.initStateList = inputInitStateRange.value;
+    eel.setInitStateList(dynamicQuantumWalk.initStateList);
+}
+
+let setGammaRangeButtonPress = setGammaRangeButton.onclick = async () => {
+    dynamicQuantumWalk.gammaList = inputGammaRange.value;
+    eel.setGammaList(dynamicQuantumWalk.gammaList)
+}
+
 let setTimeRangeButtonPress = setTimeRangeButton.onclick = async () => {
-    quantumWalk.timeList = inputTimeRange.value;
-    eel.setTimeList(quantumWalk.timeList)
+    dynamicQuantumWalk.timeList = inputTimeRange.value;
+    eel.setTimeList(dynamicQuantumWalk.timeList)
 }
 
 let setInitStateButtonPress = setInitStateButton.onclick = async () => {
-    quantumWalk.initState = inputInitState.value;
-    eel.setInitState(quantumWalk.initState)
+    staticQuantumWalk.initState = inputInitState.value;
+    eel.setInitState(staticQuantumWalk.initState)
 }
 
 let setTimeButtonPress = setTimeButton.onclick = async () => {
-    quantumWalk.time = parseInt(inputTime.value);
-    eel.setTime(quantumWalk.time);
+    staticQuantumWalk.time = parseInt(inputTime.value);
+    eel.setTime(staticQuantumWalk.time);
 }
 
 let setGammaButtonPress = setGammaButton.onclick = async () => {
-    quantumWalk.gamma = parseFloat(inputGamma.value);
-    eel.setGamma(quantumWalk.gamma);
+    staticQuantumWalk.gamma = parseFloat(inputGamma.value);
+    eel.setGamma(staticQuantumWalk.gamma);
 }
 
 let setDimButtonPress = setDimButton.onclick = async () => {
-    quantumWalk.dim = parseInt(inputDim.value);
-    quantumWalk.graph = inputGraph.value;
-    eel.setDim(quantumWalk.dim, quantumWalk.graph);
+    staticQuantumWalk.dim = parseInt(inputDim.value);
+    staticQuantumWalk.graph = inputGraph.value;
+    eel.setDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
 }
 
 let setGraphButtonPress = setGraphButton.onclick = async () => {
-    quantumWalk.graph = inputGraph.value;
-    eel.setGraph(quantumWalk.graph);
+    staticQuantumWalk.graph = inputGraph.value;
+    eel.setGraph(staticQuantumWalk.graph);
 }
 
 let goMultipleButtonPress = goMultipleButton.onclick = async () => {

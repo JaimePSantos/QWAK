@@ -5,4 +5,4 @@ QuantumWalkTest
    :maxdepth: 4
 
    QuantumWalkTest
-   QuantumWalk
+   StaticQuantumwalk

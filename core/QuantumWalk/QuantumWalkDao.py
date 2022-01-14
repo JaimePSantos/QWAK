@@ -11,7 +11,7 @@ class QuantumWalkDao:
         Data access class that combines all three components required to perform a continuous-time quantum walk,
         given by the multiplication of an operator (represented by the Operator class) by an initial
         state (State class).
-        This multiplication is achieved in the QuantumWalk class, which returns a final state (State
+        This multiplication is achieved in the StaticQuantumwalk class, which returns a final state (State
         Class) representing the amplitudes of each state associated with a graph node.
         These amplitudes can then be transformed to probability distributions (ProbabilityDistribution class) suitable
         for plotting with matplotlib, or your package of choice.

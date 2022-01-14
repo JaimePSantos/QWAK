@@ -40,7 +40,7 @@ class QuantumWalk:
 
     def __str__(self) -> str:
         """
-        String representation of the QuantumWalk class.
+        String representation of the StaticQuantumwalk class.
 
         Returns:
             :return: f'{self._finalState.getStateVec()}'

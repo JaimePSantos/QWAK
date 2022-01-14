@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QuantumWalk package &mdash; qwak  documentation</title>
+  <title>StaticQuantumwalk package &mdash; qwak  documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -37,13 +37,13 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">QuantumWalk package</a><ul>
+<li><a class="reference internal" href="#">StaticQuantumwalk package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
-<li><a class="reference internal" href="#module-QuantumWalk.Operator">QuantumWalk.Operator module</a></li>
-<li><a class="reference internal" href="#module-QuantumWalk.ProbabilityDistribution">QuantumWalk.ProbabilityDistribution module</a></li>
-<li><a class="reference internal" href="#module-QuantumWalk.QuantumWalk">QuantumWalk.QuantumWalk module</a></li>
-<li><a class="reference internal" href="#module-QuantumWalk.QuantumWalkDao">QuantumWalk.QuantumWalkDao module</a></li>
-<li><a class="reference internal" href="#module-QuantumWalk.State">QuantumWalk.State module</a></li>
+<li><a class="reference internal" href="#module-QuantumWalk.Operator">StaticQuantumwalk.Operator module</a></li>
+<li><a class="reference internal" href="#module-QuantumWalk.ProbabilityDistribution">StaticQuantumwalk.ProbabilityDistribution module</a></li>
+<li><a class="reference internal" href="#module-QuantumWalk.QuantumWalk">StaticQuantumwalk.StaticQuantumwalk module</a></li>
+<li><a class="reference internal" href="#module-QuantumWalk.QuantumWalkDao">StaticQuantumwalk.QuantumWalkDao module</a></li>
+<li><a class="reference internal" href="#module-QuantumWalk.State">StaticQuantumwalk.State module</a></li>
 <li><a class="reference internal" href="#module-QuantumWalk">Module contents</a></li>
 </ul>
 </li>
@@ -63,7 +63,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>QuantumWalk package</li>
+      <li>StaticQuantumwalk package</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/QuantumWalk.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -74,15 +74,15 @@
            <div itemprop="articleBody">
              
   <section id="quantumwalk-package">
-<h1>QuantumWalk package<a class="headerlink" href="#quantumwalk-package" title="Permalink to this headline"></a></h1>
+<h1>StaticQuantumwalk package<a class="headerlink" href="#quantumwalk-package" title="Permalink to this headline"></a></h1>
 <section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
 </section>
 <section id="module-QuantumWalk.Operator">
-<span id="quantumwalk-operator-module"></span><h2>QuantumWalk.Operator module<a class="headerlink" href="#module-QuantumWalk.Operator" title="Permalink to this headline"></a></h2>
+<span id="quantumwalk-operator-module"></span><h2>StaticQuantumwalk.Operator module<a class="headerlink" href="#module-QuantumWalk.Operator" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.Operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">StaticQuantumwalk.Operator.</span></span><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.Operator.Operator" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that represents the operators that will be used in a quantum walk.
 States are represented by matrices in quantum mechanics,
@@ -277,7 +277,7 @@ them instead change the graph entirely.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.Operator.Operator.setOperator">
-<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="QuantumWalk.Operator.Operator"><span class="pre">QuantumWalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setOperator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="StaticQuantumwalk.Operator.Operator"><span class="pre">StaticQuantumwalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.Operator.Operator.setOperator" title="Permalink to this definition"></a></dt>
 <dd><p>Sets all the parameters of the current operator to user defined ones.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -313,10 +313,10 @@ them instead change the graph entirely.</p>
 
 </section>
 <section id="module-QuantumWalk.ProbabilityDistribution">
-<span id="quantumwalk-probabilitydistribution-module"></span><h2>QuantumWalk.ProbabilityDistribution module<a class="headerlink" href="#module-QuantumWalk.ProbabilityDistribution" title="Permalink to this headline"></a></h2>
+<span id="quantumwalk-probabilitydistribution-module"></span><h2>StaticQuantumwalk.ProbabilityDistribution module<a class="headerlink" href="#module-QuantumWalk.ProbabilityDistribution" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.ProbabilityDistribution.ProbabilityDistribution">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.ProbabilityDistribution.</span></span><span class="sig-name descname"><span class="pre">ProbabilityDistribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.ProbabilityDistribution.ProbabilityDistribution" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">StaticQuantumwalk.ProbabilityDistribution.</span></span><span class="sig-name descname"><span class="pre">ProbabilityDistribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.ProbabilityDistribution.ProbabilityDistribution" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class containing the vector containing the probabilities associated with the
 final state of a continuous-time quantum walk.</p>
@@ -441,10 +441,10 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 
 </section>
 <section id="module-QuantumWalk.QuantumWalk">
-<span id="quantumwalk-quantumwalk-module"></span><h2>QuantumWalk.QuantumWalk module<a class="headerlink" href="#module-QuantumWalk.QuantumWalk" title="Permalink to this headline"></a></h2>
+<span id="quantumwalk-quantumwalk-module"></span><h2>StaticQuantumwalk.StaticQuantumwalk module<a class="headerlink" href="#module-QuantumWalk.QuantumWalk" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalk.QuantumWalk">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.QuantumWalk.</span></span><span class="sig-name descname"><span class="pre">QuantumWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="QuantumWalk.Operator.Operator"><span class="pre">QuantumWalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">StaticQuantumwalk.StaticQuantumwalk.</span></span><span class="sig-name descname"><span class="pre">StaticQuantumwalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="StaticQuantumwalk.Operator.Operator"><span class="pre">StaticQuantumwalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that represents the final state containing the amplitudes of a
 continuous-time quantum walk.</p>
@@ -481,7 +481,7 @@ multiplication of the operator by the initial state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalk.QuantumWalk.setInitState">
-<span class="sig-name descname"><span class="pre">setInitState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newInitState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.setInitState" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setInitState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newInitState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.setInitState" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the initial state of the quantum walk to a new user inputted one.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -498,7 +498,7 @@ multiplication of the operator by the initial state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalk.QuantumWalk.getInitState">
-<span class="sig-name descname"><span class="pre">getInitState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.getInitState" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getInitState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.getInitState" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the initial state of the quantum walk.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -549,7 +549,7 @@ multiplication of the operator by the initial state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalk.QuantumWalk.setOperator">
-<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="QuantumWalk.Operator.Operator"><span class="pre">QuantumWalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.setOperator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="StaticQuantumwalk.Operator.Operator"><span class="pre">StaticQuantumwalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.setOperator" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the current operator to a user defined one.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -566,7 +566,7 @@ multiplication of the operator by the initial state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalk.QuantumWalk.getOperator">
-<span class="sig-name descname"><span class="pre">getOperator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="QuantumWalk.Operator.Operator"><span class="pre">QuantumWalk.Operator.Operator</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.getOperator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getOperator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="StaticQuantumwalk.Operator.Operator"><span class="pre">StaticQuantumwalk.Operator.Operator</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.getOperator" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the current operator.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -583,7 +583,7 @@ multiplication of the operator by the initial state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalk.QuantumWalk.setWalk">
-<span class="sig-name descname"><span class="pre">setWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newWalk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.QuantumWalk.QuantumWalk" title="QuantumWalk.QuantumWalk.QuantumWalk"><span class="pre">QuantumWalk.QuantumWalk.QuantumWalk</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.setWalk" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newWalk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.QuantumWalk.QuantumWalk" title="StaticQuantumwalk.StaticQuantumwalk.StaticQuantumwalk"><span class="pre">StaticQuantumwalk.StaticQuantumwalk.StaticQuantumwalk</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.setWalk" title="Permalink to this definition"></a></dt>
 <dd><p>Sets all the parameters of the current quantum walk to user defined ones.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -591,7 +591,7 @@ multiplication of the operator by the initial state.</p>
 <dd class="field-odd"><p>New quantum walk.</p>
 </dd>
 <dt class="field-even">type newWalk</dt>
-<dd class="field-even"><p>QuantumWalk</p>
+<dd class="field-even"><p>StaticQuantumwalk</p>
 </dd>
 </dl>
 </dd>
@@ -600,7 +600,7 @@ multiplication of the operator by the initial state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalk.QuantumWalk.getWalk">
-<span class="sig-name descname"><span class="pre">getWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.getWalk" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalk.QuantumWalk.getWalk" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the final state associated with the walk.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -645,15 +645,15 @@ multiplication of the operator by the initial state.</p>
 
 </section>
 <section id="module-QuantumWalk.QuantumWalkDao">
-<span id="quantumwalk-quantumwalkdao-module"></span><h2>QuantumWalk.QuantumWalkDao module<a class="headerlink" href="#module-QuantumWalk.QuantumWalkDao" title="Permalink to this headline"></a></h2>
+<span id="quantumwalk-quantumwalkdao-module"></span><h2>StaticQuantumwalk.QuantumWalkDao module<a class="headerlink" href="#module-QuantumWalk.QuantumWalkDao" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.QuantumWalkDao.</span></span><span class="sig-name descname"><span class="pre">QuantumWalkDao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">StaticQuantumwalk.QuantumWalkDao.</span></span><span class="sig-name descname"><span class="pre">QuantumWalkDao</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data access class that combines all three components required to perform a continuous-time quantum walk,
 given by the multiplication of an operator (represented by the Operator class) by an initial
 state (State class).
-This multiplication is achieved in the QuantumWalk class, which returns a final state (State
+This multiplication is achieved in the StaticQuantumwalk class, which returns a final state (State
 Class) representing the amplitudes of each state associated with a graph node.
 These amplitudes can then be transformed to probability distributions (ProbabilityDistribution class) suitable
 for plotting with matplotlib, or your package of choice.</p>
@@ -792,7 +792,7 @@ Also recalculates the current operator and walk dimension.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.setInitState">
-<span class="sig-name descname"><span class="pre">setInitState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newInitState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setInitState" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setInitState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newInitState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setInitState" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the current initial state to a user defined one.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -809,7 +809,7 @@ Also recalculates the current operator and walk dimension.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.getInitState">
-<span class="sig-name descname"><span class="pre">getInitState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getInitState" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getInitState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getInitState" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the initial state.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -894,7 +894,7 @@ Also recalculates the current operator and walk dimension.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.setOperator">
-<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="QuantumWalk.Operator.Operator"><span class="pre">QuantumWalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setOperator" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.Operator.Operator" title="StaticQuantumwalk.Operator.Operator"><span class="pre">StaticQuantumwalk.Operator.Operator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setOperator" title="Permalink to this definition"></a></dt>
 <dd><p>Sets the current walk operator a user defined one.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
@@ -928,7 +928,7 @@ Also recalculates the current operator and walk dimension.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.setWalk">
-<span class="sig-name descname"><span class="pre">setWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newWalk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setWalk" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newWalk</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.setWalk" title="Permalink to this definition"></a></dt>
 <dd><p>Sets current walk amplitudes to a user defined state.
 This might not be needed and removed in the future.</p>
 <dl class="simple">
@@ -946,7 +946,7 @@ This might not be needed and removed in the future.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.getWalk">
-<span class="sig-name descname"><span class="pre">getWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getWalk" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getWalk" title="Permalink to this definition"></a></dt>
 <dd><p>Gets current walk amplitudes, also known as final state.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -981,7 +981,7 @@ This might not be needed and removed in the future.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.QuantumWalkDao.QuantumWalkDao.getProbDist">
-<span class="sig-name descname"><span class="pre">getProbDist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.ProbabilityDistribution.ProbabilityDistribution" title="QuantumWalk.ProbabilityDistribution.ProbabilityDistribution"><span class="pre">QuantumWalk.ProbabilityDistribution.ProbabilityDistribution</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getProbDist" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getProbDist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#QuantumWalk.ProbabilityDistribution.ProbabilityDistribution" title="StaticQuantumwalk.ProbabilityDistribution.ProbabilityDistribution"><span class="pre">StaticQuantumwalk.ProbabilityDistribution.ProbabilityDistribution</span></a></span></span><a class="headerlink" href="#QuantumWalk.QuantumWalkDao.QuantumWalkDao.getProbDist" title="Permalink to this definition"></a></dt>
 <dd><p>Gets the current probability distribution.</p>
 <dl class="simple">
 <dt>Returns:</dt><dd><dl class="field-list simple">
@@ -1052,10 +1052,10 @@ This might not be needed and removed in the future.</p>
 
 </section>
 <section id="module-QuantumWalk.State">
-<span id="quantumwalk-state-module"></span><h2>QuantumWalk.State module<a class="headerlink" href="#module-QuantumWalk.State" title="Permalink to this headline"></a></h2>
+<span id="quantumwalk-state-module"></span><h2>StaticQuantumwalk.State module<a class="headerlink" href="#module-QuantumWalk.State" title="Permalink to this headline"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="QuantumWalk.State.State">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">QuantumWalk.State.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">StaticQuantumwalk.State.</span></span><span class="sig-name descname"><span class="pre">State</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QuantumWalk.State.State" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that represents the states that will be used in a quantum walk.
 States are represented by column vectors in quantum mechanics,
@@ -1204,7 +1204,7 @@ This might not be needed and removed in the future.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="QuantumWalk.State.State.setState">
-<span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="QuantumWalk.State.State"><span class="pre">QuantumWalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.State.State.setState" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newState</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#QuantumWalk.State.State" title="StaticQuantumwalk.State.State"><span class="pre">StaticQuantumwalk.State.State</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#QuantumWalk.State.State.setState" title="Permalink to this definition"></a></dt>
 <dd><p>[summary]
 Sets all the parameters of the current state to user defined ones.</p>
 <dl class="simple">
