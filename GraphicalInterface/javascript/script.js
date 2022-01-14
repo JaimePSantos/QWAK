@@ -112,6 +112,7 @@ let goMultipleButtonPress = goMultipleButton.onclick = async () => {
             data2.data.datasets[0].data = walk.flat();
             data2.data.labels = [...Array(walk.length).keys()];
             myAnimatedChart.update();
+            console.log(walk)
         }, 80 * i);
         i++;
     }
