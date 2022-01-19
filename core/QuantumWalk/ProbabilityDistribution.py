@@ -39,6 +39,10 @@ class ProbabilityDistribution:
         """
         return f'{self._probVec}'
 
+    def resetProbDist(self):
+        self._stateVec.resetState()
+        self._probVec = np.zeros((self._n, 1))
+
     def buildProbDist(self) -> None:
         """
         Builds the probability vector by multiplying the user inputted

@@ -1,4 +1,5 @@
 import networkx as nx
+import numpy as np
 
 from QuantumWalk.Operator import Operator
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
@@ -36,6 +37,10 @@ class QWAK:
         self._time = 0
         self._gamma = 1
 
+    def resetWalk(self):
+        self._initState.resetState()
+        self._operator.resetOperator()
+        self._quantumWalk.resetWalk()
 
     def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> None:
         """

@@ -48,6 +48,11 @@ class QuantumWalk:
         """
         return f'{self._finalState.getStateVec()}'
 
+    def resetWalk(self):
+        self._operator = np.zeros((self._n, self._n))
+        self._initState =  np.zeros((self._n, 1))
+        self._finalState =  np.zeros((self._n, 1))
+
     def buildWalk(self) -> None:
         """
         Builds the final state of the quantum walk by setting it to the matrix
