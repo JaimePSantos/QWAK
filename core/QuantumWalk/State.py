@@ -64,6 +64,9 @@ class State:
         """
         return f"{self._stateVec}"
 
+    def resetState(self):
+        self._stateVec = np.zeros((self._n, 1))
+
     def buildState(self, nodeList: list) -> None:
         """
         Builds state vector from state list, by creating a balanced superposition of all

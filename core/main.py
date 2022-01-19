@@ -7,7 +7,7 @@ from QuantumWalk.State import State
 from QuantumWalk.Operator import Operator
 from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
-from QuantumWalk.QuantumWalkDao import QuantumWalkDao
+from QuantumWalk.QWAK import QWAK
 
 if __name__ == '__main__':
     n = 200
@@ -32,7 +32,7 @@ if __name__ == '__main__':
     # print(nx.adjacency_matrix(G))
 
     # graph=G
-    qwController = QuantumWalkDao(graph,laplacian=True)
+    qwController = QWAK(graph, laplacian=True)
     qwController.runWalk(t, gamma, [100])
 
     qwProbabilities = qwController.getProbDist()

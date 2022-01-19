@@ -82,6 +82,9 @@ class Operator:
         """
         return f"{self._operator}"
 
+    def resetOperator(self):
+        self._operator = np.zeros((self._n, self._n))
+
     def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> None:
         """
         Builds operator matrix from optional time and transition rate parameters, defined by user.

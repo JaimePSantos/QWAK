@@ -1,4 +1,5 @@
 import networkx as nx
+import numpy as np
 
 from QuantumWalk.Operator import Operator
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
@@ -6,7 +7,7 @@ from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.State import State
 
 
-class QuantumWalkDao:
+class QWAK:
     """
         Data access class that combines all three components required to perform a continuous-time quantum walk,
         given by the multiplication of an operator (represented by the Operator class) by an initial
@@ -36,6 +37,10 @@ class QuantumWalkDao:
         self._time = 0
         self._gamma = 1
 
+    def resetWalk(self):
+        self._initState.resetState()
+        self._operator.resetOperator()
+        self._quantumWalk.resetWalk()
 
     def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> None:
         """
@@ -54,7 +59,7 @@ class QuantumWalkDao:
         self._gamma = gamma
         self._initStateList = initStateList
         self._initState.buildState(self._initStateList)
-        print(f"Inside RUnwalk {self._initState.getNodeList()}")
+        # print(f"Inside RUnwalk {self._initState.getNodeList()}")
         self._operator.buildDiagonalOperator(self._time, self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -63,7 +68,7 @@ class QuantumWalkDao:
 
     def buildWalk(self) -> None:
         """
-        DEPRECATED: Please user runWalk instead.
+        DEPRECATED: Please use runWalk instead.
         Given the current values of the class' attributes, runs the walk and calculates the amplitudes and probability
         distributions.
         """

@@ -39,12 +39,15 @@ class ProbabilityDistribution:
         """
         return f'{self._probVec}'
 
+    def resetProbDist(self):
+        self._stateVec.resetState()
+        self._probVec = np.zeros((self._n, 1))
+
     def buildProbDist(self) -> None:
         """
         Builds the probability vector by multiplying the user inputted
         amplitude state by its conjugate.
         TODO: Nao devia ser pelo complexo conjugado?
-
         """
         for st in range(self._n):
             self._probVec[st] = self._stateVec[st] * \

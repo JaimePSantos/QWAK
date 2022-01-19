@@ -1,4 +1,4 @@
-from QuantumWalk.QuantumWalkDao import QuantumWalkDao
+from QuantumWalk.QWAK import QWAK
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.Operator import Operator
@@ -26,14 +26,14 @@ if __name__ == '__main__':
     # initState = [int(n/2),int(n/2)+1]
     initState = [50,51]
     graph = nx.cycle_graph(n)
-    staticQuantumWalk = QuantumWalkDao(graph)
+    staticQuantumWalk = QWAK(graph)
     staticQuantumWalk.runWalk(t, gamma, initState)
 
     global timeList,gammaList,initStateList,dynamicQuantumWalk
     timeList = [0,100]
     gammaList = [1/(2*np.sqrt(2))]
     initStateList = [[int(n/2),int(n/2)+1]]
-    dynamicQuantumWalk = QuantumWalkDao(graph)
+    dynamicQuantumWalk = QWAK(graph)
     dynamicQuantumWalk.runWalk(timeList[0], gammaList[0], initStateList[0])
 
     @eel.expose
@@ -71,6 +71,7 @@ if __name__ == '__main__':
     @eel.expose
     def setDim(newDim,graphStr):
         staticQuantumWalk.setDim(newDim, graphStr)
+        dynamicQuantumWalk.setDim(newDim, graphStr)
 
     @eel.expose
     def getDim():
@@ -78,8 +79,10 @@ if __name__ == '__main__':
         
     @eel.expose
     def setGraph(newGraph):
-        newGraph = eval(newGraph + f"({staticQuantumWalk.getDim()})")
-        staticQuantumWalk.setGraph(newGraph)
+        newStaticGraph = eval(newGraph + f"({staticQuantumWalk.getDim()})")
+        newDynamicGraph = eval(newGraph + f"({dynamicQuantumWalk.getDim()})")
+        staticQuantumWalk.setGraph(newStaticGraph)
+        dynamicQuantumWalk.setGraph(newDynamicGraph)
 
     @eel.expose
     def getGraph():
@@ -114,6 +117,7 @@ if __name__ == '__main__':
     def runMultipleWalks():
         qwProbList = []
         global timeList,gammaList,initStateList,dynamicQuantumWalk
+        dynamicQuantumWalk.resetWalk()
         timeRange = np.linspace(timeList[0],timeList[1],int(timeList[1]))
         for t in timeRange:
             dynamicQuantumWalk.runWalk(t, gammaList[0], initStateList[0])
@@ -121,6 +125,7 @@ if __name__ == '__main__':
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
             qwProbList.append(probLists)
+        print(len(qwProbList))
         return qwProbList
 
     @eel.expose
