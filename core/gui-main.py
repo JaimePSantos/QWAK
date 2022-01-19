@@ -1,4 +1,4 @@
-from QuantumWalk.QuantumWalkDao import QuantumWalkDao
+from QuantumWalk.QWAK import QWAK
 from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
 from QuantumWalk.QuantumWalk import QuantumWalk
 from QuantumWalk.Operator import Operator
@@ -26,14 +26,14 @@ if __name__ == '__main__':
     # initState = [int(n/2),int(n/2)+1]
     initState = [50,51]
     graph = nx.cycle_graph(n)
-    staticQuantumWalk = QuantumWalkDao(graph)
+    staticQuantumWalk = QWAK(graph)
     staticQuantumWalk.runWalk(t, gamma, initState)
 
     global timeList,gammaList,initStateList,dynamicQuantumWalk
     timeList = [0,100]
     gammaList = [1/(2*np.sqrt(2))]
     initStateList = [[int(n/2),int(n/2)+1]]
-    dynamicQuantumWalk = QuantumWalkDao(graph)
+    dynamicQuantumWalk = QWAK(graph)
     dynamicQuantumWalk.runWalk(timeList[0], gammaList[0], initStateList[0])
 
     @eel.expose

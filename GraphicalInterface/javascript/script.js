@@ -1,5 +1,6 @@
 import {defaultDist, cy, data, data2} from "./tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
+import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
 
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
@@ -34,7 +35,7 @@ let defaultTimeList = [0, 100];
 let defaultGammaList = [(1 / (2 * Math.sqrt(2))).toFixed(2)];
 let defaultInitStateList = [[Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1]];
 let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultGamma, defaultInitState, defaultGraph)
-let dynamicQuantumWalk = new StaticQuantumwalk(defaultGraph,defaultTimeList, defaultGammaList,defaultInitStateList)
+let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph,defaultTimeList, defaultGammaList,defaultInitStateList)
 
 let inputInit = () => {
     inputTime.value = defaultT;
