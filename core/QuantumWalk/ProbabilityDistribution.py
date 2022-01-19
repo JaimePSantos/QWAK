@@ -48,7 +48,6 @@ class ProbabilityDistribution:
         Builds the probability vector by multiplying the user inputted
         amplitude state by its conjugate.
         TODO: Nao devia ser pelo complexo conjugado?
-
         """
         for st in range(self._n):
             self._probVec[st] = self._stateVec[st] * \

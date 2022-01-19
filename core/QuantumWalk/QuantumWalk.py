@@ -34,8 +34,8 @@ class QuantumWalk:
             :type operator: Operator.
         """
         self._n = state.getDim()
-        self._initState = state.getStateVec()
-        self._operator = operator.getOperator()
+        self._initState = state
+        self._operator = operator
         self._finalState = State(self._n)
 
     def __str__(self) -> str:
@@ -49,9 +49,9 @@ class QuantumWalk:
         return f'{self._finalState.getStateVec()}'
 
     def resetWalk(self):
-        self._operator = np.zeros((self._n, self._n))
-        self._initState =  np.zeros((self._n, 1))
-        self._finalState =  np.zeros((self._n, 1))
+        self._operator.resetOperator()
+        self._initState.resetState()
+        self._finalState.resetState()
 
     def buildWalk(self) -> None:
         """
@@ -59,7 +59,7 @@ class QuantumWalk:
         multiplication of the operator by the initial state.
         """
         self._finalState.setStateVec(
-            np.matmul(self._operator, self._initState))
+            np.matmul(self._operator.getOperator(), self._initState.getStateVec()))
 
     def setInitState(self, newInitState: State) -> None:
         """
