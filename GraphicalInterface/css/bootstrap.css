@@ -1,6 +1,6 @@
 .nav-tabs {
     border-color: #004A00;
-    width: 60%;
+    width: 100%;
 }
 
 .nav-tabs > li a {
@@ -28,7 +28,7 @@
 .tab-pane {
     border: solid 1px #004A00;
     border-top: 0;
-    width: 60%;
+    width: 100%;
     background-color: #D5FFD5;
     padding: 5px;
 }
