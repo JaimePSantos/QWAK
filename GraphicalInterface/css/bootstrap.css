@@ -1,0 +1,34 @@
+.nav-tabs {
+    border-color: #004A00;
+    width: 60%;
+}
+
+.nav-tabs > li a {
+    border: 1px solid #004A00;
+    background-color: #004A00;
+    color: #fff;
+}
+
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
+    background-color: #D5FFD5;
+    color: #000;
+    border: 1px solid #1A3E5E;
+    border-bottom-color: transparent;
+}
+
+.nav-tabs > li > a:hover {
+    background-color: #D5FFD5 !important;
+    border-radius: 5px;
+    color: #000;
+
+}
+
+.tab-pane {
+    border: solid 1px #004A00;
+    border-top: 0;
+    width: 60%;
+    background-color: #D5FFD5;
+    padding: 5px;
+}

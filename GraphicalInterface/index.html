@@ -6,7 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>QWAK</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/bootstrap.css" />
   <script type="text/javascript" src="/eel.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
     integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
@@ -15,185 +16,244 @@
     integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script type='module' src="javascript/script.js" defer></script>
+  <script src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
   <meta http-equiv="cache-control" content="no-cache" />
   <meta http-equiv="expires" content="0" />
   <meta http-equiv="pragma" content="no-cache" />
+
 </head>
 
 <body>
-  <div id="container" class="qwak">
-    <div id="functionContainer" class="walk-container">
 
-      <div class='first-half'>
-        <!-- Tab links -->
-        <div class="tab">
-          <button class="tablinks" onclick="openGraph(event, 'GraphGenerator')" id = 'defaultOpen'>Graph Generator</button>
-          <button class="tablinks" onclick="openGraph(event, 'CustomGraph')">Custom Graph</button>
-        </div>
+<div class="container">
+<h3>A demo of Bootstrap Tabs</h3>
 
-        <!-- Tab content -->
-        <div id="GraphGenerator" class="tabcontent">
-          <div class='grid-element'>
-            <div id="cy" class="graph-display"></div>
-            <button id="graphButton" class="function-button">GO!</button>
-              <ul class='input-fields'>
-                <li class='input-combo'>
-                  <input type="number" step="1" min=2 name="time" id="inputDim" class="input-box"></input>
-                  <button id="setDimButton" class="function-button">n</button>
-                </li>
-                <li class='input-combo'>
-                  <input type="text" name="graph" id="inputGraph" class="input-box"></input>
-                  <button id="setGraphButton" class="function-button">G</button>
-                </li>
-              </ul>
-          </div>
-        </div>
-        <div id="CustomGraph" class="tabcontent">
-          <div class='grid-element'>
-            <div id="cyCustom" class="graph-display"></div>
-            <button id="graphCustomButton" class="function-button">GO!</button>
-            <div class='input-row'>
-              <ul class='input-fields'>
-                <li class='input-combo'>
-                  <button id="addNodeButton" class="function-button">Node</button>
-                </li>
-                <li class='input-combo'>
-                  <button id="addEdgeButton" class="function-button">Edge</button>
-                </li>
-              </ul>
-            <ul class='input-fields'>
-                <li class='input-combo'>
-                  <button id="clearGraphButton" class="function-button">Clear</button>
-                </li>
-                <li class='input-combo'>
-                  <button id="placeHolderButtonGen" class="function-button">Pl</button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- Nav tabs -->
+<ul class="nav nav-tabs" role="tablist">
 
-      <div class='second-half'>
-         <!-- Tab links -->
-        <div class="tab2">
-          <button class="tablinks" onclick="openProb(event, 'ProbDist')" id = 'defaultOpen2'>Static</button>
-          <button class="tablinks" onclick="openProb(event, 'ProbDistAnimation')">Dynamic</button>
-        </div>
-        <!-- Tab content -->
-        <div id="ProbDist" class="tabcontent2">
-        <div class='grid-element'>
-          <div class="prob-dist-chart-container">
-            <canvas id="myChart" class="prob-dist-chart"></canvas>
-          </div>
-          <button id="goButton" class="function-button">GO!</button>
-          <div class='input-row'>
-            <ul class='input-fields'>
-              <li class='input-combo'>
-                <input type="number" step=1 min=0 name="time" id="inputTime" class="input-box"></input>
-                <button id="setTimeButton" class="function-button">t</button>
-              </li>
-              <li class='input-combo'>
-                <input type="number" step=0.01 min=0 name="gamma" id="inputGamma" class="input-box"></input>
-                <button id="setGammaButton" class="function-button">γ</button>
-              </li>
+
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Static <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#jquerytab" role="tab" data-toggle="tab">Plot</a></li>
+                <li><a href="#bootstab" role="tab" data-toggle="tab">Statistics</a></li>
             </ul>
-            <ul class='input-fields'>
-              <li class='input-combo'>
-                <input type="text" name="initState" id="inputInitState" class="input-box"></input>
-                <button id="setInitStateButton" class="function-button">Ψ0</button>
-              </li>
-              <li class='input-combo'>
-                <input type="number" step="0.01" min=0 name="placeholder" id="placeholder" class="input-box"></input>
-                <button id="setPlaceholderButton" class="function-button"></button>
-              </li>
-            </ul>
-          </div>
-        </div>
-        </div>
 
-        <div id="ProbDistAnimation" class="tabcontent2">
-        <div class='grid-element'>
-          <div class="prob-dist-chart-container">
-            <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
-          </div>
-          <button id="goMultipleButton" class="function-button">GO!</button>
-          <div class='input-row'>
-            <ul class='input-fields'>
-              <li class='input-combo'>
-                <input type="text" name="timeRange" id="inputTimeRange" class="input-box"></input>
-                <button id="setTimeRangeButton" class="function-button">[t]</button>
-              </li>
-              <li class='input-combo'>
-                <input type="number" step=0.01 min=0 name="gammaRange" id="inputGammaRange" class="input-box"></input>
-                <button id="setGammaRangeButton" class="function-button">[γ]</button>
-              </li>
+  </li>
+  <li class="dropdown">
+    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dynamic <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#jquerytab" role="tab" data-toggle="tab">Plot</a></li>
+                <li><a href="#bootstab" role="tab" data-toggle="tab">Statistics</a></li>
             </ul>
-            <ul class='input-fields'>
-              <li class='input-combo'>
-                <input type="text" name="initStateRange" id="inputInitStateRange" class="input-box"></input>
-                <button id="setInitStateRangeButton" class="function-button">[Ψ0]</button>
-              </li>
-              <li class='input-combo'>
-                <input type="number" step="0.01" min=0 name="placeholder" id="placeholder2" class="input-box"></input>
-                <button id="setPlaceholderButton2" class="function-button"></button>
-              </li>
-            </ul>
-          </div>
-        </div>
-        </div>
-      </div>
+  </li>
 
-    </div>
+</ul>
+</li>
+
+<!-- Tab panes -->
+<div class="tab-content">
+  <div class="tab-pane active" id="hometab">Write something for home tab</div>
+  <div class="tab-pane" id="javatab">The Java is an object-oriented programming language that was developed by James Gosling from the Sun Microsystems in 1995.
 
   </div>
-  <script>
-    function openGraph(evt, graph) {
-      // Declare all variables
-      var i, tabcontent, tablinks;
 
-      // Get all elements with class="tabcontent" and hide them
-      tabcontent = document.getElementsByClassName("tabcontent");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
+  <div class="tab-pane" id="jquerytab">jQuery content here </div>
+  <div class="tab-pane" id="bootstab">Bootstrap Content here
+  <ul>
+  <li>Bootstrap forms</li>
+  <li>Bootstrap buttons</li>
+  <li>Bootstrap navbar</li>
+  <li>Bootstrap footer</li>
+  </ul>
+  </div>
+  <div class="tab-pane" id="htmltab">Hypertext Markup Language</div>
 
-      // Get all elements with class="tablinks" and remove the class "active"
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
+</div>
+  </div>
 
-      // Show the current tab, and add an "active" class to the button that opened the tab
-      document.getElementById(graph).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
 
-    function openProb(evt, prob) {
-      // Declare all variables
-      var i, tabcontent, tablinks;
 
-      // Get all elements with class="tabcontent" and hide them
-      tabcontent = document.getElementsByClassName("tabcontent2");
-      for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 
-      // Get all elements with class="tablinks" and remove the class "active"
-      tablinks = document.getElementsByClassName("tablinks");
-      for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-      }
+  <!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>-->
+<!--  <div id="container" class="qwak">-->
+<!--    <div id="functionContainer" class="walk-container">-->
 
-      // Show the current tab, and add an "active" class to the button that opened the tab
-      document.getElementById(prob).style.display = "block";
-      evt.currentTarget.className += " active";
-    }
+<!--      <div class='first-half'>-->
+<!--        &lt;!&ndash; Tab links &ndash;&gt;-->
+<!--        <div class="tab">-->
+<!--          <button class="tablinks" onclick="openGraph(event, 'GraphGenerator')" id = 'defaultOpen'>Graph Generator</button>-->
+<!--          <button class="tablinks" onclick="openGraph(event, 'CustomGraph')">Custom Graph</button>-->
+<!--        </div>-->
 
-    document.getElementById("defaultOpen").click();
-    document.getElementById("defaultOpen2").click();
+<!--        &lt;!&ndash; Tab content &ndash;&gt;-->
+<!--        <div id="GraphGenerator" class="tabcontent">-->
+<!--          <div class='grid-element'>-->
+<!--            <div id="cy" class="graph-display"></div>-->
+<!--            <button id="graphButton" class="function-button">GO!</button>-->
+<!--              <ul class='input-fields'>-->
+<!--                <li class='input-combo'>-->
+<!--                  <input type="number" step="1" min=2 name="time" id="inputDim" class="input-box"></input>-->
+<!--                  <button id="setDimButton" class="function-button">n</button>-->
+<!--                </li>-->
+<!--                <li class='input-combo'>-->
+<!--                  <input type="text" name="graph" id="inputGraph" class="input-box"></input>-->
+<!--                  <button id="setGraphButton" class="function-button">G</button>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div id="CustomGraph" class="tabcontent">-->
+<!--          <div class='grid-element'>-->
+<!--            <div id="cyCustom" class="graph-display"></div>-->
+<!--            <button id="graphCustomButton" class="function-button">GO!</button>-->
+<!--            <div class='input-row'>-->
+<!--              <ul class='input-fields'>-->
+<!--                <li class='input-combo'>-->
+<!--                  <button id="addNodeButton" class="function-button">Node</button>-->
+<!--                </li>-->
+<!--                <li class='input-combo'>-->
+<!--                  <button id="addEdgeButton" class="function-button">Edge</button>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            <ul class='input-fields'>-->
+<!--                <li class='input-combo'>-->
+<!--                  <button id="clearGraphButton" class="function-button">Clear</button>-->
+<!--                </li>-->
+<!--                <li class='input-combo'>-->
+<!--                  <button id="placeHolderButtonGen" class="function-button">Pl</button>-->
+<!--                </li>-->
+<!--              </ul>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
 
-  </script>
+<!--      <div class='second-half'>-->
+<!--         &lt;!&ndash; Tab links &ndash;&gt;-->
+<!--        <div class="tab2">-->
+<!--          <button class="tablinks" onclick="openProb(event, 'ProbDist')" id = 'defaultOpen2'>Static</button>-->
+<!--          <button class="tablinks" onclick="openProb(event, 'ProbDistAnimation')">Dynamic</button>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Tab content &ndash;&gt;-->
+<!--        <div id="ProbDist" class="tabcontent2">-->
+<!--        <div class='grid-element'>-->
+<!--          <div class="prob-dist-chart-container">-->
+<!--            <canvas id="myChart" class="prob-dist-chart"></canvas>-->
+<!--          </div>-->
+<!--          <button id="goButton" class="function-button">GO!</button>-->
+<!--          <div class='input-row'>-->
+<!--            <ul class='input-fields'>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="number" step=1 min=0 name="time" id="inputTime" class="input-box"></input>-->
+<!--                <button id="setTimeButton" class="function-button">t</button>-->
+<!--              </li>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="number" step=0.01 min=0 name="gamma" id="inputGamma" class="input-box"></input>-->
+<!--                <button id="setGammaButton" class="function-button">γ</button>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--            <ul class='input-fields'>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="text" name="initState" id="inputInitState" class="input-box"></input>-->
+<!--                <button id="setInitStateButton" class="function-button">Ψ0</button>-->
+<!--              </li>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="number" step="0.01" min=0 name="placeholder" id="placeholder" class="input-box"></input>-->
+<!--                <button id="setPlaceholderButton" class="function-button"></button>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        </div>-->
+
+<!--        <div id="ProbDistAnimation" class="tabcontent2">-->
+<!--        <div class='grid-element'>-->
+<!--          <div class="prob-dist-chart-container">-->
+<!--            <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>-->
+<!--          </div>-->
+<!--          <button id="goMultipleButton" class="function-button">GO!</button>-->
+<!--          <div class='input-row'>-->
+<!--            <ul class='input-fields'>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="text" name="timeRange" id="inputTimeRange" class="input-box"></input>-->
+<!--                <button id="setTimeRangeButton" class="function-button">[t]</button>-->
+<!--              </li>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="number" step=0.01 min=0 name="gammaRange" id="inputGammaRange" class="input-box"></input>-->
+<!--                <button id="setGammaRangeButton" class="function-button">[γ]</button>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--            <ul class='input-fields'>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="text" name="initStateRange" id="inputInitStateRange" class="input-box"></input>-->
+<!--                <button id="setInitStateRangeButton" class="function-button">[Ψ0]</button>-->
+<!--              </li>-->
+<!--              <li class='input-combo'>-->
+<!--                <input type="number" step="0.01" min=0 name="placeholder" id="placeholder2" class="input-box"></input>-->
+<!--                <button id="setPlaceholderButton2" class="function-button"></button>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--    </div>-->
+
+<!--  </div>-->
+<!--  <script>-->
+<!--    function openGraph(evt, graph) {-->
+<!--      // Declare all variables-->
+<!--      var i, tabcontent, tablinks;-->
+
+<!--      // Get all elements with class="tabcontent" and hide them-->
+<!--      tabcontent = document.getElementsByClassName("tabcontent");-->
+<!--      for (i = 0; i < tabcontent.length; i++) {-->
+<!--        tabcontent[i].style.display = "none";-->
+<!--      }-->
+
+<!--      // Get all elements with class="tablinks" and remove the class "active"-->
+<!--      tablinks = document.getElementsByClassName("tablinks");-->
+<!--      for (i = 0; i < tablinks.length; i++) {-->
+<!--        tablinks[i].className = tablinks[i].className.replace(" active", "");-->
+<!--      }-->
+
+<!--      // Show the current tab, and add an "active" class to the button that opened the tab-->
+<!--      document.getElementById(graph).style.display = "block";-->
+<!--      evt.currentTarget.className += " active";-->
+<!--    }-->
+
+<!--    function openProb(evt, prob) {-->
+<!--      // Declare all variables-->
+<!--      var i, tabcontent, tablinks;-->
+
+<!--      // Get all elements with class="tabcontent" and hide them-->
+<!--      tabcontent = document.getElementsByClassName("tabcontent2");-->
+<!--      for (i = 0; i < tabcontent.length; i++) {-->
+<!--        tabcontent[i].style.display = "none";-->
+<!--      }-->
+
+<!--      // Get all elements with class="tablinks" and remove the class "active"-->
+<!--      tablinks = document.getElementsByClassName("tablinks");-->
+<!--      for (i = 0; i < tablinks.length; i++) {-->
+<!--        tablinks[i].className = tablinks[i].className.replace(" active", "");-->
+<!--      }-->
+
+<!--      // Show the current tab, and add an "active" class to the button that opened the tab-->
+<!--      document.getElementById(prob).style.display = "block";-->
+<!--      evt.currentTarget.className += " active";-->
+<!--    }-->
+
+<!--    document.getElementById("defaultOpen").click();-->
+<!--    document.getElementById("defaultOpen2").click();-->
+
+<!--  </script>-->
 </body>
 
 </html>
