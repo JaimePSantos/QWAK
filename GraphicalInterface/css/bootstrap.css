@@ -1,12 +1,25 @@
+:root {
+    --primary-dark: rgb(0, 0, 0);
+    --primary-light: rgb(214, 211, 211);
+    --secondary-light: #fefefe;
+}
+
+.nav{
+    width:100%;
+    background-color: var(--primary-light);
+}
 .nav-tabs {
-    border-color: #004A00;
+    border-color: #166ee0;
+    border-style: solid;
     width: 100%;
 }
 
 .nav-tabs > li a {
     border: 1px solid #004A00;
-    background-color: #004A00;
+    background-color: rgb(78, 78, 78);
     color: #fff;
+    height:50px;
+    font-family: monospace;
 }
 
 .nav-tabs > li.active > a,
@@ -29,6 +42,6 @@
     border: solid 1px #004A00;
     border-top: 0;
     width: 100%;
-    background-color: #D5FFD5;
+    /* background-color: var(--primary-light) ; */
     padding: 5px;
 }
