@@ -58,10 +58,11 @@ if __name__ == '__main__':
 
     @eel.expose
     def setInitState(initStateStr):
-        initStateList = list(map(int,initStateStr.split(',')))
-        print(f"InitStatestr {initStateStr}\t initStateList {initStateList}")
+        global initState
+        initState = list(map(int,initStateStr.split(',')))
+        print(f"InitStatestr {initStateStr}\t initStateList {initState}")
         newState = State(staticQuantumWalk.getDim())
-        newState.buildState(initStateList)
+        newState.buildState(initState)
         staticQuantumWalk.setInitState(newState)
 
     @eel.expose
@@ -70,8 +71,11 @@ if __name__ == '__main__':
         
     @eel.expose
     def setDim(newDim,graphStr):
+        global staticQuantumWalk, dynamicQuantumWalk
+        print(graphStr)
         staticQuantumWalk.setDim(newDim, graphStr)
         dynamicQuantumWalk.setDim(newDim, graphStr)
+        print(f"Dim in setDim {staticQuantumWalk.getDim()}")
 
     @eel.expose
     def getDim():
@@ -79,6 +83,7 @@ if __name__ == '__main__':
         
     @eel.expose
     def setGraph(newGraph):
+        global staticQuantumWalk, dynamicQuantumWalk
         newStaticGraph = eval(newGraph + f"({staticQuantumWalk.getDim()})")
         newDynamicGraph = eval(newGraph + f"({dynamicQuantumWalk.getDim()})")
         staticQuantumWalk.setGraph(newStaticGraph)
@@ -107,6 +112,7 @@ if __name__ == '__main__':
     @eel.expose
     def runWalk():
         global staticQuantumWalk,n,t,gamma,initState
+        staticQuantumWalk.resetWalk()
         staticQuantumWalk.runWalk(t,gamma,initState)
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
@@ -125,7 +131,6 @@ if __name__ == '__main__':
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
             qwProbList.append(probLists)
-        print(len(qwProbList))
         return qwProbList
 
     @eel.expose

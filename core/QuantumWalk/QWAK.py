@@ -58,6 +58,8 @@ class QWAK:
         self._time = time
         self._gamma = gamma
         self._initStateList = initStateList
+        print(f"init state inside variable {initStateList}")
+        print(f"init state inside {self._initStateList}")
         self._initState.buildState(self._initStateList)
         # print(f"Inside RUnwalk {self._initState.getNodeList()}")
         self._operator.buildDiagonalOperator(self._time, self._gamma)
@@ -118,9 +120,9 @@ class QWAK:
             :param newGraph: New NetworkX graph.
             :type newGraph: NetworkX.Graph
         """
+        self._n = len(self._graph)
         self._graph = newGraph
         self._operator = Operator(self._graph)
-        self._n = len(self._graph)
 
     def getGraph(self) -> nx.Graph:
         """
