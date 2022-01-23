@@ -17,6 +17,7 @@ eel.init(guiPath)
 
 #TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
 #TODO: Grafico de animacao do JavaScript mexe com o tamanho dos picos.
+#TODO: Formularios para introduzir parametros.
 
 if __name__ == '__main__':
     global n, t, gamma, initState, staticQuantumWalk
@@ -39,9 +40,7 @@ if __name__ == '__main__':
     @eel.expose
     def setTimeList(newTimeList):
         global timeList
-        print(timeList)
         timeList = list(map(float,newTimeList.split(',')))
-        print(timeList)
 
     @eel.expose
     def setGammaList(newGammaList):
@@ -60,7 +59,6 @@ if __name__ == '__main__':
     def setInitState(initStateStr):
         global initState
         initState = list(map(int,initStateStr.split(',')))
-        print(f"InitStatestr {initStateStr}\t initStateList {initState}")
         newState = State(staticQuantumWalk.getDim())
         newState.buildState(initState)
         staticQuantumWalk.setInitState(newState)
@@ -72,10 +70,8 @@ if __name__ == '__main__':
     @eel.expose
     def setDim(newDim,graphStr):
         global staticQuantumWalk, dynamicQuantumWalk
-        print(graphStr)
         staticQuantumWalk.setDim(newDim, graphStr)
         dynamicQuantumWalk.setDim(newDim, graphStr)
-        print(f"Dim in setDim {staticQuantumWalk.getDim()}")
 
     @eel.expose
     def getDim():
@@ -95,6 +91,8 @@ if __name__ == '__main__':
 
     @eel.expose
     def setTime(newTime):
+        global staticQuantumWalk,t
+        t=newTime
         staticQuantumWalk.setTime(newTime)
     
     @eel.expose
