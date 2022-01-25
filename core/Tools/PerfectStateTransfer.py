@@ -1,7 +1,6 @@
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
-from QuantumWalk.QWAK import QWAK
 from sympy import Matrix, gcd, div, Poly, Float, pprint
 import sympy as sp
 from sympy.abc import pi
@@ -151,39 +150,3 @@ def checkRoots(A, a, eigenvec, eigenval):
         g = gcd(g, diff)
 
     return True, g, delta
-
-
-## Finally, CheckPST checks if all the conditions are true and return True if the graph has PST and False otherwise.
-
-def checkPST(A, a, b):
-    if a > b:
-        temp = a
-        a = b
-        b = temp
-    A = sp.Matrix(A)
-    (eigenvec, D) = A.diagonalize()
-    eigenval = []
-
-    ## Notice that I was having rouding problems because Python was not considering 6x10^-50 to be zero, so I made a loop
-    # to garantee that it is zero.
-    for i in range(len(D.col(0))):
-        temp = D.col(i)[i]
-        if abs(temp) < 0.0000001:
-            temp = 0
-        eigenval.append(temp)
-
-    result, g, delta = checkRoots(A, a, eigenvec, eigenval)
-    if isStrCospec(A, a, b) and result:
-        return pi / (g * sqrt(delta))
-    else:
-        return False
-
-n = 4
-t = 2
-gamma = 1 / (2 * np.sqrt(2))
-graph = nx.cycle_graph(n)
-# graph = nx.circular_ladder_graph(n)
-marked = [int(n / 2)]
-
-qwController = QWAK(graph, laplacian=False)
-sp.pprint(checkPST(qwController.getOperator().getAdjacencyMatrix(),0,2))

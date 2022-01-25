@@ -285,3 +285,6 @@ class QWAK:
             :rtype: float
         """
         return self._probDist.searchNodeProbability(searchNode)
+
+    def checkPST(self,nodeA,nodeB):
+        return self._operator.checkPST(nodeA,nodeB)
