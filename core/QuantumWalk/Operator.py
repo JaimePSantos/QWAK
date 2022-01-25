@@ -236,7 +236,7 @@ class Operator:
             nodeA = nodeB
             nodeB = temp
         symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
-        (eigenvec, D) = A.diagonalize()
+        (eigenvec, D) = symAdj.diagonalize()
         eigenval = []
 
         ## Notice that I was having rouding problems because Python was not considering 6x10^-50 to be zero, so I made a loop
