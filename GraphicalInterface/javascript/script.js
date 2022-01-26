@@ -1,6 +1,8 @@
-import {defaultDist, cy, data, data2} from "./tools.js";
+import {defaultDist, cy, data, data2,customCy} from "./tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
+
+let addNodeButton = document.getElementById("addNodeButton");
 
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
