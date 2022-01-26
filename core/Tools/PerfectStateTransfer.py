@@ -148,5 +148,21 @@ def checkRoots(A, a, eigenvec, eigenval):
     g = 0
     for diff in diffs:
         g = gcd(g, diff)
-
     return True, g, delta
+
+def swapNodes(nodeA,nodeB):
+    nodeA = nodeA + nodeB
+    nodeB = nodeA - nodeB
+    nodeA = nodeA - nodeB
+    return nodeA, nodeB
+
+def getEigenVal(D):
+    eigenVal = []
+    ## Notice that I was having rouding problems because Python was not considering 6x10^-50 to be zero, so I made a loop
+    # to garantee that it is zero.
+    for i in range(len(D.col(0))):
+        temp = D.col(i)[i]
+        if abs(temp) < 0.0000001:
+            temp = 0
+        eigenVal.append(temp)
+    return eigenVal

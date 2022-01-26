@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import networkx as nx
 import numpy as np
-from Tools.PerfectStateTransfer import isStrCospec, checkRoots
+from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 from sympy import Matrix, gcd, div, Poly, Float, pprint
 import sympy as sp
 from sympy.abc import pi
@@ -221,33 +221,26 @@ class Operator:
         """
          Checks if all the conditions are true and return the **VALUE** if the graph
          has PST and False otherwise.
+         TODO: Check if numpy is faster for eigenvecs and vals.
 
-        :param nodeA: Input node.
-        :type nodeA: int
-        :param nodeB: Output node.
-        :type nodeB: int
+         Args:
+            :param nodeA: Input node.
+            :type nodeA: int
+            :param nodeB: Output node.
+            :type nodeB: int
 
         Returns:
             :return: pi / (g * np.sqrt(delta)) or False
             :rtype: **Value** or Bool
         """
         if nodeA > nodeB:
-            temp = nodeA
-            nodeA = nodeB
-            nodeB = temp
+            nodeA, nodeB = swapNodes(nodeA,nodeB)
+
         symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
-        (eigenvec, D) = symAdj.diagonalize()
-        eigenval = []
+        eigenVec, D = symAdj.diagonalize()
+        eigenVal = getEigenVal(D)
 
-        ## Notice that I was having rouding problems because Python was not considering 6x10^-50 to be zero, so I made a loop
-        # to garantee that it is zero.
-        for i in range(len(D.col(0))):
-            temp = D.col(i)[i]
-            if abs(temp) < 0.0000001:
-                temp = 0
-            eigenval.append(temp)
-
-        result, g, delta = checkRoots(symAdj, nodeA, eigenvec, eigenval)
+        result, g, delta = checkRoots(symAdj, nodeA, eigenVec, eigenVal)
         if isStrCospec(symAdj, nodeA, nodeB) and result:
             return pi / (g * np.sqrt(delta))
         else:
