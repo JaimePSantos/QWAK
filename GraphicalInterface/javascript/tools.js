@@ -16,6 +16,37 @@ let initGraph = async () => {
 initGraph()
 let myGraph = await getGraph();
 
+function openGraph(evt, graph) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(graph).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+document.getElementById('defaultOpen').addEventListener('click', evt => {
+  openGraph(evt, 'GraphGenerator');
+})
+document.getElementById('defaultOpen').click()
+
+document.getElementById('customGraphDisplay').addEventListener('click', evt => {
+  openGraph(evt, 'CustomGraph');
+
+})
+
 export let cy = cytoscape({
     container: document.getElementById("cy"), // container to render in
     boxSelectionEnabled: false,
@@ -46,6 +77,9 @@ export let cy = cytoscape({
         },
     ],
 });
+
+document.getElementById('customGraphDisplay').click()
+
 
 export let customCy = cytoscape({
           container: document.getElementById('cyCustom'),
@@ -149,6 +183,8 @@ export let customCy = cytoscape({
             ]
           }
         });
+
+document.getElementById('defaultOpen').click()
 
 export let defaultDist = [
     (-34, 3.3333333333333335e-5),
