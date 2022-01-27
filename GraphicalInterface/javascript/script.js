@@ -176,112 +176,111 @@ let updateGraph = (graph) => {
     cy.layout({ name: "circle" }).run();
 }
 
+var eh = customCy.edgehandles();
 
-// var eh = customCy.edgehandles();
+document.getElementById('addEdgeButton').addEventListener('click', function () {
+    eh.enableDrawMode();
+});
 
-// document.querySelector('#draw-on').addEventListener('click', function () {
-//     eh.enableDrawMode();
-// });
-
-// document.querySelector('#draw-off').addEventListener('click', function () {
-//     eh.disableDrawMode();
-// });
+document.getElementById('clearGraphButton').addEventListener('click', function () {
+    eh.disableDrawMode();
+});
 
 // document.querySelector('#start').addEventListener('click', function () {
 //     eh.start(customCy.$('node:selected'));
 // });
 
-// var popperEnabled = false;
+var popperEnabled = false;
 
-// document.querySelector('#popper').addEventListener('click', function () {
-//     if (popperEnabled) { return; }
+document.querySelector('#popper').addEventListener('click', function () {
+    if (popperEnabled) { return; }
 
-//     popperEnabled = true;
+    popperEnabled = true;
 
-//     // example code for making your own handles -- customise events and presentation where fitting
-//     // var popper;
-//     var popperNode;
-//     var popper;
-//     var popperDiv;
-//     var started = false;
+    // example code for making your own handles -- customise events and presentation where fitting
+    // var popper;
+    var popperNode;
+    var popper;
+    var popperDiv;
+    var started = false;
 
-//     function start() {
-//         eh.start(popperNode);
-//     }
+    function start() {
+        eh.start(popperNode);
+    }
 
-//     function stop() {
-//         eh.stop();
-//     }
+    function stop() {
+        eh.stop();
+    }
 
-//     function setHandleOn(node) {
-//         if (started) { return; }
+    function setHandleOn(node) {
+        if (started) { return; }
 
-//         removeHandle(); // rm old handle
+        removeHandle(); // rm old handle
 
-//         popperNode = node;
+        popperNode = node;
 
-//         popperDiv = document.createElement('div');
-//         popperDiv.classList.add('popper-handle');
-//         popperDiv.addEventListener('mousedown', start);
-//         document.body.appendChild(popperDiv);
+        popperDiv = document.createElement('div');
+        popperDiv.classList.add('popper-handle');
+        popperDiv.addEventListener('mousedown', start);
+        document.body.appendChild(popperDiv);
 
-//         popper = node.popper({
-//             content: popperDiv,
-//             popper: {
-//                 placement: 'top',
-//                 modifiers: [
-//                     {
-//                         name: 'offset',
-//                         options: {
-//                             offset: [0, -10],
-//                         },
-//                     },
-//                 ]
-//             }
-//         });
-//     }
+        popper = node.popper({
+            content: popperDiv,
+            popper: {
+                placement: 'top',
+                modifiers: [
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, -10],
+                        },
+                    },
+                ]
+            }
+        });
+    }
 
-//     function removeHandle() {
-//         if (popper) {
-//             popper.destroy();
-//             popper = null;
-//         }
+    function removeHandle() {
+        if (popper) {
+            popper.destroy();
+            popper = null;
+        }
 
-//         if (popperDiv) {
-//             document.body.removeChild(popperDiv);
-//             popperDiv = null;
-//         }
+        if (popperDiv) {
+            document.body.removeChild(popperDiv);
+            popperDiv = null;
+        }
 
-//         popperNode = null;
-//     }
+        popperNode = null;
+    }
 
-//     customCy.on('mouseover', 'node', function (e) {
-//         setHandleOn(e.target);
-//     });
+    customCy.on('mouseover', 'node', function (e) {
+        setHandleOn(e.target);
+    });
 
-//     customCy.on('grab', 'node', function () {
-//         removeHandle();
-//     });
+    customCy.on('grab', 'node', function () {
+        removeHandle();
+    });
 
-//     customCy.on('tap', function (e) {
-//         if (e.target === customCy) {
-//             removeHandle();
-//         }
-//     });
+    customCy.on('tap', function (e) {
+        if (e.target === customCy) {
+            removeHandle();
+        }
+    });
 
-//     customCy.on('zoom pan', function () {
-//         removeHandle();
-//     });
+    customCy.on('zoom pan', function () {
+        removeHandle();
+    });
 
-//     window.addEventListener('mouseup', function (e) {
-//         stop();
-//     });
+    window.addEventListener('mouseup', function (e) {
+        stop();
+    });
 
-//     customCy.on('ehstart', function () {
-//         started = true;
-//     });
+    customCy.on('ehstart', function () {
+        started = true;
+    });
 
-//     customCy.on('ehstop', function () {
-//         started = false;
-//     });
-// });
+    customCy.on('ehstop', function () {
+        started = false;
+    });
+});
