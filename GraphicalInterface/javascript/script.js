@@ -64,6 +64,12 @@ cy.layout({ name: "circle" }).run();
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
+let nodeNumber = 3;
+let addNodeButtonPress = addNodeButton.onclick = async () => {
+    nodeNumber++;
+    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString() },  position: { x: 100, y: 100 }});
+    customCy.layout();
+}
 let setInitStateRangeButtonPress = setInitStateRangeButton.onclick = async () => {
     dynamicQuantumWalk.initStateList = inputInitStateRange.value;
     eel.setInitStateList(dynamicQuantumWalk.initStateList);

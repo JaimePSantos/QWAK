@@ -83,10 +83,11 @@ document.getElementById('customGraphDisplay').click()
 
 export let customCy = cytoscape({
           container: document.getElementById('cyCustom'),
+        directed: false,
 
           layout: {
             name: 'concentric',
-            concentric: function(n){ return n.id() === 'j' ? 200 : 0; },
+            concentric: function(n){ return n.id() === 'n1' ? 200 : 0; },
             levelWidth: function(nodes){ return 100; },
             minNodeSpacing: 100
           },
@@ -102,8 +103,7 @@ export let customCy = cytoscape({
             {
               selector: 'edge',
               style: {
-                'curve-style': 'bezier',
-                'target-arrow-shape': 'triangle'
+                'curve-style': 'bezier'
               }
             },
 
@@ -165,21 +165,13 @@ export let customCy = cytoscape({
 
           elements: {
             nodes: [
-              { data: { id: 'j', name: 'Jerry' } },
-              { data: { id: 'e', name: 'Elaine' } },
-              { data: { id: 'k', name: 'Kramer' } },
-              { data: { id: 'g', name: 'George' } }
+              { data: { id: 'n1'} },
+              { data: { id: 'n2'} },
+              { data: { id: 'n3'} }
             ],
             edges: [
-              { data: { source: 'j', target: 'e' } },
-              { data: { source: 'j', target: 'k' } },
-              { data: { source: 'j', target: 'g' } },
-              { data: { source: 'e', target: 'j' } },
-              { data: { source: 'e', target: 'k' } },
-              { data: { source: 'k', target: 'j' } },
-              { data: { source: 'k', target: 'e' } },
-              { data: { source: 'k', target: 'g' } },
-              { data: { source: 'g', target: 'j' } }
+              { data: { source: 'n1', target: 'n2' } },
+              { data: { source: 'n2', target: 'n3' } }
             ]
           }
         });
