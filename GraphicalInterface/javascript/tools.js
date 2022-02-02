@@ -87,7 +87,7 @@ export let customCy = cytoscape({
 
           layout: {
             name: 'concentric',
-            concentric: function(n){ return n.id() === 'n1' ? 200 : 0; },
+            concentric: function(n){ return n.id() === '0' ? 200 : 0; },
             levelWidth: function(nodes){ return 100; },
             minNodeSpacing: 100
           },
@@ -165,13 +165,13 @@ export let customCy = cytoscape({
 
           elements: {
             nodes: [
-              { data: { id: 'n1'} },
-              { data: { id: 'n2'} },
-              { data: { id: 'n3'} }
+              { data: { id: '0', name:'0'} },
+              { data: { id: '1', name:'1'} },
+              { data: { id: '2', name:'2'} }
             ],
             edges: [
-              { data: { source: 'n1', target: 'n2' } },
-              { data: { source: 'n2', target: 'n3' } }
+              { data: { source: '0', target: '1' } },
+              { data: { source: '1', target: '2' } }
             ]
           }
         });

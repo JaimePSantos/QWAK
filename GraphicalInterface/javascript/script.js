@@ -2,7 +2,6 @@ import { defaultDist, cy, data, data2, customCy } from "./tools.js";
 import { StaticQuantumwalk } from "./staticQuantumwalk.js";
 import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
 
-let addNodeButton = document.getElementById("addNodeButton");
 
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
@@ -64,12 +63,8 @@ cy.layout({ name: "circle" }).run();
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
-let nodeNumber = 3;
-let addNodeButtonPress = addNodeButton.onclick = async () => {
-    nodeNumber++;
-    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString() },  position: { x: 100, y: 100 }});
-    customCy.layout();
-}
+
+
 let setInitStateRangeButtonPress = setInitStateRangeButton.onclick = async () => {
     dynamicQuantumWalk.initStateList = inputInitStateRange.value;
     eel.setInitStateList(dynamicQuantumWalk.initStateList);
@@ -188,6 +183,42 @@ document.getElementById('addEdgeButton').addEventListener('click', function () {
     eh.enableDrawMode();
 });
 
+document.getElementById("addNodeButton").addEventListener('click', function () {
+    addNodeButtonPress();
+});
+
+let nodeNumber = 2;
+let nodeXPos = 200;
+let nodeYPos = 0;
+
+let addNodeButtonPress = async () => {
+    nodeNumber++;
+    nodeYPos += 50;
+    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString(),name: nodeNumber.toString() },  position: { x: nodeXPos, y: nodeYPos }});
+    // customCy.layout();
+}
+document.getElementById('graphCustomButton').addEventListener('click', function () {
+    graphCustomButtonPress();
+});
+
+let graphCustomButtonPress = async () => {
+    let adjacencyMatrix = createAdjacencyMatrix(customCy)
+    console.log(adjacencyMatrix.toArray())
+    
+}
+
+function createAdjacencyMatrix(graph) {
+    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
+
+    for(let edg of graph.json().elements.edges){
+        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`)
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.source),parseInt(edg.data.target)),1)
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.target),parseInt(edg.data.source)),1)
+    }
+    return adjacencyMatrix
+
+}
+
 document.getElementById('clearGraphButton').addEventListener('click', function () {
     eh.disableDrawMode();
 });
@@ -196,97 +227,97 @@ document.getElementById('clearGraphButton').addEventListener('click', function (
 //     eh.start(customCy.$('node:selected'));
 // });
 
-var popperEnabled = false;
-
-document.querySelector('#popper').addEventListener('click', function () {
-    if (popperEnabled) { return; }
-
-    popperEnabled = true;
-
-    // example code for making your own handles -- customise events and presentation where fitting
-    // var popper;
-    var popperNode;
-    var popper;
-    var popperDiv;
-    var started = false;
-
-    function start() {
-        eh.start(popperNode);
-    }
-
-    function stop() {
-        eh.stop();
-    }
-
-    function setHandleOn(node) {
-        if (started) { return; }
-
-        removeHandle(); // rm old handle
-
-        popperNode = node;
-
-        popperDiv = document.createElement('div');
-        popperDiv.classList.add('popper-handle');
-        popperDiv.addEventListener('mousedown', start);
-        document.body.appendChild(popperDiv);
-
-        popper = node.popper({
-            content: popperDiv,
-            popper: {
-                placement: 'top',
-                modifiers: [
-                    {
-                        name: 'offset',
-                        options: {
-                            offset: [0, -10],
-                        },
-                    },
-                ]
-            }
-        });
-    }
-
-    function removeHandle() {
-        if (popper) {
-            popper.destroy();
-            popper = null;
-        }
-
-        if (popperDiv) {
-            document.body.removeChild(popperDiv);
-            popperDiv = null;
-        }
-
-        popperNode = null;
-    }
-
-    customCy.on('mouseover', 'node', function (e) {
-        setHandleOn(e.target);
-    });
-
-    customCy.on('grab', 'node', function () {
-        removeHandle();
-    });
-
-    customCy.on('tap', function (e) {
-        if (e.target === customCy) {
-            removeHandle();
-        }
-    });
-
-    customCy.on('zoom pan', function () {
-        removeHandle();
-    });
-
-    window.addEventListener('mouseup', function (e) {
-        stop();
-    });
-
-    customCy.on('ehstart', function () {
-        started = true;
-    });
-
-    customCy.on('ehstop', function () {
-        started = false;
-    });
-});
+// var popperEnabled = false;
+//
+// document.querySelector('#popper').addEventListener('click', function () {
+//     if (popperEnabled) { return; }
+//
+//     popperEnabled = true;
+//
+//     // example code for making your own handles -- customise events and presentation where fitting
+//     // var popper;
+//     var popperNode;
+//     var popper;
+//     var popperDiv;
+//     var started = false;
+//
+//     function start() {
+//         eh.start(popperNode);
+//     }
+//
+//     function stop() {
+//         eh.stop();
+//     }
+//
+//     function setHandleOn(node) {
+//         if (started) { return; }
+//
+//         removeHandle(); // rm old handle
+//
+//         popperNode = node;
+//
+//         popperDiv = document.createElement('div');
+//         popperDiv.classList.add('popper-handle');
+//         popperDiv.addEventListener('mousedown', start);
+//         document.body.appendChild(popperDiv);
+//
+//         popper = node.popper({
+//             content: popperDiv,
+//             popper: {
+//                 placement: 'top',
+//                 modifiers: [
+//                     {
+//                         name: 'offset',
+//                         options: {
+//                             offset: [0, -10],
+//                         },
+//                     },
+//                 ]
+//             }
+//         });
+//     }
+//
+//     function removeHandle() {
+//         if (popper) {
+//             popper.destroy();
+//             popper = null;
+//         }
+//
+//         if (popperDiv) {
+//             document.body.removeChild(popperDiv);
+//             popperDiv = null;
+//         }
+//
+//         popperNode = null;
+//     }
+//
+//     customCy.on('mouseover', 'node', function (e) {
+//         setHandleOn(e.target);
+//     });
+//
+//     customCy.on('grab', 'node', function () {
+//         removeHandle();
+//     });
+//
+//     customCy.on('tap', function (e) {
+//         if (e.target === customCy) {
+//             removeHandle();
+//         }
+//     });
+//
+//     customCy.on('zoom pan', function () {
+//         removeHandle();
+//     });
+//
+//     window.addEventListener('mouseup', function (e) {
+//         stop();
+//     });
+//
+//     customCy.on('ehstart', function () {
+//         started = true;
+//     });
+//
+//     customCy.on('ehstop', function () {
+//         started = false;
+//     });
+// });
