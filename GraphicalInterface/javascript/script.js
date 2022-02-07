@@ -202,9 +202,14 @@ document.getElementById('graphCustomButton').addEventListener('click', function 
 });
 
 let graphCustomButtonPress = async () => {
-    let adjacencyMatrix = createAdjacencyMatrix(customCy)
+    let adjacencyMatrix = createAdjacencyMatrix(customCy);
     console.log(adjacencyMatrix.toArray())
-    
+    eel.printAdjacencyMatrix()
+}
+
+eel.expose(sendAdjacencyMatrix);
+function sendAdjacencyMatrix(){
+    return createAdjacencyMatrix(customCy);
 }
 
 function createAdjacencyMatrix(graph) {

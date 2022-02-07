@@ -58,10 +58,7 @@ class QWAK:
         self._time = time
         self._gamma = gamma
         self._initStateList = initStateList
-        print(f"init state inside variable {initStateList}")
-        print(f"init state inside {self._initStateList}")
         self._initState.buildState(self._initStateList)
-        # print(f"Inside RUnwalk {self._initState.getNodeList()}")
         self._operator.buildDiagonalOperator(self._time, self._gamma)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -98,7 +95,7 @@ class QWAK:
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
         self._initStateList = [int(self._n / 2)]
-        self._initState = State(self._n)
+        self._initState = State(self._n,self._initStateList)
         self._operator = Operator(self._graph)
 
     def getDim(self) -> int:
@@ -110,6 +107,16 @@ class QWAK:
             :rtype: int
         """
         return self._n
+
+    def setAdjacencyMatrix(self,newAdjMatrix):
+        self._operator.setAdjacencyMatrix(newAdjMatrix)
+        self._n = len(self._operator.getAdjacencyMatrix())
+        self._initStateList = [int(self._n / 2)]
+        self._initState = State(self._n)
+        self._initState.buildState(self._initStateList)
+
+    def getAdjacencyMatrix(self):
+        return self._operator.getAdjacencyMatrix()
 
     def setGraph(self, newGraph: nx.Graph) -> None:
         """

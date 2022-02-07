@@ -141,6 +141,15 @@ if __name__ == '__main__':
         myCytGraph = nx.cytoscape_data(graph)
         return myCytGraph
 
+    @eel.expose
+    def printAdjacencyMatrix():
+        global staticQuantumWalk, dynamicQuantumWalk
+        adjM = np.matrix(eel.sendAdjacencyMatrix()()['data'])
+        staticQuantumWalk.setAdjacencyMatrix(adjM)
+        print(len(staticQuantumWalk.getAdjacencyMatrix()))
+        staticQuantumWalk.runWalk(t, gamma, initState)
+
+
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
 
         

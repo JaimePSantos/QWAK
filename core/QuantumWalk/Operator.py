@@ -15,7 +15,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool=False) -> None:
+    def __init__(self, graph: nx.Graph=None,laplacian:bool=False,adjacencyMatrix=None) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -37,12 +37,15 @@ class Operator:
             :param graph: Graph where the walk will be performed.
             :type graph: NetworkX.Graph
         """
-        self._graph = graph
-        if laplacian:
-            self._adjacencyMatrix = nx.laplacian_matrix(graph).todense()
-        else:
-            self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
-        self._n = len(graph)
+        if graph is not None:
+            self._graph = graph
+            if laplacian:
+                self._adjacencyMatrix = nx.laplacian_matrix(graph).todense()
+            else:
+                self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
+                print(type(self._adjacencyMatrix))
+
+            self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
             self._adjacencyMatrix)
@@ -183,6 +186,8 @@ class Operator:
             :type adjacencyMatrix: Numpy.ndarray
         """
         self._adjacencyMatrix = adjacencyMatrix
+        self._n = len(self._adjacencyMatrix)
+        self.__init__()
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """
