@@ -86,7 +86,7 @@ let setInitStateButtonPress = setInitStateButton.onclick = async () => {
 }
 
 let setTimeButtonPress = setTimeButton.onclick = async () => {
-    staticQuantumWalk.time = parseInt(inputTime.value);
+    staticQuantumWalk.time = parseFloat(inputTime.value);
     eel.setTime(staticQuantumWalk.time);
 }
 

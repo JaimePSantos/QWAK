@@ -123,14 +123,22 @@ def checkRoots(A, a, eigenvec, eigenval):
     quadRoots = 0
     sqrtFreeInt = getSquareFree(int((4 * A ** 2).trace()))
     p = h.all_coeffs()[1]
+    deltaTmp = 0
     for deltaS in sqrtFreeInt:
         q = 0
         while (p + q * sqrt(deltaS) / 2) <= sqrt(int(((A ** 2).trace()))):
+            print(f"h = {h(p + q * sqrt(deltaS) / 2)}")
+            print(Float(p + q * sqrt(deltaS) / 2, 3) in supp)
             if h(p + q * sqrt(deltaS) / 2) == 0 and Float(p + q * sqrt(deltaS) / 2, 3) in supp:
+                print(f"DeltaS = {deltaS}\tp = {p}\t q= {q}")
                 quadRoots += 1
+                deltaTmp = deltaS
             q += 1
+        print()
+
+    print(f"QuadRoots = {quadRoots}")
     if quadRoots > 0:
-        delta = deltaS
+        delta = deltaTmp
 
     ## Here we check if quadRoots or intRoots are bigger than k, which is the degree of our polynomial h(x). If none of them is
     # then we know that PST is not possible and we return False.
@@ -143,11 +151,13 @@ def checkRoots(A, a, eigenvec, eigenval):
 
     diffs = []
     for i in range(len(supp)):
-        diffs.append(max(supp) - supp[i] / sqrt(delta))
+        diffs.append( (max(supp) - supp[i]) / np.sqrt(delta) )
 
     g = 0
     for diff in diffs:
-        g = gcd(g, diff)
+        print(f"diff = {diff} \t g = {g} \t gcd = {gcd(diff,g)}")
+        g = np.gcd(g, diff)
+    print(f"g = {g} \t delta = {delta}")
     return True, g, delta
 
 def swapNodes(nodeA,nodeB):

@@ -11,13 +11,20 @@ if __name__ == '__main__':
     n = 4
     t = 2
     gamma = 1 / (2 * np.sqrt(2))
-    graph = nx.cycle_graph(n)
+    # graph = nx.cycle_graph(n)
+    graph = nx.complete_bipartite_graph(2,5)
+    # graph = nx.hypercube_graph(3)
+    print(nx.adjacency_matrix(graph).todense())
+    nx.draw(graph)
+    plt.show()
     # G = nx.Graph()
     marked = [int(n / 2)]
     qwController = QWAK(graph, laplacian=False)
-    qwController.runWalk(t, gamma, marked)
-    sp.pprint(qwController.checkPST(0,2))
-
+    qwController.runWalk(np.pi/2, 1, [0])
+    sp.pprint(qwController.checkPST(0,1))
+    plt.plot(qwController.getProbDist().getProbVec())
+    plt.show()
+    print(type(eval("np.pi * 2")))
     # for i in range(0,100):
     #     G.add_edge(f"{i}",f"{i+1}",weight=2)
     #     # print(f" {i} ---- {i+1}")

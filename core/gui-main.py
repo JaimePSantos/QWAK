@@ -101,6 +101,8 @@ if __name__ == '__main__':
 
     @eel.expose
     def setGamma(newGamma):
+        global gamma
+        gamma = newGamma
         staticQuantumWalk.setGamma(newGamma)
     
     @eel.expose
@@ -110,11 +112,13 @@ if __name__ == '__main__':
     @eel.expose
     def runWalk():
         global staticQuantumWalk,n,t,gamma,initState
-        staticQuantumWalk.resetWalk()
+        # staticQuantumWalk.resetWalk()
         staticQuantumWalk.runWalk(t,gamma,initState)
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()
+        print(gamma)
+        print(t)
         return probLists
     
     @eel.expose
