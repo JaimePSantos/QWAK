@@ -127,16 +127,12 @@ def checkRoots(A, a, eigenvec, eigenval):
     for deltaS in sqrtFreeInt:
         q = 0
         while (p + q * sqrt(deltaS) / 2) <= sqrt(int(((A ** 2).trace()))):
-            print(f"h = {h(p + q * sqrt(deltaS) / 2)}")
-            print(Float(p + q * sqrt(deltaS) / 2, 3) in supp)
             if h(p + q * sqrt(deltaS) / 2) == 0 and Float(p + q * sqrt(deltaS) / 2, 3) in supp:
-                print(f"DeltaS = {deltaS}\tp = {p}\t q= {q}")
                 quadRoots += 1
                 deltaTmp = deltaS
             q += 1
         print()
 
-    print(f"QuadRoots = {quadRoots}")
     if quadRoots > 0:
         delta = deltaTmp
 
@@ -155,9 +151,7 @@ def checkRoots(A, a, eigenvec, eigenval):
 
     g = 0
     for diff in diffs:
-        print(f"diff = {diff} \t g = {g} \t gcd = {gcd(diff,g)}")
         g = np.gcd(g, diff)
-    print(f"g = {g} \t delta = {delta}")
     return True, g, delta
 
 def swapNodes(nodeA,nodeB):

@@ -8,23 +8,30 @@ from math import sqrt, ceil, pow
 from QuantumWalk.QWAK import QWAK
 
 if __name__ == '__main__':
-    n = 4
-    t = 2
-    gamma = 1 / (2 * np.sqrt(2))
-    # graph = nx.cycle_graph(n)
-    graph = nx.complete_bipartite_graph(2,5)
+    n = 100
+    t = 0.5
+    # gamma = 1 / (2 * np.sqrt(2))
+    gamma = 1
+    graph = nx.cycle_graph(n)
+    # graph = nx.complete_bipartite_graph(2,5)
     # graph = nx.hypercube_graph(3)
-    print(nx.adjacency_matrix(graph).todense())
-    nx.draw(graph)
-    plt.show()
+    # nx.draw(graph)
+    # plt.show()
     # G = nx.Graph()
     marked = [int(n / 2)]
     qwController = QWAK(graph, laplacian=False)
-    qwController.runWalk(np.pi/2, 1, [0])
-    sp.pprint(qwController.checkPST(0,1))
+    qwController.runWalk(t, gamma, marked)
     plt.plot(qwController.getProbDist().getProbVec())
     plt.show()
-    print(type(eval("np.pi * 2")))
+    # sp.pprint(f"PST {qwController.checkPST(0,2)}")
+    print(f"Mean: {qwController.getProbDist().mean()}\t "
+          f"Moment 1: {qwController.getProbDist().moment(1)}\n"
+          f"Moment 2: {qwController.getProbDist().moment(2)}\n"
+          f"Stdev: {qwController.getProbDist().stdev()}\t"
+          f"Alt Stdev: {qwController.getProbDist().altStdev()}\n"
+          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0]-5,marked[0]+5)}")
+
+
     # for i in range(0,100):
     #     G.add_edge(f"{i}",f"{i+1}",weight=2)
     #     # print(f" {i} ---- {i+1}")
