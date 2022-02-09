@@ -241,7 +241,7 @@ class QWAK:
             :return: self._quantumWalk.getWalk()
             :rtype: State
         """
-        return self._quantumWalk.getWalk()
+        return self._quantumWalk
 
     def setProbDist(self, newProbDist: object) -> None:
         """

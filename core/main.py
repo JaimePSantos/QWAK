@@ -29,7 +29,8 @@ if __name__ == '__main__':
           f"Moment 2: {qwController.getProbDist().moment(2)}\n"
           f"Stdev: {qwController.getProbDist().stdev()}\t"
           f"Alt Stdev: {qwController.getProbDist().altStdev()}\n"
-          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0]-5,marked[0]+5)}")
+          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0]-5,marked[0]+5)}\n"
+          f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}")
 
 
     # for i in range(0,100):
