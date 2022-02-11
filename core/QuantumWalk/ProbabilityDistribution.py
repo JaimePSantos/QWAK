@@ -105,7 +105,7 @@ class ProbabilityDistribution:
         pos = np.arange(0,self._n)
         m = 0
         for x in range(self._n):
-            m += pos[x]*(self._probVec[x]**k)
+            m += (pos[x]**k)*self._probVec[x]
         return float(m)
 
     def stdev(self) -> float:
@@ -123,13 +123,11 @@ class ProbabilityDistribution:
         return float(np.sqrt(std))
 
     def altStdev(self):
-        #Not Working
-        return np.sqrt(self.moment(1)**2 - self.moment(2))
+        return np.sqrt(self.moment(2) - self.moment(1)**2)
 
     def survivalProb(self,k0,k1):
         survProb = 0
         for i in range(k0,k1):
-            print(i)
             survProb +=  self._probVec[i]
         return survProb
 

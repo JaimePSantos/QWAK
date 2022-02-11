@@ -18,7 +18,7 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool = False) -> None:
+    def __init__(self, graph: nx.Graph,laplacian:bool = False,markedSearch = None) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -30,7 +30,10 @@ class QWAK:
             :type graph: NetworkX.Graph
         """
         self._graph = graph
-        self._operator = Operator(self._graph,laplacian)
+        if markedSearch is not None:
+            self._operator = Operator(self._graph, laplacian,markedSearch=markedSearch)
+        else:
+            self._operator = Operator(self._graph,laplacian)
         self._n = len(self._graph)
         self._initStateList = [0]
         self._initState = State(self._n,self._initStateList)
@@ -295,3 +298,8 @@ class QWAK:
 
     def checkPST(self,nodeA,nodeB):
         return self._operator.checkPST(nodeA,nodeB)
+
+    def transportEfficiency(self):
+        print(self._initState.getStateVec())
+        return self._operator.transportEfficiency(self._initState.getStateVec())
+

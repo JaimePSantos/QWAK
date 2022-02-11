@@ -15,7 +15,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph=None,laplacian:bool=False,adjacencyMatrix=None) -> None:
+    def __init__(self, graph: nx.Graph=None,laplacian:bool=False,adjacencyMatrix=None,markedSearch=None) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -41,9 +41,16 @@ class Operator:
             self._graph = graph
             if laplacian:
                 self._adjacencyMatrix = nx.laplacian_matrix(graph).todense()
+                if markedSearch is not None:
+                    for marked in markedSearch:
+                        self._adjacencyMatrix[marked[0],marked[0]] += marked[1]
+                        print(self._adjacencyMatrix[marked[0],marked[0]])
             else:
-                self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
-                print(type(self._adjacencyMatrix))
+                self._adjacencyMatrix = nx.adjacency_matrix(graph).todense().astype(complex)
+                if markedSearch is not None:
+                    for marked in markedSearch:
+                        self._adjacencyMatrix[marked[0],marked[0]] += marked[1]
+                        print(self._adjacencyMatrix[marked[0],marked[0]])
 
             self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
@@ -250,3 +257,17 @@ class Operator:
             return pi / (g * np.sqrt(delta))
         else:
             return False
+
+    def transportEfficiency(self,initState):
+        ef = 0
+        eigenCols = []
+        for i in range(len(self._eigenvectors)):
+            eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()
+            ef += np.absolute(np.matmul(eigenVec,initState))**2
+
+        return ef
+
+
+
+
+
