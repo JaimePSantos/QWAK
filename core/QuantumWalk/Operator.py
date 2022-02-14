@@ -40,7 +40,7 @@ class Operator:
         if graph is not None:
             self._graph = graph
             if laplacian:
-                self._adjacencyMatrix = nx.laplacian_matrix(graph).todense()
+                self._adjacencyMatrix = nx.laplacian_matrix(graph).todense().astype(complex)
                 self.buildAdjacency(markedSearch)
             else:
                 self._adjacencyMatrix = nx.adjacency_matrix(graph).todense().astype(complex)
@@ -258,11 +258,10 @@ class Operator:
 
     def transportEfficiency(self,initState):
         ef = 0
-        eigenCols = []
         for i in range(len(self._eigenvectors)):
             eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()
             ef += np.absolute(np.matmul(eigenVec,initState))**2
-
+        
         return ef
 
 

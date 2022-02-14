@@ -9,19 +9,22 @@ from QuantumWalk.QWAK import QWAK
 
 if __name__ == '__main__':
     n = 100
-    t = 10
+    t = 0.5
     # gamma = 1 / (2 * np.sqrt(2))
-    graph = nx.cycle_graph(n)
-    # graph = nx.complete_bipartite_graph(2,5)
+    # graph = nx.cycle_graph(n)
+    graph = nx.complete_bipartite_graph(11,10)
     # graph = nx.hypercube_graph(3)
-    # nx.draw(graph)
-    # plt.show()
+    nx.draw(graph,with_labels = True)
+    plt.show()
     # marked = [int(n / 2)]
-    marked = [50]
-    qwController = QWAK(graph, laplacian=False,markedSearch=[(0,-1j*0.5)])
+    marked = [0]
+    marked = range(21)
+    # marked = range(int(n))
+    qwController = QWAK(graph, laplacian=True,markedSearch=[(10,-10)])
     print(qwController.getAdjacencyMatrix())
     qwController.runWalk(t, marked)
     print(f"TE: {qwController.transportEfficiency()}")
+    print(qwController.getProbDist().getProbVec())
     plt.plot(qwController.getProbDist().getProbVec())
     plt.show()
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")

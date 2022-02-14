@@ -300,6 +300,5 @@ class QWAK:
         return self._operator.checkPST(nodeA,nodeB)
 
     def transportEfficiency(self):
-        print(self._initState.getStateVec())
         return self._operator.transportEfficiency(self._initState.getStateVec())
 

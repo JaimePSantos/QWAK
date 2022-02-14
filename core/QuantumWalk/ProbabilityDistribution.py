@@ -50,8 +50,8 @@ class ProbabilityDistribution:
         TODO: Nao devia ser pelo complexo conjugado?
         """
         for st in range(self._n):
-            self._probVec[st] = self._stateVec[st] * \
-                                np.conjugate(self._stateVec[st])
+            self._probVec[st] = self._stateVec[st] * np.conj(self._stateVec[st])
+            print(f"{st} = {self._probVec[st]}")
 
     def setProbVec(self, newProbVec: np.ndarray) -> None:
         """
