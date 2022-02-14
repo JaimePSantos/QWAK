@@ -41,17 +41,10 @@ class Operator:
             self._graph = graph
             if laplacian:
                 self._adjacencyMatrix = nx.laplacian_matrix(graph).todense()
-                if markedSearch is not None:
-                    for marked in markedSearch:
-                        self._adjacencyMatrix[marked[0],marked[0]] += marked[1]
-                        print(self._adjacencyMatrix[marked[0],marked[0]])
+                self.buildAdjacency(markedSearch)
             else:
                 self._adjacencyMatrix = nx.adjacency_matrix(graph).todense().astype(complex)
-                if markedSearch is not None:
-                    for marked in markedSearch:
-                        self._adjacencyMatrix[marked[0],marked[0]] += marked[1]
-                        print(self._adjacencyMatrix[marked[0],marked[0]])
-
+                self.buildAdjacency(markedSearch)
             self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
@@ -96,6 +89,11 @@ class Operator:
             :rtype: str
         """
         return f"{self._operator}"
+
+    def buildAdjacency(self,markedSearch=None):
+        if markedSearch is not None:
+            for marked in markedSearch:
+                self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
