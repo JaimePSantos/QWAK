@@ -38,14 +38,14 @@ class QWAK:
         self._initStateList = [0]
         self._initState = State(self._n,self._initStateList)
         self._time = 0
-        self._gamma = 1
+        # self._gamma = 1
 
     def resetWalk(self):
         self._initState.resetState()
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> None:
+    def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
         with the given parameters. These can be accessed with their respective get methods.
@@ -59,10 +59,10 @@ class QWAK:
             :type initStateList: (list, optional)
         """
         self._time = time
-        self._gamma = gamma
+        # self._gamma = gamma
         self._initStateList = initStateList
         self._initState.buildState(self._initStateList)
-        self._operator.buildDiagonalOperator(self._time, self._gamma)
+        self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
@@ -185,25 +185,25 @@ class QWAK:
         """
         return self._time
 
-    def setGamma(self, newGamma: float) -> None:
-        """
-        Sets the current walk transition rate to a user defined one.
+    # def setGamma(self, newGamma: float) -> None:
+    #     """
+    #     Sets the current walk transition rate to a user defined one.
+    #
+    #     Args:
+    #         :param newGamma: New transition rate.
+    #         :type newGamma: float
+    #     """
+    #     self._gamma = newGamma
 
-        Args:
-            :param newGamma: New transition rate.
-            :type newGamma: float
-        """
-        self._gamma = newGamma
-
-    def getGamma(self) -> float:
-        """
-        Gets the current walk transition rate.
-
-        Returns:
-            :return: self._gamma
-            :rtype: float
-        """
-        return self._gamma
+    # def getGamma(self) -> float:
+    #     """
+    #     Gets the current walk transition rate.
+    #
+    #     Returns:
+    #         :return: self._gamma
+    #         :rtype: float
+    #     """
+    #     return self._gamma
 
     def setOperator(self, newOperator: Operator) -> None:
         """

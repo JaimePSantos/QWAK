@@ -8,21 +8,19 @@ from math import sqrt, ceil, pow
 from QuantumWalk.QWAK import QWAK
 
 if __name__ == '__main__':
-    n = 8
-    t = 0.5
+    n = 100
+    t = 10
     # gamma = 1 / (2 * np.sqrt(2))
-    gamma = 1
     graph = nx.cycle_graph(n)
     # graph = nx.complete_bipartite_graph(2,5)
     # graph = nx.hypercube_graph(3)
     # nx.draw(graph)
     # plt.show()
-    # G = nx.Graph()
     # marked = [int(n / 2)]
-    marked = [3]
+    marked = [50]
     qwController = QWAK(graph, laplacian=False,markedSearch=[(0,-1j*0.5)])
     print(qwController.getAdjacencyMatrix())
-    qwController.runWalk(t, gamma, marked)
+    qwController.runWalk(t, marked)
     print(f"TE: {qwController.transportEfficiency()}")
     plt.plot(qwController.getProbDist().getProbVec())
     plt.show()
@@ -35,7 +33,7 @@ if __name__ == '__main__':
     #       f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0]-5,marked[0]+5)}\n"
     #       f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}")
 
-
+    # G = nx.Graph()
     # for i in range(0,100):
     #     G.add_edge(f"{i}",f"{i+1}",weight=2)
     #     # print(f" {i} ---- {i+1}")

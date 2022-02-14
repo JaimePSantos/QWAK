@@ -57,7 +57,7 @@ class Operator:
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
             self._adjacencyMatrix)
         self._time = 0
-        self._gamma = 1
+        # self._gamma = 1
 
     def __mul__(self, other):
         """
@@ -100,7 +100,7 @@ class Operator:
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
 
-    def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> None:
+    def buildDiagonalOperator(self, time: float = 0) -> None:
         """
         Builds operator matrix from optional time and transition rate parameters, defined by user.
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
@@ -115,8 +115,8 @@ class Operator:
             :type gamma: (int, optional)
         """
         self._time = time
-        self._gamma = gamma
-        D = np.diag(np.exp(-1j * self._time * self._gamma *
+        # self._gamma = gamma
+        D = np.diag(np.exp(-1j * self._time *
                            self._eigenvalues)).diagonal()
         self._operator = np.multiply(self._eigenvectors, D)
         self._operator = self._operator @ self._eigenvectors.H
@@ -162,25 +162,25 @@ class Operator:
         """
         return self._time
 
-    def setGamma(self, newGamma: float) -> None:
-        """
-        Sets the current operator transition rate to a user defined one.
+    # def setGamma(self, newGamma: float) -> None:
+    #     """
+    #     Sets the current operator transition rate to a user defined one.
+    #
+    #     Args:
+    #         :param newGamma: New transition rate.
+    #         :type newGamma: float
+    #     """
+    #     self._gamma = newGamma
 
-        Args:
-            :param newGamma: New transition rate.
-            :type newGamma: float
-        """
-        self._gamma = newGamma
-
-    def getGamma(self) -> float:
-        """
-        Gets the current walk transition rate.
-
-        Returns:
-            :return: self._gamma
-            :rtype: float
-        """
-        return self._gamma
+    # def getGamma(self) -> float:
+    #     """
+    #     Gets the current walk transition rate.
+    #
+    #     Returns:
+    #         :return: self._gamma
+    #         :rtype: float
+    #     """
+    #     return self._gamma
 
     def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
         """
@@ -215,7 +215,7 @@ class Operator:
             :type newOperator: Operator
         """
         self._n = newOperator.getDim()
-        self._gamma = newOperator.getGamma()
+        # self._gamma = newOperator.getGamma()
         self._time = newOperator.getTime()
         self._operator = newOperator.getOperator()
 
