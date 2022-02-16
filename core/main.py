@@ -8,25 +8,29 @@ from math import sqrt, ceil, pow
 from QuantumWalk.QWAK import QWAK
 
 if __name__ == '__main__':
-    n = 100
-    t = 0.5
+    n = 5
+    t = 1
     # gamma = 1 / (2 * np.sqrt(2))
     # graph = nx.cycle_graph(n)
-    graph = nx.complete_bipartite_graph(11,10)
+    graph = nx.complete_bipartite_graph(20,20)
     # graph = nx.hypercube_graph(3)
+
     nx.draw(graph,with_labels = True)
     plt.show()
     # marked = [int(n / 2)]
-    marked = [0]
-    marked = range(21)
+    marked = [4]
+    # marked = range(n)
     # marked = range(int(n))
-    qwController = QWAK(graph, laplacian=True,markedSearch=[(10,-10)])
-    print(qwController.getAdjacencyMatrix())
+    qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
     qwController.runWalk(t, marked)
+    # print(qwController.getAdjacencyMatrix())
     print(f"TE: {qwController.transportEfficiency()}")
-    print(qwController.getProbDist().getProbVec())
-    plt.plot(qwController.getProbDist().getProbVec())
-    plt.show()
+    amps = qwController.getWalk().getWalk().getStateVec()
+    density = np.conjugate(amps).T * amps
+    print(density)
+
+    # plt.plot(qwController.getWalk().getWalk().getStateVec())
+    # plt.show()
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
     # print(f"Mean: {qwController.getProbDist().mean()}\t "
     #       f"Moment 1: {qwController.getProbDist().moment(1)}\n"
