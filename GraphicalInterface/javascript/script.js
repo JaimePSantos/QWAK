@@ -1,6 +1,7 @@
-import {defaultDist, cy, data, data2} from "./tools.js";
-import {StaticQuantumwalk} from "./staticQuantumwalk.js";
-import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
+import { defaultDist, cy, data, data2, customCy } from "./tools.js";
+import { StaticQuantumwalk } from "./staticQuantumwalk.js";
+import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
+
 
 let goButton = document.getElementById("goButton");
 let goMultipleButton = document.getElementById("goMultipleButton");
@@ -35,7 +36,7 @@ let defaultTimeList = [0, 100];
 let defaultGammaList = [(1 / (2 * Math.sqrt(2))).toFixed(2)];
 let defaultInitStateList = [[Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1]];
 let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultGamma, defaultInitState, defaultGraph)
-let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph,defaultTimeList, defaultGammaList,defaultInitStateList)
+let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultGammaList, defaultInitStateList)
 
 let inputInit = () => {
     inputTime.value = defaultT;
@@ -57,10 +58,12 @@ inputRangeInit()
 let ctx = document.getElementById("myChart").getContext("2d");
 let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
 
-cy.layout({name: "circle"}).run();
+cy.layout({ name: "circle" }).run();
 
 let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
+
+
 
 let setInitStateRangeButtonPress = setInitStateRangeButton.onclick = async () => {
     dynamicQuantumWalk.initStateList = inputInitStateRange.value;
@@ -83,7 +86,7 @@ let setInitStateButtonPress = setInitStateButton.onclick = async () => {
 }
 
 let setTimeButtonPress = setTimeButton.onclick = async () => {
-    staticQuantumWalk.time = parseInt(inputTime.value);
+    staticQuantumWalk.time = parseFloat(inputTime.value);
     eel.setTime(staticQuantumWalk.time);
 }
 
@@ -171,5 +174,155 @@ let getTime = () => {
 let updateGraph = (graph) => {
     cy.elements().remove()
     cy.add(graph.elements)
-    cy.layout({name: "circle"}).run();
+    cy.layout({ name: "circle" }).run();
 }
+
+var eh = customCy.edgehandles();
+
+document.getElementById('addEdgeButton').addEventListener('click', function () {
+    eh.enableDrawMode();
+});
+
+document.getElementById("addNodeButton").addEventListener('click', function () {
+    addNodeButtonPress();
+});
+
+let nodeNumber = 2;
+let nodeXPos = 200;
+let nodeYPos = 0;
+
+let addNodeButtonPress = async () => {
+    nodeNumber++;
+    nodeYPos += 50;
+    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString(),name: nodeNumber.toString() },  position: { x: nodeXPos, y: nodeYPos }});
+    // customCy.layout();
+}
+document.getElementById('graphCustomButton').addEventListener('click', function () {
+    graphCustomButtonPress();
+});
+
+let graphCustomButtonPress = async () => {
+    let adjacencyMatrix = createAdjacencyMatrix(customCy);
+    console.log(adjacencyMatrix.toArray())
+    eel.printAdjacencyMatrix()
+}
+
+eel.expose(sendAdjacencyMatrix);
+function sendAdjacencyMatrix(){
+    return createAdjacencyMatrix(customCy);
+}
+
+function createAdjacencyMatrix(graph) {
+    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
+
+    for(let edg of graph.json().elements.edges){
+        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`)
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.source),parseInt(edg.data.target)),1)
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.target),parseInt(edg.data.source)),1)
+    }
+    return adjacencyMatrix
+
+}
+
+document.getElementById('clearGraphButton').addEventListener('click', function () {
+    eh.disableDrawMode();
+});
+
+// document.querySelector('#start').addEventListener('click', function () {
+//     eh.start(customCy.$('node:selected'));
+// });
+
+// var popperEnabled = false;
+//
+// document.querySelector('#popper').addEventListener('click', function () {
+//     if (popperEnabled) { return; }
+//
+//     popperEnabled = true;
+//
+//     // example code for making your own handles -- customise events and presentation where fitting
+//     // var popper;
+//     var popperNode;
+//     var popper;
+//     var popperDiv;
+//     var started = false;
+//
+//     function start() {
+//         eh.start(popperNode);
+//     }
+//
+//     function stop() {
+//         eh.stop();
+//     }
+//
+//     function setHandleOn(node) {
+//         if (started) { return; }
+//
+//         removeHandle(); // rm old handle
+//
+//         popperNode = node;
+//
+//         popperDiv = document.createElement('div');
+//         popperDiv.classList.add('popper-handle');
+//         popperDiv.addEventListener('mousedown', start);
+//         document.body.appendChild(popperDiv);
+//
+//         popper = node.popper({
+//             content: popperDiv,
+//             popper: {
+//                 placement: 'top',
+//                 modifiers: [
+//                     {
+//                         name: 'offset',
+//                         options: {
+//                             offset: [0, -10],
+//                         },
+//                     },
+//                 ]
+//             }
+//         });
+//     }
+//
+//     function removeHandle() {
+//         if (popper) {
+//             popper.destroy();
+//             popper = null;
+//         }
+//
+//         if (popperDiv) {
+//             document.body.removeChild(popperDiv);
+//             popperDiv = null;
+//         }
+//
+//         popperNode = null;
+//     }
+//
+//     customCy.on('mouseover', 'node', function (e) {
+//         setHandleOn(e.target);
+//     });
+//
+//     customCy.on('grab', 'node', function () {
+//         removeHandle();
+//     });
+//
+//     customCy.on('tap', function (e) {
+//         if (e.target === customCy) {
+//             removeHandle();
+//         }
+//     });
+//
+//     customCy.on('zoom pan', function () {
+//         removeHandle();
+//     });
+//
+//     window.addEventListener('mouseup', function (e) {
+//         stop();
+//     });
+//
+//     customCy.on('ehstart', function () {
+//         started = true;
+//     });
+//
+//     customCy.on('ehstop', function () {
+//         started = false;
+//     });
+// });

@@ -1,10 +1,10 @@
 import networkx as nx
 import numpy as np
 
-from QuantumWalk.Operator import Operator
-from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
-from QuantumWalk.QuantumWalk import QuantumWalk
-from QuantumWalk.State import State
+from qwak.Operator import Operator
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.QuantumWalk import QuantumWalk
+from qwak.State import State
 
 
 class QWAK:
@@ -18,7 +18,7 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool = False) -> None:
+    def __init__(self, graph: nx.Graph,laplacian:bool = False,markedSearch = None) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -30,19 +30,22 @@ class QWAK:
             :type graph: NetworkX.Graph
         """
         self._graph = graph
-        self._operator = Operator(self._graph,laplacian)
+        if markedSearch is not None:
+            self._operator = Operator(self._graph, laplacian,markedSearch=markedSearch)
+        else:
+            self._operator = Operator(self._graph,laplacian)
         self._n = len(self._graph)
         self._initStateList = [0]
         self._initState = State(self._n,self._initStateList)
         self._time = 0
-        self._gamma = 1
+        # self._gamma = 1
 
     def resetWalk(self):
         self._initState.resetState()
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def runWalk(self, time: float = 0, gamma: float = 1, initStateList: list = [0]) -> None:
+    def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
         with the given parameters. These can be accessed with their respective get methods.
@@ -56,13 +59,10 @@ class QWAK:
             :type initStateList: (list, optional)
         """
         self._time = time
-        self._gamma = gamma
+        # self._gamma = gamma
         self._initStateList = initStateList
-        print(f"init state inside variable {initStateList}")
-        print(f"init state inside {self._initStateList}")
         self._initState.buildState(self._initStateList)
-        # print(f"Inside RUnwalk {self._initState.getNodeList()}")
-        self._operator.buildDiagonalOperator(self._time, self._gamma)
+        self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
@@ -77,7 +77,7 @@ class QWAK:
         print(f"Deprecated function, please user runWalk instead.")
         # self._initState.buildState(self._initStateList)
         # self._operator.buildDiagonalOperator(self._time, self._gamma)
-        # self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        # self._quantumWalk = qwak(self._initState, self._operator)
         # self._quantumWalk.buildWalk()
         # self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
         # self._probDist.buildProbDist()
@@ -98,7 +98,7 @@ class QWAK:
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
         self._initStateList = [int(self._n / 2)]
-        self._initState = State(self._n)
+        self._initState = State(self._n,self._initStateList)
         self._operator = Operator(self._graph)
 
     def getDim(self) -> int:
@@ -110,6 +110,16 @@ class QWAK:
             :rtype: int
         """
         return self._n
+
+    def setAdjacencyMatrix(self,newAdjMatrix):
+        self._operator.setAdjacencyMatrix(newAdjMatrix)
+        self._n = len(self._operator.getAdjacencyMatrix())
+        self._initStateList = [int(self._n / 2)]
+        self._initState = State(self._n)
+        self._initState.buildState(self._initStateList)
+
+    def getAdjacencyMatrix(self):
+        return self._operator.getAdjacencyMatrix()
 
     def setGraph(self, newGraph: nx.Graph) -> None:
         """
@@ -175,25 +185,25 @@ class QWAK:
         """
         return self._time
 
-    def setGamma(self, newGamma: float) -> None:
-        """
-        Sets the current walk transition rate to a user defined one.
+    # def setGamma(self, newGamma: float) -> None:
+    #     """
+    #     Sets the current walk transition rate to a user defined one.
+    #
+    #     Args:
+    #         :param newGamma: New transition rate.
+    #         :type newGamma: float
+    #     """
+    #     self._gamma = newGamma
 
-        Args:
-            :param newGamma: New transition rate.
-            :type newGamma: float
-        """
-        self._gamma = newGamma
-
-    def getGamma(self) -> float:
-        """
-        Gets the current walk transition rate.
-
-        Returns:
-            :return: self._gamma
-            :rtype: float
-        """
-        return self._gamma
+    # def getGamma(self) -> float:
+    #     """
+    #     Gets the current walk transition rate.
+    #
+    #     Returns:
+    #         :return: self._gamma
+    #         :rtype: float
+    #     """
+    #     return self._gamma
 
     def setOperator(self, newOperator: Operator) -> None:
         """
@@ -234,7 +244,7 @@ class QWAK:
             :return: self._quantumWalk.getWalk()
             :rtype: State
         """
-        return self._quantumWalk.getWalk()
+        return self._quantumWalk
 
     def setProbDist(self, newProbDist: object) -> None:
         """
@@ -285,3 +295,10 @@ class QWAK:
             :rtype: float
         """
         return self._probDist.searchNodeProbability(searchNode)
+
+    def checkPST(self,nodeA,nodeB):
+        return self._operator.checkPST(nodeA,nodeB)
+
+    def transportEfficiency(self):
+        return self._operator.transportEfficiency(self._initState.getStateVec())
+

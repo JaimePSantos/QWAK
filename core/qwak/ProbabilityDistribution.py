@@ -2,7 +2,7 @@ import warnings
 
 import numpy as np
 
-from QuantumWalk.State import State
+from qwak.State import State
 
 warnings.filterwarnings("ignore")
 
@@ -50,8 +50,7 @@ class ProbabilityDistribution:
         TODO: Nao devia ser pelo complexo conjugado?
         """
         for st in range(self._n):
-            self._probVec[st] = self._stateVec[st] * \
-                                np.conjugate(self._stateVec[st])
+            self._probVec[st] = self._stateVec[st] * np.conj(self._stateVec[st])
 
     def setProbVec(self, newProbVec: np.ndarray) -> None:
         """
@@ -101,6 +100,13 @@ class ProbabilityDistribution:
             m += pos[x]*self._probVec[x]
         return float(m)
 
+    def moment(self,k) -> float:
+        pos = np.arange(0,self._n)
+        m = 0
+        for x in range(self._n):
+            m += (pos[x]**k)*self._probVec[x]
+        return float(m)
+
     def stdev(self) -> float:
         """
         Gets the standard deviation of the current probability distribution.
@@ -114,3 +120,13 @@ class ProbabilityDistribution:
         for x in range(self._n):
             std += self._probVec[x]*(pos[x] - self.mean())**2
         return float(np.sqrt(std))
+
+    def altStdev(self):
+        return np.sqrt(self.moment(2) - self.moment(1)**2)
+
+    def survivalProb(self,k0,k1):
+        survProb = 0
+        for i in range(k0,k1):
+            survProb +=  self._probVec[i]
+        return survProb
+

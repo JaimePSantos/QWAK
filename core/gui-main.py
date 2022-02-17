@@ -1,8 +1,8 @@
-from QuantumWalk.QWAK import QWAK
-from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
-from QuantumWalk.QuantumWalk import QuantumWalk
-from QuantumWalk.Operator import Operator
-from QuantumWalk.State import State
+from qwak.qwak import QWAK
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.QuantumWalk import QuantumWalk
+from qwak.Operator import Operator
+from qwak.State import State
 
 import json
 import timeit
@@ -17,6 +17,7 @@ eel.init(guiPath)
 
 #TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
 #TODO: Grafico de animacao do JavaScript mexe com o tamanho dos picos.
+#TODO: Formularios para introduzir parametros.
 
 if __name__ == '__main__':
     global n, t, gamma, initState, staticQuantumWalk
@@ -39,9 +40,7 @@ if __name__ == '__main__':
     @eel.expose
     def setTimeList(newTimeList):
         global timeList
-        print(timeList)
         timeList = list(map(float,newTimeList.split(',')))
-        print(timeList)
 
     @eel.expose
     def setGammaList(newGammaList):
@@ -60,7 +59,6 @@ if __name__ == '__main__':
     def setInitState(initStateStr):
         global initState
         initState = list(map(int,initStateStr.split(',')))
-        print(f"InitStatestr {initStateStr}\t initStateList {initState}")
         newState = State(staticQuantumWalk.getDim())
         newState.buildState(initState)
         staticQuantumWalk.setInitState(newState)
@@ -72,10 +70,8 @@ if __name__ == '__main__':
     @eel.expose
     def setDim(newDim,graphStr):
         global staticQuantumWalk, dynamicQuantumWalk
-        print(graphStr)
         staticQuantumWalk.setDim(newDim, graphStr)
         dynamicQuantumWalk.setDim(newDim, graphStr)
-        print(f"Dim in setDim {staticQuantumWalk.getDim()}")
 
     @eel.expose
     def getDim():
@@ -95,6 +91,8 @@ if __name__ == '__main__':
 
     @eel.expose
     def setTime(newTime):
+        global staticQuantumWalk,t
+        t=newTime
         staticQuantumWalk.setTime(newTime)
     
     @eel.expose
@@ -103,6 +101,8 @@ if __name__ == '__main__':
 
     @eel.expose
     def setGamma(newGamma):
+        global gamma
+        gamma = newGamma
         staticQuantumWalk.setGamma(newGamma)
     
     @eel.expose
@@ -112,11 +112,13 @@ if __name__ == '__main__':
     @eel.expose
     def runWalk():
         global staticQuantumWalk,n,t,gamma,initState
-        staticQuantumWalk.resetWalk()
+        # staticQuantumWalk.resetWalk()
         staticQuantumWalk.runWalk(t,gamma,initState)
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()
+        print(gamma)
+        print(t)
         return probLists
     
     @eel.expose
@@ -138,6 +140,15 @@ if __name__ == '__main__':
         graph = staticQuantumWalk.getGraph()
         myCytGraph = nx.cytoscape_data(graph)
         return myCytGraph
+
+    @eel.expose
+    def printAdjacencyMatrix():
+        global staticQuantumWalk, dynamicQuantumWalk
+        adjM = np.matrix(eel.sendAdjacencyMatrix()()['data'])
+        staticQuantumWalk.setAdjacencyMatrix(adjM)
+        print(len(staticQuantumWalk.getAdjacencyMatrix()))
+        staticQuantumWalk.runWalk(t, gamma, initState)
+
 
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
 

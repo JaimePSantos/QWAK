@@ -2,6 +2,11 @@ from __future__ import annotations
 
 import networkx as nx
 import numpy as np
+from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
+from sympy import Matrix, gcd, div, Poly, Float, pprint
+import sympy as sp
+from sympy.abc import pi
+from math import sqrt, ceil, pow
 
 class Operator:
     """
@@ -10,7 +15,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool=False) -> None:
+    def __init__(self, graph: nx.Graph=None,laplacian:bool=False,adjacencyMatrix=None,markedSearch=None) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -32,17 +37,20 @@ class Operator:
             :param graph: Graph where the walk will be performed.
             :type graph: NetworkX.Graph
         """
-        self._graph = graph
-        if laplacian:
-            self._adjacencyMatrix = nx.laplacian_matrix(graph).todense()
-        else:
-            self._adjacencyMatrix = nx.adjacency_matrix(graph).todense()
-        self._n = len(graph)
+        if graph is not None:
+            self._graph = graph
+            if laplacian:
+                self._adjacencyMatrix = nx.laplacian_matrix(graph).todense().astype(complex)
+                self.buildAdjacency(markedSearch)
+            else:
+                self._adjacencyMatrix = nx.adjacency_matrix(graph).todense().astype(complex)
+                self.buildAdjacency(markedSearch)
+            self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
             self._adjacencyMatrix)
         self._time = 0
-        self._gamma = 1
+        # self._gamma = 1
 
     def __mul__(self, other):
         """
@@ -82,10 +90,15 @@ class Operator:
         """
         return f"{self._operator}"
 
+    def buildAdjacency(self,markedSearch=None):
+        if markedSearch is not None:
+            for marked in markedSearch:
+                self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
+
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
 
-    def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> None:
+    def buildDiagonalOperator(self, time: float = 0) -> None:
         """
         Builds operator matrix from optional time and transition rate parameters, defined by user.
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
@@ -100,8 +113,8 @@ class Operator:
             :type gamma: (int, optional)
         """
         self._time = time
-        self._gamma = gamma
-        D = np.diag(np.exp(-1j * self._time * self._gamma *
+        # self._gamma = gamma
+        D = np.diag(np.exp(-1j * self._time *
                            self._eigenvalues)).diagonal()
         self._operator = np.multiply(self._eigenvectors, D)
         self._operator = self._operator @ self._eigenvectors.H
@@ -147,25 +160,25 @@ class Operator:
         """
         return self._time
 
-    def setGamma(self, newGamma: float) -> None:
-        """
-        Sets the current operator transition rate to a user defined one.
+    # def setGamma(self, newGamma: float) -> None:
+    #     """
+    #     Sets the current operator transition rate to a user defined one.
+    #
+    #     Args:
+    #         :param newGamma: New transition rate.
+    #         :type newGamma: float
+    #     """
+    #     self._gamma = newGamma
 
-        Args:
-            :param newGamma: New transition rate.
-            :type newGamma: float
-        """
-        self._gamma = newGamma
-
-    def getGamma(self) -> float:
-        """
-        Gets the current walk transition rate.
-
-        Returns:
-            :return: self._gamma
-            :rtype: float
-        """
-        return self._gamma
+    # def getGamma(self) -> float:
+    #     """
+    #     Gets the current walk transition rate.
+    #
+    #     Returns:
+    #         :return: self._gamma
+    #         :rtype: float
+    #     """
+    #     return self._gamma
 
     def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
         """
@@ -178,6 +191,8 @@ class Operator:
             :type adjacencyMatrix: Numpy.ndarray
         """
         self._adjacencyMatrix = adjacencyMatrix
+        self._n = len(self._adjacencyMatrix)
+        self.__init__()
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """
@@ -198,7 +213,7 @@ class Operator:
             :type newOperator: Operator
         """
         self._n = newOperator.getDim()
-        self._gamma = newOperator.getGamma()
+        # self._gamma = newOperator.getGamma()
         self._time = newOperator.getTime()
         self._operator = newOperator.getOperator()
 
@@ -211,3 +226,48 @@ class Operator:
             :rtype: Numpy.matrix
         """
         return self._operator
+
+    def checkPST(self,nodeA, nodeB):
+        """
+         Checks if all the conditions are true and return the **VALUE** if the graph
+         has PST and False otherwise.
+         TODO: Check if numpy is faster for eigenvecs and vals.
+
+         Args:
+            :param nodeA: Input node.
+            :type nodeA: int
+            :param nodeB: Output node.
+            :type nodeB: int
+
+        Returns:
+            :return: pi / (g * np.sqrt(delta)) or False
+            :rtype: **Value** or Bool
+        """
+        if nodeA > nodeB:
+            nodeA, nodeB = swapNodes(nodeA,nodeB)
+
+        symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
+        eigenVec, D = symAdj.diagonalize()
+        eigenVal = getEigenVal(D)
+
+        result, g, delta = checkRoots(symAdj, nodeA, eigenVec, eigenVal)
+        if isStrCospec(symAdj, nodeA, nodeB) and result:
+            return pi / (g * np.sqrt(delta))
+        else:
+            return False
+
+    def transportEfficiency(self,initState):
+        ef = 0
+        print(f"init: {initState}")
+        print(f"Eigenvectors {self._eigenvectors}")
+        for i in range(len(self._eigenvectors)):
+            eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()
+
+            ef += np.absolute(np.matmul(eigenVec,initState))**2
+            print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
+        return ef
+
+
+
+
+
