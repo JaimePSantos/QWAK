@@ -4,8 +4,8 @@ import warnings
 
 import numpy as np
 
-from QuantumWalk.State import State
-from QuantumWalk.Operator import Operator
+from qwak.State import State
+from qwak.Operator import Operator
 
 warnings.filterwarnings("ignore")
 

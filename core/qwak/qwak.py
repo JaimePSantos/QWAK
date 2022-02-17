@@ -1,10 +1,10 @@
 import networkx as nx
 import numpy as np
 
-from QuantumWalk.Operator import Operator
-from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
-from QuantumWalk.QuantumWalk import QuantumWalk
-from QuantumWalk.State import State
+from qwak.Operator import Operator
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.QuantumWalk import QuantumWalk
+from qwak.State import State
 
 
 class QWAK:
@@ -77,7 +77,7 @@ class QWAK:
         print(f"Deprecated function, please user runWalk instead.")
         # self._initState.buildState(self._initStateList)
         # self._operator.buildDiagonalOperator(self._time, self._gamma)
-        # self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        # self._quantumWalk = qwak(self._initState, self._operator)
         # self._quantumWalk.buildWalk()
         # self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
         # self._probDist.buildProbDist()

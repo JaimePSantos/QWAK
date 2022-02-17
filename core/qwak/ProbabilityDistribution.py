@@ -2,7 +2,7 @@ import warnings
 
 import numpy as np
 
-from QuantumWalk.State import State
+from qwak.State import State
 
 warnings.filterwarnings("ignore")
 

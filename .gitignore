@@ -1,0 +1,7 @@
+/*/.ipynb_checkpoints
+build/*
+.idea/
+.ipynb_checkpoints/
+/*/qwak.egg-info
+qwak.egg-info
+venv

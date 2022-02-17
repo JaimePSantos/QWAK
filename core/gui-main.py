@@ -1,8 +1,8 @@
-from QuantumWalk.QWAK import QWAK
-from QuantumWalk.ProbabilityDistribution import ProbabilityDistribution
-from QuantumWalk.QuantumWalk import QuantumWalk
-from QuantumWalk.Operator import Operator
-from QuantumWalk.State import State
+from qwak.qwak import QWAK
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.QuantumWalk import QuantumWalk
+from qwak.Operator import Operator
+from qwak.State import State
 
 import json
 import timeit

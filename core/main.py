@@ -5,7 +5,7 @@ import timeit
 import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
-from QuantumWalk.QWAK import QWAK
+from qwak.qwak import QWAK
 
 if __name__ == '__main__':
     n = 5
