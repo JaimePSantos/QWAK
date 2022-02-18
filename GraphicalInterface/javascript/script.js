@@ -29,18 +29,15 @@ let inputInitStateRange = document.getElementById("inputInitStateRange");
 
 let defaultN = 100;
 let defaultT = 30;
-let defaultGamma = (1 / (2 * Math.sqrt(2))).toFixed(2);
 let defaultInitState = [Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1];
 let defaultGraph = 'nx.cycle_graph';
 let defaultTimeList = [0, 100];
-let defaultGammaList = [(1 / (2 * Math.sqrt(2))).toFixed(2)];
 let defaultInitStateList = [[Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1]];
-let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultGamma, defaultInitState, defaultGraph)
-let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultGammaList, defaultInitStateList)
+let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph)
+let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList)
 
 let inputInit = () => {
     inputTime.value = defaultT;
-    inputGamma.value = defaultGamma;
     inputDim.value = defaultN;
     inputGraph.value = defaultGraph;
     inputInitState.value = defaultInitState
@@ -48,7 +45,6 @@ let inputInit = () => {
 
 let inputRangeInit = () => {
     inputTimeRange.value = defaultTimeList;
-    inputGammaRange.value = defaultGammaList;
     inputInitStateRange.value = defaultInitStateList;
 }
 
@@ -70,10 +66,6 @@ let setInitStateRangeButtonPress = setInitStateRangeButton.onclick = async () =>
     eel.setInitStateList(dynamicQuantumWalk.initStateList);
 }
 
-let setGammaRangeButtonPress = setGammaRangeButton.onclick = async () => {
-    dynamicQuantumWalk.gammaList = inputGammaRange.value;
-    eel.setGammaList(dynamicQuantumWalk.gammaList)
-}
 
 let setTimeRangeButtonPress = setTimeRangeButton.onclick = async () => {
     dynamicQuantumWalk.timeList = inputTimeRange.value;
@@ -88,11 +80,6 @@ let setInitStateButtonPress = setInitStateButton.onclick = async () => {
 let setTimeButtonPress = setTimeButton.onclick = async () => {
     staticQuantumWalk.time = parseFloat(inputTime.value);
     eel.setTime(staticQuantumWalk.time);
-}
-
-let setGammaButtonPress = setGammaButton.onclick = async () => {
-    staticQuantumWalk.gamma = parseFloat(inputGamma.value);
-    eel.setGamma(staticQuantumWalk.gamma);
 }
 
 let setDimButtonPress = setDimButton.onclick = async () => {

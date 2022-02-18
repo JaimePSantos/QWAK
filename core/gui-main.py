@@ -20,32 +20,25 @@ eel.init(guiPath)
 #TODO: Formularios para introduzir parametros.
 
 if __name__ == '__main__':
-    global n, t, gamma, initState, staticQuantumWalk
+    global n, t, initState, staticQuantumWalk
     n = 100
     t = 30
-    gamma = 1/(2*np.sqrt(2))
     # initState = [int(n/2),int(n/2)+1]
     initState = [50,51]
     graph = nx.cycle_graph(n)
     staticQuantumWalk = QWAK(graph)
-    staticQuantumWalk.runWalk(t, gamma, initState)
+    staticQuantumWalk.runWalk(t, initState)
 
-    global timeList,gammaList,initStateList,dynamicQuantumWalk
+    global timeList,initStateList,dynamicQuantumWalk
     timeList = [0,100]
-    gammaList = [1/(2*np.sqrt(2))]
     initStateList = [[int(n/2),int(n/2)+1]]
     dynamicQuantumWalk = QWAK(graph)
-    dynamicQuantumWalk.runWalk(timeList[0], gammaList[0], initStateList[0])
+    dynamicQuantumWalk.runWalk(timeList[0], initStateList[0])
 
     @eel.expose
     def setTimeList(newTimeList):
         global timeList
         timeList = list(map(float,newTimeList.split(',')))
-
-    @eel.expose
-    def setGammaList(newGammaList):
-        global gammaList
-        gammaList = list(map(float,newGammaList.split(',')))
 
     @eel.expose
     def setInitStateList(newInitStateList):
@@ -100,35 +93,23 @@ if __name__ == '__main__':
         return staticQuantumWalk.getTime()
 
     @eel.expose
-    def setGamma(newGamma):
-        global gamma
-        gamma = newGamma
-        staticQuantumWalk.setGamma(newGamma)
-    
-    @eel.expose
-    def getGamma():
-        return staticQuantumWalk.getGamma()
-
-    @eel.expose
     def runWalk():
-        global staticQuantumWalk,n,t,gamma,initState
+        global staticQuantumWalk,n,t,initState
         # staticQuantumWalk.resetWalk()
-        staticQuantumWalk.runWalk(t,gamma,initState)
+        staticQuantumWalk.runWalk(t,initState)
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()
-        print(gamma)
-        print(t)
         return probLists
     
     @eel.expose
     def runMultipleWalks():
         qwProbList = []
-        global timeList,gammaList,initStateList,dynamicQuantumWalk
+        global timeList,initStateList,dynamicQuantumWalk
         dynamicQuantumWalk.resetWalk()
         timeRange = np.linspace(timeList[0],timeList[1],int(timeList[1]))
         for t in timeRange:
-            dynamicQuantumWalk.runWalk(t, gammaList[0], initStateList[0])
+            dynamicQuantumWalk.runWalk(t, initStateList[0])
             qwProbabilities = dynamicQuantumWalk.getProbDist()
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
@@ -146,8 +127,7 @@ if __name__ == '__main__':
         global staticQuantumWalk, dynamicQuantumWalk
         adjM = np.matrix(eel.sendAdjacencyMatrix()()['data'])
         staticQuantumWalk.setAdjacencyMatrix(adjM)
-        print(len(staticQuantumWalk.getAdjacencyMatrix()))
-        staticQuantumWalk.runWalk(t, gamma, initState)
+        staticQuantumWalk.runWalk(t, initState)
 
 
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])

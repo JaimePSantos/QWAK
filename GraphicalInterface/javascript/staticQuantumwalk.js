@@ -1,8 +1,7 @@
 export class StaticQuantumwalk {
-    constructor(_dim,_time,_gamma,_initState,_graph) {
+    constructor(_dim,_time,_initState,_graph) {
         this._dim = _dim;
         this._time = _time;
-        this._gamma = _gamma;
         this._initState = _initState;
         this._graph = _graph;
     }
@@ -21,14 +20,6 @@ export class StaticQuantumwalk {
 
     set time(newTime){
         this._time = newTime;
-    }
-
-    get gamma(){
-        return this._gamma;
-    }
-
-    set gamma(newGamma){
-        this._gamma = newGamma;
     }
 
     get initState(){

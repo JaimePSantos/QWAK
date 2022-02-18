@@ -1,8 +1,7 @@
 export class DynamicQuantumwalk {
-        constructor(_graph,_timeList,_gammaList,_initStateList) {
+        constructor(_graph,_timeList,_initStateList) {
         this._graph = _graph;
         this._timeList = _timeList;
-        this._gammaList = _gammaList;
         this._initStateList = _initStateList;
     }
 
@@ -20,14 +19,6 @@ export class DynamicQuantumwalk {
 
     set timeList(newTimeList){
         this._timeList = newTimeList;
-    }
-
-    get gammaList(){
-        return this._gammaList;
-    }
-
-    set gammaList(newGammaList){
-        this._gammaList = newGammaList;
     }
 
     get initStateList(){
