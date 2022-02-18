@@ -107,21 +107,21 @@ class ProbabilityDistribution:
             m += (pos[x]**k)*self._probVec[x]
         return float(m)
 
-    def stdev(self) -> float:
-        """
-        Gets the standard deviation of the current probability distribution.
+    # def stdev(self) -> float:
+    #     """
+    #     Gets the standard deviation of the current probability distribution.
+    #
+    #     Returns:
+    #         :return: float(std)
+    #         :rtype: float
+    #     """
+    #     pos = np.arange(0,self._n)
+    #     std = 0
+    #     for x in range(self._n):
+    #         std += self._probVec[x]*(pos[x] - self.mean())**2
+    #     return float(np.sqrt(std))
 
-        Returns:
-            :return: float(std)
-            :rtype: float
-        """
-        pos = np.arange(0,self._n)
-        std = 0
-        for x in range(self._n):
-            std += self._probVec[x]*(pos[x] - self.mean())**2
-        return float(np.sqrt(std))
-
-    def altStdev(self):
+    def stDev(self):
         return np.sqrt(self.moment(2) - self.moment(1)**2)
 
     def survivalProb(self,k0,k1):

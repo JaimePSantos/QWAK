@@ -36,6 +36,30 @@ if __name__ == '__main__':
     dynamicQuantumWalk.runWalk(timeList[0], initStateList[0])
 
     @eel.expose
+    def getStaticMean():
+        return staticQuantumWalk.getMean()
+
+    @eel.expose
+    def getStaticSndMoment():
+        return staticQuantumWalk.getMean()
+
+    @eel.expose
+    def getStaticStDev():
+        return staticQuantumWalk.getStDev()
+
+    @eel.expose
+    def getSurvivalProb(k0,k1):
+        return staticQuantumWalk.getSurvivalProb(k0,k1)
+
+    @eel.expose
+    def getInversePartRatio():
+        return staticQuantumWalk.invPartRatio()
+
+    @eel.expose
+    def checkPST(nodeA,nodeB):
+        return staticQuantumWalk.checkPST(nodeA,nodeB)
+
+    @eel.expose
     def setTimeList(newTimeList):
         global timeList
         timeList = list(map(float,newTimeList.split(',')))

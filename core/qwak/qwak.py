@@ -302,3 +302,18 @@ class QWAK:
     def transportEfficiency(self):
         return self._operator.transportEfficiency(self._initState.getStateVec())
 
+    def getMean(self):
+        return self._probDist.moment(1)
+
+    def getSndMoment(self):
+        return self._probDist.moment(2)
+
+    def getStDev(self):
+        return self._probDist.stdev()
+
+    def getSurvivalProb(self,k0,k1):
+        return self._probDist.survivalProb(k0,k1)
+
+    def getInversePartRatio(self):
+        return self._quantumWalk.invPartRatio()
+

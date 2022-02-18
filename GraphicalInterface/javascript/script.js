@@ -19,6 +19,12 @@ let inputDim = document.getElementById("inputDim");
 let inputGraph = document.getElementById("inputGraph");
 let inputInitState = document.getElementById("inputInitState");
 
+let inputMean = document.getElementById("inputTime");
+let inputSndMoment = document.getElementById("inputSndMoment");
+let inputStDev = document.getElementById("inputStDev");
+let inputSurvProb = document.getElementById("inputSurvProb");
+let inputInvPartRat = document.getElementById("inputInvPartRat");
+
 let setTimeRangeButton = document.getElementById("setTimeRangeButton");
 let setGammaRangeButton = document.getElementById("setGammaRangeButton");
 let setInitStateRangeButton = document.getElementById("setInitStateRangeButton");
