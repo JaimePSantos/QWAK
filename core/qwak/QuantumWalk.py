@@ -136,6 +136,7 @@ class QuantumWalk:
     def getWalk(self) -> State:
         """
         Gets the final state associated with the walk.
+        TODO: Change name for better clarification.
 
         Returns:
             :return: self._finalState
