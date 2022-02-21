@@ -37,19 +37,20 @@ if __name__ == '__main__':
 
     @eel.expose
     def getStaticMean():
-        return staticQuantumWalk.getMean()
+        return round(staticQuantumWalk.getMean(),3)
 
     @eel.expose
     def getStaticSndMoment():
-        return staticQuantumWalk.getMean()
+        return round(staticQuantumWalk.getSndMoment(),3)
 
     @eel.expose
     def getStaticStDev():
-        return staticQuantumWalk.getStDev()
+        return round(staticQuantumWalk.getStDev(),3)
 
     @eel.expose
-    def getSurvivalProb(k0,k1):
-        return staticQuantumWalk.getSurvivalProb(k0,k1)
+    def getStaticSurvivalProb(k0,k1):
+        print(round(staticQuantumWalk.getSurvivalProb(k0,k1),3))
+        return round(staticQuantumWalk.getSurvivalProb(k0,k1),3)
 
     @eel.expose
     def getInversePartRatio():

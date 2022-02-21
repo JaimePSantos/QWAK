@@ -126,7 +126,7 @@ class ProbabilityDistribution:
 
     def survivalProb(self,k0,k1):
         survProb = 0
-        for i in range(k0,k1):
+        for i in range(int(k0),int(k1)):
             survProb +=  self._probVec[i]
-        return survProb
+        return survProb[0]
 

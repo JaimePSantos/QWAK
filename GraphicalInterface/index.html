@@ -162,14 +162,23 @@
               </li>
 
               <li class="stat-list-combo">
-                Survival Probability
-                <input type="text" class="input-box" id="inputSurvProb">
+                Inverse Participation Ratio
+                <input type="text" class="input-box" id="inputInvPartRat">
                 </input>
               </li>
 
-              <li class="stat-list-combo">
-                Inverse Participation Ratio
-                <input type="text" class="input-box" id="inputInvPartRat">
+              <li class="stat-list-combo-input">
+                Survival Probability
+                <div class="stat-with-input">
+                  From Node
+                  <input type="text" class="input-box" id="inputSurvProbNodeA">
+                  To Node
+                  <input type="text" class="input-box" id="inputSurvProbNodeB">
+                  <button id="survProbNodesButton" class="input-button">Go</button>
+                  Result
+                  <input type="text" class="input-box" id="inputSurvProbResult">
+                
+                </div>
                 </input>
               </li>
             </ul>

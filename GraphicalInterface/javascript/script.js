@@ -19,10 +19,13 @@ let inputDim = document.getElementById("inputDim");
 let inputGraph = document.getElementById("inputGraph");
 let inputInitState = document.getElementById("inputInitState");
 
-let inputMean = document.getElementById("inputTime");
+let inputMean = document.getElementById("inputMean");
 let inputSndMoment = document.getElementById("inputSndMoment");
 let inputStDev = document.getElementById("inputStDev");
-let inputSurvProb = document.getElementById("inputSurvProb");
+let inputSurvProbResult = document.getElementById("inputSurvProbResult");
+let inputSurvProbNodeA = document.getElementById("inputSurvProbNodeA");
+let inputSurvProbNodeB = document.getElementById("inputSurvProbNodeB");
+let survProbNodesButton = document.getElementById("survProbNodesButton");
 let inputInvPartRat = document.getElementById("inputInvPartRat");
 
 let setTimeRangeButton = document.getElementById("setTimeRangeButton");
@@ -126,7 +129,38 @@ let goButtonPress = goButton.onclick = async () => {
     data.data.labels = [...Array(distList.length).keys()];
     myChart.destroy();
     myChart = new Chart(ctx, data);
+    await setStaticMean();
+    await setStaticSndMoment();
+    await setStaticStDev();
+
 };
+
+let survProbNodesButtonPress = survProbNodesButton.onclick = async () => {
+    setStaticSurvivalProb();
+}
+
+let setStaticMean = async () => {
+    let statMean = await getStaticMean();
+    inputMean.value = statMean;
+}
+
+let setStaticSndMoment = async () => {
+    let statSndMom = await getStaticSndMoment();
+    inputSndMoment.value = statSndMom;
+}
+
+let setStaticStDev = async () => {
+    let statStDev = await getStaticStDev();
+    inputStDev.value = statStDev;
+}
+
+let setStaticSurvivalProb = async () => {
+    let fromNode = inputSurvProbNodeA.value;
+    let toNode = inputSurvProbNodeB.value;
+    let survProb = await getStaticSurvivalProb(fromNode, toNode);
+    console.log(survProb);
+    inputSurvProbResult.value = survProb;
+}
 
 let getWalk = () => {
     return eel
@@ -158,6 +192,51 @@ let getGraph = () => {
 let getTime = () => {
     return eel
         .getTime()()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Time failed."));
+        })
+        .catch((e) => console.log(e));
+}
+
+let getStaticMean = () =>{
+        return eel
+        .getStaticMean()()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Static Mean failed."));
+        })
+        .catch((e) => console.log(e));
+}
+
+let getStaticSndMoment = () =>{
+        return eel
+        .getStaticSndMoment()()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Time failed."));
+        })
+        .catch((e) => console.log(e));
+}
+
+let getStaticStDev = () =>{
+        return eel
+        .getStaticStDev()()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Time failed."));
+        })
+        .catch((e) => console.log(e));
+}
+
+let getStaticSurvivalProb = (fromNode,toNode) =>{
+        return eel
+        .getStaticSurvivalProb(fromNode,toNode)()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Time failed."));
+        })
+        .catch((e) => console.log(e));
+}
+
+let getInversePartRatio = () =>{
+        return eel
+        .getInversePartRatio()()
         .then((a) => {
             return a ? a : Promise.reject(Error("Get Time failed."));
         })

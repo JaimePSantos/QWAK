@@ -309,7 +309,7 @@ class QWAK:
         return self._probDist.moment(2)
 
     def getStDev(self):
-        return self._probDist.stdev()
+        return self._probDist.stDev()
 
     def getSurvivalProb(self,k0,k1):
         return self._probDist.survivalProb(k0,k1)
