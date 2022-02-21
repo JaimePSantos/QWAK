@@ -49,12 +49,11 @@ if __name__ == '__main__':
 
     @eel.expose
     def getStaticSurvivalProb(k0,k1):
-        print(round(staticQuantumWalk.getSurvivalProb(k0,k1),3))
         return round(staticQuantumWalk.getSurvivalProb(k0,k1),3)
 
     @eel.expose
     def getInversePartRatio():
-        return staticQuantumWalk.invPartRatio()
+        return round(staticQuantumWalk.getInversePartRatio(),3)
 
     @eel.expose
     def checkPST(nodeA,nodeB):

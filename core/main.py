@@ -8,37 +8,37 @@ from math import sqrt, ceil, pow
 from qwak.qwak import QWAK
 
 if __name__ == '__main__':
-    n = 5
-    t = 1
+    n = 100
+    t = 0
     # gamma = 1 / (2 * np.sqrt(2))
-    # graph = nx.cycle_graph(n)
-    graph = nx.complete_bipartite_graph(20,20)
+    graph = nx.cycle_graph(n)
+    # graph = nx.complete_bipartite_graph(20,20)
     # graph = nx.hypercube_graph(3)
 
     nx.draw(graph,with_labels = True)
     plt.show()
     # marked = [int(n / 2)]
-    marked = [4]
+    marked = [50]
     # marked = range(n)
     # marked = range(int(n))
-    qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
+    # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
+    qwController = QWAK(graph, laplacian=False)
     qwController.runWalk(t, marked)
     # print(qwController.getAdjacencyMatrix())
-    print(f"TE: {qwController.transportEfficiency()}")
-    amps = qwController.getWalk().getWalk().getStateVec()
-    density = np.conjugate(amps).T * amps
-    print(density)
+    # print(f"TE: {qwController.transportEfficiency()}")
+    # amps = qwController.getWalk().getWalk().getStateVec()
+    # density = np.conjugate(amps).T * amps
+    # print(density)
 
     # plt.plot(qwController.getWalk().getWalk().getStateVec())
     # plt.show()
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
-    # print(f"Mean: {qwController.getProbDist().mean()}\t "
-    #       f"Moment 1: {qwController.getProbDist().moment(1)}\n"
-    #       f"Moment 2: {qwController.getProbDist().moment(2)}\n"
-    #       f"Stdev: {qwController.getProbDist().stdev()}\t"
-    #       f"Alt Stdev: {qwController.getProbDist().altStdev()}\n"
-    #       f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0]-5,marked[0]+5)}\n"
-    #       f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}")
+    print(f"Mean: {qwController.getProbDist().mean()}\t "
+          f"Moment 1: {qwController.getProbDist().moment(1)}\n"
+          f"Moment 2: {qwController.getProbDist().moment(2)}\n"
+          f"Stdev: {qwController.getProbDist().stDev()}\n"
+          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0]-5,marked[0]+5)}\n"
+          f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}")
 
     # G = nx.Graph()
     # for i in range(0,100):

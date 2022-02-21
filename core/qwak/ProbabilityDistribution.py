@@ -122,7 +122,10 @@ class ProbabilityDistribution:
     #     return float(np.sqrt(std))
 
     def stDev(self):
-        return np.sqrt(self.moment(2) - self.moment(1)**2)
+        stDev = self.moment(2) - self.moment(1)**2
+        if stDev <= 0:
+            return 0
+        return np.sqrt(stDev)
 
     def survivalProb(self,k0,k1):
         survProb = 0

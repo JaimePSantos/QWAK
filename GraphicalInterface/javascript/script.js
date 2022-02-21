@@ -132,6 +132,7 @@ let goButtonPress = goButton.onclick = async () => {
     await setStaticMean();
     await setStaticSndMoment();
     await setStaticStDev();
+    await setInversePartRatio();
 
 };
 
@@ -158,8 +159,12 @@ let setStaticSurvivalProb = async () => {
     let fromNode = inputSurvProbNodeA.value;
     let toNode = inputSurvProbNodeB.value;
     let survProb = await getStaticSurvivalProb(fromNode, toNode);
-    console.log(survProb);
     inputSurvProbResult.value = survProb;
+}
+
+let setInversePartRatio = async () => {
+    let invPartRatio = await getInversePartRatio();
+    inputInvPartRat.value = invPartRatio;
 }
 
 let getWalk = () => {
@@ -211,7 +216,7 @@ let getStaticSndMoment = () =>{
         return eel
         .getStaticSndMoment()()
         .then((a) => {
-            return a ? a : Promise.reject(Error("Get Time failed."));
+            return a ? a : Promise.reject(Error("Get Static Snd Moment failed."));
         })
         .catch((e) => console.log(e));
 }
@@ -220,7 +225,11 @@ let getStaticStDev = () =>{
         return eel
         .getStaticStDev()()
         .then((a) => {
-            return a ? a : Promise.reject(Error("Get Time failed."));
+            if (isNaN(a)){
+                Promise.reject(Error("Get Static Standard Deviation faile: StDev is NaN."));
+            }else{
+                return a;
+            }
         })
         .catch((e) => console.log(e));
 }
@@ -229,7 +238,11 @@ let getStaticSurvivalProb = (fromNode,toNode) =>{
         return eel
         .getStaticSurvivalProb(fromNode,toNode)()
         .then((a) => {
-            return a ? a : Promise.reject(Error("Get Time failed."));
+            if (isNaN(a)){
+                Promise.reject(Error("Get Survival Probability failed: SP is NaN."));
+            }else{
+                return a;
+            }
         })
         .catch((e) => console.log(e));
 }
@@ -238,7 +251,7 @@ let getInversePartRatio = () =>{
         return eel
         .getInversePartRatio()()
         .then((a) => {
-            return a ? a : Promise.reject(Error("Get Time failed."));
+            return a ? a : Promise.reject(Error("Get Inverse Participation Ratio failed."));
         })
         .catch((e) => console.log(e));
 }

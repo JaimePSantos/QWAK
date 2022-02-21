@@ -161,5 +161,6 @@ class QuantumWalk:
     def invPartRatio(self):
         amplitudes = 0
         for amp in self._finalState.getStateVec():
-            amplitudes += np.absolute(amp)**4
+            amplitudes += np.absolute(amp.item(0,0))**4
+        amplitudes = amplitudes
         return 1/amplitudes
