@@ -41,7 +41,7 @@ let inputGammaRange = document.getElementById("inputGammaRange");
 let inputInitStateRange = document.getElementById("inputInitStateRange");
 
 let defaultN = 100;
-let defaultT = 30;
+let defaultT = 10;
 let defaultInitState = [Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1];
 let defaultGraph = 'nx.cycle_graph';
 let defaultTimeList = [0, 100];
@@ -110,10 +110,15 @@ let goMultipleButtonPress = goMultipleButton.onclick = async () => {
     let multipleWalks = await getMultipleWalks();
     let i = 0;
     myAnimatedChart.clear();
+    data2.options.scales.y.ticks.min = 0.9
+    data2.options.scales.y.ticks.max = 1
+    data2.options.scales.y.ticks.stepSize = 0.001
     for (const walk of multipleWalks) {
         setTimeout(() => {
             data2.data.datasets[0].data = walk.flat();
             data2.data.labels = [...Array(walk.length).keys()];
+            data2.options.scales.y.ticks.beginAtZero = false
+
             myAnimatedChart.update();
             // console.log(walk)
         }, 80 * i);

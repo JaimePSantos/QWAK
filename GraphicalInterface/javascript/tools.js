@@ -256,16 +256,11 @@ export let data2 = {
     },
     options: {
         scales: {
-            x: {
-                grid: {
-                    display: false
-                }
-            },
-            y: {
-                grid: {
-                    display: false
-                }
-            }
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
         },
     },
 };

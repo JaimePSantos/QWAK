@@ -22,7 +22,7 @@ eel.init(guiPath)
 if __name__ == '__main__':
     global n, t, initState, staticQuantumWalk
     n = 100
-    t = 30
+    t = 10
     # initState = [int(n/2),int(n/2)+1]
     initState = [50,51]
     graph = nx.cycle_graph(n)
