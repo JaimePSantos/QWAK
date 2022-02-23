@@ -27,6 +27,10 @@ let inputSurvProbNodeA = document.getElementById("inputSurvProbNodeA");
 let inputSurvProbNodeB = document.getElementById("inputSurvProbNodeB");
 let survProbNodesButton = document.getElementById("survProbNodesButton");
 let inputInvPartRat = document.getElementById("inputInvPartRat");
+let inputPSTNodeA = document.getElementById("inputPSTNodeA");
+let inputPSTNodeB = document.getElementById("inputPSTNodeB");
+let PSTNodesButton = document.getElementById("PSTNodesButton");
+let inputPSTResult = document.getElementById("inputPSTResult");
 
 let setTimeRangeButton = document.getElementById("setTimeRangeButton");
 let setGammaRangeButton = document.getElementById("setGammaRangeButton");
@@ -140,6 +144,10 @@ let survProbNodesButtonPress = survProbNodesButton.onclick = async () => {
     setStaticSurvivalProb();
 }
 
+let PSTNodesButtonPress = PSTNodesButton.onclick = async () => {
+    setPST();
+}
+
 let setStaticMean = async () => {
     let statMean = await getStaticMean();
     inputMean.value = statMean;
@@ -165,6 +173,13 @@ let setStaticSurvivalProb = async () => {
 let setInversePartRatio = async () => {
     let invPartRatio = await getInversePartRatio();
     inputInvPartRat.value = invPartRatio;
+}
+
+let setPST = async () => {
+    let fromNode = inputPSTNodeA.value;
+    let toNode = inputPSTNodeB.value;
+    let PST = await getPST(fromNode, toNode);
+    inputPSTResult.value = PST;
 }
 
 let getWalk = () => {
@@ -251,7 +266,25 @@ let getInversePartRatio = () =>{
         return eel
         .getInversePartRatio()()
         .then((a) => {
-            return a ? a : Promise.reject(Error("Get Inverse Participation Ratio failed."));
+            if (isNaN(a)){
+                    Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
+                }else{
+                    return a;
+                }        })
+        .catch((e) => console.log(e));
+}
+
+let getPST = (nodeA,nodeB) =>{
+        return eel
+        .checkPST(nodeA,nodeB)()
+        .then((a) => {
+            if (isNaN(parseFloat(a))){
+                    Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
+                }else if(parseFloat(a)<0){
+                    return "No PST.";
+                }else{
+                    return a;
+            }
         })
         .catch((e) => console.log(e));
 }

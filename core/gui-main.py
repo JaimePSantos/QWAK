@@ -57,7 +57,8 @@ if __name__ == '__main__':
 
     @eel.expose
     def checkPST(nodeA,nodeB):
-        return staticQuantumWalk.checkPST(nodeA,nodeB)
+        pst = staticQuantumWalk.checkPST(nodeA,nodeB)
+        return str(pst)
 
     @eel.expose
     def setTimeList(newTimeList):

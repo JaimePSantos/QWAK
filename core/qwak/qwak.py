@@ -297,6 +297,8 @@ class QWAK:
         return self._probDist.searchNodeProbability(searchNode)
 
     def checkPST(self,nodeA,nodeB):
+        nodeA = int(nodeA)
+        nodeB = int(nodeB)
         return self._operator.checkPST(nodeA,nodeB)
 
     def transportEfficiency(self):

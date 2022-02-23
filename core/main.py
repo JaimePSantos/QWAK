@@ -8,7 +8,7 @@ from math import sqrt, ceil, pow
 from qwak.qwak import QWAK
 
 if __name__ == '__main__':
-    n = 100
+    n = 5
     t = 0
     # gamma = 1 / (2 * np.sqrt(2))
     graph = nx.cycle_graph(n)
@@ -18,11 +18,12 @@ if __name__ == '__main__':
     nx.draw(graph,with_labels = True)
     plt.show()
     # marked = [int(n / 2)]
-    marked = [50]
+    marked = [0]
     # marked = range(n)
     # marked = range(int(n))
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
     qwController = QWAK(graph, laplacian=False)
+    sp.pprint(f"PST {qwController.checkPST(0,2)}")
     qwController.runWalk(t, marked)
     # print(qwController.getAdjacencyMatrix())
     # print(f"TE: {qwController.transportEfficiency()}")
@@ -32,13 +33,14 @@ if __name__ == '__main__':
 
     # plt.plot(qwController.getWalk().getWalk().getStateVec())
     # plt.show()
-    # sp.pprint(f"PST {qwController.checkPST(0,2)}")
+    sp.pprint(f"PST {qwController.checkPST(0,2)}")
     print(f"Mean: {qwController.getProbDist().mean()}\t "
           f"Moment 1: {qwController.getProbDist().moment(1)}\n"
           f"Moment 2: {qwController.getProbDist().moment(2)}\n"
           f"Stdev: {qwController.getProbDist().stDev()}\n"
-          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0]-5,marked[0]+5)}\n"
-          f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}")
+          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0],marked[0]+1)}\n"
+          f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n"
+          f"PST {qwController.checkPST(0,2)}")
 
     # G = nx.Graph()
     # for i in range(0,100):

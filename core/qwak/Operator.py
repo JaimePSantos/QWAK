@@ -249,14 +249,20 @@ class Operator:
         symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
         eigenVec, D = symAdj.diagonalize()
         eigenVal = getEigenVal(D)
-
-        result, g, delta = checkRoots(symAdj, nodeA, eigenVec, eigenVal)
-        if isStrCospec(symAdj, nodeA, nodeB) and result:
-            return pi / (g * np.sqrt(delta))
+        isCospec = isStrCospec(symAdj, nodeA, nodeB)
+        chRoots, g, delta = checkRoots(symAdj, nodeA, eigenVec, eigenVal)
+        if isCospec and chRoots:
+            result = pi / (g * np.sqrt(delta))
         else:
-            return False
+            result = -1
+        return result
 
     def transportEfficiency(self,initState):
+        """
+        Under Construction.
+        @param initState:
+        @return:
+        """
         ef = 0
         print(f"init: {initState}")
         print(f"Eigenvectors {self._eigenvectors}")
