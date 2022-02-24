@@ -61,8 +61,8 @@ let inputRangeInit = () => {
     inputInitStateRange.value = defaultInitStateList;
 }
 
-inputInit()
-inputRangeInit()
+inputInit();
+inputRangeInit();
 
 let ctx = document.getElementById("myChart").getContext("2d");
 let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
@@ -73,40 +73,39 @@ let myChart = new Chart(ctx, data);
 let myAnimatedChart = new Chart(ctx2, data2);
 
 
-
-let setInitStateRangeButtonPress = setInitStateRangeButton.onclick = async () => {
+setInitStateRangeButton.addEventListener('click', async function () {
     dynamicQuantumWalk.initStateList = inputInitStateRange.value;
     eel.setInitStateList(dynamicQuantumWalk.initStateList);
-}
+});
 
-
-let setTimeRangeButtonPress = setTimeRangeButton.onclick = async () => {
+setTimeRangeButton.addEventListener('click', async function () {
     dynamicQuantumWalk.timeList = inputTimeRange.value;
-    eel.setTimeList(dynamicQuantumWalk.timeList)
-}
+    eel.setTimeList(dynamicQuantumWalk.timeList);
+});
 
-let setInitStateButtonPress = setInitStateButton.onclick = async () => {
+setInitStateButton.addEventListener('click', async function () {
     staticQuantumWalk.initState = inputInitState.value;
-    eel.setInitState(staticQuantumWalk.initState)
-}
+    eel.setInitState(staticQuantumWalk.initState);
+});
 
-let setTimeButtonPress = setTimeButton.onclick = async () => {
+setTimeButton.addEventListener('click', async function () {
     staticQuantumWalk.time = parseFloat(inputTime.value);
     eel.setTime(staticQuantumWalk.time);
-}
+});
 
-let setDimButtonPress = setDimButton.onclick = async () => {
+setDimButton.addEventListener('click', async function () {
     staticQuantumWalk.dim = parseInt(inputDim.value);
     staticQuantumWalk.graph = inputGraph.value;
     eel.setDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
-}
+});
 
-let setGraphButtonPress = setGraphButton.onclick = async () => {
+
+setGraphButton.addEventListener('click', async function () {
     staticQuantumWalk.graph = inputGraph.value;
     eel.setGraph(staticQuantumWalk.graph);
-}
+});
 
-let goMultipleButtonPress = goMultipleButton.onclick = async () => {
+goMultipleButton.addEventListener('click', async function () {
     let multipleWalks = await getMultipleWalks();
     let i = 0;
     myAnimatedChart.clear();
@@ -117,21 +116,21 @@ let goMultipleButtonPress = goMultipleButton.onclick = async () => {
         setTimeout(() => {
             data2.data.datasets[0].data = walk.flat();
             data2.data.labels = [...Array(walk.length).keys()];
-            data2.options.scales.y.ticks.beginAtZero = false
-
+            data2.options.scales.y.ticks.beginAtZero = false;
             myAnimatedChart.update();
-            // console.log(walk)
         }, 80 * i);
         i++;
     }
-};
+});
 
-let graphButtonPress = graphButton.onclick = async () => {
+graphButton.addEventListener('click', async function () {
     let myGraph = await getGraph();
-    updateGraph(myGraph)
-};
+    updateGraph(myGraph);
+    setGraphButtonPress();
+    setDimButtonPress();
+});
 
-let goButtonPress = goButton.onclick = async () => {
+goButton.addEventListener('click', async function () {
     let walk = await getWalk();
     let distList = walk.flat();
     data.data.datasets[0].data = distList;
@@ -142,16 +141,15 @@ let goButtonPress = goButton.onclick = async () => {
     await setStaticSndMoment();
     await setStaticStDev();
     await setInversePartRatio();
+});
 
-};
-
-let survProbNodesButtonPress = survProbNodesButton.onclick = async () => {
+survProbNodesButton.addEventListener('click', async function () {
     setStaticSurvivalProb();
-}
+});
 
-let PSTNodesButtonPress = PSTNodesButton.onclick = async () => {
+PSTNodesButton.addEventListener('click', async function () {
     setPST();
-}
+});
 
 let setStaticMean = async () => {
     let statMean = await getStaticMean();
@@ -317,17 +315,18 @@ let nodeYPos = 0;
 let addNodeButtonPress = async () => {
     nodeNumber++;
     nodeYPos += 50;
-    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString(),name: nodeNumber.toString() },  position: { x: nodeXPos, y: nodeYPos }});
+    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString(), name: nodeNumber.toString() },  position: { x: nodeXPos, y: nodeYPos }});
     // customCy.layout();
 }
+
 document.getElementById('graphCustomButton').addEventListener('click', function () {
     graphCustomButtonPress();
 });
 
 let graphCustomButtonPress = async () => {
     let adjacencyMatrix = createAdjacencyMatrix(customCy);
-    console.log(adjacencyMatrix.toArray())
-    eel.printAdjacencyMatrix()
+    console.log(adjacencyMatrix.toArray());
+    eel.customGraphWalk();
 }
 
 eel.expose(sendAdjacencyMatrix);
@@ -339,113 +338,13 @@ function createAdjacencyMatrix(graph) {
     let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
 
     for(let edg of graph.json().elements.edges){
-        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`)
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.source),parseInt(edg.data.target)),1)
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.target),parseInt(edg.data.source)),1)
+        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
     }
-    return adjacencyMatrix
-
+    return adjacencyMatrix;
 }
 
 document.getElementById('clearGraphButton').addEventListener('click', function () {
     eh.disableDrawMode();
 });
-
-// document.querySelector('#start').addEventListener('click', function () {
-//     eh.start(customCy.$('node:selected'));
-// });
-
-// var popperEnabled = false;
-//
-// document.querySelector('#popper').addEventListener('click', function () {
-//     if (popperEnabled) { return; }
-//
-//     popperEnabled = true;
-//
-//     // example code for making your own handles -- customise events and presentation where fitting
-//     // var popper;
-//     var popperNode;
-//     var popper;
-//     var popperDiv;
-//     var started = false;
-//
-//     function start() {
-//         eh.start(popperNode);
-//     }
-//
-//     function stop() {
-//         eh.stop();
-//     }
-//
-//     function setHandleOn(node) {
-//         if (started) { return; }
-//
-//         removeHandle(); // rm old handle
-//
-//         popperNode = node;
-//
-//         popperDiv = document.createElement('div');
-//         popperDiv.classList.add('popper-handle');
-//         popperDiv.addEventListener('mousedown', start);
-//         document.body.appendChild(popperDiv);
-//
-//         popper = node.popper({
-//             content: popperDiv,
-//             popper: {
-//                 placement: 'top',
-//                 modifiers: [
-//                     {
-//                         name: 'offset',
-//                         options: {
-//                             offset: [0, -10],
-//                         },
-//                     },
-//                 ]
-//             }
-//         });
-//     }
-//
-//     function removeHandle() {
-//         if (popper) {
-//             popper.destroy();
-//             popper = null;
-//         }
-//
-//         if (popperDiv) {
-//             document.body.removeChild(popperDiv);
-//             popperDiv = null;
-//         }
-//
-//         popperNode = null;
-//     }
-//
-//     customCy.on('mouseover', 'node', function (e) {
-//         setHandleOn(e.target);
-//     });
-//
-//     customCy.on('grab', 'node', function () {
-//         removeHandle();
-//     });
-//
-//     customCy.on('tap', function (e) {
-//         if (e.target === customCy) {
-//             removeHandle();
-//         }
-//     });
-//
-//     customCy.on('zoom pan', function () {
-//         removeHandle();
-//     });
-//
-//     window.addEventListener('mouseup', function (e) {
-//         stop();
-//     });
-//
-//     customCy.on('ehstart', function () {
-//         started = true;
-//     });
-//
-//     customCy.on('ehstop', function () {
-//         started = false;
-//     });
-// });

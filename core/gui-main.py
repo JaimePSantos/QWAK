@@ -148,11 +148,13 @@ if __name__ == '__main__':
         return myCytGraph
 
     @eel.expose
-    def printAdjacencyMatrix():
+    def customGraphWalk():
         global staticQuantumWalk, dynamicQuantumWalk
         adjM = np.matrix(eel.sendAdjacencyMatrix()()['data'])
         staticQuantumWalk.setAdjacencyMatrix(adjM)
         staticQuantumWalk.runWalk(t, initState)
+        dynamicQuantumWalk.setAdjacencyMatrix(adjM)
+        dynamicQuantumWalk.runWalk(t,initState)
 
 
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
