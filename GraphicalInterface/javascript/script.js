@@ -107,7 +107,7 @@ document.getElementById("PSTNodesButton").addEventListener('click', async functi
 });
 
 
-// #### BUTTON FUNCTIONS ####
+// #### BUTTON HELPER FUNCTIONS ####
 let setInitStateRange = async () => {
     dynamicQuantumWalk.initStateList = inputInitStateRange.value;
     eel.setInitStateList(dynamicQuantumWalk.initStateList);
@@ -162,6 +162,7 @@ let setStaticProbDist = async () => {
 let setdynamicProbDist = async () => {
     let multipleWalks = await getMultipleWalks();
     let i = 0;
+    let animationSteps = 100;
     myAnimatedChart.clear();
     // data2.options.scales.y.ticks.min = 0.9
     // data2.options.scales.y.ticks.max = 1
@@ -172,7 +173,7 @@ let setdynamicProbDist = async () => {
             data2.data.labels = [...Array(walk.length).keys()];
             data2.options.scales.y.ticks.beginAtZero = false;
             myAnimatedChart.update();
-        }, 80 * i);
+        }, animationSteps * i);
         i++;
     }
 }
