@@ -3,18 +3,8 @@ import { StaticQuantumwalk } from "./staticQuantumwalk.js";
 import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
 
 
-let goButton = document.getElementById("goButton");
-let goMultipleButton = document.getElementById("goMultipleButton");
-let graphButton = document.getElementById("graphButton");
-
-let setTimeButton = document.getElementById("setTimeButton");
-let setGammaButton = document.getElementById("setGammaButton");
-let setDimButton = document.getElementById("setDimButton");
-let setGraphButton = document.getElementById("setGraphButton");
-let setInitStateButton = document.getElementById("setInitStateButton");
-
+// #### INPUTS & DISPLAYS ####
 let inputTime = document.getElementById("inputTime");
-let inputGamma = document.getElementById("inputGamma");
 let inputDim = document.getElementById("inputDim");
 let inputGraph = document.getElementById("inputGraph");
 let inputInitState = document.getElementById("inputInitState");
@@ -25,29 +15,25 @@ let inputStDev = document.getElementById("inputStDev");
 let inputSurvProbResult = document.getElementById("inputSurvProbResult");
 let inputSurvProbNodeA = document.getElementById("inputSurvProbNodeA");
 let inputSurvProbNodeB = document.getElementById("inputSurvProbNodeB");
-let survProbNodesButton = document.getElementById("survProbNodesButton");
 let inputInvPartRat = document.getElementById("inputInvPartRat");
 let inputPSTNodeA = document.getElementById("inputPSTNodeA");
 let inputPSTNodeB = document.getElementById("inputPSTNodeB");
-let PSTNodesButton = document.getElementById("PSTNodesButton");
 let inputPSTResult = document.getElementById("inputPSTResult");
 
-let setTimeRangeButton = document.getElementById("setTimeRangeButton");
-let setGammaRangeButton = document.getElementById("setGammaRangeButton");
-let setInitStateRangeButton = document.getElementById("setInitStateRangeButton");
-
 let inputTimeRange = document.getElementById("inputTimeRange");
-let inputGammaRange = document.getElementById("inputGammaRange");
 let inputInitStateRange = document.getElementById("inputInitStateRange");
 
+
+// #### JAVASCRIPT QUANTUM WALK OBJECTS ####
 let defaultN = 100;
 let defaultT = 10;
 let defaultInitState = [Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1];
 let defaultGraph = 'nx.cycle_graph';
 let defaultTimeList = [0, 100];
 let defaultInitStateList = [[Math.floor(defaultN / 2), Math.floor(defaultN / 2) + 1]];
-let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph)
-let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList)
+
+let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph);
+let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList);
 
 let inputInit = () => {
     inputTime.value = defaultT;
@@ -64,54 +50,122 @@ let inputRangeInit = () => {
 inputInit();
 inputRangeInit();
 
-let ctx = document.getElementById("myChart").getContext("2d");
-let ctx2 = document.getElementById("myAnimatedChart").getContext("2d");
+
+// #### CHARTS FOR DISTRIBUTIONS ####
+let staticCtx = document.getElementById("staticProbDistChart").getContext("2d");
+let dynamicCtx = document.getElementById("dynamicProbDistChart").getContext("2d");
 
 cy.layout({ name: "circle" }).run();
 
-let myChart = new Chart(ctx, data);
-let myAnimatedChart = new Chart(ctx2, data2);
+let myChart = new Chart(staticCtx, data);
+let myAnimatedChart = new Chart(dynamicCtx, data2);
 
 
-setInitStateRangeButton.addEventListener('click', async function () {
+// #### BUTTONS ####
+document.getElementById("setInitStateRangeButton").addEventListener('click', async function () {
+    setInitStateRange();
+});
+
+document.getElementById("setTimeRangeButton").addEventListener('click', async function () {
+    setTimeRange();
+});
+
+document.getElementById("setInitStateButton").addEventListener('click', async function () {
+    setInitState();
+});
+
+document.getElementById("setTimeButton").addEventListener('click', async function () {
+    setTime();
+});
+
+document.getElementById("setDimButton").addEventListener('click', async function () {
+    setDimButton();
+});
+
+document.getElementById("setGraphButton").addEventListener('click', async function () {
+    setGraph();
+});
+
+document.getElementById("dynamicProbDistButton").addEventListener('click', async function () {
+    setdynamicProbDist();
+});
+
+document.getElementById("runGraphButton").addEventListener('click', async function () {
+    setRunGraph();
+});
+
+document.getElementById("staticProbDistButton").addEventListener('click', async function () {
+    setStaticProbDist();
+});
+
+document.getElementById("survProbNodesButton").addEventListener('click', async function () {
+    setStaticSurvivalProb();
+});
+
+document.getElementById("PSTNodesButton").addEventListener('click', async function () {
+    setPST();
+});
+
+
+// #### BUTTON FUNCTIONS ####
+let setInitStateRange = async () => {
     dynamicQuantumWalk.initStateList = inputInitStateRange.value;
     eel.setInitStateList(dynamicQuantumWalk.initStateList);
-});
+}
 
-setTimeRangeButton.addEventListener('click', async function () {
+let setTimeRange = async () => {
     dynamicQuantumWalk.timeList = inputTimeRange.value;
     eel.setTimeList(dynamicQuantumWalk.timeList);
-});
+}
 
-setInitStateButton.addEventListener('click', async function () {
+let setInitState = async () => {
     staticQuantumWalk.initState = inputInitState.value;
     eel.setInitState(staticQuantumWalk.initState);
-});
+}
 
-setTimeButton.addEventListener('click', async function () {
+let setTime = async () => {
     staticQuantumWalk.time = parseFloat(inputTime.value);
     eel.setTime(staticQuantumWalk.time);
-});
+}
 
-setDimButton.addEventListener('click', async function () {
+let setDimButton = async () => {
     staticQuantumWalk.dim = parseInt(inputDim.value);
     staticQuantumWalk.graph = inputGraph.value;
     eel.setDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
-});
+}
 
-
-setGraphButton.addEventListener('click', async function () {
+let setGraph = async () => {
     staticQuantumWalk.graph = inputGraph.value;
     eel.setGraph(staticQuantumWalk.graph);
-});
+}
 
-goMultipleButton.addEventListener('click', async function () {
+let setRunGraph = async () => {
+    let myGraph = await getGraph();
+    updateGraph(myGraph);
+    setGraph();
+    setDimButton();
+}
+
+let setStaticProbDist = async () => {
+    let walk = await getWalk();
+    let distList = walk.flat();
+    data.data.datasets[0].data = distList;
+    data.data.labels = [...Array(distList.length).keys()];
+    myChart.destroy();
+    myChart = new Chart(staticCtx, data);
+    await setStaticMean();
+    await setStaticSndMoment();
+    await setStaticStDev();
+    await setInversePartRatio();
+}
+
+let setdynamicProbDist = async () => {
     let multipleWalks = await getMultipleWalks();
     let i = 0;
     myAnimatedChart.clear();
-    data2.options.scales.y.ticks.min = 0.9
-    data2.options.scales.y.ticks.max = 1
-    data2.options.scales.y.ticks.stepSize = 0.001
+    // data2.options.scales.y.ticks.min = 0.9
+    // data2.options.scales.y.ticks.max = 1
+    // data2.options.scales.y.ticks.stepSize = 0.001
     for (const walk of multipleWalks) {
         setTimeout(() => {
             data2.data.datasets[0].data = walk.flat();
@@ -121,35 +175,7 @@ goMultipleButton.addEventListener('click', async function () {
         }, 80 * i);
         i++;
     }
-});
-
-graphButton.addEventListener('click', async function () {
-    let myGraph = await getGraph();
-    updateGraph(myGraph);
-    setGraphButtonPress();
-    setDimButtonPress();
-});
-
-goButton.addEventListener('click', async function () {
-    let walk = await getWalk();
-    let distList = walk.flat();
-    data.data.datasets[0].data = distList;
-    data.data.labels = [...Array(distList.length).keys()];
-    myChart.destroy();
-    myChart = new Chart(ctx, data);
-    await setStaticMean();
-    await setStaticSndMoment();
-    await setStaticStDev();
-    await setInversePartRatio();
-});
-
-survProbNodesButton.addEventListener('click', async function () {
-    setStaticSurvivalProb();
-});
-
-PSTNodesButton.addEventListener('click', async function () {
-    setPST();
-});
+}
 
 let setStaticMean = async () => {
     let statMean = await getStaticMean();
@@ -265,6 +291,7 @@ let getStaticSurvivalProb = (fromNode,toNode) =>{
         .catch((e) => console.log(e));
 }
 
+// #### ASYNC FUNCTIONS TO GET VALUES FROM PYTHON ####
 let getInversePartRatio = () =>{
         return eel
         .getInversePartRatio()()
@@ -292,6 +319,8 @@ let getPST = (nodeA,nodeB) =>{
         .catch((e) => console.log(e));
 }
 
+
+// #### CUSTOM GRAPH ####
 let updateGraph = (graph) => {
     cy.elements().remove()
     cy.add(graph.elements)

@@ -43,7 +43,7 @@
 
             <div id="cy" class="graph-display"></div>
 
-            <button id="graphButton" class="function-button">GO!</button>
+            <button id="runGraphButton" class="function-button">GO!</button>
               <ul class='input-fields'>
                 <li class='input-combo'>
                   <input type="number" step="1" min=2 name="time" id="inputDim" class="input-box"></input>
@@ -112,9 +112,9 @@
 
             <div class='grid-element'>
               <div class="prob-dist-chart-container">
-                <canvas id="myChart" class="prob-dist-chart"></canvas>
+                <canvas id="staticProbDistChart" class="prob-dist-chart"></canvas>
               </div>
-              <button id="goButton" class="function-button">GO!</button>
+              <button id="staticProbDistButton" class="function-button">GO!</button>
               <div class='input-row'>
                 <ul class='input-fields'>
                   <li class='input-combo'>
@@ -123,7 +123,7 @@
                   </li>
                   <li class='input-combo'>
                     <input type="number" step=0.01 min=0 name="gamma" id="inputGamma" class="input-box"></input>
-                    <button id="setGammaButton" class="input-button">γ</button>
+                    <button id="setGammaButton" class="input-button">NA</button>
                   </li>
                 </ul>
                 <ul class='input-fields'>
@@ -204,9 +204,9 @@
           <div class="tab-pane" id="dynamicplot">
             <div class='grid-element'>
               <div class="prob-dist-chart-container">
-                <canvas id="myAnimatedChart" class="prob-dist-chart"></canvas>
+                <canvas id="dynamicProbDistChart" class="prob-dist-chart"></canvas>
               </div>
-              <button id="goMultipleButton" class="function-button">GO!</button>
+              <button id="dynamicProbDistButton" class="function-button">GO!</button>
               <div class='input-row'>
                 <ul class='input-fields'>
                   <li class='input-combo'>
@@ -215,7 +215,7 @@
                   </li>
                   <li class='input-combo'>
                     <input type="number" step=0.01 min=0 name="gammaRange" id="inputGammaRange" class="input-box"></input>
-                    <button id="setGammaRangeButton" class="input-button">[γ]</button>
+                    <button id="setGammaRangeButton" class="input-button">[NA]</button>
                   </li>
                 </ul>
                 <ul class='input-fields'>
