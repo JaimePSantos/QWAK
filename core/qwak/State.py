@@ -29,7 +29,7 @@ class State:
     def resetState(self):
         self._stateVec = np.zeros((self._n, 1))
 
-    def buildState(self, nodeList: list) -> None:
+    def buildState(self, nodeList: list=None) -> None:
         """
         Builds state vector from state list, by creating a balanced superposition of all
         nodes in the nodeList.
@@ -39,7 +39,8 @@ class State:
             :param nodeList: List of nodes that will have an amplitude in the state vector.
             :type nodeList: list
         """
-        self._nodeList = nodeList
+        if nodeList is not None:
+            self._nodeList = nodeList
         nodeAmp = np.sqrt(len(self._nodeList))
         for state in self._nodeList:
             self._stateVec[state] = 1 / nodeAmp

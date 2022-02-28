@@ -1,8 +1,10 @@
 # QWAK
 continuous-time quantum walk analysis framework.
 
-## Instalation
-Navigate to the cloned folder and run `pip install .`
+## Instalation Instructions
+
+
+### Virtual environment (Optional but recommended)
 ### Requirements
 - Numpy
 - Scipy
@@ -11,3 +13,16 @@ Navigate to the cloned folder and run `pip install .`
 - networkx
 - eel
 
+clone the repository
+
+navigate to the cloned directory
+
+python3 -m venv qwakEnv
+
+source /qwakEnv/bin/activate
+
+pip install numpy scipy sympy matplotlib networkx eel
+
+pip install .
+
+python 

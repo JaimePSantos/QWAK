@@ -6,7 +6,7 @@ import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
 from qwak.qwak import QWAK
-from qwak.Operator import Operator
+from qwak.operator import Operator
 
 if __name__ == '__main__':
     n = 5

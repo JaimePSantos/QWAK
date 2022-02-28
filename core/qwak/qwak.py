@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 
-from qwak.Operator import Operator
+from qwak.operator import Operator
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
 from qwak.State import State
