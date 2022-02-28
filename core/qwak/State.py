@@ -26,48 +26,10 @@ class State:
         self._nodeList = nodeList
         self._stateVec = np.zeros((self._n, 1))
 
-    def __mul__(self, other: np.ndarray) -> np.ndarray:
-        """
-        Left-side multiplication for the State class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the state by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._stateVec * other
-            :rtype: Numpy.ndarray
-        """
-        return self._stateVec * other
-
-    def __rmul__(self, other: np.ndarray) -> np.ndarray:
-        """
-        Right-side multiplication for the State class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the state by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._stateVec * other
-            :rtype: Numpy.ndarray
-        """
-        return other * self._stateVec
-
-    def __str__(self) -> str:
-        """
-        String representation of the State class.
-
-        Returns:
-            :return: f"{self._stateVec}"
-            :rtype: str
-        """
-        return f"{self._stateVec}"
-
     def resetState(self):
         self._stateVec = np.zeros((self._n, 1))
 
-    def buildState(self, nodeList: list) -> None:
+    def buildState(self, nodeList: list=None) -> None:
         """
         Builds state vector from state list, by creating a balanced superposition of all
         nodes in the nodeList.
@@ -77,7 +39,8 @@ class State:
             :param nodeList: List of nodes that will have an amplitude in the state vector.
             :type nodeList: list
         """
-        self._nodeList = nodeList
+        if nodeList is not None:
+            self._nodeList = nodeList
         nodeAmp = np.sqrt(len(self._nodeList))
         for state in self._nodeList:
             self._stateVec[state] = 1 / nodeAmp
@@ -154,3 +117,41 @@ class State:
         self._n = newState.getDim()
         self._nodeList = newState.getNodeList()
         self._stateVec = newState.getStateVec()
+
+    def __mul__(self, other: np.ndarray) -> np.ndarray:
+        """
+        Left-side multiplication for the State class.
+
+        Args:
+            :param other: Another Numpy ndarray to multiply the state by.
+            :type other: Numpy.ndarray
+
+        Returns:
+            :return: self._stateVec * other
+            :rtype: Numpy.ndarray
+        """
+        return self._stateVec * other
+
+    def __rmul__(self, other: np.ndarray) -> np.ndarray:
+        """
+        Right-side multiplication for the State class.
+
+        Args:
+            :param other: Another Numpy ndarray to multiply the state by.
+            :type other: Numpy.ndarray
+
+        Returns:
+            :return: self._stateVec * other
+            :rtype: Numpy.ndarray
+        """
+        return other * self._stateVec
+
+    def __str__(self) -> str:
+        """
+        String representation of the State class.
+
+        Returns:
+            :return: f"{self._stateVec}"
+            :rtype: str
+        """
+        return f"{self._stateVec}"

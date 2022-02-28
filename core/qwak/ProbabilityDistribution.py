@@ -29,16 +29,6 @@ class ProbabilityDistribution:
         self._stateVec = state.getStateVec()
         self._probVec = np.zeros((self._n, 1))
 
-    def __str__(self) -> str:
-        """
-        String representation of the Probability Distribution class.
-
-        Returns:
-            :return: f'{self._probVec}'
-            :rtype: str
-        """
-        return f'{self._probVec}'
-
     def resetProbDist(self):
         self._stateVec.resetState()
         self._probVec = np.zeros((self._n, 1))
@@ -107,26 +97,25 @@ class ProbabilityDistribution:
             m += (pos[x]**k)*self._probVec[x]
         return float(m)
 
-    def stdev(self) -> float:
-        """
-        Gets the standard deviation of the current probability distribution.
-
-        Returns:
-            :return: float(std)
-            :rtype: float
-        """
-        pos = np.arange(0,self._n)
-        std = 0
-        for x in range(self._n):
-            std += self._probVec[x]*(pos[x] - self.mean())**2
-        return float(np.sqrt(std))
-
-    def altStdev(self):
-        return np.sqrt(self.moment(2) - self.moment(1)**2)
+    def stDev(self):
+        stDev = self.moment(2) - self.moment(1)**2
+        if stDev <= 0:
+            return 0
+        return np.sqrt(stDev)
 
     def survivalProb(self,k0,k1):
         survProb = 0
-        for i in range(k0,k1):
+        for i in range(int(k0),int(k1)):
             survProb +=  self._probVec[i]
-        return survProb
+        return survProb[0]
+
+    def __str__(self) -> str:
+        """
+        String representation of the Probability Distribution class.
+
+        Returns:
+            :return: f'{self._probVec}'
+            :rtype: str
+        """
+        return f'{self._probVec}'
 

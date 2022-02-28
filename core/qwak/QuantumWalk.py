@@ -5,7 +5,7 @@ import warnings
 import numpy as np
 
 from qwak.State import State
-from qwak.Operator import Operator
+from qwak.operator import Operator
 
 warnings.filterwarnings("ignore")
 
@@ -37,16 +37,6 @@ class QuantumWalk:
         self._initState = state
         self._operator = operator
         self._finalState = State(self._n)
-
-    def __str__(self) -> str:
-        """
-        String representation of the StaticQuantumwalk class.
-
-        Returns:
-            :return: f'{self._finalState.getStateVec()}'
-            :rtype: str
-        """
-        return f'{self._finalState.getStateVec()}'
 
     def resetWalk(self):
         self._operator.resetOperator()
@@ -136,6 +126,7 @@ class QuantumWalk:
     def getWalk(self) -> State:
         """
         Gets the final state associated with the walk.
+        TODO: Change name for better clarification.
 
         Returns:
             :return: self._finalState
@@ -160,5 +151,16 @@ class QuantumWalk:
     def invPartRatio(self):
         amplitudes = 0
         for amp in self._finalState.getStateVec():
-            amplitudes += np.absolute(amp)**4
+            amplitudes += np.absolute(amp.item(0,0))**4
+        amplitudes = amplitudes
         return 1/amplitudes
+
+    def __str__(self) -> str:
+        """
+        String representation of the StaticQuantumwalk class.
+
+        Returns:
+            :return: f'{self._finalState.getStateVec()}'
+            :rtype: str
+        """
+        return f'{self._finalState.getStateVec()}'

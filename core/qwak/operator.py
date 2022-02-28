@@ -15,7 +15,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph=None,laplacian:bool=False,adjacencyMatrix=None,markedSearch=None) -> None:
+    def __init__(self, graph: nx.Graph,laplacian:bool=False,adjacencyMatrix=None,markedSearch=None) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -37,63 +37,29 @@ class Operator:
             :param graph: Graph where the walk will be performed.
             :type graph: NetworkX.Graph
         """
-        if graph is not None:
-            self._graph = graph
-            if laplacian:
-                self._adjacencyMatrix = nx.laplacian_matrix(graph).todense().astype(complex)
-                self.buildAdjacency(markedSearch)
-            else:
-                self._adjacencyMatrix = nx.adjacency_matrix(graph).todense().astype(complex)
-                self.buildAdjacency(markedSearch)
-            self._n = len(graph)
+        self._graph = graph
+        self.buildLaplacianAdjacency(laplacian,markedSearch)
+        self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
-        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix)
+        self.buildEigenValues()
         self._time = 0
-        # self._gamma = 1
 
-    def __mul__(self, other):
-        """
-        Left-side multiplication for the Operator class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the operator by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._operator * other
-            :rtype: Numpy.ndarray
-        """
-        return self._operator * other
-
-    def __rmul__(self, other):
-        """
-        Right-side multiplication for the Operator class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the operator by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._operator * other
-            :rtype: Numpy.ndarray
-        """
-        return other * self._operator
-
-    def __str__(self) -> str:
-        """
-        String representation of the State class.
-
-        Returns:
-            :return: f"{self._stateVec}"
-            :rtype: str
-        """
-        return f"{self._operator}"
-
-    def buildAdjacency(self,markedSearch=None):
+    def buildMarkedAdjacency(self, markedSearch):
         if markedSearch is not None:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
+
+    def buildLaplacianAdjacency(self,laplacian, markedSearch):
+        if laplacian:
+            self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
+            self.buildMarkedAdjacency(markedSearch)
+        else:
+            self._adjacencyMatrix = nx.adjacency_matrix(self._graph).todense().astype(complex)
+            self.buildMarkedAdjacency(markedSearch)
+
+    def buildEigenValues(self):
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
+            self._adjacencyMatrix)
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
@@ -113,11 +79,10 @@ class Operator:
             :type gamma: (int, optional)
         """
         self._time = time
-        # self._gamma = gamma
-        D = np.diag(np.exp(-1j * self._time *
+        diag = np.diag(np.exp(-1j * self._time *
                            self._eigenvalues)).diagonal()
-        self._operator = np.multiply(self._eigenvectors, D)
-        self._operator = self._operator @ self._eigenvectors.H
+        self._operator = np.multiply(self._eigenvectors, diag)
+        self._operator = np.matmul(self._operator,self._eigenvectors.H)
 
     def setDim(self, newDim: int) -> None:
         """
@@ -160,26 +125,6 @@ class Operator:
         """
         return self._time
 
-    # def setGamma(self, newGamma: float) -> None:
-    #     """
-    #     Sets the current operator transition rate to a user defined one.
-    #
-    #     Args:
-    #         :param newGamma: New transition rate.
-    #         :type newGamma: float
-    #     """
-    #     self._gamma = newGamma
-
-    # def getGamma(self) -> float:
-    #     """
-    #     Gets the current walk transition rate.
-    #
-    #     Returns:
-    #         :return: self._gamma
-    #         :rtype: float
-    #     """
-    #     return self._gamma
-
     def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
         """
         Sets the adjacency matrix of the operator to a user defined one.
@@ -190,9 +135,10 @@ class Operator:
             :param adjacencyMatrix: New Numpy.ndarray adjacency matrix.
             :type adjacencyMatrix: Numpy.ndarray
         """
-        self._adjacencyMatrix = adjacencyMatrix
+        self._adjacencyMatrix = adjacencyMatrix.astype(complex)
         self._n = len(self._adjacencyMatrix)
-        self.__init__()
+        self.resetOperator()
+        self.buildEigenValues()
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """
@@ -213,7 +159,6 @@ class Operator:
             :type newOperator: Operator
         """
         self._n = newOperator.getDim()
-        # self._gamma = newOperator.getGamma()
         self._time = newOperator.getTime()
         self._operator = newOperator.getOperator()
 
@@ -249,23 +194,66 @@ class Operator:
         symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
         eigenVec, D = symAdj.diagonalize()
         eigenVal = getEigenVal(D)
-
-        result, g, delta = checkRoots(symAdj, nodeA, eigenVec, eigenVal)
-        if isStrCospec(symAdj, nodeA, nodeB) and result:
-            return pi / (g * np.sqrt(delta))
+        isCospec = isStrCospec(symAdj, nodeA, nodeB)
+        chRoots, g, delta = checkRoots(symAdj, nodeA, eigenVec, eigenVal)
+        if isCospec and chRoots:
+            result = pi / (g * np.sqrt(delta))
         else:
-            return False
+            result = -1
+        return result
 
     def transportEfficiency(self,initState):
+        """
+        Under Construction.
+        @param initState:
+        @return:
+        """
         ef = 0
         print(f"init: {initState}")
         print(f"Eigenvectors {self._eigenvectors}")
         for i in range(len(self._eigenvectors)):
             eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()
-
             ef += np.absolute(np.matmul(eigenVec,initState))**2
             print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
         return ef
+
+    def __mul__(self, other):
+        """
+        Left-side multiplication for the Operator class.
+
+        Args:
+            :param other: Another Numpy ndarray to multiply the operator by.
+            :type other: Numpy.ndarray
+
+        Returns:
+            :return: self._operator * other
+            :rtype: Numpy.ndarray
+        """
+        return self._operator * other
+
+    def __rmul__(self, other):
+        """
+        Right-side multiplication for the Operator class.
+
+        Args:
+            :param other: Another Numpy ndarray to multiply the operator by.
+            :type other: Numpy.ndarray
+
+        Returns:
+            :return: self._operator * other
+            :rtype: Numpy.ndarray
+        """
+        return other * self._operator
+
+    def __str__(self) -> str:
+        """
+        String representation of the State class.
+
+        Returns:
+            :return: f"{self._stateVec}"
+            :rtype: str
+        """
+        return f"{self._operator}"
 
 
 
