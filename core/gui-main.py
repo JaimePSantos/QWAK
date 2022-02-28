@@ -35,25 +35,27 @@ if __name__ == '__main__':
     dynamicQuantumWalk = QWAK(graph)
     dynamicQuantumWalk.runWalk(timeList[0], initStateList[0])
 
+    resultRounding = 3
+
     @eel.expose
     def getStaticMean():
-        return round(staticQuantumWalk.getMean(),3)
+        return round(staticQuantumWalk.getMean(),resultRounding)
 
     @eel.expose
     def getStaticSndMoment():
-        return round(staticQuantumWalk.getSndMoment(),3)
+        return round(staticQuantumWalk.getSndMoment(),resultRounding)
 
     @eel.expose
     def getStaticStDev():
-        return round(staticQuantumWalk.getStDev(),3)
+        return round(staticQuantumWalk.getStDev(),resultRounding)
 
     @eel.expose
     def getStaticSurvivalProb(k0,k1):
-        return round(staticQuantumWalk.getSurvivalProb(k0,k1),3)
+        return round(staticQuantumWalk.getSurvivalProb(k0,k1),resultRounding)
 
     @eel.expose
     def getInversePartRatio():
-        return round(staticQuantumWalk.getInversePartRatio(),3)
+        return round(staticQuantumWalk.getInversePartRatio(),resultRounding)
 
     @eel.expose
     def checkPST(nodeA,nodeB):

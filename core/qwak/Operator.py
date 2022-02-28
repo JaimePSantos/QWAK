@@ -50,45 +50,6 @@ class Operator:
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
             self._adjacencyMatrix)
         self._time = 0
-        # self._gamma = 1
-
-    def __mul__(self, other):
-        """
-        Left-side multiplication for the Operator class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the operator by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._operator * other
-            :rtype: Numpy.ndarray
-        """
-        return self._operator * other
-
-    def __rmul__(self, other):
-        """
-        Right-side multiplication for the Operator class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the operator by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._operator * other
-            :rtype: Numpy.ndarray
-        """
-        return other * self._operator
-
-    def __str__(self) -> str:
-        """
-        String representation of the State class.
-
-        Returns:
-            :return: f"{self._stateVec}"
-            :rtype: str
-        """
-        return f"{self._operator}"
 
     def buildAdjacency(self,markedSearch=None):
         if markedSearch is not None:
@@ -114,10 +75,10 @@ class Operator:
         """
         self._time = time
         # self._gamma = gamma
-        D = np.diag(np.exp(-1j * self._time *
+        diag = np.diag(np.exp(-1j * self._time *
                            self._eigenvalues)).diagonal()
-        self._operator = np.multiply(self._eigenvectors, D)
-        self._operator = self._operator @ self._eigenvectors.H
+        self._operator = np.multiply(self._eigenvectors, diag)
+        self._operator = np.matmul(self._operator,self._eigenvectors.H)
 
     def setDim(self, newDim: int) -> None:
         """
@@ -160,26 +121,6 @@ class Operator:
         """
         return self._time
 
-    # def setGamma(self, newGamma: float) -> None:
-    #     """
-    #     Sets the current operator transition rate to a user defined one.
-    #
-    #     Args:
-    #         :param newGamma: New transition rate.
-    #         :type newGamma: float
-    #     """
-    #     self._gamma = newGamma
-
-    # def getGamma(self) -> float:
-    #     """
-    #     Gets the current walk transition rate.
-    #
-    #     Returns:
-    #         :return: self._gamma
-    #         :rtype: float
-    #     """
-    #     return self._gamma
-
     def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
         """
         Sets the adjacency matrix of the operator to a user defined one.
@@ -213,7 +154,6 @@ class Operator:
             :type newOperator: Operator
         """
         self._n = newOperator.getDim()
-        # self._gamma = newOperator.getGamma()
         self._time = newOperator.getTime()
         self._operator = newOperator.getOperator()
 
@@ -272,6 +212,44 @@ class Operator:
             ef += np.absolute(np.matmul(eigenVec,initState))**2
             print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
         return ef
+
+    def __mul__(self, other):
+        """
+        Left-side multiplication for the Operator class.
+
+        Args:
+            :param other: Another Numpy ndarray to multiply the operator by.
+            :type other: Numpy.ndarray
+
+        Returns:
+            :return: self._operator * other
+            :rtype: Numpy.ndarray
+        """
+        return self._operator * other
+
+    def __rmul__(self, other):
+        """
+        Right-side multiplication for the Operator class.
+
+        Args:
+            :param other: Another Numpy ndarray to multiply the operator by.
+            :type other: Numpy.ndarray
+
+        Returns:
+            :return: self._operator * other
+            :rtype: Numpy.ndarray
+        """
+        return other * self._operator
+
+    def __str__(self) -> str:
+        """
+        String representation of the State class.
+
+        Returns:
+            :return: f"{self._stateVec}"
+            :rtype: str
+        """
+        return f"{self._operator}"
 
 
 

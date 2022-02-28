@@ -18,7 +18,7 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool = False,markedSearch = None) -> None:
+    def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -31,7 +31,7 @@ class QWAK:
         """
         self._graph = graph
         if markedSearch is not None:
-            self._operator = Operator(self._graph, laplacian,markedSearch=markedSearch)
+            self._operator = Operator(self._graph, laplacian, markedSearch=markedSearch)
         else:
             self._operator = Operator(self._graph,laplacian)
         self._n = len(self._graph)
@@ -59,7 +59,6 @@ class QWAK:
             :type initStateList: (list, optional)
         """
         self._time = time
-        # self._gamma = gamma
         self._initStateList = initStateList
         self._initState.buildState(self._initStateList)
         self._operator.buildDiagonalOperator(self._time)
@@ -74,7 +73,7 @@ class QWAK:
         Given the current values of the class' attributes, runs the walk and calculates the amplitudes and probability
         distributions.
         """
-        print(f"Deprecated function, please user runWalk instead.")
+        print(f"Deprecated function, please use runWalk instead.")
         # self._initState.buildState(self._initStateList)
         # self._operator.buildDiagonalOperator(self._time, self._gamma)
         # self._quantumWalk = qwak(self._initState, self._operator)
