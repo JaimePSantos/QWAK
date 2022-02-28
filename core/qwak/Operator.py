@@ -15,7 +15,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph=None,laplacian:bool=False,adjacencyMatrix=None,markedSearch=None) -> None:
+    def __init__(self, graph: nx.Graph,laplacian:bool=False,adjacencyMatrix=None,markedSearch=None) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -37,24 +37,29 @@ class Operator:
             :param graph: Graph where the walk will be performed.
             :type graph: NetworkX.Graph
         """
-        if graph is not None:
-            self._graph = graph
-            if laplacian:
-                self._adjacencyMatrix = nx.laplacian_matrix(graph).todense().astype(complex)
-                self.buildAdjacency(markedSearch)
-            else:
-                self._adjacencyMatrix = nx.adjacency_matrix(graph).todense().astype(complex)
-                self.buildAdjacency(markedSearch)
-            self._n = len(graph)
+        self._graph = graph
+        self.buildLaplacianAdjacency(laplacian,markedSearch)
+        self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
-        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix)
+        self.buildEigenValues()
         self._time = 0
 
-    def buildAdjacency(self,markedSearch=None):
+    def buildMarkedAdjacency(self, markedSearch):
         if markedSearch is not None:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
+
+    def buildLaplacianAdjacency(self,laplacian, markedSearch):
+        if laplacian:
+            self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
+            self.buildMarkedAdjacency(markedSearch)
+        else:
+            self._adjacencyMatrix = nx.adjacency_matrix(self._graph).todense().astype(complex)
+            self.buildMarkedAdjacency(markedSearch)
+
+    def buildEigenValues(self):
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
+            self._adjacencyMatrix)
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
@@ -74,7 +79,6 @@ class Operator:
             :type gamma: (int, optional)
         """
         self._time = time
-        # self._gamma = gamma
         diag = np.diag(np.exp(-1j * self._time *
                            self._eigenvalues)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
@@ -131,9 +135,10 @@ class Operator:
             :param adjacencyMatrix: New Numpy.ndarray adjacency matrix.
             :type adjacencyMatrix: Numpy.ndarray
         """
-        self._adjacencyMatrix = adjacencyMatrix
+        self._adjacencyMatrix = adjacencyMatrix.astype(complex)
         self._n = len(self._adjacencyMatrix)
-        self.__init__()
+        self.resetOperator()
+        self.buildEigenValues()
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """

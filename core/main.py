@@ -6,6 +6,7 @@ import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
 from qwak.qwak import QWAK
+from qwak.Operator import Operator
 
 if __name__ == '__main__':
     n = 5
@@ -15,32 +16,31 @@ if __name__ == '__main__':
     # graph = nx.complete_bipartite_graph(20,20)
     # graph = nx.hypercube_graph(3)
 
-    nx.draw(graph,with_labels = True)
-    plt.show()
     # marked = [int(n / 2)]
     marked = [0]
     # marked = range(n)
     # marked = range(int(n))
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
-    qwController = QWAK(graph, laplacian=False)
-    sp.pprint(f"PST {qwController.checkPST(0,2)}")
-    qwController.runWalk(t, marked)
-    # print(qwController.getAdjacencyMatrix())
-    # print(f"TE: {qwController.transportEfficiency()}")
-    # amps = qwController.getWalk().getWalk().getStateVec()
-    # density = np.conjugate(amps).T * amps
-    # print(density)
+    # qwController = QWAK(graph, laplacian=False)
+    # sp.pprint(f"PST {qwController.checkPST(0,2)}")
+    # qwController.runWalk(t, marked)
 
-    # plt.plot(qwController.getWalk().getWalk().getStateVec())
-    # plt.show()
-    sp.pprint(f"PST {qwController.checkPST(0,2)}")
-    print(f"Mean: {qwController.getProbDist().mean()}\t "
-          f"Moment 1: {qwController.getProbDist().moment(1)}\n"
-          f"Moment 2: {qwController.getProbDist().moment(2)}\n"
-          f"Stdev: {qwController.getProbDist().stDev()}\n"
-          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0],marked[0]+1)}\n"
-          f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n"
-          f"PST {qwController.checkPST(0,2)}")
+    qwOperator = Operator(graph=graph)
+    qwOperator.buildDiagonalOperator(1)
+    print(qwOperator.getAdjacencyMatrix())
+    print(f"{qwOperator}\n")
+    qwOperator.setAdjacencyMatrix(nx.adjacency_matrix(nx.complete_graph(n)).todense())
+    print(qwOperator.getAdjacencyMatrix())
+    qwOperator.buildDiagonalOperator(1)
+    print(qwOperator)
+
+    # print(f"Mean: {qwController.getProbDist().mean()}\t "
+    #       f"Moment 1: {qwController.getProbDist().moment(1)}\n"
+    #       f"Moment 2: {qwController.getProbDist().moment(2)}\n"
+    #       f"Stdev: {qwController.getProbDist().stDev()}\n"
+    #       f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0],marked[0]+1)}\n"
+    #       f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n"
+    #       f"PST {qwController.checkPST(0,2)}")
 
     # G = nx.Graph()
     # for i in range(0,100):
@@ -81,7 +81,6 @@ if __name__ == '__main__':
     # plt.show()
     # plt.plot(qwProbVec)
     # plt.show()
-
 
     # print(qwProbabilities.mean())
     # print(m)

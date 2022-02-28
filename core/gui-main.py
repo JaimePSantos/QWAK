@@ -158,7 +158,6 @@ if __name__ == '__main__':
         dynamicQuantumWalk.setAdjacencyMatrix(adjM)
         dynamicQuantumWalk.runWalk(t,initState)
 
-
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
 
         
