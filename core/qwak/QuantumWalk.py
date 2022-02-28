@@ -38,16 +38,6 @@ class QuantumWalk:
         self._operator = operator
         self._finalState = State(self._n)
 
-    def __str__(self) -> str:
-        """
-        String representation of the StaticQuantumwalk class.
-
-        Returns:
-            :return: f'{self._finalState.getStateVec()}'
-            :rtype: str
-        """
-        return f'{self._finalState.getStateVec()}'
-
     def resetWalk(self):
         self._operator.resetOperator()
         self._initState.resetState()
@@ -164,3 +154,13 @@ class QuantumWalk:
             amplitudes += np.absolute(amp.item(0,0))**4
         amplitudes = amplitudes
         return 1/amplitudes
+
+    def __str__(self) -> str:
+        """
+        String representation of the StaticQuantumwalk class.
+
+        Returns:
+            :return: f'{self._finalState.getStateVec()}'
+            :rtype: str
+        """
+        return f'{self._finalState.getStateVec()}'

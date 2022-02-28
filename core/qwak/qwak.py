@@ -38,7 +38,6 @@ class QWAK:
         self._initStateList = [0]
         self._initState = State(self._n,self._initStateList)
         self._time = 0
-        # self._gamma = 1
 
     def resetWalk(self):
         self._initState.resetState()
@@ -66,20 +65,6 @@ class QWAK:
         self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
         self._probDist.buildProbDist()
-
-    def buildWalk(self) -> None:
-        """
-        DEPRECATED: Please use runWalk instead.
-        Given the current values of the class' attributes, runs the walk and calculates the amplitudes and probability
-        distributions.
-        """
-        print(f"Deprecated function, please use runWalk instead.")
-        # self._initState.buildState(self._initStateList)
-        # self._operator.buildDiagonalOperator(self._time, self._gamma)
-        # self._quantumWalk = qwak(self._initState, self._operator)
-        # self._quantumWalk.buildWalk()
-        # self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
-        # self._probDist.buildProbDist()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
         """
@@ -183,26 +168,6 @@ class QWAK:
             :rtype: float
         """
         return self._time
-
-    # def setGamma(self, newGamma: float) -> None:
-    #     """
-    #     Sets the current walk transition rate to a user defined one.
-    #
-    #     Args:
-    #         :param newGamma: New transition rate.
-    #         :type newGamma: float
-    #     """
-    #     self._gamma = newGamma
-
-    # def getGamma(self) -> float:
-    #     """
-    #     Gets the current walk transition rate.
-    #
-    #     Returns:
-    #         :return: self._gamma
-    #         :rtype: float
-    #     """
-    #     return self._gamma
 
     def setOperator(self, newOperator: Operator) -> None:
         """
