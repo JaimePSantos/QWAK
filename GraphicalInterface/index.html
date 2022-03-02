@@ -232,11 +232,32 @@
             </div>
           </div>
           <div class="tab-pane" id="dynamicstats">
-        <div class="tab">
-          <button id="defaultDynStat" class="tablinks" >Mean</button>
-          <button  id="sndMomentDynStat" class="tablinks">2nd Moment</button>
-        </div>
-        <script type='module' src="javascript/tools.js"></script>
+            <!-- Tab links -->
+            <div class="tab">
+              <button id="defaultDynStat" class="stattablinks" >Mean</button>
+              <button  id="stDevDynStat" class="stattablinks">Standard Deviation</button>
+              <button  id="invPartRatioDynStat" class="stattablinks">Inverse Participation Ratio</button>
+              <button  id="survProbDynStat" class="stattablinks">Survival Probability</button>
+            </div>
+            <!-- Tab content -->
+            <div id="Mean" class="stattabcontent">
+              <div class='grid-element'>
+                <div class="prob-dist-chart-container">
+                  <canvas id="dynamicMeanChart" class="prob-dist-chart"></canvas>
+                </div>
+                <button id="dynamicMeanButton" class="function-button">GO!</button>
+              </div>
+            </div>
+            <div id="StDev" class="stattabcontent">
+              <div class='grid-element'>
+                <div class="prob-dist-chart-container">
+                  <canvas id="dynamicStDevChart" class="prob-dist-chart"></canvas>
+                </div>
+                <button id="dynamicStDevButton" class="function-button">GO!</button>
+              </div>
+            </div>
+
+            <script type='module' src="javascript/tools.js"></script>
           </div>
           
         </div>
