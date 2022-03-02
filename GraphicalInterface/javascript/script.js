@@ -1,4 +1,4 @@
-import { cy, customCy, staticChartData, dynamicChartData, dynamicMeanChartData, dynamicStDevChartData} from "./tools.js";
+import { cy, customCy, staticChartData, dynamicChartData, dynamicMeanChartData, dynamicStDevChartData, dynamicInvPartRatioChartData} from "./tools.js";
 import { StaticQuantumwalk } from "./staticQuantumwalk.js";
 import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
 
@@ -58,6 +58,7 @@ let myChart = new Chart(document.getElementById("staticProbDistChart").getContex
 let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
 let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"),dynamicMeanChartData)
 let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"),dynamicStDevChartData)
+let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"),dynamicInvPartRatioChartData)
 
 
 // #### BUTTONS ####
@@ -113,6 +114,9 @@ document.getElementById("dynamicStDevButton").addEventListener('click', async fu
     setDynStDev();
 });
 
+document.getElementById("dynamicInvPartRatioButton").addEventListener('click', async function () {
+    getDynInvPartRatio();
+});
 
 // #### BUTTON HELPER FUNCTIONS ####
 let setInitStateRange = async () => {
@@ -159,7 +163,7 @@ let setStaticProbDist = async () => {
     staticChartData.data.datasets[0].data = distList;
     staticChartData.data.labels = [...Array(distList.length).keys()];
     myChart.destroy();
-    myChart = new Chart(staticCtx, staticChartData);
+    myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
     await setStaticMean();
     await setStaticSndMoment();
     await setStaticStDev();
@@ -226,10 +230,18 @@ let setDynMean = async () => {
 
 let setDynStDev = async () => {
     let dynStDev = await getDynStDev();
-    myDynamicStDevChart.data.datasets[0].data = dynStDev.flat();
-    myDynamicStDevChart.data.labels = [...Array(dynStDev.length).keys()];
+    dynamicStDevChartData.data.datasets[0].data = dynStDev.flat();
+    dynamicStDevChartData.data.labels = [...Array(dynStDev.length).keys()];
     myDynamicStDevChart.clear();
     myDynamicStDevChart.update();
+}
+
+let setDynInvPartRatio = async () => {
+    let dynInvPartRatio = await getDynInvPartRatio();
+    dynamicInvPartRatioChartData.data.datasets[0].data = dynInvPartRatio.flat();
+    dynamicInvPartRatioChartData.data.labels = [...Array(dynInvPartRatio.length).keys()];
+    myDynamicInvPartRatioChart.clear();
+    myDynamicInvPartRatioChart.update();
 }
 
 // #### ASYNC FUNCTIONS TO GET VALUES FROM PYTHON ####
@@ -358,6 +370,20 @@ let getDynMean = () =>{
 let getDynStDev = () => {
     return eel
     .getDynStDev()()
+    .then((a) => {
+        // if (Array.isArray(a)){
+        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+        //     }else{
+        //         return a;
+        // }
+        return a;
+    })
+    .catch((e) => console.log(e));
+}
+
+let getDynInvPartRatio = () => {
+    return eel
+    .getDynInvPartRatio()()
     .then((a) => {
         // if (Array.isArray(a)){
         //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));

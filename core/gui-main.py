@@ -29,12 +29,13 @@ if __name__ == '__main__':
     staticQuantumWalk = QWAK(graph)
     staticQuantumWalk.runWalk(t, initState)
 
-    global timeList,initStateList,dynamicQuantumWalk,dynProbDistList
+    global timeList,initStateList,dynamicQuantumWalk,dynProbDistList, dynAmpsList
     timeList = [0,100]
     initStateList = [[int(n/2),int(n/2)+1]]
     dynamicQuantumWalk = QWAK(graph)
     dynamicQuantumWalk.runWalk(timeList[0], initStateList[0])
     dynProbDistList = []
+    dynAmpsList = []
 
     resultRounding = 3
 
@@ -136,10 +137,13 @@ if __name__ == '__main__':
         global timeList,initStateList,dynamicQuantumWalk,dynProbDistList
         dynamicQuantumWalk.resetWalk()
         dynProbDistList = []
+        dynAmpsList = []
         timeRange = np.linspace(timeList[0],timeList[1],int(timeList[1]))
         for t in timeRange:
             dynamicQuantumWalk.runWalk(t, initStateList[0])
             qwProbabilities = dynamicQuantumWalk.getProbDist()
+            qwAmps = dynamicQuantumWalk.getWalk()
+            dynAmpsList.append(qwAmps)
             dynProbDistList.append(qwProbabilities)
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
@@ -161,6 +165,14 @@ if __name__ == '__main__':
         for probDist in dynProbDistList:
             stDevList.append(probDist.stDev())
         return stDevList
+
+    @eel.expose
+    def getDynInvPartRatio():
+        invPartRatioList = []
+        global dynAmpsList
+        for amps in dynAmpsList:
+            invPartRatioList.append(amps.invPartRatio())
+        return invPartRatioList
 
     @eel.expose
     def graphToJson():
