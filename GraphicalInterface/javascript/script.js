@@ -1,4 +1,4 @@
-import { cy, customCy, staticChartData, dynamicChartData, dynamicMeanChartData, dynamicStDevChartData, dynamicInvPartRatioChartData} from "./tools.js";
+import { cy, customCy, staticChartData, dynamicChartData, dynamicMeanChartData, dynamicStDevChartData, dynamicInvPartRatioChartData, dynamicSurvivalProbChartData} from "./tools.js";
 import { StaticQuantumwalk } from "./staticQuantumwalk.js";
 import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
 
@@ -59,6 +59,7 @@ let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").
 let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"),dynamicMeanChartData)
 let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"),dynamicStDevChartData)
 let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"),dynamicInvPartRatioChartData)
+let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"),dynamicSurvivalProbChartData)
 
 
 // #### BUTTONS ####
@@ -115,8 +116,13 @@ document.getElementById("dynamicStDevButton").addEventListener('click', async fu
 });
 
 document.getElementById("dynamicInvPartRatioButton").addEventListener('click', async function () {
-    getDynInvPartRatio();
+    setDynInvPartRatio();
 });
+
+document.getElementById("dynamicSurvivalProbButton").addEventListener('click', async function () {
+    setDynSurvProb();
+});
+
 
 // #### BUTTON HELPER FUNCTIONS ####
 let setInitStateRange = async () => {
@@ -243,6 +249,17 @@ let setDynInvPartRatio = async () => {
     myDynamicInvPartRatioChart.clear();
     myDynamicInvPartRatioChart.update();
 }
+
+let setDynSurvProb = async () => {
+    let k0 = document.getElementById("dynInputSurvProbNodeA").value
+    let k1 = document.getElementById("dynInputSurvProbNodeB").value
+    let dynSurvProb = await getDynSurvProb(k0,k1);
+    dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb.flat();
+    dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb.length).keys()];
+    myDynamicSurvivalProbChart.clear();
+    myDynamicSurvivalProbChart.update();
+}
+
 
 // #### ASYNC FUNCTIONS TO GET VALUES FROM PYTHON ####
 
@@ -394,6 +411,21 @@ let getDynInvPartRatio = () => {
     })
     .catch((e) => console.log(e));
 }
+
+let getDynSurvProb = (k0,k1) => {
+    return eel
+    .getDynSurvivalProb(k0,k1)()
+    .then((a) => {
+        // if (Array.isArray(a)){
+        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+        //     }else{
+        //         return a;
+        // }
+        return a;
+    })
+    .catch((e) => console.log(e));
+}
+
 
 
 // #### CUSTOM GRAPH ####

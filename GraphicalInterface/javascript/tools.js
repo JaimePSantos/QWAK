@@ -342,6 +342,31 @@ export let dynamicInvPartRatioChartData = {
   },
 };
 
+export let dynamicSurvivalProbChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
 document.getElementById('defaultDynStat').addEventListener('click', evt => {
   openTab(evt, 'Mean',"stattabcontent","stattablinks");
 });
@@ -353,6 +378,12 @@ document.getElementById('stDevDynStat').addEventListener('click', evt => {
 document.getElementById('invPartRatioDynStat').addEventListener('click', evt => {
   openTab(evt, 'InvPartRatio',"stattabcontent","stattablinks");
 });
+
+document.getElementById('survProbDynStat').addEventListener('click', evt => {
+  openTab(evt, 'SurvivalProb',"stattabcontent","stattablinks");
+});
+
+document.getElementById('invPartRatioDynStat').click()
 
 document.getElementById('invPartRatioDynStat').click()
 

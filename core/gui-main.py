@@ -134,7 +134,7 @@ if __name__ == '__main__':
     @eel.expose
     def runMultipleWalks():
         qwProbVecList = []
-        global timeList,initStateList,dynamicQuantumWalk,dynProbDistList
+        global timeList,initStateList,dynamicQuantumWalk,dynProbDistList,dynAmpsList
         dynamicQuantumWalk.resetWalk()
         dynProbDistList = []
         dynAmpsList = []
@@ -173,6 +173,14 @@ if __name__ == '__main__':
         for amps in dynAmpsList:
             invPartRatioList.append(amps.invPartRatio())
         return invPartRatioList
+
+    @eel.expose
+    def getDynSurvivalProb(k0,k1):
+        survProbList = []
+        global dynAmpsList
+        for probDist in dynProbDistList:
+            survProbList.append(probDist.survivalProb(k0,k1))
+        return survProbList
 
     @eel.expose
     def graphToJson():
