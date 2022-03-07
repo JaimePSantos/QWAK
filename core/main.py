@@ -9,15 +9,15 @@ from qwak.qwak import QWAK
 from qwak.operator import Operator
 
 if __name__ == '__main__':
-    n = 300
-    t = 500
+    n = 100
+    t = 0
     # gamma = 1 / (2 * np.sqrt(2))
     graph = nx.cycle_graph(n)
     # graph = nx.complete_bipartite_graph(20,20)
     # graph = nx.hypercube_graph(3)
 
     # marked = [int(n / 2)]
-    marked = [0]
+    marked = [50,51]
     # marked = range(n)
     # marked = range(int(n))
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
@@ -38,7 +38,7 @@ if __name__ == '__main__':
           f"Moment 1: {qwController.getProbDist().moment(1)}\n"
           f"Moment 2: {qwController.getProbDist().moment(2)}\n"
           f"Stdev: {qwController.getProbDist().stDev()}\n"
-          f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0],marked[0]+1)}\n"
+          f"Survival Probability: {qwController.getProbDist().survivalProb(0,0)}\n"
           f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n")
     #       f"PST {qwController.checkPST(0,2)}")
 

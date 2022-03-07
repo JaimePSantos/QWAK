@@ -105,8 +105,11 @@ class ProbabilityDistribution:
 
     def survivalProb(self,k0,k1):
         survProb = 0
-        for i in range(int(k0),int(k1)):
-            survProb +=  self._probVec[i]
+        if k0 == k1:
+            return self._probVec[k0][0]
+        else:
+            for i in range(int(k0),int(k1)+1):
+                survProb +=  self._probVec[i]
         return survProb[0]
 
     def __str__(self) -> str:
