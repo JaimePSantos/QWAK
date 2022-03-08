@@ -29,7 +29,60 @@
  <div id="container" class="qwak">
    <div id="functionContainer" class="walk-container">
       <div class='first-half'>
+        <!-- Tab links -->
+        <div class="tab">
+          <button id="defaultOpen" class="tablinks" >Graph Generator</button>
+          <button  id="customGraphDisplay" class="tablinks">Custom Graph</button>
+        </div>
+        <script type='module' src="javascript/tools.js"></script>
 
+
+        <!-- Tab content -->
+        <div id="GraphGenerator" class="tabcontent">
+          <div class='grid-element'>
+
+            <div id="cy" class="graph-display"></div>
+
+            <button id="runGraphButton" class="function-button">GO!</button>
+              <ul class='input-fields'>
+                <li class='input-combo'>
+                  <input type="number" step="1" min=2 name="time" id="inputDim" class="input-box"></input>
+                  <button id="setDimButton" class="input-button">n</button>
+                </li>
+                <li class='input-combo'>
+                  <input type="text" name="graph" id="inputGraph" class="input-box"></input>
+                  <button id="setGraphButton" class="input-button">G</button>
+                </li>
+              </ul>
+          </div>
+        </div>
+
+        <div id="CustomGraph" class="tabcontent">
+          <div class='grid-element'>
+
+            <div id="cyCustom" class="graph-display"></div>
+
+            <button id="graphCustomButton" class="function-button">GO!</button>
+            <div class='input-row'>
+              <ul class='input-fields'>
+                <li class='input-combo'>
+                  <button id="addNodeButton" class="input-button">Node</button>
+                </li>
+                <li class='input-combo'>
+                  <button id="addEdgeButton" class="input-button">Draw</button>
+                </li>
+              </ul>
+            <ul class='input-fields'>
+                <li class='input-combo'>
+                  <button id="clearGraphButton" class="input-button">Clear</button>
+                </li>
+                <li class='input-combo'>
+                  <button id="placeHolderButtonGen" class="input-button">Pl</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class='second-half'>

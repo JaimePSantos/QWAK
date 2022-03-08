@@ -24,7 +24,7 @@ if __name__ == '__main__':
     n = 100
     t = 10
     # initState = [int(n/2),int(n/2)+1]
-    initState = [50,51]
+    initState = [50]
     graph = nx.cycle_graph(n)
     staticQuantumWalk = QWAK(graph)
     staticQuantumWalk.runWalk(t, initState)
@@ -190,9 +190,10 @@ if __name__ == '__main__':
 
     @eel.expose
     def customGraphWalk():
-        global staticQuantumWalk, dynamicQuantumWalk
+        global staticQuantumWalk, dynamicQuantumWalk, initState
         adjM = np.matrix(eel.sendAdjacencyMatrix()()['data'])
         staticQuantumWalk.setAdjacencyMatrix(adjM)
+        initState = [int(staticQuantumWalk.getDim()/2)]
         staticQuantumWalk.runWalk(t, initState)
         dynamicQuantumWalk.setAdjacencyMatrix(adjM)
         dynamicQuantumWalk.runWalk(t,initState)
