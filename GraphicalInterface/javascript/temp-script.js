@@ -8,6 +8,17 @@ let inputGraph = document.getElementById("inputGraph");
 let inputTime = document.getElementById("inputTime");
 let inputInitState = document.getElementById("inputInitState");
 
+let inputMean = document.getElementById("inputMean");
+let inputSndMoment = document.getElementById("inputSndMoment");
+let inputStDev = document.getElementById("inputStDev");
+let inputSurvProbResult = document.getElementById("inputSurvProbResult");
+let inputSurvProbNodeA = document.getElementById("inputSurvProbNodeA");
+let inputSurvProbNodeB = document.getElementById("inputSurvProbNodeB");
+let inputInvPartRat = document.getElementById("inputInvPartRat");
+let inputPSTNodeA = document.getElementById("inputPSTNodeA");
+let inputPSTNodeB = document.getElementById("inputPSTNodeB");
+let inputPSTResult = document.getElementById("inputPSTResult");
+
 
 // #### JAVASCRIPT QUANTUM WALK OBJECTS ####
 let defaultN = 100;
@@ -37,7 +48,7 @@ inputInit();
 
 // #### STATIC QUANTUM WALK  ####
 
-// #### PROB DIST CHART ####
+// #### #### PROB DIST CHART #### ####
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
 document.getElementById("setInitStateButton").addEventListener('click', async function () {
@@ -69,10 +80,10 @@ let setStaticProbDist = async () => {
     staticChartData.data.labels = [...Array(distList.length).keys()];
     myChart.destroy();
     myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-    // await setStaticMean();
-    // await setStaticSndMoment();
-    // await setStaticStDev();
-    // await setInversePartRatio();
+    await setStaticMean();
+    await setStaticSndMoment();
+    await setStaticStDev();
+    await setInversePartRatio();
 }
 
 let getWalk = () => {
@@ -84,11 +95,126 @@ let getWalk = () => {
         .catch((e) => console.log(e));
 };
 
+//#### #### STATIC STATISTICS #### #### 
+
+document.getElementById("survProbNodesButton").addEventListener('click', async function () {
+    setStaticSurvivalProb();
+});
+
+document.getElementById("PSTNodesButton").addEventListener('click', async function () {
+    setPST();
+});
+
+let setStaticMean = async () => {
+    let statMean = await getStaticMean();
+    inputMean.value = statMean;
+}
+
+let setStaticSndMoment = async () => {
+    let statSndMom = await getStaticSndMoment();
+    inputSndMoment.value = statSndMom;
+}
+
+let setStaticStDev = async () => {
+    let statStDev = await getStaticStDev();
+    inputStDev.value = statStDev;
+}
+
+let setStaticSurvivalProb = async () => {
+    let fromNode = inputSurvProbNodeA.value;
+    let toNode = inputSurvProbNodeB.value;
+    let survProb = await getStaticSurvivalProb(fromNode, toNode);
+    inputSurvProbResult.value = survProb;
+}
+
+let setInversePartRatio = async () => {
+    let invPartRatio = await getInversePartRatio();
+    inputInvPartRat.value = invPartRatio;
+}
+
+let setPST = async () => {
+    let fromNode = inputPSTNodeA.value;
+    let toNode = inputPSTNodeB.value;
+    let PST = await getPST(fromNode, toNode);
+    inputPSTResult.value = PST;
+}
+
+let getStaticMean = () =>{
+    return eel
+    .getStaticMean()()
+    .then((a) => {
+        return a ? a : Promise.reject(Error("Get Static Mean failed."));
+    })
+    .catch((e) => console.log(e));
+}
+
+let getStaticSndMoment = () =>{
+    return eel
+    .getStaticSndMoment()()
+    .then((a) => {
+        return a ? a : Promise.reject(Error("Get Static Snd Moment failed."));
+    })
+    .catch((e) => console.log(e));
+}
+
+let getStaticStDev = () =>{
+    return eel
+    .getStaticStDev()()
+    .then((a) => {
+        if (isNaN(a)){
+            Promise.reject(Error("Get Static Standard Deviation faile: StDev is NaN."));
+        }else{
+            return a;
+        }
+    })
+    .catch((e) => console.log(e));
+}
+
+let getStaticSurvivalProb = (fromNode,toNode) =>{
+    return eel
+    .getStaticSurvivalProb(fromNode,toNode)()
+    .then((a) => {
+        if (isNaN(a)){
+            Promise.reject(Error("Get Survival Probability failed: SP is NaN."));
+        }else{
+            return a;
+        }
+    })
+    .catch((e) => console.log(e));
+}
+
+let getInversePartRatio = () =>{
+    return eel
+    .getInversePartRatio()()
+    .then((a) => {
+        if (isNaN(a)){
+                Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
+            }else{
+                return a;
+            }        })
+    .catch((e) => console.log(e));
+}
+
+let getPST = (nodeA,nodeB) =>{
+    return eel
+    .checkPST(nodeA,nodeB)()
+    .then((a) => {
+        if (isNaN(parseFloat(a))){
+                Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
+            }else if(parseFloat(a)<0){
+                return "No PST.";
+            }else{
+                return a;
+        }
+    })
+    .catch((e) => console.log(e));
+}
+
 // #### GRAPHS  ####
 
 cy.layout({ name: "circle" }).run();
 
-// #### GRAPH GENERATOR ####
+// #### #### GRAPH GENERATOR #### ####
 
 document.getElementById("runGraphButton").addEventListener('click', async function () {
     setRunGraph();

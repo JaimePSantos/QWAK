@@ -50,6 +50,7 @@
 		<section id="main" class="wrapper">
 			<div class="inner">
 				<h1 class="major">Static CTQW</h1>
+
 				<div class="graph-wrapper">
 					<!--Tab links-->
 					<div class="tab">
@@ -57,8 +58,6 @@
 						<button id="customGraphDisplay" class="tablinks">Custom Graph</button>
 					</div>
 					<script type='module' src="javascript/temp-tools.js"></script>
-
-
 					<!-- Tab content -->
 					<div id="GraphGenerator" class="tabcontent">
 						<div class='grid-element'>
@@ -78,7 +77,6 @@
 							</ul>
 						</div>
 					</div>
-
 					<div id="CustomGraph" class="tabcontent">
 						<div class='grid-element'>
 							<div class='set-graph-combo'>
@@ -106,6 +104,7 @@
 						</div>
 					</div>
 				</div>
+
 				<div class="probDist-wrapper">
 					<div class='grid-element'>
 						<div class="prob-dist-chart-container">
@@ -136,6 +135,66 @@
 						</div>
 					  </div>
 				</div>
+
+				<div class="stats-wrapper">
+					<ul class="stat-list" id="statList">
+						<li class="stat-list-combo">
+						  Mean
+						  <input type="text" class="input-box" id="inputMean">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo">
+						  2nd Moment
+						  <input type="text" class="input-box" id="inputSndMoment">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo">
+						  Standard Deviation
+						  <input type="text" class="input-box" id="inputStDev">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo">
+						  Inverse Participation Ratio
+						  <input type="text" class="input-box" id="inputInvPartRat">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo-input">
+						  Survival Probability
+						  <div class="stat-with-input">
+							From Node
+							<input type="text" class="input-box" id="inputSurvProbNodeA">
+							To Node
+							<input type="text" class="input-box" id="inputSurvProbNodeB">
+							<button id="survProbNodesButton" class="button">Go</button>
+							Result
+							<input type="text" class="input-box" id="inputSurvProbResult">
+						  
+						  </div>
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo-input">
+						  Perfect State Transfer
+						  <div class="stat-with-input">
+							From Node
+							<input type="text" class="input-box" id="inputPSTNodeA">
+							To Node
+							<input type="text" class="input-box" id="inputPSTNodeB">
+							<button id="PSTNodesButton" class="button">Go</button>
+							Result
+							<input type="text" class="input-box" id="inputPSTResult">
+						  
+						  </div>
+						  </input>
+						</li>
+					  </ul>
+
+				</div>
+
 			</div>
 		</section>
 

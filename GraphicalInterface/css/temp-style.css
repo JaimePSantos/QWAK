@@ -139,3 +139,48 @@
     /* height: 100%; */
 }
 
+.stat-list{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.stat-list-combo{
+    display: flex;
+    justify-content: space-between; 
+    align-content: center; 
+    color: var(--primary-white);
+    font-weight: bolder;
+    margin: 1em 0;
+    gap:10px;
+}
+
+.stat-list-combo .input-box{
+    width: 50%;
+    border: solid;
+    border-width: 3px;
+}
+.stat-list-combo-input{
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-white);
+    font-weight: bolder;
+    gap:10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.stat-with-input{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    color: var(--primary-white);
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.stat-with-input .input-box{
+    width:20%;
+}
+
