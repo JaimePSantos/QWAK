@@ -1,8 +1,81 @@
-import { cy, customCy} from "./dynamic-tools.js";
+import { cy, customCy, dynamicChartData} from "./dynamic-tools.js";
 import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
 
+// #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
 let inputGraph = document.getElementById("inputGraph");
+let inputTimeRange = document.getElementById("inputTimeRange");
+let inputInitStateRange = document.getElementById("inputInitStateRange");
+
+// #### JAVASCRIPT QUANTUM WALK OBJECTS ####
+let defaultN = 100;
+let defaultGraph = 'nx.cycle_graph';
+let defaultTimeList = [0, 100];
+let defaultInitStateList = [[Math.floor(defaultN / 2)]];
+
+let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList);
+
+let inputRangeInit = () => {
+    inputDim.value = defaultN;
+    inputGraph.value = defaultGraph;
+    inputTimeRange.value = defaultTimeList;
+    inputInitStateRange.value = defaultInitStateList;
+}
+
+inputRangeInit();
+
+// #### DYNAMIC QUANTUM WALK  ####
+
+// #### #### PROB DIST ANIMATION #### ####
+
+let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
+
+document.getElementById("setInitStateRangeButton").addEventListener('click', async function () {
+    setInitStateRange();
+});
+
+document.getElementById("setTimeRangeButton").addEventListener('click', async function () {
+    setTimeRange();
+});
+
+document.getElementById("dynamicProbDistButton").addEventListener('click', async function () {
+    setdynamicProbDist();
+});
+
+let setInitStateRange = async () => {
+    dynamicQuantumWalk.initStateList = inputInitStateRange.value;
+    eel.setInitStateList(dynamicQuantumWalk.initStateList);
+}
+
+let setTimeRange = async () => {
+    dynamicQuantumWalk.timeList = inputTimeRange.value;
+    eel.setTimeList(dynamicQuantumWalk.timeList);
+}
+
+let setdynamicProbDist = async () => {
+    let multipleWalks = await getMultipleWalks();
+    let i = 0;
+    let animationSteps = 100;
+    myAnimatedChart.clear();
+    for (const walk of multipleWalks) {
+        setTimeout(() => {
+            dynamicChartData.data.datasets[0].data = walk.flat();
+            dynamicChartData.data.labels = [...Array(walk.length).keys()];
+            dynamicChartData.options.scales.y.ticks.beginAtZero = false;
+            myAnimatedChart.update();
+        }, animationSteps * i);
+        i++;
+    }
+}
+
+let getMultipleWalks = () => {
+    return eel
+        .runMultipleWalks()()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Multiple Walks failed."));
+        })
+        .catch((e) => console.log(e));
+};
 
 // #### GRAPHS  ####
 
@@ -23,14 +96,14 @@ let setRunGraph = async () => {
 }
 
 let setDimButton = async () => {
-    staticQuantumWalk.dim = parseInt(inputDim.value);
-    staticQuantumWalk.graph = inputGraph.value;
-    eel.setDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
+    dynamicQuantumWalk.dim = parseInt(inputDim.value);
+    dynamicQuantumWalk.graph = inputGraph.value;
+    eel.setDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
 }
 
 let setGraph = async () => {
-    staticQuantumWalk.graph = inputGraph.value;
-    eel.setGraph(staticQuantumWalk.graph);
+    dynamicQuantumWalk.graph = inputGraph.value;
+    eel.setGraph(dynamicQuantumWalk.graph);
 }
 
 let getGraph = () => {

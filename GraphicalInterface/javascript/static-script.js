@@ -28,22 +28,15 @@ let defaultTimeList = [0, 100];
 let defaultInitStateList = [[Math.floor(defaultN / 2)]];
 
 let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph);
-let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList);
 
 let inputInit = () => {
     inputTime.value = defaultT;
+    inputInitState.value = defaultInitState
     inputDim.value = defaultN;
     inputGraph.value = defaultGraph;
-    inputInitState.value = defaultInitState
 }
 
-// let inputRangeInit = () => {
-//     inputTimeRange.value = defaultTimeList;
-//     inputInitStateRange.value = defaultInitStateList;
-// }
-
 inputInit();
-// inputRangeInit();
 
 // #### STATIC QUANTUM WALK  ####
 

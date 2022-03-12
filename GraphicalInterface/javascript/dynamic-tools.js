@@ -179,4 +179,30 @@ let getGraph = () => {
     }
   });
 
+  export let dynamicChartData = {
+    type: "line",
+    data: {
+        labels: [...Array(100).keys()],
+        datasets: [
+            {
+                label: "Probability",
+                data: [],
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                pointRadius: 0,
+            },
+        ],
+    },
+    options: {
+        scales: {
+                x: {
+                    grid: {
+                        display: false
+                    }
+                },
+        },
+    },
+};
+
+
   document.getElementById('defaultOpen').click()
