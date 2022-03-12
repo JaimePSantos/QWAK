@@ -103,34 +103,89 @@
 								</div>
 							</div>
 
-							<div class='grid-element'>
-								<div class="prob-dist-chart-container">
-								  <canvas id="dynamicProbDistChart" class="prob-dist-chart"></canvas>
+							<div class = 'probDist-animation-wrapper'>
+								<div class='grid-element'>
+									<div class="prob-dist-chart-container">
+									<canvas id="dynamicProbDistChart" class="prob-dist-chart"></canvas>
+									</div>
+									<button id="dynamicProbDistButton" class="button fit">Run Walk</button>
+									<div class='input-row'>
+									<ul class='input-fields'>
+										<li class='input-combo'>
+										<input type="text" name="timeRange" id="inputTimeRange" class="input-box"></input>
+										<button id="setTimeRangeButton" class="button">[tf]</button>
+										</li>
+										<li class='input-combo'>
+										<input type="text" step=0.01 min=0 name="gammaRange" id="inputGammaRange" class="input-box"></input>
+										<button id="setGammaRangeButton" class="button">[NA]</button>
+										</li>
+									</ul>
+									<ul class='input-fields'>
+										<li class='input-combo'>
+										<input type="text" name="initStateRange" id="inputInitStateRange" class="input-box"></input>
+										<button id="setInitStateRangeButton" class="button">[Ψ0]</button>
+										</li>
+										<li class='input-combo'>
+										<input type="text" step="0.01" min=0 name="placeholder" id="placeholder2" class="input-box"></input>
+										<button id="setPlaceholderButton2" class="button">[Pl]</button>
+										</li>
+									</ul>
+									</div>
 								</div>
-								<button id="dynamicProbDistButton" class="button fit">GO!</button>
-								<div class='input-row'>
-								  <ul class='input-fields'>
-									<li class='input-combo'>
-									  <input type="text" name="timeRange" id="inputTimeRange" class="input-box"></input>
-									  <button id="setTimeRangeButton" class="button">[tf]</button>
-									</li>
-									<li class='input-combo'>
-									  <input type="text" step=0.01 min=0 name="gammaRange" id="inputGammaRange" class="input-box"></input>
-									  <button id="setGammaRangeButton" class="button">[NA]</button>
-									</li>
-								  </ul>
-								  <ul class='input-fields'>
-									<li class='input-combo'>
-									  <input type="text" name="initStateRange" id="inputInitStateRange" class="input-box"></input>
-									  <button id="setInitStateRangeButton" class="button">[Ψ0]</button>
-									</li>
-									<li class='input-combo'>
-									  <input type="text" step="0.01" min=0 name="placeholder" id="placeholder2" class="input-box"></input>
-									  <button id="setPlaceholderButton2" class="button">[Pl]</button>
-									</li>
-								  </ul>
-								</div>
-							  </div>
+							</div>
+
+							<div class = 'stats-dynamic-wrapper'>
+								<div class="tab-pane" id="dynamicstats">
+									<!-- Tab links -->
+									<div class="tab">
+									  <button id="defaultDynStat" class="stattablinks" >Mean</button>
+									  <button  id="stDevDynStat" class="stattablinks">Standard Deviation</button>
+									  <button  id="invPartRatioDynStat" class="stattablinks">Inverse Participation Ratio</button>
+									  <button  id="survProbDynStat" class="stattablinks">Survival Probability</button>
+									</div>
+									<!-- Tab content -->
+									<div id="Mean" class="stattabcontent">
+									  <div class='grid-element'>
+										<div class="prob-dist-chart-container">
+										  <canvas id="dynamicMeanChart" class="prob-dist-chart"></canvas>
+										</div>
+										<button id="dynamicMeanButton" class="function-button">GO!</button>
+									  </div>
+									</div>
+									<div id="StDev" class="stattabcontent">
+									  <div class='grid-element'>
+										<div class="prob-dist-chart-container">
+										  <canvas id="dynamicStDevChart" class="prob-dist-chart"></canvas>
+										</div>
+										<button id="dynamicStDevButton" class="function-button">GO!</button>
+									  </div>
+									</div>
+									<div id="InvPartRatio" class="stattabcontent">
+									  <div class='grid-element'>
+										<div class="prob-dist-chart-container">
+										  <canvas id="dynamicInvPartRatioChart" class="prob-dist-chart"></canvas>
+										</div>
+										<button id="dynamicInvPartRatioButton" class="function-button">GO!</button>
+									  </div>
+									</div>
+									<div id="SurvivalProb" class="stattabcontent">
+									  <div class='grid-element'>
+										<div class="prob-dist-chart-container">
+										  <canvas id="dynamicSurvivalProbChart" class="prob-dist-chart"></canvas>
+										</div>
+										<div class="stat-with-input">
+										  From Node
+										  <input type="text" class="input-box" id="dynInputSurvProbNodeA">
+										  To Node
+										  <input type="text" class="input-box" id="dynInputSurvProbNodeB">
+										  <button id="dynamicSurvivalProbButton" class="function-button">Go</button>
+										</div>
+									  </div>
+									</div>
+						
+									<script type='module' src="javascript/dynamic-tools.js"></script>
+								  </div>
+							</div>
 						</div>
 					</section>
 			

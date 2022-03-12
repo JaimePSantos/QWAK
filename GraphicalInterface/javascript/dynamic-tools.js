@@ -58,6 +58,7 @@ let getGraph = () => {
     elements: myGraph.elements,
     directed: myGraph.directed,
     multigraph: myGraph.multigraph,
+    wheelSensitivity:0.4,
     layout: {
       name: 'circle',
     },
@@ -204,5 +205,128 @@ let getGraph = () => {
     },
 };
 
+export let dynamicMeanChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
 
-  document.getElementById('defaultOpen').click()
+export let dynamicStDevChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
+export let dynamicInvPartRatioChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
+export let dynamicSurvivalProbChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
+document.getElementById('defaultDynStat').addEventListener('click', evt => {
+  openTab(evt, 'Mean',"stattabcontent","stattablinks");
+});
+
+document.getElementById('stDevDynStat').addEventListener('click', evt => {
+  openTab(evt, 'StDev',"stattabcontent","stattablinks");
+});
+
+document.getElementById('invPartRatioDynStat').addEventListener('click', evt => {
+  openTab(evt, 'InvPartRatio',"stattabcontent","stattablinks");
+});
+
+document.getElementById('survProbDynStat').addEventListener('click', evt => {
+  openTab(evt, 'SurvivalProb',"stattabcontent","stattablinks");
+});
+
+document.getElementById('invPartRatioDynStat').click()
+
+document.getElementById('invPartRatioDynStat').click()
+
+document.getElementById('stDevDynStat').click()
+
+document.getElementById('defaultDynStat').click()
+
+document.getElementById('defaultOpen').click()

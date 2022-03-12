@@ -1,12 +1,14 @@
-
+.stattablinks{
+    width: 50%;
+}
 
 /* Style the tab */
 .tab, .tab2 {
     display:flex;
     overflow: hidden;
     background-color: #312450;
-    align-content: center;
-    justify-content: center;
+    /* align-content: center;
+    justify-content: center; */
 }
 
 /* Style the buttons inside the tab */
