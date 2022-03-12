@@ -6,18 +6,33 @@
 -->
 <html>
 	<head>
-		<title>Generic - Hyperspace by HTML5 UP</title>
+		<title>Dynamic Quantum Walk</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<script type="text/javascript" src="/eel.js"></script>
+	<link rel="stylesheet" href="/css/temp-style.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script type="text/javascript" src="/eel.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+		integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+		integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type='module' src="javascript/dynamic-script.js" defer></script>
+	<!-- <script type='module' src="javascript/script.js" defer></script> -->
 	</head>
 	<body class="is-preload">
 
 		<!-- Header -->
 			<header id="header">
-				<a href="index.html" class="title">Hyperspace</a>
+				<a href="index.html" class="title">QWAK</a>
 				<nav>
 					<ul>
 						<li><a href="index.html">Home</a></li>
@@ -34,12 +49,85 @@
 				<!-- Main -->
 					<section id="main" class="wrapper">
 						<div class="inner">
-							<h1 class="major">A Generic Page</h1>
-							<span class="image fit"><img src="images/pic04.jpg" alt="" /></span>
-							<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Curabitur sapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique.</p>
-							<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fersapien risus, commodo eget turpis at, elementum convallis elit. Pellentesque enim turpis, hendrerit tristique lorem ipsum dolor.</p>
+							<h1 class="major">Dynamic CTQW</h1>
+							<div class="graph-wrapper">
+								<!--Tab links-->
+								<div class="tab">
+									<button id="defaultOpen" class="tablinks">Graph Generator</button>
+									<button id="customGraphDisplay" class="tablinks">Custom Graph</button>
+								</div>
+								<script type='module' src="javascript/dynamic-tools.js"></script>
+								<!-- Tab content -->
+								<div id="GraphGenerator" class="tabcontent">
+									<div class='grid-element'>
+										<div class='set-graph-combo'>
+											<div id="cy" class="graph-display"></div>
+											<button id="runGraphButton" class="button fit">Set Graph</button>
+										</div>
+										<ul class='input-fields'>
+											<li class='input-combo'>
+												<input type="text" name="time" id="inputDim" class="input-box"></input>
+												<button id="setDimButton" class="button">n</button>
+											</li>
+											<li class='input-combo'>
+												<input type="text" name="graph" id="inputGraph" class="input-box"></input>
+												<button id="setGraphButton" class="button">G</button>
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div id="CustomGraph" class="tabcontent">
+									<div class='grid-element'>
+										<div class='set-graph-combo'>
+											<div id="cyCustom" class="graph-display"></div>
+											<button id="graphCustomButton" class="button fit">Set Graph</button>
+										</div>
+										<div class='input-row'>
+											<ul class='input-fields'>
+												<li class='input-combo'>
+													<button id="addNodeButton" class="button">Node</button>
+												</li>
+												<li class='input-combo'>
+													<button id="addEdgeButton" class="button">Draw</button>
+												</li>
+											</ul>
+											<ul class='input-fields'>
+												<li class='input-combo'>
+													<button id="clearGraphButton" class="button">Clear</button>
+												</li>
+												<li class='input-combo'>
+													<button id="placeHolderButtonGen" class="Wbutton">Pl</button>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</section>
+			
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/cytoscape-edgehandles@4.0.1/cytoscape-edgehandles.min.js"></script>
+	<!-- <script src="https://unpkg.com/cytoscape-popper@2.0.0/cytoscape-popper.js"></script> -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
 
 			</div>
 

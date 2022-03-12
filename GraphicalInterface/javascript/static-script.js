@@ -1,6 +1,5 @@
-import { cy, customCy, staticChartData} from "./temp-tools.js";
+import { cy, customCy, staticChartData} from "./static-tools.js";
 import { StaticQuantumwalk } from "./staticQuantumwalk.js";
-import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
