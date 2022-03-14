@@ -1,7 +1,7 @@
 from qwak.qwak import QWAK
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
-from qwak.operator import Operator
+from qwak.Operator import Operator
 from qwak.State import State
 
 import json
@@ -24,16 +24,18 @@ if __name__ == '__main__':
     n = 100
     t = 10
     # initState = [int(n/2),int(n/2)+1]
-    initState = [50,51]
+    initState = [50]
     graph = nx.cycle_graph(n)
     staticQuantumWalk = QWAK(graph)
     staticQuantumWalk.runWalk(t, initState)
 
-    global timeList,initStateList,dynamicQuantumWalk
+    global timeList,initStateList,dynamicQuantumWalk,dynProbDistList, dynAmpsList
     timeList = [0,100]
     initStateList = [[int(n/2),int(n/2)+1]]
     dynamicQuantumWalk = QWAK(graph)
     dynamicQuantumWalk.runWalk(timeList[0], initStateList[0])
+    dynProbDistList = []
+    dynAmpsList = []
 
     resultRounding = 3
 
@@ -131,17 +133,54 @@ if __name__ == '__main__':
     
     @eel.expose
     def runMultipleWalks():
-        qwProbList = []
-        global timeList,initStateList,dynamicQuantumWalk
+        qwProbVecList = []
+        global timeList,initStateList,dynamicQuantumWalk,dynProbDistList,dynAmpsList
         dynamicQuantumWalk.resetWalk()
+        dynProbDistList = []
+        dynAmpsList = []
         timeRange = np.linspace(timeList[0],timeList[1],int(timeList[1]))
         for t in timeRange:
             dynamicQuantumWalk.runWalk(t, initStateList[0])
             qwProbabilities = dynamicQuantumWalk.getProbDist()
+            qwAmps = dynamicQuantumWalk.getWalk()
+            dynAmpsList.append(qwAmps)
+            dynProbDistList.append(qwProbabilities)
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
-            qwProbList.append(probLists)
-        return qwProbList
+            qwProbVecList.append(probLists)
+        return qwProbVecList
+
+    @eel.expose
+    def getDynMean():
+        meanList = []
+        global dynProbDistList
+        for probDist in dynProbDistList:
+            meanList.append(probDist.mean())
+        return meanList
+
+    @eel.expose
+    def getDynStDev():
+        stDevList = []
+        global dynProbDistList
+        for probDist in dynProbDistList:
+            stDevList.append(probDist.stDev())
+        return stDevList
+
+    @eel.expose
+    def getDynInvPartRatio():
+        invPartRatioList = []
+        global dynAmpsList
+        for amps in dynAmpsList:
+            invPartRatioList.append(amps.invPartRatio())
+        return invPartRatioList
+
+    @eel.expose
+    def getDynSurvivalProb(k0,k1):
+        survProbList = []
+        global dynAmpsList
+        for probDist in dynProbDistList:
+            survProbList.append(probDist.survivalProb(k0,k1))
+        return survProbList
 
     @eel.expose
     def graphToJson():
@@ -151,9 +190,10 @@ if __name__ == '__main__':
 
     @eel.expose
     def customGraphWalk():
-        global staticQuantumWalk, dynamicQuantumWalk
+        global staticQuantumWalk, dynamicQuantumWalk, initState
         adjM = np.matrix(eel.sendAdjacencyMatrix()()['data'])
         staticQuantumWalk.setAdjacencyMatrix(adjM)
+        initState = [int(staticQuantumWalk.getDim()/2)]
         staticQuantumWalk.runWalk(t, initState)
         dynamicQuantumWalk.setAdjacencyMatrix(adjM)
         dynamicQuantumWalk.runWalk(t,initState)

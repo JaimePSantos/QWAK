@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Static Quantum Walk</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="/css/temp-style.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script type="text/javascript" src="/eel.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+		integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+		integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type='module' src="javascript/static-script.js" defer></script>
+	<!-- <script type='module' src="javascript/script.js" defer></script> -->
+</head>
+
+<body class="is-preload">
+
+	<!-- Header -->
+	<header id="header">
+		<a href="index.html" class="title">QWAK</a>
+		<nav>
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="staticQW.html" class="active">Static</a></li>
+				<li><a href="dynamicQW.html">Dynamic</a></li>
+				<li><a href="elements.html">Elements</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+		<!-- Main -->
+		<section id="main" class="wrapper">
+			<div class="inner">
+				<h1 class="major">Static CTQW</h1>
+
+				<div class="graph-wrapper">
+					<!--Tab links-->
+					<div class="tab">
+						<button id="defaultOpen" class="tablinks">Graph Generator</button>
+						<button id="customGraphDisplay" class="tablinks">Custom Graph</button>
+					</div>
+					<script type='module' src="javascript/static-tools.js"></script>
+					<!-- Tab content -->
+					<div id="GraphGenerator" class="tabcontent">
+						<div class='grid-element'>
+							<div class='set-graph-combo'>
+								<div id="cy" class="graph-display"></div>
+								<button id="runGraphButton" class="button fit">Set Graph</button>
+							</div>
+							<ul class='input-fields'>
+								<li class='input-combo'>
+									<input type="text" name="time" id="inputDim" class="input-box"></input>
+									<button id="setDimButton" class="button">n</button>
+								</li>
+								<li class='input-combo'>
+									<input type="text" name="graph" id="inputGraph" class="input-box"></input>
+									<button id="setGraphButton" class="button">G</button>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div id="CustomGraph" class="tabcontent">
+						<div class='grid-element'>
+							<div class='set-graph-combo'>
+								<div id="cyCustom" class="graph-display"></div>
+								<button id="graphCustomButton" class="button fit">Set Graph</button>
+							</div>
+							<div class='input-row'>
+								<ul class='input-fields'>
+									<li class='input-combo'>
+										<button id="addNodeButton" class="button">Node</button>
+									</li>
+									<li class='input-combo'>
+										<button id="addEdgeButton" class="button">Draw</button>
+									</li>
+								</ul>
+								<ul class='input-fields'>
+									<li class='input-combo'>
+										<button id="clearGraphButton" class="button">Clear</button>
+									</li>
+									<li class='input-combo'>
+										<button id="placeHolderButtonGen" class="Wbutton">Pl</button>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="probDist-wrapper">
+					<div class='grid-element'>
+						<div class="prob-dist-chart-container">
+						  <canvas id="staticProbDistChart" class="prob-dist-chart"></canvas>
+						</div>
+						<button id="staticProbDistButton" class="button fit">Run Walk</button>
+						<div class='input-row'>
+						  <ul class='input-fields'>
+							<li class='input-combo'>
+							  <input type="text" name="time" id="inputTime" class="input-box"></input>
+							  <button id="setTimeButton" class="button">tf</button>
+							</li>
+							<li class='input-combo'>
+							  <input type="text" id="inputGamma" class="input-box"></input>
+							  <button id="setGammaButton" class="button">PL</button>
+							</li>
+						  </ul>
+						  <ul class='input-fields'>
+							<li class='input-combo'>
+							  <input type="text" name="initState" id="inputInitState" class="input-box"></input>
+							  <button id="setInitStateButton" class="button">Ψ0</button>
+							</li>
+							<li class='input-combo'>
+							  <input type="text" name="placeholder" id="placeholder" class="input-box"></input>
+							  <button id="setPlaceholderButton" class="button">Pl</button>
+							</li>
+						  </ul>
+						</div>
+					  </div>
+				</div>
+
+				<div class="stats-wrapper">
+					<ul class="stat-list" id="statList">
+						<li class="stat-list-combo">
+						  Mean
+						  <input type="text" class="input-box" id="inputMean">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo">
+						  2nd Moment
+						  <input type="text" class="input-box" id="inputSndMoment">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo">
+						  Standard Deviation
+						  <input type="text" class="input-box" id="inputStDev">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo">
+						  Inverse Participation Ratio
+						  <input type="text" class="input-box" id="inputInvPartRat">
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo-input">
+						  Survival Probability
+						  <div class="stat-with-input">
+							From Node
+							<input type="text" class="input-box" id="inputSurvProbNodeA">
+							To Node
+							<input type="text" class="input-box" id="inputSurvProbNodeB">
+							<button id="survProbNodesButton" class="button">Go</button>
+							Result
+							<input type="text" class="input-box" id="inputSurvProbResult">
+						  
+						  </div>
+						  </input>
+						</li>
+		  
+						<li class="stat-list-combo-input">
+						  Perfect State Transfer
+						  <div class="stat-with-input">
+							From Node
+							<input type="text" class="input-box" id="inputPSTNodeA">
+							To Node
+							<input type="text" class="input-box" id="inputPSTNodeB">
+							<button id="PSTNodesButton" class="button">Go</button>
+							Result
+							<input type="text" class="input-box" id="inputPSTResult">
+						  
+						  </div>
+						  </input>
+						</li>
+					  </ul>
+
+				</div>
+
+			</div>
+		</section>
+
+	</div>
+
+	<!-- Footer -->
+	<footer id="footer" class="wrapper alt">
+		<div class="inner">
+			<ul class="menu">
+				<li>&copy; Untitled. All rights reserved.</li>
+				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/cytoscape-edgehandles@4.0.1/cytoscape-edgehandles.min.js"></script>
+	<!-- <script src="https://unpkg.com/cytoscape-popper@2.0.0/cytoscape-popper.js"></script> -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+		integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+		crossorigin="anonymous"></script>
+
+</body>
+
+</html>

@@ -1,4 +1,4 @@
-import { defaultDist, cy, data, data2, customCy } from "./tools.js";
+import { cy, customCy, staticChartData, dynamicChartData, dynamicMeanChartData, dynamicStDevChartData, dynamicInvPartRatioChartData, dynamicSurvivalProbChartData} from "./tools.js";
 import { StaticQuantumwalk } from "./staticQuantumwalk.js";
 import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
 
@@ -52,13 +52,14 @@ inputRangeInit();
 
 
 // #### CHARTS FOR DISTRIBUTIONS ####
-let staticCtx = document.getElementById("staticProbDistChart").getContext("2d");
-let dynamicCtx = document.getElementById("dynamicProbDistChart").getContext("2d");
-
 cy.layout({ name: "circle" }).run();
 
-let myChart = new Chart(staticCtx, data);
-let myAnimatedChart = new Chart(dynamicCtx, data2);
+let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
+let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
+let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"),dynamicMeanChartData)
+let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"),dynamicStDevChartData)
+let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"),dynamicInvPartRatioChartData)
+let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"),dynamicSurvivalProbChartData)
 
 
 // #### BUTTONS ####
@@ -106,6 +107,22 @@ document.getElementById("PSTNodesButton").addEventListener('click', async functi
     setPST();
 });
 
+document.getElementById("dynamicMeanButton").addEventListener('click', async function () {
+    setDynMean();
+});
+
+document.getElementById("dynamicStDevButton").addEventListener('click', async function () {
+    setDynStDev();
+});
+
+document.getElementById("dynamicInvPartRatioButton").addEventListener('click', async function () {
+    setDynInvPartRatio();
+});
+
+document.getElementById("dynamicSurvivalProbButton").addEventListener('click', async function () {
+    setDynSurvProb();
+});
+
 
 // #### BUTTON HELPER FUNCTIONS ####
 let setInitStateRange = async () => {
@@ -149,10 +166,10 @@ let setRunGraph = async () => {
 let setStaticProbDist = async () => {
     let walk = await getWalk();
     let distList = walk.flat();
-    data.data.datasets[0].data = distList;
-    data.data.labels = [...Array(distList.length).keys()];
+    staticChartData.data.datasets[0].data = distList;
+    staticChartData.data.labels = [...Array(distList.length).keys()];
     myChart.destroy();
-    myChart = new Chart(staticCtx, data);
+    myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
     await setStaticMean();
     await setStaticSndMoment();
     await setStaticStDev();
@@ -164,14 +181,11 @@ let setdynamicProbDist = async () => {
     let i = 0;
     let animationSteps = 100;
     myAnimatedChart.clear();
-    // data2.options.scales.y.ticks.min = 0.9
-    // data2.options.scales.y.ticks.max = 1
-    // data2.options.scales.y.ticks.stepSize = 0.001
     for (const walk of multipleWalks) {
         setTimeout(() => {
-            data2.data.datasets[0].data = walk.flat();
-            data2.data.labels = [...Array(walk.length).keys()];
-            data2.options.scales.y.ticks.beginAtZero = false;
+            dynamicChartData.data.datasets[0].data = walk.flat();
+            dynamicChartData.data.labels = [...Array(walk.length).keys()];
+            dynamicChartData.options.scales.y.ticks.beginAtZero = false;
             myAnimatedChart.update();
         }, animationSteps * i);
         i++;
@@ -211,6 +225,43 @@ let setPST = async () => {
     let PST = await getPST(fromNode, toNode);
     inputPSTResult.value = PST;
 }
+
+let setDynMean = async () => {
+    let dynMean = await getDynMean();
+    dynamicMeanChartData.data.datasets[0].data = dynMean.flat();
+    dynamicMeanChartData.data.labels = [...Array(dynMean.length).keys()];
+    myDynamicMeanChart.clear();
+    myDynamicMeanChart.update();
+}
+
+let setDynStDev = async () => {
+    let dynStDev = await getDynStDev();
+    dynamicStDevChartData.data.datasets[0].data = dynStDev.flat();
+    dynamicStDevChartData.data.labels = [...Array(dynStDev.length).keys()];
+    myDynamicStDevChart.clear();
+    myDynamicStDevChart.update();
+}
+
+let setDynInvPartRatio = async () => {
+    let dynInvPartRatio = await getDynInvPartRatio();
+    dynamicInvPartRatioChartData.data.datasets[0].data = dynInvPartRatio.flat();
+    dynamicInvPartRatioChartData.data.labels = [...Array(dynInvPartRatio.length).keys()];
+    myDynamicInvPartRatioChart.clear();
+    myDynamicInvPartRatioChart.update();
+}
+
+let setDynSurvProb = async () => {
+    let k0 = document.getElementById("dynInputSurvProbNodeA").value
+    let k1 = document.getElementById("dynInputSurvProbNodeB").value
+    let dynSurvProb = await getDynSurvProb(k0,k1);
+    dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb.flat();
+    dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb.length).keys()];
+    myDynamicSurvivalProbChart.clear();
+    myDynamicSurvivalProbChart.update();
+}
+
+
+// #### ASYNC FUNCTIONS TO GET VALUES FROM PYTHON ####
 
 let getWalk = () => {
     return eel
@@ -292,7 +343,6 @@ let getStaticSurvivalProb = (fromNode,toNode) =>{
         .catch((e) => console.log(e));
 }
 
-// #### ASYNC FUNCTIONS TO GET VALUES FROM PYTHON ####
 let getInversePartRatio = () =>{
         return eel
         .getInversePartRatio()()
@@ -319,6 +369,63 @@ let getPST = (nodeA,nodeB) =>{
         })
         .catch((e) => console.log(e));
 }
+
+let getDynMean = () =>{
+    return eel
+    .getDynMean()()
+    .then((a) => {
+        // if (Array.isArray(a)){
+        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+        //     }else{
+        //         return a;
+        // }
+        return a;
+    })
+    .catch((e) => console.log(e));
+}
+
+let getDynStDev = () => {
+    return eel
+    .getDynStDev()()
+    .then((a) => {
+        // if (Array.isArray(a)){
+        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+        //     }else{
+        //         return a;
+        // }
+        return a;
+    })
+    .catch((e) => console.log(e));
+}
+
+let getDynInvPartRatio = () => {
+    return eel
+    .getDynInvPartRatio()()
+    .then((a) => {
+        // if (Array.isArray(a)){
+        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+        //     }else{
+        //         return a;
+        // }
+        return a;
+    })
+    .catch((e) => console.log(e));
+}
+
+let getDynSurvProb = (k0,k1) => {
+    return eel
+    .getDynSurvivalProb(k0,k1)()
+    .then((a) => {
+        // if (Array.isArray(a)){
+        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+        //     }else{
+        //         return a;
+        // }
+        return a;
+    })
+    .catch((e) => console.log(e));
+}
+
 
 
 // #### CUSTOM GRAPH ####

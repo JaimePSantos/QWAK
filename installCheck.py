@@ -1,4 +1,9 @@
-from qwak import *
+from qwak.State import State
+from qwak.Operator import Operator
+from qwak.QuantumWalk import QuantumWalk
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.qwak import QWAK
+
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
@@ -12,22 +17,20 @@ t = 10
 graph = nx.cycle_graph(n)
 marked = [50]
 
-qwInitState = State.State(n,marked)
-qwInitState.buildState()
-qwOperator = operator.Operator(graph=graph)
+qwInitState = State(n,marked)
+qwInitState.buildState(marked)
+qwOperator = Operator(graph=graph)
 qwOperator.buildDiagonalOperator(t)
-qwFinalState = QuantumWalk.QuantumWalk(qwInitState,qwOperator)
+qwFinalState = QuantumWalk(qwInitState,qwOperator)
 qwFinalState.buildWalk()
-qwProbDist = ProbabilityDistribution.ProbabilityDistribution(qwFinalState.getWalk())
+qwProbDist = ProbabilityDistribution(qwFinalState.getWalk())
 qwProbDist.buildProbDist()
 print(f"Init State: \n {qwInitState}\n\n"
       f"Operator: \n {qwOperator}\n\n"
       f"Final State: \n {qwFinalState}\n\n"
       f"Prob Dist: \n {qwProbDist}\n\n")
 
-
-
-qwController = qwak.QWAK(graph, laplacian=False)
+qwController = QWAK(graph, laplacian=False)
 qwController.runWalk(t, marked)
 print(f"Mean: {qwController.getProbDist().mean()}\t "
       f"Moment 1: {qwController.getProbDist().moment(1)}\n"

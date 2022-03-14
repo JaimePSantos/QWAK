@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QWAK</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/bootstrap.css" />
+  <script type="text/javascript" src="/eel.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+    integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+    integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <meta http-equiv="cache-control" content="no-cache" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <script type='module' src="javascript/script.js" defer></script>
+
+</head>
+
+<body>
+
+ <div id="container" class="qwak">
+   <div id="functionContainer" class="walk-container">
+      <div class='first-half'>
+        <!-- Tab links -->
+        <div class="tab">
+          <button id="defaultOpen" class="tablinks" >Graph Generator</button>
+          <button  id="customGraphDisplay" class="tablinks">Custom Graph</button>
+        </div>
+        <script type='module' src="javascript/tools.js"></script>
+
+
+        <!-- Tab content -->
+        <div id="GraphGenerator" class="tabcontent">
+          <div class='grid-element'>
+
+            <div id="cy" class="graph-display"></div>
+
+            <button id="runGraphButton" class="function-button">GO!</button>
+              <ul class='input-fields'>
+                <li class='input-combo'>
+                  <input type="number" step="1" min=2 name="time" id="inputDim" class="input-box"></input>
+                  <button id="setDimButton" class="input-button">n</button>
+                </li>
+                <li class='input-combo'>
+                  <input type="text" name="graph" id="inputGraph" class="input-box"></input>
+                  <button id="setGraphButton" class="input-button">G</button>
+                </li>
+              </ul>
+          </div>
+        </div>
+
+        <div id="CustomGraph" class="tabcontent">
+          <div class='grid-element'>
+
+            <div id="cyCustom" class="graph-display"></div>
+
+            <button id="graphCustomButton" class="function-button">GO!</button>
+            <div class='input-row'>
+              <ul class='input-fields'>
+                <li class='input-combo'>
+                  <button id="addNodeButton" class="input-button">Node</button>
+                </li>
+                <li class='input-combo'>
+                  <button id="addEdgeButton" class="input-button">Draw</button>
+                </li>
+              </ul>
+            <ul class='input-fields'>
+                <li class='input-combo'>
+                  <button id="clearGraphButton" class="input-button">Clear</button>
+                </li>
+                <li class='input-combo'>
+                  <button id="placeHolderButtonGen" class="input-button">Pl</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class='second-half'>
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Static <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class ='dropdown-item' href="#staticplot" role="tab" data-toggle="tab">Plot</a></li>
+                        <li><a class ='dropdown-item' href="#staticstats" role="tab" data-toggle="tab">Statistics</a></li>
+                    </ul>
+
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Dynamic <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class ='dropdown-item' href="#dynamicplot" role="tab" data-toggle="tab">Plot</a></li>
+                        <li><a class ='dropdown-item' href="#dynamicstats" role="tab" data-toggle="tab">Statistics</a></li>
+                    </ul>
+          </li>
+
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+          <div class="tab-pane active" id="staticplot">
+
+            <div class='grid-element'>
+              <div class="prob-dist-chart-container">
+                <canvas id="staticProbDistChart" class="prob-dist-chart"></canvas>
+              </div>
+              <button id="staticProbDistButton" class="function-button">GO!</button>
+              <div class='input-row'>
+                <ul class='input-fields'>
+                  <li class='input-combo'>
+                    <input type="number" step=1 min=0 name="time" id="inputTime" class="input-box"></input>
+                    <button id="setTimeButton" class="input-button">t</button>
+                  </li>
+                  <li class='input-combo'>
+                    <input type="number" step=0.01 min=0 name="gamma" id="inputGamma" class="input-box"></input>
+                    <button id="setGammaButton" class="input-button">NA</button>
+                  </li>
+                </ul>
+                <ul class='input-fields'>
+                  <li class='input-combo'>
+                    <input type="text" name="initState" id="inputInitState" class="input-box"></input>
+                    <button id="setInitStateButton" class="input-button">Ψ0</button>
+                  </li>
+                  <li class='input-combo'>
+                    <input type="number" step="0.01" min=0 name="placeholder" id="placeholder" class="input-box"></input>
+                    <button id="setPlaceholderButton" class="input-button">Pl</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+          </div>
+
+          <div class="tab-pane" id="staticstats">
+            <ul class="stat-list" id="statList">
+              <li class="stat-list-combo">
+                Mean
+                <input type="text" class="input-box" id="inputMean">
+                </input>
+              </li>
+
+              <li class="stat-list-combo">
+                2nd Moment
+                <input type="text" class="input-box" id="inputSndMoment">
+                </input>
+              </li>
+
+              <li class="stat-list-combo">
+                Standard Deviation
+                <input type="text" class="input-box" id="inputStDev">
+                </input>
+              </li>
+
+              <li class="stat-list-combo">
+                Inverse Participation Ratio
+                <input type="text" class="input-box" id="inputInvPartRat">
+                </input>
+              </li>
+
+              <li class="stat-list-combo-input">
+                Survival Probability
+                <div class="stat-with-input">
+                  From Node
+                  <input type="text" class="input-box" id="inputSurvProbNodeA">
+                  To Node
+                  <input type="text" class="input-box" id="inputSurvProbNodeB">
+                  <button id="survProbNodesButton" class="input-button">Go</button>
+                  Result
+                  <input type="text" class="input-box" id="inputSurvProbResult">
+                
+                </div>
+                </input>
+              </li>
+
+              <li class="stat-list-combo-input">
+                Perfect State Transfer
+                <div class="stat-with-input">
+                  From Node
+                  <input type="text" class="input-box" id="inputPSTNodeA">
+                  To Node
+                  <input type="text" class="input-box" id="inputPSTNodeB">
+                  <button id="PSTNodesButton" class="input-button">Go</button>
+                  Result
+                  <input type="text" class="input-box" id="inputPSTResult">
+                
+                </div>
+                </input>
+              </li>
+            </ul>
+
+
+          </div>
+          
+          <div class="tab-pane" id="dynamicplot">
+            <div class='grid-element'>
+              <div class="prob-dist-chart-container">
+                <canvas id="dynamicProbDistChart" class="prob-dist-chart"></canvas>
+              </div>
+              <button id="dynamicProbDistButton" class="function-button">GO!</button>
+              <div class='input-row'>
+                <ul class='input-fields'>
+                  <li class='input-combo'>
+                    <input type="text" name="timeRange" id="inputTimeRange" class="input-box"></input>
+                    <button id="setTimeRangeButton" class="input-button">[t]</button>
+                  </li>
+                  <li class='input-combo'>
+                    <input type="number" step=0.01 min=0 name="gammaRange" id="inputGammaRange" class="input-box"></input>
+                    <button id="setGammaRangeButton" class="input-button">[NA]</button>
+                  </li>
+                </ul>
+                <ul class='input-fields'>
+                  <li class='input-combo'>
+                    <input type="text" name="initStateRange" id="inputInitStateRange" class="input-box"></input>
+                    <button id="setInitStateRangeButton" class="input-button">[Ψ0]</button>
+                  </li>
+                  <li class='input-combo'>
+                    <input type="number" step="0.01" min=0 name="placeholder" id="placeholder2" class="input-box"></input>
+                    <button id="setPlaceholderButton2" class="input-button">Pl</button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="dynamicstats">
+            <!-- Tab links -->
+            <div class="tab">
+              <button id="defaultDynStat" class="stattablinks" >Mean</button>
+              <button  id="stDevDynStat" class="stattablinks">Standard Deviation</button>
+              <button  id="invPartRatioDynStat" class="stattablinks">Inverse Participation Ratio</button>
+              <button  id="survProbDynStat" class="stattablinks">Survival Probability</button>
+            </div>
+            <!-- Tab content -->
+            <div id="Mean" class="stattabcontent">
+              <div class='grid-element'>
+                <div class="prob-dist-chart-container">
+                  <canvas id="dynamicMeanChart" class="prob-dist-chart"></canvas>
+                </div>
+                <button id="dynamicMeanButton" class="function-button">GO!</button>
+              </div>
+            </div>
+            <div id="StDev" class="stattabcontent">
+              <div class='grid-element'>
+                <div class="prob-dist-chart-container">
+                  <canvas id="dynamicStDevChart" class="prob-dist-chart"></canvas>
+                </div>
+                <button id="dynamicStDevButton" class="function-button">GO!</button>
+              </div>
+            </div>
+            <div id="InvPartRatio" class="stattabcontent">
+              <div class='grid-element'>
+                <div class="prob-dist-chart-container">
+                  <canvas id="dynamicInvPartRatioChart" class="prob-dist-chart"></canvas>
+                </div>
+                <button id="dynamicInvPartRatioButton" class="function-button">GO!</button>
+              </div>
+            </div>
+            <div id="SurvivalProb" class="stattabcontent">
+              <div class='grid-element'>
+                <div class="prob-dist-chart-container">
+                  <canvas id="dynamicSurvivalProbChart" class="prob-dist-chart"></canvas>
+                </div>
+                <div class="stat-with-input">
+                  From Node
+                  <input type="text" class="input-box" id="dynInputSurvProbNodeA">
+                  To Node
+                  <input type="text" class="input-box" id="dynInputSurvProbNodeB">
+                  <button id="dynamicSurvivalProbButton" class="function-button">Go</button>
+                </div>
+              </div>
+            </div>
+
+            <script type='module' src="javascript/tools.js"></script>
+          </div>
+          
+        </div>
+      </div>
+  
+
+    </div>
+
+  </div>
+  <script>
+
+    function openProb(evt, prob) {
+      // Declare all variables
+      var i, tabcontent, tablinks;
+
+      // Get all elements with class="tabcontent" and hide them
+      tabcontent = document.getElementsByClassName("tabcontent2");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+
+      // Get all elements with class="tablinks" and remove the class "active"
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+
+      // Show the current tab, and add an "active" class to the button that opened the tab
+      document.getElementById(prob).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+  $('.nav-tabs').on('shown.bs.tab', 'a', function (e) {
+      if (e.currentTarget) {
+          $(e.currentTarget).removeClass('active');
+      }
+  });
+  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-edgehandles@4.0.1/cytoscape-edgehandles.min.js"></script>
+<script src="https://unpkg.com/cytoscape-popper@2.0.0/cytoscape-popper.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

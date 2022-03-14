@@ -16,18 +16,18 @@ let initGraph = async () => {
 initGraph()
 let myGraph = await getGraph();
 
-function openGraph(evt, graph) {
+function openTab(evt, graph,tabcontent,tablinks) {
   // Declare all variables
   var i, tabcontent, tablinks;
 
   // Get all elements with class="tabcontent" and hide them
-  tabcontent = document.getElementsByClassName("tabcontent");
+  tabcontent = document.getElementsByClassName(tabcontent);
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
 
   // Get all elements with class="tablinks" and remove the class "active"
-  tablinks = document.getElementsByClassName("tablinks");
+  tablinks = document.getElementsByClassName(tablinks);
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
@@ -37,13 +37,16 @@ function openGraph(evt, graph) {
   evt.currentTarget.className += " active";
 }
 
+
+
 document.getElementById('defaultOpen').addEventListener('click', evt => {
-  openGraph(evt, 'GraphGenerator');
+  openTab(evt, 'GraphGenerator',"tabcontent","tablinks");
 })
+
 document.getElementById('defaultOpen').click()
 
 document.getElementById('customGraphDisplay').addEventListener('click', evt => {
-  openGraph(evt, 'CustomGraph');
+  openTab(evt, 'CustomGraph',"tabcontent","tablinks");
 
 })
 
@@ -176,7 +179,6 @@ export let customCy = cytoscape({
           }
         });
 
-document.getElementById('defaultOpen').click()
 
 export let defaultDist = [
     (-34, 3.3333333333333335e-5),
@@ -215,7 +217,7 @@ export let defaultDist = [
     (32, 3.3333333333333335e-5),
 ];
 
-export let data = {
+export let staticChartData = {
     type: "line",
     data: {
         labels: [...Array(defaultDist.length).keys()],
@@ -240,7 +242,7 @@ export let data = {
     },
 };
 
-export let data2 = {
+export let dynamicChartData = {
     type: "line",
     data: {
         labels: [...Array(100).keys()],
@@ -264,3 +266,129 @@ export let data2 = {
         },
     },
 };
+
+export let dynamicMeanChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
+export let dynamicStDevChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
+export let dynamicInvPartRatioChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
+export let dynamicSurvivalProbChartData = {
+  type: "line",
+  data: {
+      labels: [...Array(100).keys()],
+      datasets: [
+          {
+              label: "Node",
+              data: [],
+              fill: false,
+              borderColor: "rgb(75, 192, 192)",
+              pointRadius: 0,
+          },
+      ],
+  },
+  options: {
+      scales: {
+              x: {
+                  grid: {
+                      display: false
+                  }
+              },
+      },
+  },
+};
+
+document.getElementById('defaultDynStat').addEventListener('click', evt => {
+  openTab(evt, 'Mean',"stattabcontent","stattablinks");
+});
+
+document.getElementById('stDevDynStat').addEventListener('click', evt => {
+  openTab(evt, 'StDev',"stattabcontent","stattablinks");
+});
+
+document.getElementById('invPartRatioDynStat').addEventListener('click', evt => {
+  openTab(evt, 'InvPartRatio',"stattabcontent","stattablinks");
+});
+
+document.getElementById('survProbDynStat').addEventListener('click', evt => {
+  openTab(evt, 'SurvivalProb',"stattabcontent","stattablinks");
+});
+
+document.getElementById('invPartRatioDynStat').click()
+
+document.getElementById('invPartRatioDynStat').click()
+
+document.getElementById('stDevDynStat').click()
+
+document.getElementById('defaultDynStat').click()
+
+document.getElementById('defaultOpen').click()
