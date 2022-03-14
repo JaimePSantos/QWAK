@@ -27,5 +27,16 @@ Continuous-time quantum walk analysis framework.
 #### Testing the installation
 9. Run the basic testing suite: `python installCheck.py`
 
+### Running the GUI
+10. From the `qwak` folder, navigate to the `core` folder using `cd core`.
+11. Run the GUI file with the command `python gui-main.py`.
+
 ## Using the package
 (Under construction)
+
+## Contributing to the package
+1. Upgrade your build package with `python -m pip install --upgrade build`.
+2. Edit the package to reflect your changes.
+3. Build the distribution files by running `python -m build`.
+4. Reinstall the package without using previously cached versions with `pip install . --no-cache-dir`.
+5. Push your changes to github!

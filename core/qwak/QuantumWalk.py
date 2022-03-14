@@ -5,7 +5,7 @@ import warnings
 import numpy as np
 
 from qwak.State import State
-from qwak.operator import Operator
+from qwak.Operator import Operator
 
 warnings.filterwarnings("ignore")
 

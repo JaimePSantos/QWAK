@@ -1,7 +1,7 @@
 from qwak.qwak import QWAK
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
-from qwak.operator import Operator
+from qwak.Operator import Operator
 from qwak.State import State
 
 import json
