@@ -1,11 +1,12 @@
 import networkx as nx
 import numpy as np
 
-from qwak.Operator import Operator
-from qwak.ProbabilityDistribution import ProbabilityDistribution
-from qwak.QuantumWalk import QuantumWalk
-from qwak.State import State
+from core.qwak.Operator import Operator
+from core.qwak.ProbabilityDistribution import ProbabilityDistribution
+from core.qwak.QuantumWalk import QuantumWalk
+from core.qwak.State import State
 
+from core.Tools.Profiler import profile
 
 class QWAK:
     """
@@ -18,7 +19,7 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None) -> None:
+    def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None,benchmark=False) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -44,6 +45,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
+    @profile(output_path="qwak/",output_file="bla",sort_by='tottime', lines_to_print=None, strip_dirs=True)
     def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
