@@ -6,7 +6,7 @@ from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
 from qwak.State import State
 
-from core.Tools.Profiler import profile
+from Tools.Profiler import profile
 
 linesToPrint = 10
 sortBy = 'tottime'

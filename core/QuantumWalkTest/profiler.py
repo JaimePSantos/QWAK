@@ -1,8 +1,8 @@
-from core.qwak.State import State
-from core.qwak.Operator import Operator
-from core.qwak.QuantumWalk import QuantumWalk
-from core.qwak.ProbabilityDistribution import ProbabilityDistribution
-from core.qwak.qwak import QWAK
+from qwak.State import State
+from qwak.Operator import Operator
+from qwak.QuantumWalk import QuantumWalk
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.qwak import QWAK
 
 
 import networkx as nx
