@@ -6,8 +6,8 @@ global benchmark
 benchmark = True
 
 import os
-retval = os.getcwd()
-os.chdir( retval + "../../TestOutput/Profiling/" )
+#retval = os.getcwd()
+#os.chdir( retval + "../../TestOutput/Profiling/" )
 
 def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=None, strip_dirs=False,csv=False):
     """A time profiler decorator.
