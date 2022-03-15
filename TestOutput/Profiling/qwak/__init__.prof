@@ -1,13 +1,13 @@
 ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
-1,0.537,0.537,0.537,0.537,linalg.py:1324(eigh)
-33,0.009,0.000,0.009,0.000,{built-in method _ctypes.LoadLibrary}
-44,0.006,0.000,0.006,0.000,{built-in method io.open_code}
-177,0.006,0.000,0.006,0.000,{built-in method nt.stat}
-10,0.003,0.000,0.003,0.000,{built-in method _imp.create_dynamic}
-5,0.002,0.000,0.002,0.000,{method 'astype' of 'numpy.ndarray' objects}
-44,0.002,0.000,0.002,0.000,{built-in method marshal.loads}
-269,0.001,0.000,0.002,0.000,<frozen importlib._bootstrap_external>:91(_path_join)
-44,0.001,0.000,0.001,0.000,{method 'read' of '_io.BufferedReader' objects}
-10/9,0.001,0.000,0.002,0.000,{built-in method _imp.exec_dynamic}
+1,0.005,0.005,0.005,0.005,linalg.py:1324(eigh)
+101,0.000,0.000,0.000,0.000,reportviews.py:783(__iter__)
+1,0.000,0.000,0.001,0.001,convert_matrix.py:771(to_scipy_sparse_matrix)
+100,0.000,0.000,0.000,0.000,_collections_abc.py:767(__contains__)
+1,0.000,0.000,0.000,0.000,function.py:1196(<genexpr>)
+6,0.000,0.000,0.000,0.000,{built-in method numpy.array}
+100,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
+101,0.000,0.000,0.000,0.000,_collections_abc.py:849(__iter__)
+101,0.000,0.000,0.000,0.000,convert_matrix.py:875(<genexpr>)
+5,0.000,0.000,0.000,0.000,_sputils.py:131(get_index_dtype)
 
 

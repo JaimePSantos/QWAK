@@ -1,11 +1,11 @@
 ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
-1001,0.002,0.000,0.002,0.000,defmatrix.py:189(__getitem__)
-1,0.001,0.001,0.004,0.004,QuantumWalk.py:151(invPartRatio)
-2000,0.000,0.000,0.001,0.000,defmatrix.py:167(__array_finalize__)
-1000,0.000,0.000,0.000,0.000,{built-in method builtins.len}
-3000,0.000,0.000,0.000,0.000,{built-in method builtins.isinstance}
-1000,0.000,0.000,0.000,0.000,{method 'item' of 'numpy.ndarray' objects}
-1,0.000,0.000,0.004,0.004,qwak.py:308(getInversePartRatio)
+101,0.000,0.000,0.000,0.000,defmatrix.py:189(__getitem__)
+1,0.000,0.000,0.000,0.000,QuantumWalk.py:151(invPartRatio)
+200,0.000,0.000,0.000,0.000,defmatrix.py:167(__array_finalize__)
+100,0.000,0.000,0.000,0.000,{built-in method builtins.len}
+300,0.000,0.000,0.000,0.000,{built-in method builtins.isinstance}
+100,0.000,0.000,0.000,0.000,{method 'item' of 'numpy.ndarray' objects}
+1,0.000,0.000,0.000,0.000,qwak.py:308(getInversePartRatio)
 1,0.000,0.000,0.000,0.000,State.py:99(getStateVec)
 1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
 

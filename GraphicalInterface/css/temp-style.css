@@ -7,8 +7,8 @@
     display:flex;
     overflow: hidden;
     background-color: #312450;
-    /* align-content: center;
-    justify-content: center; */
+    align-content: center;
+    justify-content: center; 
 }
 
 /* Style the buttons inside the tab */
@@ -21,6 +21,28 @@
     cursor: pointer;
     transition: 0.3s;
     font-size: 17px;
+    overflow: hidden;
+}
+
+.dynamic-tab{
+    display:flex;
+    overflow: hidden;
+    background-color: #312450;
+    align-content: center;
+    justify-content: center; 
+}
+
+.dynamic-tab button{
+    background-color: inherit;
+    float: left;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 12px;
+    overflow: hidden;
+
 }
 
 /* Change background color of buttons on hover */
@@ -30,6 +52,16 @@
 
 /* Create an active/current tablink class */
 .tab button.active, .tab2 button.active {
+    background-color: #1587b4;
+}
+
+/* Change background color of buttons on hover */
+.dynamic-tab button:hover, .tab2 button:hover {
+    background-color: rgb(57, 60, 206);
+}
+
+/* Create an active/current tablink class */
+.dynamic-tab button.active, .tab2 button.active {
     background-color: #1587b4;
 }
 
@@ -175,14 +207,32 @@
 
 .stat-with-input{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-content: center;
     color: var(--primary-white);
     font-weight: bold;
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .stat-with-input .input-box{
+    display: flex;
+    justify-content: center;
+    align-content: center;
     width:20%;
 }
 
+.probDist-animation-wrapper{
+    margin-top: 50px;
+}
+
+.stats-dynamic-wrapper{
+    margin-top: 50px;
+}
+
+.probDist-wrapper{
+    margin-top: 50px;
+}
+
+.stats-wrapper{
+    margin-top: 50px;
+}

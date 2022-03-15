@@ -58,7 +58,7 @@ let getGraph = () => {
     elements: myGraph.elements,
     directed: myGraph.directed,
     multigraph: myGraph.multigraph,
-    wheelSensitivity:0.4,
+    wheelSensitivity:0.1,
     layout: {
       name: 'circle',
     },
@@ -88,7 +88,7 @@ let getGraph = () => {
   export let customCy = cytoscape({
     container: document.getElementById('cyCustom'),
     directed: false,
-  
+    wheelSensitivity:0.1,
     layout: {
       name: 'concentric',
       concentric: function (n) { return n.id() === '0' ? 200 : 0; },
