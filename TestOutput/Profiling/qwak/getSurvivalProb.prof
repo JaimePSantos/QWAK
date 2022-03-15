@@ -1,10 +1,6 @@
-         3 function calls in 0.000 seconds
-
-   Ordered by: internal time
-
-   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.000    0.000    0.000    0.000 ProbabilityDistribution.py:106(survivalProb)
-        1    0.000    0.000    0.000    0.000 qwak.py:303(getSurvivalProb)
-        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.000,0.000,0.000,0.000,ProbabilityDistribution.py:106(survivalProb)
+1,0.000,0.000,0.000,0.000,qwak.py:304(getSurvivalProb)
+1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
 
 

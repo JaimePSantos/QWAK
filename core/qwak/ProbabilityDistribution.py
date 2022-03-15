@@ -2,7 +2,7 @@ import warnings
 
 import numpy as np
 
-from qwak.State import State
+from core.qwak.State import State
 
 warnings.filterwarnings("ignore")
 

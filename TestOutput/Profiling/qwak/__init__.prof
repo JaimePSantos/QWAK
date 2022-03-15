@@ -1,18 +1,13 @@
-         54125 function calls (53761 primitive calls) in 39.046 seconds
-
-   Ordered by: internal time
-   List reduced from 477 to 10 due to restriction <10>
-
-   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1   38.957   38.957   38.957   38.957 linalg.py:1324(eigh)
-        5    0.031    0.006    0.031    0.006 {method 'astype' of 'numpy.ndarray' objects}
-       33    0.008    0.000    0.008    0.000 {built-in method _ctypes.LoadLibrary}
-       44    0.006    0.000    0.006    0.000 {built-in method io.open_code}
-      177    0.006    0.000    0.006    0.000 {built-in method nt.stat}
-       10    0.003    0.000    0.003    0.000 {built-in method _imp.create_dynamic}
-        1    0.002    0.002    0.089    0.089 Operator.py:52(buildLaplacianAdjacency)
-        1    0.002    0.002    0.002    0.002 {built-in method scipy.sparse._sparsetools.csr_todense}
-       44    0.002    0.000    0.002    0.000 {built-in method marshal.loads}
-     3001    0.002    0.000    0.003    0.000 reportviews.py:783(__iter__)
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.537,0.537,0.537,0.537,linalg.py:1324(eigh)
+33,0.009,0.000,0.009,0.000,{built-in method _ctypes.LoadLibrary}
+44,0.006,0.000,0.006,0.000,{built-in method io.open_code}
+177,0.006,0.000,0.006,0.000,{built-in method nt.stat}
+10,0.003,0.000,0.003,0.000,{built-in method _imp.create_dynamic}
+5,0.002,0.000,0.002,0.000,{method 'astype' of 'numpy.ndarray' objects}
+44,0.002,0.000,0.002,0.000,{built-in method marshal.loads}
+269,0.001,0.000,0.002,0.000,<frozen importlib._bootstrap_external>:91(_path_join)
+44,0.001,0.000,0.001,0.000,{method 'read' of '_io.BufferedReader' objects}
+10/9,0.001,0.000,0.002,0.000,{built-in method _imp.exec_dynamic}
 
 

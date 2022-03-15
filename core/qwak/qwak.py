@@ -12,6 +12,7 @@ linesToPrint = 10
 sortBy = 'tottime'
 outPath = 'qwak/'
 stripDirs = True
+csv = True
 
 class QWAK:
     """
@@ -24,7 +25,7 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None,benchmark=False) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
@@ -51,7 +52,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
@@ -278,33 +279,32 @@ class QWAK:
         """
         return self._probDist.searchNodeProbability(searchNode)
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def checkPST(self,nodeA,nodeB):
         nodeA = int(nodeA)
         nodeB = int(nodeB)
         return self._operator.checkPST(nodeA,nodeB)
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def transportEfficiency(self):
         return self._operator.transportEfficiency(self._initState.getStateVec())
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getMean(self):
         return self._probDist.moment(1)
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getSndMoment(self):
         return self._probDist.moment(2)
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getStDev(self):
         return self._probDist.stDev()
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getSurvivalProb(self,k0,k1):
         return self._probDist.survivalProb(k0,k1)
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getInversePartRatio(self):
         return self._quantumWalk.invPartRatio()
-

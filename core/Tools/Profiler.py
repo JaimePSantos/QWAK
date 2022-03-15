@@ -1,5 +1,6 @@
 import cProfile, pstats
 from functools import wraps
+from io import StringIO
 
 global benchmark
 benchmark = True
@@ -8,7 +9,7 @@ import os
 retval = os.getcwd()
 os.chdir( retval + "../../TestOutput/Profiling/" )
 
-def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=None, strip_dirs=False):
+def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=None, strip_dirs=False,csv=False):
     """A time profiler decorator.
     Inspired by and modified the profile decorator of Giampaolo Rodola:
     http://code.activestate.com/recipes/577817-profile-decorator/
@@ -46,8 +47,6 @@ def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=N
             pr.enable()
             retval = func(*args, **kwargs)
             pr.disable()
-            pr.dump_stats(_output_file)
-
             with open(_output_file, 'w') as f:
                 ps = pstats.Stats(pr, stream=f)
                 if strip_dirs:
@@ -56,9 +55,29 @@ def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=N
                     ps.sort_stats(*sort_by)
                 else:
                     ps.sort_stats(sort_by)
-                ps.print_stats(lines_to_print)
+                if csv:
+                    csvFile = prof_to_csv(pr,sort_by, lines_to_print, strip_dirs)
+                    with open(_output_file, 'a+') as f:
+                        f.write(csvFile)
+                elif not csv:
+                    pr.dump_stats(_output_file)
             return retval
-
         return wrapper
     global benchmark
     return inner if benchmark else noop_decorator
+
+def prof_to_csv(prof,sort_by='cumulative', lines_to_print=None, strip_dirs=False):
+    out_stream = StringIO()
+    ps = pstats.Stats(prof, stream=out_stream).print_stats()
+    if strip_dirs:
+        ps.strip_dirs()
+    if isinstance(sort_by, (tuple, list)):
+        ps.sort_stats(*sort_by)
+    else:
+        ps.sort_stats(sort_by)
+    ps.print_stats(lines_to_print)
+    result = out_stream.getvalue()
+    # chop off header lines
+    result = 'ncalls' + result.split('ncalls')[-1]
+    lines = [','.join(line.rstrip().split(None, 5)) for line in result.split('\n')]
+    return '\n'.join(lines)
