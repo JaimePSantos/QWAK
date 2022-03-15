@@ -1,0 +1,7 @@
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.000,0.000,0.000,0.000,ProbabilityDistribution.py:93(moment)
+1,0.000,0.000,0.000,0.000,{built-in method numpy.arange}
+1,0.000,0.000,0.000,0.000,qwak.py:292(getMean)
+1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
+
+

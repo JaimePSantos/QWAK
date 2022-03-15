@@ -4,8 +4,8 @@ import warnings
 
 import numpy as np
 
-from qwak.State import State
-from qwak.Operator import Operator
+from core.qwak.State import State
+from core.qwak.Operator import Operator
 
 warnings.filterwarnings("ignore")
 
@@ -123,7 +123,7 @@ class QuantumWalk:
         self._operator.setOperator(newWalk.getOperator())
         self._finalState.setState(newWalk.getWalk())
 
-    def getWalk(self) -> State:
+    def getAmpVec(self) -> State:
         """
         Gets the final state associated with the walk.
         TODO: Change name for better clarification.

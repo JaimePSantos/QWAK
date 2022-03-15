@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import networkx as nx
 import numpy as np
-from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
+from core.Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 from sympy import Matrix, gcd, div, Poly, Float, pprint
 import sympy as sp
 from sympy.abc import pi

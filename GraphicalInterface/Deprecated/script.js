@@ -1,6 +1,6 @@
-import { cy, customCy, staticChartData, dynamicChartData, dynamicMeanChartData, dynamicStDevChartData, dynamicInvPartRatioChartData, dynamicSurvivalProbChartData} from "./tools.js";
-import { StaticQuantumwalk } from "./staticQuantumwalk.js";
-import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
+import { cy, customCy, staticChartData, dynamicChartData, dynamicMeanChartData, dynamicStDevChartData, dynamicInvPartRatioChartData, dynamicSurvivalProbChartData} from "../javascript/tools.js";
+import { StaticQuantumwalk } from "../javascript/staticQuantumwalk.js";
+import { DynamicQuantumwalk } from "../javascript/dynamicQuantumwalk.js";
 
 
 // #### INPUTS & DISPLAYS ####

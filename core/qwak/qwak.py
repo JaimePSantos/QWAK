@@ -1,11 +1,18 @@
 import networkx as nx
 import numpy as np
 
-from qwak.Operator import Operator
-from qwak.ProbabilityDistribution import ProbabilityDistribution
-from qwak.QuantumWalk import QuantumWalk
-from qwak.State import State
+from core.qwak.Operator import Operator
+from core.qwak.ProbabilityDistribution import ProbabilityDistribution
+from core.qwak.QuantumWalk import QuantumWalk
+from core.qwak.State import State
 
+from core.Tools.Profiler import profile
+
+linesToPrint = 10
+sortBy = 'tottime'
+outPath = 'qwak/'
+stripDirs = True
+csv = True
 
 class QWAK:
     """
@@ -18,7 +25,8 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None) -> None:
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
+    def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None,benchmark=False) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -44,6 +52,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
@@ -63,7 +72,7 @@ class QWAK:
         self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getAmpVec())
         self._probDist.buildProbDist()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
@@ -210,6 +219,16 @@ class QWAK:
         """
         return self._quantumWalk
 
+    def getAmpVec(self) -> State:
+        """
+        Gets current walk amplitudes, also known as final state.
+
+        Returns:
+            :return: self._quantumWalk.getWalk()
+            :rtype: State
+        """
+        return self._quantumWalk.getAmpVec()
+
     def setProbDist(self, newProbDist: object) -> None:
         """
         Sets current walk probability distribution to a user defined one.
@@ -260,26 +279,32 @@ class QWAK:
         """
         return self._probDist.searchNodeProbability(searchNode)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def checkPST(self,nodeA,nodeB):
         nodeA = int(nodeA)
         nodeB = int(nodeB)
         return self._operator.checkPST(nodeA,nodeB)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def transportEfficiency(self):
         return self._operator.transportEfficiency(self._initState.getStateVec())
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getMean(self):
         return self._probDist.moment(1)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getSndMoment(self):
         return self._probDist.moment(2)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getStDev(self):
         return self._probDist.stDev()
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getSurvivalProb(self,k0,k1):
         return self._probDist.survivalProb(k0,k1)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def getInversePartRatio(self):
         return self._quantumWalk.invPartRatio()
-

@@ -137,7 +137,7 @@
 							<div class = 'stats-dynamic-wrapper'>
 								<div class="tab-pane" id="dynamicstats">
 									<!-- Tab links -->
-									<div class="tab">
+									<div class="dynamic-tab">
 									  <button id="defaultDynStat" class="stattablinks" >Mean</button>
 									  <button  id="stDevDynStat" class="stattablinks">Standard Deviation</button>
 									  <button  id="invPartRatioDynStat" class="stattablinks">Inverse Participation Ratio</button>
@@ -174,11 +174,17 @@
 										  <canvas id="dynamicSurvivalProbChart" class="prob-dist-chart"></canvas>
 										</div>
 										<div class="stat-with-input">
-										  From Node
-										  <input type="text" class="input-box" id="dynInputSurvProbNodeA">
-										  To Node
-										  <input type="text" class="input-box" id="dynInputSurvProbNodeB">
-										  <button id="dynamicSurvivalProbButton" class="function-button">Go</button>
+											<div class="input-combo">
+												From Node
+												<input type="text" class="input-box" id="dynInputSurvProbNodeA">
+											</div>
+											<div class="input-combo">
+												To Node
+												<input type="text" class="input-box" id="dynInputSurvProbNodeB">
+											</div>
+											<div class="input-combo">
+										  		<button id="dynamicSurvivalProbButton" class="function-button">Go</button>
+											</div>
 										</div>
 									  </div>
 									</div>

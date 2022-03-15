@@ -28,7 +28,6 @@ __pycache__/
 qwak.egg-info
 venv
 activate
-qwak/
 qwakEnv/
 node_modules/
 python/
