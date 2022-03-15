@@ -3,7 +3,7 @@ from functools import wraps
 from io import StringIO
 
 global benchmark
-benchmark = True
+benchmark = False
 
 import os
 #retval = os.getcwd()

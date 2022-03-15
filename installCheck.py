@@ -23,7 +23,7 @@ qwOperator = Operator(graph=graph)
 qwOperator.buildDiagonalOperator(t)
 qwFinalState = QuantumWalk(qwInitState,qwOperator)
 qwFinalState.buildWalk()
-qwProbDist = ProbabilityDistribution(qwFinalState.getWalk())
+qwProbDist = ProbabilityDistribution(qwFinalState.getAmpVec())
 qwProbDist.buildProbDist()
 print(f"Init State: \n {qwInitState}\n\n"
       f"Operator: \n {qwOperator}\n\n"
