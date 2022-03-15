@@ -123,7 +123,7 @@ class QuantumWalk:
         self._operator.setOperator(newWalk.getOperator())
         self._finalState.setState(newWalk.getWalk())
 
-    def getWalk(self) -> State:
+    def getAmpVec(self) -> State:
         """
         Gets the final state associated with the walk.
         TODO: Change name for better clarification.

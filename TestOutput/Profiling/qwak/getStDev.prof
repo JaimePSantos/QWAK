@@ -1,0 +1,12 @@
+         7 function calls in 0.018 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        2    0.018    0.009    0.018    0.009 ProbabilityDistribution.py:93(moment)
+        2    0.000    0.000    0.000    0.000 {built-in method numpy.arange}
+        1    0.000    0.000    0.018    0.018 ProbabilityDistribution.py:100(stDev)
+        1    0.000    0.000    0.018    0.018 qwak.py:299(getStDev)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+

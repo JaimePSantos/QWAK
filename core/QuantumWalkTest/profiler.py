@@ -17,18 +17,16 @@ from math import sqrt, ceil, pow
 if __name__ == '__main__':
 
     import cProfile, pstats
-    n = 1000
+    n = 3000
     t = 10
     graph = nx.cycle_graph(n)
     marked = [50]
 
     qwController = QWAK(graph, laplacian=False,benchmark=True)
-
-    #
-    # profiler = cProfile.Profile()
-    # profiler.enable()
     qwController.runWalk(t, marked)
-    # profiler.disable()
+    qwController.getMean()
+    qwController.getSndMoment()
+    qwController.getStDev()
+    qwController.getSurvivalProb(49,51)
+    qwController.getInversePartRatio()
 
-    # stats = pstats.Stats(profiler).sort_stats('tottime')
-    # stats.print_stats()

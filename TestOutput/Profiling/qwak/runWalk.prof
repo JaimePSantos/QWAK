@@ -1,0 +1,18 @@
+         81040 function calls in 0.933 seconds
+
+   Ordered by: internal time
+   List reduced from 36 to 10 due to restriction <10>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.846    0.846    0.878    0.878 Operator.py:67(buildDiagonalOperator)
+        1    0.029    0.029    0.029    0.029 {method 'conjugate' of 'numpy.ndarray' objects}
+        1    0.012    0.012    0.046    0.046 ProbabilityDistribution.py:36(buildProbDist)
+     6000    0.011    0.000    0.017    0.000 defmatrix.py:189(__getitem__)
+        1    0.007    0.007    0.007    0.007 QuantumWalk.py:46(buildWalk)
+    18005    0.005    0.000    0.006    0.000 defmatrix.py:167(__array_finalize__)
+     3001    0.004    0.000    0.008    0.000 {built-in method numpy.core._multiarray_umath.implement_array_function}
+     3000    0.004    0.000    0.004    0.000 {built-in method _warnings.warn}
+     3000    0.002    0.000    0.017    0.000 defmatrix.py:215(__mul__)
+        1    0.002    0.002    0.002    0.002 twodim_base.py:234(diag)
+
+

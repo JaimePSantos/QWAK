@@ -8,6 +8,11 @@ from core.qwak.State import State
 
 from core.Tools.Profiler import profile
 
+linesToPrint = 10
+sortBy = 'tottime'
+outPath = 'qwak/'
+stripDirs = True
+
 class QWAK:
     """
         Data access class that combines all three components required to perform a continuous-time quantum walk,
@@ -19,6 +24,7 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None,benchmark=False) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
@@ -45,7 +51,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    @profile(output_path="qwak/",output_file="bla",sort_by='tottime', lines_to_print=None, strip_dirs=True)
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
@@ -65,7 +71,7 @@ class QWAK:
         self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getWalk())
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getAmpVec())
         self._probDist.buildProbDist()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
@@ -212,6 +218,16 @@ class QWAK:
         """
         return self._quantumWalk
 
+    def getAmpVec(self) -> State:
+        """
+        Gets current walk amplitudes, also known as final state.
+
+        Returns:
+            :return: self._quantumWalk.getWalk()
+            :rtype: State
+        """
+        return self._quantumWalk.getAmpVec()
+
     def setProbDist(self, newProbDist: object) -> None:
         """
         Sets current walk probability distribution to a user defined one.
@@ -262,26 +278,33 @@ class QWAK:
         """
         return self._probDist.searchNodeProbability(searchNode)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def checkPST(self,nodeA,nodeB):
         nodeA = int(nodeA)
         nodeB = int(nodeB)
         return self._operator.checkPST(nodeA,nodeB)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def transportEfficiency(self):
         return self._operator.transportEfficiency(self._initState.getStateVec())
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def getMean(self):
         return self._probDist.moment(1)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def getSndMoment(self):
         return self._probDist.moment(2)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def getStDev(self):
         return self._probDist.stDev()
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def getSurvivalProb(self,k0,k1):
         return self._probDist.survivalProb(k0,k1)
 
+    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs)
     def getInversePartRatio(self):
         return self._quantumWalk.invPartRatio()
 
