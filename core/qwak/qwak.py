@@ -1,10 +1,10 @@
 import networkx as nx
 import numpy as np
 
-from core.qwak.Operator import Operator
-from core.qwak.ProbabilityDistribution import ProbabilityDistribution
-from core.qwak.QuantumWalk import QuantumWalk
-from core.qwak.State import State
+from qwak.Operator import Operator
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.QuantumWalk import QuantumWalk
+from qwak.State import State
 
 from core.Tools.Profiler import profile
 
