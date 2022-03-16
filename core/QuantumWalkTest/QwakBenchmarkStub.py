@@ -16,7 +16,7 @@ class QWAKBenchmark:
 
     @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
     def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
-        self.qwak.runWalk()
+        self.qwak.runWalk(time,initStateList)
 
     @profile(output_path=outPath, sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs, csv=csv)
     def checkPST(self, nodeA, nodeB):
