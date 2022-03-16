@@ -3,7 +3,7 @@ from qwak.Operator import Operator
 from qwak.QuantumWalk import QuantumWalk
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.qwak import QWAK
-
+from QuantumWalkTest.QwakBenchmarkStub import QWAKBenchmark
 
 import networkx as nx
 import numpy as np
@@ -20,7 +20,7 @@ if __name__ == '__main__':
     graph = nx.cycle_graph(n)
     marked = [20]
 
-    qwController = QWAK(graph, laplacian=False,benchmark=True)
+    qwController = QWAKBenchmark(graph, laplacian=False)
     qwController.runWalk(t, marked)
     qwController.getMean()
     qwController.getSndMoment()

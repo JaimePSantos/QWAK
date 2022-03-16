@@ -1,13 +1,15 @@
 import cProfile, pstats
 from functools import wraps
 from io import StringIO
+from os.path import abspath
 
 global benchmark
-benchmark = False
+benchmark = True
 
 import os
-#retval = os.getcwd()
-#os.chdir( retval + "../../TestOutput/Profiling/" )
+import pathlib
+import inspect
+
 
 def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=None, strip_dirs=False,csv=False):
     """A time profiler decorator.
@@ -39,6 +41,8 @@ def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=N
     def inner(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
+            path = os.path.join(os.path.dirname(__file__),os.pardir,os.pardir,"TestOutput","Profiling")
+            os.chdir(path)
             if output_file is not None:
                 _output_file = output_path + output_file
             else:
@@ -47,7 +51,8 @@ def profile(output_path,output_file=None, sort_by='cumulative', lines_to_print=N
             pr.enable()
             retval = func(*args, **kwargs)
             pr.disable()
-            with open(_output_file, 'w') as f:
+
+            with open(_output_file, 'a+') as f:
                 ps = pstats.Stats(pr, stream=f)
                 if strip_dirs:
                     ps.strip_dirs()
