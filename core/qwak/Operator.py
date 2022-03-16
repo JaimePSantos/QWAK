@@ -202,20 +202,20 @@ class Operator:
             result = -1
         return result
 
-    def transportEfficiency(self,initState):
-        """
-        Under Construction.
-        @param initState:
-        @return:
-        """
-        ef = 0
-        print(f"init: {initState}")
-        print(f"Eigenvectors {self._eigenvectors}")
-        for i in range(len(self._eigenvectors)):
-            eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()
-            ef += np.absolute(np.matmul(eigenVec,initState))**2
-            print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
-        return ef
+    # def transportEfficiency(self,initState):
+    #     """
+    #     Under Construction.
+    #     @param initState:
+    #     @return:
+    #     """
+    #     ef = 0
+    #     print(f"init: {initState}")
+    #     print(f"Eigenvectors {self._eigenvectors}")
+    #     for i in range(len(self._eigenvectors)):
+    #         eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()
+    #         ef += np.absolute(np.matmul(eigenVec,initState))**2
+    #         print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
+    #     return ef
 
     def __mul__(self, other):
         """
@@ -254,7 +254,6 @@ class Operator:
             :rtype: str
         """
         return f"{self._operator}"
-
 
 
 

@@ -155,6 +155,10 @@ class QuantumWalk:
         amplitudes = amplitudes
         return 1/amplitudes
 
+    def transportEfficiency(self):
+        print(np.trace(self._finalState @ self._finalState.herm()))
+        return 1 - np.trace(self._finalState @ self._finalState.herm())
+
     def __str__(self) -> str:
         """
         String representation of the StaticQuantumwalk class.

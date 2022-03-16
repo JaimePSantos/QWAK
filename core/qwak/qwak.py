@@ -291,3 +291,6 @@ class QWAK:
 
     def getInversePartRatio(self):
         return self._quantumWalk.invPartRatio()
+
+    def getTransportEfficiency(self):
+        return self._quantumWalk.transportEfficiency()

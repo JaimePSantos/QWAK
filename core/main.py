@@ -9,7 +9,7 @@ from qwak.qwak import QWAK
 from qwak.Operator import Operator
 
 if __name__ == '__main__':
-    n = 100
+    n = 10
     t = 0
     # gamma = 1 / (2 * np.sqrt(2))
     graph = nx.cycle_graph(n)
@@ -17,13 +17,21 @@ if __name__ == '__main__':
     # graph = nx.hypercube_graph(3)
 
     # marked = [int(n / 2)]
-    marked = [50,51]
+    marked = range(n)
     # marked = range(n)
     # marked = range(int(n))
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
-    qwController = QWAK(graph, laplacian=False)
+    qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
-    qwController.runWalk(t, marked)
+    eta = []
+    times = np.linspace(0,50,200)
+    for time in range(3):
+        qwController.runWalk(time, marked)
+        tef = qwController.getTransportEfficiency()
+        eta.append(tef)
+
+    plt.plot(eta)
+    plt.show()
 
     # qwOperator = Operator(graph=graph)
     # qwOperator.buildDiagonalOperator(1)
