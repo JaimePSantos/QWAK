@@ -11,7 +11,6 @@ from qwak.Operator import Operator
 if __name__ == '__main__':
     n = 10
     t = 0
-    # gamma = 1 / (2 * np.sqrt(2))
     graph = nx.cycle_graph(n)
     # graph = nx.complete_bipartite_graph(20,20)
     # graph = nx.hypercube_graph(3)
@@ -22,13 +21,21 @@ if __name__ == '__main__':
     # marked = range(int(n))
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
     qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
+    qwController.runWalk(t,marked)
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
     eta = []
     times = np.linspace(0,50,200)
     for time in range(3):
+        print()
+        print(f"time = {time}")
+        print()
         qwController.runWalk(time, marked)
         tef = qwController.getTransportEfficiency()
+        print(f"Controller time: {qwController.getOperator().getTime()}")
         eta.append(tef)
+        print()
+        print("###################################################################################################")
+        print()
 
     plt.plot(eta)
     plt.show()

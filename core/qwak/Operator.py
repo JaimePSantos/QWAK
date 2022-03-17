@@ -47,6 +47,7 @@ class Operator:
     def buildMarkedAdjacency(self, markedSearch):
         if markedSearch is not None:
             for marked in markedSearch:
+                print(f"marked element: {marked[0]} \t amplitude: {marked[1]}")
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
     def buildLaplacianAdjacency(self,laplacian, markedSearch):
@@ -83,6 +84,7 @@ class Operator:
                            self._eigenvalues)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         self._operator = np.matmul(self._operator,self._eigenvectors.H)
+        print(f"operator: {np.matrix(self._operator)}")
 
     def setDim(self, newDim: int) -> None:
         """
