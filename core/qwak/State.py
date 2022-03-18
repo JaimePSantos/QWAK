@@ -27,7 +27,7 @@ class State:
         self._stateVec = np.zeros((self._n, 1))
 
     def herm(self):
-        return self._stateVec.getH()
+        return self._stateVec.H
 
     def resetState(self):
         self._stateVec = np.zeros((self._n, 1))

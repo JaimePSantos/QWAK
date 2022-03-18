@@ -9,34 +9,39 @@ from qwak.qwak import QWAK
 from qwak.Operator import Operator
 
 if __name__ == '__main__':
-    n = 10
+    n = 4
     t = 0
-    graph = nx.cycle_graph(n)
-    # graph = nx.complete_bipartite_graph(20,20)
-    # graph = nx.hypercube_graph(3)
+    # graph = nx.cycle_graph(n)
+    graph=nx.complete_graph(n)
 
-    # marked = [int(n / 2)]
-    marked = range(n)
-    # marked = range(n)
-    # marked = range(int(n))
+    # marked = range(int(n/2))
+    marked = [1]
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
     qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
-    qwController.runWalk(t,marked)
+    # qwController.runWalk(t,marked)
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
     eta = []
     times = np.linspace(0,50,200)
-    for time in range(3):
+
+    # print(f"init: {qwController.getInitState()}")
+
+    for time in times:
         print()
         print(f"time = {time}")
         print()
         qwController.runWalk(time, marked)
+        print(f"init cond: {qwController.getInitState()}\n")
+        print(f"adjm: {qwController.getAdjacencyMatrix()}")
         tef = qwController.getTransportEfficiency()
-        print(f"Controller time: {qwController.getOperator().getTime()}")
+        # print(f"Controller time: {qwController.getOperator().getTime()}")
+        # print(f"init: {qwController.getInitState()}")
+        # print(f"finalState: {qwController.getAmpVec()}")
         eta.append(tef)
         print()
         print("###################################################################################################")
         print()
 
+    print(f"eta: {eta[-1]}")
     plt.plot(eta)
     plt.show()
 

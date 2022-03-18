@@ -7,6 +7,7 @@ from sympy import Matrix, gcd, div, Poly, Float, pprint
 import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
+from scipy.linalg import expm, schur
 
 class Operator:
     """
@@ -41,7 +42,9 @@ class Operator:
         self.buildLaplacianAdjacency(laplacian,markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
-        self.buildEigenValues()
+        self._isHermitian= np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.H)
+        if self._isHermitian:
+            self.buildEigenValues()
         self._time = 0
 
     def buildMarkedAdjacency(self, markedSearch):
@@ -60,7 +63,7 @@ class Operator:
 
     def buildEigenValues(self):
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix)
+                self._adjacencyMatrix)
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
@@ -80,11 +83,13 @@ class Operator:
             :type gamma: (int, optional)
         """
         self._time = time
-        diag = np.diag(np.exp(-1j * self._time *
-                           self._eigenvalues)).diagonal()
-        self._operator = np.multiply(self._eigenvectors, diag)
-        self._operator = np.matmul(self._operator,self._eigenvectors.H)
-        print(f"operator: {np.matrix(self._operator)}")
+        if self._isHermitian:
+            diag = np.diag(np.exp(-1j *
+                               self._eigenvalues*self._time)).diagonal()
+            self._operator = np.multiply(self._eigenvectors, diag)
+            self._operator = np.matmul(self._operator,self._eigenvectors.H)
+        else:
+            self._operator = np.matrix(expm(-1j*self._adjacencyMatrix*self._time))
 
     def setDim(self, newDim: int) -> None:
         """
