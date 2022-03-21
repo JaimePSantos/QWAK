@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
+from scipy.linalg import inv
 
 
 class State:
@@ -28,6 +29,9 @@ class State:
 
     def herm(self):
         return self._stateVec.H
+
+    def inv(self):
+        return inv(self._stateVec)
 
     def resetState(self):
         self._stateVec = np.zeros((self._n, 1))

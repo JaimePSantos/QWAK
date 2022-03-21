@@ -7,15 +7,17 @@ from sympy.abc import pi
 from math import sqrt, ceil, pow
 from qwak.qwak import QWAK
 from qwak.Operator import Operator
+from scipy.linalg import expm, schur
+from sympy import Matrix
 
 if __name__ == '__main__':
-    n = 4
+    n = 100
     t = 0
-    # graph = nx.cycle_graph(n)
-    graph=nx.complete_graph(n)
+    graph = nx.cycle_graph(n)
+    # graph=nx.complete_graph(n)
 
     # marked = range(int(n/2))
-    marked = [1]
+    marked = [3]
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
     qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
     # qwController.runWalk(t,marked)
@@ -26,22 +28,22 @@ if __name__ == '__main__':
     # print(f"init: {qwController.getInitState()}")
 
     for time in times:
-        print()
-        print(f"time = {time}")
-        print()
+    #     print()
+    #     print(f"time = {time}")
+    #     print()
         qwController.runWalk(time, marked)
-        print(f"init cond: {qwController.getInitState()}\n")
-        print(f"adjm: {qwController.getAdjacencyMatrix()}")
+    #     print(f"init cond: {qwController.getInitState()}\n")
+    #     print(f"adjm: {qwController.getAdjacencyMatrix()}")
         tef = qwController.getTransportEfficiency()
-        # print(f"Controller time: {qwController.getOperator().getTime()}")
-        # print(f"init: {qwController.getInitState()}")
-        # print(f"finalState: {qwController.getAmpVec()}")
+    #     # print(f"Controller time: {qwController.getOperator().getTime()}")
+    #     # print(f"init: {qwController.getInitState()}")
+    #     # print(f"finalState: {qwController.getAmpVec()}")
         eta.append(tef)
-        print()
-        print("###################################################################################################")
-        print()
+    #     print()
+    #     print("###################################################################################################")
+    #     print()
 
-    print(f"eta: {eta[-1]}")
+    # print(f"eta: {eta[-1]}")
     plt.plot(eta)
     plt.show()
 

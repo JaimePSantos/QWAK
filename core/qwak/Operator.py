@@ -7,7 +7,7 @@ from sympy import Matrix, gcd, div, Poly, Float, pprint
 import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
-from scipy.linalg import expm, schur
+from scipy.linalg import expm, schur, inv
 
 class Operator:
     """
@@ -29,7 +29,6 @@ class Operator:
         decomposition. This was the chosen method since it is computationally cheaper than calculating
         the matrix exponent directly.
 
-        TODO: Verificar se a matriz ponderada e hermitiana ou nao.
         TODO: Funcao para fazermos um loading screen na criacao do operador.
 
         Args:
@@ -43,14 +42,15 @@ class Operator:
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._isHermitian= np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.H)
-        if self._isHermitian:
-            self.buildEigenValues()
         self._time = 0
+        if self._isHermitian:
+            self.buildHermitianEigenValues()
+        else:
+            self.buildGeneralEigenValues()
 
     def buildMarkedAdjacency(self, markedSearch):
         if markedSearch is not None:
             for marked in markedSearch:
-                print(f"marked element: {marked[0]} \t amplitude: {marked[1]}")
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
     def buildLaplacianAdjacency(self,laplacian, markedSearch):
@@ -61,8 +61,12 @@ class Operator:
             self._adjacencyMatrix = nx.adjacency_matrix(self._graph).todense().astype(complex)
             self.buildMarkedAdjacency(markedSearch)
 
-    def buildEigenValues(self):
+    def buildHermitianEigenValues(self):
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
+                self._adjacencyMatrix)
+
+    def buildGeneralEigenValues(self):
+        self._eigenvalues, self._eigenvectors = np.linalg.eig(
                 self._adjacencyMatrix)
 
     def resetOperator(self):
@@ -83,14 +87,13 @@ class Operator:
             :type gamma: (int, optional)
         """
         self._time = time
+        diag = np.diag(np.exp(-1j *
+                              self._eigenvalues * self._time)).diagonal()
+        self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
-            diag = np.diag(np.exp(-1j *
-                               self._eigenvalues*self._time)).diagonal()
-            self._operator = np.multiply(self._eigenvectors, diag)
             self._operator = np.matmul(self._operator,self._eigenvectors.H)
         else:
-            self._operator = np.matrix(expm(-1j*self._adjacencyMatrix*self._time))
-
+            self._operator = np.matmul(self._operator,inv(self._eigenvectors))
     def setDim(self, newDim: int) -> None:
         """
         Sets the current operator dimensions to a user defined one.
