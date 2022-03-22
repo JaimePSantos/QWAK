@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
+from scipy.linalg import inv
 
 
 class State:
@@ -25,6 +26,12 @@ class State:
         self._n = n
         self._nodeList = nodeList
         self._stateVec = np.zeros((self._n, 1))
+
+    def herm(self):
+        return self._stateVec.H
+
+    def inv(self):
+        return inv(self._stateVec)
 
     def resetState(self):
         self._stateVec = np.zeros((self._n, 1))
@@ -155,3 +162,6 @@ class State:
             :rtype: str
         """
         return f"{self._stateVec}"
+
+    def __matmul__(self,other):
+        return self._stateVec @ other

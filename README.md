@@ -15,9 +15,18 @@ Continuous-time quantum walk analysis framework.
 2. Navigate to the cloned directory
 
 #### Setup Virtual environment (optional but recommended)
-3. Once inside the cloned repo, create a python virtual environment: `python3 -m venv qwakEnv`
-4. Create a shortcut for the activation executable: `ln -s /qwakEnv/bin/activate qwakEnv`
-5. Activate the environment: `source qwakEnv`
+##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Using python venv
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Once inside the cloned repo, create a python virtual environment: `python3 -m venv qwakEnv`
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Create a shortcut for the activation executable: `ln -s /qwakEnv/bin/activate qwakEnv`
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. Activate the environment: `source qwakEnv`
+
+#####  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Using conda
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Alternatively, create a conda environment inside the cloned repo with `conda create -n qwakEnv`
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4/5. Activate the conda environment with `conda activate qwakEnv`
+
 
 #### Installing the package
 6. Install required python dependencies: `pip install numpy scipy sympy matplotlib networkx`
