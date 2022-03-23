@@ -93,7 +93,7 @@ class Operator:
         if self._isHermitian:
             self._operator = np.matmul(self._operator,self._eigenvectors.H)
         else:
-            self._operator = np.matmul(self._operator,inv(self._eigenvectors))
+            self._operator = np.matmul(self._operator,(self._eigenvectors))
     def setDim(self, newDim: int) -> None:
         """
         Sets the current operator dimensions to a user defined one.

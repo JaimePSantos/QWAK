@@ -5,6 +5,7 @@ from qwak.Operator import Operator
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
 from qwak.State import State
+from qwak.Errors import StateOutOfBounds
 
 class QWAK:
     """
@@ -58,7 +59,10 @@ class QWAK:
         """
         self._time = time
         self._initStateList = initStateList
-        self._initState.buildState(self._initStateList)
+        try:
+            self._initState.buildState(self._initStateList)
+        except StateOutOfBounds as err:
+            raise(err)
         self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()

@@ -61,28 +61,36 @@ let setInitState = async () => {
 }
 
 let setTime = async () => {
-    staticQuantumWalk.time = parseFloat(inputTime.value);
+    staticQuantumWalk.time = (inputTime.value);
     eel.setTime(staticQuantumWalk.time);
 }
 
 let setStaticProbDist = async () => {
     let walk = await getWalk();
-    let distList = walk.flat();
-    staticChartData.data.datasets[0].data = distList;
-    staticChartData.data.labels = [...Array(distList.length).keys()];
-    myChart.destroy();
-    myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-    await setStaticMean();
-    await setStaticSndMoment();
-    await setStaticStDev();
-    await setInversePartRatio();
+    if(walk[0]==true){
+        alert(walk[1]);
+        return;
+    }
+    else{
+        console.log(walk[1]);
+        let distList = walk[1].flat();
+        staticChartData.data.datasets[0].data = distList;
+        staticChartData.data.labels = [...Array(distList.length).keys()];
+        myChart.destroy();
+        myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
+        await setStaticMean();
+        await setStaticSndMoment();
+        await setStaticStDev();
+        await setInversePartRatio();
+    }
+
 }
 
 let getWalk = () => {
     return eel
         .runWalk()()
         .then((a) => {
-            return a ? a : Promise.reject(Error("Get Walk failed."));
+            return a;
         })
         .catch((e) => console.log(e));
 };

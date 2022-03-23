@@ -3,6 +3,8 @@ from __future__ import annotations
 import numpy as np
 from scipy.linalg import inv
 
+from qwak.Errors import StateOutOfBounds
+
 
 class State:
     """
@@ -47,6 +49,9 @@ class State:
             :type nodeList: list
         """
         if nodeList is not None:
+            for node in nodeList:
+                if node >= self._n:
+                    raise StateOutOfBounds(f"State {node} is out of bounds for system of size {self._n} ([0-{self._n-1}]).")
             self._nodeList = nodeList
         nodeAmp = np.sqrt(len(self._nodeList))
         for state in self._nodeList:

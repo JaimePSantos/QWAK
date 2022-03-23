@@ -3,14 +3,18 @@ from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
 from qwak.Operator import Operator
 from qwak.State import State
+from qwak.Errors import StateOutOfBounds
+
 
 import json
 import timeit
 from matplotlib import pyplot as plt
 import numpy as np
+from numpy import pi, sqrt
 import networkx as nx
 import eel
 import os
+
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, '../GraphicalInterface')
 eel.init(guiPath)
@@ -114,8 +118,8 @@ if __name__ == '__main__':
     @eel.expose
     def setTime(newTime):
         global staticQuantumWalk,t
-        t=newTime
-        staticQuantumWalk.setTime(newTime)
+        t = eval(newTime)
+        staticQuantumWalk.setTime(t)
     
     @eel.expose
     def getTime():
@@ -124,12 +128,14 @@ if __name__ == '__main__':
     @eel.expose
     def runWalk():
         global staticQuantumWalk,n,t,initState
-        # staticQuantumWalk.resetWalk()
-        staticQuantumWalk.runWalk(t,initState)
+        try:
+            staticQuantumWalk.runWalk(t,initState)
+        except StateOutOfBounds as err:
+            return [True,str(err)]
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()
-        return probLists
+        return [False,probLists]
     
     @eel.expose
     def runMultipleWalks():
