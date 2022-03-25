@@ -93,7 +93,8 @@ class Operator:
         if self._isHermitian:
             self._operator = np.matmul(self._operator,self._eigenvectors.H)
         else:
-            self._operator = np.matmul(self._operator,(self._eigenvectors))
+            self._operator = np.matmul(self._operator,inv(self._eigenvectors))
+
     def setDim(self, newDim: int) -> None:
         """
         Sets the current operator dimensions to a user defined one.
@@ -202,6 +203,7 @@ class Operator:
             nodeA, nodeB = swapNodes(nodeA,nodeB)
 
         symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
+        #Isto já foi calculado.
         eigenVec, D = symAdj.diagonalize()
         eigenVal = getEigenVal(D)
         isCospec = isStrCospec(symAdj, nodeA, nodeB)
