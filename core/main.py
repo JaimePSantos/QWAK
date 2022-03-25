@@ -12,14 +12,19 @@ from sympy import Matrix
 
 if __name__ == '__main__':
     n = 7
-    t = 0
-    # graph = nx.cycle_graph(n)
+    t = 5
+    graph = nx.cycle_graph(n)
     # graph=nx.complete_graph(n)
-    graph = nx.complete_bipartite_graph(4,3)
+    # graph = nx.complete_bipartite_graph(4,3)
     # marked = range(int(n/2))
-    marked = [6]
-    # qwController = QWAK(graph)
-    qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
+    marked = [3]
+    print(list(marked))
+    qwController = QWAK(graph)
+    qwController.runWalk(t,marked)
+    print(qwController.getAmpVec().getStateVec())
+    print(qwController.getProbDist().getProbVec())
+    plt.plot(qwController.getProbDist().getProbVec())
+    plt.show()
     # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
     # qwController.runWalk(t,marked)
     # plt.plot(qwController.getProbDist().getProbVec())
@@ -29,24 +34,24 @@ if __name__ == '__main__':
     times = np.linspace(0,50,200)
     # print(f"init: {qwController.getInitState()}")
 
-    for time in times:
+    # for time in times:
     #     print()
     #     print(f"time = {time}")
     #     print()
-        qwController.runWalk(time, marked)
+    #     qwController.runWalk(time, marked)
     #     print(f"init cond: {qwController.getInitState()}\n")
     #     print(f"adjm: {qwController.getAdjacencyMatrix()}")
-        tef = qwController.getTransportEfficiency()
+    #     tef = qwController.getTransportEfficiency()
     #     # print(f"Controller time: {qwController.getOperator().getTime()}")
     #     # print(f"init: {qwController.getInitState()}")
     #     # print(f"finalState: {qwController.getAmpVec()}")
-        eta.append(tef)
+    #     eta.append(tef)
     #     print()
     #     print("###################################################################################################")
     #     print()
 
-    print(f"calculo: {1/((1-(4/7))*7)}")
-    print(f"eta: {eta[-1]}")
+    # print(f"calculo: {1/((1-(4/7))*7)}")
+    # print(f"eta: {eta[-1]}")
     # plt.plot(eta)
     # plt.show()
 

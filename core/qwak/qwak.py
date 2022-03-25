@@ -44,7 +44,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
+    def runWalk(self, time: float = 0, initStateList: list = [0], weights=None) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
         with the given parameters. These can be accessed with their respective get methods.

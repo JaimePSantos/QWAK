@@ -149,7 +149,7 @@ class Operator:
         self._adjacencyMatrix = adjacencyMatrix.astype(complex)
         self._n = len(self._adjacencyMatrix)
         self.resetOperator()
-        self.buildEigenValues()
+        self.buildHermitianEigenValues()
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """
