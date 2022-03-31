@@ -1,6 +1,6 @@
 import os
 retval = os.getcwd()
-os.chdir( retval + "\\..\\..\\TestOutput\\Profiling\\" )
+os.chdir( retval + "\\TestOutput\\Profiling\\" )
 
 def marshalFile(fileName,filePath):
     os.chdir(filePath)

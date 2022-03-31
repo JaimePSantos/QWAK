@@ -1,0 +1,13 @@
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.052,0.052,0.059,0.059,Operator.py:75(buildDiagonalOperator)
+1,0.006,0.006,0.006,0.006,{method 'conjugate' of 'numpy.ndarray' objects}
+1,0.004,0.004,0.014,0.014,ProbabilityDistribution.py:36(buildProbDist)
+2000,0.003,0.000,0.005,0.000,defmatrix.py:189(__getitem__)
+6005,0.002,0.000,0.002,0.000,defmatrix.py:167(__array_finalize__)
+1001,0.001,0.000,0.003,0.000,{built-in method numpy.core._multiarray_umath.implement_array_function}
+1,0.001,0.001,0.001,0.001,twodim_base.py:234(diag)
+1,0.001,0.001,0.001,0.001,QuantumWalk.py:46(buildWalk)
+1000,0.001,0.000,0.005,0.000,defmatrix.py:215(__mul__)
+1000,0.001,0.000,0.001,0.000,{built-in method _warnings.warn}
+
+

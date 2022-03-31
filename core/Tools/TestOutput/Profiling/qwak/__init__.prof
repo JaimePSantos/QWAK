@@ -1,0 +1,13 @@
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.785,0.785,0.785,0.785,linalg.py:1324(eigh)
+1,0.016,0.016,0.028,0.028,numeric.py:2340(within_tol)
+1,0.014,0.014,0.042,0.042,numeric.py:2259(isclose)
+2,0.007,0.004,0.007,0.004,{built-in method builtins.abs}
+23/17,0.005,0.000,0.828,0.049,{built-in method numpy.core._multiarray_umath.implement_array_function}
+1,0.004,0.004,0.004,0.004,{method 'conjugate' of 'numpy.ndarray' objects}
+5,0.004,0.001,0.004,0.001,{method 'astype' of 'numpy.ndarray' objects}
+1,0.001,0.001,0.841,0.841,Operator.py:19(__init__)
+1001,0.001,0.000,0.001,0.000,reportviews.py:783(__iter__)
+1,0.000,0.000,0.008,0.008,Operator.py:56(buildLaplacianAdjacency)
+
+
