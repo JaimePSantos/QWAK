@@ -1,8 +1,10 @@
 import os
-retval = os.getcwd()
-os.chdir( retval + "\\TestOutput\\Profiling\\" )
 
-def marshalFile(fileName,filePath):
+retval = os.getcwd()
+os.chdir(retval + "\\TestOutput\\Profiling\\")
+
+
+def marshalFile(fileName, filePath):
     os.chdir(filePath)
     timeDict = {}
     with open(fileName) as f:
@@ -16,6 +18,5 @@ def marshalFile(fileName,filePath):
 
     print(timeDict)
 
-marshalFile("__init__.prof","qwak/")
 
-
+marshalFile("__init__.prof", "qwak/")

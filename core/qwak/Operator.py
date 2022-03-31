@@ -9,6 +9,7 @@ from sympy.abc import pi
 from math import sqrt, ceil, pow
 from scipy.linalg import expm, schur, inv
 
+
 class Operator:
     """
     Class that represents the operators that will be used in a quantum walk.
@@ -16,7 +17,7 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph,laplacian:bool=False,adjacencyMatrix=None,markedSearch=None) -> None:
+    def __init__(self, graph: nx.Graph, laplacian: bool = False, adjacencyMatrix=None, markedSearch=None) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -38,10 +39,10 @@ class Operator:
             :type graph: NetworkX.Graph
         """
         self._graph = graph
-        self.buildLaplacianAdjacency(laplacian,markedSearch)
+        self.buildLaplacianAdjacency(laplacian, markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
-        self._isHermitian= np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.H)
+        self._isHermitian = np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.H)
         self._time = 0
         if self._isHermitian:
             self.buildHermitianEigenValues()
@@ -53,7 +54,7 @@ class Operator:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
-    def buildLaplacianAdjacency(self,laplacian, markedSearch):
+    def buildLaplacianAdjacency(self, laplacian, markedSearch):
         if laplacian:
             self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
             self.buildMarkedAdjacency(markedSearch)
@@ -63,11 +64,11 @@ class Operator:
 
     def buildHermitianEigenValues(self):
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-                self._adjacencyMatrix)
+            self._adjacencyMatrix)
 
     def buildGeneralEigenValues(self):
         self._eigenvalues, self._eigenvectors = np.linalg.eig(
-                self._adjacencyMatrix)
+            self._adjacencyMatrix)
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
@@ -91,9 +92,9 @@ class Operator:
                               self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
-            self._operator = np.matmul(self._operator,self._eigenvectors.H)
+            self._operator = np.matmul(self._operator, self._eigenvectors.H)
         else:
-            self._operator = np.matmul(self._operator,inv(self._eigenvectors))
+            self._operator = np.matmul(self._operator, inv(self._eigenvectors))
 
     def setDim(self, newDim: int) -> None:
         """
@@ -183,7 +184,7 @@ class Operator:
         """
         return self._operator
 
-    def checkPST(self,nodeA, nodeB):
+    def checkPST(self, nodeA, nodeB):
         """
          Checks if all the conditions are true and return the **VALUE** if the graph
          has PST and False otherwise.
@@ -200,10 +201,10 @@ class Operator:
             :rtype: **Value** or Bool
         """
         if nodeA > nodeB:
-            nodeA, nodeB = swapNodes(nodeA,nodeB)
+            nodeA, nodeB = swapNodes(nodeA, nodeB)
 
         symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
-        #Isto já foi calculado.
+        # Isto já foi calculado.
         eigenVec, D = symAdj.diagonalize()
         eigenVal = getEigenVal(D)
         isCospec = isStrCospec(symAdj, nodeA, nodeB)
@@ -266,7 +267,3 @@ class Operator:
             :rtype: str
         """
         return f"{self._operator}"
-
-
-
-

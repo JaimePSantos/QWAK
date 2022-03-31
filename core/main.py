@@ -20,7 +20,7 @@ if __name__ == '__main__':
     marked = [3]
     print(list(marked))
     qwController = QWAK(graph)
-    qwController.runWalk(t,marked)
+    qwController.runWalk(t, marked)
     print(qwController.getAmpVec())
     print(qwController.getProbDistVec())
     plt.plot(qwController.getProbDistVec())
@@ -31,7 +31,7 @@ if __name__ == '__main__':
     # plt.show()
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
     eta = []
-    times = np.linspace(0,50,200)
+    times = np.linspace(0, 50, 200)
     # print(f"init: {qwController.getInitState()}")
 
     # for time in times:

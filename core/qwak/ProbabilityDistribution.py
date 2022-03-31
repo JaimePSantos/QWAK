@@ -84,32 +84,32 @@ class ProbabilityDistribution:
             :return: float(m)
             :rtype: float
         """
-        pos = np.arange(0,self._n)
+        pos = np.arange(0, self._n)
         m = 0
         for x in range(self._n):
-            m += pos[x]*self._probVec[x]
+            m += pos[x] * self._probVec[x]
         return float(m)
 
-    def moment(self,k) -> float:
-        pos = np.arange(0,self._n)
+    def moment(self, k) -> float:
+        pos = np.arange(0, self._n)
         m = 0
         for x in range(self._n):
-            m += (pos[x]**k)*self._probVec[x]
+            m += (pos[x] ** k) * self._probVec[x]
         return float(m)
 
     def stDev(self):
-        stDev = self.moment(2) - self.moment(1)**2
+        stDev = self.moment(2) - self.moment(1) ** 2
         if stDev <= 0:
             return 0
         return np.sqrt(stDev)
 
-    def survivalProb(self,k0,k1):
+    def survivalProb(self, k0, k1):
         survProb = 0
         if k0 == k1:
             return self._probVec[int(k0)][0]
         else:
-            for i in range(int(k0),int(k1)+1):
-                survProb +=  self._probVec[i]
+            for i in range(int(k0), int(k1) + 1):
+                survProb += self._probVec[i]
         return survProb[0]
 
     def __str__(self) -> str:
@@ -121,4 +121,3 @@ class ProbabilityDistribution:
             :rtype: str
         """
         return f'{self._probVec}'
-

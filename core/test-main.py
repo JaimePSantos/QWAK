@@ -3,7 +3,9 @@ import numpy as np
 import timeit
 from collections import Counter
 
-from QuantumWalkTest.QuantumWalkDaoTest import QuantumWalkDaoTestV1, QuantumWalkDaoTestV2, QuantumWalkDaoTestV3, QuantumWalkDaoTestV4
+from QuantumWalkTest.QuantumWalkDaoTest import QuantumWalkDaoTestV1, QuantumWalkDaoTestV2, QuantumWalkDaoTestV3, \
+    QuantumWalkDaoTestV4
+
 
 def getAvgTime(timeList):
     te = 0

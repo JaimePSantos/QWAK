@@ -6,6 +6,7 @@ class Error(BaseException):
     def as_string(self):
         return f'{self.error_name}: {self.details}\n'
 
+
 class StateOutOfBounds(Error):
     def __init__(self, details):
         super().__init__('Condition out of bounds: ', details)

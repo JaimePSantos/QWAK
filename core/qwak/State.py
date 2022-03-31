@@ -38,7 +38,7 @@ class State:
     def resetState(self):
         self._stateVec = np.zeros((self._n, 1))
 
-    def buildState(self, nodeList: list=None) -> None:
+    def buildState(self, nodeList: list = None) -> None:
         """
         Builds state vector from state list, by creating a balanced superposition of all
         nodes in the nodeList.
@@ -51,7 +51,8 @@ class State:
         if nodeList is not None:
             for node in nodeList:
                 if node >= self._n:
-                    raise StateOutOfBounds(f"State {node} is out of bounds for system of size {self._n} ([0-{self._n-1}]).")
+                    raise StateOutOfBounds(
+                        f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}]).")
             self._nodeList = nodeList
         nodeAmp = np.sqrt(len(self._nodeList))
         for state in self._nodeList:
@@ -168,5 +169,5 @@ class State:
         """
         return f"{self._stateVec}"
 
-    def __matmul__(self,other):
+    def __matmul__(self, other):
         return self._stateVec @ other

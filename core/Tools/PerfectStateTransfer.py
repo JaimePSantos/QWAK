@@ -6,6 +6,7 @@ import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
 
+
 ### Algorithm to check PST based on the article https://arxiv.org/abs/1606.02264 authored by Rodrigo Chaves
 
 ## For a graph to have PST it needs to obey numerous rules and the first one is that the vertices with PST must be
@@ -147,18 +148,20 @@ def checkRoots(A, a, eigenvec, eigenval):
 
     diffs = []
     for i in range(len(supp)):
-        diffs.append( (max(supp) - supp[i]) / np.sqrt(delta) )
+        diffs.append((max(supp) - supp[i]) / np.sqrt(delta))
 
     g = 0
     for diff in diffs:
         g = np.gcd(g, diff)
     return True, g, delta
 
-def swapNodes(nodeA,nodeB):
+
+def swapNodes(nodeA, nodeB):
     nodeA = nodeA + nodeB
     nodeB = nodeA - nodeB
     nodeA = nodeA - nodeB
     return nodeA, nodeB
+
 
 def getEigenVal(D):
     eigenVal = []

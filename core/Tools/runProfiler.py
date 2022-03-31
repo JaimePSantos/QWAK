@@ -24,5 +24,5 @@ if __name__ == '__main__':
     qwController.getMean()
     qwController.getSndMoment()
     qwController.getStDev()
-    qwController.getSurvivalProb(19,21)
+    qwController.getSurvivalProb(19, 21)
     qwController.getInversePartRatio()
