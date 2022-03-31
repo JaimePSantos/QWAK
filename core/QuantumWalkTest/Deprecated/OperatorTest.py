@@ -170,6 +170,7 @@ class OperatorTestV1:
     def getOperator(self):
         return self._operator
 
+
 class OperatorTestV2:
     """[summary]
     """
@@ -342,6 +343,7 @@ class OperatorTestV2:
         """
         return self._operator
 
+
 class OperatorTestV3:
     """[summary]
     """
@@ -513,6 +515,7 @@ class OperatorTestV3:
             [type]: [description]
         """
         return self._operator
+
 
 class OperatorTestV4:
     """[summary]

@@ -13,7 +13,6 @@ import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
 
-
 if __name__ == '__main__':
     n = 1000
     t = 10
@@ -25,6 +24,5 @@ if __name__ == '__main__':
     qwController.getMean()
     qwController.getSndMoment()
     qwController.getStDev()
-    qwController.getSurvivalProb(19,21)
+    qwController.getSurvivalProb(19, 21)
     qwController.getInversePartRatio()
-

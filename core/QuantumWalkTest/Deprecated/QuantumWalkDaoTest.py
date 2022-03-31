@@ -147,6 +147,7 @@ class QuantumWalkDaoTestV1:
         """
         return self._probDist.getStateProbability(state)
 
+
 class QuantumWalkDaoTestV2:
     """[summary]
     """
@@ -289,6 +290,7 @@ class QuantumWalkDaoTestV2:
             [type]: [description]
         """
         return self._probDist.getStateProbability(state)
+
 
 class QuantumWalkDaoTestV3:
     """[summary]
@@ -433,6 +435,7 @@ class QuantumWalkDaoTestV3:
         """
         return self._probDist.getStateProbability(state)
 
+
 class QuantumWalkDaoTestV4:
     """[summary]
     """
@@ -576,4 +579,3 @@ class QuantumWalkDaoTestV4:
             [type]: [description]
         """
         return self._probDist.getStateProbability(state)
-

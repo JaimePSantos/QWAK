@@ -3,21 +3,24 @@ from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
 from qwak.Operator import Operator
 from qwak.State import State
+from qwak.Errors import StateOutOfBounds
 
 import json
 import timeit
 from matplotlib import pyplot as plt
 import numpy as np
+from numpy import pi, sqrt
 import networkx as nx
 import eel
 import os
+
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, '../GraphicalInterface')
 eel.init(guiPath)
 
-#TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
-#TODO: Grafico de animacao do JavaScript mexe com o tamanho dos picos.
-#TODO: Formularios para introduzir parametros.
+# TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
+# TODO: Grafico de animacao do JavaScript mexe com o tamanho dos picos.
+# TODO: Formularios para introduzir parametros.
 
 if __name__ == '__main__':
     global n, t, initState, staticQuantumWalk
@@ -29,9 +32,9 @@ if __name__ == '__main__':
     staticQuantumWalk = QWAK(graph)
     staticQuantumWalk.runWalk(t, initState)
 
-    global timeList,initStateList,dynamicQuantumWalk,dynProbDistList, dynAmpsList
-    timeList = [0,100]
-    initStateList = [[int(n/2),int(n/2)+1]]
+    global timeList, initStateList, dynamicQuantumWalk, dynProbDistList, dynAmpsList
+    timeList = [0, 100]
+    initStateList = [[int(n / 2), int(n / 2) + 1]]
     dynamicQuantumWalk = QWAK(graph)
     dynamicQuantumWalk.runWalk(timeList[0], initStateList[0])
     dynProbDistList = []
@@ -39,35 +42,43 @@ if __name__ == '__main__':
 
     resultRounding = 3
 
+
     @eel.expose
     def getStaticMean():
-        return round(staticQuantumWalk.getMean(),resultRounding)
+        return round(staticQuantumWalk.getMean(), resultRounding)
+
 
     @eel.expose
     def getStaticSndMoment():
-        return round(staticQuantumWalk.getSndMoment(),resultRounding)
+        return round(staticQuantumWalk.getSndMoment(), resultRounding)
+
 
     @eel.expose
     def getStaticStDev():
-        return round(staticQuantumWalk.getStDev(),resultRounding)
+        return round(staticQuantumWalk.getStDev(), resultRounding)
+
 
     @eel.expose
-    def getStaticSurvivalProb(k0,k1):
-        return round(staticQuantumWalk.getSurvivalProb(k0,k1),resultRounding)
+    def getStaticSurvivalProb(k0, k1):
+        return round(staticQuantumWalk.getSurvivalProb(k0, k1), resultRounding)
+
 
     @eel.expose
     def getInversePartRatio():
-        return round(staticQuantumWalk.getInversePartRatio(),resultRounding)
+        return round(staticQuantumWalk.getInversePartRatio(), resultRounding)
+
 
     @eel.expose
-    def checkPST(nodeA,nodeB):
-        pst = staticQuantumWalk.checkPST(nodeA,nodeB)
+    def checkPST(nodeA, nodeB):
+        pst = staticQuantumWalk.checkPST(nodeA, nodeB)
         return str(pst)
+
 
     @eel.expose
     def setTimeList(newTimeList):
         global timeList
-        timeList = list(map(float,newTimeList.split(',')))
+        timeList = list(map(float, newTimeList.split(',')))
+
 
     @eel.expose
     def setInitStateList(newInitStateList):
@@ -75,30 +86,35 @@ if __name__ == '__main__':
         initStateList = []
         parsedInitState = newInitStateList.split(';')
         for initState in parsedInitState:
-            initStateList.append(list(map(int,initState.split(','))))
+            initStateList.append(list(map(int, initState.split(','))))
+
 
     @eel.expose
     def setInitState(initStateStr):
         global initState
-        initState = list(map(int,initStateStr.split(',')))
+        initState = list(map(int, initStateStr.split(',')))
         newState = State(staticQuantumWalk.getDim())
         newState.buildState(initState)
         staticQuantumWalk.setInitState(newState)
 
+
     @eel.expose
     def getInitState():
         return staticQuantumWalk.getInitState()
-        
+
+
     @eel.expose
-    def setDim(newDim,graphStr):
+    def setDim(newDim, graphStr):
         global staticQuantumWalk, dynamicQuantumWalk
         staticQuantumWalk.setDim(newDim, graphStr)
         dynamicQuantumWalk.setDim(newDim, graphStr)
 
+
     @eel.expose
     def getDim():
         return staticQuantumWalk.getDim()
-        
+
+
     @eel.expose
     def setGraph(newGraph):
         global staticQuantumWalk, dynamicQuantumWalk
@@ -107,38 +123,45 @@ if __name__ == '__main__':
         staticQuantumWalk.setGraph(newStaticGraph)
         dynamicQuantumWalk.setGraph(newDynamicGraph)
 
+
     @eel.expose
     def getGraph():
         return staticQuantumWalk.getGraph()
 
+
     @eel.expose
     def setTime(newTime):
-        global staticQuantumWalk,t
-        t=newTime
-        staticQuantumWalk.setTime(newTime)
-    
+        global staticQuantumWalk, t
+        t = eval(newTime)
+        staticQuantumWalk.setTime(t)
+
+
     @eel.expose
     def getTime():
         return staticQuantumWalk.getTime()
 
+
     @eel.expose
     def runWalk():
-        global staticQuantumWalk,n,t,initState
-        # staticQuantumWalk.resetWalk()
-        staticQuantumWalk.runWalk(t,initState)
+        global staticQuantumWalk, n, t, initState
+        try:
+            staticQuantumWalk.runWalk(t, initState)
+        except StateOutOfBounds as err:
+            return [True, str(err)]
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()
-        return probLists
-    
+        return [False, probLists]
+
+
     @eel.expose
     def runMultipleWalks():
         qwProbVecList = []
-        global timeList,initStateList,dynamicQuantumWalk,dynProbDistList,dynAmpsList
+        global timeList, initStateList, dynamicQuantumWalk, dynProbDistList, dynAmpsList
         dynamicQuantumWalk.resetWalk()
         dynProbDistList = []
         dynAmpsList = []
-        timeRange = np.linspace(timeList[0],timeList[1],int(timeList[1]))
+        timeRange = np.linspace(timeList[0], timeList[1], int(timeList[1]))
         for t in timeRange:
             dynamicQuantumWalk.runWalk(t, initStateList[0])
             qwProbabilities = dynamicQuantumWalk.getProbDist()
@@ -150,6 +173,7 @@ if __name__ == '__main__':
             qwProbVecList.append(probLists)
         return qwProbVecList
 
+
     @eel.expose
     def getDynMean():
         meanList = []
@@ -157,6 +181,7 @@ if __name__ == '__main__':
         for probDist in dynProbDistList:
             meanList.append(probDist.mean())
         return meanList
+
 
     @eel.expose
     def getDynStDev():
@@ -166,6 +191,7 @@ if __name__ == '__main__':
             stDevList.append(probDist.stDev())
         return stDevList
 
+
     @eel.expose
     def getDynInvPartRatio():
         invPartRatioList = []
@@ -174,13 +200,15 @@ if __name__ == '__main__':
             invPartRatioList.append(amps.invPartRatio())
         return invPartRatioList
 
+
     @eel.expose
-    def getDynSurvivalProb(k0,k1):
+    def getDynSurvivalProb(k0, k1):
         survProbList = []
         global dynAmpsList
         for probDist in dynProbDistList:
-            survProbList.append(probDist.survivalProb(k0,k1))
+            survProbList.append(probDist.survivalProb(k0, k1))
         return survProbList
+
 
     @eel.expose
     def graphToJson():
@@ -188,17 +216,18 @@ if __name__ == '__main__':
         myCytGraph = nx.cytoscape_data(graph)
         return myCytGraph
 
+
     @eel.expose
     def customGraphWalk():
         global staticQuantumWalk, dynamicQuantumWalk, initState
         adjM = np.matrix(eel.sendAdjacencyMatrix()()['data'])
         staticQuantumWalk.setAdjacencyMatrix(adjM)
-        initState = [int(staticQuantumWalk.getDim()/2)]
+        initState = [int(staticQuantumWalk.getDim() / 2)]
         staticQuantumWalk.runWalk(t, initState)
         dynamicQuantumWalk.setAdjacencyMatrix(adjM)
-        dynamicQuantumWalk.runWalk(t,initState)
+        dynamicQuantumWalk.runWalk(t, initState)
+
 
     eel.start('index.html', port=8080, cmdline_args=['--start-maximized'])
 
-        
     pass

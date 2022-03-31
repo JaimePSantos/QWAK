@@ -23,7 +23,7 @@ qwOperator = Operator(graph=graph)
 qwOperator.buildDiagonalOperator(t)
 qwFinalState = QuantumWalk(qwInitState,qwOperator)
 qwFinalState.buildWalk()
-qwProbDist = ProbabilityDistribution(qwFinalState.getAmpVec())
+qwProbDist = ProbabilityDistribution(qwFinalState.getFinalState())
 qwProbDist.buildProbDist()
 print(f"Init State: \n {qwInitState}\n\n"
       f"Operator: \n {qwOperator}\n\n"
@@ -40,5 +40,5 @@ print(f"Mean: {qwController.getProbDist().mean()}\t "
       f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n")
       # f"PST {qwController.checkPST(0,2)}")
 
-plt.plot(qwController.getProbDist().getProbVec())
+plt.plot(qwController.getProbDistVec())
 plt.show()

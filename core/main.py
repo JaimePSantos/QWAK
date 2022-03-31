@@ -11,41 +11,49 @@ from scipy.linalg import expm, schur
 from sympy import Matrix
 
 if __name__ == '__main__':
-    n = 100
-    t = 0
+    n = 7
+    t = 5
     graph = nx.cycle_graph(n)
     # graph=nx.complete_graph(n)
-
+    # graph = nx.complete_bipartite_graph(4,3)
     # marked = range(int(n/2))
     marked = [3]
-    # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,1j)])
-    qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
+    print(list(marked))
+    qwController = QWAK(graph)
+    qwController.runWalk(t, marked)
+    print(qwController.getAmpVec())
+    print(qwController.getProbDistVec())
+    plt.plot(qwController.getProbDistVec())
+    plt.show()
+    # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
     # qwController.runWalk(t,marked)
+    # plt.plot(qwController.getProbDist().getProbVec())
+    # plt.show()
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
     eta = []
-    times = np.linspace(0,50,200)
-
+    times = np.linspace(0, 50, 200)
     # print(f"init: {qwController.getInitState()}")
 
-    for time in times:
+    # for time in times:
     #     print()
     #     print(f"time = {time}")
     #     print()
-        qwController.runWalk(time, marked)
+    #     qwController.runWalk(time, marked)
     #     print(f"init cond: {qwController.getInitState()}\n")
     #     print(f"adjm: {qwController.getAdjacencyMatrix()}")
-        tef = qwController.getTransportEfficiency()
+    #     tef = qwController.getTransportEfficiency()
     #     # print(f"Controller time: {qwController.getOperator().getTime()}")
     #     # print(f"init: {qwController.getInitState()}")
     #     # print(f"finalState: {qwController.getAmpVec()}")
-        eta.append(tef)
+    #     eta.append(tef)
     #     print()
     #     print("###################################################################################################")
     #     print()
 
+    # print(f"calculo: {1/((1-(4/7))*7)}")
     # print(f"eta: {eta[-1]}")
-    plt.plot(eta)
-    plt.show()
+    # plt.plot(eta)
+    # plt.show()
 
     # qwOperator = Operator(graph=graph)
     # qwOperator.buildDiagonalOperator(1)
@@ -56,12 +64,12 @@ if __name__ == '__main__':
     # qwOperator.buildDiagonalOperator(1)
     # print(qwOperator)
 
-    print(f"Mean: {qwController.getProbDist().mean()}\t "
-          f"Moment 1: {qwController.getProbDist().moment(1)}\n"
-          f"Moment 2: {qwController.getProbDist().moment(2)}\n"
-          f"Stdev: {qwController.getProbDist().stDev()}\n"
-          f"Survival Probability: {qwController.getProbDist().survivalProb(0,0)}\n"
-          f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n")
+    # print(f"Mean: {qwController.getProbDist().mean()}\t "
+    #       f"Moment 1: {qwController.getProbDist().moment(1)}\n"
+    #       f"Moment 2: {qwController.getProbDist().moment(2)}\n"
+    #       f"Stdev: {qwController.getProbDist().stDev()}\n"
+    #       f"Survival Probability: {qwController.getProbDist().survivalProb(0,0)}\n"
+    #       f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n")
     #       f"PST {qwController.checkPST(0,2)}")
 
     # G = nx.Graph()

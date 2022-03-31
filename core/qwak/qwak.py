@@ -5,6 +5,8 @@ from qwak.Operator import Operator
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
 from qwak.State import State
+from qwak.Errors import StateOutOfBounds
+
 
 class QWAK:
     """
@@ -17,7 +19,7 @@ class QWAK:
         for plotting with matplotlib, or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph, laplacian:bool = False, markedSearch = None) -> None:
+    def __init__(self, graph: nx.Graph, laplacian: bool = False, markedSearch=None) -> None:
         """
         Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
         respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
@@ -32,10 +34,10 @@ class QWAK:
         if markedSearch is not None:
             self._operator = Operator(self._graph, laplacian, markedSearch=markedSearch)
         else:
-            self._operator = Operator(self._graph,laplacian)
+            self._operator = Operator(self._graph, laplacian)
         self._n = len(self._graph)
         self._initStateList = [0]
-        self._initState = State(self._n,self._initStateList)
+        self._initState = State(self._n, self._initStateList)
         self._time = 0
 
     def resetWalk(self):
@@ -43,7 +45,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
+    def runWalk(self, time: float = 0, initStateList: list = [0], weights=None) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
         with the given parameters. These can be accessed with their respective get methods.
@@ -58,11 +60,14 @@ class QWAK:
         """
         self._time = time
         self._initStateList = initStateList
-        self._initState.buildState(self._initStateList)
+        try:
+            self._initState.buildState(self._initStateList)
+        except StateOutOfBounds as err:
+            raise (err)
         self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getAmpVec())
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
         self._probDist.buildProbDist()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
@@ -81,7 +86,7 @@ class QWAK:
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
         self._initStateList = [int(self._n / 2)]
-        self._initState = State(self._n,self._initStateList)
+        self._initState = State(self._n, self._initStateList)
         self._operator = Operator(self._graph)
 
     def getDim(self) -> int:
@@ -94,7 +99,7 @@ class QWAK:
         """
         return self._n
 
-    def setAdjacencyMatrix(self,newAdjMatrix):
+    def setAdjacencyMatrix(self, newAdjMatrix):
         self._operator.setAdjacencyMatrix(newAdjMatrix)
         self._n = len(self._operator.getAdjacencyMatrix())
         self._initStateList = [int(self._n / 2)]
@@ -209,6 +214,16 @@ class QWAK:
         """
         return self._quantumWalk
 
+    def getFinalState(self) -> State:
+        """
+        Gets current walk amplitudes, also known as final state.
+
+        Returns:
+            :return: self._quantumWalk.getWalk()
+            :rtype: State
+        """
+        return self._quantumWalk.getFinalState()
+
     def getAmpVec(self) -> State:
         """
         Gets current walk amplitudes, also known as final state.
@@ -240,6 +255,16 @@ class QWAK:
         """
         return self._probDist
 
+    def getProbDistVec(self) -> ProbabilityDistribution:
+        """
+        Gets the current probability distribution.
+
+        Returns:
+            :return: self._probDist.getProbDist()
+            :rtype: ProbabilityDistribution
+        """
+        return self._probDist.getProbVec()
+
     def searchNodeAmplitude(self, searchNode: int) -> complex:
         """
         Searches and gets the amplitude associated with a given node.
@@ -269,10 +294,10 @@ class QWAK:
         """
         return self._probDist.searchNodeProbability(searchNode)
 
-    def checkPST(self,nodeA,nodeB):
+    def checkPST(self, nodeA, nodeB):
         nodeA = int(nodeA)
         nodeB = int(nodeB)
-        return self._operator.checkPST(nodeA,nodeB)
+        return self._operator.checkPST(nodeA, nodeB)
 
     def transportEfficiency(self):
         return self._operator.transportEfficiency(self._initState.getStateVec())
@@ -286,8 +311,8 @@ class QWAK:
     def getStDev(self):
         return self._probDist.stDev()
 
-    def getSurvivalProb(self,k0,k1):
-        return self._probDist.survivalProb(k0,k1)
+    def getSurvivalProb(self, k0, k1):
+        return self._probDist.survivalProb(k0, k1)
 
     def getInversePartRatio(self):
         return self._quantumWalk.invPartRatio()

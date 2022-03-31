@@ -8,15 +8,16 @@ outPath = 'qwak/'
 stripDirs = True
 csv = True
 
+
 class QWAKBenchmark:
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
-    def __init__(self, graph: nx.Graph, laplacian:bool = False,markedSearch = None) -> None:
-        self.qwak = QWAK(graph,laplacian,markedSearch)
+    @profile(output_path=outPath, sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs, csv=csv)
+    def __init__(self, graph: nx.Graph, laplacian: bool = False, markedSearch=None) -> None:
+        self.qwak = QWAK(graph, laplacian, markedSearch)
 
-    @profile(output_path=outPath,sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs,csv=csv)
+    @profile(output_path=outPath, sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs, csv=csv)
     def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
-        self.qwak.runWalk(time,initStateList)
+        self.qwak.runWalk(time, initStateList)
 
     @profile(output_path=outPath, sort_by=sortBy, lines_to_print=linesToPrint, strip_dirs=stripDirs, csv=csv)
     def checkPST(self, nodeA, nodeB):

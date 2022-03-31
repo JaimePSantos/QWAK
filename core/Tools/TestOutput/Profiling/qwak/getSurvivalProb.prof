@@ -1,0 +1,7 @@
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.000,0.000,0.000,0.000,ProbabilityDistribution.py:106(survivalProb)
+1,0.000,0.000,0.000,0.000,QwakBenchmarkStub.py:43(getSurvivalProb)
+1,0.000,0.000,0.000,0.000,qwak.py:293(getSurvivalProb)
+1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
+
+
