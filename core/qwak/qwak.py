@@ -66,7 +66,7 @@ class QWAK:
         self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getAmpVec())
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
         self._probDist.buildProbDist()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
@@ -213,6 +213,16 @@ class QWAK:
         """
         return self._quantumWalk
 
+    def getFinalState(self) -> State:
+        """
+        Gets current walk amplitudes, also known as final state.
+
+        Returns:
+            :return: self._quantumWalk.getWalk()
+            :rtype: State
+        """
+        return self._quantumWalk.getFinalState()
+
     def getAmpVec(self) -> State:
         """
         Gets current walk amplitudes, also known as final state.
@@ -243,6 +253,16 @@ class QWAK:
             :rtype: ProbabilityDistribution
         """
         return self._probDist
+
+    def getProbDistVec(self) -> ProbabilityDistribution:
+        """
+        Gets the current probability distribution.
+
+        Returns:
+            :return: self._probDist.getProbDist()
+            :rtype: ProbabilityDistribution
+        """
+        return self._probDist.getProbVec()
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:
         """

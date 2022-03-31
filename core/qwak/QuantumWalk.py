@@ -123,16 +123,25 @@ class QuantumWalk:
         self._operator.setOperator(newWalk.getOperator())
         self._finalState.setState(newWalk.getWalk())
 
-    def getAmpVec(self) -> State:
+    def getFinalState(self) -> State:
         """
         Gets the final state associated with the walk.
-        TODO: Change name for better clarification.
 
         Returns:
             :return: self._finalState
             :rtype: State
         """
         return self._finalState
+
+    def getAmpVec(self) -> State:
+        """
+        Gets the array of the final state associated with the walk.
+
+        Returns:
+            :return: self._finalState
+            :rtype: State
+        """
+        return self._finalState.getStateVec()
 
     def searchNodeAmplitude(self, searchNode):
         """
