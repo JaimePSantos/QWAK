@@ -1,13 +1,72 @@
 ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
-1,0.785,0.785,0.785,0.785,linalg.py:1324(eigh)
-1,0.016,0.016,0.028,0.028,numeric.py:2340(within_tol)
-1,0.014,0.014,0.042,0.042,numeric.py:2259(isclose)
-2,0.007,0.004,0.007,0.004,{built-in method builtins.abs}
-23/17,0.005,0.000,0.828,0.049,{built-in method numpy.core._multiarray_umath.implement_array_function}
-1,0.004,0.004,0.004,0.004,{method 'conjugate' of 'numpy.ndarray' objects}
-5,0.004,0.001,0.004,0.001,{method 'astype' of 'numpy.ndarray' objects}
-1,0.001,0.001,0.841,0.841,Operator.py:19(__init__)
-1001,0.001,0.000,0.001,0.000,reportviews.py:783(__iter__)
-1,0.000,0.000,0.008,0.008,Operator.py:56(buildLaplacianAdjacency)
+1,0.494,0.494,0.494,0.494,linalg.py:1324(eigh)
+1,0.014,0.014,0.035,0.035,numeric.py:2259(isclose)
+1,0.013,0.013,0.021,0.021,numeric.py:2340(within_tol)
+2,0.006,0.003,0.006,0.003,{built-in method builtins.abs}
+1,0.003,0.003,0.003,0.003,{method 'conjugate' of 'numpy.ndarray' objects}
+5,0.002,0.000,0.002,0.000,{method 'astype' of 'numpy.ndarray' objects}
+23/17,0.002,0.000,0.529,0.031,{built-in method numpy.core._multiarray_umath.implement_array_function}
+1,0.001,0.001,0.540,0.540,Operator.py:20(__init__)
+1001,0.000,0.000,0.001,0.000,reportviews.py:783(__iter__)
+1,0.000,0.000,0.000,0.000,{built-in method scipy.sparse._sparsetools.csr_todense}
+1000,0.000,0.000,0.000,0.000,_collections_abc.py:767(__contains__)
+1,0.000,0.000,0.006,0.006,Operator.py:57(buildLaplacianAdjacency)
+1000,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
+1,0.000,0.000,0.001,0.001,function.py:1196(<genexpr>)
+6,0.000,0.000,0.000,0.000,{built-in method numpy.array}
+Next Entry
 
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.478,0.478,0.478,0.478,linalg.py:1324(eigh)
+1,0.017,0.017,0.038,0.038,numeric.py:2259(isclose)
+1,0.013,0.013,0.021,0.021,numeric.py:2340(within_tol)
+2,0.006,0.003,0.006,0.003,{built-in method builtins.abs}
+1,0.004,0.004,0.004,0.004,{method 'conjugate' of 'numpy.ndarray' objects}
+5,0.003,0.001,0.003,0.001,{method 'astype' of 'numpy.ndarray' objects}
+23/17,0.002,0.000,0.517,0.030,{built-in method numpy.core._multiarray_umath.implement_array_function}
+1,0.001,0.001,0.528,0.528,Operator.py:20(__init__)
+1001,0.001,0.000,0.001,0.000,reportviews.py:783(__iter__)
+1,0.000,0.000,0.000,0.000,{built-in method scipy.sparse._sparsetools.csr_todense}
+1000,0.000,0.000,0.000,0.000,_collections_abc.py:767(__contains__)
+1,0.000,0.000,0.007,0.007,Operator.py:57(buildLaplacianAdjacency)
+1,0.000,0.000,0.001,0.001,function.py:1196(<genexpr>)
+1000,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
+6,0.000,0.000,0.000,0.000,{built-in method numpy.array}
+Next Entry
+
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.467,0.467,0.467,0.467,linalg.py:1324(eigh)
+1,0.014,0.014,0.023,0.023,numeric.py:2340(within_tol)
+1,0.013,0.013,0.036,0.036,numeric.py:2259(isclose)
+2,0.006,0.003,0.006,0.003,{built-in method builtins.abs}
+1,0.003,0.003,0.003,0.003,{method 'conjugate' of 'numpy.ndarray' objects}
+23/17,0.003,0.000,0.504,0.030,{built-in method numpy.core._multiarray_umath.implement_array_function}
+5,0.003,0.001,0.003,0.001,{method 'astype' of 'numpy.ndarray' objects}
+1,0.001,0.001,0.514,0.514,Operator.py:20(__init__)
+1001,0.000,0.000,0.001,0.000,reportviews.py:783(__iter__)
+1,0.000,0.000,0.000,0.000,{built-in method scipy.sparse._sparsetools.csr_todense}
+1000,0.000,0.000,0.000,0.000,_collections_abc.py:767(__contains__)
+1,0.000,0.000,0.006,0.006,Operator.py:57(buildLaplacianAdjacency)
+1,0.000,0.000,0.001,0.001,function.py:1196(<genexpr>)
+1000,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
+7,0.000,0.000,0.000,0.000,{method 'reduce' of 'numpy.ufunc' objects}
+Next Entry
+
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.491,0.491,0.491,0.491,linalg.py:1324(eigh)
+1,0.014,0.014,0.035,0.035,numeric.py:2259(isclose)
+1,0.013,0.013,0.021,0.021,numeric.py:2340(within_tol)
+2,0.006,0.003,0.006,0.003,{built-in method builtins.abs}
+1,0.004,0.004,0.004,0.004,{method 'conjugate' of 'numpy.ndarray' objects}
+5,0.003,0.001,0.003,0.001,{method 'astype' of 'numpy.ndarray' objects}
+23/17,0.002,0.000,0.527,0.031,{built-in method numpy.core._multiarray_umath.implement_array_function}
+1,0.001,0.001,0.537,0.537,Operator.py:20(__init__)
+1001,0.001,0.000,0.001,0.000,reportviews.py:783(__iter__)
+1,0.000,0.000,0.000,0.000,{built-in method scipy.sparse._sparsetools.csr_todense}
+1000,0.000,0.000,0.000,0.000,_collections_abc.py:767(__contains__)
+1,0.000,0.000,0.006,0.006,Operator.py:57(buildLaplacianAdjacency)
+1,0.000,0.000,0.001,0.001,function.py:1196(<genexpr>)
+1000,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
+7,0.000,0.000,0.000,0.000,{method 'reduce' of 'numpy.ufunc' objects}
+Next Entry
 

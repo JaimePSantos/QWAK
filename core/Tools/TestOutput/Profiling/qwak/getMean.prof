@@ -1,8 +1,32 @@
 ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
 1,0.003,0.003,0.003,0.003,ProbabilityDistribution.py:93(moment)
 1,0.000,0.000,0.000,0.000,{built-in method numpy.arange}
-1,0.000,0.000,0.003,0.003,qwak.py:284(getMean)
-1,0.000,0.000,0.003,0.003,QwakBenchmarkStub.py:31(getMean)
+1,0.000,0.000,0.003,0.003,qwak.py:305(getMean)
+1,0.000,0.000,0.003,0.003,QwakBenchmarkStub.py:32(getMean)
 1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
+Next Entry
 
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.003,0.003,0.003,0.003,ProbabilityDistribution.py:93(moment)
+1,0.000,0.000,0.000,0.000,{built-in method numpy.arange}
+1,0.000,0.000,0.003,0.003,QwakBenchmarkStub.py:32(getMean)
+1,0.000,0.000,0.003,0.003,qwak.py:305(getMean)
+1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
+Next Entry
+
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.004,0.004,0.004,0.004,ProbabilityDistribution.py:93(moment)
+1,0.000,0.000,0.000,0.000,{built-in method numpy.arange}
+1,0.000,0.000,0.004,0.004,qwak.py:305(getMean)
+1,0.000,0.000,0.004,0.004,QwakBenchmarkStub.py:32(getMean)
+1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
+Next Entry
+
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.003,0.003,0.003,0.003,ProbabilityDistribution.py:93(moment)
+1,0.000,0.000,0.000,0.000,{built-in method numpy.arange}
+1,0.000,0.000,0.003,0.003,QwakBenchmarkStub.py:32(getMean)
+1,0.000,0.000,0.003,0.003,qwak.py:305(getMean)
+1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
+Next Entry
 
