@@ -1,5 +1,6 @@
 # QWAK
 Continuous-time quantum walk analysis framework.
+Documentation: https://jaimepsantos.github.io/QWAK/ 
 
 ## Requirements
 - Numpy
