@@ -38,6 +38,7 @@
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#creating-walks">Creating Walks</a></li>
 </ul>
 </li>
 </ul>
@@ -74,6 +75,35 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(.venv)</span> <span class="gp">$ </span>pip install .
 </pre></div>
 </div>
+</div>
+<div class="section" id="creating-walks">
+<span id="walks"></span><h2>Creating Walks<a class="headerlink" href="#creating-walks" title="Permalink to this headline"></a></h2>
+<p>To retrieve a list of random ingredients,
+you can use the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> class:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="QWAK">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nx.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QWAK" title="Permalink to this definition"></a></dt>
+<dd><p>Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
+respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param laplacian</dt>
+<dd class="field-odd"><p>Allows the user to choose whether to use the Laplacian or simple adjacency matrix.</p>
+</dd>
+<dt class="field-even">type laplacian</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">param graph</dt>
+<dd class="field-odd"><p>NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.</p>
+</dd>
+<dt class="field-even">type graph</dt>
+<dd class="field-even"><p>NetworkX.Graph</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 

@@ -5,7 +5,7 @@
 
 Welcome to QWAK's documentation!
 ================================
-**QWAK**  is a Python library for *simulating* `Quantum Random Walks <https://world.openfoodfacts.org/>`_.
+:py:class:`.QWAK`  is a Python library for *simulating* `Quantum Random Walks <https://world.openfoodfacts.org/>`_.
 
 Check out the :doc:`usage` section for further information, including how to
 :ref:`install <installation>` the project.
