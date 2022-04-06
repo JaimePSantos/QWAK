@@ -1,5 +1,5 @@
 import os
-from QuantumWalkTest.QwakBenchmarkStub import QWAKBenchmark
+from Tools.QwakBenchmarkStub import QWAKBenchmark
 import networkx as nx
 from matplotlib import pyplot as plt
 

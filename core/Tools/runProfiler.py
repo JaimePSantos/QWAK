@@ -1,17 +1,6 @@
-from qwak.State import State
-from qwak.Operator import Operator
-from qwak.QuantumWalk import QuantumWalk
-from qwak.ProbabilityDistribution import ProbabilityDistribution
-from qwak.qwak import QWAK
-from QuantumWalkTest.QwakBenchmarkStub import QWAKBenchmark
+from Tools.QwakBenchmarkStub import QWAKBenchmark
 
 import networkx as nx
-import numpy as np
-from matplotlib import pyplot as plt
-import timeit
-import sympy as sp
-from sympy.abc import pi
-from math import sqrt, ceil, pow
 
 if __name__ == '__main__':
     n = 1000

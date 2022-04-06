@@ -1,38 +1,17 @@
-.. qwak documentation master file, created by
-   sphinx-quickstart on Tue Dec 28 17:49:57 2021.
+.. QWAK documentation master file, created by
+   sphinx-quickstart on Wed Apr  6 20:52:08 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to qwak's documentation!
+Welcome to QWAK's documentation!
 ================================
+**QWAK**  is a Python library for *simulating* `Quantum Random Walks <https://world.openfoodfacts.org/>`_.
 
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore eveniet
-libero, mollitia soluta nobis voluptatum natus quisquam exercitationem autem a,
-omnis alias dolores suscipit molestias perferendis odit iusto beatae laborum?
+Check out the :doc:`usage` section for further information, including how to
+:ref:`install <installation>` the project.
 
-Accusantium consectetur quia facilis reiciendis odio repudiandae iure? Ipsam,
-dolor minima accusamus natus nam eum ipsum sunt ratione placeat sed maiores!
-Amet, autem aperiam dolorum magnam soluta natus magni nesciunt!
-
-At eaque commodi, consequuntur maiores inventore odit veniam, similique,
-laboriosam minus quam hic. Id totam eveniet, quia, beatae quam voluptate iusto
-quasi vero voluptatibus porro modi doloremque, et reprehenderit eum.
-
-Repellat pariatur facilis dolores quod, vitae explicabo ipsa voluptatibus
-totam, saepe veniam iure odit voluptates placeat porro, asperiores nulla
-tempore esse? Non exercitationem consequatur a quod perferendis veritatis sed
-eius?
-
-Neque id quisquam dicta cum reprehenderit ratione provident in earum quas vitae
-sed tempora, ad culpa facilis molestias minima illo eius distinctio labore
-harum, animi laborum! Repellat distinctio incidunt impedit!
-
-Unde possimus commodi nesciunt excepturi. Doloribus commodi aut quis
-necessitatibus, modi sint maxime ad sit perferendis deleniti reprehenderit
-obcaecati eligendi vitae minima voluptate deserunt? Cumque corrupti at
-excepturi explicabo quo?  Totam repellendus ipsum porro distinctio officiis
-laboriosam enim praesentium numquam cumque consequuntur omnis id dolorum
-aperiam amet accusantium ex quaerat, ad quia, veritatis quae necessitatibus.
+.. note::
+   This project is under active development.
 
 .. toctree::
    :maxdepth: 2
@@ -46,3 +25,10 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Contents
+--------
+
+.. toctree::
+
+   usage
