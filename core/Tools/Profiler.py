@@ -92,4 +92,7 @@ def prof_to_csv(prof, sort_by='cumulative', lines_to_print=None, strip_dirs=Fals
     # chop off header lines
     result = 'ncalls' + result.split('ncalls')[-1]
     lines = [','.join(line.rstrip().split(None, 5)) for line in result.split('\n')]
+    lines.append("Next Entry")
+    lines.append("\n")
+    lines = list(filter(None, lines))
     return '\n'.join(lines)

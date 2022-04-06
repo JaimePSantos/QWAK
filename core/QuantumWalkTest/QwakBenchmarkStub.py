@@ -2,7 +2,7 @@ from qwak.qwak import QWAK
 import networkx as nx
 from Tools.Profiler import profile
 
-linesToPrint = 10
+linesToPrint = 15
 sortBy = 'tottime'
 outPath = 'qwak/'
 stripDirs = True
