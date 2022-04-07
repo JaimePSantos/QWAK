@@ -50,9 +50,22 @@ exclude_patterns = []
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
-html_theme = 'sphinx_rtd_theme'
 
+import sphinx_bootstrap_theme
+html_theme = 'bootstrap'
+html_theme_path = sphinx_bootstrap_theme.get_html_theme_path()
+html_theme_options = {
+        'navbar_fixed_top': "true",
+        'source_link_position': "footer",
+        'globaltoc_depth': -1,
+        'bootstrap_version': "3",
+        #'bootswatch_theme': "united",
+        #'bootswatch_theme': "lumen",
+        'bootswatch_theme': "Darkly",
+        'navbar_links': [("Index", "genindex"),
+            ("Source","https://github.com/JaimePSantos/QWAK",True)],
+        'navbar_pagenav': False,
+    }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
