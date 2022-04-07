@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-QWAK - Quantum Walk Analysis Kit!
+QWAK - Quantum Walk Analysis Kit
 =================================
 :py:class:`.QWAK`  is a Python library for *simulating* `Quantum Random Walks <https://world.openfoodfacts.org/>`_.
 
