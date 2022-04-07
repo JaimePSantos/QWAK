@@ -28,4 +28,5 @@ Contents
 .. toctree::
    self
    Usage <usage>
+   Modules <modules>
 

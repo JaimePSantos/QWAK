@@ -85,3 +85,5 @@ add_module_names = False
 pygments_style = 'sphinx'
 
 html_short_title = 'QWAK'
+
+autodoc_typehints = "both"

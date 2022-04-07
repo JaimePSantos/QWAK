@@ -35,7 +35,7 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">QWAK - Quantum Walk Analysis Kit!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">QWAK - Quantum Walk Analysis Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 </ul>
 
@@ -124,6 +124,17 @@ the matrix exponent directly.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>nx.Graph</em>) – </p></li>
+<li><p><strong>laplacian</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.buildMarkedAdjacency">
 <span class="sig-name descname"><span class="pre">buildMarkedAdjacency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#qwak.Operator.Operator.buildMarkedAdjacency" title="Permalink to this definition"></a></dt>
@@ -174,6 +185,14 @@ conjugate of the eigenvectors.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>time</strong> (<em>float</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -184,6 +203,14 @@ conjugate of the eigenvectors.</p>
 <dt>Args:</dt><dd><p>newDim ([type]): [description]
 :param newDim:
 :type newDim:</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newDim</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -203,6 +230,11 @@ conjugate of the eigenvectors.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -220,6 +252,14 @@ conjugate of the eigenvectors.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newTime</strong> (<em>float</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -235,6 +275,11 @@ conjugate of the eigenvectors.</p>
 <dd class="field-even"><p>float</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
@@ -256,6 +301,14 @@ them instead change the graph entirely.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>adjacencyMatrix</strong> (<em>numpy.ndarray</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -271,6 +324,11 @@ them instead change the graph entirely.</p>
 <dd class="field-even"><p>Numpy.ndarray</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -290,6 +348,14 @@ them instead change the graph entirely.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>qwak.Operator.Operator</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -305,6 +371,11 @@ them instead change the graph entirely.</p>
 <dd class="field-even"><p>Numpy.matrix</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.matrix</p>
 </dd>
 </dl>
 </dd></dl>
@@ -373,6 +444,14 @@ with the dimension obtained from the state.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>qwak.State.State</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.resetProbDist">
 <span class="sig-name descname"><span class="pre">resetProbDist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.resetProbDist" title="Permalink to this definition"></a></dt>
@@ -384,6 +463,11 @@ with the dimension obtained from the state.</p>
 <dd><p>Builds the probability vector by multiplying the user inputted
 amplitude state by its conjugate.
 TODO: Nao devia ser pelo complexo conjugado?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -401,6 +485,14 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newProbVec</strong> (<em>numpy.ndarray</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -416,6 +508,11 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dd class="field-even"><p>Numpy.ndarray</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -444,6 +541,14 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -461,12 +566,22 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.moment">
 <span class="sig-name descname"><span class="pre">moment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.moment" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.stDev">
@@ -513,6 +628,17 @@ as an instance of State class.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p></li>
+<li><p><strong>operator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.QuantumWalk.resetWalk">
 <span class="sig-name descname"><span class="pre">resetWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qwak.QuantumWalk.QuantumWalk.resetWalk" title="Permalink to this definition"></a></dt>
@@ -523,6 +649,11 @@ as an instance of State class.</p>
 <span class="sig-name descname"><span class="pre">buildWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#qwak.QuantumWalk.QuantumWalk.buildWalk" title="Permalink to this definition"></a></dt>
 <dd><p>Builds the final state of the quantum walk by setting it to the matrix
 multiplication of the operator by the initial state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -538,6 +669,14 @@ multiplication of the operator by the initial state.</p>
 <dd class="field-even"><p>State</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newInitState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>qwak.State.State</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -557,6 +696,11 @@ multiplication of the operator by the initial state.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">qwak.State.State</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -572,6 +716,14 @@ multiplication of the operator by the initial state.</p>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newDim</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -591,6 +743,11 @@ multiplication of the operator by the initial state.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -606,6 +763,14 @@ multiplication of the operator by the initial state.</p>
 <dd class="field-even"><p>Operator</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>qwak.Operator.Operator</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -625,6 +790,11 @@ multiplication of the operator by the initial state.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator">qwak.Operator.Operator</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -640,6 +810,14 @@ multiplication of the operator by the initial state.</p>
 <dd class="field-even"><p>QuantumWalk</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newWalk</strong> (<a class="reference internal" href="#qwak.QuantumWalk.QuantumWalk" title="qwak.QuantumWalk.QuantumWalk"><em>qwak.QuantumWalk.QuantumWalk</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -659,6 +837,11 @@ multiplication of the operator by the initial state.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">qwak.State.State</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -674,6 +857,11 @@ multiplication of the operator by the initial state.</p>
 <dd class="field-even"><p>State</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">qwak.State.State</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -746,6 +934,17 @@ and an internal stateVec which will be a Numpy ndarray representing the column v
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) – </p></li>
+<li><p><strong>nodeList</strong> (<em>list</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.herm">
 <span class="sig-name descname"><span class="pre">herm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qwak.State.State.herm" title="Permalink to this definition"></a></dt>
@@ -778,6 +977,14 @@ This will be changed in the future to make nodeList make more sense.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nodeList</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -795,6 +1002,14 @@ This will be changed in the future to make nodeList make more sense.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newDim</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -810,6 +1025,11 @@ This will be changed in the future to make nodeList make more sense.</p>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -830,6 +1050,14 @@ This might not be needed and removed in the future.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newNodeList</strong> (<em>list</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -845,6 +1073,11 @@ This might not be needed and removed in the future.</p>
 <dd class="field-even"><p>list</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -864,6 +1097,14 @@ This might not be needed and removed in the future.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newVec</strong> (<em>numpy.ndarray</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -879,6 +1120,11 @@ This might not be needed and removed in the future.</p>
 <dd class="field-even"><p>Numpy.ndarray</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -897,6 +1143,14 @@ Sets all the parameters of the current state to user defined ones.</p>
 <dd class="field-even"><p>State</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>qwak.State.State</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -936,6 +1190,17 @@ respectively. Methods runWalk or buildWalk must then be used to generate the res
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>networkx.classes.graph.Graph</em>) – </p></li>
+<li><p><strong>laplacian</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.resetWalk">
 <span class="sig-name descname"><span class="pre">resetWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#qwak.qwak.QWAK.resetWalk" title="Permalink to this definition"></a></dt>
@@ -969,6 +1234,17 @@ with the given parameters. These can be accessed with their respective get metho
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<em>float</em>) – </p></li>
+<li><p><strong>initStateList</strong> (<em>list</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -994,6 +1270,17 @@ evaluated and executed as a NetworkX graph generator.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>newDim</strong> (<em>int</em>) – </p></li>
+<li><p><strong>graphStr</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1009,6 +1296,11 @@ evaluated and executed as a NetworkX graph generator.</p>
 <dd class="field-even"><p>int</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1039,6 +1331,14 @@ Also recalculates the current operator and walk dimension.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newGraph</strong> (<em>networkx.classes.graph.Graph</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1054,6 +1354,11 @@ Also recalculates the current operator and walk dimension.</p>
 <dd class="field-even"><p>NetworkX.Graph</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>networkx.classes.graph.Graph</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1073,6 +1378,14 @@ Also recalculates the current operator and walk dimension.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newInitState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>qwak.State.State</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1088,6 +1401,11 @@ Also recalculates the current operator and walk dimension.</p>
 <dd class="field-even"><p>State</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">qwak.State.State</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1107,6 +1425,14 @@ Also recalculates the current operator and walk dimension.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newTime</strong> (<em>float</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1124,6 +1450,11 @@ Also recalculates the current operator and walk dimension.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1139,6 +1470,14 @@ Also recalculates the current operator and walk dimension.</p>
 <dd class="field-even"><p>Operator</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>qwak.Operator.Operator</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1176,6 +1515,14 @@ This might not be needed and removed in the future.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newWalk</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>qwak.State.State</em></a>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1191,6 +1538,11 @@ This might not be needed and removed in the future.</p>
 <dd class="field-even"><p>State</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">qwak.State.State</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1210,6 +1562,11 @@ This might not be needed and removed in the future.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">qwak.State.State</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1225,6 +1582,11 @@ This might not be needed and removed in the future.</p>
 <dd class="field-even"><p>State</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">qwak.State.State</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1245,6 +1607,14 @@ This might not be needed and removed in the future.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>newProbDist</strong> (<em>object</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1262,6 +1632,11 @@ This might not be needed and removed in the future.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution">qwak.ProbabilityDistribution.ProbabilityDistribution</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1277,6 +1652,11 @@ This might not be needed and removed in the future.</p>
 <dd class="field-even"><p>ProbabilityDistribution</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution">qwak.ProbabilityDistribution.ProbabilityDistribution</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1305,6 +1685,14 @@ This might not be needed and removed in the future.</p>
 </dl>
 </dd>
 </dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>complex</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
@@ -1329,6 +1717,14 @@ This might not be needed and removed in the future.</p>
 <dd class="field-even"><p>float</p>
 </dd>
 </dl>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – </p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 </dd></dl>
