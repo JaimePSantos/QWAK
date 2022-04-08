@@ -1,5 +1,5 @@
 # QWAK
-Quantum Walk Analysis kit - Continuous-time quantum walk analysis framework.
+Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
 [Documentation](https://jaimepsantos.github.io/QWAK/ ).
 
