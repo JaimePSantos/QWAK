@@ -30,4 +30,3 @@ you can use the ``QWAK`` class:
             :type laplacian: bool
             :param graph: NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.
             :type graph: NetworkX.Graph
-

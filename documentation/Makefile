@@ -1,5 +1,8 @@
 # Minimal makefile for Sphinx documentation
 #
+linuxgit:
+	@make html
+	@cp -a build/html/. ../docs
 github:
 	@make html
 	@xcopy "build\html\" "..\docs\" /E /H /C /I
