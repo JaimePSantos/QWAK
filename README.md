@@ -38,7 +38,7 @@ Continuous-time quantum walk analysis framework.
 #### Testing the installation
 9. Run the basic testing suite: `python installCheck.py`
 
-### Running the GUI
+#### Running the GUI
 10. From the `qwak` folder, navigate to the `core` folder using `cd core`.
 11. Run the GUI file with the command `python gui-main.py`.
 
@@ -46,8 +46,17 @@ Continuous-time quantum walk analysis framework.
 (Under construction)
 
 ## Contributing to the package
+#### Changes to the package
 1. Upgrade your build package with `python -m pip install --upgrade build`.
 2. Edit the package to reflect your changes.
 3. Build the distribution files by running `python -m build`.
 4. Reinstall the package without using previously cached versions with `pip install . --no-cache-dir`.
 5. Push your changes to github!
+
+#### Building Documentation
+1. Install the [sphinx](https://www.sphinx-doc.org/en/master/) `pip install sphinx`
+2. Generate basic documentation files for the package `sphinx-quickstart documentation/` (probably already present in the repo so just skip)
+3. Generate autodoc files from the modules you want to document `sphinx-apidoc -f -o source/ ../core/<modules>`
+4. Clean previous build files `make clean`
+5. Build html documentation page `make html`
+6. Copy the new contents to docs folder for github pages `make linuxgit` or `make github`
