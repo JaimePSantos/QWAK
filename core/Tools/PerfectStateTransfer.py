@@ -1,10 +1,7 @@
-import networkx as nx
-import numpy as np
-from matplotlib import pyplot as plt
-from sympy import Matrix, gcd, div, Poly, Float, pprint
-import sympy as sp
-from sympy.abc import pi
 from math import sqrt, ceil, pow
+
+import numpy as np
+from sympy import gcd, div, Float
 
 
 ### Algorithm to check PST based on the article https://arxiv.org/abs/1606.02264 authored by Rodrigo Chaves

@@ -1,6 +1,6 @@
-from Tools.QwakBenchmarkStub import QWAKBenchmark
-
 import networkx as nx
+
+from Tools.QwakBenchmarkStub import QWAKBenchmark
 
 if __name__ == '__main__':
     n = 1000

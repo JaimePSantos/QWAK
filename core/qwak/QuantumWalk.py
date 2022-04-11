@@ -4,8 +4,8 @@ import warnings
 
 import numpy as np
 
-from qwak.State import State
 from qwak.Operator import Operator
+from qwak.State import State
 
 warnings.filterwarnings("ignore")
 

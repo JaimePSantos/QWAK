@@ -1,18 +1,12 @@
-from qwak.qwak import QWAK
-from qwak.ProbabilityDistribution import ProbabilityDistribution
-from qwak.QuantumWalk import QuantumWalk
-from qwak.Operator import Operator
-from qwak.State import State
-from qwak.Errors import StateOutOfBounds
-
-import json
-import timeit
-from matplotlib import pyplot as plt
-import numpy as np
-from numpy import pi, sqrt
-import networkx as nx
-import eel
 import os
+
+import eel
+import networkx as nx
+import numpy as np
+
+from qwak.Errors import StateOutOfBounds
+from qwak.State import State
+from qwak.qwak import QWAK
 
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, '../GraphicalInterface')

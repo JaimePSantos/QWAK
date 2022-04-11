@@ -1,5 +1,5 @@
-import { cy, customCy, staticChartData} from "./static-tools.js";
-import { StaticQuantumwalk } from "./staticQuantumwalk.js";
+import {customCy, cy, staticChartData} from "./static-tools.js";
+import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
@@ -67,11 +67,10 @@ let setTime = async () => {
 
 let setStaticProbDist = async () => {
     let walk = await getWalk();
-    if(walk[0]==true){
+    if (walk[0] == true) {
         alert(walk[1]);
         return;
-    }
-    else{
+    } else {
         console.log(walk[1]);
         let distList = walk[1].flat();
         staticChartData.data.datasets[0].data = distList;
@@ -139,80 +138,81 @@ let setPST = async () => {
     inputPSTResult.value = PST;
 }
 
-let getStaticMean = () =>{
+let getStaticMean = () => {
     return eel
-    .getStaticMean()()
-    .then((a) => {
-        return a ? a : Promise.reject(Error("Get Static Mean failed."));
-    })
-    .catch((e) => console.log(e));
+        .getStaticMean()()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Static Mean failed."));
+        })
+        .catch((e) => console.log(e));
 }
 
-let getStaticSndMoment = () =>{
+let getStaticSndMoment = () => {
     return eel
-    .getStaticSndMoment()()
-    .then((a) => {
-        return a ? a : Promise.reject(Error("Get Static Snd Moment failed."));
-    })
-    .catch((e) => console.log(e));
+        .getStaticSndMoment()()
+        .then((a) => {
+            return a ? a : Promise.reject(Error("Get Static Snd Moment failed."));
+        })
+        .catch((e) => console.log(e));
 }
 
-let getStaticStDev = () =>{
+let getStaticStDev = () => {
     return eel
-    .getStaticStDev()()
-    .then((a) => {
-        if (isNaN(a)){
-            Promise.reject(Error("Get Static Standard Deviation faile: StDev is NaN."));
-        }else{
-            return a;
-        }
-    })
-    .catch((e) => console.log(e));
-}
-
-let getStaticSurvivalProb = (fromNode,toNode) =>{
-    return eel
-    .getStaticSurvivalProb(fromNode,toNode)()
-    .then((a) => {
-        if (isNaN(a)){
-            Promise.reject(Error("Get Survival Probability failed: SP is NaN."));
-        }else{
-            return a;
-        }
-    })
-    .catch((e) => console.log(e));
-}
-
-let getInversePartRatio = () =>{
-    return eel
-    .getInversePartRatio()()
-    .then((a) => {
-        if (isNaN(a)){
-                Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
-            }else{
+        .getStaticStDev()()
+        .then((a) => {
+            if (isNaN(a)) {
+                Promise.reject(Error("Get Static Standard Deviation faile: StDev is NaN."));
+            } else {
                 return a;
-            }        })
-    .catch((e) => console.log(e));
+            }
+        })
+        .catch((e) => console.log(e));
 }
 
-let getPST = (nodeA,nodeB) =>{
+let getStaticSurvivalProb = (fromNode, toNode) => {
     return eel
-    .checkPST(nodeA,nodeB)()
-    .then((a) => {
-        if (isNaN(parseFloat(a))){
+        .getStaticSurvivalProb(fromNode, toNode)()
+        .then((a) => {
+            if (isNaN(a)) {
+                Promise.reject(Error("Get Survival Probability failed: SP is NaN."));
+            } else {
+                return a;
+            }
+        })
+        .catch((e) => console.log(e));
+}
+
+let getInversePartRatio = () => {
+    return eel
+        .getInversePartRatio()()
+        .then((a) => {
+            if (isNaN(a)) {
                 Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
-            }else if(parseFloat(a)<0){
+            } else {
+                return a;
+            }
+        })
+        .catch((e) => console.log(e));
+}
+
+let getPST = (nodeA, nodeB) => {
+    return eel
+        .checkPST(nodeA, nodeB)()
+        .then((a) => {
+            if (isNaN(parseFloat(a))) {
+                Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
+            } else if (parseFloat(a) < 0) {
                 return "No PST.";
-            }else{
+            } else {
                 return a;
-        }
-    })
-    .catch((e) => console.log(e));
+            }
+        })
+        .catch((e) => console.log(e));
 }
 
 // #### GRAPHS  ####
 
-cy.layout({ name: "circle" }).run();
+cy.layout({name: "circle"}).run();
 
 // #### #### GRAPH GENERATOR #### ####
 
@@ -252,7 +252,7 @@ let getGraph = () => {
 let updateGraph = (graph) => {
     cy.elements().remove()
     cy.add(graph.elements)
-    cy.layout({ name: "circle" }).run();
+    cy.layout({name: "circle"}).run();
 }
 
 var eh = customCy.edgehandles();
@@ -272,7 +272,11 @@ let nodeYPos = 0;
 let addNodeButtonPress = async () => {
     nodeNumber++;
     nodeYPos += 50;
-    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString(), name: nodeNumber.toString() },  position: { x: nodeXPos, y: nodeYPos }});
+    customCy.add({
+        group: 'nodes',
+        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
+        position: {x: nodeXPos, y: nodeYPos}
+    });
     // customCy.layout();
 }
 
@@ -287,14 +291,15 @@ let graphCustomButtonPress = async () => {
 }
 
 eel.expose(sendAdjacencyMatrix);
-function sendAdjacencyMatrix(){
+
+function sendAdjacencyMatrix() {
     return createAdjacencyMatrix(customCy);
 }
 
 function createAdjacencyMatrix(graph) {
     let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
 
-    for(let edg of graph.json().elements.edges){
+    for (let edg of graph.json().elements.edges) {
         console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
         adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
         adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);

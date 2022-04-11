@@ -2,12 +2,11 @@ from __future__ import annotations
 
 import networkx as nx
 import numpy as np
-from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
-from sympy import Matrix, gcd, div, Poly, Float, pprint
 import sympy as sp
+from scipy.linalg import inv
 from sympy.abc import pi
-from math import sqrt, ceil, pow
-from scipy.linalg import expm, schur, inv
+
+from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 
 class Operator:

@@ -27,6 +27,7 @@ def profile(output_path, output_file=None, sort_by='cumulative', lines_to_print=
     Returns:
         Profile of the decorated function
     """
+
     def noop_decorator(func):
         return func  # pass through
 

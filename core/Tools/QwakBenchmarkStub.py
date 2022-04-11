@@ -1,6 +1,7 @@
-from qwak.qwak import QWAK
 import networkx as nx
+
 from Tools.Profiler import profile
+from qwak.qwak import QWAK
 
 linesToPrint = 15
 sortBy = 'tottime'

@@ -1,14 +1,8 @@
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
-import timeit
-import sympy as sp
-from sympy.abc import pi
-from math import sqrt, ceil, pow
+
 from qwak.qwak import QWAK
-from qwak.Operator import Operator
-from scipy.linalg import expm, schur
-from sympy import Matrix
 
 if __name__ == '__main__':
     n = 7

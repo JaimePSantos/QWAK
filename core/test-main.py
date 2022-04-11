@@ -1,10 +1,9 @@
-import networkx as nx
-import numpy as np
 import timeit
 from collections import Counter
 
-from QuantumWalkTest.QuantumWalkDaoTest import QuantumWalkDaoTestV1, QuantumWalkDaoTestV2, QuantumWalkDaoTestV3, \
-    QuantumWalkDaoTestV4
+import networkx as nx
+import numpy as np
+from QuantumWalkTest.QuantumWalkDaoTest import QuantumWalkDaoTestV2, QuantumWalkDaoTestV4
 
 
 def getAvgTime(timeList):

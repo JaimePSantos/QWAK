@@ -1,11 +1,10 @@
 import networkx as nx
-import numpy as np
 
+from qwak.Errors import StateOutOfBounds
 from qwak.Operator import Operator
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.QuantumWalk import QuantumWalk
 from qwak.State import State
-from qwak.Errors import StateOutOfBounds
 
 
 class QWAK:

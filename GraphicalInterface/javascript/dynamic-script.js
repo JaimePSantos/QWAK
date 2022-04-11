@@ -1,5 +1,13 @@
-import { cy, customCy, dynamicChartData,dynamicMeanChartData, dynamicStDevChartData, dynamicInvPartRatioChartData, dynamicSurvivalProbChartData} from "./dynamic-tools.js";
-import { DynamicQuantumwalk } from "./dynamicQuantumwalk.js";
+import {
+    customCy,
+    cy,
+    dynamicChartData,
+    dynamicInvPartRatioChartData,
+    dynamicMeanChartData,
+    dynamicStDevChartData,
+    dynamicSurvivalProbChartData
+} from "./dynamic-tools.js";
+import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
@@ -24,27 +32,27 @@ let inputRangeInit = () => {
 
 inputRangeInit();
 
-function openTab(evt, graph,tabcontent,tablinks) {
+function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables
     var i, tabcontent, tablinks;
-  
+
     // Get all elements with class="tabcontent" and hide them
     tabcontent = document.getElementsByClassName(tabcontent);
     for (i = 0; i < tabcontent.length; i++) {
-      tabcontent[i].style.display = "none";
+        tabcontent[i].style.display = "none";
     }
-  
+
     // Get all elements with class="tablinks" and remove the class "active"
     tablinks = document.getElementsByClassName(tablinks);
     for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
-  
+
     // Show the current tab, and add an "active" class to the button that opened the tab
     document.getElementById(graph).style.display = "block";
     evt.currentTarget.className += " active";
-  }
-  
+}
+
 
 // #### DYNAMIC QUANTUM WALK  ####
 
@@ -101,7 +109,7 @@ let getMultipleWalks = () => {
 
 // #### #### MEAN PLOT #### ####
 
-let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"),dynamicMeanChartData)
+let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"), dynamicMeanChartData)
 
 document.getElementById("dynamicMeanButton").addEventListener('click', async function () {
     setDynMean();
@@ -115,23 +123,23 @@ let setDynMean = async () => {
     myDynamicMeanChart.update();
 }
 
-let getDynMean = () =>{
+let getDynMean = () => {
     return eel
-    .getDynMean()()
-    .then((a) => {
-        // if (Array.isArray(a)){
-        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-        //     }else{
-        //         return a;
-        // }
-        return a;
-    })
-    .catch((e) => console.log(e));
+        .getDynMean()()
+        .then((a) => {
+            // if (Array.isArray(a)){
+            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+            //     }else{
+            //         return a;
+            // }
+            return a;
+        })
+        .catch((e) => console.log(e));
 }
 
 // #### #### STDEV PLOT #### ####
 
-let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"),dynamicStDevChartData)
+let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"), dynamicStDevChartData)
 
 document.getElementById("dynamicStDevButton").addEventListener('click', async function () {
     setDynStDev();
@@ -147,21 +155,21 @@ let setDynStDev = async () => {
 
 let getDynStDev = () => {
     return eel
-    .getDynStDev()()
-    .then((a) => {
-        // if (Array.isArray(a)){
-        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-        //     }else{
-        //         return a;
-        // }
-        return a;
-    })
-    .catch((e) => console.log(e));
+        .getDynStDev()()
+        .then((a) => {
+            // if (Array.isArray(a)){
+            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+            //     }else{
+            //         return a;
+            // }
+            return a;
+        })
+        .catch((e) => console.log(e));
 }
 
 // #### #### INV PART RATIO PLOT #### ####
 
-let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"),dynamicInvPartRatioChartData)
+let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"), dynamicInvPartRatioChartData)
 
 document.getElementById("dynamicInvPartRatioButton").addEventListener('click', async function () {
     setDynInvPartRatio();
@@ -177,21 +185,21 @@ let setDynInvPartRatio = async () => {
 
 let getDynInvPartRatio = () => {
     return eel
-    .getDynInvPartRatio()()
-    .then((a) => {
-        // if (Array.isArray(a)){
-        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-        //     }else{
-        //         return a;
-        // }
-        return a;
-    })
-    .catch((e) => console.log(e));
+        .getDynInvPartRatio()()
+        .then((a) => {
+            // if (Array.isArray(a)){
+            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+            //     }else{
+            //         return a;
+            // }
+            return a;
+        })
+        .catch((e) => console.log(e));
 }
 
 // #### #### SURVIVAL PROB PLOT #### ####
 
-let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"),dynamicSurvivalProbChartData)
+let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"), dynamicSurvivalProbChartData)
 
 document.getElementById("dynamicSurvivalProbButton").addEventListener('click', async function () {
     setDynSurvProb();
@@ -200,30 +208,30 @@ document.getElementById("dynamicSurvivalProbButton").addEventListener('click', a
 let setDynSurvProb = async () => {
     let k0 = document.getElementById("dynInputSurvProbNodeA").value
     let k1 = document.getElementById("dynInputSurvProbNodeB").value
-    let dynSurvProb = await getDynSurvProb(k0,k1);
+    let dynSurvProb = await getDynSurvProb(k0, k1);
     dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb.flat();
     dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb.length).keys()];
     myDynamicSurvivalProbChart.clear();
     myDynamicSurvivalProbChart.update();
 }
 
-let getDynSurvProb = (k0,k1) => {
+let getDynSurvProb = (k0, k1) => {
     return eel
-    .getDynSurvivalProb(k0,k1)()
-    .then((a) => {
-        // if (Array.isArray(a)){
-        //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-        //     }else{
-        //         return a;
-        // }
-        return a;
-    })
-    .catch((e) => console.log(e));
+        .getDynSurvivalProb(k0, k1)()
+        .then((a) => {
+            // if (Array.isArray(a)){
+            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+            //     }else{
+            //         return a;
+            // }
+            return a;
+        })
+        .catch((e) => console.log(e));
 }
 
 // #### GRAPHS  ####
 
-cy.layout({ name: "circle" }).run();
+cy.layout({name: "circle"}).run();
 
 // #### #### GRAPH GENERATOR #### ####
 
@@ -262,7 +270,7 @@ let getGraph = () => {
 let updateGraph = (graph) => {
     cy.elements().remove()
     cy.add(graph.elements)
-    cy.layout({ name: "circle" }).run();
+    cy.layout({name: "circle"}).run();
 }
 
 var eh = customCy.edgehandles();
@@ -282,7 +290,11 @@ let nodeYPos = 0;
 let addNodeButtonPress = async () => {
     nodeNumber++;
     nodeYPos += 50;
-    customCy.add({ group: 'nodes', data: { id: nodeNumber.toString(), name: nodeNumber.toString() },  position: { x: nodeXPos, y: nodeYPos }});
+    customCy.add({
+        group: 'nodes',
+        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
+        position: {x: nodeXPos, y: nodeYPos}
+    });
     // customCy.layout();
 }
 
@@ -297,14 +309,15 @@ let graphCustomButtonPress = async () => {
 }
 
 eel.expose(sendAdjacencyMatrix);
-function sendAdjacencyMatrix(){
+
+function sendAdjacencyMatrix() {
     return createAdjacencyMatrix(customCy);
 }
 
 function createAdjacencyMatrix(graph) {
     let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
 
-    for(let edg of graph.json().elements.edges){
+    for (let edg of graph.json().elements.edges) {
         console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
         adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
         adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);

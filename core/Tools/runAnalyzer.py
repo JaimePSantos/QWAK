@@ -1,11 +1,14 @@
 import os
-from Tools.QwakBenchmarkStub import QWAKBenchmark
+
 import networkx as nx
 from matplotlib import pyplot as plt
 
+from Tools.QwakBenchmarkStub import QWAKBenchmark
+
 if __name__ == "__main__":
     retval = os.getcwd()
-    os.chdir(os.path.join(retval,"TestOutput","Profiling"))
+    os.chdir(os.path.join(retval, "TestOutput", "Profiling"))
+
 
     def removeFiles(path):
         for folder in os.listdir(path):
@@ -20,6 +23,7 @@ if __name__ == "__main__":
                         print("Failed with:", e.strerror)  # look what it says
                         print("Error code:", e.code)
 
+
     def runQwakProfiler(graph, t, marked, k0, k1):
         qwController = QWAKBenchmark(graph, laplacian=False)
         qwController.runWalk(t, marked)
@@ -29,12 +33,14 @@ if __name__ == "__main__":
         qwController.getSurvivalProb(k0, k1)
         qwController.getInversePartRatio()
 
+
     def runMultipleQwakProfilers(N, t, marked, samples):
         for s in range(samples):
             graph = nx.cycle_graph(N)
             runQwakProfiler(graph, t, marked, 0, 1)
 
-    def unmarshallFile(fileName, filePath,timeDict):
+
+    def unmarshallFile(fileName, filePath, timeDict):
         os.chdir(filePath)
         numberOfEntries = 0
         with open(fileName) as f:
@@ -55,20 +61,22 @@ if __name__ == "__main__":
                         timeDict[l[5]] += float(l[1])
         return timeDict, numberOfEntries
 
-    def createTimeDicts(N, t, marked, samples,fileName,filePath):
+
+    def createTimeDicts(N, t, marked, samples, fileName, filePath):
         timeDict = {}
         timeDictDict = {}
         if type(N) is list:
             for n in N:
                 print(n)
-                runMultipleQwakProfilers(n,t,marked,samples)
-                timeDict,numberOfEntries = unmarshallFile(fileName,filePath,timeDict)
-                timeDictDict[n] = normalizeTimeDict(timeDict,numberOfEntries)
+                runMultipleQwakProfilers(n, t, marked, samples)
+                timeDict, numberOfEntries = unmarshallFile(fileName, filePath, timeDict)
+                timeDictDict[n] = normalizeTimeDict(timeDict, numberOfEntries)
                 timeDict = {}
         else:
-            timeDict, numberOfEntries = unmarshallFile(fileName, filePath,timeDict)
-            timeDictDict[N] =  normalizeTimeDict(timeDict,numberOfEntries)
+            timeDict, numberOfEntries = unmarshallFile(fileName, filePath, timeDict)
+            timeDictDict[N] = normalizeTimeDict(timeDict, numberOfEntries)
         return timeDictDict
+
 
     def normalizeTimeDict(timeDict, entryCount):
         for e in timeDict:
@@ -83,7 +91,7 @@ if __name__ == "__main__":
     k0 = 19
     k1 = 21
     samples = 1
-    N = list(range(2,n))
+    N = list(range(2, n))
 
     filePath = "qwak/"
     initFileName = "__init__.prof"
@@ -105,5 +113,5 @@ if __name__ == "__main__":
     for i in range(len(eighTime)):
         eighTimeList.append(eighTime[i]['linalg.py:1324(eigh)\n'])
 
-    plt.plot(nodes,eighTimeList)
+    plt.plot(nodes, eighTimeList)
     plt.show()
