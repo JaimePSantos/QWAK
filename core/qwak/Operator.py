@@ -29,8 +29,6 @@ class Operator:
         decomposition. This was the chosen method since it is computationally cheaper than calculating
         the matrix exponent directly.
 
-        TODO: Funcao para fazermos um loading screen na criacao do operador.
-
         Args:
             :param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
             :type laplacian: bool
@@ -38,36 +36,30 @@ class Operator:
             :type graph: NetworkX.Graph
         """
         self._graph = graph
-        self.buildLaplacianAdjacency(laplacian, markedSearch)
+        self.buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._isHermitian = np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.H)
         self._time = 0
-        if self._isHermitian:
-            self.buildHermitianEigenValues()
-        else:
-            self.buildGeneralEigenValues()
+        self.buildEigenValues(self._isHermitian)
 
-    def buildMarkedAdjacency(self, markedSearch):
+    def buildAdjacency(self,laplacian,markedSearch):
+        if laplacian:
+            self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
+        else:
+            self._adjacencyMatrix = nx.adjacency_matrix(self._graph).todense().astype(complex)
+
         if markedSearch is not None:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
-    def buildLaplacianAdjacency(self, laplacian, markedSearch):
-        if laplacian:
-            self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
-            self.buildMarkedAdjacency(markedSearch)
+    def buildEigenValues(self,isHermitian):
+        if isHermitian:
+            self._eigenvalues, self._eigenvectors = np.linalg.eigh(
+                self._adjacencyMatrix)
         else:
-            self._adjacencyMatrix = nx.adjacency_matrix(self._graph).todense().astype(complex)
-            self.buildMarkedAdjacency(markedSearch)
-
-    def buildHermitianEigenValues(self):
-        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix)
-
-    def buildGeneralEigenValues(self):
-        self._eigenvalues, self._eigenvectors = np.linalg.eig(
-            self._adjacencyMatrix)
+            self._eigenvalues, self._eigenvectors = np.linalg.eig(
+                self._adjacencyMatrix)
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
