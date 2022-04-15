@@ -13,7 +13,7 @@ class State:
     therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
 
-    def __init__(self, n: int, nodeList: list = [0]) -> None:
+    def __init__(self, n: int, nodeList: list = [0], customStateList = []) -> None:
         """
         Object is initialized with a mandatory user inputted dimension, an optional
         stateList parameter which will be used to create the amplitudes for each node in the state
@@ -28,6 +28,7 @@ class State:
         self._n = n
         self._nodeList = nodeList
         self._stateVec = np.zeros((self._n, 1))
+        self._customStateList = customStateList
 
     def herm(self):
         return self._stateVec.H
@@ -38,7 +39,7 @@ class State:
     def resetState(self):
         self._stateVec = np.zeros((self._n, 1))
 
-    def buildState(self, nodeList: list = None) -> None:
+    def buildState(self, nodeList: list = None, customStateList = None) -> None:
         """
         Builds state vector from state list, by creating a balanced superposition of all
         nodes in the nodeList.
@@ -54,9 +55,15 @@ class State:
                     raise StateOutOfBounds(
                         f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}]).")
             self._nodeList = nodeList
-        nodeAmp = np.sqrt(len(self._nodeList))
-        for state in self._nodeList:
-            self._stateVec[state] = 1 / nodeAmp
+        if customStateList is not None:
+            self._customStateList = customStateList
+        if len(self._customStateList)>0:
+            for customState in self._customStateList:
+                    self._stateVec[customState[0]] = customState[1]
+        elif len(self._customStateList)<=0:
+            nodeAmp = np.sqrt(len(self._nodeList))
+            for state in self._nodeList:
+                self._stateVec[state] = 1 / nodeAmp
 
     def setDim(self, newDim: int) -> None:
         """

@@ -3,29 +3,33 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from qwak.qwak import QWAK
+from qwak.State import State
 
 if __name__ == '__main__':
-    n = 7
-    t = 5
-    graph = nx.cycle_graph(n)
-    # graph=nx.complete_graph(n)
-    # graph = nx.complete_bipartite_graph(4,3)
-    # marked = range(int(n/2))
-    marked = [3]
-    print(list(marked))
-    qwController = QWAK(graph)
-    qwController.runWalk(t, marked)
-    print(qwController.getAmpVec())
-    print(qwController.getProbDistVec())
-    plt.plot(qwController.getProbDistVec())
-    plt.show()
-    # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
-    # qwController.runWalk(t,marked)
-    # plt.plot(qwController.getProbDist().getProbVec())
+    st = State(10,customStateList= [(1,5),(2,6)])
+    st.buildState()
+    print(st.getStateVec())
+    # n = 7
+    # t = 5
+    # graph = nx.cycle_graph(n)
+    # # graph=nx.complete_graph(n)
+    # # graph = nx.complete_bipartite_graph(4,3)
+    # # marked = range(int(n/2))
+    # marked = [3]
+    # print(list(marked))
+    # qwController = QWAK(graph)
+    # qwController.runWalk(t, marked)
+    # print(qwController.getAmpVec())
+    # print(qwController.getProbDistVec())
+    # plt.plot(qwController.getProbDistVec())
     # plt.show()
-    # sp.pprint(f"PST {qwController.checkPST(0,2)}")
-    eta = []
-    times = np.linspace(0, 50, 200)
+    # # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
+    # # qwController.runWalk(t,marked)
+    # # plt.plot(qwController.getProbDist().getProbVec())
+    # # plt.show()
+    # # sp.pprint(f"PST {qwController.checkPST(0,2)}")
+    # eta = []
+    # times = np.linspace(0, 50, 200)
     # print(f"init: {qwController.getInitState()}")
 
     # for time in times:
