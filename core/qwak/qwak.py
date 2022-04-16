@@ -35,8 +35,8 @@ class QWAK:
         else:
             self._operator = Operator(self._graph, laplacian)
         self._n = len(self._graph)
-        self._initStateList = [0]
-        self._initState = State(self._n, self._initStateList)
+        self._initStateList = []
+        self._initState = State(self._n)
         self._time = 0
 
     def resetWalk(self):
@@ -44,7 +44,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def runWalk(self, time: float = 0, initStateList: list = [0], weights=None) -> None:
+    def runWalk(self, time: float = 0, initStateList: list = [0], customStateList = []) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
         with the given parameters. These can be accessed with their respective get methods.
@@ -59,8 +59,9 @@ class QWAK:
         """
         self._time = time
         self._initStateList = initStateList
+        self._customStateList = customStateList
         try:
-            self._initState.buildState(self._initStateList)
+            self._initState.buildState(self._initStateList,self._customStateList)
         except StateOutOfBounds as err:
             raise (err)
         self._operator.buildDiagonalOperator(self._time)

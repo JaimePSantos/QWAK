@@ -7,7 +7,8 @@ from qwak.State import State
 
 if __name__ == '__main__':
     st = State(10,customStateList= [(1,5),(2,6)])
-    st.buildState()
+    # st = State(9,nodeList=[9])
+    st.buildState(nodeList = [1])
     print(st.getStateVec())
     # n = 7
     # t = 5
