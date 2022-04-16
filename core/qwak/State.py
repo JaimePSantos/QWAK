@@ -13,7 +13,7 @@ class State:
     therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
 
-    def __init__(self, n: int, nodeList: list = [0], customStateList=[]) -> None:
+    def __init__(self, n: int, nodeList: list = [], customStateList=[]) -> None:
         """
         Object is initialized with a mandatory user inputted dimension, an optional
         stateList parameter which will be used to create the amplitudes for each node in the state
