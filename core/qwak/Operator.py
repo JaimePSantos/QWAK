@@ -296,7 +296,7 @@ class StochasticOperator(object):
         self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
         self.N = self._adjacencyMatrix.shape[0]
         # normalized laplacian of the classical random walk
-        self.laplacian  = nx.laplacian_matrix(self._graph).todense().astype(complex)
+        self.laplacian  = np.matrix(nx.laplacian_matrix(self._graph).todense().astype(complex))
         self.sinkNode = sinkNode
         self.sink_rate = sinkRate
         self.noise_param = noiseParam
@@ -321,7 +321,7 @@ class StochasticOperator(object):
 
     def buildQuantumHamiltonian(self):
         if self.sinkNode is not None:
-            H = Qobj((1 - self.p) * np.pad(self.adjacency, [(0, 1), (0, 1)], 'constant'))
+            H = Qobj((1 - self.p) * np.pad(self._adjacencyMatrix, [(0, 1), (0, 1)], 'constant'))
         else:
             H = Qobj((1 - self.p) * self._adjacencyMatrix)
         return H
@@ -366,6 +366,8 @@ class StochasticOperator(object):
             density_matrix_value = np.zeros((self.N,self.N))
             density_matrix_value[initial_quantum_state, initial_quantum_state] = 1
             initial_quantum_state = Qobj(density_matrix_value)
+            print(density_matrix_value)
+            print(initial_quantum_state)
 
         # if a sink is present add it to the density matrix of the system
         if self.sinkNode is not None and initial_quantum_state.shape == (self.N, self.N):
@@ -375,7 +377,7 @@ class StochasticOperator(object):
                        self.classical_hamiltonian, observables, options=opts)
 
 
-n = 100
+n = 10
 time_samples = 1200
 initial_node = n // 2
 
