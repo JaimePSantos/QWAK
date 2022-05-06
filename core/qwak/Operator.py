@@ -10,6 +10,7 @@ from qutip import Qobj, basis, mesolve, Options
 from matplotlib import pyplot as plt
 
 from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
+from State import State
 
 
 class Operator:
@@ -369,6 +370,12 @@ class StochasticOperator(object):
             print(density_matrix_value)
             print(initial_quantum_state)
 
+        elif type(initial_quantum_state) == State:
+            print(initial_quantum_state)
+            initial_quantum_state = Qobj(initial_quantum_state.getStateVec())
+            print(initial_quantum_state)
+
+
         # if a sink is present add it to the density matrix of the system
         if self.sinkNode is not None and initial_quantum_state.shape == (self.N, self.N):
             initial_quantum_state = Qobj(np.pad(initial_quantum_state.data.toarray(), [(0, 1), (0, 1)], 'constant'))
@@ -377,12 +384,15 @@ class StochasticOperator(object):
                        self.classical_hamiltonian, observables, options=opts)
 
 
-n = 10
+n = 100
 time_samples = 1200
 initial_node = n // 2
 
 sQWAK = StochasticOperator(nx.cycle_graph(n), noiseParam=0.0, sinkNode=None)
-result = sQWAK.run_walker(initial_node, time_samples)
+initState = State(n,[n//2])
+initState.buildState()
+# result = sQWAK.run_walker(initial_node, time_samples)
+result = sQWAK.run_walker(initState, time_samples)
 new_state = result.final_state
 plt.plot(new_state.diag())
 plt.show()

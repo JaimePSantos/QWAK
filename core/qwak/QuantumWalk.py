@@ -4,7 +4,7 @@ import warnings
 
 import numpy as np
 
-from qwak.Operator import Operator
+from qwak.Operator import Operator, StochasticOperator
 from qwak.State import State
 
 warnings.filterwarnings("ignore")
@@ -180,3 +180,32 @@ class QuantumWalk:
             :rtype: str
         """
         return f'{self._finalState.getStateVec()}'
+
+class StochasticQuantumWalk:
+    """
+    Class that represents the final state containing the amplitudes of a
+    continuous-time quantum walk.
+
+    """
+
+    def __init__(self, state: State, operator: StochasticOperator) -> None:
+        """
+        This object is initialized with a user inputted initial state and
+        operator.
+        The dimension of the quantum walk will then be loaded from the initial
+        state.
+        The final state will contain the amplitudes of the time evolution of
+        the initial state, as a function of the operator. This variable is initialized
+        as an instance of State class.
+
+        Args:
+            :param state: Initial state which will be the basis of the time dependant evolution.
+            :type state: State
+            :param operator: Operator which will evolve the initial state.
+            :type operator: Operator.
+        """
+        self._n = state.getDim()
+        self._initState = state
+        self._operator = operator
+        self._finalState = State(self._n)
+

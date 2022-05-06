@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 from scipy.linalg import inv
 
-from qwak.Errors import StateOutOfBounds
+from Errors import StateOutOfBounds
 
 
 class State:
