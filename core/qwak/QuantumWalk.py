@@ -6,6 +6,7 @@ import numpy as np
 
 from qwak.Operator import Operator, StochasticOperator
 from qwak.State import State
+from qutip import Qobj, basis, mesolve, Options
 
 warnings.filterwarnings("ignore")
 
@@ -181,7 +182,8 @@ class QuantumWalk:
         """
         return f'{self._finalState.getStateVec()}'
 
-class StochasticQuantumWalk:
+
+class StochasticQuantumWalk(object):
     """
     Class that represents the final state containing the amplitudes of a
     continuous-time quantum walk.
@@ -205,7 +207,27 @@ class StochasticQuantumWalk:
             :type operator: Operator.
         """
         self._n = state.getDim()
-        self._initState = state
+        self._initState = Qobj(state.getStateVec())
         self._operator = operator
-        self._finalState = State(self._n)
+        self._finalState = Qobj(State(self._n))
+        self._time = 0
+
+    def buildWalk(self, time,observables=[],opts=Options(store_states=False, store_final_state=True)) -> None:
+        """
+        Builds the final state of the quantum walk by setting it to the matrix
+        multiplication of the operator by the initial state.
+        """
+        # TODO: Can we move the time dependency to the StochasticOperator class?
+        # TODO: Can we make the time evolution low cost?
+        self._time = np.arange(0, time + 1)
+        print(f"time = {self._time}")
+        self._finalState.setStateVec(
+            mesolve(self._quantumHamiltonian, self._initState, self._time,
+                    self._classicalHamiltonian, observables, options=opts))
+
+    def getFinalState(self):
+        return self._finalState
+
+    def setFinalState(self, newFinalState):
+        self._finalState = newFinalState
 

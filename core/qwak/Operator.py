@@ -7,11 +7,8 @@ from scipy.linalg import inv
 from sympy.abc import pi
 import numpy as np
 from qutip import Qobj, basis, mesolve, Options
-from matplotlib import pyplot as plt
 
 from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
-from State import State
-
 
 class Operator:
     """
@@ -275,23 +272,6 @@ class StochasticOperator(object):
 
     @author: Lorenzo Buffoni
     """
-    # def __init__(self, graph, noiseParam=0., sinkNode=None, sinkRate=1.):
-    #     self._graph = graph
-    #     self._adjacencyMatrix =
-    #     self.N = self._adjacencyMatrix.shape[0]
-    #     # degree vector representing the connectivity degree of each node
-    #     self.degree = np.sum(self._adjacencyMatrix , axis=0)
-    #     print(self._adjacencyMatrix)
-    #     print(self.degree)
-    #     # normalized laplacian of the classical random walk
-    #     self.laplacian = np.array([[self._adjacencyMatrix[i, j] / self.degree[j] if self.degree[j] > 0 else 0
-    #                                 for i in range(self.N)] for j in range(self.N)])
-    #     self.sinkNode = sinkNode
-    #     self.sink_rate = sinkRate
-    #     self.noise_param = noiseParam
-    #     # TODO: implement multiple sinks
-    #     self.buildStochasticOperator(noiseParam, sinkRate)
-    #
     def __init__(self, graph, noiseParam=0., sinkNode=None, sinkRate=1.):
         self._graph = graph
         self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
@@ -317,8 +297,8 @@ class StochasticOperator(object):
          """
         self.p = noise_param
         self.sink_rate = sink_rate
-        self.quantum_hamiltonian = self.buildQuantumHamiltonian()
-        self.classical_hamiltonian = self.buildClassicalHamiltonian()
+        self._quantumHamiltonian = self.buildQuantumHamiltonian()
+        self._classicalHamiltonian = self.buildClassicalHamiltonian()
 
     def buildQuantumHamiltonian(self):
         if self.sinkNode is not None:
@@ -338,6 +318,18 @@ class StochasticOperator(object):
             L = [np.sqrt(self.p * self.laplacian[i, j]) * (basis(self.N, i) * basis(self.N, j).dag())
                  for i in range(self.N) for j in range(self.N) if self.laplacian[i, j] > 0]
         return L
+
+    def getClassicalHamiltonian(self):
+        return self._classicalHamiltonian
+
+    def setClassicalHamiltonian(self, newClassicalHamiltonian):
+        self._classicalHamiltonian = newClassicalHamiltonian
+
+    def getQuantumHamiltonian(self):
+        return self._quantumHamiltonian
+
+    def setQuantumHamiltonian(self, newQuantumHamiltonian):
+        self._quantumHamiltonian = newQuantumHamiltonian
 
     def run_walker(self, initial_quantum_state, time_samples, dt=1e-2, observables=[], opts=Options(store_states=False, store_final_state=True)):
         """ Run the walker on the graph. The solver for the Lindblad master equation is mesolve from QuTip.
@@ -363,36 +355,15 @@ class StochasticOperator(object):
         times = np.arange(1, time_samples + 1) * dt  # timesteps of the evolution
 
         # if the initial quantum state is specified as a node create the corresponding density matrix
-        if type(initial_quantum_state) == int:
-            density_matrix_value = np.zeros((self.N,self.N))
-            density_matrix_value[initial_quantum_state, initial_quantum_state] = 1
-            initial_quantum_state = Qobj(density_matrix_value)
-            print(density_matrix_value)
-            print(initial_quantum_state)
-
-        elif type(initial_quantum_state) == State:
-            print(initial_quantum_state)
-            initial_quantum_state = Qobj(initial_quantum_state.getStateVec())
-            print(initial_quantum_state)
-
+        print(initial_quantum_state)
+        initial_quantum_state = Qobj(initial_quantum_state.getStateVec())
+        print(initial_quantum_state)
 
         # if a sink is present add it to the density matrix of the system
         if self.sinkNode is not None and initial_quantum_state.shape == (self.N, self.N):
             initial_quantum_state = Qobj(np.pad(initial_quantum_state.data.toarray(), [(0, 1), (0, 1)], 'constant'))
 
-        return mesolve(self.quantum_hamiltonian, initial_quantum_state, times,
-                       self.classical_hamiltonian, observables, options=opts)
+        return mesolve(self._quantumHamiltonian, initial_quantum_state, times,
+                       self._classicalHamiltonian, observables, options=opts)
 
 
-n = 100
-time_samples = 1200
-initial_node = n // 2
-
-sQWAK = StochasticOperator(nx.cycle_graph(n), noiseParam=0.0, sinkNode=None)
-initState = State(n,[n//2])
-initState.buildState()
-# result = sQWAK.run_walker(initial_node, time_samples)
-result = sQWAK.run_walker(initState, time_samples)
-new_state = result.final_state
-plt.plot(new_state.diag())
-plt.show()

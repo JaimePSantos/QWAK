@@ -1,5 +1,5 @@
 from qwak.State import State
-from qwak.Operator import Operator
+from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.qwak import QWAK
@@ -13,10 +13,10 @@ from sympy.abc import pi
 from math import sqrt, ceil, pow
 
 n = 100
-t = 10
+t = 12
 graph = nx.cycle_graph(n)
-marked = [50]
-customMarked = [(50,1/np.sqrt(2)),(51,-1j)]
+marked = [n//2]
+customMarked = [(50,1)]
 
 qwInitState = State(n,marked)
 qwInitState.buildState(marked)
@@ -42,7 +42,7 @@ print(f"Mean: {qwController.getProbDist().mean()}\t "
       # f"PST {qwController.checkPST(0,2)}")
 
 qwController2 = QWAK(graph, laplacian=False)
-qwController2.runWalk(t, customStateList=customMarked)
+qwController2.runWalk(t, marked)
 print(f"Mean: {qwController2.getProbDist().mean()}\t "
       f"Moment 1: {qwController2.getProbDist().moment(1)}\n"
       f"Moment 2: {qwController2.getProbDist().moment(2)}\n"
@@ -51,8 +51,21 @@ print(f"Mean: {qwController2.getProbDist().mean()}\t "
       f"Inverse Part. Ratio: {qwController2.getWalk().invPartRatio()}\n"
       f"Init State = {qwController2.getInitState()}")
 
-plt.plot(qwController.getProbDistVec())
+n = 100
+time_samples = 1200
+initial_node = n // 2
+sQWAK = StochasticOperator(nx.cycle_graph(n), noiseParam=0.0, sinkNode=None)
+initState = State(n,[n//2])
+initState.buildState()
+# result = sQWAK.run_walker(initial_node, time_samples)
+result = sQWAK.run_walker(initState, time_samples)
+new_state = result.final_state
+
+plt.plot(new_state.diag(), label="Stochastic Quantum Walk")
+
+plt.plot(qwController.getProbDistVec(),label="Manual Quantum Walk")
+
+plt.plot(qwController2.getProbDistVec(),label="QWAK Quantum Walk")
+plt.legend()
 plt.show()
 
-plt.plot(qwController2.getProbDistVec())
-plt.show()
