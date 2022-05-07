@@ -1,6 +1,6 @@
 from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
-from qwak.QuantumWalk import QuantumWalk
+from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 from qwak.qwak import QWAK
 
@@ -52,14 +52,18 @@ print(f"Mean: {qwController2.getProbDist().mean()}\t "
       f"Init State = {qwController2.getInitState()}")
 
 n = 100
-time_samples = 1200
+time = 12
 initial_node = n // 2
-sQWAK = StochasticOperator(nx.cycle_graph(n), noiseParam=0.0, sinkNode=None)
+
 initState = State(n,[n//2])
 initState.buildState()
-# result = sQWAK.run_walker(initial_node, time_samples)
-result = sQWAK.run_walker(initState, time_samples)
-new_state = result.final_state
+
+sOperator = StochasticOperator(nx.cycle_graph(n), noiseParam=0.0, sinkNode=None)
+sOperator.buildStochasticOperator(0.0, 1)
+
+sQuantumWalk = StochasticQuantumWalk(initState,sOperator)
+sQuantumWalk.buildWalk(time)
+new_state = sQuantumWalk.getFinalState().final_state
 
 plt.plot(new_state.diag(), label="Stochastic Quantum Walk")
 

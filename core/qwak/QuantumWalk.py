@@ -212,7 +212,7 @@ class StochasticQuantumWalk(object):
         self._finalState = Qobj(State(self._n))
         self._time = 0
 
-    def buildWalk(self, time,observables=[],opts=Options(store_states=False, store_final_state=True)) -> None:
+    def buildWalk(self, time,observables=[],opts=Options(store_states=True, store_final_state=True)) -> None:
         """
         Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.
@@ -221,9 +221,8 @@ class StochasticQuantumWalk(object):
         # TODO: Can we make the time evolution low cost?
         self._time = np.arange(0, time + 1)
         print(f"time = {self._time}")
-        self._finalState.setStateVec(
-            mesolve(self._quantumHamiltonian, self._initState, self._time,
-                    self._classicalHamiltonian, observables, options=opts))
+        self._finalState = mesolve(self._operator.getQuantumHamiltonian(), self._initState, self._time,
+                    self._operator.getClassicalHamiltonian(), observables, options=opts)
 
     def getFinalState(self):
         return self._finalState

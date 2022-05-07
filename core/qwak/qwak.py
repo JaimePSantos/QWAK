@@ -9,24 +9,32 @@ from qwak.State import State
 
 class QWAK:
     """
-        Data access class that combines all three components required to perform a continuous-time quantum walk,
-        given by the multiplication of an operator (represented by the Operator class) by an initial
-        state (State class).
-        This multiplication is achieved in the StaticQuantumwalk class, which returns a final state (State
-        Class) representing the amplitudes of each state associated with a graph node.
-        These amplitudes can then be transformed to probability distributions (ProbabilityDistribution class) suitable
-        for plotting with matplotlib, or your package of choice.
+    Data access class that combines all three components required to
+    perform a continuous-time quantum walk, given by the multiplication of
+    an operator (represented by the Operator class) by an initial state
+    (State class).  This multiplication is achieved in the
+    StaticQuantumwalk class, which returns a final state (State Class)
+    representing the amplitudes of each state associated with a graph node.
+    These amplitudes can then be transformed to probability distributions
+    (ProbabilityDistribution class) suitable for plotting with matplotlib,
+    or your package of choice.
     """
 
-    def __init__(self, graph: nx.Graph, laplacian: bool = False, markedSearch=None) -> None:
+    def __init__(
+        self, graph: nx.Graph, laplacian: bool = False, markedSearch=None
+    ) -> None:
         """
-        Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
-        respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.
+        Default values for the initial state, time and transition rate are a
+        column vector full of 0s, 0 and 1, respectively. Methods runWalk or
+        buildWalk must then be used to generate the results of the quantum
+        walk.
 
         Args:
-            :param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
+            :param laplacian: Allows the user to choose whether to use the
+            Laplacian or simple adjacency matrix.
             :type laplacian: bool
-            :param graph: NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.
+            :param graph: NetworkX graph where the walk takes place. Also used
+            for defining the dimensions of the quantum walk.
             :type graph: NetworkX.Graph
         """
         self._graph = graph
@@ -44,10 +52,13 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def runWalk(self, time: float = 0, initStateList: list = [0], customStateList = []) -> None:
+    def runWalk(
+        self, time: float = 0, initStateList: list = [0], customStateList=[]
+    ) -> None:
         """
-        Builds class' attributes, runs the walk and calculates the amplitudes and probability distributions
-        with the given parameters. These can be accessed with their respective get methods.
+        Builds class' attributes, runs the walk and calculates the amplitudes
+        and probability distributions with the given parameters. These can be
+        accessed with their respective get methods.
 
         Args:
             :param time: Time for which to calculate the quantum walk. Defaults to 0.
@@ -61,9 +72,9 @@ class QWAK:
         self._initStateList = initStateList
         self._customStateList = customStateList
         try:
-            self._initState.buildState(self._initStateList,self._customStateList)
+            self._initState.buildState(self._initStateList, self._customStateList)
         except StateOutOfBounds as err:
-            raise (err)
+            raise err
         self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
@@ -298,9 +309,6 @@ class QWAK:
         nodeA = int(nodeA)
         nodeB = int(nodeB)
         return self._operator.checkPST(nodeA, nodeB)
-
-    def transportEfficiency(self):
-        return self._operator.transportEfficiency(self._initState.getStateVec())
 
     def getMean(self):
         return self._probDist.moment(1)

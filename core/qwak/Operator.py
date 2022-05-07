@@ -279,12 +279,11 @@ class StochasticOperator(object):
         # normalized laplacian of the classical random walk
         self.laplacian  = np.matrix(nx.laplacian_matrix(self._graph).todense().astype(complex))
         self.sinkNode = sinkNode
-        self.sink_rate = sinkRate
-        self.noise_param = noiseParam
+        self.sinkRate = sinkRate
+        self.noiseParam = noiseParam
         # TODO: implement multiple sinks
-        self.buildStochasticOperator(noiseParam, sinkRate)
 
-    def buildStochasticOperator(self, noise_param, sink_rate):
+    def buildStochasticOperator(self, noiseParam, sinkRate):
         """ Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
@@ -295,8 +294,8 @@ class StochasticOperator(object):
         sink_rate : float between 0 and 1
             if a sink is present the trasfer rate from the sink_node to the sink (defaults to 1.)
          """
-        self.p = noise_param
-        self.sink_rate = sink_rate
+        self.p = noiseParam
+        self.sinkRate = sinkRate
         self._quantumHamiltonian = self.buildQuantumHamiltonian()
         self._classicalHamiltonian = self.buildClassicalHamiltonian()
 
@@ -312,7 +311,7 @@ class StochasticOperator(object):
             L = [np.sqrt(self.p * self.laplacian[i, j]) * (basis(self.N + 1, i) * basis(self.N + 1, j).dag())
                  for i in range(self.N) for j in range(self.N) if self.laplacian[i, j] > 0]
             S = np.zeros([self.N + 1, self.N + 1])  # transition matrix to the sink
-            S[self.N, self.sink_node] = np.sqrt(2 * self.sink_rate)
+            S[self.N, self.sinkNode] = np.sqrt(2 * self.sinkRate)
             L.append(Qobj(S))
         else:
             L = [np.sqrt(self.p * self.laplacian[i, j]) * (basis(self.N, i) * basis(self.N, j).dag())
