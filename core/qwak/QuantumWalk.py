@@ -198,7 +198,7 @@ class StochasticQuantumWalk(object):
         state.
         The final state will contain the amplitudes of the time evolution of
         the initial state, as a function of the operator. This variable is initialized
-        as an instance of State class.
+        as an instance of QObj class.
 
         Args:
             :param state: Initial state which will be the basis of the time dependant evolution.
@@ -219,8 +219,9 @@ class StochasticQuantumWalk(object):
         """
         # TODO: Can we move the time dependency to the StochasticOperator class?
         # TODO: Can we make the time evolution low cost?
+        # TODO: Is there a way to obtain amplitudes? 
+        # TODO: The final state is a of the Qobj class. Find a way to make it State class.
         self._time = np.arange(0, time + 1)
-        print(f"time = {self._time}")
         self._finalState = mesolve(self._operator.getQuantumHamiltonian(), self._initState, self._time,
                     self._operator.getClassicalHamiltonian(), observables, options=opts)
 
@@ -229,4 +230,3 @@ class StochasticQuantumWalk(object):
 
     def setFinalState(self, newFinalState):
         self._finalState = newFinalState
-

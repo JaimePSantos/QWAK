@@ -3,6 +3,8 @@ import warnings
 import numpy as np
 
 from qwak.State import State
+from qutip import Qobj, basis, mesolve, Options
+
 
 warnings.filterwarnings("ignore")
 
@@ -121,3 +123,32 @@ class ProbabilityDistribution:
             :rtype: str
         """
         return f'{self._probVec}'
+
+class StochasticProbabilityDistribution(object):
+    """
+
+    """
+
+    def __init__(self, state: Qobj) -> None:
+        """
+        Args:
+            :param state: Initial state which will be the basis of the time dependant evolution.
+            :type state: State
+        """
+        self._finalState = state.getFinalState()
+        self._n = len(self._finalState.final_state.diag())
+        self._probVec = np.zeros((self._n, 1))
+
+    def buildProbDist(self):
+        """
+        Builds the final state of the quantum walk by setting it to the matrix
+        multiplication of the operator by the initial state.
+        """
+        self._probVec = self._finalState.final_state.diag() 
+
+    def getProbVec(self):
+        return self._probVec 
+
+    def setProbVec(self, newFinalState):
+        self._finalState = newFinalState
+
