@@ -207,7 +207,8 @@ class StochasticQuantumWalk(object):
             :type operator: Operator.
         """
         self._n = state.getDim()
-        self._initState = Qobj(state.getStateVec())
+        self._initState = state
+        self._initQutipState = Qobj(state.getStateVec())
         self._operator = operator
         self._finalState = Qobj(State(self._n))
         self._time = 0
@@ -222,7 +223,7 @@ class StochasticQuantumWalk(object):
         # TODO: Is there a way to obtain amplitudes? 
         # TODO: The final state is a of the Qobj class. Find a way to make it State class.
         self._time = np.arange(0, time + 1)
-        self._finalState = mesolve(self._operator.getQuantumHamiltonian(), self._initState, self._time,
+        self._finalState = mesolve(self._operator.getQuantumHamiltonian(), self._initQutipState, self._time,
                     self._operator.getClassicalHamiltonian(), observables, options=opts)
 
     def getFinalState(self):

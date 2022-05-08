@@ -10,3 +10,7 @@ class Error(BaseException):
 class StateOutOfBounds(Error):
     def __init__(self, details):
         super().__init__('Condition out of bounds: ', details)
+
+class NonUnitaryState(Error):
+    def __init__(self, details):
+        super().__init__('State is not unitary: ', details)

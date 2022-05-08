@@ -1,11 +1,15 @@
 import networkx as nx
 
-from qwak.Errors import StateOutOfBounds
-from qwak.Operator import Operator
-from qwak.ProbabilityDistribution import ProbabilityDistribution
-from qwak.QuantumWalk import QuantumWalk
+from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
+from qwak.Operator import Operator, StochasticOperator
+from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
+from qwak.ProbabilityDistribution import (
+    ProbabilityDistribution,
+    StochasticProbabilityDistribution,
+)
 
+from qutip import Qobj, basis, mesolve, Options
 
 class QWAK:
     """
@@ -21,7 +25,12 @@ class QWAK:
     """
 
     def __init__(
-        self, graph: nx.Graph, laplacian: bool = False, markedSearch=None
+        self,
+        graph: nx.Graph,
+        initStateList=None,
+        customStateList=None,
+        laplacian: bool = False,
+        markedSearch=None,
     ) -> None:
         """
         Default values for the initial state, time and transition rate are a
@@ -38,22 +47,24 @@ class QWAK:
             :type graph: NetworkX.Graph
         """
         self._graph = graph
+        self._n = len(self._graph)
         if markedSearch is not None:
             self._operator = Operator(self._graph, laplacian, markedSearch=markedSearch)
         else:
             self._operator = Operator(self._graph, laplacian)
-        self._n = len(self._graph)
-        self._initStateList = []
-        self._initState = State(self._n)
+        if initStateList is None:
+            self._initStateList = []
+        else:
+            self._initStateList = initStateList
+        if customStateList is None:
+            self._customStateList = []
+        else:
+            self._customStateList = customStateList
+        self._initState = State(self._n, self._initStateList, self._customStateList)
         self._time = 0
 
-    def resetWalk(self):
-        self._initState.resetState()
-        self._operator.resetOperator()
-        self._quantumWalk.resetWalk()
-
     def runWalk(
-        self, time: float = 0, initStateList: list = [0], customStateList=[]
+        self, time: float = 0, initStateList: list = None, customStateList=None
     ) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes
@@ -69,17 +80,28 @@ class QWAK:
             :type initStateList: (list, optional)
         """
         self._time = time
-        self._initStateList = initStateList
-        self._customStateList = customStateList
+        if initStateList is None and not self._initStateList:
+            self._initStateList = [self._n // 2]
+        else:
+            self._initStateList = initStateList
+        if customStateList is not None:
+            self._customStateList = customStateList
         try:
             self._initState.buildState(self._initStateList, self._customStateList)
-        except StateOutOfBounds as err:
-            raise err
+        except StateOutOfBounds as stOBErr:
+            raise stOBErr
+        except NonUnitaryState as nUErr:
+            raise nUErr
         self._operator.buildDiagonalOperator(self._time)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk()
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
         self._probDist.buildProbDist()
+
+    def resetWalk(self):
+        self._initState.resetState()
+        self._operator.resetOperator()
+        self._quantumWalk.resetWalk()
 
     def setDim(self, newDim: int, graphStr: str) -> None:
         """
@@ -327,3 +349,139 @@ class QWAK:
 
     def getTransportEfficiency(self):
         return self._quantumWalk.transportEfficiency()
+
+
+class StochasticQWAK:
+    """
+    Data access class that combines all three components required to
+    perform a continuous-time quantum walk, given by the multiplication of
+    an operator (represented by the Operator class) by an initial state
+    (State class).  This multiplication is achieved in the
+    StaticQuantumwalk class, which returns a final state (State Class)
+    representing the amplitudes of each state associated with a graph node.
+    These amplitudes can then be transformed to probability distributions
+    (ProbabilityDistribution class) suitable for plotting with matplotlib,
+    or your package of choice.
+    """
+
+    def __init__(
+        self,
+        graph: nx.Graph,
+        initStateList=None,
+        customStateList=None,
+        noiseParam=0.0,
+        sinkNode=None,
+        sinkRate=1.0,
+    ) -> None:
+        """
+        Default values for the initial state, time and transition rate are a
+        column vector full of 0s, 0 and 1, respectively. Methods runWalk or
+        buildWalk must then be used to generate the results of the quantum
+        walk.
+
+        Args:
+            :param laplacian: Allows the user to choose whether to use the
+            Laplacian or simple adjacency matrix.
+            :type laplacian: bool
+            :param graph: NetworkX graph where the walk takes place. Also used
+            for defining the dimensions of the quantum walk.
+            :type graph: NetworkX.Graph
+        """
+        self._graph = graph
+        self._n = len(self._graph)
+        self._noiseParam = noiseParam
+        self._sinkNode = sinkNode
+        self._sinkRate = sinkRate
+        self._operator = StochasticOperator(
+            graph,
+            noiseParam=self._noiseParam,
+            sinkNode=self._sinkNode,
+            sinkRate=self._sinkRate,
+        )
+        if initStateList is None:
+            self._initStateList = []
+        else:
+            self._initStateList = initStateList
+        if customStateList is None:
+            self._customStateList = []
+        else:
+            self._customStateList = customStateList
+        self._initState = State(self._n, self._initStateList, self._customStateList)
+        self._time = 0
+
+    def runWalk(
+        self,
+        time: float = 0,
+        initStateList: list = None,
+        customStateList=None,
+        noiseParam=0.0,
+        sinkNode=None,
+        sinkRate=1.0,
+        observables=[],
+        opts=Options(store_states=True, store_final_state=True),
+    ) -> None:
+        """
+        Builds class' attributes, runs the walk and calculates the amplitudes
+        and probability distributions with the given parameters. These can be
+        accessed with their respective get methods.
+
+        Args:
+            :param time: Time for which to calculate the quantum walk. Defaults to 0.
+            :type time: (int, optional)
+            :param gamma: Transition rate of the given walk. Defaults to 1.
+            :type gamma: (int, optional)
+            :param initStateList: List with chosen initial states. Defaults to [0].
+            :type initStateList: (list, optional)
+        """
+        self._time = time
+        self._noiseParam = noiseParam
+        self._sinkNode = sinkNode
+        self._sinkRate = sinkRate
+        if initStateList is None and not self._initStateList:
+            self._initStateList = [self._n // 2]
+        else:
+            self._initStateList = initStateList
+        if customStateList is not None:
+            self._customStateList = customStateList
+        try:
+            self._initState.buildState(self._initStateList, self._customStateList)
+        except StateOutOfBounds as stOBErr:
+            raise stOBErr
+        except NonUnitaryState as nUErr:
+            raise nUErr
+        self._operator.buildStochasticOperator(self._noiseParam, self._sinkNode, self._sinkRate)
+        self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
+        self._quantumWalk.buildWalk(self._time,observables,opts)
+        self._probDist = StochasticProbabilityDistribution(self._quantumWalk)
+        self._probDist.buildProbDist()
+
+    def setProbDist(self, newProbDist: object) -> None:
+        """
+        Sets current walk probability distribution to a user defined one.
+        This might not be needed and removed in the future.
+
+        Args:
+            :param newProbDist: New probability distribution.
+            :type newProbDist: ProbabilityDistribution
+        """
+        self._probDist = newProbDist
+
+    def getProbDist(self) -> ProbabilityDistribution:
+        """
+        Gets the current probability distribution.
+
+        Returns:
+            :return: self._probDist.getProbDist()
+            :rtype: ProbabilityDistribution
+        """
+        return self._probDist
+
+    def getProbVec(self) -> ProbabilityDistribution:
+        """
+        Gets the current probability distribution.
+
+        Returns:
+            :return: self._probDist.getProbDist()
+            :rtype: ProbabilityDistribution
+        """
+        return self._probDist.getProbVec()

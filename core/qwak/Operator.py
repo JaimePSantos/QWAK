@@ -37,24 +37,23 @@ class Operator:
             :type graph: NetworkX.Graph
         """
         self._graph = graph
-        self.buildAdjacency(laplacian, markedSearch)
+        self._buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._isHermitian = np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.H)
         self._time = 0
-        self.buildEigenValues(self._isHermitian)
+        self._buildEigenValues(self._isHermitian)
 
-    def buildAdjacency(self,laplacian,markedSearch):
+    def _buildAdjacency(self,laplacian,markedSearch):
         if laplacian:
             self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
         else:
             self._adjacencyMatrix = nx.adjacency_matrix(self._graph).todense().astype(complex)
-
         if markedSearch is not None:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
-    def buildEigenValues(self,isHermitian):
+    def _buildEigenValues(self,isHermitian):
         if isHermitian:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
                 self._adjacencyMatrix)
@@ -142,7 +141,7 @@ class Operator:
         self._adjacencyMatrix = adjacencyMatrix.astype(complex)
         self._n = len(self._adjacencyMatrix)
         self.resetOperator()
-        self.buildHermitianEigenValues()
+        self._buildEigenValues(self._isHermitian)
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """
@@ -280,10 +279,10 @@ class StochasticOperator(object):
         self.laplacian  = np.matrix(nx.laplacian_matrix(self._graph).todense().astype(complex))
         self.sinkNode = sinkNode
         self.sinkRate = sinkRate
-        self.noiseParam = noiseParam
+        self.p = noiseParam
         # TODO: implement multiple sinks
 
-    def buildStochasticOperator(self, noiseParam, sinkRate):
+    def buildStochasticOperator(self, noiseParam=0., sinkNode=None, sinkRate=1.):
         """ Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
@@ -296,17 +295,18 @@ class StochasticOperator(object):
          """
         self.p = noiseParam
         self.sinkRate = sinkRate
-        self._quantumHamiltonian = self.buildQuantumHamiltonian()
-        self._classicalHamiltonian = self.buildClassicalHamiltonian()
+        self.sinkNode = sinkNode
+        self._quantumHamiltonian = self._buildQuantumHamiltonian()
+        self._classicalHamiltonian = self._buildClassicalHamiltonian()
 
-    def buildQuantumHamiltonian(self):
+    def _buildQuantumHamiltonian(self):
         if self.sinkNode is not None:
             H = Qobj((1 - self.p) * np.pad(self._adjacencyMatrix, [(0, 1), (0, 1)], 'constant'))
         else:
             H = Qobj((1 - self.p) * self._adjacencyMatrix)
         return H
 
-    def buildClassicalHamiltonian(self):
+    def _buildClassicalHamiltonian(self):
         if self.sinkNode is not None:
             L = [np.sqrt(self.p * self.laplacian[i, j]) * (basis(self.N + 1, i) * basis(self.N + 1, j).dag())
                  for i in range(self.N) for j in range(self.N) if self.laplacian[i, j] > 0]
@@ -329,40 +329,3 @@ class StochasticOperator(object):
 
     def setQuantumHamiltonian(self, newQuantumHamiltonian):
         self._quantumHamiltonian = newQuantumHamiltonian
-
-    def run_walker(self, initial_quantum_state, time_samples, dt=1e-2, observables=[], opts=Options(store_states=False, store_final_state=True)):
-        """ Run the walker on the graph. The solver for the Lindblad master equation is mesolve from QuTip.
-
-        Parameters
-        ----------
-        initial_quantum_state : qutip.qobj.Qobj or integer specifying the initial node
-            quantum state of the system at the beginning of the simulation
-        time_samples : integer
-            number of time samples considered in the time equation
-        dt : float (default 10**-2)
-            single step time interval
-        observables: list (default empty)
-            list of observables to track during the dynamics.
-        opts: qutip.Options (default None)
-            options for QuTip's solver mesolve.
-
-        Returns
-        -------
-        (qutip.Result)
-            return the final quantum state at the end of the quantum simulation.
-        """
-        times = np.arange(1, time_samples + 1) * dt  # timesteps of the evolution
-
-        # if the initial quantum state is specified as a node create the corresponding density matrix
-        print(initial_quantum_state)
-        initial_quantum_state = Qobj(initial_quantum_state.getStateVec())
-        print(initial_quantum_state)
-
-        # if a sink is present add it to the density matrix of the system
-        if self.sinkNode is not None and initial_quantum_state.shape == (self.N, self.N):
-            initial_quantum_state = Qobj(np.pad(initial_quantum_state.data.toarray(), [(0, 1), (0, 1)], 'constant'))
-
-        return mesolve(self._quantumHamiltonian, initial_quantum_state, times,
-                       self._classicalHamiltonian, observables, options=opts)
-
-
