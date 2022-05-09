@@ -7,6 +7,12 @@ from qwak.ProbabilityDistribution import (
 )
 from qwak.qwak import QWAK, StochasticQWAK
 
+from sqwalk import SQWalker
+
+from qutip import ket2dm, basis, Options, Qobj
+
+import time
+
 import networkx as nx
 import numpy as np
 from matplotlib import pyplot as plt
@@ -15,11 +21,12 @@ from sympy.abc import pi
 from math import sqrt, ceil, pow
 
 n = 50
-t = 20
+t = 15
 graph = nx.cycle_graph(n)
-#marked = [n // 2, n // 2 + 1]
-marked = [n//2]
+marked = [n // 2, n // 2 + 1]
+#marked = [n//2]
 customMarked = [(n // 2, 1 / np.sqrt(2)), (n // 2 + 1, 1 / np.sqrt(2))]
+#customMarked = [(n // 2, 1)]
 
 qwInitState = State(n, marked)
 qwInitState.buildState(marked)
@@ -61,7 +68,11 @@ print(
 initState = State(n)
 initState.buildState(marked)
 
-sOperator = StochasticOperator(graph, noiseParam=0.0, sinkNode=None, sinkRate=1.0)
+noiseParam = 0.15 
+sinkNode = 10 
+sinkRate = 1.0
+
+sOperator = StochasticOperator(graph, noiseParam=noiseParam, sinkNode=sinkNode, sinkRate=sinkRate)
 sOperator.buildStochasticOperator()
 sQuantumWalk = StochasticQuantumWalk(initState, sOperator)
 sQuantumWalk.buildWalk(t)
@@ -69,17 +80,29 @@ new_state = sQuantumWalk.getFinalState().final_state
 sProbDist = StochasticProbabilityDistribution(sQuantumWalk)
 sProbDist.buildProbDist()
 
+start = time.time()
 sqwController = StochasticQWAK(graph)
-sqwController.runWalk(t, marked, noiseParam=0.15,sinkNode=10, sinkRate=1.0)
-vectest =[0.009038414469042867, 0.006972139844657781, 0.0070178799359853685, 0.006556649809073759, 0.008381895060784274, 0.006937028559886048, 0.005796162371444784, 0.006703778528682772, 0.005283728995651229, 0.004782745636500229, 0.0040100315539318395, 0.013317095878876575, 0.016548005514141022, 0.018413563412798564, 0.018664573508772358, 0.019012580481991802, 0.018731455778716672, 0.019319140823255213, 0.020283184340184713, 0.020689054330082918, 0.02211999245680057, 0.021893737073841568, 0.021280366013298396, 0.02134670420822615, 0.021566405295736755, 0.021695171453424075, 0.023458484101877397, 0.0219839290786894, 0.020937873743097725, 0.02076864454134528, 0.0213396295532552, 0.020885397431106352, 0.019971622140206542, 0.02007083117343069, 0.01919617731009013, 0.019673482854858117, 0.018483666832697872, 0.018027512083827555, 0.01908203108546183, 0.0175396177411556, 0.017018090996275513, 0.021014875832779226, 0.020091595301299222, 0.018486489717884882, 0.025165508381331837, 0.021821904286810963, 0.019279650058003812, 0.02057133779850671, 0.022235437490905754, 0.025597761950840077, 0.1409369631784746]
-print(sqwController.getProbVec() == vectest) 
+sqwController.runWalk(t, marked, noiseParam=noiseParam,sinkNode=sinkNode, sinkRate=sinkRate)
+end = time.time()
+print(end - start)
+
+start = time.time()
+adj = nx.adj_matrix(graph).todense()
+walker = SQWalker(np.array(adj), noise_param=noiseParam, sink_node=sinkNode,sink_rate = sinkRate)
+
+opts = Options(store_states=True, store_final_state=True)
+result = walker.run_walker(marked[0], time_samples=t,dt = 1 ,opts=opts)
+new_state2 = result.final_state
+end = time.time()
+print(end - start)
 
 
-#plt.plot(new_state.diag(), label="Manual Stochastic Quantum Walk")
+plt.plot(new_state.diag(), label="Manual Stochastic Quantum Walk")
 plt.plot(sqwController.getProbVec(), label="StochasticQWAK Quantum Walk")
 #plt.plot(qwProbDist.getProbVec(), label="Manual Quantum Walk")
 #plt.plot(qwController.getProbDistVec(), label="QWAK Quantum Walk")
 #plt.plot(qwController2.getProbDistVec(), label="QWAK Custom State Quantum Walk")
+#plt.plot(new_state2.diag(), label="SQWALK Quantum Walk")
 
 plt.legend()
 plt.show()

@@ -285,14 +285,16 @@ class StochasticOperator(object):
 
     def __init__(self, graph, noiseParam=None, sinkNode=None, sinkRate=None):
         self._graph = graph
+        self.n = len(self._graph) 
         self._adjacencyMatrix = (
-            nx.laplacian_matrix(self._graph).todense().astype(complex)
+            nx.adjacency_matrix(self._graph).todense().astype(complex)
         )
-        self.N = self._adjacencyMatrix.shape[0]
+        # TODO: Why cant we use the normal laplacian?
+        # self._laplacian = np.matrix(
+        #    nx.laplacian_matrix(self._graph).todense().astype(complex)
+        # )
         # normalized laplacian of the classical random walk
-        self.laplacian = np.matrix(
-            nx.laplacian_matrix(self._graph).todense().astype(complex)
-        )
+        self._buildLaplacian()
         if noiseParam is None:
             self._p = 0.0
         else:
@@ -302,8 +304,10 @@ class StochasticOperator(object):
         else:
             self._sinkRate = sinkRate
         self._sinkNode = sinkNode
+        self._quantumHamiltonian = Qobj()
+        self._classicalHamiltonian = []
 
-    def buildStochasticOperator(self, noiseParam=0.0, sinkNode=None, sinkRate=1.0):
+    def buildStochasticOperator(self, noiseParam=None, sinkNode=None, sinkRate=None):
         """Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
@@ -317,12 +321,17 @@ class StochasticOperator(object):
         if noiseParam is not None:
             self._p = noiseParam
         if sinkRate is not None:
-            self._sinkRate = sinkRate 
+            self._sinkRate = sinkRate
         if sinkNode is not None:
             self._sinkNode = sinkNode
-        self._quantumHamiltonian = self._buildQuantumHamiltonian()
-        self._classicalHamiltonian = self._buildClassicalHamiltonian()
+        self._buildQuantumHamiltonian()
+        self._buildClassicalHamiltonian()
 
+    def _buildLaplacian(self):
+        degree = np.sum(self._adjacencyMatrix, axis=0).flat
+        degree = list(map(lambda x : 1/x if x>0 else 0, degree))
+        self._laplacian = np.multiply(self._adjacencyMatrix,degree)
+        
     def _buildQuantumHamiltonian(self):
         if self._sinkNode is not None:
             H = Qobj(
@@ -331,29 +340,29 @@ class StochasticOperator(object):
             )
         else:
             H = Qobj((1 - self._p) * self._adjacencyMatrix)
-        return H
+        self._quantumHamiltonian = H
 
     def _buildClassicalHamiltonian(self):
         if self._sinkNode is not None:
             L = [
-                np.sqrt(self._p * self.laplacian[i, j])
-                * (basis(self.N + 1, i) * basis(self.N + 1, j).dag())
-                for i in range(self.N)
-                for j in range(self.N)
-                if self.laplacian[i, j] > 0
+                np.sqrt(self._p * self._laplacian[i, j])
+                * (basis(self.n + 1, i) * basis(self.n + 1, j).dag())
+                for i in range(self.n)
+                for j in range(self.n)
+                if self._laplacian[i, j] > 0
             ]
-            S = np.zeros([self.N + 1, self.N + 1])  # transition matrix to the sink
-            S[self.N, self._sinkNode] = np.sqrt(2 * self._sinkRate)
+            S = np.zeros([self.n + 1, self.n + 1])  # transition matrix to the sink
+            S[self.n, self._sinkNode] = np.sqrt(2 * self._sinkRate)
             L.append(Qobj(S))
         else:
             L = [
-                np.sqrt(self._p * self.laplacian[i, j])
-                * (basis(self.N, i) * basis(self.N, j).dag())
-                for i in range(self.N)
-                for j in range(self.N)
-                if self.laplacian[i, j] > 0
+                np.sqrt(self._p * self._laplacian[i, j])
+                * (basis(self.n, i) * basis(self.n, j).dag())
+                for i in range(self.n)
+                for j in range(self.n)
+                if self._laplacian[i, j] > 0
             ]
-        return L
+        self._classicalHamiltonian = L
 
     def getClassicalHamiltonian(self):
         return self._classicalHamiltonian
@@ -369,6 +378,9 @@ class StochasticOperator(object):
 
     def setSinkNode(self, newSinkNode):
         self._sinkNode = newSinkNode
-   
+
     def getSinkNode(self):
         return self._sinkNode
+
+    def getLaplacian(self):
+        return self._laplacian

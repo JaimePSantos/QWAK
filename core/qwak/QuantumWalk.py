@@ -231,7 +231,6 @@ class StochasticQuantumWalk(object):
         self._time = np.arange(0, time + 1)
         if self._operator.getSinkNode() is not None:
             self._initQutipState = Qobj(np.vstack([self._initState.getStateVec(), [0.]]))
-            print(self._initQutipState)
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,

@@ -395,16 +395,7 @@ class StochasticQWAK:
                 sinkNode=sinkNode,
                 sinkRate=sinkRate,
                 )
-        if initStateList is None:
-            self._initStateList = []
-        else:
-            self._initStateList = initStateList
-        if customStateList is None:
-            self._customStateList = []
-        else:
-            self._customStateList = customStateList
-        self._initState = State(self._n, self._initStateList, self._customStateList)
-        self._time = 0
+        self._initState = State(self._n, nodeList = initStateList, customStateList = customStateList)
 
     def runWalk(
             self,
@@ -430,22 +421,15 @@ class StochasticQWAK:
             :param initStateList: List with chosen initial states. Defaults to [0].
             :type initStateList: (list, optional)
         """
-        self._time = time
-        if initStateList is None and not self._initStateList:
-            self._initStateList = [self._n // 2]
-        else:
-            self._initStateList = initStateList
-        if customStateList is not None:
-            self._customStateList = customStateList
         try:
-            self._initState.buildState(self._initStateList, self._customStateList)
+            self._initState.buildState(nodeList = initStateList, customStateList = customStateList) 
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
         self._operator.buildStochasticOperator(noiseParam = noiseParam, sinkNode = sinkNode, sinkRate = sinkRate)
         self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
-        self._quantumWalk.buildWalk(self._time,observables,opts)
+        self._quantumWalk.buildWalk(time,observables,opts)
         self._probDist = StochasticProbabilityDistribution(self._quantumWalk)
         self._probDist.buildProbDist()
 
@@ -479,3 +463,12 @@ class StochasticQWAK:
             :rtype: ProbabilityDistribution
         """
         return self._probDist.getProbVec()
+
+    def getQuantumHamiltonian(self):
+        return self._operator.getQuantumHamiltonian()
+
+    def getClassicalHamiltonian(self):
+        return self._operator.getClassicalHamiltonian()
+
+    def getLaplacian(self):
+        return self._operator.getLaplacian()
