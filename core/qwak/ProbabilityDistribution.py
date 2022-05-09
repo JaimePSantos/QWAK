@@ -122,12 +122,11 @@ class ProbabilityDistribution:
             :return: f'{self._probVec}'
             :rtype: str
         """
-        return f'{self._probVec}'
+        return f"{self._probVec}"
+
 
 class StochasticProbabilityDistribution(object):
-    """
-
-    """
+    """ """
 
     def __init__(self, state: Qobj) -> None:
         """
@@ -144,11 +143,10 @@ class StochasticProbabilityDistribution(object):
         Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.
         """
-        self._probVec = self._finalState.final_state.diag() 
+        self._probVec = self._finalState.final_state.diag()
 
     def getProbVec(self):
-        return self._probVec 
+        return self._probVec
 
     def setProbVec(self, newFinalState):
         self._finalState = newFinalState
-

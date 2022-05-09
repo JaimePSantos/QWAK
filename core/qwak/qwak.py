@@ -5,9 +5,9 @@ from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
 from qwak.ProbabilityDistribution import (
-    ProbabilityDistribution,
-    StochasticProbabilityDistribution,
-)
+        ProbabilityDistribution,
+        StochasticProbabilityDistribution,
+        )
 
 from qutip import Qobj, basis, mesolve, Options
 
@@ -25,13 +25,13 @@ class QWAK:
     """
 
     def __init__(
-        self,
-        graph: nx.Graph,
-        initStateList=None,
-        customStateList=None,
-        laplacian: bool = False,
-        markedSearch=None,
-    ) -> None:
+            self,
+            graph: nx.Graph,
+            initStateList=None,
+            customStateList=None,
+            laplacian: bool = False,
+            markedSearch=None,
+            ) -> None:
         """
         Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
@@ -64,8 +64,8 @@ class QWAK:
         self._time = 0
 
     def runWalk(
-        self, time: float = 0, initStateList: list = None, customStateList=None
-    ) -> None:
+            self, time: float = 0, initStateList: list = None, customStateList=None
+            ) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
@@ -365,14 +365,14 @@ class StochasticQWAK:
     """
 
     def __init__(
-        self,
-        graph: nx.Graph,
-        initStateList=None,
-        customStateList=None,
-        noiseParam=0.0,
-        sinkNode=None,
-        sinkRate=1.0,
-    ) -> None:
+            self,
+            graph: nx.Graph,
+            initStateList=None,
+            customStateList=None,
+            noiseParam=None,
+            sinkNode=None,
+            sinkRate=None,
+            ) -> None:
         """
         Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
@@ -389,15 +389,12 @@ class StochasticQWAK:
         """
         self._graph = graph
         self._n = len(self._graph)
-        self._noiseParam = noiseParam
-        self._sinkNode = sinkNode
-        self._sinkRate = sinkRate
         self._operator = StochasticOperator(
-            graph,
-            noiseParam=self._noiseParam,
-            sinkNode=self._sinkNode,
-            sinkRate=self._sinkRate,
-        )
+                graph,
+                noiseParam=noiseParam,
+                sinkNode=sinkNode,
+                sinkRate=sinkRate,
+                )
         if initStateList is None:
             self._initStateList = []
         else:
@@ -410,16 +407,16 @@ class StochasticQWAK:
         self._time = 0
 
     def runWalk(
-        self,
-        time: float = 0,
-        initStateList: list = None,
-        customStateList=None,
-        noiseParam=0.0,
-        sinkNode=None,
-        sinkRate=1.0,
-        observables=[],
-        opts=Options(store_states=True, store_final_state=True),
-    ) -> None:
+            self,
+            time: float = 0,
+            initStateList: list = None,
+            customStateList=None,
+            noiseParam=None,
+            sinkNode=None,
+            sinkRate=None,
+            observables=[],
+            opts=Options(store_states=True, store_final_state=True),
+            ) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
@@ -434,9 +431,6 @@ class StochasticQWAK:
             :type initStateList: (list, optional)
         """
         self._time = time
-        self._noiseParam = noiseParam
-        self._sinkNode = sinkNode
-        self._sinkRate = sinkRate
         if initStateList is None and not self._initStateList:
             self._initStateList = [self._n // 2]
         else:
@@ -449,7 +443,7 @@ class StochasticQWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildStochasticOperator(self._noiseParam, self._sinkNode, self._sinkRate)
+        self._operator.buildStochasticOperator(noiseParam = noiseParam, sinkNode = sinkNode, sinkRate = sinkRate)
         self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk(self._time,observables,opts)
         self._probDist = StochasticProbabilityDistribution(self._quantumWalk)

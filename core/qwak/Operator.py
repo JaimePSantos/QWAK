@@ -10,6 +10,7 @@ from qutip import Qobj, basis, mesolve, Options
 
 from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
+
 class Operator:
     """
     Class that represents the operators that will be used in a quantum walk.
@@ -17,7 +18,13 @@ class Operator:
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
 
-    def __init__(self, graph: nx.Graph, laplacian: bool = False, adjacencyMatrix=None, markedSearch=None) -> None:
+    def __init__(
+        self,
+        graph: nx.Graph,
+        laplacian: bool = False,
+        adjacencyMatrix=None,
+        markedSearch=None,
+    ) -> None:
         """
         This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -44,22 +51,26 @@ class Operator:
         self._time = 0
         self._buildEigenValues(self._isHermitian)
 
-    def _buildAdjacency(self,laplacian,markedSearch):
+    def _buildAdjacency(self, laplacian, markedSearch):
         if laplacian:
-            self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
+            self._adjacencyMatrix = (
+                nx.laplacian_matrix(self._graph).todense().astype(complex)
+            )
         else:
-            self._adjacencyMatrix = nx.adjacency_matrix(self._graph).todense().astype(complex)
+            self._adjacencyMatrix = (
+                nx.adjacency_matrix(self._graph).todense().astype(complex)
+            )
         if markedSearch is not None:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
-    def _buildEigenValues(self,isHermitian):
+    def _buildEigenValues(self, isHermitian):
         if isHermitian:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-                self._adjacencyMatrix)
+                self._adjacencyMatrix
+            )
         else:
-            self._eigenvalues, self._eigenvectors = np.linalg.eig(
-                self._adjacencyMatrix)
+            self._eigenvalues, self._eigenvectors = np.linalg.eig(self._adjacencyMatrix)
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
@@ -79,8 +90,7 @@ class Operator:
             :type gamma: (int, optional)
         """
         self._time = time
-        diag = np.diag(np.exp(-1j *
-                              self._eigenvalues * self._time)).diagonal()
+        diag = np.diag(np.exp(-1j * self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
             self._operator = np.matmul(self._operator, self._eigenvectors.H)
@@ -259,6 +269,7 @@ class Operator:
         """
         return f"{self._operator}"
 
+
 class StochasticOperator(object):
     """
     Stochastic quantum walker on QuTip.
@@ -271,51 +282,77 @@ class StochasticOperator(object):
 
     @author: Lorenzo Buffoni
     """
-    def __init__(self, graph, noiseParam=0., sinkNode=None, sinkRate=1.):
+
+    def __init__(self, graph, noiseParam=None, sinkNode=None, sinkRate=None):
         self._graph = graph
-        self._adjacencyMatrix = nx.laplacian_matrix(self._graph).todense().astype(complex)
+        self._adjacencyMatrix = (
+            nx.laplacian_matrix(self._graph).todense().astype(complex)
+        )
         self.N = self._adjacencyMatrix.shape[0]
         # normalized laplacian of the classical random walk
-        self.laplacian  = np.matrix(nx.laplacian_matrix(self._graph).todense().astype(complex))
-        self.sinkNode = sinkNode
-        self.sinkRate = sinkRate
-        self.p = noiseParam
-        # TODO: implement multiple sinks
+        self.laplacian = np.matrix(
+            nx.laplacian_matrix(self._graph).todense().astype(complex)
+        )
+        if noiseParam is None:
+            self._p = 0.0
+        else:
+            self._p = noiseParam
+        if sinkRate is None:
+            self._sinkRate = 1.0
+        else:
+            self._sinkRate = sinkRate
+        self._sinkNode = sinkNode
 
-    def buildStochasticOperator(self, noiseParam=0., sinkNode=None, sinkRate=1.):
-        """ Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
+    def buildStochasticOperator(self, noiseParam=0.0, sinkNode=None, sinkRate=1.0):
+        """Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
         Parameters
         ----------
         noise_param : float between 0 and 1
             parameter controlling the 'quantumness' of the system (0 is fully quantum, 1 is fully classical)
-        sink_rate : float between 0 and 1
+        sinkRate : float between 0 and 1
             if a sink is present the trasfer rate from the sink_node to the sink (defaults to 1.)
-         """
-        self.p = noiseParam
-        self.sinkRate = sinkRate
-        self.sinkNode = sinkNode
+        """
+        if noiseParam is not None:
+            self._p = noiseParam
+        if sinkRate is not None:
+            self._sinkRate = sinkRate 
+        if sinkNode is not None:
+            self._sinkNode = sinkNode
         self._quantumHamiltonian = self._buildQuantumHamiltonian()
         self._classicalHamiltonian = self._buildClassicalHamiltonian()
 
     def _buildQuantumHamiltonian(self):
-        if self.sinkNode is not None:
-            H = Qobj((1 - self.p) * np.pad(self._adjacencyMatrix, [(0, 1), (0, 1)], 'constant'))
+        if self._sinkNode is not None:
+            H = Qobj(
+                (1 - self._p)
+                * np.pad(self._adjacencyMatrix, [(0, 1), (0, 1)], "constant")
+            )
         else:
-            H = Qobj((1 - self.p) * self._adjacencyMatrix)
+            H = Qobj((1 - self._p) * self._adjacencyMatrix)
         return H
 
     def _buildClassicalHamiltonian(self):
-        if self.sinkNode is not None:
-            L = [np.sqrt(self.p * self.laplacian[i, j]) * (basis(self.N + 1, i) * basis(self.N + 1, j).dag())
-                 for i in range(self.N) for j in range(self.N) if self.laplacian[i, j] > 0]
+        if self._sinkNode is not None:
+            L = [
+                np.sqrt(self._p * self.laplacian[i, j])
+                * (basis(self.N + 1, i) * basis(self.N + 1, j).dag())
+                for i in range(self.N)
+                for j in range(self.N)
+                if self.laplacian[i, j] > 0
+            ]
             S = np.zeros([self.N + 1, self.N + 1])  # transition matrix to the sink
-            S[self.N, self.sinkNode] = np.sqrt(2 * self.sinkRate)
+            S[self.N, self._sinkNode] = np.sqrt(2 * self._sinkRate)
             L.append(Qobj(S))
         else:
-            L = [np.sqrt(self.p * self.laplacian[i, j]) * (basis(self.N, i) * basis(self.N, j).dag())
-                 for i in range(self.N) for j in range(self.N) if self.laplacian[i, j] > 0]
+            L = [
+                np.sqrt(self._p * self.laplacian[i, j])
+                * (basis(self.N, i) * basis(self.N, j).dag())
+                for i in range(self.N)
+                for j in range(self.N)
+                if self.laplacian[i, j] > 0
+            ]
         return L
 
     def getClassicalHamiltonian(self):
@@ -329,3 +366,9 @@ class StochasticOperator(object):
 
     def setQuantumHamiltonian(self, newQuantumHamiltonian):
         self._quantumHamiltonian = newQuantumHamiltonian
+
+    def setSinkNode(self, newSinkNode):
+        self._sinkNode = newSinkNode
+   
+    def getSinkNode(self):
+        return self._sinkNode
