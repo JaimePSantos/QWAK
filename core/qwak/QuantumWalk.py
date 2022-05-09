@@ -39,19 +39,24 @@ class QuantumWalk:
         self._operator = operator
         self._finalState = State(self._n)
 
+    def buildWalk(self, initState = None, operator = None) -> None:
+        """
+        Builds the final state of the quantum walk by setting it to the matrix
+        multiplication of the operator by the initial state.
+        """
+        if initState is not None:
+            self._initState = initState
+        if operator is not None:
+            self._operator = operator
+        self._finalState.setStateVec(
+            np.matmul(self._operator.getOperator(), self._initState.getStateVec())
+        )
+
     def resetWalk(self):
         self._operator.resetOperator()
         self._initState.resetState()
         self._finalState.resetState()
 
-    def buildWalk(self) -> None:
-        """
-        Builds the final state of the quantum walk by setting it to the matrix
-        multiplication of the operator by the initial state.
-        """
-        self._finalState.setStateVec(
-            np.matmul(self._operator.getOperator(), self._initState.getStateVec())
-        )
 
     def setInitState(self, newInitState: State) -> None:
         """
@@ -134,6 +139,16 @@ class QuantumWalk:
             :rtype: State
         """
         return self._finalState
+
+    def getFinalStateVec(self) -> State:
+        """
+        Gets the final state associated with the walk.
+
+        Returns:
+            :return: self._finalState
+            :rtype: State
+        """
+        return self._finalState.getStateVec()
 
     def getAmpVec(self) -> State:
         """

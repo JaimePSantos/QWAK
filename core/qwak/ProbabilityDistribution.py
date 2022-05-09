@@ -27,22 +27,35 @@ class ProbabilityDistribution:
             :param state: State to be converted into a probability.
             :type state: State
         """
+        self._state = state.getStateVec()
         self._n = state.getDim()
-        self._stateVec = state.getStateVec()
         self._probVec = np.zeros((self._n, 1))
 
     def resetProbDist(self):
-        self._stateVec.resetState()
+        self._state.resetState()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self) -> None:
+    def buildProbDist(self,state=None) -> None:
         """
         Builds the probability vector by multiplying the user inputted
         amplitude state by its conjugate.
         TODO: Nao devia ser pelo complexo conjugado?
         """
+        if state is not None:
+            self._state = state.getStateVec()
         for st in range(self._n):
-            self._probVec[st] = self._stateVec[st] * np.conj(self._stateVec[st])
+            self._probVec[st] = self._state[st] * np.conj(self._state[st])
+
+    def setProbDist(self,newProbDist):
+        self._state = newProbDist.getState()
+        self._n = newProbDist.getDim()
+        self._probVec = newProbDist.getProbVec()
+
+    def getState(self):
+        return self._state
+
+    def getDim(self):
+        return self._n
 
     def setProbVec(self, newProbVec: np.ndarray) -> None:
         """

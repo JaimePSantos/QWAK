@@ -48,20 +48,10 @@ class QWAK:
         """
         self._graph = graph
         self._n = len(self._graph)
-        if markedSearch is not None:
-            self._operator = Operator(self._graph, laplacian, markedSearch=markedSearch)
-        else:
-            self._operator = Operator(self._graph, laplacian)
-        if initStateList is None:
-            self._initStateList = []
-        else:
-            self._initStateList = initStateList
-        if customStateList is None:
-            self._customStateList = []
-        else:
-            self._customStateList = customStateList
-        self._initState = State(self._n, self._initStateList, self._customStateList)
-        self._time = 0
+        self._operator = Operator(self._graph, laplacian=laplacian, markedSearch=markedSearch)
+        self._initState = State(self._n, nodeList=initStateList, customStateList=customStateList)
+        self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def runWalk(
             self, time: float = 0, initStateList: list = None, customStateList=None
@@ -79,24 +69,15 @@ class QWAK:
             :param initStateList: List with chosen initial states. Defaults to [0].
             :type initStateList: (list, optional)
         """
-        self._time = time
-        if initStateList is None and not self._initStateList:
-            self._initStateList = [self._n // 2]
-        else:
-            self._initStateList = initStateList
-        if customStateList is not None:
-            self._customStateList = customStateList
         try:
-            self._initState.buildState(self._initStateList, self._customStateList)
+            self._initState.buildState(nodeList = initStateList, customStateList=customStateList)
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildDiagonalOperator(self._time)
-        self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._quantumWalk.buildWalk()
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
-        self._probDist.buildProbDist()
+        self._operator.buildDiagonalOperator(time=time)
+        self._quantumWalk.buildWalk(self._initState,self._operator)
+        self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
     def resetWalk(self):
         self._initState.resetState()
@@ -194,7 +175,7 @@ class QWAK:
             :param newTime: New time.
             :type newTime: float
         """
-        self._time = newTime
+        self._operator.setTime(newTime)
 
     def getTime(self) -> float:
         """
@@ -204,7 +185,7 @@ class QWAK:
             :return: self._time
             :rtype: float
         """
-        return self._time
+        return self._operator.getTime()
 
     def setOperator(self, newOperator: Operator) -> None:
         """
@@ -276,7 +257,7 @@ class QWAK:
             :param newProbDist: New probability distribution.
             :type newProbDist: ProbabilityDistribution
         """
-        self._probDist = newProbDist
+        self._probDist.setProbDist(newProbDist)
 
     def getProbDist(self) -> ProbabilityDistribution:
         """

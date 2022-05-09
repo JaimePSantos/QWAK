@@ -51,6 +51,28 @@ class Operator:
         self._time = 0
         self._buildEigenValues(self._isHermitian)
 
+    def buildDiagonalOperator(self, time: float = 0) -> None:
+        """
+        Builds operator matrix from optional time and transition rate parameters, defined by user.
+        The first step is to calculate the diagonal matrix that takes in time, transition rate and
+        eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
+        by the eigenvectors, and the last step is to perform matrix multiplication with the complex
+        conjugate of the eigenvectors.
+
+        Args:
+            :param time: Time for which to calculate the operator. Defaults to 0.
+            :type time: (int, optional)
+            :param gamma: Transition rate of the given operator. Defaults to 1.
+            :type gamma: (int, optional)
+        """
+        self._time = time
+        diag = np.diag(np.exp(-1j * self._eigenvalues * self._time)).diagonal()
+        self._operator = np.multiply(self._eigenvectors, diag)
+        if self._isHermitian:
+            self._operator = np.matmul(self._operator, self._eigenvectors.H)
+        else:
+            self._operator = np.matmul(self._operator, inv(self._eigenvectors))
+
     def _buildAdjacency(self, laplacian, markedSearch):
         if laplacian:
             self._adjacencyMatrix = (
@@ -74,28 +96,6 @@ class Operator:
 
     def resetOperator(self):
         self._operator = np.zeros((self._n, self._n))
-
-    def buildDiagonalOperator(self, time: float = 0) -> None:
-        """
-        Builds operator matrix from optional time and transition rate parameters, defined by user.
-        The first step is to calculate the diagonal matrix that takes in time, transition rate and
-        eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
-        by the eigenvectors, and the last step is to perform matrix multiplication with the complex
-        conjugate of the eigenvectors.
-
-        Args:
-            :param time: Time for which to calculate the operator. Defaults to 0.
-            :type time: (int, optional)
-            :param gamma: Transition rate of the given operator. Defaults to 1.
-            :type gamma: (int, optional)
-        """
-        self._time = time
-        diag = np.diag(np.exp(-1j * self._eigenvalues * self._time)).diagonal()
-        self._operator = np.multiply(self._eigenvectors, diag)
-        if self._isHermitian:
-            self._operator = np.matmul(self._operator, self._eigenvectors.H)
-        else:
-            self._operator = np.matmul(self._operator, inv(self._eigenvectors))
 
     def setDim(self, newDim: int) -> None:
         """
