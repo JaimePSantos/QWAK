@@ -51,7 +51,8 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 2. Edit the package to reflect your changes.
 3. Build the distribution files by running `python -m build`.
 4. Reinstall the package without using previously cached versions with `pip install . --no-cache-dir`.
-5. Push your changes to github!
+5. For some reason in windows use `python -m pip install . --no-cache-dir --use-feature=in-tree-build`
+6. Push your changes to github!
 
 #### Building Documentation
 1. Install the [sphinx](https://www.sphinx-doc.org/en/master/) `pip install sphinx`
