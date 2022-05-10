@@ -97,12 +97,12 @@ plt.show()
 
 ### NOISY QUANTUM WALK ###
 
-noiseParam = 0.15 
-sinkNode = 10
+noiseParam = 0 
+sinkNode = None 
 sinkRate = 1.0
 
-n = 100 
-t = 12 
+n = 50 
+t = 6
 graph = nx.cycle_graph(n)
 marked = [n//2]
 
@@ -119,6 +119,8 @@ sProbDist.buildProbDist()
 
 sqwController = StochasticQWAK(graph)
 sqwController.runWalk(t, marked, noiseParam=noiseParam,sinkNode=sinkNode, sinkRate=sinkRate)
+
+print(list(sqwController.getProbVec()))
 
 adj = nx.adj_matrix(graph).todense()
 walker = SQWalker(np.array(adj), noise_param=noiseParam, sink_node=sinkNode,sink_rate = sinkRate)

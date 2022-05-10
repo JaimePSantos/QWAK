@@ -75,7 +75,7 @@ class ProbabilityDistribution:
             :return: self._probVec
             :rtype: Numpy.ndarray
         """
-        return self._probVec
+        return self._probVec.flatten()
 
     def searchNodeProbability(self, searchNode: int) -> float:
         """

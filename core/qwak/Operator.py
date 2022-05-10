@@ -47,7 +47,7 @@ class Operator:
         self._buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
-        self._isHermitian = np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.H)
+        self._isHermitian = np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.conjugate().transpose())
         self._time = 0
         self._buildEigenValues(self._isHermitian)
 
@@ -69,18 +69,18 @@ class Operator:
         diag = np.diag(np.exp(-1j * self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
-            self._operator = np.matmul(self._operator, self._eigenvectors.H)
+            self._operator = np.matmul(self._operator, self._eigenvectors.conjugate().transpose())
         else:
             self._operator = np.matmul(self._operator, inv(self._eigenvectors))
 
     def _buildAdjacency(self, laplacian, markedSearch):
         if laplacian:
             self._adjacencyMatrix = (
-                nx.laplacian_matrix(self._graph).todense().astype(complex)
+               np.asarray(nx.laplacian_matrix(self._graph).todense().astype(complex))
             )
         else:
             self._adjacencyMatrix = (
-                nx.adjacency_matrix(self._graph).todense().astype(complex)
+                nx.to_numpy_array(self._graph, dtype = complex)
             )
         if markedSearch is not None:
             for marked in markedSearch:
