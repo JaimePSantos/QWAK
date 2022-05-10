@@ -68,6 +68,7 @@ print(
 initState = State(n)
 initState.buildState(marked)
 
+print(list(qwController.getProbDistVec()))
 noiseParam = 0. 
 sinkNode = None 
 sinkRate = 1.0
