@@ -260,3 +260,6 @@ class StochasticQuantumWalk(object):
 
     def setFinalState(self, newFinalState):
         self._finalState = newFinalState
+
+    def getDim(self):
+        return self._n

@@ -148,18 +148,20 @@ class StochasticProbabilityDistribution(object):
             :type state: State
         """
         self._finalState = state.getFinalState()
-        self._n = len(self._finalState.final_state.diag())
+        self._n = state.getDim()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self):
+    def buildProbDist(self,state = None):
         """
         Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.
         """
+        if state is not None:
+            self._finalState = state.getFinalState()
         self._probVec = self._finalState.final_state.diag()
 
     def getProbVec(self):
-        return self._probVec
+        return self._probVec.flatten()
 
     def setProbVec(self, newFinalState):
         self._finalState = newFinalState

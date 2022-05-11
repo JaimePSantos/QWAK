@@ -269,7 +269,7 @@ class QWAK:
         """
         return self._probDist
 
-    def getProbDistVec(self) -> ProbabilityDistribution:
+    def getProbVec(self) -> ProbabilityDistribution:
         """
         Gets the current probability distribution.
 
@@ -278,6 +278,7 @@ class QWAK:
             :rtype: ProbabilityDistribution
         """
         return self._probDist.getProbVec()
+
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:
         """
@@ -371,12 +372,14 @@ class StochasticQWAK:
         self._graph = graph
         self._n = len(self._graph)
         self._operator = StochasticOperator(
-                graph,
+                self._graph,
                 noiseParam=noiseParam,
                 sinkNode=sinkNode,
                 sinkRate=sinkRate,
                 )
         self._initState = State(self._n, nodeList = initStateList, customStateList = customStateList)
+        self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
+        self._probDist = StochasticProbabilityDistribution(self._quantumWalk)
 
     def runWalk(
             self,
@@ -402,12 +405,19 @@ class StochasticQWAK:
             :param initStateList: List with chosen initial states. Defaults to [0].
             :type initStateList: (list, optional)
         """
+        # TODO: Move the constructors to the constructor method.
         try:
             self._initState.buildState(nodeList = initStateList, customStateList = customStateList) 
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
+        self._operator = StochasticOperator(
+                self._graph,
+                noiseParam=noiseParam,
+                sinkNode=sinkNode,
+                sinkRate=sinkRate,
+                )
         self._operator.buildStochasticOperator(noiseParam = noiseParam, sinkNode = sinkNode, sinkRate = sinkRate)
         self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk(time,observables,opts)
