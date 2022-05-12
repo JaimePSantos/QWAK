@@ -68,7 +68,7 @@ print(
 initState = State(n)
 initState.buildState(marked)
 
-print(list(qwController.getProbDistVec()))
+print(list(qwController.getProbVec()))
 noiseParam = 0. 
 sinkNode = None 
 sinkRate = 1.0
@@ -90,19 +90,19 @@ walker = SQWalker(np.array(adj), noise_param=noiseParam, sink_node=sinkNode,sink
 plt.plot(new_state.diag(), label="Manual Stochastic Quantum Walk")
 plt.plot(sqwController.getProbVec(), label="StochasticQWAK Quantum Walk")
 plt.plot(qwProbDist.getProbVec(), label="Manual Quantum Walk")
-plt.plot(qwController.getProbDistVec(), label="QWAK Quantum Walk")
-plt.plot(qwController2.getProbDistVec(), label="QWAK Custom State Quantum Walk")
+plt.plot(qwController.getProbVec(), label="QWAK Quantum Walk")
+plt.plot(qwController2.getProbVec(), label="QWAK Custom State Quantum Walk")
 plt.legend()
 plt.show()
 
 ### NOISY QUANTUM WALK ###
 
-noiseParam = 0 
-sinkNode = None 
+noiseParam = 0.15 
+sinkNode = 10
 sinkRate = 1.0
 
 n = 50 
-t = 6
+t = 20 
 graph = nx.cycle_graph(n)
 marked = [n//2]
 
