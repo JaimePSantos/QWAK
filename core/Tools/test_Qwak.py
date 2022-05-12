@@ -3,6 +3,8 @@ import numpy as np
 
 from Tools.Profiler import profile
 from qwak.qwak import QWAK, StochasticQWAK
+from qwak.Errors import StateOutOfBounds
+from qwak.State import State
 
 from Tools.testVariables import (
     probDistUniformSuperpositionCycle,
@@ -12,28 +14,12 @@ from Tools.testVariables import (
     probDistUniformSuperpositionPath,
     stochasticProbDistSingleNodeCycleNoise,
     stochasticProbDistSingleNodeCycleNoNoise,
+    probDistCustomStateCycle, 
 )
 
-probDistUniformSuperpositionCycle = np.asarray(
-    probDistUniformSuperpositionCycle
-).flatten()
-probDistUniformSuperpositionComplete = np.asarray(
-    probDistUniformSuperpositionComplete
-).flatten()
-probDistUniformSuperpositionCycle = np.asarray(
-    probDistUniformSuperpositionCycle
-).flatten()
-probDistUniformSuperpositionCycleOriented = np.asarray(
-    probDistUniformSuperpositionCycleOriented
-).flatten()
-probDistUniformSuperpositionPath = np.asarray(
-    probDistUniformSuperpositionPath
-).flatten()
+import pytest
 
-import unittest
-
-
-class QWAKTest(unittest.TestCase):
+class TestQWAK(object):
     def test_ProbDistUniformSuperpositionCycle(self):
         n = 100
         t = 12
@@ -137,6 +123,32 @@ class QWAKTest(unittest.TestCase):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
+    def test_ProbDistCustomStateCycle(self):
+        n = 100
+        t = 12
+        state = State(n,customStateList = [(n // 2, 1j*(1 / np.sqrt(2))), (n // 2 + 1, (1 / np.sqrt(2)))])
+        state.buildState()
+        qwak = QWAKTestStub()
+        qwak.setInitState(state)
+        np.testing.assert_almost_equal(
+            qwak.getProbVec(),
+            np.zeros(n),
+            err_msg="Probability distribution before running should be 0.",
+        )
+        qwak.buildWalk()
+        np.testing.assert_almost_equal(
+            qwak.getProbVec(),
+            probDistCustomStateCycle,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+
+    def test_stateOutOfBoundsException(self):
+        with pytest.raises(StateOutOfBounds):
+            state = State(100,[101])
+            qwak = QWAKTestStub()
+            qwak.setInitState(state)
+            qwak.buildWalk()
+
 
 class QWAKTestStub:
     def __init__(self, testQwak=None):
@@ -164,3 +176,6 @@ class QWAKTestStub:
 
     def getProbVec(self):
         return self.qwak.getProbVec()
+
+    def setInitState(self,newState):
+        self.qwak.setInitState(newState)

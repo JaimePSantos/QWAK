@@ -45,7 +45,7 @@ class TestStochasticQWAK(object):
             np.zeros(n),
             err_msg="Probability distribution before running should be 0.",
         )
-        qwak.buildWalk(t, noiseParam = noiseParam, sinkNode = sinkNode, sinkRate = sinkRate)
+        qwak.buildWalk(t)
         np.testing.assert_almost_equal(
             qwak.getProbVec(),
             stochasticProbDistSingleNodeCycleNoise ,
@@ -74,8 +74,7 @@ class StochasticQWAKTestStub:
     def buildWalk(self,t, noiseParam = None, sinkNode = None, sinkRate = None):
         if t is not None:
             self.t = t
-        # TODO: These parameters need to go away.
-        self.qwak.runWalk(self.t,noiseParam=noiseParam, sinkNode=sinkNode, sinkRate=sinkRate)
+        self.qwak.runWalk(self.t)
 
     def getProbVec(self):
         return self.qwak.getProbVec()

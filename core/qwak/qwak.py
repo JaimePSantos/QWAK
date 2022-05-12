@@ -412,12 +412,6 @@ class StochasticQWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator = StochasticOperator(
-                self._graph,
-                noiseParam=noiseParam,
-                sinkNode=sinkNode,
-                sinkRate=sinkRate,
-                )
         self._operator.buildStochasticOperator(noiseParam = noiseParam, sinkNode = sinkNode, sinkRate = sinkRate)
         self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
         self._quantumWalk.buildWalk(time,observables,opts)

@@ -20,6 +20,8 @@ import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
 
+from Tools.test_StochasticQwak import StochasticQWAKTestStub
+
 n = 100 
 t = 12 
 graph = nx.cycle_graph(n)
@@ -27,6 +29,7 @@ marked = [n // 2, n // 2 + 1]
 #marked = [n//2]
 customMarked = [(n // 2, 1 / np.sqrt(2)), (n // 2 + 1, 1 / np.sqrt(2))]
 #customMarked = [(n // 2, 1)]
+customMarked2 = [(n // 2, 1j*(1 / np.sqrt(2))), (n // 2 + 1, (1 / np.sqrt(2)))]
 
 qwInitState = State(n, marked)
 qwInitState.buildState(marked)
@@ -55,7 +58,7 @@ print(
 )
 
 qwController2 = QWAK(graph, laplacian=False)
-qwController2.runWalk(t, customStateList=customMarked)
+qwController2.runWalk(t, customStateList=customMarked2)
 print(
     f"Mean: {qwController2.getProbDist().mean()}\t "
     f"Moment 1: {qwController2.getProbDist().moment(1)}\n"
@@ -68,7 +71,7 @@ print(
 initState = State(n)
 initState.buildState(marked)
 
-print(list(qwController.getProbVec()))
+print(list(qwController2.getProbVec()))
 noiseParam = 0. 
 sinkNode = None 
 sinkRate = 1.0
