@@ -142,6 +142,15 @@ class TestQWAK(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
+    def test_SetDimCycle(self):
+        newDim = 1000
+        graphStr = 'nx.cycle_graph'
+        qwak = QWAKTestStub()
+        assert qwak.getDim() == 100
+        qwak.setDim(newDim,graphStr)
+        assert qwak.getDim() == 1000
+        np.testing.assert_almost_equal(qwak.getAdjacencyMatrix(), nx.to_numpy_array(nx.cycle_graph(newDim),dtype=complex),err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {qwak.getAdjacencyMatrix()}")
+
     def test_stateOutOfBoundsException(self):
         with pytest.raises(StateOutOfBounds):
             state = State(100,[101])
@@ -179,3 +188,12 @@ class QWAKTestStub:
 
     def setInitState(self,newState):
         self.qwak.setInitState(newState)
+
+    def getDim(self):
+        return self.qwak.getDim()
+
+    def setDim(self,newDim,graphStr):
+        self.qwak.setDim(newDim,graphStr)
+
+    def getAdjacencyMatrix(self):
+        return self.qwak.getAdjacencyMatrix()

@@ -96,6 +96,7 @@ class QWAK:
             :param graphStr: Graph string to generate the graph with the new dimension.
             :type graphStr: str
         """
+        #TODO: We should probably remove the graphStr as user input and just make it a class attribute.
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
