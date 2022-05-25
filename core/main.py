@@ -6,13 +6,15 @@ from qwak.qwak import QWAK
 from qwak.State import State
 
 if __name__ == '__main__':
-    st = State(10,customStateList= [(1,5),(2,6)])
+    # st = State(10,customStateList= [(1,5),(2,6)])
     # st = State(9,nodeList=[9])
-    st.buildState(nodeList = [1])
-    print(st.getStateVec())
-    # n = 7
-    # t = 5
-    # graph = nx.cycle_graph(n)
+    # st.buildState(nodeList = [1])
+    # print(st.getStateVec())
+    n = 100
+    t = 6
+    marked = list(range(n))
+    print(marked)
+    graph = nx.cycle_graph(n)
     # # graph=nx.complete_graph(n)
     # # graph = nx.complete_bipartite_graph(4,3)
     # # marked = range(int(n/2))
@@ -24,11 +26,11 @@ if __name__ == '__main__':
     # print(qwController.getProbDistVec())
     # plt.plot(qwController.getProbDistVec())
     # plt.show()
-    # # qwController = QWAK(graph, laplacian=True,markedSearch=[(0,-1j)])
-    # # qwController.runWalk(t,marked)
-    # # plt.plot(qwController.getProbDist().getProbVec())
-    # # plt.show()
-    # # sp.pprint(f"PST {qwController.checkPST(0,2)}")
+    qwController = QWAK(graph, laplacian=True,markedSearch=[(n//4,-1)])
+    qwController.runWalk(t,marked)
+    plt.plot(qwController.getProbVec())
+    plt.show()
+    # sp.pprint(f"PST {qwController.checkPST(0,2)}")
     # eta = []
     # times = np.linspace(0, 50, 200)
     # print(f"init: {qwController.getInitState()}")

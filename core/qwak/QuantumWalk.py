@@ -4,8 +4,9 @@ import warnings
 
 import numpy as np
 
-from qwak.Operator import Operator
+from qwak.Operator import Operator, StochasticOperator
 from qwak.State import State
+from qutip import Qobj, basis, mesolve, Options
 
 warnings.filterwarnings("ignore")
 
@@ -38,18 +39,24 @@ class QuantumWalk:
         self._operator = operator
         self._finalState = State(self._n)
 
+    def buildWalk(self, initState = None, operator = None) -> None:
+        """
+        Builds the final state of the quantum walk by setting it to the matrix
+        multiplication of the operator by the initial state.
+        """
+        if initState is not None:
+            self._initState = initState
+        if operator is not None:
+            self._operator = operator
+        self._finalState.setStateVec(
+            np.matmul(self._operator.getOperator(), self._initState.getStateVec())
+        )
+
     def resetWalk(self):
         self._operator.resetOperator()
         self._initState.resetState()
         self._finalState.resetState()
 
-    def buildWalk(self) -> None:
-        """
-        Builds the final state of the quantum walk by setting it to the matrix
-        multiplication of the operator by the initial state.
-        """
-        self._finalState.setStateVec(
-            np.matmul(self._operator.getOperator(), self._initState.getStateVec()))
 
     def setInitState(self, newInitState: State) -> None:
         """
@@ -133,6 +140,16 @@ class QuantumWalk:
         """
         return self._finalState
 
+    def getFinalStateVec(self) -> State:
+        """
+        Gets the final state associated with the walk.
+
+        Returns:
+            :return: self._finalState
+            :rtype: State
+        """
+        return self._finalState.getStateVec()
+
     def getAmpVec(self) -> State:
         """
         Gets the array of the final state associated with the walk.
@@ -160,7 +177,7 @@ class QuantumWalk:
     def invPartRatio(self):
         amplitudes = 0
         for amp in self._finalState.getStateVec():
-            amplitudes += np.absolute(amp.item(0, 0)) ** 4
+            amplitudes += np.absolute(amp.item(0)) ** 4
         amplitudes = amplitudes
         return 1 / amplitudes
 
@@ -179,4 +196,71 @@ class QuantumWalk:
             :return: f'{self._finalState.getStateVec()}'
             :rtype: str
         """
-        return f'{self._finalState.getStateVec()}'
+        return f"{self._finalState.getStateVec()}"
+
+
+class StochasticQuantumWalk(object):
+    """
+    Class that represents the final state containing the amplitudes of a
+    continuous-time quantum walk.
+
+    """
+
+    def __init__(self, state: State, operator: StochasticOperator) -> None:
+        """
+        This object is initialized with a user inputted initial state and
+        operator.
+        The dimension of the quantum walk will then be loaded from the initial
+        state.
+        The final state will contain the amplitudes of the time evolution of
+        the initial state, as a function of the operator. This variable is initialized
+        as an instance of QObj class.
+
+        Args:
+            :param state: Initial state which will be the basis of the time dependant evolution.
+            :type state: State
+            :param operator: Operator which will evolve the initial state.
+            :type operator: Operator.
+        """
+        self._n = state.getDim()
+        self._initState = state
+        self._initQutipState = Qobj(state.getStateVec())
+        self._operator = operator
+        self._finalState = Qobj(State(self._n)).full()
+        self._time = 0
+
+    def buildWalk(
+        self,
+        time,
+        observables=[],
+        opts=Options(store_states=True, store_final_state=True),
+    ) -> None:
+        """
+        Builds the final state of the quantum walk by setting it to the matrix
+        multiplication of the operator by the initial state.
+        """
+        # TODO: Can we move the time dependency to the StochasticOperator class?
+        # TODO: Can we make the time evolution low cost?
+        # TODO: Is there a way to obtain amplitudes?
+        # TODO: The final state is a of the Qobj class. Find a way to make it State class.
+        self._time = np.arange(0, time + 1)
+        if self._operator.getSinkNode() is not None:
+            self._initQutipState = Qobj(np.vstack([self._initState.getStateVec(), [0.]]))
+        self._finalState = mesolve(
+            self._operator.getQuantumHamiltonian(),
+            self._initQutipState,
+            self._time,
+            self._operator.getClassicalHamiltonian(),
+            observables,
+            options=opts).final_State.full()
+        # if you want the full list of states, keep option store_states=True and instead
+        # of final_state.full() use states.full()
+
+    def getFinalState(self):
+        return self._finalState
+
+    def setFinalState(self, newFinalState):
+        self._finalState = newFinalState
+
+    def getDim(self):
+        return self._n

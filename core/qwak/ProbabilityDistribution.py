@@ -3,6 +3,8 @@ import warnings
 import numpy as np
 
 from qwak.State import State
+from qutip import Qobj, basis, mesolve, Options
+
 
 warnings.filterwarnings("ignore")
 
@@ -25,22 +27,35 @@ class ProbabilityDistribution:
             :param state: State to be converted into a probability.
             :type state: State
         """
+        self._state = state.getStateVec()
         self._n = state.getDim()
-        self._stateVec = state.getStateVec()
         self._probVec = np.zeros((self._n, 1))
 
     def resetProbDist(self):
-        self._stateVec.resetState()
+        self._state.resetState()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self) -> None:
+    def buildProbDist(self,state=None) -> None:
         """
         Builds the probability vector by multiplying the user inputted
         amplitude state by its conjugate.
         TODO: Nao devia ser pelo complexo conjugado?
         """
+        if state is not None:
+            self._state = state.getStateVec()
         for st in range(self._n):
-            self._probVec[st] = self._stateVec[st] * np.conj(self._stateVec[st])
+            self._probVec[st] = self._state[st] * np.conj(self._state[st])
+
+    def setProbDist(self,newProbDist):
+        self._state = newProbDist.getState()
+        self._n = newProbDist.getDim()
+        self._probVec = newProbDist.getProbVec()
+
+    def getState(self):
+        return self._state
+
+    def getDim(self):
+        return self._n
 
     def setProbVec(self, newProbVec: np.ndarray) -> None:
         """
@@ -60,7 +75,7 @@ class ProbabilityDistribution:
             :return: self._probVec
             :rtype: Numpy.ndarray
         """
-        return self._probVec
+        return self._probVec.flatten()
 
     def searchNodeProbability(self, searchNode: int) -> float:
         """
@@ -120,4 +135,33 @@ class ProbabilityDistribution:
             :return: f'{self._probVec}'
             :rtype: str
         """
-        return f'{self._probVec}'
+        return f"{self._probVec}"
+
+
+class StochasticProbabilityDistribution(object):
+    """ """
+
+    def __init__(self, state: Qobj) -> None:
+        """
+        Args:
+            :param state: Initial state which will be the basis of the time dependant evolution.
+            :type state: State
+        """
+        self._finalState = state.getFinalState()
+        self._n = state.getDim()
+        self._probVec = np.zeros((self._n, 1))
+
+    def buildProbDist(self,state = None):
+        """
+        Builds the final state of the quantum walk by setting it to the matrix
+        multiplication of the operator by the initial state.
+        """
+        if state is not None:
+            self._finalState = state.getFinalState()
+        self._probVec = self._finalState.final_state.diag()
+
+    def getProbVec(self):
+        return self._probVec.flatten()
+
+    def setProbVec(self, newFinalState):
+        self._finalState = newFinalState

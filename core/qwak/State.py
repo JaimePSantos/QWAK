@@ -3,7 +3,7 @@ from __future__ import annotations
 import numpy as np
 from scipy.linalg import inv
 
-from qwak.Errors import StateOutOfBounds
+from qwak.Errors import StateOutOfBounds, NonUnitaryState
 
 
 class State:
@@ -13,7 +13,7 @@ class State:
     therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
 
-    def __init__(self, n: int, nodeList: list = [], customStateList=[]) -> None:
+    def __init__(self, n: int, nodeList: list = None, customStateList=None) -> None:
         """
         Object is initialized with a mandatory user inputted dimension, an optional
         stateList parameter which will be used to create the amplitudes for each node in the state
@@ -26,9 +26,15 @@ class State:
             :type nodeList: (list,optional)
         """
         self._n = n
-        self._nodeList = nodeList
+        if nodeList is None:
+            self._nodeList = []
+        else:
+            self._nodeList = nodeList
+        if customStateList is None:
+            self._customStateList = []
+        else:
+            self._customStateList = customStateList
         self._stateVec = np.zeros((self._n, 1),dtype=complex)
-        self._customStateList = customStateList
 
     def buildState(self, nodeList: list = None, customStateList=None) -> None:
         """
@@ -40,24 +46,34 @@ class State:
             :param nodeList: List of nodes that will have an amplitude in the state vector.
             :type nodeList: list
         """
+        # TODO: We can probably find a better way to build this function.
         if nodeList is not None:
             self._nodeList = nodeList
         if customStateList is not None:
             self._customStateList = customStateList
         if self._customStateList:
+            self._checkUnitaryStateList(self._customStateList)
             for customState in self._customStateList:
-                self.checkStateOutOfBounds(customState[0])
+                self._checkStateOutOfBounds(customState[0])
                 self._stateVec[customState[0]] = customState[1]
         else:
             nodeAmp = np.sqrt(len(self._nodeList))
             for state in self._nodeList:
-                self.checkStateOutOfBounds(state)
+                self._checkStateOutOfBounds(state)
                 self._stateVec[state] = 1 / nodeAmp
 
-    def checkStateOutOfBounds(self,node):
+    def _checkStateOutOfBounds(self,node):
         if node >= self._n:
             raise StateOutOfBounds(
                 f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}]).")
+
+    def _checkUnitaryStateList(self,customStateList):
+        unitaryState = 0
+        for state in customStateList:
+            unitaryState += np.abs(state[1])**2
+        unitaryState = round(unitaryState,5)
+        if unitaryState != float(1):
+            raise NonUnitaryState(f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1.") 
 
     def herm(self):
         return self._stateVec.H
