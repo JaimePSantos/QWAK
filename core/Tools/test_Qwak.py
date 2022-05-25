@@ -3,7 +3,7 @@ import numpy as np
 
 from Tools.Profiler import profile
 from qwak.qwak import QWAK, StochasticQWAK
-from qwak.Errors import StateOutOfBounds
+from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
 
 from Tools.testVariables import (
@@ -14,10 +14,11 @@ from Tools.testVariables import (
     probDistUniformSuperpositionPath,
     stochasticProbDistSingleNodeCycleNoise,
     stochasticProbDistSingleNodeCycleNoNoise,
-    probDistCustomStateCycle, 
+    probDistCustomStateCycle,
 )
 
 import pytest
+
 
 class TestQWAK(object):
     def test_ProbDistUniformSuperpositionCycle(self):
@@ -126,7 +127,13 @@ class TestQWAK(object):
     def test_ProbDistCustomStateCycle(self):
         n = 100
         t = 12
-        state = State(n,customStateList = [(n // 2, 1j*(1 / np.sqrt(2))), (n // 2 + 1, (1 / np.sqrt(2)))])
+        state = State(
+            n,
+            customStateList=[
+                (n // 2, 1j * (1 / np.sqrt(2))),
+                (n // 2 + 1, (1 / np.sqrt(2))),
+            ],
+        )
         state.buildState()
         qwak = QWAKTestStub()
         qwak.setInitState(state)
@@ -144,16 +151,37 @@ class TestQWAK(object):
 
     def test_SetDimCycle(self):
         newDim = 1000
-        graphStr = 'nx.cycle_graph'
+        graphStr = "nx.cycle_graph"
         qwak = QWAKTestStub()
         assert qwak.getDim() == 100
-        qwak.setDim(newDim,graphStr)
+        qwak.setDim(newDim, graphStr)
         assert qwak.getDim() == 1000
-        np.testing.assert_almost_equal(qwak.getAdjacencyMatrix(), nx.to_numpy_array(nx.cycle_graph(newDim),dtype=complex),err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {qwak.getAdjacencyMatrix()}")
+        np.testing.assert_almost_equal(
+            qwak.getAdjacencyMatrix(),
+            nx.to_numpy_array(nx.cycle_graph(newDim), dtype=complex),
+            err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {qwak.getAdjacencyMatrix()}",
+        )
 
     def test_stateOutOfBoundsException(self):
         with pytest.raises(StateOutOfBounds):
-            state = State(100,[101])
+            n = 100
+            state = State(n, [n+1])
+            state.buildState()
+            qwak = QWAKTestStub()
+            qwak.setInitState(state)
+            qwak.buildWalk()
+
+    def test_nonUnitaryStateException(self):
+        with pytest.raises(NonUnitaryState):
+            n = 100
+            state = State(
+                n,
+                customStateList=[
+                    (n // 2, 1 ),
+                    (n // 2 + 1, 2 ),
+                ],
+            )
+            state.buildState()
             qwak = QWAKTestStub()
             qwak.setInitState(state)
             qwak.buildWalk()
@@ -178,22 +206,22 @@ class QWAKTestStub:
         else:
             self.qwak = testQwak
 
-    def buildWalk(self,t=None):
+    def buildWalk(self, t=None):
         if t is not None:
             self.t = t
-        self.qwak.runWalk(time = self.t)
+        self.qwak.runWalk(time=self.t)
 
     def getProbVec(self):
         return self.qwak.getProbVec()
 
-    def setInitState(self,newState):
+    def setInitState(self, newState):
         self.qwak.setInitState(newState)
 
     def getDim(self):
         return self.qwak.getDim()
 
-    def setDim(self,newDim,graphStr):
-        self.qwak.setDim(newDim,graphStr)
+    def setDim(self, newDim, graphStr):
+        self.qwak.setDim(newDim, graphStr)
 
     def getAdjacencyMatrix(self):
         return self.qwak.getAdjacencyMatrix()

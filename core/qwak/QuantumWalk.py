@@ -226,7 +226,7 @@ class StochasticQuantumWalk(object):
         self._initState = state
         self._initQutipState = Qobj(state.getStateVec())
         self._operator = operator
-        self._finalState = Qobj(State(self._n)).full()
+        self._finalState = Qobj(State(self._n))
         self._time = 0
 
     def buildWalk(
@@ -252,7 +252,7 @@ class StochasticQuantumWalk(object):
             self._time,
             self._operator.getClassicalHamiltonian(),
             observables,
-            options=opts).final_State.full()
+            options=opts).final_state.full()
         # if you want the full list of states, keep option store_states=True and instead
         # of final_state.full() use states.full()
 

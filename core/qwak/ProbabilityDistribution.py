@@ -158,7 +158,7 @@ class StochasticProbabilityDistribution(object):
         """
         if state is not None:
             self._finalState = state.getFinalState()
-        self._probVec = self._finalState.final_state.diag()
+        self._probVec = np.diagonal(self._finalState)
 
     def getProbVec(self):
         return self._probVec.flatten()
