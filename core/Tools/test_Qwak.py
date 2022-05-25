@@ -15,6 +15,7 @@ from Tools.testVariables import (
     stochasticProbDistSingleNodeCycleNoise,
     stochasticProbDistSingleNodeCycleNoNoise,
     probDistCustomStateCycle,
+    probDistCycleNewDim, 
 )
 
 import pytest
@@ -152,20 +153,28 @@ class TestQWAK(object):
     def test_SetDimCycle(self):
         newDim = 1000
         graphStr = "nx.cycle_graph"
+        t = 12
+        initStateList = [newDim//2, newDim//2 + 1]
         qwak = QWAKTestStub()
         assert qwak.getDim() == 100
-        qwak.setDim(newDim, graphStr)
+        qwak.setDim(newDim, graphStr,initStateList)
         assert qwak.getDim() == 1000
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
             nx.to_numpy_array(nx.cycle_graph(newDim), dtype=complex),
             err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {qwak.getAdjacencyMatrix()}",
         )
+        qwak.buildWalk(t)
+        np.testing.assert_almost_equal(
+            qwak.getProbVec(),
+            probDistCycleNewDim,
+            err_msg=f"Probability Distribution does not match expected for n = {newDim} and t = {t}",
+        )
 
     def test_stateOutOfBoundsException(self):
         with pytest.raises(StateOutOfBounds):
             n = 100
-            state = State(n, [n+1])
+            state = State(n, [n + 1])
             state.buildState()
             qwak = QWAKTestStub()
             qwak.setInitState(state)
@@ -177,8 +186,8 @@ class TestQWAK(object):
             state = State(
                 n,
                 customStateList=[
-                    (n // 2, 1 ),
-                    (n // 2 + 1, 2 ),
+                    (n // 2, 1),
+                    (n // 2 + 1, 1),
                 ],
             )
             state.buildState()
@@ -220,8 +229,8 @@ class QWAKTestStub:
     def getDim(self):
         return self.qwak.getDim()
 
-    def setDim(self, newDim, graphStr):
-        self.qwak.setDim(newDim, graphStr)
+    def setDim(self, newDim, graphStr,initStateList = None):
+        self.qwak.setDim(newDim, graphStr, initStateList)
 
     def getAdjacencyMatrix(self):
         return self.qwak.getAdjacencyMatrix()

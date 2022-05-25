@@ -84,7 +84,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def setDim(self, newDim: int, graphStr: str) -> None:
+    def setDim(self, newDim: int, graphStr: str, initStateList = None) -> None:
         """
         Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
@@ -100,9 +100,10 @@ class QWAK:
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
-        self._initStateList = [int(self._n / 2)]
-        self._initState = State(self._n, self._initStateList)
+        self._initState = State(self._n, initStateList)
         self._operator = Operator(self._graph)
+        self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def getDim(self) -> int:
         """
