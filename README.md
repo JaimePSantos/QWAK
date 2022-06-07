@@ -31,7 +31,7 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
 
 #### Installing the package
-6. Install required python dependencies: `pip install numpy scipy sympy matplotlib networkx`
+6. Install required python dependencies: `pip install numpy scipy sympy matplotlib networkx qutip`
 7. Install [eel](https://github.com/ChrisKnott/Eel) if you want to use the GUI: `pip install eel`
 8. Install the qwak package: `pip install .`
 
