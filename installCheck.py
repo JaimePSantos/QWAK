@@ -142,3 +142,6 @@ from Tools.test_StochasticQwak import StochasticQWAKTestStub
 # plt.plot(new_state2.diag(), label="SQWALK Quantum Walk")
 # plt.legend()
 # plt.show()
+
+
+
