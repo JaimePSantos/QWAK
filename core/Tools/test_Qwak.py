@@ -97,6 +97,7 @@ class TestQWAK(object):
         )
 
     def test_ProbDistUniformSuperpositionPath(self):
+        #TODO: Laplacian not making a difference.
         n = 100
         t = 12
         self.t = t
@@ -170,6 +171,36 @@ class TestQWAK(object):
             probDistCycleNewDim,
             err_msg=f"Probability Distribution does not match expected for n = {newDim} and t = {t}",
         )
+        
+    def test_SetAdjacencyMatrix(self):
+        n = 100
+        t = 12
+        initStateList = [n//2, n//2 + 1]
+        newAdjMatrix = nx.to_numpy_array(nx.complete_graph(n), dtype=complex)
+        qwak = QWAKTestStub()
+        np.testing.assert_almost_equal(
+            qwak.getAdjacencyMatrix(),
+            nx.to_numpy_array(nx.cycle_graph(n), dtype=complex),
+            err_msg=f"Expected adjacency matrix of cycle of size {n} but got {qwak.getAdjacencyMatrix()}",
+        )
+        qwak.buildWalk(t)
+        np.testing.assert_almost_equal(
+            qwak.getProbVec(),
+            probDistUniformSuperpositionCycle,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+        qwak.setAdjacencyMatrix(newAdjMatrix,initStateList)
+        qwak.buildWalk(t)
+        np.testing.assert_almost_equal(
+            qwak.getAdjacencyMatrix(),
+            newAdjMatrix,
+            err_msg=f"Expected adjacency matrix of cycle of size {n} but got {qwak.getAdjacencyMatrix()}",
+        )
+        np.testing.assert_almost_equal(
+            qwak.getProbVec(),
+            probDistUniformSuperpositionComplete,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
 
     def test_stateOutOfBoundsException(self):
         with pytest.raises(StateOutOfBounds):
@@ -234,3 +265,6 @@ class QWAKTestStub:
 
     def getAdjacencyMatrix(self):
         return self.qwak.getAdjacencyMatrix()
+
+    def setAdjacencyMatrix(self, newAdjacencyMatrix,initStateList):
+        self.qwak.setAdjacencyMatrix(newAdjacencyMatrix,initStateList)

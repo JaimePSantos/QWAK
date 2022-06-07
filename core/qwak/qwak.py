@@ -96,7 +96,7 @@ class QWAK:
             :param graphStr: Graph string to generate the graph with the new dimension.
             :type graphStr: str
         """
-        #TODO: We should probably remove the graphStr as user input and just make it a class attribute.
+        #TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
@@ -115,12 +115,12 @@ class QWAK:
         """
         return self._n
 
-    def setAdjacencyMatrix(self, newAdjMatrix):
-        self._operator.setAdjacencyMatrix(newAdjMatrix)
+    def setAdjacencyMatrix(self, newAdjMatrix,initStateList = None):
         self._n = len(self._operator.getAdjacencyMatrix())
-        self._initStateList = [int(self._n / 2)]
-        self._initState = State(self._n)
-        self._initState.buildState(self._initStateList)
+        self._operator.setAdjacencyMatrix(newAdjMatrix)
+        self._initState = State(self._n, initStateList)
+        self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def getAdjacencyMatrix(self):
         return self._operator.getAdjacencyMatrix()
