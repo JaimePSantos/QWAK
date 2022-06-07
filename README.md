@@ -51,8 +51,19 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 2. Edit the package to reflect your changes.
 3. Build the distribution files by running `python -m build`.
 4. Reinstall the package without using previously cached versions with `pip install . --no-cache-dir`.
-5. For some reason in windows use `python -m pip install . --no-cache-dir --use-feature=in-tree-build`
-6. Push your changes to github!
+5. For some reason in windows you may need to use `python -m pip install . --no-cache-dir --use-feature=in-tree-build`
+
+#### Commit the changes the github repo
+1. Fork the repository
+2. Clone your github fork git ```clone https://github.com/<your-username>/QWAK.git```
+3. Navigate to the project folder ```cd QWAK```
+4. Add the upstream repo ```git remote add upstream https://github.com/JaimePSantos/QWAK.git```
+5. Update your fork with ```git checkout main``` and ```git pull --rebase upstream main```
+6. Create a branch for the changes instead of working off your local main branch ```git checkout -b <new branch name> upstream/main```
+7. Make your changes.
+8. Commit your changes: ```git commit -am <Commit message>```
+9. Push your changes to your fork ```git push -u origin <branch name>```
+10. Visit your repo on github and create a pull request to the main repo!
 
 #### Building Documentation
 1. Install the [sphinx](https://www.sphinx-doc.org/en/master/) `pip install sphinx`
