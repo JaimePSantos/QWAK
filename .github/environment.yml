@@ -1,0 +1,13 @@
+name: Python3.9 
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - matplotlib
+  - pip
+  - python=3.9.*      
+  - scipy
+  - sympy
+  - networkx
+  - qutip
+  - eel
