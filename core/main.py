@@ -5,7 +5,7 @@ from matplotlib import pyplot as plt
 from qwak.qwak import QWAK
 from qwak.State import State
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # st = State(10,customStateList= [(1,5),(2,6)])
     # st = State(9,nodeList=[9])
     # st.buildState(nodeList = [1])
@@ -26,8 +26,8 @@ if __name__ == '__main__':
     # print(qwController.getProbDistVec())
     # plt.plot(qwController.getProbDistVec())
     # plt.show()
-    qwController = QWAK(graph, laplacian=True,markedSearch=[(n//4,-1)])
-    qwController.runWalk(t,marked)
+    qwController = QWAK(graph, laplacian=True, markedSearch=[(n // 4, -1)])
+    qwController.runWalk(t, marked)
     plt.plot(qwController.getProbVec())
     plt.show()
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")

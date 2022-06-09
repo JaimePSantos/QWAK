@@ -5,11 +5,12 @@ from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
 from qwak.ProbabilityDistribution import (
-        ProbabilityDistribution,
-        StochasticProbabilityDistribution,
-        )
+    ProbabilityDistribution,
+    StochasticProbabilityDistribution,
+)
 
 from qutip import Qobj, basis, mesolve, Options
+
 
 class QWAK:
     """
@@ -25,13 +26,13 @@ class QWAK:
     """
 
     def __init__(
-            self,
-            graph: nx.Graph,
-            initStateList=None,
-            customStateList=None,
-            laplacian: bool = False,
-            markedSearch=None,
-            ) -> None:
+        self,
+        graph: nx.Graph,
+        initStateList=None,
+        customStateList=None,
+        laplacian: bool = False,
+        markedSearch=None,
+    ) -> None:
         """
         Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
@@ -48,14 +49,18 @@ class QWAK:
         """
         self._graph = graph
         self._n = len(self._graph)
-        self._operator = Operator(self._graph, laplacian=laplacian, markedSearch=markedSearch)
-        self._initState = State(self._n, nodeList=initStateList, customStateList=customStateList)
+        self._operator = Operator(
+            self._graph, laplacian=laplacian, markedSearch=markedSearch
+        )
+        self._initState = State(
+            self._n, nodeList=initStateList, customStateList=customStateList
+        )
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def runWalk(
-            self, time: float = 0, initStateList: list = None, customStateList=None
-            ) -> None:
+        self, time: float = 0, initStateList: list = None, customStateList=None
+    ) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
@@ -70,13 +75,15 @@ class QWAK:
             :type initStateList: (list, optional)
         """
         try:
-            self._initState.buildState(nodeList = initStateList, customStateList=customStateList)
+            self._initState.buildState(
+                nodeList=initStateList, customStateList=customStateList
+            )
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
         self._operator.buildDiagonalOperator(time=time)
-        self._quantumWalk.buildWalk(self._initState,self._operator)
+        self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
     def resetWalk(self):
@@ -84,7 +91,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def setDim(self, newDim: int, graphStr: str, initStateList = None) -> None:
+    def setDim(self, newDim: int, graphStr: str, initStateList=None) -> None:
         """
         Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
@@ -96,7 +103,7 @@ class QWAK:
             :param graphStr: Graph string to generate the graph with the new dimension.
             :type graphStr: str
         """
-        #TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.
+        # TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
@@ -115,7 +122,7 @@ class QWAK:
         """
         return self._n
 
-    def setAdjacencyMatrix(self, newAdjMatrix,initStateList = None):
+    def setAdjacencyMatrix(self, newAdjMatrix, initStateList=None):
         self._n = len(self._operator.getAdjacencyMatrix())
         self._operator.setAdjacencyMatrix(newAdjMatrix)
         self._initState = State(self._n, initStateList)
@@ -281,7 +288,6 @@ class QWAK:
         """
         return self._probDist.getProbVec()
 
-
     def searchNodeAmplitude(self, searchNode: int) -> complex:
         """
         Searches and gets the amplitude associated with a given node.
@@ -349,14 +355,14 @@ class StochasticQWAK:
     """
 
     def __init__(
-            self,
-            graph: nx.Graph,
-            initStateList=None,
-            customStateList=None,
-            noiseParam=None,
-            sinkNode=None,
-            sinkRate=None,
-            ) -> None:
+        self,
+        graph: nx.Graph,
+        initStateList=None,
+        customStateList=None,
+        noiseParam=None,
+        sinkNode=None,
+        sinkRate=None,
+    ) -> None:
         """
         Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
@@ -374,26 +380,28 @@ class StochasticQWAK:
         self._graph = graph
         self._n = len(self._graph)
         self._operator = StochasticOperator(
-                self._graph,
-                noiseParam=noiseParam,
-                sinkNode=sinkNode,
-                sinkRate=sinkRate,
-                )
-        self._initState = State(self._n, nodeList = initStateList, customStateList = customStateList)
+            self._graph,
+            noiseParam=noiseParam,
+            sinkNode=sinkNode,
+            sinkRate=sinkRate,
+        )
+        self._initState = State(
+            self._n, nodeList=initStateList, customStateList=customStateList
+        )
         self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
         self._probDist = StochasticProbabilityDistribution(self._quantumWalk)
 
     def runWalk(
-            self,
-            time: float = 0,
-            initStateList: list = None,
-            customStateList=None,
-            noiseParam=None,
-            sinkNode=None,
-            sinkRate=None,
-            observables=[],
-            opts=Options(store_states=True, store_final_state=True),
-            ) -> None:
+        self,
+        time: float = 0,
+        initStateList: list = None,
+        customStateList=None,
+        noiseParam=None,
+        sinkNode=None,
+        sinkRate=None,
+        observables=[],
+        opts=Options(store_states=True, store_final_state=True),
+    ) -> None:
         """
         Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
@@ -409,14 +417,18 @@ class StochasticQWAK:
         """
         # TODO: Move the constructors to the constructor method.
         try:
-            self._initState.buildState(nodeList = initStateList, customStateList = customStateList) 
+            self._initState.buildState(
+                nodeList=initStateList, customStateList=customStateList
+            )
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildStochasticOperator(noiseParam = noiseParam, sinkNode = sinkNode, sinkRate = sinkRate)
+        self._operator.buildStochasticOperator(
+            noiseParam=noiseParam, sinkNode=sinkNode, sinkRate=sinkRate
+        )
         self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
-        self._quantumWalk.buildWalk(time,observables,opts)
+        self._quantumWalk.buildWalk(time, observables, opts)
         self._probDist = StochasticProbabilityDistribution(self._quantumWalk)
         self._probDist.buildProbDist()
 

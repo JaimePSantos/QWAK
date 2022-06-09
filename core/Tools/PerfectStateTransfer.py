@@ -31,6 +31,7 @@ def isStrCospec(A, a, b):
 # without repeated roots. This occurs when gcd(f(x),f'(x)) is a constant, then we only need to check the coeeficients and
 # see if all of them is zero except the last one. This is done by the function SimplePoles.
 
+
 def isSimplePoles(phi, phiab):
     gx = gcd(phi, phiab)
     fx, r = div(phi, gx)
@@ -50,6 +51,7 @@ def isSimplePoles(phi, phiab):
 # list. The algorithm then choose the next prime and does the same procedure. At the end, we have a list with True at position
 # i if i+1 is prime and False otherwise.
 
+
 def sieveEratosthenes(n):
     isPrime = np.full([n, 1], True)
     for i in range(2, ceil(sqrt(n)) + 1):
@@ -62,6 +64,7 @@ def sieveEratosthenes(n):
 ## The function SquareFree gives a list of square-free number from 1 to n in a similar way that we found all primes. The
 # algorithm get the list of primes from 1 to n, then it start a loop of integers from 2 to n, when i is prime the algorithm
 # associates False to all multiples of i². It returns a list with True (False) in the entry i if i-1 is (not) square free.
+
 
 def getSquareFree(n):
     isSqrFree = np.full([n, 1], True)
@@ -82,6 +85,7 @@ def getSquareFree(n):
 # projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,
 # because we do not need to check for eigenvalues that are not in the eigenvalue support.
 
+
 def getEigenSupp(a, eigenvec, eigenval):
     supp = []
     for i in range(len(eigenval)):
@@ -94,6 +98,7 @@ def getEigenSupp(a, eigenvec, eigenval):
 # of a must be all integers or all quadratic integers with the format p+qr*Sqrt(delta)/2, with qr changing from eigenvalue to
 # to eigenvalue. The frist step is to define h(x) = phi/gcd(phi,phia) that have all its roots in the eigenvalue support of a,
 # then its degree k will be crucial.
+
 
 def checkRoots(A, a, eigenvec, eigenval):
     supp = getEigenSupp(a, eigenvec, eigenval)
@@ -119,13 +124,16 @@ def checkRoots(A, a, eigenvec, eigenval):
     # eigenvalue support of a. In case it is true, we store the value of delta and sum one to quadRoots.
 
     quadRoots = 0
-    sqrtFreeInt = getSquareFree(int((4 * A ** 2).trace()))
+    sqrtFreeInt = getSquareFree(int((4 * A**2).trace()))
     p = h.all_coeffs()[1]
     deltaTmp = 0
     for deltaS in sqrtFreeInt:
         q = 0
-        while (p + q * sqrt(deltaS) / 2) <= sqrt(int(((A ** 2).trace()))):
-            if h(p + q * sqrt(deltaS) / 2) == 0 and Float(p + q * sqrt(deltaS) / 2, 3) in supp:
+        while (p + q * sqrt(deltaS) / 2) <= sqrt(int(((A**2).trace()))):
+            if (
+                h(p + q * sqrt(deltaS) / 2) == 0
+                and Float(p + q * sqrt(deltaS) / 2, 3) in supp
+            ):
                 quadRoots += 1
                 deltaTmp = deltaS
             q += 1

@@ -10,7 +10,14 @@ benchmark = True
 import os
 
 
-def profile(output_path, output_file=None, sort_by='cumulative', lines_to_print=None, strip_dirs=False, csv=False):
+def profile(
+    output_path,
+    output_file=None,
+    sort_by="cumulative",
+    lines_to_print=None,
+    strip_dirs=False,
+    csv=False,
+):
     """
     A time profiler decorator. Inspired by and modified the profile decorator of Giampaolo Rodola: http://code.activestate.com/recipes/577817-profile-decorator/
 
@@ -39,12 +46,12 @@ def profile(output_path, output_file=None, sort_by='cumulative', lines_to_print=
             if output_file is not None:
                 _output_file = output_path + output_file
             else:
-                _output_file = output_path + func.__name__ + '.prof'
+                _output_file = output_path + func.__name__ + ".prof"
             pr = cProfile.Profile()
             pr.enable()
             retval = func(*args, **kwargs)
             pr.disable()
-            with open(_output_file, 'a+') as f:
+            with open(_output_file, "a+") as f:
                 ps = pstats.Stats(pr, stream=f)
                 if strip_dirs:
                     ps.strip_dirs()
@@ -55,10 +62,10 @@ def profile(output_path, output_file=None, sort_by='cumulative', lines_to_print=
                 if csv:
                     csvFile = prof_to_csv(pr, sort_by, lines_to_print, strip_dirs)
                     if exists(_output_file):
-                        with open(_output_file, 'a+') as f:
+                        with open(_output_file, "a+") as f:
                             f.write(csvFile)
                     else:
-                        with open(_output_file, 'w+') as f:
+                        with open(_output_file, "w+") as f:
                             f.write(csvFile)
                 elif not csv:
                     pr.dump_stats(_output_file)
@@ -70,7 +77,7 @@ def profile(output_path, output_file=None, sort_by='cumulative', lines_to_print=
     return inner if benchmark else noop_decorator
 
 
-def prof_to_csv(prof, sort_by='cumulative', lines_to_print=None, strip_dirs=False):
+def prof_to_csv(prof, sort_by="cumulative", lines_to_print=None, strip_dirs=False):
     out_stream = StringIO()
     ps = pstats.Stats(prof, stream=out_stream).print_stats()
     if strip_dirs:
@@ -82,9 +89,9 @@ def prof_to_csv(prof, sort_by='cumulative', lines_to_print=None, strip_dirs=Fals
     ps.print_stats(lines_to_print)
     result = out_stream.getvalue()
     # chop off header lines
-    result = 'ncalls' + result.split('ncalls')[-1]
-    lines = [','.join(line.rstrip().split(None, 5)) for line in result.split('\n')]
+    result = "ncalls" + result.split("ncalls")[-1]
+    lines = [",".join(line.rstrip().split(None, 5)) for line in result.split("\n")]
     lines.append("Next Entry")
     lines.append("\n")
     lines = list(filter(None, lines))
-    return '\n'.join(lines)
+    return "\n".join(lines)

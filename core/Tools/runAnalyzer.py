@@ -9,20 +9,18 @@ if __name__ == "__main__":
     retval = os.getcwd()
     os.chdir(os.path.join(retval, "TestOutput", "Profiling"))
 
-
     def removeFiles(path):
         for folder in os.listdir(path):
             for file_name in os.listdir(folder):
                 # construct full file path
                 file = os.path.join(folder, file_name)
                 if os.path.isfile(file):
-                    print('Deleting file:', file)
+                    print("Deleting file:", file)
                     try:
                         os.remove(file)
                     except OSError as e:  # name the Exception `e`
                         print("Failed with:", e.strerror)  # look what it says
                         print("Error code:", e.code)
-
 
     def runQwakProfiler(graph, t, marked, k0, k1):
         qwController = QWAKBenchmark(graph, laplacian=False)
@@ -33,12 +31,10 @@ if __name__ == "__main__":
         qwController.getSurvivalProb(k0, k1)
         qwController.getInversePartRatio()
 
-
     def runMultipleQwakProfilers(N, t, marked, samples):
         for s in range(samples):
             graph = nx.cycle_graph(N)
             runQwakProfiler(graph, t, marked, 0, 1)
-
 
     def unmarshallFile(fileName, filePath, timeDict):
         os.chdir(filePath)
@@ -61,7 +57,6 @@ if __name__ == "__main__":
                         timeDict[l[5]] += float(l[1])
         return timeDict, numberOfEntries
 
-
     def createTimeDicts(N, t, marked, samples, fileName, filePath):
         timeDict = {}
         timeDictDict = {}
@@ -77,12 +72,10 @@ if __name__ == "__main__":
             timeDictDict[N] = normalizeTimeDict(timeDict, numberOfEntries)
         return timeDictDict
 
-
     def normalizeTimeDict(timeDict, entryCount):
         for e in timeDict:
             timeDict[e] = timeDict[e] / entryCount
         return timeDict
-
 
     n = 1000
     t = 10
@@ -102,7 +95,7 @@ if __name__ == "__main__":
     #     f.write(str(multipleDicts))
 
     os.chdir(filePath)
-    with open("initTimeDict", 'r+') as f:
+    with open("initTimeDict", "r+") as f:
         lines = f.readlines()
         for line in lines:
             multipleDicts = eval(line)
@@ -111,7 +104,7 @@ if __name__ == "__main__":
     eighTime = list(multipleDicts.values())
     eighTimeList = []
     for i in range(len(eighTime)):
-        eighTimeList.append(eighTime[i]['linalg.py:1324(eigh)\n'])
+        eighTimeList.append(eighTime[i]["linalg.py:1324(eigh)\n"])
 
     plt.plot(nodes, eighTimeList)
     plt.show()

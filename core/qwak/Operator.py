@@ -47,7 +47,9 @@ class Operator:
         self._buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
-        self._isHermitian = np.allclose(self._adjacencyMatrix, self._adjacencyMatrix.conjugate().transpose())
+        self._isHermitian = np.allclose(
+            self._adjacencyMatrix, self._adjacencyMatrix.conjugate().transpose()
+        )
         self._time = 0
         self._buildEigenValues(self._isHermitian)
 
@@ -69,19 +71,19 @@ class Operator:
         diag = np.diag(np.exp(-1j * self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
-            self._operator = np.matmul(self._operator, self._eigenvectors.conjugate().transpose())
+            self._operator = np.matmul(
+                self._operator, self._eigenvectors.conjugate().transpose()
+            )
         else:
             self._operator = np.matmul(self._operator, inv(self._eigenvectors))
 
     def _buildAdjacency(self, laplacian, markedSearch):
         if laplacian:
-            self._adjacencyMatrix = (
-               np.asarray(nx.laplacian_matrix(self._graph).todense().astype(complex))
+            self._adjacencyMatrix = np.asarray(
+                nx.laplacian_matrix(self._graph).todense().astype(complex)
             )
         else:
-            self._adjacencyMatrix = (
-                nx.to_numpy_array(self._graph, dtype = complex)
-            )
+            self._adjacencyMatrix = nx.to_numpy_array(self._graph, dtype=complex)
         if markedSearch is not None:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
@@ -285,7 +287,7 @@ class StochasticOperator(object):
 
     def __init__(self, graph, noiseParam=None, sinkNode=None, sinkRate=None):
         self._graph = graph
-        self.n = len(self._graph) 
+        self.n = len(self._graph)
         self._adjacencyMatrix = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
         )
@@ -329,9 +331,9 @@ class StochasticOperator(object):
 
     def _buildLaplacian(self):
         degree = np.sum(self._adjacencyMatrix, axis=0).flat
-        degree = list(map(lambda x : 1/x if x>0 else 0, degree))
-        self._laplacian = np.multiply(self._adjacencyMatrix,degree)
-        
+        degree = list(map(lambda x: 1 / x if x > 0 else 0, degree))
+        self._laplacian = np.multiply(self._adjacencyMatrix, degree)
+
     def _buildQuantumHamiltonian(self):
         if self._sinkNode is not None:
             H = Qobj(
