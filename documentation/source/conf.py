@@ -1,21 +1,29 @@
-# -- Path setup --------------------------------------------------------------
+# Configuration file for the Sphinx documentation builder.
+#
+# This file only contains a selection of the most common options. For a full
+# list see the documentation:
+# https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+from __future__ import annotations
+
+import os
+import sys
+from pathlib import Path
+
+
+# -- Path setup --------------------------------------------------------------
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-import os
-import sys
-sys.path.insert(0, os.path.abspath('../../'))
+
+
+sys.path.insert(0, os.path.abspath("."))
+
 
 # -- Project information -----------------------------------------------------
-
 project = 'QWAK'
-copyright = '2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves'
-author = 'Jaime Santos, Bruno Chagas, Rodrigo Chaves'
-
-# The full version, including alpha/beta/rc tags
-release = '06/04/2022'
+copyright = '2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni'
+author = 'Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni'
 
 
 # -- General configuration ---------------------------------------------------
@@ -24,60 +32,129 @@ release = '06/04/2022'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.duration',
-    'sphinx.ext.autodoc',
+    "sphinx.ext.autodoc",
+    "sphinx_autodoc_typehints",
+    "sphinx_copybutton",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.doctest",
+    "sphinx.ext.extlinks",
+    "sphinx.ext.viewcode",
+    "sphinxcontrib.programoutput",
+    "myst_parser",
 ]
 
-autodoc_member_order = 'bysource'
-autoclass_content = 'both'
+# Automatically generate stub pages when using the .. autosummary directive
+autosummary_generate = True
+
+# generate documentation from type hints
+autodoc_typehints = "description"
+autoclass_content = "both"
+
+# controls whether functions documented by the autofunction directive
+# appear with their full module names
+add_module_names = False
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
+
+# Custom section headings in our documentation
+napoleon_custom_sections = ["Tests", ("Test", "Tests")]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = []
+#html_extra_path = ["robots.txt"]
 
+exclude_patterns: list[str] = []
+
+# -- Options for internationalization ----------------------------------------
+# Set the destination directory of the localized po files
+locale_dirs = ["../i18n/"]
+
+# Splits the text in more pot files.
+gettext_compact = False
+
+# Remove useless metadata from po files.
+gettext_last_translator = ""
+gettext_language_team = ""
 
 # -- Options for HTML output -------------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
+#
 
-html_theme = "sphinx_rtd_theme"
-# html_theme_options = {
-#         'navbar_fixed_top': "true",
-#         'source_link_position': "footer",
-#         'globaltoc_depth': -1,
-#         'bootstrap_version': "3",
-#         #'bootswatch_theme': "united",
-#         #'bootswatch_theme': "lumen",
-#         # 'bootswatch_theme': "Darkly",
-#         'navbar_links': [("Index", "genindex"),
-#             ("Source","https://github.com/JaimePSantos/QWAK",True)],
-#         'navbar_pagenav': False,
-#         'nosidebar': False,
-#     }
-
-# html_sidebars = {
-#     '**': [
-#         'globaltoc.html',
-#         'localtoc.html',
-#     ]
-# }
+html_theme = "furo"
+#html_favicon = str(Path("_static/favicon.ico"))
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
-add_function_parentheses = True
+html_theme_options = {
+    "light_css_variables": {
+        "color-content-foreground": "#000000",
+        "color-background-primary": "#ffffff",
+        "color-background-border": "#ffffff",
+        "color-sidebar-background": "#f8f9fb",
+        "color-brand-content": "#1c00e3",
+        "color-brand-primary": "#192bd0",
+        "color-link": "#c93434",
+        "color-link--hover": "#5b0000",
+        "color-inline-code-background": "#f6f6f6;",
+        "color-foreground-secondary": "#000",
+    },
+    "dark_css_variables": {
+        "color-content-foreground": "#ffffffd9",
+        "color-background-primary": "#131416",
+        "color-background-border": "#303335",
+        "color-sidebar-background": "#1a1c1e",
+        "color-brand-content": "#2196f3",
+        "color-brand-primary": "#007fff",
+        "color-link": "#51ba86",
+        "color-link--hover": "#9cefc6",
+        "color-inline-code-background": "#262626",
+        "color-foreground-secondary": "#ffffffd9",
+    },
+}
+html_title = f"QWAK - Quantum Walk Analysis Kit"
 
-add_module_names = False
+# This specifies any additional css files that will override the theme's
+html_css_files = ["custom.css"]
 
-pygments_style = 'sphinx'
 
-html_short_title = 'QWAK'
+# external links
+extlinks = {
+    "issue": ("https://github.com/JaimePSantos/QWAK/issues/%s", "#"),
+    "pr": ("https://github.com/JaimePSantos/QWAK/pulls/%s", "#"),
+}
 
-autodoc_typehints = "both"
+
+# inheritance_graph settings
+inheritance_graph_attrs = {
+    "concentrate": True,
+    "size": '""',
+    "splines": "ortho",
+    "nodesep": 0.1,
+    "ranksep": 0.2,
+}
+
+inheritance_node_attrs = {
+    "penwidth": 0,
+    "shape": "box",
+    "width": 0.05,
+    "height": 0.05,
+    "margin": 0.05,
+}
+
+inheritance_edge_attrs = {
+    "penwidth": 1,
+}
+
+html_js_files = [
+    "responsiveSvg.js",
+]
+
+graphviz_output_format = "svg"
