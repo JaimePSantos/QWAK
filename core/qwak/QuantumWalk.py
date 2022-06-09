@@ -39,7 +39,7 @@ class QuantumWalk:
         self._operator = operator
         self._finalState = State(self._n)
 
-    def buildWalk(self, initState = None, operator = None) -> None:
+    def buildWalk(self, initState=None, operator=None) -> None:
         """
         Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.
@@ -56,7 +56,6 @@ class QuantumWalk:
         self._operator.resetOperator()
         self._initState.resetState()
         self._finalState.resetState()
-
 
     def setInitState(self, newInitState: State) -> None:
         """
@@ -245,14 +244,17 @@ class StochasticQuantumWalk(object):
         # TODO: The final state is a of the Qobj class. Find a way to make it State class.
         self._time = np.arange(0, time + 1)
         if self._operator.getSinkNode() is not None:
-            self._initQutipState = Qobj(np.vstack([self._initState.getStateVec(), [0.]]))
+            self._initQutipState = Qobj(
+                np.vstack([self._initState.getStateVec(), [0.0]])
+            )
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
             self._time,
             self._operator.getClassicalHamiltonian(),
             observables,
-            options=opts).final_state.full()
+            options=opts,
+        ).final_state.full()
         # if you want the full list of states, keep option store_states=True and instead
         # of final_state.full() use states.full()
 

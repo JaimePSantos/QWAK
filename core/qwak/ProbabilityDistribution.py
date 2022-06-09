@@ -35,7 +35,7 @@ class ProbabilityDistribution:
         self._state.resetState()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self,state=None) -> None:
+    def buildProbDist(self, state=None) -> None:
         """
         Builds the probability vector by multiplying the user inputted
         amplitude state by its conjugate.
@@ -46,7 +46,7 @@ class ProbabilityDistribution:
         for st in range(self._n):
             self._probVec[st] = self._state[st] * np.conj(self._state[st])
 
-    def setProbDist(self,newProbDist):
+    def setProbDist(self, newProbDist):
         self._state = newProbDist.getState()
         self._n = newProbDist.getDim()
         self._probVec = newProbDist.getProbVec()
@@ -151,7 +151,7 @@ class StochasticProbabilityDistribution(object):
         self._n = state.getDim()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self,state = None):
+    def buildProbDist(self, state=None):
         """
         Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.

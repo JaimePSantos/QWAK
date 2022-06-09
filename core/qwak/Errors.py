@@ -4,13 +4,14 @@ class Error(BaseException):
         self.details = details
 
     def as_string(self):
-        return f'{self.error_name}: {self.details}\n'
+        return f"{self.error_name}: {self.details}\n"
 
 
 class StateOutOfBounds(Error):
     def __init__(self, details):
-        super().__init__('Condition out of bounds: ', details)
+        super().__init__("Condition out of bounds: ", details)
+
 
 class NonUnitaryState(Error):
     def __init__(self, details):
-        super().__init__('State is not unitary: ', details)
+        super().__init__("State is not unitary: ", details)

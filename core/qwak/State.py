@@ -34,7 +34,7 @@ class State:
             self._customStateList = []
         else:
             self._customStateList = customStateList
-        self._stateVec = np.zeros((self._n, 1),dtype=complex)
+        self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
     def buildState(self, nodeList: list = None, customStateList=None) -> None:
         """
@@ -62,18 +62,21 @@ class State:
                 self._checkStateOutOfBounds(state)
                 self._stateVec[state] = 1 / nodeAmp
 
-    def _checkStateOutOfBounds(self,node):
+    def _checkStateOutOfBounds(self, node):
         if node >= self._n:
             raise StateOutOfBounds(
-                f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}]).")
+                f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}])."
+            )
 
-    def _checkUnitaryStateList(self,customStateList):
+    def _checkUnitaryStateList(self, customStateList):
         unitaryState = 0
         for state in customStateList:
-            unitaryState += np.abs(state[1])**2
-        unitaryState = round(unitaryState,5)
+            unitaryState += np.abs(state[1]) ** 2
+        unitaryState = round(unitaryState, 5)
         if unitaryState != float(1):
-            raise NonUnitaryState(f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1.") 
+            raise NonUnitaryState(
+                f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1."
+            )
 
     def herm(self):
         return self._stateVec.H

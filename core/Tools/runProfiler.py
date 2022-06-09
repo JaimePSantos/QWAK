@@ -2,7 +2,7 @@ import networkx as nx
 
 from Tools.QwakBenchmarkStub import QWAKBenchmark
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     n = 1000
     t = 10
     graph = nx.cycle_graph(n)
