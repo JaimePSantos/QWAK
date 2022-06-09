@@ -6,7 +6,7 @@ from qwak.qwak import QWAK, StochasticQWAK
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
 
-from Tools.testVariables import (
+from testVariables import (
     probDistUniformSuperpositionCycle,
     probDistUniformSuperpositionComplete,
     orientedGraph,

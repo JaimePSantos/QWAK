@@ -3,7 +3,7 @@ import numpy as np
 
 from Tools.Profiler import profile
 from qwak.qwak import StochasticQWAK
-from Tools.testVariables import (
+from testVariables import (
         stochasticProbDistSingleNodeCycleNoise,
         stochasticProbDistSingleNodeCycleNoNoise,
         )
