@@ -280,6 +280,14 @@ the matrix exponent directly.</p>
 :param : type laplacian: bool
 :param : param graph: Graph where the walk will be performed.
 :param : type graph: NetworkX.Graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>nx.Graph</em>) – </p></li>
+<li><p><strong>laplacian</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.buildDiagonalOperator">
 <span class="sig-name descname"><span class="pre">buildDiagonalOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.buildDiagonalOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.buildDiagonalOperator" title="Permalink to this definition">#</a></dt>
@@ -295,6 +303,9 @@ conjugate of the eigenvectors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>time</strong> (<em>float</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -409,6 +420,9 @@ them instead change the graph entirely.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>adjacencyMatrix</strong> (<em>ndarray</em>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -420,12 +434,18 @@ them instead change the graph entirely.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>newDim</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p>
 </dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
 </dl>
 <p>:param : param newDim:
 :param : type newDim:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newDim</strong> (<em>int</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -440,6 +460,9 @@ them instead change the graph entirely.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -452,6 +475,9 @@ them instead change the graph entirely.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newTime</strong> (<em>float</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -536,6 +562,11 @@ The vector containing the probabilities will be initialized full of zeros
 with the dimension obtained from the state.</p>
 <p>:param : param state: State to be converted into a probability.
 :param : type state: State</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist">
 <span class="sig-name descname"><span class="pre">buildProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.buildProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist" title="Permalink to this definition">#</a></dt>
@@ -618,6 +649,9 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -635,6 +669,9 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newProbVec</strong> (<em>ndarray</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -657,6 +694,11 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>:param : param state: Initial state which will be the basis of the time dependant evolution.
 :param : type state: State</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<em>Qobj</em>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.StochasticProbabilityDistribution.buildProbDist">
 <span class="sig-name descname"><span class="pre">buildProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#StochasticProbabilityDistribution.buildProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.buildProbDist" title="Permalink to this definition">#</a></dt>
@@ -696,6 +738,14 @@ as an instance of State class.</p>
 :param : type state: State
 :param : param operator: Operator which will evolve the initial state.
 :param : type operator: Operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p></li>
+<li><p><strong>operator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.QuantumWalk.buildWalk">
 <span class="sig-name descname"><span class="pre">buildWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#QuantumWalk.buildWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.QuantumWalk.buildWalk" title="Permalink to this definition">#</a></dt>
@@ -832,6 +882,9 @@ multiplication of the operator by the initial state.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newDim</strong> (<em>int</em>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -844,6 +897,9 @@ multiplication of the operator by the initial state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newInitState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -858,6 +914,9 @@ multiplication of the operator by the initial state.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -870,6 +929,9 @@ multiplication of the operator by the initial state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newWalk</strong> (<a class="reference internal" href="#qwak.QuantumWalk.QuantumWalk" title="qwak.QuantumWalk.QuantumWalk"><em>QuantumWalk</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -898,6 +960,14 @@ as an instance of QObj class.</p>
 :param : type state: State
 :param : param operator: Operator which will evolve the initial state.
 :param : type operator: Operator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p></li>
+<li><p><strong>operator</strong> (<a class="reference internal" href="#qwak.Operator.StochasticOperator" title="qwak.Operator.StochasticOperator"><em>StochasticOperator</em></a>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.StochasticQuantumWalk.buildWalk">
 <span class="sig-name descname"><span class="pre">buildWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observables=[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts=&lt;qutip.solver.Options</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#StochasticQuantumWalk.buildWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.StochasticQuantumWalk.buildWalk" title="Permalink to this definition">#</a></dt>
@@ -944,6 +1014,14 @@ and an internal stateVec which will be a Numpy ndarray representing the column v
 :param : type n: int
 :param : param nodeList: List containing what nodes will have amplitudes in the state.
 :param : type nodeList: (list,optional)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) – </p></li>
+<li><p><strong>nodeList</strong> (<em>list</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.buildState">
 <span class="sig-name descname"><span class="pre">buildState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.buildState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.buildState" title="Permalink to this definition">#</a></dt>
@@ -955,6 +1033,9 @@ This will be changed in the future to make nodeList make more sense.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>nodeList</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1029,6 +1110,9 @@ This will be changed in the future to make nodeList make more sense.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newDim</strong> (<em>int</em>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1042,6 +1126,9 @@ This might not be needed and removed in the future.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newNodeList</strong> (<em>list</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1057,6 +1144,9 @@ Sets all the parameters of the current state to user defined ones.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1069,6 +1159,9 @@ Sets all the parameters of the current state to user defined ones.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newVec</strong> (<em>ndarray</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1101,6 +1194,14 @@ walk.</p>
 :param : param graph: NetworkX graph where the walk takes place. Also used
 :param for defining the dimensions of the quantum walk.:
 :param : type graph: NetworkX.Graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>Graph</em>) – </p></li>
+<li><p><strong>laplacian</strong> (<em>bool</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.checkPST">
 <span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.checkPST" title="Permalink to this definition">#</a></dt>
@@ -1309,6 +1410,12 @@ accessed with their respective get methods.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>time</strong> (<em>float</em>) – </p></li>
+<li><p><strong>initStateList</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1326,6 +1433,9 @@ accessed with their respective get methods.</p>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">complex</span></code></p>
 </dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1342,6 +1452,9 @@ accessed with their respective get methods.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1365,6 +1478,12 @@ evaluated and executed as a NetworkX graph generator.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>newDim</strong> (<em>int</em>) – </p></li>
+<li><p><strong>graphStr</strong> (<em>str</em>) – </p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1379,6 +1498,9 @@ Also recalculates the current operator and walk dimension.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newGraph</strong> (<em>Graph</em>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1392,6 +1514,9 @@ Also recalculates the current operator and walk dimension.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newInitState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1404,6 +1529,9 @@ Also recalculates the current operator and walk dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1419,6 +1547,9 @@ This might not be needed and removed in the future.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newProbDist</strong> (<em>object</em>) – </p>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1431,6 +1562,9 @@ This might not be needed and removed in the future.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newTime</strong> (<em>float</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1445,6 +1579,9 @@ This might not be needed and removed in the future.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newWalk</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -1474,6 +1611,11 @@ walk.</p>
 :param : param graph: NetworkX graph where the walk takes place. Also used
 :param for defining the dimensions of the quantum walk.:
 :param : type graph: NetworkX.Graph</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>graph</strong> (<em>Graph</em>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.getClassicalHamiltonian">
 <span class="sig-name descname"><span class="pre">getClassicalHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.getClassicalHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.getClassicalHamiltonian" title="Permalink to this definition">#</a></dt>
@@ -1535,6 +1677,12 @@ accessed with their respective get methods.</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>time</strong> (<em>float</em>) – </p></li>
+<li><p><strong>initStateList</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p></li>
+</ul>
+</dd>
 </dl>
 </dd></dl>
 
@@ -1548,6 +1696,9 @@ This might not be needed and removed in the future.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>newProbDist</strong> (<em>object</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
