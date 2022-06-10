@@ -5,15 +5,13 @@ from Tools.Profiler import profile
 from qwak.qwak import QWAK, StochasticQWAK
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
+from QWAKTestStub import QWAKTestStub
 
 from testVariables import (
     probDistUniformSuperpositionCycle,
-    probDistUniformSuperpositionComplete,
     orientedGraph,
+    probDistUniformSuperpositionComplete, 
     probDistUniformSuperpositionCycleOriented,
-    probDistUniformSuperpositionPath,
-    stochasticProbDistSingleNodeCycleNoise,
-    stochasticProbDistSingleNodeCycleNoNoise,
     probDistCustomStateCycle,
     probDistCycleNewDim,
 )
@@ -21,7 +19,7 @@ from testVariables import (
 import pytest
 
 
-class TestQWAK(object):
+class TestQWAKCycle(object):
     def test_ProbDistUniformSuperpositionCycle(self):
         n = 100
         t = 12
@@ -35,35 +33,6 @@ class TestQWAK(object):
         np.testing.assert_almost_equal(
             qwak.getProbVec(),
             probDistUniformSuperpositionCycle,
-            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
-        )
-
-    def test_ProbDistUniformSuperpositionComplete(self):
-        n = 100
-        t = 12
-        self.t = t
-        graph = nx.complete_graph(n)
-        initStateList = [n // 2, n // 2 + 1]
-        laplacian = False
-        markedSearch = None
-        qwak = QWAKTestStub(
-            QWAK(
-                graph,
-                initStateList=initStateList,
-                customStateList=None,
-                laplacian=laplacian,
-                markedSearch=markedSearch,
-            )
-        )
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            np.zeros(n),
-            err_msg="Probability distribution before running should be 0.",
-        )
-        qwak.buildWalk(t)
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            probDistUniformSuperpositionComplete,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
@@ -93,36 +62,6 @@ class TestQWAK(object):
         np.testing.assert_almost_equal(
             qwak.getProbVec(),
             probDistUniformSuperpositionCycleOriented,
-            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
-        )
-
-    def test_ProbDistUniformSuperpositionPath(self):
-        # TODO: Laplacian not making a difference.
-        n = 100
-        t = 12
-        self.t = t
-        graph = nx.path_graph(n)
-        initStateList = [n // 2, n // 2 + 1]
-        laplacian = True
-        markedSearch = None
-        qwak = QWAKTestStub(
-            QWAK(
-                graph,
-                initStateList=initStateList,
-                customStateList=None,
-                laplacian=laplacian,
-                markedSearch=markedSearch,
-            )
-        )
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            np.zeros(n),
-            err_msg="Probability distribution before running should be 0.",
-        )
-        qwak.buildWalk(t)
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            probDistUniformSuperpositionPath,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
@@ -261,6 +200,7 @@ class TestQWAK(object):
             atol=0,
             err_msg=f"Inverse Participation Ratio for a cycle of size {n} for time {t} should be 38.07979... but got {qwak.getInversePartRatio()}",
         )
+
     def test_StateOutOfBoundsException(self):
         with pytest.raises(StateOutOfBounds):
             n = 100
@@ -284,61 +224,3 @@ class TestQWAK(object):
             qwak = QWAKTestStub()
             qwak.setInitState(state)
             qwak.buildWalk()
-
-
-class QWAKTestStub:
-    def __init__(self, testQwak=None):
-        n = 100
-        self.t = 12
-        graph = nx.cycle_graph(n)
-        initStateList = [n // 2, n // 2 + 1]
-        laplacian = False
-        markedSearch = None
-        if testQwak is None:
-            self.qwak = QWAK(
-                graph,
-                initStateList=initStateList,
-                customStateList=None,
-                laplacian=laplacian,
-                markedSearch=markedSearch,
-            )
-        else:
-            self.qwak = testQwak
-
-    def buildWalk(self, t=None):
-        if t is not None:
-            self.t = t
-        self.qwak.runWalk(time=self.t)
-
-    def getProbVec(self):
-        return self.qwak.getProbVec()
-
-    def setInitState(self, newState):
-        self.qwak.setInitState(newState)
-
-    def getDim(self):
-        return self.qwak.getDim()
-
-    def setDim(self, newDim, graphStr, initStateList=None):
-        self.qwak.setDim(newDim, graphStr, initStateList)
-
-    def getAdjacencyMatrix(self):
-        return self.qwak.getAdjacencyMatrix()
-
-    def setAdjacencyMatrix(self, newAdjacencyMatrix, initStateList):
-        self.qwak.setAdjacencyMatrix(newAdjacencyMatrix, initStateList)
-
-    def getMean(self):
-        return self.qwak.getMean()
-
-    def getSndMoment(self):
-        return self.qwak.getSndMoment()
-
-    def getStDev(self):
-        return self.qwak.getStDev()
-
-    def getSurvivalProb(self, k0, k1):
-        return self.qwak.getSurvivalProb(k0, k1)
-
-    def getInversePartRatio(self):
-        return self.qwak.getInversePartRatio()
