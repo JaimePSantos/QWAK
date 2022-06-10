@@ -15,7 +15,7 @@ from testVariables import (
     stochasticProbDistSingleNodeCycleNoise,
     stochasticProbDistSingleNodeCycleNoNoise,
     probDistCustomStateCycle,
-    probDistCycleNewDim, 
+    probDistCycleNewDim,
 )
 
 import pytest
@@ -97,7 +97,7 @@ class TestQWAK(object):
         )
 
     def test_ProbDistUniformSuperpositionPath(self):
-        #TODO: Laplacian not making a difference.
+        # TODO: Laplacian not making a difference.
         n = 100
         t = 12
         self.t = t
@@ -155,10 +155,10 @@ class TestQWAK(object):
         newDim = 1000
         graphStr = "nx.cycle_graph"
         t = 12
-        initStateList = [newDim//2, newDim//2 + 1]
+        initStateList = [newDim // 2, newDim // 2 + 1]
         qwak = QWAKTestStub()
         assert qwak.getDim() == 100
-        qwak.setDim(newDim, graphStr,initStateList)
+        qwak.setDim(newDim, graphStr, initStateList)
         assert qwak.getDim() == 1000
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
@@ -171,11 +171,11 @@ class TestQWAK(object):
             probDistCycleNewDim,
             err_msg=f"Probability Distribution does not match expected for n = {newDim} and t = {t}",
         )
-        
+
     def test_SetAdjacencyMatrix(self):
         n = 100
         t = 12
-        initStateList = [n//2, n//2 + 1]
+        initStateList = [n // 2, n // 2 + 1]
         newAdjMatrix = nx.to_numpy_array(nx.complete_graph(n), dtype=complex)
         qwak = QWAKTestStub()
         np.testing.assert_almost_equal(
@@ -189,7 +189,7 @@ class TestQWAK(object):
             probDistUniformSuperpositionCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
-        qwak.setAdjacencyMatrix(newAdjMatrix,initStateList)
+        qwak.setAdjacencyMatrix(newAdjMatrix, initStateList)
         qwak.buildWalk(t)
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
@@ -202,7 +202,66 @@ class TestQWAK(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
-    def test_stateOutOfBoundsException(self):
+    def test_MeanCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getMean(),
+            50.5,
+            atol=0,
+            err_msg=f"Mean for a cycle of size {n} for time {t} should be 50.5 but got {qwak.getMean()}",
+        )
+
+    def test_SndMomentCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getSndMoment(),
+            2838.5,
+            atol=0,
+            err_msg=f"Second moment for a cycle of size {n} for time {t} should be 2838.5 but got {qwak.getSndMoment()}",
+        )
+
+    def test_StDevCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getStDev(),
+            16.977926846349753,
+            atol=0,
+            err_msg=f"Standard deviation for a cycle of size {n} for time {t} should be 16.9779... but got {qwak.getStDev()}",
+        )
+
+    def test_SurvivalProbCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getSurvivalProb(n // 2, n // 2 + 1),
+            0.02688956925823824,
+            atol=0,
+            err_msg=f"Survival Prob for a cycle of size {n} for time {t} between {n//2} and {n//2+1} should be 0.026889... but got {qwak.getSurvivalProb(n//2,n//2+1)}",
+        )
+
+    def test_InversePartRatioCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getInversePartRatio(),
+            38.079796685604926,
+            atol=0,
+            err_msg=f"Inverse Participation Ratio for a cycle of size {n} for time {t} should be 38.07979... but got {qwak.getInversePartRatio()}",
+        )
+    def test_StateOutOfBoundsException(self):
         with pytest.raises(StateOutOfBounds):
             n = 100
             state = State(n, [n + 1])
@@ -211,7 +270,7 @@ class TestQWAK(object):
             qwak.setInitState(state)
             qwak.buildWalk()
 
-    def test_nonUnitaryStateException(self):
+    def test_NonUnitaryStateException(self):
         with pytest.raises(NonUnitaryState):
             n = 100
             state = State(
@@ -260,11 +319,26 @@ class QWAKTestStub:
     def getDim(self):
         return self.qwak.getDim()
 
-    def setDim(self, newDim, graphStr,initStateList = None):
+    def setDim(self, newDim, graphStr, initStateList=None):
         self.qwak.setDim(newDim, graphStr, initStateList)
 
     def getAdjacencyMatrix(self):
         return self.qwak.getAdjacencyMatrix()
 
-    def setAdjacencyMatrix(self, newAdjacencyMatrix,initStateList):
-        self.qwak.setAdjacencyMatrix(newAdjacencyMatrix,initStateList)
+    def setAdjacencyMatrix(self, newAdjacencyMatrix, initStateList):
+        self.qwak.setAdjacencyMatrix(newAdjacencyMatrix, initStateList)
+
+    def getMean(self):
+        return self.qwak.getMean()
+
+    def getSndMoment(self):
+        return self.qwak.getSndMoment()
+
+    def getStDev(self):
+        return self.qwak.getStDev()
+
+    def getSurvivalProb(self, k0, k1):
+        return self.qwak.getSurvivalProb(k0, k1)
+
+    def getInversePartRatio(self):
+        return self.qwak.getInversePartRatio()
