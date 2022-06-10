@@ -21,8 +21,6 @@ import sympy as sp
 from sympy.abc import pi
 from math import sqrt, ceil, pow
 
-from Tools.test_StochasticQwak import StochasticQWAKTestStub
-
 n = 1000
 t = 50
 graph = nx.cycle_graph(n)

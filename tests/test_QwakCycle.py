@@ -5,23 +5,21 @@ from Tools.Profiler import profile
 from qwak.qwak import QWAK, StochasticQWAK
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
+from QWAKTestStub import QWAKTestStub
 
 from testVariables import (
     probDistUniformSuperpositionCycle,
-    probDistUniformSuperpositionComplete,
     orientedGraph,
+    probDistUniformSuperpositionComplete, 
     probDistUniformSuperpositionCycleOriented,
-    probDistUniformSuperpositionPath,
-    stochasticProbDistSingleNodeCycleNoise,
-    stochasticProbDistSingleNodeCycleNoNoise,
     probDistCustomStateCycle,
-    probDistCycleNewDim, 
+    probDistCycleNewDim,
 )
 
 import pytest
 
 
-class TestQWAK(object):
+class TestQWAKCycle(object):
     def test_ProbDistUniformSuperpositionCycle(self):
         n = 100
         t = 12
@@ -35,35 +33,6 @@ class TestQWAK(object):
         np.testing.assert_almost_equal(
             qwak.getProbVec(),
             probDistUniformSuperpositionCycle,
-            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
-        )
-
-    def test_ProbDistUniformSuperpositionComplete(self):
-        n = 100
-        t = 12
-        self.t = t
-        graph = nx.complete_graph(n)
-        initStateList = [n // 2, n // 2 + 1]
-        laplacian = False
-        markedSearch = None
-        qwak = QWAKTestStub(
-            QWAK(
-                graph,
-                initStateList=initStateList,
-                customStateList=None,
-                laplacian=laplacian,
-                markedSearch=markedSearch,
-            )
-        )
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            np.zeros(n),
-            err_msg="Probability distribution before running should be 0.",
-        )
-        qwak.buildWalk(t)
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            probDistUniformSuperpositionComplete,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
@@ -96,36 +65,6 @@ class TestQWAK(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
-    def test_ProbDistUniformSuperpositionPath(self):
-        #TODO: Laplacian not making a difference.
-        n = 100
-        t = 12
-        self.t = t
-        graph = nx.path_graph(n)
-        initStateList = [n // 2, n // 2 + 1]
-        laplacian = True
-        markedSearch = None
-        qwak = QWAKTestStub(
-            QWAK(
-                graph,
-                initStateList=initStateList,
-                customStateList=None,
-                laplacian=laplacian,
-                markedSearch=markedSearch,
-            )
-        )
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            np.zeros(n),
-            err_msg="Probability distribution before running should be 0.",
-        )
-        qwak.buildWalk(t)
-        np.testing.assert_almost_equal(
-            qwak.getProbVec(),
-            probDistUniformSuperpositionPath,
-            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
-        )
-
     def test_ProbDistCustomStateCycle(self):
         n = 100
         t = 12
@@ -155,10 +94,10 @@ class TestQWAK(object):
         newDim = 1000
         graphStr = "nx.cycle_graph"
         t = 12
-        initStateList = [newDim//2, newDim//2 + 1]
+        initStateList = [newDim // 2, newDim // 2 + 1]
         qwak = QWAKTestStub()
         assert qwak.getDim() == 100
-        qwak.setDim(newDim, graphStr,initStateList)
+        qwak.setDim(newDim, graphStr, initStateList)
         assert qwak.getDim() == 1000
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
@@ -171,11 +110,11 @@ class TestQWAK(object):
             probDistCycleNewDim,
             err_msg=f"Probability Distribution does not match expected for n = {newDim} and t = {t}",
         )
-        
+
     def test_SetAdjacencyMatrix(self):
         n = 100
         t = 12
-        initStateList = [n//2, n//2 + 1]
+        initStateList = [n // 2, n // 2 + 1]
         newAdjMatrix = nx.to_numpy_array(nx.complete_graph(n), dtype=complex)
         qwak = QWAKTestStub()
         np.testing.assert_almost_equal(
@@ -189,7 +128,7 @@ class TestQWAK(object):
             probDistUniformSuperpositionCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
-        qwak.setAdjacencyMatrix(newAdjMatrix,initStateList)
+        qwak.setAdjacencyMatrix(newAdjMatrix, initStateList)
         qwak.buildWalk(t)
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
@@ -202,7 +141,67 @@ class TestQWAK(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
-    def test_stateOutOfBoundsException(self):
+    def test_MeanCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getMean(),
+            50.5,
+            atol=0,
+            err_msg=f"Mean for a cycle of size {n} for time {t} should be 50.5 but got {qwak.getMean()}",
+        )
+
+    def test_SndMomentCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getSndMoment(),
+            2838.5,
+            atol=0,
+            err_msg=f"Second moment for a cycle of size {n} for time {t} should be 2838.5 but got {qwak.getSndMoment()}",
+        )
+
+    def test_StDevCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getStDev(),
+            16.977926846349753,
+            atol=0,
+            err_msg=f"Standard deviation for a cycle of size {n} for time {t} should be 16.9779... but got {qwak.getStDev()}",
+        )
+
+    def test_SurvivalProbCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getSurvivalProb(n // 2, n // 2 + 1),
+            0.02688956925823824,
+            atol=0,
+            err_msg=f"Survival Prob for a cycle of size {n} for time {t} between {n//2} and {n//2+1} should be 0.026889... but got {qwak.getSurvivalProb(n//2,n//2+1)}",
+        )
+
+    def test_InversePartRatioCycle(self):
+        n = 100
+        t = 12
+        qwak = QWAKTestStub()
+        qwak.buildWalk()
+        np.testing.assert_allclose(
+            qwak.getInversePartRatio(),
+            38.079796685604926,
+            atol=0,
+            err_msg=f"Inverse Participation Ratio for a cycle of size {n} for time {t} should be 38.07979... but got {qwak.getInversePartRatio()}",
+        )
+
+    def test_StateOutOfBoundsException(self):
         with pytest.raises(StateOutOfBounds):
             n = 100
             state = State(n, [n + 1])
@@ -211,7 +210,7 @@ class TestQWAK(object):
             qwak.setInitState(state)
             qwak.buildWalk()
 
-    def test_nonUnitaryStateException(self):
+    def test_NonUnitaryStateException(self):
         with pytest.raises(NonUnitaryState):
             n = 100
             state = State(
@@ -225,46 +224,3 @@ class TestQWAK(object):
             qwak = QWAKTestStub()
             qwak.setInitState(state)
             qwak.buildWalk()
-
-
-class QWAKTestStub:
-    def __init__(self, testQwak=None):
-        n = 100
-        self.t = 12
-        graph = nx.cycle_graph(n)
-        initStateList = [n // 2, n // 2 + 1]
-        laplacian = False
-        markedSearch = None
-        if testQwak is None:
-            self.qwak = QWAK(
-                graph,
-                initStateList=initStateList,
-                customStateList=None,
-                laplacian=laplacian,
-                markedSearch=markedSearch,
-            )
-        else:
-            self.qwak = testQwak
-
-    def buildWalk(self, t=None):
-        if t is not None:
-            self.t = t
-        self.qwak.runWalk(time=self.t)
-
-    def getProbVec(self):
-        return self.qwak.getProbVec()
-
-    def setInitState(self, newState):
-        self.qwak.setInitState(newState)
-
-    def getDim(self):
-        return self.qwak.getDim()
-
-    def setDim(self, newDim, graphStr,initStateList = None):
-        self.qwak.setDim(newDim, graphStr, initStateList)
-
-    def getAdjacencyMatrix(self):
-        return self.qwak.getAdjacencyMatrix()
-
-    def setAdjacencyMatrix(self, newAdjacencyMatrix,initStateList):
-        self.qwak.setAdjacencyMatrix(newAdjacencyMatrix,initStateList)
