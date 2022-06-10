@@ -7,8 +7,6 @@ from qwak.ProbabilityDistribution import (
 )
 from qwak.qwak import QWAK, StochasticQWAK
 
-from sqwalk import SQWalker
-
 from qutip import ket2dm, basis, Options, Qobj
 
 import time
