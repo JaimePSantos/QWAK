@@ -510,11 +510,9 @@ them instead change the graph entirely.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.checkPST">
 <span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.checkPST" title="Permalink to this definition">#</a></dt>
-<dd><dl class="simple">
-<dt>Checks if all the conditions are true and return the <strong>VALUE</strong> if the graph</dt><dd><p>has PST and False otherwise.
+<dd><p>Checks if all the conditions are true and return the <strong>VALUE</strong> if the graph
+has PST and False otherwise.
 TODO: Check if numpy is faster for eigenvecs and vals.</p>
-</dd>
-</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -544,6 +542,17 @@ Whitfield, J. D., Rodríguez-Rosario, C. A., &amp; Aspuru-Guzik, A. (2010).
 Quantum stochastic walks: A generalization of classical random walks and quantum walks.
 Physical Review A, 81(2), 022323.</p>
 <p>&#64;author: Lorenzo Buffoni</p>
+<p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>noiseParam</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>sinkNode</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>sinkRate</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.buildStochasticOperator">
 <span class="sig-name descname"><span class="pre">buildStochasticOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">noiseParam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sinkNode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sinkRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.buildStochasticOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.buildStochasticOperator" title="Permalink to this definition">#</a></dt>
@@ -552,9 +561,13 @@ and other parameters.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>noise_param</strong> (<em>float between 0 and 1</em>) – parameter controlling the ‘quantumness’ of the system (0 is fully quantum, 1 is fully classical)</p></li>
-<li><p><strong>sinkRate</strong> (<em>float between 0 and 1</em>) – if a sink is present the trasfer rate from the sink_node to the sink (defaults to 1.)</p></li>
+<li><p><strong>noiseParam</strong> (<em>float</em><em>, </em><em>optional</em>) – Parameter controlling the ‘quantumness’ of the system (0 is fully quantum, 1 is fully classical), by default None.</p></li>
+<li><p><strong>sinkNode</strong> (<em>int</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>sinkRate</strong> (<em>float</em><em>, </em><em>optional</em>) – If a sink is present the trasfer rate from the sink_node to the sink , by default None.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -562,52 +575,145 @@ and other parameters.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator._buildLaplacian">
 <span class="sig-name descname"><span class="pre">_buildLaplacian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator._buildLaplacian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator._buildLaplacian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator._buildQuantumHamiltonian">
 <span class="sig-name descname"><span class="pre">_buildQuantumHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator._buildQuantumHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator._buildQuantumHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator._buildClassicalHamiltonian">
 <span class="sig-name descname"><span class="pre">_buildClassicalHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator._buildClassicalHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator._buildClassicalHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.getClassicalHamiltonian">
 <span class="sig-name descname"><span class="pre">getClassicalHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.getClassicalHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.getClassicalHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.setClassicalHamiltonian">
 <span class="sig-name descname"><span class="pre">setClassicalHamiltonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newClassicalHamiltonian</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.setClassicalHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.setClassicalHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newClassicalHamiltonian</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.getQuantumHamiltonian">
 <span class="sig-name descname"><span class="pre">getQuantumHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.getQuantumHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.getQuantumHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Qobj</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Qobj</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.setQuantumHamiltonian">
 <span class="sig-name descname"><span class="pre">setQuantumHamiltonian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newQuantumHamiltonian</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.setQuantumHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.setQuantumHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newQuantumHamiltonian</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.setSinkNode">
 <span class="sig-name descname"><span class="pre">setSinkNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newSinkNode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.setSinkNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.setSinkNode" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newSinkNode</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.getSinkNode">
 <span class="sig-name descname"><span class="pre">getSinkNode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.getSinkNode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.getSinkNode" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.getLaplacian">
 <span class="sig-name descname"><span class="pre">getLaplacian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator.getLaplacian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator.getLaplacian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

@@ -204,8 +204,8 @@ class Operator:
 
     def checkPST(self, nodeA, nodeB):
         """Checks if all the conditions are true and return the **VALUE** if the graph
-         has PST and False otherwise.
-         TODO: Check if numpy is faster for eigenvecs and vals.
+        has PST and False otherwise.
+        TODO: Check if numpy is faster for eigenvecs and vals.
 
         Parameters
         ----------
@@ -304,17 +304,25 @@ class StochasticOperator(object):
     @author: Lorenzo Buffoni
     """
 
-    def __init__(self, graph, noiseParam=None, sinkNode=None, sinkRate=None):
+    def __init__(self, graph, noiseParam=None, sinkNode=None, sinkRate=None) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        graph : _type_
+            _description_
+        noiseParam : _type_, optional
+            _description_, by default None
+        sinkNode : _type_, optional
+            _description_, by default None
+        sinkRate : _type_, optional
+            _description_, by default None
+        """        
         self._graph = graph
         self.n = len(self._graph)
         self._adjacencyMatrix = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
         )
-        # TODO: Why cant we use the normal laplacian?
-        # self._laplacian = np.matrix(
-        #    nx.laplacian_matrix(self._graph).todense().astype(complex)
-        # )
-        # normalized laplacian of the classical random walk
         self._buildLaplacian()
         if noiseParam is None:
             self._p = 0.0
@@ -328,17 +336,19 @@ class StochasticOperator(object):
         self._quantumHamiltonian = Qobj()
         self._classicalHamiltonian = []
 
-    def buildStochasticOperator(self, noiseParam=None, sinkNode=None, sinkRate=None):
+    def buildStochasticOperator(self, noiseParam: float = None, sinkNode: int = None, sinkRate: float = None) -> None:
         """Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
         Parameters
         ----------
-        noise_param : float between 0 and 1
-            parameter controlling the 'quantumness' of the system (0 is fully quantum, 1 is fully classical)
-        sinkRate : float between 0 and 1
-            if a sink is present the trasfer rate from the sink_node to the sink (defaults to 1.)
-        """
+        noiseParam : float, optional
+            Parameter controlling the 'quantumness' of the system (0 is fully quantum, 1 is fully classical), by default None.
+        sinkNode : int, optional
+            _description_, by default None
+        sinkRate : float, optional
+            If a sink is present the trasfer rate from the sink_node to the sink , by default None.
+        """        
         if noiseParam is not None:
             self._p = noiseParam
         if sinkRate is not None:
@@ -348,12 +358,16 @@ class StochasticOperator(object):
         self._buildQuantumHamiltonian()
         self._buildClassicalHamiltonian()
 
-    def _buildLaplacian(self):
+    def _buildLaplacian(self) -> None:
+        """_summary_
+        """        
         degree = np.sum(self._adjacencyMatrix, axis=0).flat
         degree = list(map(lambda x: 1 / x if x > 0 else 0, degree))
         self._laplacian = np.multiply(self._adjacencyMatrix, degree)
 
-    def _buildQuantumHamiltonian(self):
+    def _buildQuantumHamiltonian(self) -> None:
+        """_summary_
+        """        
         if self._sinkNode is not None:
             H = Qobj(
                 (1 - self._p)
@@ -363,7 +377,9 @@ class StochasticOperator(object):
             H = Qobj((1 - self._p) * self._adjacencyMatrix)
         self._quantumHamiltonian = H
 
-    def _buildClassicalHamiltonian(self):
+    def _buildClassicalHamiltonian(self) -> None:
+        """_summary_
+        """        
         if self._sinkNode is not None:
             L = [
                 np.sqrt(self._p * self._laplacian[i, j])
@@ -385,23 +401,72 @@ class StochasticOperator(object):
             ]
         self._classicalHamiltonian = L
 
-    def getClassicalHamiltonian(self):
+    def getClassicalHamiltonian(self) -> list:
+        """_summary_
+
+        Returns
+        -------
+        list
+            _description_
+        """        
         return self._classicalHamiltonian
 
-    def setClassicalHamiltonian(self, newClassicalHamiltonian):
+    def setClassicalHamiltonian(self, newClassicalHamiltonian) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        newClassicalHamiltonian : _type_
+            _description_
+        """        
         self._classicalHamiltonian = newClassicalHamiltonian
 
-    def getQuantumHamiltonian(self):
+    def getQuantumHamiltonian(self) -> Qobj:
+        """_summary_
+
+        Returns
+        -------
+        Qobj
+            _description_
+        """        
         return self._quantumHamiltonian
 
-    def setQuantumHamiltonian(self, newQuantumHamiltonian):
+    def setQuantumHamiltonian(self, newQuantumHamiltonian) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        newQuantumHamiltonian : _type_
+            _description_
+        """        
         self._quantumHamiltonian = newQuantumHamiltonian
 
-    def setSinkNode(self, newSinkNode):
+    def setSinkNode(self, newSinkNode) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        newSinkNode : _type_
+            _description_
+        """        
         self._sinkNode = newSinkNode
 
-    def getSinkNode(self):
+    def getSinkNode(self) -> int:
+        """_summary_
+
+        Returns
+        -------
+        int
+            _description_
+        """        
         return self._sinkNode
 
-    def getLaplacian(self):
+    def getLaplacian(self) -> np.ndarray:
+        """_summary_
+
+        Returns
+        -------
+        np.ndarray
+            _description_
+        """        
         return self._laplacian
