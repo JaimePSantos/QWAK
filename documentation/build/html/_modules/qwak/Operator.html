@@ -239,17 +239,18 @@
 <span class="kn">from</span> <span class="nn">Tools.PerfectStateTransfer</span> <span class="kn">import</span> <span class="n">isStrCospec</span><span class="p">,</span> <span class="n">checkRoots</span><span class="p">,</span> <span class="n">swapNodes</span><span class="p">,</span> <span class="n">getEigenVal</span>
 
 
-<div class="viewcode-block" id="Operator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator">[docs]</a><span class="k">class</span> <span class="nc">Operator</span><span class="p">:</span>    
+<div class="viewcode-block" id="Operator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator">[docs]</a><span class="k">class</span> <span class="nc">Operator</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class that represents the operators that will be used in a quantum walk.</span>
 <span class="sd">    States are represented by matrices in quantum mechanics,</span>
 <span class="sd">    therefore Numpy is used to generate ndarrays which contain these matrices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
         <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This object is initialized with a user inputted graph, which is then used to</span>
 <span class="sd">        generate the dimension of the operator and the adjacency matrix, which is</span>
@@ -270,7 +271,7 @@
 <span class="sd">            Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.</span>
 <span class="sd">        markedSearch : list, optional</span>
 <span class="sd">            List with marked elements for search, by default None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>    
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildAdjacency</span><span class="p">(</span><span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
@@ -312,7 +313,7 @@
 <span class="sd">            _description_</span>
 <span class="sd">        markedSearch : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
                 <span class="n">nx</span><span class="o">.</span><span class="n">laplacian_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
@@ -330,7 +331,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        isHermitian : bool</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">isHermitian</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span>
@@ -339,12 +340,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Operator.resetOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.resetOperator">[docs]</a>    <span class="k">def</span> <span class="nf">resetOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Resets operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="sd">&quot;&quot;&quot;Resets Operator object.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Operator.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Sets the current operator dimensions to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current Operator objects dimension to a user defined one.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -360,7 +360,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
 <span class="sd">            Dimension of Operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
 
 <div class="viewcode-block" id="Operator.setTime"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setTime">[docs]</a>    <span class="k">def</span> <span class="nf">setTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newTime</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -370,7 +370,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newTime : float</span>
 <span class="sd">            New operator time.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">newTime</span></div>
 
 <div class="viewcode-block" id="Operator.getTime"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getTime">[docs]</a>    <span class="k">def</span> <span class="nf">getTime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -380,7 +380,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            Current time of Operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span></div>
 
 <div class="viewcode-block" id="Operator.setAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adjacencyMatrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -392,7 +392,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        adjacencyMatrix : np.ndarray</span>
 <span class="sd">            New adjacency matrix.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">adjacencyMatrix</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span>
@@ -405,7 +405,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Adjacency matrix of the Operator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span></div>
 
 <div class="viewcode-block" id="Operator.setOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setOperator">[docs]</a>    <span class="k">def</span> <span class="nf">setOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -415,7 +415,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newOperator : Operator</span>
 <span class="sd">            New user inputted Operator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getOperator</span><span class="p">()</span></div>
@@ -427,7 +427,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.matrix</span>
 <span class="sd">            Current Operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
 
 <div class="viewcode-block" id="Operator.checkPST"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.checkPST">[docs]</a>    <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
@@ -489,7 +489,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Result of the left-side multiplication.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -499,7 +499,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        str</span>
 <span class="sd">            String representation of the Operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
     <span class="c1"># def transportEfficiency(self,initState):</span>
@@ -516,7 +516,6 @@
     <span class="c1">#         ef += np.absolute(np.matmul(eigenVec,initState))**2</span>
     <span class="c1">#         print(f&quot;eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n&quot;)</span>
     <span class="c1">#     return ef</span>
-
 
 
 <div class="viewcode-block" id="StochasticOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator">[docs]</a><span class="k">class</span> <span class="nc">StochasticOperator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -545,7 +544,7 @@
 <span class="sd">            _description_, by default None</span>
 <span class="sd">        sinkRate : _type_, optional</span>
 <span class="sd">            _description_, by default None</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="p">(</span>
@@ -564,7 +563,9 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="StochasticOperator.buildStochasticOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.buildStochasticOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildStochasticOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">noiseParam</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sinkNode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sinkRate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="StochasticOperator.buildStochasticOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.buildStochasticOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildStochasticOperator</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">noiseParam</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sinkNode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sinkRate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix</span>
 <span class="sd">        and other parameters.</span>
 
@@ -576,7 +577,7 @@
 <span class="sd">            _description_, by default None</span>
 <span class="sd">        sinkRate : float, optional</span>
 <span class="sd">            If a sink is present the trasfer rate from the sink_node to the sink , by default None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">noiseParam</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_p</span> <span class="o">=</span> <span class="n">noiseParam</span>
         <span class="k">if</span> <span class="n">sinkRate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -587,15 +588,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildClassicalHamiltonian</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="StochasticOperator._buildLaplacian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator._buildLaplacian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="sd">&quot;&quot;&quot;_summary_&quot;&quot;&quot;</span>
         <span class="n">degree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span>
         <span class="n">degree</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span> <span class="n">degree</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="StochasticOperator._buildQuantumHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator._buildQuantumHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="sd">&quot;&quot;&quot;_summary_&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">H</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span>
                 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p</span><span class="p">)</span>
@@ -606,8 +605,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">H</span></div>
 
 <div class="viewcode-block" id="StochasticOperator._buildClassicalHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator._buildClassicalHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="sd">&quot;&quot;&quot;_summary_&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">L</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
@@ -636,7 +634,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        list</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span></div>
 
 <div class="viewcode-block" id="StochasticOperator.setClassicalHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.setClassicalHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">setClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newClassicalHamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -646,7 +644,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newClassicalHamiltonian : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="n">newClassicalHamiltonian</span></div>
 
 <div class="viewcode-block" id="StochasticOperator.getQuantumHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.getQuantumHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">getQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qobj</span><span class="p">:</span>
@@ -656,7 +654,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        Qobj</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span></div>
 
 <div class="viewcode-block" id="StochasticOperator.setQuantumHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.setQuantumHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">setQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newQuantumHamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -666,7 +664,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newQuantumHamiltonian : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">newQuantumHamiltonian</span></div>
 
 <div class="viewcode-block" id="StochasticOperator.setSinkNode"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.setSinkNode">[docs]</a>    <span class="k">def</span> <span class="nf">setSinkNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newSinkNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -676,7 +674,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newSinkNode : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="o">=</span> <span class="n">newSinkNode</span></div>
 
 <div class="viewcode-block" id="StochasticOperator.getSinkNode"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.getSinkNode">[docs]</a>    <span class="k">def</span> <span class="nf">getSinkNode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
@@ -686,7 +684,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span></div>
 
 <div class="viewcode-block" id="StochasticOperator.getLaplacian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.getLaplacian">[docs]</a>    <span class="k">def</span> <span class="nf">getLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -696,7 +694,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span></div></div>
 </pre></div>
         </article>

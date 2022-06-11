@@ -378,13 +378,13 @@ conjugate of the eigenvectors.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.resetOperator">
 <span class="sig-name descname"><span class="pre">resetOperator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.resetOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.resetOperator" title="Permalink to this definition">#</a></dt>
-<dd><p>Resets operator object.</p>
+<dd><p>Resets Operator object.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.setDim">
 <span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.setDim" title="Permalink to this definition">#</a></dt>
-<dd><p>Sets the current operator dimensions to a user defined one.</p>
+<dd><p>Sets the current Operator objects dimension to a user defined one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>newDim</strong> (<em>int</em>) – New dimension for the Operator object.</p>
@@ -730,24 +730,15 @@ final state of a continuous-time quantum walk.</p>
 the state inputted by the user.
 The vector containing the probabilities will be initialized full of zeros
 with the dimension obtained from the state.</p>
-<p>:param : param state: State to be converted into a probability.
-:param : type state: State</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – State to be converted into a probability.</p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.resetProbDist">
 <span class="sig-name descname"><span class="pre">resetProbDist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.resetProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.resetProbDist" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist">
-<span class="sig-name descname"><span class="pre">buildProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.buildProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist" title="Permalink to this definition">#</a></dt>
-<dd><p>Builds the probability vector by multiplying the user inputted
-amplitude state by its conjugate.
-TODO: Nao devia ser pelo complexo conjugado?</p>
+<dd><p>Resets the ProbabilityDistribution object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -756,32 +747,79 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist">
+<span class="sig-name descname"><span class="pre">buildProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.buildProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist" title="Permalink to this definition">#</a></dt>
+<dd><p>Builds the probability vector by multiplying the user inputted
+amplitude state by its conjugate.
+TODO: Nao devia ser pelo complexo conjugado?</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a><em>, </em><em>optional</em>) – _description_, by default None</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.setProbDist">
 <span class="sig-name descname"><span class="pre">setProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newProbDist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.setProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbDist" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newProbDist</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.getState">
 <span class="sig-name descname"><span class="pre">getState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.getState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.getState" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">State</a></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><code class="xref py py-class docutils literal notranslate"><span class="pre">State</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.getDim">
 <span class="sig-name descname"><span class="pre">getDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.getDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.getDim" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.setProbVec">
 <span class="sig-name descname"><span class="pre">setProbVec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newProbVec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.setProbVec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbVec" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the current probability vector to a user inputted one.</p>
-<p>:param : param newProbVec: New probability vector for the distribution.
-:param : type newProbVec: Numpy.ndarray</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newProbVec</strong> (<em>np.ndarray</em>) – New probability vector for the distribution.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newProbVec</strong> (<em>ndarray</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -792,11 +830,13 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dd><p>Gets the probability vector associated with a distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._probVec
-:rtype: Numpy.ndarray</p>
+<dd class="field-odd"><p>Returns the array of the ProbabilityDistribution object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -805,18 +845,18 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.searchNodeProbability">
 <span class="sig-name descname"><span class="pre">searchNodeProbability</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">searchNode</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.searchNodeProbability"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.searchNodeProbability" title="Permalink to this definition">#</a></dt>
 <dd><p>Searches and gets the probability associated with a given node.</p>
-<p>:param : param node: User inputted node for the search.
-:param : type state: int</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._probVec.item(searchNode)
-:rtype: float</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – User inputted node for the search.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Probability of the searched node.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
-</dd>
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – </p>
 </dd>
 </dl>
 </dd></dl>
@@ -827,8 +867,30 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dd><p>Gets the mean of the current probability distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: float(m)
-:rtype: float</p>
+<dd class="field-odd"><p>Mean of the ProbabilityDistribution object.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.moment">
+<span class="sig-name descname"><span class="pre">moment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.moment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.moment" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>k</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
@@ -837,9 +899,16 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.moment">
-<span class="sig-name descname"><span class="pre">moment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.moment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.moment" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.stDev">
+<span class="sig-name descname"><span class="pre">stDev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.stDev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.stDev" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
@@ -847,14 +916,27 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.stDev">
-<span class="sig-name descname"><span class="pre">stDev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.stDev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.stDev" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.survivalProb">
 <span class="sig-name descname"><span class="pre">survivalProb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.survivalProb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.survivalProb" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>k0</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>k1</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>_description_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

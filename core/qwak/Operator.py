@@ -11,17 +11,18 @@ from qutip import Qobj, basis, mesolve, Options
 from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 
-class Operator:    
+class Operator:
     """
     Class that represents the operators that will be used in a quantum walk.
     States are represented by matrices in quantum mechanics,
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
+
     def __init__(
         self,
         graph: nx.Graph,
         laplacian: bool = False,
-        markedSearch: list=None,
+        markedSearch: list = None,
     ) -> None:
         """This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -42,7 +43,7 @@ class Operator:
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.
         markedSearch : list, optional
             List with marked elements for search, by default None.
-        """    
+        """
         self._graph = graph
         self._buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
@@ -84,7 +85,7 @@ class Operator:
             _description_
         markedSearch : _type_
             _description_
-        """        
+        """
         if laplacian:
             self._adjacencyMatrix = np.asarray(
                 nx.laplacian_matrix(self._graph).todense().astype(complex)
@@ -102,7 +103,7 @@ class Operator:
         ----------
         isHermitian : bool
             _description_
-        """        
+        """
         if isHermitian:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
                 self._adjacencyMatrix
@@ -111,12 +112,11 @@ class Operator:
             self._eigenvalues, self._eigenvectors = np.linalg.eig(self._adjacencyMatrix)
 
     def resetOperator(self):
-        """Resets operator object.
-        """        
+        """Resets Operator object."""
         self._operator = np.zeros((self._n, self._n))
 
     def setDim(self, newDim: int) -> None:
-        """Sets the current operator dimensions to a user defined one.
+        """Sets the current Operator objects dimension to a user defined one.
 
         Parameters
         ----------
@@ -132,7 +132,7 @@ class Operator:
         -------
         int
             Dimension of Operator object.
-        """        
+        """
         return self._n
 
     def setTime(self, newTime: float) -> None:
@@ -142,7 +142,7 @@ class Operator:
         ----------
         newTime : float
             New operator time.
-        """        
+        """
         self._time = newTime
 
     def getTime(self) -> float:
@@ -152,7 +152,7 @@ class Operator:
         -------
         float
             Current time of Operator object.
-        """        
+        """
         return self._time
 
     def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
@@ -164,7 +164,7 @@ class Operator:
         ----------
         adjacencyMatrix : np.ndarray
             New adjacency matrix.
-        """        
+        """
         self._adjacencyMatrix = adjacencyMatrix.astype(complex)
         self._n = len(self._adjacencyMatrix)
         self.resetOperator()
@@ -177,7 +177,7 @@ class Operator:
         -------
         np.ndarray
             Adjacency matrix of the Operator.
-        """        
+        """
         return self._adjacencyMatrix
 
     def setOperator(self, newOperator: Operator) -> None:
@@ -187,7 +187,7 @@ class Operator:
         ----------
         newOperator : Operator
             New user inputted Operator.
-        """        
+        """
         self._n = newOperator.getDim()
         self._time = newOperator.getTime()
         self._operator = newOperator.getOperator()
@@ -199,7 +199,7 @@ class Operator:
         -------
         np.matrix
             Current Operator object.
-        """        
+        """
         return self._operator
 
     def checkPST(self, nodeA, nodeB):
@@ -261,7 +261,7 @@ class Operator:
         -------
         np.ndarray
             Result of the left-side multiplication.
-        """        
+        """
         return other * self._operator
 
     def __str__(self) -> str:
@@ -271,7 +271,7 @@ class Operator:
         -------
         str
             String representation of the Operator object.
-        """        
+        """
         return f"{self._operator}"
 
     # def transportEfficiency(self,initState):
@@ -288,7 +288,6 @@ class Operator:
     #         ef += np.absolute(np.matmul(eigenVec,initState))**2
     #         print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
     #     return ef
-
 
 
 class StochasticOperator(object):
@@ -317,7 +316,7 @@ class StochasticOperator(object):
             _description_, by default None
         sinkRate : _type_, optional
             _description_, by default None
-        """        
+        """
         self._graph = graph
         self.n = len(self._graph)
         self._adjacencyMatrix = (
@@ -336,7 +335,9 @@ class StochasticOperator(object):
         self._quantumHamiltonian = Qobj()
         self._classicalHamiltonian = []
 
-    def buildStochasticOperator(self, noiseParam: float = None, sinkNode: int = None, sinkRate: float = None) -> None:
+    def buildStochasticOperator(
+        self, noiseParam: float = None, sinkNode: int = None, sinkRate: float = None
+    ) -> None:
         """Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
@@ -348,7 +349,7 @@ class StochasticOperator(object):
             _description_, by default None
         sinkRate : float, optional
             If a sink is present the trasfer rate from the sink_node to the sink , by default None.
-        """        
+        """
         if noiseParam is not None:
             self._p = noiseParam
         if sinkRate is not None:
@@ -359,15 +360,13 @@ class StochasticOperator(object):
         self._buildClassicalHamiltonian()
 
     def _buildLaplacian(self) -> None:
-        """_summary_
-        """        
+        """_summary_"""
         degree = np.sum(self._adjacencyMatrix, axis=0).flat
         degree = list(map(lambda x: 1 / x if x > 0 else 0, degree))
         self._laplacian = np.multiply(self._adjacencyMatrix, degree)
 
     def _buildQuantumHamiltonian(self) -> None:
-        """_summary_
-        """        
+        """_summary_"""
         if self._sinkNode is not None:
             H = Qobj(
                 (1 - self._p)
@@ -378,8 +377,7 @@ class StochasticOperator(object):
         self._quantumHamiltonian = H
 
     def _buildClassicalHamiltonian(self) -> None:
-        """_summary_
-        """        
+        """_summary_"""
         if self._sinkNode is not None:
             L = [
                 np.sqrt(self._p * self._laplacian[i, j])
@@ -408,7 +406,7 @@ class StochasticOperator(object):
         -------
         list
             _description_
-        """        
+        """
         return self._classicalHamiltonian
 
     def setClassicalHamiltonian(self, newClassicalHamiltonian) -> None:
@@ -418,7 +416,7 @@ class StochasticOperator(object):
         ----------
         newClassicalHamiltonian : _type_
             _description_
-        """        
+        """
         self._classicalHamiltonian = newClassicalHamiltonian
 
     def getQuantumHamiltonian(self) -> Qobj:
@@ -428,7 +426,7 @@ class StochasticOperator(object):
         -------
         Qobj
             _description_
-        """        
+        """
         return self._quantumHamiltonian
 
     def setQuantumHamiltonian(self, newQuantumHamiltonian) -> None:
@@ -438,7 +436,7 @@ class StochasticOperator(object):
         ----------
         newQuantumHamiltonian : _type_
             _description_
-        """        
+        """
         self._quantumHamiltonian = newQuantumHamiltonian
 
     def setSinkNode(self, newSinkNode) -> None:
@@ -448,7 +446,7 @@ class StochasticOperator(object):
         ----------
         newSinkNode : _type_
             _description_
-        """        
+        """
         self._sinkNode = newSinkNode
 
     def getSinkNode(self) -> int:
@@ -458,7 +456,7 @@ class StochasticOperator(object):
         -------
         int
             _description_
-        """        
+        """
         return self._sinkNode
 
     def getLaplacian(self) -> np.ndarray:
@@ -468,5 +466,5 @@ class StochasticOperator(object):
         -------
         np.ndarray
             _description_
-        """        
+        """
         return self._laplacian

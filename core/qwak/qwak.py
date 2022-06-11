@@ -13,7 +13,7 @@ from qwak.ProbabilityDistribution import (
 from qutip import Qobj, basis, mesolve, Options
 
 
-class QWAK:    
+class QWAK:
     """Data access class that combines all three components required to
     perform a continuous-time quantum walk, given by the multiplication of
     an operator (represented by the Operator class) by an initial state
@@ -28,10 +28,10 @@ class QWAK:
     def __init__(
         self,
         graph: nx.Graph,
-        initStateList:list=None,
-        customStateList: list=None,
+        initStateList: list = None,
+        customStateList: list = None,
         laplacian: bool = False,
-        markedSearch: list =None,
+        markedSearch: list = None,
     ) -> None:
         """Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
@@ -52,7 +52,7 @@ class QWAK:
             Laplacian or simple adjacency matrix, by default False.
         markedSearch : list, optional
             List with marked elements for search, by default None.
-        """    
+        """
 
         self._graph = graph
         self._n = len(self._graph)
@@ -66,7 +66,7 @@ class QWAK:
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def runWalk(
-        self, time: float = 0, initStateList: list = None, customStateList: list=None
+        self, time: float = 0, initStateList: list = None, customStateList: list = None
     ) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
@@ -101,13 +101,12 @@ class QWAK:
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
     def resetWalk(self) -> None:
-        """Resets the components of a walk.
-        """
+        """Resets the components of a walk."""
         self._initState.resetState()
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def setDim(self, newDim: int, graphStr: str, initStateList: list =None) -> None:
+    def setDim(self, newDim: int, graphStr: str, initStateList: list = None) -> None:
         """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
@@ -120,7 +119,7 @@ class QWAK:
             Graph string to generate the graph with the new dimension.
         initStateList : list[int], optional
             Init state list with new dimension.
-        """        
+        """
         # TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
@@ -136,10 +135,12 @@ class QWAK:
         -------
         int
             Dimension of graph.
-        """        
+        """
         return self._n
 
-    def setAdjacencyMatrix(self, newAdjMatrix: np.ndarray, initStateList: list = None) -> None:
+    def setAdjacencyMatrix(
+        self, newAdjMatrix: np.ndarray, initStateList: list = None
+    ) -> None:
         """_summary_
 
         Parameters
@@ -148,19 +149,19 @@ class QWAK:
             _description_
         initStateList : list, optional
             _description_, by default None
-        """        
+        """
         self._n = len(self._operator.getAdjacencyMatrix())
         self._operator.setAdjacencyMatrix(newAdjMatrix)
         self._initState = State(self._n, initStateList)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
-    def getAdjacencyMatrix(self) -> np.ndarray:        
+    def getAdjacencyMatrix(self) -> np.ndarray:
         """_summary_
 
         Returns:
             np.ndarray: _description_
-        """        
+        """
         return self._operator.getAdjacencyMatrix()
 
     def setGraph(self, newGraph: nx.Graph) -> None:
@@ -171,7 +172,7 @@ class QWAK:
         ----------
         newGraph : nx.Graph
             New NetworkX graph.
-        """        
+        """
         self._n = len(self._graph)
         self._graph = newGraph
         self._operator = Operator(self._graph)
@@ -183,7 +184,7 @@ class QWAK:
         -------
         nx.Graph
             Current graph.
-        """        
+        """
         return self._graph
 
     def setInitState(self, newInitState: State) -> None:
@@ -193,7 +194,7 @@ class QWAK:
         ----------
         newInitState : State
             New initial state.
-        """        
+        """
         self._initState.setState(newInitState)
         self._initStateList = self._initState.getNodeList()
 
@@ -204,7 +205,7 @@ class QWAK:
         -------
         State
             Initial State.
-        """        
+        """
         return self._initState
 
     def setTime(self, newTime: float) -> None:
@@ -214,7 +215,7 @@ class QWAK:
         ----------
         newTime : float
             New time.
-        """        
+        """
         self._operator.setTime(newTime)
 
     def getTime(self) -> float:
@@ -224,7 +225,7 @@ class QWAK:
         -------
         float
            Current value of time.
-        """        
+        """
         return self._operator.getTime()
 
     def setOperator(self, newOperator: Operator) -> None:
@@ -234,7 +235,7 @@ class QWAK:
         ----------
         newOperator : Operator
             New operator object.
-        """        
+        """
         self._operator.setOperator(newOperator)
 
     def getOperator(self) -> Operator:
@@ -244,7 +245,7 @@ class QWAK:
         -------
         Operator
             Current operator object.
-        """        
+        """
         return self._operator
 
     def setWalk(self, newWalk: State) -> None:
@@ -255,7 +256,7 @@ class QWAK:
         ----------
         newWalk : State
             New walk amplitudes.
-        """        
+        """
         self._quantumWalk.setWalk(newWalk)
 
     def getWalk(self) -> QuantumWalk:
@@ -265,7 +266,7 @@ class QWAK:
         -------
         QuantumWalk
             Current state amplitudes.
-        """        
+        """
         return self._quantumWalk
 
     def getFinalState(self) -> State:
@@ -275,7 +276,7 @@ class QWAK:
         -------
         State
             State of the QuantumWalk.
-        """        
+        """
         return self._quantumWalk.getFinalState()
 
     def getAmpVec(self) -> np.ndarray:
@@ -285,7 +286,7 @@ class QWAK:
         -------
         np.ndarray
             Array of the QuantumWalk state.
-        """                
+        """
         return self._quantumWalk.getAmpVec()
 
     def setProbDist(self, newProbDist: ProbabilityDistribution) -> None:
@@ -296,7 +297,7 @@ class QWAK:
         ----------
         newProbDist : ProbabilityDistribution
             New probability distribution.
-        """        
+        """
         self._probDist.setProbDist(newProbDist)
 
     def getProbDist(self) -> ProbabilityDistribution:
@@ -316,7 +317,7 @@ class QWAK:
         -------
         np.ndarray
             Probability Distribution vector.
-        """        
+        """
         return self._probDist.getProbVec()
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:
@@ -346,7 +347,7 @@ class QWAK:
         -------
         float
             Probability associated with the search node.
-        """        
+        """
         return self._probDist.searchNodeProbability(searchNode)
 
     def checkPST(self, nodeA, nodeB):
@@ -363,7 +364,7 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
+        """
         nodeA = int(nodeA)
         nodeB = int(nodeB)
         return self._operator.checkPST(nodeA, nodeB)
@@ -375,7 +376,7 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._probDist.moment(1)
 
     def getSndMoment(self):
@@ -385,7 +386,7 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._probDist.moment(2)
 
     def getStDev(self):
@@ -395,7 +396,7 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._probDist.stDev()
 
     def getSurvivalProb(self, k0, k1):
@@ -412,7 +413,7 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._probDist.survivalProb(k0, k1)
 
     def getInversePartRatio(self):
@@ -422,7 +423,7 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._quantumWalk.invPartRatio()
 
     def getTransportEfficiency(self):
@@ -432,13 +433,13 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._quantumWalk.transportEfficiency()
 
 
 class StochasticQWAK:
-    """_summary_
-    """    
+    """_summary_"""
+
     def __init__(
         self,
         graph: nx.Graph,
@@ -464,7 +465,7 @@ class StochasticQWAK:
             _description_, by default None
         sinkRate : _type_, optional
             _description_, by default None
-        """    
+        """
         self._graph = graph
         self._n = len(self._graph)
         self._operator = StochasticOperator(
@@ -517,7 +518,7 @@ class StochasticQWAK:
             _description_
         nUErr
             _description_
-        """    
+        """
         # TODO: Move the constructors to the constructor method.
         try:
             self._initState.buildState(
@@ -542,7 +543,7 @@ class StochasticQWAK:
         ----------
         newProbDist : object
             _description_
-        """        
+        """
         self._probDist = newProbDist
 
     def getProbDist(self) -> ProbabilityDistribution:
@@ -552,7 +553,7 @@ class StochasticQWAK:
         -------
         ProbabilityDistribution
             _description_
-        """        
+        """
         return self._probDist
 
     def getProbVec(self) -> ProbabilityDistribution:
@@ -562,7 +563,7 @@ class StochasticQWAK:
         -------
         ProbabilityDistribution
             _description_
-        """        
+        """
         return self._probDist.getProbVec()
 
     def getQuantumHamiltonian(self):
@@ -572,7 +573,7 @@ class StochasticQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._operator.getQuantumHamiltonian()
 
     def getClassicalHamiltonian(self):
@@ -582,7 +583,7 @@ class StochasticQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._operator.getClassicalHamiltonian()
 
     def getLaplacian(self):
@@ -592,5 +593,5 @@ class StochasticQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._operator.getLaplacian()
