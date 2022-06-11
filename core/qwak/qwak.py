@@ -1,4 +1,5 @@
 import networkx as nx
+import numpy as np
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
@@ -13,8 +14,7 @@ from qutip import Qobj, basis, mesolve, Options
 
 
 class QWAK:
-    """
-    Data access class that combines all three components required to
+    """Data access class that combines all three components required to
     perform a continuous-time quantum walk, given by the multiplication of
     an operator (represented by the Operator class) by an initial state
     (State class).  This multiplication is achieved in the
@@ -33,8 +33,7 @@ class QWAK:
         laplacian: bool = False,
         markedSearch=None,
     ) -> None:
-        """
-        Default values for the initial state, time and transition rate are a
+        """Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
         buildWalk must then be used to generate the results of the quantum
         walk.
@@ -61,8 +60,7 @@ class QWAK:
     def runWalk(
         self, time: float = 0, initStateList: list = None, customStateList=None
     ) -> None:
-        """
-        Builds class' attributes, runs the walk and calculates the amplitudes
+        """Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
         accessed with their respective get methods.
 
@@ -86,14 +84,15 @@ class QWAK:
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
-    def resetWalk(self):
+    def resetWalk(self) -> None:
+        """Resets the components of a walk.
+        """
         self._initState.resetState()
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
     def setDim(self, newDim: int, graphStr: str, initStateList=None) -> None:
-        """
-        Sets the current walk dimensions to a user defined one.
+        """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
 
@@ -113,8 +112,7 @@ class QWAK:
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def getDim(self) -> int:
-        """
-        Gets the current graph dimension.
+        """Gets the current graph dimension.
 
         Returns:
             :return: self._n
@@ -122,14 +120,25 @@ class QWAK:
         """
         return self._n
 
-    def setAdjacencyMatrix(self, newAdjMatrix, initStateList=None):
+    def setAdjacencyMatrix(self, newAdjMatrix: np.ndarray, initStateList: list = None) -> None:
+        """_summary_
+
+        Args:
+            newAdjMatrix (np.ndarray): _description_
+            initStateList (list, optional): _description_. Defaults to None.
+        """        
         self._n = len(self._operator.getAdjacencyMatrix())
         self._operator.setAdjacencyMatrix(newAdjMatrix)
         self._initState = State(self._n, initStateList)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
-    def getAdjacencyMatrix(self):
+    def getAdjacencyMatrix(self) -> np.ndarray:
+        """_summary_
+
+        Returns:
+            np.ndarray: _description_
+        """        
         return self._operator.getAdjacencyMatrix()
 
     def setGraph(self, newGraph: nx.Graph) -> None:
