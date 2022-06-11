@@ -1700,51 +1700,45 @@ This might not be needed and removed in the future.</p>
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StochasticQWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noiseParam</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sinkNode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sinkRate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Data access class that combines all three components required to
-perform a continuous-time quantum walk, given by the multiplication of
-an operator (represented by the Operator class) by an initial state
-(State class).  This multiplication is achieved in the
-StaticQuantumwalk class, which returns a final state (State Class)
-representing the amplitudes of each state associated with a graph node.
-These amplitudes can then be transformed to probability distributions
-(ProbabilityDistribution class) suitable for plotting with matplotlib,
-or your package of choice.</p>
-<p>Default values for the initial state, time and transition rate are a
-column vector full of 0s, 0 and 1, respectively. Methods runWalk or
-buildWalk must then be used to generate the results of the quantum
-walk.</p>
-<p>:param : param laplacian: Allows the user to choose whether to use the
-:param Laplacian or simple adjacency matrix.:
-:param : type laplacian: bool
-:param : param graph: NetworkX graph where the walk takes place. Also used
-:param for defining the dimensions of the quantum walk.:
-:param : type graph: NetworkX.Graph</p>
+<p>_summary_</p>
+<p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>graph</strong> (<em>Graph</em>) – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<em>nx.Graph</em>) – _description_</p></li>
+<li><p><strong>initStateList</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>customStateList</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>noiseParam</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>sinkNode</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>sinkRate</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+</ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.runWalk">
 <span class="sig-name descname"><span class="pre">runWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time=0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">noiseParam=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sinkNode=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sinkRate=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observables=[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts=&lt;qutip.solver.Options</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.runWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.runWalk" title="Permalink to this definition">#</a></dt>
-<dd><p>Builds class’ attributes, runs the walk and calculates the amplitudes
-and probability distributions with the given parameters. These can be
-accessed with their respective get methods.</p>
-<p>:param : param time: Time for which to calculate the quantum walk. Defaults to 0.
-:param : type time: (int, optional)
-:param : param gamma: Transition rate of the given walk. Defaults to 1.
-:param : type gamma: (int, optional)
-:param : param initStateList: List with chosen initial states. Defaults to [0].
-:param : type initStateList: (list, optional)</p>
+<dd><p>_summary_</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<em>float</em><em>, </em><em>optional</em>) – _description_, by default 0</p></li>
+<li><p><strong>initStateList</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>customStateList</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>noiseParam</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>sinkNode</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>sinkRate</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>observables</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default []</p></li>
+<li><p><strong>opts</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default Options(store_states=True, store_final_state=True)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>stOBErr</strong> – _description_</p></li>
+<li><p><strong>nUErr</strong> – _description_</p></li>
+</ul>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>time</strong> (<em>float</em>) – </p></li>
-<li><p><strong>initStateList</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p></li>
-</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1752,16 +1746,13 @@ accessed with their respective get methods.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.setProbDist">
 <span class="sig-name descname"><span class="pre">setProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newProbDist</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.setProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.setProbDist" title="Permalink to this definition">#</a></dt>
-<dd><p>Sets current walk probability distribution to a user defined one.
-This might not be needed and removed in the future.</p>
-<p>:param : param newProbDist: New probability distribution.
-:param : type newProbDist: ProbabilityDistribution</p>
+<dd><p>_summary_</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newProbDist</strong> (<em>object</em>) – _description_</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newProbDist</strong> (<em>object</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1769,14 +1760,16 @@ This might not be needed and removed in the future.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.getProbDist">
 <span class="sig-name descname"><span class="pre">getProbDist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.getProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.getProbDist" title="Permalink to this definition">#</a></dt>
-<dd><p>Gets the current probability distribution.</p>
+<dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._probDist.getProbDist()
-:rtype: ProbabilityDistribution</p>
+<dd class="field-odd"><p>_description_</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProbabilityDistribution</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution">ProbabilityDistribution</a></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProbabilityDistribution</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1784,14 +1777,16 @@ This might not be needed and removed in the future.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.getProbVec">
 <span class="sig-name descname"><span class="pre">getProbVec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.getProbVec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.getProbVec" title="Permalink to this definition">#</a></dt>
-<dd><p>Gets the current probability distribution.</p>
+<dd><p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._probDist.getProbDist()
-:rtype: ProbabilityDistribution</p>
+<dd class="field-odd"><p>_description_</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProbabilityDistribution</span></code></a></p>
+<dd class="field-even"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution">ProbabilityDistribution</a></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProbabilityDistribution</span></code></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1799,17 +1794,44 @@ This might not be needed and removed in the future.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.getQuantumHamiltonian">
 <span class="sig-name descname"><span class="pre">getQuantumHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.getQuantumHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.getQuantumHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.getClassicalHamiltonian">
 <span class="sig-name descname"><span class="pre">getClassicalHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.getClassicalHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.getClassicalHamiltonian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.StochasticQWAK.getLaplacian">
 <span class="sig-name descname"><span class="pre">getLaplacian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#StochasticQWAK.getLaplacian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.StochasticQWAK.getLaplacian" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
