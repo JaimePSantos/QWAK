@@ -28,8 +28,8 @@ class QWAK:
     def __init__(
         self,
         graph: nx.Graph,
-        initStateList:list[int]=None,
-        customStateList: list[(int,complex)]=None,
+        initStateList:list=None,
+        customStateList: list=None,
         laplacian: bool = False,
         markedSearch: list =None,
     ) -> None:
@@ -66,7 +66,7 @@ class QWAK:
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def runWalk(
-        self, time: float = 0, initStateList: list[int] = None, customStateList: list[(int,complex)]=None
+        self, time: float = 0, initStateList: list = None, customStateList: list=None
     ) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
@@ -107,7 +107,7 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def setDim(self, newDim: int, graphStr: str, initStateList: list[int] =None) -> None:
+    def setDim(self, newDim: int, graphStr: str, initStateList: list =None) -> None:
         """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
