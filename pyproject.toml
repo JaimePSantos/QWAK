@@ -2,11 +2,5 @@
 requires = [
     "setuptools>=54",
     "wheel",
-    "numpy",
-    "scipy",
-    "sympy",
-    "matplotlib",
-    "networkx",
-    "eel"
 ]
 build-backend = "setuptools.build_meta"
