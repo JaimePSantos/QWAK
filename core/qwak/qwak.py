@@ -66,18 +66,19 @@ class QWAK:
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
     def runWalk(
-        self, time: float = 0, initStateList: list = None, customStateList=None
+        self, time: float = 0, initStateList: list[int] = None, customStateList: list[(int,complex)]=None
     ) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
         accessed with their respective get methods.
+
         Parameters
         ----------
         time : float, optional
             Time for which to calculate the quantum walk, by default 0
-        initStateList : list, optional
+        initStateList : list[int], optional
             List with chosen initial states for uniform superposition, by default None
-        customStateList : _type_, optional
+        customStateList : list[(int,complex)], optional
             Custom init state, by default None
 
         Raises
