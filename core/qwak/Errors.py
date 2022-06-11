@@ -5,7 +5,8 @@ class Error(BaseException):
     ----------
     BaseException : _type_
         _description_
-    """    
+    """
+
     def __init__(self, error_name, details):
         """_summary_
 
@@ -15,7 +16,7 @@ class Error(BaseException):
             _description_
         details : _type_
             _description_
-        """        
+        """
         self.error_name = error_name
         self.details = details
 
@@ -26,7 +27,7 @@ class Error(BaseException):
         -------
         _type_
             _description_
-        """        
+        """
         return f"{self.error_name}: {self.details}\n"
 
 
@@ -37,7 +38,8 @@ class StateOutOfBounds(Error):
     ----------
     Error : _type_
         _description_
-    """    
+    """
+
     def __init__(self, details):
         """_summary_
 
@@ -45,7 +47,7 @@ class StateOutOfBounds(Error):
         ----------
         details : _type_
             _description_
-        """        
+        """
         super().__init__("Condition out of bounds: ", details)
 
 
@@ -56,7 +58,8 @@ class NonUnitaryState(Error):
     ----------
     Error : _type_
         _description_
-    """    
+    """
+
     def __init__(self, details):
         """_summary_
 
@@ -64,5 +67,5 @@ class NonUnitaryState(Error):
         ----------
         details : _type_
             _description_
-        """        
+        """
         super().__init__("State is not unitary: ", details)
