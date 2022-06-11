@@ -1,267 +1,462 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<!doctype html>
+<html class="no-js" lang="en">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="qwak package" href="qwak.html" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tools package &mdash; QWAK 06/04/2022 documentation</title>
-      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
+        <title>Tools package - QWAK - Quantum Walk Analysis Kit</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-content-foreground: #000000;
+  --color-background-primary: #ffffff;
+  --color-background-border: #ffffff;
+  --color-sidebar-background: #f8f9fb;
+  --color-brand-content: #1c00e3;
+  --color-brand-primary: #192bd0;
+  --color-link: #c93434;
+  --color-link--hover: #5b0000;
+  --color-inline-code-background: #f6f6f6;;
+  --color-foreground-secondary: #000;
   
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/jquery.js"></script>
-        <script src="_static/underscore.js"></script>
-        <script src="_static/doctools.js"></script>
-    <script src="_static/js/theme.js"></script>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
-</head>
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-content-foreground: #ffffffd9;
+  --color-background-primary: #131416;
+  --color-background-border: #303335;
+  --color-sidebar-background: #1a1c1e;
+  --color-brand-content: #2196f3;
+  --color-brand-primary: #007fff;
+  --color-link: #51ba86;
+  --color-link--hover: #9cefc6;
+  --color-inline-code-background: #262626;
+  --color-foreground-secondary: #ffffffd9;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-content-foreground: #ffffffd9;
+  --color-background-primary: #131416;
+  --color-background-border: #303335;
+  --color-sidebar-background: #1a1c1e;
+  --color-brand-content: #2196f3;
+  --color-brand-primary: #007fff;
+  --color-link: #51ba86;
+  --color-link--hover: #9cefc6;
+  --color-inline-code-background: #262626;
+  --color-foreground-secondary: #ffffffd9;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-            <a href="index.html" class="icon icon-home"> QWAK
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">QWAK - Quantum Walk Analysis Kit</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  
+  <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">QWAK - Quantum Walk Analysis Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Tools package</a></li>
+</ul>
+</li>
 </ul>
 
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">QWAK</a>
-      </nav>
-
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Tools package</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="_sources/Tools.rst.txt" rel="nofollow"> View page source</a>
-      </li>
-  </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
-  <section id="tools-package">
-<h1>Tools package<a class="headerlink" href="#tools-package" title="Permalink to this headline"></a></h1>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="tools-package">
+<h1>Tools package<a class="headerlink" href="#tools-package" title="Permalink to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-Tools.PerfectStateTransfer">
-<span id="tools-perfectstatetransfer-module"></span><h2>Tools.PerfectStateTransfer module<a class="headerlink" href="#module-Tools.PerfectStateTransfer" title="Permalink to this headline"></a></h2>
+<span id="tools-perfectstatetransfer-module"></span><h2>Tools.PerfectStateTransfer module<a class="headerlink" href="#module-Tools.PerfectStateTransfer" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.isStrCospec">
-<span class="sig-name descname"><span class="pre">isStrCospec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.isStrCospec" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.isSimplePoles">
-<span class="sig-name descname"><span class="pre">isSimplePoles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phiab</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.isSimplePoles" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.sieveEratosthenes">
-<span class="sig-name descname"><span class="pre">sieveEratosthenes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.sieveEratosthenes" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.getSquareFree">
-<span class="sig-name descname"><span class="pre">getSquareFree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.getSquareFree" title="Permalink to this definition"></a></dt>
+<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.checkRoots">
+<span class="sig-name descname"><span class="pre">checkRoots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#checkRoots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.checkRoots" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Tools.PerfectStateTransfer.getEigenSupp">
-<span class="sig-name descname"><span class="pre">getEigenSupp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenval</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.getEigenSupp" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.checkRoots">
-<span class="sig-name descname"><span class="pre">checkRoots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenval</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.checkRoots" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.swapNodes">
-<span class="sig-name descname"><span class="pre">swapNodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.swapNodes" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getEigenSupp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#getEigenSupp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.getEigenSupp" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="Tools.PerfectStateTransfer.getEigenVal">
-<span class="sig-name descname"><span class="pre">getEigenVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.PerfectStateTransfer.getEigenVal" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getEigenVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#getEigenVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.getEigenVal" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.getSquareFree">
+<span class="sig-name descname"><span class="pre">getSquareFree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#getSquareFree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.getSquareFree" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.isSimplePoles">
+<span class="sig-name descname"><span class="pre">isSimplePoles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">phi</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">phiab</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#isSimplePoles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.isSimplePoles" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.isStrCospec">
+<span class="sig-name descname"><span class="pre">isStrCospec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#isStrCospec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.isStrCospec" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.sieveEratosthenes">
+<span class="sig-name descname"><span class="pre">sieveEratosthenes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#sieveEratosthenes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.sieveEratosthenes" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="Tools.PerfectStateTransfer.swapNodes">
+<span class="sig-name descname"><span class="pre">swapNodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/PerfectStateTransfer.html#swapNodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.PerfectStateTransfer.swapNodes" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-Tools.Profiler">
-<span id="tools-profiler-module"></span><h2>Tools.Profiler module<a class="headerlink" href="#module-Tools.Profiler" title="Permalink to this headline"></a></h2>
+<span id="tools-profiler-module"></span><h2>Tools.Profiler module<a class="headerlink" href="#module-Tools.Profiler" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="Tools.Profiler.prof_to_csv">
+<span class="sig-name descname"><span class="pre">prof_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prof</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cumulative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines_to_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/Profiler.html#prof_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.Profiler.prof_to_csv" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="Tools.Profiler.profile">
-<span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cumulative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines_to_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.Profiler.profile" title="Permalink to this definition"></a></dt>
-<dd><p>A time profiler decorator.
-Inspired by and modified the profile decorator of Giampaolo Rodola:
-<a class="reference external" href="http://code.activestate.com/recipes/577817-profile-decorator/">http://code.activestate.com/recipes/577817-profile-decorator/</a>
-Args:</p>
-<blockquote>
-<div><dl class="simple">
-<dt>output_file: str or None. Default is None</dt><dd><p>Path of the output file. If only name of the file is given, it’s
-saved in the current directory.
-If it’s None, the name of the decorated function is used.</p>
-</dd>
-<dt>sort_by: str or SortKey enum or tuple/list of str/SortKey enum</dt><dd><p>Sorting criteria for the Stats object.
-For a list of valid string and SortKey refer to:
-<a class="reference external" href="https://docs.python.org/3/library/profile.html#pstats.Stats.sort_stats">https://docs.python.org/3/library/profile.html#pstats.Stats.sort_stats</a></p>
-</dd>
-<dt>lines_to_print: int or None</dt><dd><p>Number of lines to print. Default (None) is for all the lines.
-This is useful in reducing the size of the printout, especially
-that sorting by ‘cumulative’, the time consuming operations
-are printed toward the top of the file.</p>
-</dd>
-<dt>strip_dirs: bool</dt><dd><p>Whether to remove the leading path info from file names.
-This is also useful in reducing the size of the printout</p>
-</dd>
-</dl>
-</div></blockquote>
-<dl class="simple">
-<dt>Returns:</dt><dd><p>Profile of the decorated function</p>
+<span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cumulative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines_to_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/Profiler.html#profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.Profiler.profile" title="Permalink to this definition">#</a></dt>
+<dd><p>A time profiler decorator. Inspired by and modified the profile decorator of Giampaolo Rodola: <a class="reference external" href="http://code.activestate.com/recipes/577817-profile-decorator/">http://code.activestate.com/recipes/577817-profile-decorator/</a></p>
+<p>:param : param output_file: Default is None Path of the output file. If only name of the file is given, it’s saved in the current directory. If it’s None, the name of the decorated function is used.
+:param : type output_file: str or None.
+:param : param sort_by: Sorting criteria for the Stats object. For a list of valid string and SortKey refer to: <a class="reference external" href="https://docs.python.org/3/library/profile.html#pstats.Stats.sort_stats">https://docs.python.org/3/library/profile.html#pstats.Stats.sort_stats</a>
+:param : type sort_by: str or SortKey enum or tuple/list of str/SortKey enum.
+:param : param lines_to_print: Number of lines to print. Default (None) is for all the lines. This is useful in reducing the size of the printout, especially that sorting by ‘cumulative’, the time consuming operations are printed toward the top of the file.
+:param : type lines_to_print: int or None.
+:param : param strip_dirs: Whether to remove the leading path info from file names. This is also useful in reducing the size of the printout
+:param : type: strip_dirs: bool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Profile of the decorated function</p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="Tools.Profiler.prof_to_csv">
-<span class="sig-name descname"><span class="pre">prof_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prof</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cumulative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines_to_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.Profiler.prof_to_csv" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
 
 </section>
 <section id="module-Tools.QwakBenchmarkStub">
-<span id="tools-qwakbenchmarkstub-module"></span><h2>Tools.QwakBenchmarkStub module<a class="headerlink" href="#module-Tools.QwakBenchmarkStub" title="Permalink to this headline"></a></h2>
+<span id="tools-qwakbenchmarkstub-module"></span><h2>Tools.QwakBenchmarkStub module<a class="headerlink" href="#module-Tools.QwakBenchmarkStub" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAKBenchmark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">networkx.classes.graph.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAKBenchmark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>networkx.classes.graph.Graph</em>) – </p></li>
+<li><p><strong>graph</strong> (<em>Graph</em>) – </p></li>
 <li><p><strong>laplacian</strong> (<em>bool</em>) – </p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
-</dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.runWalk">
-<span class="sig-name descname"><span class="pre">runWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[0]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.runWalk" title="Permalink to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>time</strong> (<em>float</em>) – </p></li>
-<li><p><strong>initStateList</strong> (<em>list</em>) – </p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
 <dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.checkPST">
-<span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.checkPST" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency">
-<span class="sig-name descname"><span class="pre">transportEfficiency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getMean">
-<span class="sig-name descname"><span class="pre">getMean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getMean" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getSndMoment">
-<span class="sig-name descname"><span class="pre">getSndMoment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getSndMoment" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getStDev">
-<span class="sig-name descname"><span class="pre">getStDev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getStDev" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb">
-<span class="sig-name descname"><span class="pre">getSurvivalProb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.checkPST" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio">
-<span class="sig-name descname"><span class="pre">getInversePartRatio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">getInversePartRatio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.getInversePartRatio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getMean">
+<span class="sig-name descname"><span class="pre">getMean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.getMean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getMean" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getSndMoment">
+<span class="sig-name descname"><span class="pre">getSndMoment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.getSndMoment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getSndMoment" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getStDev">
+<span class="sig-name descname"><span class="pre">getStDev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.getStDev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getStDev" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb">
+<span class="sig-name descname"><span class="pre">getSurvivalProb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.getSurvivalProb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.runWalk">
+<span class="sig-name descname"><span class="pre">runWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.runWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.runWalk" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>time</strong> (<em>float</em>) – </p></li>
+<li><p><strong>initStateList</strong> (<em>list</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="Tools.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency">
+<span class="sig-name descname"><span class="pre">transportEfficiency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/Tools/QwakBenchmarkStub.html#QWAKBenchmark.transportEfficiency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#Tools.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 </section>
 <section id="module-Tools.runAnalyzer">
-<span id="tools-runanalyzer-module"></span><h2>Tools.runAnalyzer module<a class="headerlink" href="#module-Tools.runAnalyzer" title="Permalink to this headline"></a></h2>
+<span id="tools-runanalyzer-module"></span><h2>Tools.runAnalyzer module<a class="headerlink" href="#module-Tools.runAnalyzer" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-Tools.runProfiler">
-<span id="tools-runprofiler-module"></span><h2>Tools.runProfiler module<a class="headerlink" href="#module-Tools.runProfiler" title="Permalink to this headline"></a></h2>
+<span id="tools-runprofiler-module"></span><h2>Tools.runProfiler module<a class="headerlink" href="#module-Tools.runProfiler" title="Permalink to this heading">#</a></h2>
 </section>
 <section id="module-Tools">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Tools" title="Permalink to this headline"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-Tools" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
-
-           </div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="qwak.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">qwak package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
           </div>
-          <footer>
+          <div class="right-details">
+            <div class="icons">
+              
+            </div>
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Tools package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-Tools.PerfectStateTransfer">Tools.PerfectStateTransfer module</a></li>
+<li><a class="reference internal" href="#module-Tools.Profiler">Tools.Profiler module</a></li>
+<li><a class="reference internal" href="#module-Tools.QwakBenchmarkStub">Tools.QwakBenchmarkStub module</a></li>
+<li><a class="reference internal" href="#module-Tools.runAnalyzer">Tools.runAnalyzer module</a></li>
+<li><a class="reference internal" href="#module-Tools.runProfiler">Tools.runProfiler module</a></li>
+<li><a class="reference internal" href="#module-Tools">Module contents</a></li>
+</ul>
+</li>
+</ul>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
+          </div>
         </div>
       </div>
-    </section>
+      
+      
+    </aside>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script> 
-
-</body>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/responsiveSvg.js"></script>
+    </body>
 </html>
