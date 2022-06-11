@@ -303,7 +303,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span> <span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="nf">_buildAdjacency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">):</span>
+<div class="viewcode-block" id="Operator._buildAdjacency"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildAdjacency">[docs]</a>    <span class="k">def</span> <span class="nf">_buildAdjacency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
 
 <span class="sd">        Parameters</span>
@@ -321,9 +321,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">markedSearch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">marked</span> <span class="ow">in</span> <span class="n">markedSearch</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">[</span><span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">marked</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">[</span><span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">marked</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
-    <span class="k">def</span> <span class="nf">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isHermitian</span><span class="p">):</span>
+<div class="viewcode-block" id="Operator._buildEigenValues"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildEigenValues">[docs]</a>    <span class="k">def</span> <span class="nf">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isHermitian</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
 
 <span class="sd">        Parameters</span>
@@ -336,7 +336,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Operator.resetOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.resetOperator">[docs]</a>    <span class="k">def</span> <span class="nf">resetOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resets operator object.</span>
@@ -576,12 +576,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildQuantumHamiltonian</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildClassicalHamiltonian</span><span class="p">()</span></div>
 
-    <span class="k">def</span> <span class="nf">_buildLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticOperator._buildLaplacian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator._buildLaplacian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">degree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span>
         <span class="n">degree</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span> <span class="n">degree</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">_buildQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticOperator._buildQuantumHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator._buildQuantumHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">H</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span>
                 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p</span><span class="p">)</span>
@@ -589,9 +589,9 @@
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">H</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">H</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">H</span></div>
 
-    <span class="k">def</span> <span class="nf">_buildClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticOperator._buildClassicalHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator._buildClassicalHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">L</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
@@ -611,7 +611,7 @@
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="n">L</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="n">L</span></div>
 
 <div class="viewcode-block" id="StochasticOperator.getClassicalHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.getClassicalHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">getClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span></div>
