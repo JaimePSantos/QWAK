@@ -351,6 +351,31 @@ conjugate of the eigenvectors.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qwak.Operator.Operator._buildAdjacency">
+<span class="sig-name descname"><span class="pre">_buildAdjacency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">laplacian</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator._buildAdjacency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator._buildAdjacency" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>laplacian</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>markedSearch</strong> (<em>_type_</em>) – _description_</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.Operator.Operator._buildEigenValues">
+<span class="sig-name descname"><span class="pre">_buildEigenValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">isHermitian</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator._buildEigenValues"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator._buildEigenValues" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>isHermitian</strong> (<em>bool</em>) – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.resetOperator">
 <span class="sig-name descname"><span class="pre">resetOperator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.resetOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.resetOperator" title="Permalink to this definition">#</a></dt>
 <dd><p>Resets operator object.</p>
@@ -533,6 +558,21 @@ and other parameters.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.Operator.StochasticOperator._buildLaplacian">
+<span class="sig-name descname"><span class="pre">_buildLaplacian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator._buildLaplacian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator._buildLaplacian" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.Operator.StochasticOperator._buildQuantumHamiltonian">
+<span class="sig-name descname"><span class="pre">_buildQuantumHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator._buildQuantumHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator._buildQuantumHamiltonian" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.Operator.StochasticOperator._buildClassicalHamiltonian">
+<span class="sig-name descname"><span class="pre">_buildClassicalHamiltonian</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#StochasticOperator._buildClassicalHamiltonian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.StochasticOperator._buildClassicalHamiltonian" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.StochasticOperator.getClassicalHamiltonian">
@@ -1063,6 +1103,16 @@ This will be changed in the future to make nodeList make more sense.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.State.State._checkStateOutOfBounds">
+<span class="sig-name descname"><span class="pre">_checkStateOutOfBounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State._checkStateOutOfBounds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State._checkStateOutOfBounds" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.State.State._checkUnitaryStateList">
+<span class="sig-name descname"><span class="pre">_checkUnitaryStateList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customStateList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State._checkUnitaryStateList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State._checkUnitaryStateList" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.herm">

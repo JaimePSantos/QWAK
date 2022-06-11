@@ -51,6 +51,7 @@ autosummary_generate = True
 autodoc_member_order = 'bysource'
 autodoc_typehints = "description"
 autoclass_content = "both"
+autodoc_default_options = {     "members": True,     "undoc-members": True,     "private-members": True}
 
 # controls whether functions documented by the autofunction directive
 # appear with their full module names
