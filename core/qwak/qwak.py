@@ -13,7 +13,7 @@ from qwak.ProbabilityDistribution import (
 from qutip import Qobj, basis, mesolve, Options
 
 
-class QWAK:
+class QWAK:    
     """Data access class that combines all three components required to
     perform a continuous-time quantum walk, given by the multiplication of
     an operator (represented by the Operator class) by an initial state
@@ -28,24 +28,32 @@ class QWAK:
     def __init__(
         self,
         graph: nx.Graph,
-        initStateList=None,
-        customStateList=None,
+        initStateList:list[int]=None,
+        customStateList: list[(int,complex)]=None,
         laplacian: bool = False,
-        markedSearch=None,
+        markedSearch: list =None,
     ) -> None:
         """Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
         buildWalk must then be used to generate the results of the quantum
         walk.
 
-        Args:
-            :param laplacian: Allows the user to choose whether to use the
-            Laplacian or simple adjacency matrix.
-            :type laplacian: bool
-            :param graph: NetworkX graph where the walk takes place. Also used
-            for defining the dimensions of the quantum walk.
-            :type graph: NetworkX.Graph
-        """
+        Parameters
+        ----------
+        graph : nx.Graph
+            NetworkX graph where the walk takes place. Also used
+            for defining the dimensions of the quantum walk
+        initStateList : list[int], optional
+            List with chosen initial states for uniform superposition, by default None
+        customStateList : list[(int,complex)], optional
+            Custom init state, by default None
+        laplacian : bool, optional
+            Allows the user to choose whether to use the
+            Laplacian or simple adjacency matrix, by default False
+        markedSearch : list, optional
+            List with marked elements for search, by default None
+        """    
+
         self._graph = graph
         self._n = len(self._graph)
         self._operator = Operator(
@@ -63,14 +71,21 @@ class QWAK:
         """Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
         accessed with their respective get methods.
+        Parameters
+        ----------
+        time : float, optional
+            Time for which to calculate the quantum walk, by default 0
+        initStateList : list, optional
+            List with chosen initial states for uniform superposition, by default None
+        customStateList : _type_, optional
+            Custom init state, by default None
 
-        Args:
-            :param time: Time for which to calculate the quantum walk. Defaults to 0.
-            :type time: (int, optional)
-            :param gamma: Transition rate of the given walk. Defaults to 1.
-            :type gamma: (int, optional)
-            :param initStateList: List with chosen initial states. Defaults to [0].
-            :type initStateList: (list, optional)
+        Raises
+        ------
+        stOBErr
+            _description_
+        nUErr
+            _description_
         """
         try:
             self._initState.buildState(
@@ -91,17 +106,20 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
 
-    def setDim(self, newDim: int, graphStr: str, initStateList=None) -> None:
+    def setDim(self, newDim: int, graphStr: str, initStateList: list[int] =None) -> None:
         """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
 
-        Args:
-            :param newDim: New dimension for the quantum walk.
-            :type newDim: int
-            :param graphStr: Graph string to generate the graph with the new dimension.
-            :type graphStr: str
-        """
+        Parameters
+        ----------
+        newDim : int
+            New dimension for the quantum walk.
+        graphStr : str
+            Graph string to generate the graph with the new dimension.
+        initStateList : list[int], optional
+            Init state list with new dimension.
+        """        
         # TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
@@ -113,19 +131,22 @@ class QWAK:
 
     def getDim(self) -> int:
         """Gets the current graph dimension.
-
-        Returns:
-            :return: self._n
-            :rtype: int
-        """
+        Returns
+        -------
+        int
+            Dimension of graph
+        """        
         return self._n
 
     def setAdjacencyMatrix(self, newAdjMatrix: np.ndarray, initStateList: list = None) -> None:
         """_summary_
 
-        Args:
-            newAdjMatrix (np.ndarray): _description_
-            initStateList (list, optional): _description_. Defaults to None.
+        Parameters
+        ----------
+        newAdjMatrix : np.ndarray
+            _description_
+        initStateList : list, optional
+            _description_, by default None
         """        
         self._n = len(self._operator.getAdjacencyMatrix())
         self._operator.setAdjacencyMatrix(newAdjMatrix)
@@ -133,7 +154,7 @@ class QWAK:
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
 
-    def getAdjacencyMatrix(self) -> np.ndarray:
+    def getAdjacencyMatrix(self) -> np.ndarray:        
         """_summary_
 
         Returns:
@@ -142,211 +163,275 @@ class QWAK:
         return self._operator.getAdjacencyMatrix()
 
     def setGraph(self, newGraph: nx.Graph) -> None:
-        """
-        Sets the current graph to a user defined one.
+        """Sets the current graph to a user defined one.
         Also recalculates the current operator and walk dimension.
 
-        Args:
-            :param newGraph: New NetworkX graph.
-            :type newGraph: NetworkX.Graph
-        """
+        Parameters
+        ----------
+        newGraph : nx.Graph
+            New NetworkX graph.
+        """        
         self._n = len(self._graph)
         self._graph = newGraph
         self._operator = Operator(self._graph)
 
     def getGraph(self) -> nx.Graph:
-        """
-        Gets the current graph.
+        """Gets the current graph.
 
-        Returns:
-            :return: self._graph
-            :rtype: NetworkX.Graph
-        """
+        Returns
+        -------
+        nx.Graph
+            Current graph
+        """        
         return self._graph
 
     def setInitState(self, newInitState: State) -> None:
-        """
-        Sets the current initial state to a user defined one.
+        """Sets the current initial state to a user defined one.
 
-        Args:
-            :param newInitState: New initial state.
-            :type newInitState: State
-        """
+        Parameters
+        ----------
+        newInitState : State
+            New initial state
+        """        
         self._initState.setState(newInitState)
         self._initStateList = self._initState.getNodeList()
 
     def getInitState(self) -> State:
-        """
-        Gets the initial state.
+        """Gets the initial state.
 
-        Returns:
-            :return: self._initState
-            :rtype: State
-        """
+        Returns
+        -------
+        State
+            Initial State
+        """        
         return self._initState
 
     def setTime(self, newTime: float) -> None:
-        """
-        Sets the current walk time to a user defined one.
+        """Sets the current walk time to a user defined one.
 
-        Args:
-            :param newTime: New time.
-            :type newTime: float
-        """
+        Parameters
+        ----------
+        newTime : float
+            New time
+        """        
         self._operator.setTime(newTime)
 
     def getTime(self) -> float:
-        """
-        Gets the current walk time.
+        """Gets the current walk time.
 
-        Returns:
-            :return: self._time
-            :rtype: float
-        """
+        Returns
+        -------
+        float
+           Current value of time
+        """        
         return self._operator.getTime()
 
     def setOperator(self, newOperator: Operator) -> None:
-        """
-        Sets the current walk operator a user defined one.
+        """Sets the current walk operator a user defined one.
 
-        Args:
-            :param newOperator: New operator.
-            :type newOperator: Operator
-        """
+        Parameters
+        ----------
+        newOperator : Operator
+            New operator
+        """        
         self._operator.setOperator(newOperator)
 
-    def getOperator(self):
-        """
-        Gets the current walk operator.
+    def getOperator(self) -> Operator:
+        """Gets the current walk operator.
 
-        Returns:
-            :return: self._operator
-            :rtype: Operator
-        """
+        Returns
+        -------
+        Operator
+            Current operator object
+        """        
         return self._operator
 
     def setWalk(self, newWalk: State) -> None:
-        """
-        Sets current walk amplitudes to a user defined state.
+        """Sets current walk amplitudes to a user defined state.
         This might not be needed and removed in the future.
 
-        Args:
-            :param newWalk: New walk amplitudes.
-            :type newWalk: State
-        """
+        Parameters
+        ----------
+        newWalk : State
+            New walk amplitudes
+        """        
         self._quantumWalk.setWalk(newWalk)
 
-    def getWalk(self) -> State:
-        """
-        Gets current walk amplitudes, also known as final state.
+    def getWalk(self) -> QuantumWalk:
+        """Gets current QuantumWalk object
 
-        Returns:
-            :return: self._quantumWalk.getWalk()
-            :rtype: State
-        """
+        Returns
+        -------
+        QuantumWalk
+            Current state amplitudes
+        """        
         return self._quantumWalk
 
     def getFinalState(self) -> State:
-        """
-        Gets current walk amplitudes, also known as final state.
+        """Gets current QuantumWalk State.
 
-        Returns:
-            :return: self._quantumWalk.getWalk()
-            :rtype: State
-        """
+        Returns
+        -------
+        State
+            State of the QuantumWalk
+        """        
         return self._quantumWalk.getFinalState()
 
-    def getAmpVec(self) -> State:
-        """
-        Gets current walk amplitudes, also known as final state.
+    def getAmpVec(self) -> np.ndarray:
+        """Gets the array of the QuantumWalk state.
 
-        Returns:
-            :return: self._quantumWalk.getWalk()
-            :rtype: State
-        """
+        Returns
+        -------
+        np.ndarray
+            Array of the QuantumWalk state
+        """                
         return self._quantumWalk.getAmpVec()
 
-    def setProbDist(self, newProbDist: object) -> None:
-        """
-        Sets current walk probability distribution to a user defined one.
+    def setProbDist(self, newProbDist: ProbabilityDistribution) -> None:
+        """Sets current walk probability distribution to a user defined one.
         This might not be needed and removed in the future.
 
-        Args:
-            :param newProbDist: New probability distribution.
-            :type newProbDist: ProbabilityDistribution
-        """
+        Parameters
+        ----------
+        newProbDist : ProbabilityDistribution
+            New probability distribution
+        """        
         self._probDist.setProbDist(newProbDist)
 
     def getProbDist(self) -> ProbabilityDistribution:
-        """
-        Gets the current probability distribution.
+        """Gets the current probability distribution.
 
-        Returns:
-            :return: self._probDist.getProbDist()
-            :rtype: ProbabilityDistribution
+        Returns
+        -------
+        ProbabilityDistribution
+            ProbabilityDistribution object
         """
         return self._probDist
 
-    def getProbVec(self) -> ProbabilityDistribution:
-        """
-        Gets the current probability distribution.
+    def getProbVec(self) -> np.ndarray:
+        """Gets the current probability distribution vector.
 
-        Returns:
-            :return: self._probDist.getProbDist()
-            :rtype: ProbabilityDistribution
-        """
+        Returns
+        -------
+        np.ndarray
+            Probability Distribution vector
+        """        
         return self._probDist.getProbVec()
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:
-        """
-        Searches and gets the amplitude associated with a given node.
+        """User inputted node for search
 
-        Args:
-            :param searchNode: User inputted node for the search.
-            :type searchNode: int
+        Parameters
+        ----------
+        searchNode : int
+            _description_
 
-        Returns:
-            :return: self._quantumWalk.searchNodeAmplitude(searchNode)
-            :rtype: complex
-
+        Returns
+        -------
+        complex
+            Amplitude associated with the search node.
         """
         return self._quantumWalk.searchNodeAmplitude(searchNode)
 
     def searchNodeProbability(self, searchNode: int) -> float:
-        """
-        Searches and gets the probability associated with a given node.
+        """Searches and gets the probability associated with a given node.
 
-        Args:
-            :param searchNode: User inputted node for the search.
-            :type searchNode: int
+        Parameters
+        ----------
+        searchNode : int
+            User inputted node for the search
 
-        Returns:
-            :return: self._probDist.searchNodeProbability(searchNode)
-            :rtype: float
-        """
+        Returns
+        -------
+        float
+            Probability associated with the search node.
+        """        
         return self._probDist.searchNodeProbability(searchNode)
 
     def checkPST(self, nodeA, nodeB):
+        """_summary_
+
+        Parameters
+        ----------
+        nodeA : _type_
+            _description_
+        nodeB : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         nodeA = int(nodeA)
         nodeB = int(nodeB)
         return self._operator.checkPST(nodeA, nodeB)
 
     def getMean(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return self._probDist.moment(1)
 
     def getSndMoment(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return self._probDist.moment(2)
 
     def getStDev(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return self._probDist.stDev()
 
     def getSurvivalProb(self, k0, k1):
+        """_summary_
+
+        Parameters
+        ----------
+        k0 : _type_
+            _description_
+        k1 : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return self._probDist.survivalProb(k0, k1)
 
     def getInversePartRatio(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return self._quantumWalk.invPartRatio()
 
     def getTransportEfficiency(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return self._quantumWalk.transportEfficiency()
 
 

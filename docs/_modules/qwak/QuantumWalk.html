@@ -190,7 +190,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Tools.html">Tools package</a></li>
 </ul>
 </li>
 </ul>
@@ -268,7 +267,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">operator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span>
 
-<div class="viewcode-block" id="QuantumWalk.buildWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.buildWalk">[docs]</a>    <span class="k">def</span> <span class="nf">buildWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initState</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">operator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="QuantumWalk.buildWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.buildWalk">[docs]</a>    <span class="k">def</span> <span class="nf">buildWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initState</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">operator</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Builds the final state of the quantum walk by setting it to the matrix</span>
 <span class="sd">        multiplication of the operator by the initial state.</span>
@@ -285,7 +284,6 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span></div>
-
 
 <div class="viewcode-block" id="QuantumWalk.setInitState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setInitState">[docs]</a>    <span class="k">def</span> <span class="nf">setInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newInitState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -379,7 +377,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="QuantumWalk.getAmpVec"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getAmpVec">[docs]</a>    <span class="k">def</span> <span class="nf">getAmpVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
+<div class="viewcode-block" id="QuantumWalk.getAmpVec"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getAmpVec">[docs]</a>    <span class="k">def</span> <span class="nf">getAmpVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Gets the array of the final state associated with the walk.</span>
 
@@ -474,14 +472,17 @@
         <span class="c1"># TODO: The final state is a of the Qobj class. Find a way to make it State class.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getSinkNode</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initQutipState</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">(),</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]]))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initQutipState</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">(),</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]])</span>
+            <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">mesolve</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getQuantumHamiltonian</span><span class="p">(),</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_initQutipState</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">,</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getClassicalHamiltonian</span><span class="p">(),</span>
             <span class="n">observables</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="n">opts</span><span class="p">)</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">full</span><span class="p">()</span></div>
+            <span class="n">options</span><span class="o">=</span><span class="n">opts</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">full</span><span class="p">()</span></div>
         <span class="c1"># if you want the full list of states, keep option store_states=True and instead</span>
         <span class="c1"># of final_state.full() use states.full()</span>
 

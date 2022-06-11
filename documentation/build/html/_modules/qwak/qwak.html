@@ -190,7 +190,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Tools.html">Tools package</a></li>
 </ul>
 </li>
 </ul>
@@ -228,21 +227,22 @@
         <article role="main">
           <h1>Source code for qwak.qwak</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">StateOutOfBounds</span><span class="p">,</span> <span class="n">NonUnitaryState</span>
 <span class="kn">from</span> <span class="nn">qwak.State</span> <span class="kn">import</span> <span class="n">State</span>
 <span class="kn">from</span> <span class="nn">qwak.Operator</span> <span class="kn">import</span> <span class="n">Operator</span><span class="p">,</span> <span class="n">StochasticOperator</span>
 <span class="kn">from</span> <span class="nn">qwak.QuantumWalk</span> <span class="kn">import</span> <span class="n">QuantumWalk</span><span class="p">,</span> <span class="n">StochasticQuantumWalk</span>
 <span class="kn">from</span> <span class="nn">qwak.ProbabilityDistribution</span> <span class="kn">import</span> <span class="p">(</span>
-        <span class="n">ProbabilityDistribution</span><span class="p">,</span>
-        <span class="n">StochasticProbabilityDistribution</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="n">ProbabilityDistribution</span><span class="p">,</span>
+    <span class="n">StochasticProbabilityDistribution</span><span class="p">,</span>
+<span class="p">)</span>
 
 <span class="kn">from</span> <span class="nn">qutip</span> <span class="kn">import</span> <span class="n">Qobj</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">mesolve</span><span class="p">,</span> <span class="n">Options</span>
 
-<div class="viewcode-block" id="QWAK"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK">[docs]</a><span class="k">class</span> <span class="nc">QWAK</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Data access class that combines all three components required to</span>
+
+<div class="viewcode-block" id="QWAK"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK">[docs]</a><span class="k">class</span> <span class="nc">QWAK</span><span class="p">:</span>    
+    <span class="sd">&quot;&quot;&quot;Data access class that combines all three components required to</span>
 <span class="sd">    perform a continuous-time quantum walk, given by the multiplication of</span>
 <span class="sd">    an operator (represented by the Operator class) by an initial state</span>
 <span class="sd">    (State class).  This multiplication is achieved in the</span>
@@ -254,78 +254,101 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
-            <span class="n">initStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">markedSearch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Default values for the initial state, time and transition rate are a</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
+        <span class="n">initStateList</span><span class="p">:</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">customStateList</span><span class="p">:</span> <span class="nb">list</span><span class="p">[(</span><span class="nb">int</span><span class="p">,</span><span class="nb">complex</span><span class="p">)]</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Default values for the initial state, time and transition rate are a</span>
 <span class="sd">        column vector full of 0s, 0 and 1, respectively. Methods runWalk or</span>
 <span class="sd">        buildWalk must then be used to generate the results of the quantum</span>
 <span class="sd">        walk.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param laplacian: Allows the user to choose whether to use the</span>
-<span class="sd">            Laplacian or simple adjacency matrix.</span>
-<span class="sd">            :type laplacian: bool</span>
-<span class="sd">            :param graph: NetworkX graph where the walk takes place. Also used</span>
-<span class="sd">            for defining the dimensions of the quantum walk.</span>
-<span class="sd">            :type graph: NetworkX.Graph</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        graph : nx.Graph</span>
+<span class="sd">            NetworkX graph where the walk takes place. Also used</span>
+<span class="sd">            for defining the dimensions of the quantum walk</span>
+<span class="sd">        initStateList : list[int], optional</span>
+<span class="sd">            List with chosen initial states for uniform superposition, by default None</span>
+<span class="sd">        customStateList : list[(int,complex)], optional</span>
+<span class="sd">            Custom init state, by default None</span>
+<span class="sd">        laplacian : bool, optional</span>
+<span class="sd">            Allows the user to choose whether to use the</span>
+<span class="sd">            Laplacian or simple adjacency matrix, by default False</span>
+<span class="sd">        markedSearch : list, optional</span>
+<span class="sd">            List with marked elements for search, by default None</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
+
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">laplacian</span><span class="o">=</span><span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="o">=</span><span class="n">markedSearch</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">nodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">laplacian</span><span class="o">=</span><span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="o">=</span><span class="n">markedSearch</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">nodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span> <span class="o">=</span> <span class="n">QuantumWalk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span> <span class="o">=</span> <span class="n">ProbabilityDistribution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">())</span>
 
 <div class="viewcode-block" id="QWAK.runWalk"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.runWalk">[docs]</a>    <span class="k">def</span> <span class="nf">runWalk</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Builds class&#39; attributes, runs the walk and calculates the amplitudes</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds class&#39; attributes, runs the walk and calculates the amplitudes</span>
 <span class="sd">        and probability distributions with the given parameters. These can be</span>
 <span class="sd">        accessed with their respective get methods.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        time : float, optional</span>
+<span class="sd">            Time for which to calculate the quantum walk, by default 0</span>
+<span class="sd">        initStateList : list, optional</span>
+<span class="sd">            List with chosen initial states for uniform superposition, by default None</span>
+<span class="sd">        customStateList : _type_, optional</span>
+<span class="sd">            Custom init state, by default None</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param time: Time for which to calculate the quantum walk. Defaults to 0.</span>
-<span class="sd">            :type time: (int, optional)</span>
-<span class="sd">            :param gamma: Transition rate of the given walk. Defaults to 1.</span>
-<span class="sd">            :type gamma: (int, optional)</span>
-<span class="sd">            :param initStateList: List with chosen initial states. Defaults to [0].</span>
-<span class="sd">            :type initStateList: (list, optional)</span>
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        stOBErr</span>
+<span class="sd">            _description_</span>
+<span class="sd">        nUErr</span>
+<span class="sd">            _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">buildState</span><span class="p">(</span><span class="n">nodeList</span> <span class="o">=</span> <span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">buildState</span><span class="p">(</span>
+                <span class="n">nodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span>
+            <span class="p">)</span>
         <span class="k">except</span> <span class="n">StateOutOfBounds</span> <span class="k">as</span> <span class="n">stOBErr</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">stOBErr</span>
         <span class="k">except</span> <span class="n">NonUnitaryState</span> <span class="k">as</span> <span class="n">nUErr</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">nUErr</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">buildDiagonalOperator</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">buildWalk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">buildWalk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">buildProbDist</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="QWAK.resetWalk"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.resetWalk">[docs]</a>    <span class="k">def</span> <span class="nf">resetWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="QWAK.resetWalk"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.resetWalk">[docs]</a>    <span class="k">def</span> <span class="nf">resetWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Resets the components of a walk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">resetWalk</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="QWAK.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">initStateList</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the current walk dimensions to a user defined one.</span>
+<div class="viewcode-block" id="QWAK.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current walk dimensions to a user defined one.</span>
 <span class="sd">        Also takes a graph string to be</span>
 <span class="sd">        evaluated and executed as a NetworkX graph generator.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newDim: New dimension for the quantum walk.</span>
-<span class="sd">            :type newDim: int</span>
-<span class="sd">            :param graphStr: Graph string to generate the graph with the new dimension.</span>
-<span class="sd">            :type graphStr: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1">#TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newDim : int</span>
+<span class="sd">            New dimension for the quantum walk.</span>
+<span class="sd">        graphStr : str</span>
+<span class="sd">            Graph string to generate the graph with the new dimension.</span>
+<span class="sd">        initStateList : list[int], optional</span>
+<span class="sd">            Init state list with new dimension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="c1"># TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">graphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
@@ -335,232 +358,308 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span> <span class="o">=</span> <span class="n">ProbabilityDistribution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="QWAK.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current graph dimension.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._n</span>
-<span class="sd">            :rtype: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current graph dimension.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Dimension of graph</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
 
-<div class="viewcode-block" id="QWAK.setAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newAdjMatrix</span><span class="p">,</span><span class="n">initStateList</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="QWAK.setAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newAdjMatrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newAdjMatrix : np.ndarray</span>
+<span class="sd">            _description_</span>
+<span class="sd">        initStateList : list, optional</span>
+<span class="sd">            _description_, by default None</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getAdjacencyMatrix</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setAdjacencyMatrix</span><span class="p">(</span><span class="n">newAdjMatrix</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span> <span class="o">=</span> <span class="n">QuantumWalk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span> <span class="o">=</span> <span class="n">ProbabilityDistribution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="QWAK.getAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">getAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="QWAK.getAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">getAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>        
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            np.ndarray: _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getAdjacencyMatrix</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="QWAK.setGraph"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setGraph">[docs]</a>    <span class="k">def</span> <span class="nf">setGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newGraph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the current graph to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current graph to a user defined one.</span>
 <span class="sd">        Also recalculates the current operator and walk dimension.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newGraph: New NetworkX graph.</span>
-<span class="sd">            :type newGraph: NetworkX.Graph</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newGraph : nx.Graph</span>
+<span class="sd">            New NetworkX graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">newGraph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getGraph"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getGraph">[docs]</a>    <span class="k">def</span> <span class="nf">getGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current graph.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current graph.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._graph</span>
-<span class="sd">            :rtype: NetworkX.Graph</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        nx.Graph</span>
+<span class="sd">            Current graph</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span></div>
 
 <div class="viewcode-block" id="QWAK.setInitState"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setInitState">[docs]</a>    <span class="k">def</span> <span class="nf">setInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newInitState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the current initial state to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current initial state to a user defined one.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newInitState: New initial state.</span>
-<span class="sd">            :type newInitState: State</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newInitState : State</span>
+<span class="sd">            New initial state</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newInitState</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initStateList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getNodeList</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="QWAK.getInitState"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getInitState">[docs]</a>    <span class="k">def</span> <span class="nf">getInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the initial state.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the initial state.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._initState</span>
-<span class="sd">            :rtype: State</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        State</span>
+<span class="sd">            Initial State</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span></div>
 
 <div class="viewcode-block" id="QWAK.setTime"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setTime">[docs]</a>    <span class="k">def</span> <span class="nf">setTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newTime</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the current walk time to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current walk time to a user defined one.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newTime: New time.</span>
-<span class="sd">            :type newTime: float</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newTime : float</span>
+<span class="sd">            New time</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setTime</span><span class="p">(</span><span class="n">newTime</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getTime"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getTime">[docs]</a>    <span class="k">def</span> <span class="nf">getTime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current walk time.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current walk time.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._time</span>
-<span class="sd">            :rtype: float</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">           Current value of time</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="QWAK.setOperator"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setOperator">[docs]</a>    <span class="k">def</span> <span class="nf">setOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the current walk operator a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current walk operator a user defined one.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newOperator: New operator.</span>
-<span class="sd">            :type newOperator: Operator</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newOperator : Operator</span>
+<span class="sd">            New operator</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setOperator</span><span class="p">(</span><span class="n">newOperator</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="QWAK.getOperator"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getOperator">[docs]</a>    <span class="k">def</span> <span class="nf">getOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current walk operator.</span>
+<div class="viewcode-block" id="QWAK.getOperator"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getOperator">[docs]</a>    <span class="k">def</span> <span class="nf">getOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Operator</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current walk operator.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._operator</span>
-<span class="sd">            :rtype: Operator</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Operator</span>
+<span class="sd">            Current operator object</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
 
 <div class="viewcode-block" id="QWAK.setWalk"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setWalk">[docs]</a>    <span class="k">def</span> <span class="nf">setWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newWalk</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets current walk amplitudes to a user defined state.</span>
+        <span class="sd">&quot;&quot;&quot;Sets current walk amplitudes to a user defined state.</span>
 <span class="sd">        This might not be needed and removed in the future.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newWalk: New walk amplitudes.</span>
-<span class="sd">            :type newWalk: State</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newWalk : State</span>
+<span class="sd">            New walk amplitudes</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">setWalk</span><span class="p">(</span><span class="n">newWalk</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="QWAK.getWalk"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getWalk">[docs]</a>    <span class="k">def</span> <span class="nf">getWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets current walk amplitudes, also known as final state.</span>
+<div class="viewcode-block" id="QWAK.getWalk"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getWalk">[docs]</a>    <span class="k">def</span> <span class="nf">getWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumWalk</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets current QuantumWalk object</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._quantumWalk.getWalk()</span>
-<span class="sd">            :rtype: State</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        QuantumWalk</span>
+<span class="sd">            Current state amplitudes</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span></div>
 
 <div class="viewcode-block" id="QWAK.getFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">getFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets current walk amplitudes, also known as final state.</span>
+        <span class="sd">&quot;&quot;&quot;Gets current QuantumWalk State.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._quantumWalk.getWalk()</span>
-<span class="sd">            :rtype: State</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        State</span>
+<span class="sd">            State of the QuantumWalk</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="QWAK.getAmpVec"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getAmpVec">[docs]</a>    <span class="k">def</span> <span class="nf">getAmpVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets current walk amplitudes, also known as final state.</span>
+<div class="viewcode-block" id="QWAK.getAmpVec"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getAmpVec">[docs]</a>    <span class="k">def</span> <span class="nf">getAmpVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the array of the QuantumWalk state.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._quantumWalk.getWalk()</span>
-<span class="sd">            :rtype: State</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Array of the QuantumWalk state</span>
+<span class="sd">        &quot;&quot;&quot;</span>                
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getAmpVec</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="QWAK.setProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">setProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newProbDist</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets current walk probability distribution to a user defined one.</span>
+<div class="viewcode-block" id="QWAK.setProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">setProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newProbDist</span><span class="p">:</span> <span class="n">ProbabilityDistribution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets current walk probability distribution to a user defined one.</span>
 <span class="sd">        This might not be needed and removed in the future.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newProbDist: New probability distribution.</span>
-<span class="sd">            :type newProbDist: ProbabilityDistribution</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newProbDist : ProbabilityDistribution</span>
+<span class="sd">            New probability distribution</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">setProbDist</span><span class="p">(</span><span class="n">newProbDist</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">getProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProbabilityDistribution</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current probability distribution.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current probability distribution.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._probDist.getProbDist()</span>
-<span class="sd">            :rtype: ProbabilityDistribution</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ProbabilityDistribution</span>
+<span class="sd">            ProbabilityDistribution object</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span></div>
 
-<div class="viewcode-block" id="QWAK.getProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">getProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ProbabilityDistribution</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current probability distribution.</span>
+<div class="viewcode-block" id="QWAK.getProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">getProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current probability distribution vector.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._probDist.getProbDist()</span>
-<span class="sd">            :rtype: ProbabilityDistribution</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Probability Distribution vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">()</span></div>
 
-
 <div class="viewcode-block" id="QWAK.searchNodeAmplitude"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.searchNodeAmplitude">[docs]</a>    <span class="k">def</span> <span class="nf">searchNodeAmplitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searchNode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Searches and gets the amplitude associated with a given node.</span>
+        <span class="sd">&quot;&quot;&quot;User inputted node for search</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param searchNode: User inputted node for the search.</span>
-<span class="sd">            :type searchNode: int</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        searchNode : int</span>
+<span class="sd">            _description_</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._quantumWalk.searchNodeAmplitude(searchNode)</span>
-<span class="sd">            :rtype: complex</span>
-
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        complex</span>
+<span class="sd">            Amplitude associated with the search node.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">searchNodeAmplitude</span><span class="p">(</span><span class="n">searchNode</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.searchNodeProbability"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.searchNodeProbability">[docs]</a>    <span class="k">def</span> <span class="nf">searchNodeProbability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searchNode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Searches and gets the probability associated with a given node.</span>
+        <span class="sd">&quot;&quot;&quot;Searches and gets the probability associated with a given node.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param searchNode: User inputted node for the search.</span>
-<span class="sd">            :type searchNode: int</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        searchNode : int</span>
+<span class="sd">            User inputted node for the search</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._probDist.searchNodeProbability(searchNode)</span>
-<span class="sd">            :rtype: float</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Probability associated with the search node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">searchNodeProbability</span><span class="p">(</span><span class="n">searchNode</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.checkPST"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.checkPST">[docs]</a>    <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nodeA : _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        nodeB : _type_</span>
+<span class="sd">            _description_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="n">nodeA</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeA</span><span class="p">)</span>
         <span class="n">nodeB</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeB</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">checkPST</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getMean"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getMean">[docs]</a>    <span class="k">def</span> <span class="nf">getMean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getSndMoment"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getSndMoment">[docs]</a>    <span class="k">def</span> <span class="nf">getSndMoment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getStDev"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getStDev">[docs]</a>    <span class="k">def</span> <span class="nf">getStDev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">stDev</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="QWAK.getSurvivalProb"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getSurvivalProb">[docs]</a>    <span class="k">def</span> <span class="nf">getSurvivalProb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        k0 : _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        k1 : _type_</span>
+<span class="sd">            _description_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">survivalProb</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getInversePartRatio"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getInversePartRatio">[docs]</a>    <span class="k">def</span> <span class="nf">getInversePartRatio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">invPartRatio</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="QWAK.getTransportEfficiency"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getTransportEfficiency">[docs]</a>    <span class="k">def</span> <span class="nf">getTransportEfficiency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">transportEfficiency</span><span class="p">()</span></div></div>
 
 
@@ -578,14 +677,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
-            <span class="n">initStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">noiseParam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">sinkNode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">sinkRate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
+        <span class="n">initStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">noiseParam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sinkNode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sinkRate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Default values for the initial state, time and transition rate are a</span>
 <span class="sd">        column vector full of 0s, 0 and 1, respectively. Methods runWalk or</span>
@@ -603,26 +702,28 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">StochasticOperator</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span>
-                <span class="n">noiseParam</span><span class="o">=</span><span class="n">noiseParam</span><span class="p">,</span>
-                <span class="n">sinkNode</span><span class="o">=</span><span class="n">sinkNode</span><span class="p">,</span>
-                <span class="n">sinkRate</span><span class="o">=</span><span class="n">sinkRate</span><span class="p">,</span>
-                <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">nodeList</span> <span class="o">=</span> <span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span> <span class="o">=</span> <span class="n">customStateList</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span>
+            <span class="n">noiseParam</span><span class="o">=</span><span class="n">noiseParam</span><span class="p">,</span>
+            <span class="n">sinkNode</span><span class="o">=</span><span class="n">sinkNode</span><span class="p">,</span>
+            <span class="n">sinkRate</span><span class="o">=</span><span class="n">sinkRate</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">nodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span> <span class="o">=</span> <span class="n">StochasticQuantumWalk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span> <span class="o">=</span> <span class="n">StochasticProbabilityDistribution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="p">)</span>
 
 <div class="viewcode-block" id="StochasticQWAK.runWalk"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.StochasticQWAK.runWalk">[docs]</a>    <span class="k">def</span> <span class="nf">runWalk</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">noiseParam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">sinkNode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">sinkRate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">observables</span><span class="o">=</span><span class="p">[],</span>
-            <span class="n">opts</span><span class="o">=</span><span class="n">Options</span><span class="p">(</span><span class="n">store_states</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">store_final_state</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-            <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">noiseParam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sinkNode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">sinkRate</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">observables</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">opts</span><span class="o">=</span><span class="n">Options</span><span class="p">(</span><span class="n">store_states</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">store_final_state</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Builds class&#39; attributes, runs the walk and calculates the amplitudes</span>
 <span class="sd">        and probability distributions with the given parameters. These can be</span>
@@ -638,14 +739,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Move the constructors to the constructor method.</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">buildState</span><span class="p">(</span><span class="n">nodeList</span> <span class="o">=</span> <span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span> <span class="o">=</span> <span class="n">customStateList</span><span class="p">)</span> 
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">buildState</span><span class="p">(</span>
+                <span class="n">nodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span>
+            <span class="p">)</span>
         <span class="k">except</span> <span class="n">StateOutOfBounds</span> <span class="k">as</span> <span class="n">stOBErr</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">stOBErr</span>
         <span class="k">except</span> <span class="n">NonUnitaryState</span> <span class="k">as</span> <span class="n">nUErr</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">nUErr</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">buildStochasticOperator</span><span class="p">(</span><span class="n">noiseParam</span> <span class="o">=</span> <span class="n">noiseParam</span><span class="p">,</span> <span class="n">sinkNode</span> <span class="o">=</span> <span class="n">sinkNode</span><span class="p">,</span> <span class="n">sinkRate</span> <span class="o">=</span> <span class="n">sinkRate</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">buildStochasticOperator</span><span class="p">(</span>
+            <span class="n">noiseParam</span><span class="o">=</span><span class="n">noiseParam</span><span class="p">,</span> <span class="n">sinkNode</span><span class="o">=</span><span class="n">sinkNode</span><span class="p">,</span> <span class="n">sinkRate</span><span class="o">=</span><span class="n">sinkRate</span>
+        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span> <span class="o">=</span> <span class="n">StochasticQuantumWalk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">buildWalk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span><span class="n">observables</span><span class="p">,</span><span class="n">opts</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">buildWalk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">observables</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span> <span class="o">=</span> <span class="n">StochasticProbabilityDistribution</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">buildProbDist</span><span class="p">()</span></div>
 

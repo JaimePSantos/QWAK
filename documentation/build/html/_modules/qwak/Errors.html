@@ -190,7 +190,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Tools.html">Tools package</a></li>
 </ul>
 </li>
 </ul>
@@ -233,16 +232,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">details</span>
 
 <div class="viewcode-block" id="Error.as_string"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error.as_string">[docs]</a>    <span class="k">def</span> <span class="nf">as_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error_name</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="si">}</span><span class="se">\n</span><span class="s1">&#39;</span></div></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="StateOutOfBounds"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.StateOutOfBounds">[docs]</a><span class="k">class</span> <span class="nc">StateOutOfBounds</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;Condition out of bounds: &#39;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Condition out of bounds: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="NonUnitaryState"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.NonUnitaryState">[docs]</a><span class="k">class</span> <span class="nc">NonUnitaryState</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s1">&#39;State is not unitary: &#39;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;State is not unitary: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 </pre></div>
         </article>
       </div>
