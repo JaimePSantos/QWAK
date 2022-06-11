@@ -239,22 +239,19 @@
 <span class="kn">from</span> <span class="nn">Tools.PerfectStateTransfer</span> <span class="kn">import</span> <span class="n">isStrCospec</span><span class="p">,</span> <span class="n">checkRoots</span><span class="p">,</span> <span class="n">swapNodes</span><span class="p">,</span> <span class="n">getEigenVal</span>
 
 
-<div class="viewcode-block" id="Operator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator">[docs]</a><span class="k">class</span> <span class="nc">Operator</span><span class="p">:</span>
+<div class="viewcode-block" id="Operator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator">[docs]</a><span class="k">class</span> <span class="nc">Operator</span><span class="p">:</span>    
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class that represents the operators that will be used in a quantum walk.</span>
 <span class="sd">    States are represented by matrices in quantum mechanics,</span>
 <span class="sd">    therefore Numpy is used to generate ndarrays which contain these matrices.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
         <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">adjacencyMatrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">markedSearch</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This object is initialized with a user inputted graph, which is then used to</span>
+        <span class="sd">&quot;&quot;&quot;This object is initialized with a user inputted graph, which is then used to</span>
 <span class="sd">        generate the dimension of the operator and the adjacency matrix, which is</span>
 <span class="sd">        the central structure required to perform walks on regular graphs. Note that this</span>
 <span class="sd">        version of the software only supports regular undirected graphs, which will hopefully</span>
@@ -265,12 +262,15 @@
 <span class="sd">        decomposition. This was the chosen method since it is computationally cheaper than calculating</span>
 <span class="sd">        the matrix exponent directly.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.</span>
-<span class="sd">            :type laplacian: bool</span>
-<span class="sd">            :param graph: Graph where the walk will be performed.</span>
-<span class="sd">            :type graph: NetworkX.Graph</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        graph : nx.Graph</span>
+<span class="sd">            Graph where the walk will be performed.</span>
+<span class="sd">        laplacian : bool, optional</span>
+<span class="sd">            Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.</span>
+<span class="sd">        markedSearch : list, optional</span>
+<span class="sd">            List with marked elements for search, by default None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildAdjacency</span><span class="p">(</span><span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
@@ -282,18 +282,16 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Operator.buildDiagonalOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.buildDiagonalOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildDiagonalOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Builds operator matrix from optional time and transition rate parameters, defined by user.</span>
+        <span class="sd">&quot;&quot;&quot;Builds operator matrix from optional time and transition rate parameters, defined by user.</span>
 <span class="sd">        The first step is to calculate the diagonal matrix that takes in time, transition rate and</span>
 <span class="sd">        eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied</span>
 <span class="sd">        by the eigenvectors, and the last step is to perform matrix multiplication with the complex</span>
 <span class="sd">        conjugate of the eigenvectors.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param time: Time for which to calculate the operator. Defaults to 0.</span>
-<span class="sd">            :type time: (int, optional)</span>
-<span class="sd">            :param gamma: Transition rate of the given operator. Defaults to 1.</span>
-<span class="sd">            :type gamma: (int, optional)</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        time : float, optional</span>
+<span class="sd">            Time for which to calculate the operator, by default 0.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
         <span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">))</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
@@ -306,6 +304,15 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span> <span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">))</span></div>
 
     <span class="k">def</span> <span class="nf">_buildAdjacency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        laplacian : _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        markedSearch : _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
                 <span class="n">nx</span><span class="o">.</span><span class="n">laplacian_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
@@ -317,6 +324,13 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">[</span><span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">marked</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isHermitian</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        isHermitian : bool</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="n">isHermitian</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span>
@@ -325,111 +339,113 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Operator.resetOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.resetOperator">[docs]</a>    <span class="k">def</span> <span class="nf">resetOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Resets operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Operator.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the current operator dimensions to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current operator dimensions to a user defined one.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            newDim ([type]): [description]</span>
-<span class="sd">            :param newDim:</span>
-<span class="sd">            :type newDim:</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newDim : int</span>
+<span class="sd">            New dimension for the Operator object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span></div>
 
 <div class="viewcode-block" id="Operator.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current graph dimension.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current graph dimension.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._n</span>
-<span class="sd">            :rtype: int</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            Dimension of Operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
 
 <div class="viewcode-block" id="Operator.setTime"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setTime">[docs]</a>    <span class="k">def</span> <span class="nf">setTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newTime</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the current operator time to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current operator time to a user defined one.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newTime: New operator time.</span>
-<span class="sd">            :type newTime: float</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newTime : float</span>
+<span class="sd">            New operator time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">newTime</span></div>
 
 <div class="viewcode-block" id="Operator.getTime"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getTime">[docs]</a>    <span class="k">def</span> <span class="nf">getTime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current operator time.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current operator time.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._time</span>
-<span class="sd">            :rtype: float</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Current time of Operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span></div>
 
 <div class="viewcode-block" id="Operator.setAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adjacencyMatrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets the adjacency matrix of the operator to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the adjacency matrix of the operator to a user defined one.</span>
 <span class="sd">        Might make more sense to not give the user control over this parameter, and make</span>
 <span class="sd">        them instead change the graph entirely.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param adjacencyMatrix: New Numpy.ndarray adjacency matrix.</span>
-<span class="sd">            :type adjacencyMatrix: Numpy.ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        adjacencyMatrix : np.ndarray</span>
+<span class="sd">            New adjacency matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">adjacencyMatrix</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Operator.getAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">getAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the current adjacency matrix of the operator.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current adjacency matrix of the Operator.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._adjacencyMatrix</span>
-<span class="sd">            :rtype: Numpy.ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Adjacency matrix of the Operator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span></div>
 
 <div class="viewcode-block" id="Operator.setOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setOperator">[docs]</a>    <span class="k">def</span> <span class="nf">setOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Sets all the parameters of the current operator to user defined ones.</span>
+        <span class="sd">&quot;&quot;&quot;Sets all the parameters of the current operator to user defined ones.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param newOperator: New operator.</span>
-<span class="sd">            :type newOperator: Operator</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newOperator : Operator</span>
+<span class="sd">            New user inputted Operator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getOperator</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="Operator.getOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getOperator">[docs]</a>    <span class="k">def</span> <span class="nf">getOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Gets the numpy matrix associated with the current operator.</span>
+        <span class="sd">&quot;&quot;&quot;Gets the numpy matrix associated with the current operator.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._operator</span>
-<span class="sd">            :rtype: Numpy.matrix</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.matrix</span>
+<span class="sd">            Current Operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
 
 <div class="viewcode-block" id="Operator.checkPST"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.checkPST">[docs]</a>    <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">         Checks if all the conditions are true and return the **VALUE** if the graph</span>
+        <span class="sd">&quot;&quot;&quot;Checks if all the conditions are true and return the **VALUE** if the graph</span>
 <span class="sd">         has PST and False otherwise.</span>
 <span class="sd">         TODO: Check if numpy is faster for eigenvecs and vals.</span>
 
-<span class="sd">         Args:</span>
-<span class="sd">            :param nodeA: Input node.</span>
-<span class="sd">            :type nodeA: int</span>
-<span class="sd">            :param nodeB: Output node.</span>
-<span class="sd">            :type nodeB: int</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nodeA : _type_</span>
+<span class="sd">            Input node.</span>
+<span class="sd">        nodeB : _type_</span>
+<span class="sd">            Output node.</span>
 
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: pi / (g * np.sqrt(delta)) or False</span>
-<span class="sd">            :rtype: **Value** or Bool</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Float/Bool</span>
+<span class="sd">            Either returns the time value of PST or False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">nodeA</span> <span class="o">&gt;</span> <span class="n">nodeB</span><span class="p">:</span>
             <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span> <span class="o">=</span> <span class="n">swapNodes</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
@@ -446,6 +462,46 @@
             <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="k">return</span> <span class="n">result</span></div>
 
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Left-side multiplication for the Operator class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other : np.ndarray</span>
+<span class="sd">            Another Numpy ndarray to multiply the operator by.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Result of the right-side multiplication.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">*</span> <span class="n">other</span>
+
+    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Right-side multiplication for the Operator class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        other : np.ndarray</span>
+<span class="sd">            Another Numpy ndarray to multiply the operator by.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Result of the left-side multiplication.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;String representation of the State class.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            String representation of the Operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span></div>
+
     <span class="c1"># def transportEfficiency(self,initState):</span>
     <span class="c1">#     &quot;&quot;&quot;</span>
     <span class="c1">#     Under Construction.</span>
@@ -461,43 +517,6 @@
     <span class="c1">#         print(f&quot;eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n&quot;)</span>
     <span class="c1">#     return ef</span>
 
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Left-side multiplication for the Operator class.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            :param other: Another Numpy ndarray to multiply the operator by.</span>
-<span class="sd">            :type other: Numpy.ndarray</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._operator * other</span>
-<span class="sd">            :rtype: Numpy.ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">*</span> <span class="n">other</span>
-
-    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Right-side multiplication for the Operator class.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            :param other: Another Numpy ndarray to multiply the operator by.</span>
-<span class="sd">            :type other: Numpy.ndarray</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: self._operator * other</span>
-<span class="sd">            :rtype: Numpy.ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        String representation of the State class.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            :return: f&quot;{self._stateVec}&quot;</span>
-<span class="sd">            :rtype: str</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 
 <div class="viewcode-block" id="StochasticOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator">[docs]</a><span class="k">class</span> <span class="nc">StochasticOperator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>

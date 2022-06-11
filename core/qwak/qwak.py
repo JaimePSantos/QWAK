@@ -42,16 +42,16 @@ class QWAK:
         ----------
         graph : nx.Graph
             NetworkX graph where the walk takes place. Also used
-            for defining the dimensions of the quantum walk
+            for defining the dimensions of the quantum walk.
         initStateList : list[int], optional
             List with chosen initial states for uniform superposition, by default None
         customStateList : list[(int,complex)], optional
-            Custom init state, by default None
+            Custom init state, by default None.
         laplacian : bool, optional
             Allows the user to choose whether to use the
-            Laplacian or simple adjacency matrix, by default False
+            Laplacian or simple adjacency matrix, by default False.
         markedSearch : list, optional
-            List with marked elements for search, by default None
+            List with marked elements for search, by default None.
         """    
 
         self._graph = graph
@@ -75,11 +75,11 @@ class QWAK:
         Parameters
         ----------
         time : float, optional
-            Time for which to calculate the quantum walk, by default 0
+            Time for which to calculate the quantum walk, by default 0.
         initStateList : list[int], optional
-            List with chosen initial states for uniform superposition, by default None
+            List with chosen initial states for uniform superposition, by default None.
         customStateList : list[(int,complex)], optional
-            Custom init state, by default None
+            Custom init state, by default None.
 
         Raises
         ------
@@ -135,7 +135,7 @@ class QWAK:
         Returns
         -------
         int
-            Dimension of graph
+            Dimension of graph.
         """        
         return self._n
 
@@ -182,7 +182,7 @@ class QWAK:
         Returns
         -------
         nx.Graph
-            Current graph
+            Current graph.
         """        
         return self._graph
 
@@ -192,7 +192,7 @@ class QWAK:
         Parameters
         ----------
         newInitState : State
-            New initial state
+            New initial state.
         """        
         self._initState.setState(newInitState)
         self._initStateList = self._initState.getNodeList()
@@ -203,7 +203,7 @@ class QWAK:
         Returns
         -------
         State
-            Initial State
+            Initial State.
         """        
         return self._initState
 
@@ -213,7 +213,7 @@ class QWAK:
         Parameters
         ----------
         newTime : float
-            New time
+            New time.
         """        
         self._operator.setTime(newTime)
 
@@ -223,7 +223,7 @@ class QWAK:
         Returns
         -------
         float
-           Current value of time
+           Current value of time.
         """        
         return self._operator.getTime()
 
@@ -233,7 +233,7 @@ class QWAK:
         Parameters
         ----------
         newOperator : Operator
-            New operator
+            New operator object.
         """        
         self._operator.setOperator(newOperator)
 
@@ -243,7 +243,7 @@ class QWAK:
         Returns
         -------
         Operator
-            Current operator object
+            Current operator object.
         """        
         return self._operator
 
@@ -254,7 +254,7 @@ class QWAK:
         Parameters
         ----------
         newWalk : State
-            New walk amplitudes
+            New walk amplitudes.
         """        
         self._quantumWalk.setWalk(newWalk)
 
@@ -264,7 +264,7 @@ class QWAK:
         Returns
         -------
         QuantumWalk
-            Current state amplitudes
+            Current state amplitudes.
         """        
         return self._quantumWalk
 
@@ -274,7 +274,7 @@ class QWAK:
         Returns
         -------
         State
-            State of the QuantumWalk
+            State of the QuantumWalk.
         """        
         return self._quantumWalk.getFinalState()
 
@@ -284,7 +284,7 @@ class QWAK:
         Returns
         -------
         np.ndarray
-            Array of the QuantumWalk state
+            Array of the QuantumWalk state.
         """                
         return self._quantumWalk.getAmpVec()
 
@@ -295,7 +295,7 @@ class QWAK:
         Parameters
         ----------
         newProbDist : ProbabilityDistribution
-            New probability distribution
+            New probability distribution.
         """        
         self._probDist.setProbDist(newProbDist)
 
@@ -305,7 +305,7 @@ class QWAK:
         Returns
         -------
         ProbabilityDistribution
-            ProbabilityDistribution object
+            ProbabilityDistribution object.
         """
         return self._probDist
 
@@ -315,7 +315,7 @@ class QWAK:
         Returns
         -------
         np.ndarray
-            Probability Distribution vector
+            Probability Distribution vector.
         """        
         return self._probDist.getProbVec()
 
@@ -325,7 +325,7 @@ class QWAK:
         Parameters
         ----------
         searchNode : int
-            _description_
+            User inputted node for the search.
 
         Returns
         -------
@@ -340,7 +340,7 @@ class QWAK:
         Parameters
         ----------
         searchNode : int
-            User inputted node for the search
+            User inputted node for the search.
 
         Returns
         -------

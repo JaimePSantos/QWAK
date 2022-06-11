@@ -270,16 +270,16 @@
 <span class="sd">        ----------</span>
 <span class="sd">        graph : nx.Graph</span>
 <span class="sd">            NetworkX graph where the walk takes place. Also used</span>
-<span class="sd">            for defining the dimensions of the quantum walk</span>
+<span class="sd">            for defining the dimensions of the quantum walk.</span>
 <span class="sd">        initStateList : list[int], optional</span>
 <span class="sd">            List with chosen initial states for uniform superposition, by default None</span>
 <span class="sd">        customStateList : list[(int,complex)], optional</span>
-<span class="sd">            Custom init state, by default None</span>
+<span class="sd">            Custom init state, by default None.</span>
 <span class="sd">        laplacian : bool, optional</span>
 <span class="sd">            Allows the user to choose whether to use the</span>
-<span class="sd">            Laplacian or simple adjacency matrix, by default False</span>
+<span class="sd">            Laplacian or simple adjacency matrix, by default False.</span>
 <span class="sd">        markedSearch : list, optional</span>
-<span class="sd">            List with marked elements for search, by default None</span>
+<span class="sd">            List with marked elements for search, by default None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>    
 
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
@@ -303,11 +303,11 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        time : float, optional</span>
-<span class="sd">            Time for which to calculate the quantum walk, by default 0</span>
+<span class="sd">            Time for which to calculate the quantum walk, by default 0.</span>
 <span class="sd">        initStateList : list[int], optional</span>
-<span class="sd">            List with chosen initial states for uniform superposition, by default None</span>
+<span class="sd">            List with chosen initial states for uniform superposition, by default None.</span>
 <span class="sd">        customStateList : list[(int,complex)], optional</span>
-<span class="sd">            Custom init state, by default None</span>
+<span class="sd">            Custom init state, by default None.</span>
 
 <span class="sd">        Raises</span>
 <span class="sd">        ------</span>
@@ -363,7 +363,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
-<span class="sd">            Dimension of graph</span>
+<span class="sd">            Dimension of graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
 
@@ -410,7 +410,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        nx.Graph</span>
-<span class="sd">            Current graph</span>
+<span class="sd">            Current graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span></div>
 
@@ -420,7 +420,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        newInitState : State</span>
-<span class="sd">            New initial state</span>
+<span class="sd">            New initial state.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newInitState</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initStateList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getNodeList</span><span class="p">()</span></div>
@@ -431,7 +431,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        State</span>
-<span class="sd">            Initial State</span>
+<span class="sd">            Initial State.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span></div>
 
@@ -441,7 +441,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        newTime : float</span>
-<span class="sd">            New time</span>
+<span class="sd">            New time.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setTime</span><span class="p">(</span><span class="n">newTime</span><span class="p">)</span></div>
 
@@ -451,7 +451,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
-<span class="sd">           Current value of time</span>
+<span class="sd">           Current value of time.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span></div>
 
@@ -461,7 +461,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        newOperator : Operator</span>
-<span class="sd">            New operator</span>
+<span class="sd">            New operator object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setOperator</span><span class="p">(</span><span class="n">newOperator</span><span class="p">)</span></div>
 
@@ -471,7 +471,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Operator</span>
-<span class="sd">            Current operator object</span>
+<span class="sd">            Current operator object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
 
@@ -482,7 +482,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        newWalk : State</span>
-<span class="sd">            New walk amplitudes</span>
+<span class="sd">            New walk amplitudes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">setWalk</span><span class="p">(</span><span class="n">newWalk</span><span class="p">)</span></div>
 
@@ -492,7 +492,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        QuantumWalk</span>
-<span class="sd">            Current state amplitudes</span>
+<span class="sd">            Current state amplitudes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span></div>
 
@@ -502,7 +502,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        State</span>
-<span class="sd">            State of the QuantumWalk</span>
+<span class="sd">            State of the QuantumWalk.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">()</span></div>
 
@@ -512,7 +512,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
-<span class="sd">            Array of the QuantumWalk state</span>
+<span class="sd">            Array of the QuantumWalk state.</span>
 <span class="sd">        &quot;&quot;&quot;</span>                
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getAmpVec</span><span class="p">()</span></div>
 
@@ -523,7 +523,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        newProbDist : ProbabilityDistribution</span>
-<span class="sd">            New probability distribution</span>
+<span class="sd">            New probability distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">setProbDist</span><span class="p">(</span><span class="n">newProbDist</span><span class="p">)</span></div>
 
@@ -533,7 +533,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        ProbabilityDistribution</span>
-<span class="sd">            ProbabilityDistribution object</span>
+<span class="sd">            ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span></div>
 
@@ -543,7 +543,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
-<span class="sd">            Probability Distribution vector</span>
+<span class="sd">            Probability Distribution vector.</span>
 <span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">()</span></div>
 
@@ -553,7 +553,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        searchNode : int</span>
-<span class="sd">            _description_</span>
+<span class="sd">            User inputted node for the search.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -568,7 +568,7 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        searchNode : int</span>
-<span class="sd">            User inputted node for the search</span>
+<span class="sd">            User inputted node for the search.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
