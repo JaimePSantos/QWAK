@@ -149,7 +149,7 @@ class QuantumWalk:
         """
         return self._finalState.getStateVec()
 
-    def getAmpVec(self) -> State:
+    def getAmpVec(self) -> np.ndarray:
         """
         Gets the array of the final state associated with the walk.
 

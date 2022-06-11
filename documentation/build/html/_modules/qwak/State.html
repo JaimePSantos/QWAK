@@ -190,7 +190,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Tools.html">Tools package</a></li>
 </ul>
 </li>
 </ul>
@@ -263,7 +262,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span> <span class="o">=</span> <span class="n">customStateList</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span><span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 
 <div class="viewcode-block" id="State.buildState"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.buildState">[docs]</a>    <span class="k">def</span> <span class="nf">buildState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -291,18 +290,21 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_checkStateOutOfBounds</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">nodeAmp</span></div>
 
-    <span class="k">def</span> <span class="nf">_checkStateOutOfBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">node</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_checkStateOutOfBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">node</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">StateOutOfBounds</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;State </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2"> is out of bounds for system of size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2"> ([0-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">]).&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;State </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2"> is out of bounds for system of size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2"> ([0-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">]).&quot;</span>
+            <span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_checkUnitaryStateList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">customStateList</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_checkUnitaryStateList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customStateList</span><span class="p">):</span>
         <span class="n">unitaryState</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">customStateList</span><span class="p">:</span>
-            <span class="n">unitaryState</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span>
-        <span class="n">unitaryState</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">unitaryState</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+            <span class="n">unitaryState</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">unitaryState</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">unitaryState</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">unitaryState</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">NonUnitaryState</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The sum of the square of the amplitudes is -- </span><span class="si">{</span><span class="n">unitaryState</span><span class="si">}</span><span class="s2"> -- instead of 1.&quot;</span><span class="p">)</span> 
+            <span class="k">raise</span> <span class="n">NonUnitaryState</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The sum of the square of the amplitudes is -- </span><span class="si">{</span><span class="n">unitaryState</span><span class="si">}</span><span class="s2"> -- instead of 1.&quot;</span>
+            <span class="p">)</span>
 
 <div class="viewcode-block" id="State.herm"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.herm">[docs]</a>    <span class="k">def</span> <span class="nf">herm</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="o">.</span><span class="n">H</span></div>

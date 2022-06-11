@@ -190,7 +190,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Tools.html">Tools package</a></li>
 </ul>
 </li>
 </ul>
@@ -233,49 +232,104 @@
 <span class="kn">from</span> <span class="nn">qwak.qwak</span> <span class="kn">import</span> <span class="n">QWAK</span>
 
 <span class="n">linesToPrint</span> <span class="o">=</span> <span class="mi">15</span>
-<span class="n">sortBy</span> <span class="o">=</span> <span class="s1">&#39;tottime&#39;</span>
-<span class="n">outPath</span> <span class="o">=</span> <span class="s1">&#39;qwak/&#39;</span>
+<span class="n">sortBy</span> <span class="o">=</span> <span class="s2">&quot;tottime&quot;</span>
+<span class="n">outPath</span> <span class="o">=</span> <span class="s2">&quot;qwak/&quot;</span>
 <span class="n">stripDirs</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">csv</span> <span class="o">=</span> <span class="kc">True</span>
 
 
 <div class="viewcode-block" id="QWAKBenchmark"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark">[docs]</a><span class="k">class</span> <span class="nc">QWAKBenchmark</span><span class="p">:</span>
-
-    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">markedSearch</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">markedSearch</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">)</span>
 
-<div class="viewcode-block" id="QWAKBenchmark.runWalk"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.runWalk">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.runWalk"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.runWalk">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">runWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">runWalk</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="QWAKBenchmark.checkPST"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.checkPST">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.checkPST"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.checkPST">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
         <span class="n">nodeA</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeA</span><span class="p">)</span>
         <span class="n">nodeB</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeB</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">checkPST</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="QWAKBenchmark.transportEfficiency"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.transportEfficiency"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">transportEfficiency</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">transportEfficiency</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="QWAKBenchmark.getMean"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getMean">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.getMean"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getMean">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">getMean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">getMean</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="QWAKBenchmark.getSndMoment"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getSndMoment">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.getSndMoment"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getSndMoment">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">getSndMoment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">getSndMoment</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="QWAKBenchmark.getStDev"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getStDev">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.getStDev"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getStDev">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">getStDev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">getStDev</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="QWAKBenchmark.getSurvivalProb"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.getSurvivalProb"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">getSurvivalProb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">getSurvivalProb</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="QWAKBenchmark.getInversePartRatio"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span> <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">)</span>
+<div class="viewcode-block" id="QWAKBenchmark.getInversePartRatio"><a class="viewcode-back" href="../../Tools.html#Tools.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio">[docs]</a>    <span class="nd">@profile</span><span class="p">(</span>
+        <span class="n">output_path</span><span class="o">=</span><span class="n">outPath</span><span class="p">,</span>
+        <span class="n">sort_by</span><span class="o">=</span><span class="n">sortBy</span><span class="p">,</span>
+        <span class="n">lines_to_print</span><span class="o">=</span><span class="n">linesToPrint</span><span class="p">,</span>
+        <span class="n">strip_dirs</span><span class="o">=</span><span class="n">stripDirs</span><span class="p">,</span>
+        <span class="n">csv</span><span class="o">=</span><span class="n">csv</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">def</span> <span class="nf">getInversePartRatio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">qwak</span><span class="o">.</span><span class="n">getInversePartRatio</span><span class="p">()</span></div></div>
 </pre></div>
