@@ -50,6 +50,7 @@ autosummary_generate = True
 # generate documentation from type hints
 autodoc_typehints = "description"
 autoclass_content = "both"
+autodoc_member_order = 'bysource'
 
 # controls whether functions documented by the autofunction directive
 # appear with their full module names
