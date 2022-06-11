@@ -11,22 +11,19 @@ from qutip import Qobj, basis, mesolve, Options
 from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 
-class Operator:
+class Operator:    
     """
     Class that represents the operators that will be used in a quantum walk.
     States are represented by matrices in quantum mechanics,
     therefore Numpy is used to generate ndarrays which contain these matrices.
     """
-
     def __init__(
         self,
         graph: nx.Graph,
         laplacian: bool = False,
-        adjacencyMatrix=None,
-        markedSearch=None,
+        markedSearch: list=None,
     ) -> None:
-        """
-        This object is initialized with a user inputted graph, which is then used to
+        """This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
         the central structure required to perform walks on regular graphs. Note that this
         version of the software only supports regular undirected graphs, which will hopefully
@@ -37,12 +34,15 @@ class Operator:
         decomposition. This was the chosen method since it is computationally cheaper than calculating
         the matrix exponent directly.
 
-        Args:
-            :param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
-            :type laplacian: bool
-            :param graph: Graph where the walk will be performed.
-            :type graph: NetworkX.Graph
-        """
+        Parameters
+        ----------
+        graph : nx.Graph
+            Graph where the walk will be performed.
+        laplacian : bool, optional
+            Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.
+        markedSearch : list, optional
+            List with marked elements for search, by default None.
+        """    
         self._graph = graph
         self._buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
@@ -54,18 +54,16 @@ class Operator:
         self._buildEigenValues(self._isHermitian)
 
     def buildDiagonalOperator(self, time: float = 0) -> None:
-        """
-        Builds operator matrix from optional time and transition rate parameters, defined by user.
+        """Builds operator matrix from optional time and transition rate parameters, defined by user.
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
         eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
         by the eigenvectors, and the last step is to perform matrix multiplication with the complex
         conjugate of the eigenvectors.
 
-        Args:
-            :param time: Time for which to calculate the operator. Defaults to 0.
-            :type time: (int, optional)
-            :param gamma: Transition rate of the given operator. Defaults to 1.
-            :type gamma: (int, optional)
+        Parameters
+        ----------
+        time : float, optional
+            Time for which to calculate the operator, by default 0.
         """
         self._time = time
         diag = np.diag(np.exp(-1j * self._eigenvalues * self._time)).diagonal()
@@ -78,6 +76,15 @@ class Operator:
             self._operator = np.matmul(self._operator, inv(self._eigenvectors))
 
     def _buildAdjacency(self, laplacian, markedSearch):
+        """_summary_
+
+        Parameters
+        ----------
+        laplacian : _type_
+            _description_
+        markedSearch : _type_
+            _description_
+        """        
         if laplacian:
             self._adjacencyMatrix = np.asarray(
                 nx.laplacian_matrix(self._graph).todense().astype(complex)
@@ -89,6 +96,13 @@ class Operator:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
     def _buildEigenValues(self, isHermitian):
+        """_summary_
+
+        Parameters
+        ----------
+        isHermitian : bool
+            _description_
+        """        
         if isHermitian:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
                 self._adjacencyMatrix
@@ -97,111 +111,113 @@ class Operator:
             self._eigenvalues, self._eigenvectors = np.linalg.eig(self._adjacencyMatrix)
 
     def resetOperator(self):
+        """Resets operator object.
+        """        
         self._operator = np.zeros((self._n, self._n))
 
     def setDim(self, newDim: int) -> None:
-        """
-        Sets the current operator dimensions to a user defined one.
+        """Sets the current operator dimensions to a user defined one.
 
-        Args:
-            newDim ([type]): [description]
-            :param newDim:
-            :type newDim:
+        Parameters
+        ----------
+        newDim : int
+            New dimension for the Operator object.
         """
         self._n = newDim
 
     def getDim(self) -> int:
-        """
-        Gets the current graph dimension.
+        """Gets the current graph dimension.
 
-        Returns:
-            :return: self._n
-            :rtype: int
-        """
+        Returns
+        -------
+        int
+            Dimension of Operator object.
+        """        
         return self._n
 
     def setTime(self, newTime: float) -> None:
-        """
-        Sets the current operator time to a user defined one.
+        """Sets the current operator time to a user defined one.
 
-        Args:
-            :param newTime: New operator time.
-            :type newTime: float
-        """
+        Parameters
+        ----------
+        newTime : float
+            New operator time.
+        """        
         self._time = newTime
 
     def getTime(self) -> float:
-        """
-        Gets the current operator time.
+        """Gets the current operator time.
 
-        Returns:
-            :return: self._time
-            :rtype: float
-        """
+        Returns
+        -------
+        float
+            Current time of Operator object.
+        """        
         return self._time
 
     def setAdjacencyMatrix(self, adjacencyMatrix: np.ndarray) -> None:
-        """
-        Sets the adjacency matrix of the operator to a user defined one.
+        """Sets the adjacency matrix of the operator to a user defined one.
         Might make more sense to not give the user control over this parameter, and make
         them instead change the graph entirely.
 
-        Args:
-            :param adjacencyMatrix: New Numpy.ndarray adjacency matrix.
-            :type adjacencyMatrix: Numpy.ndarray
-        """
+        Parameters
+        ----------
+        adjacencyMatrix : np.ndarray
+            New adjacency matrix.
+        """        
         self._adjacencyMatrix = adjacencyMatrix.astype(complex)
         self._n = len(self._adjacencyMatrix)
         self.resetOperator()
         self._buildEigenValues(self._isHermitian)
 
     def getAdjacencyMatrix(self) -> np.ndarray:
-        """
-        Gets the current adjacency matrix of the operator.
+        """Gets the current adjacency matrix of the Operator.
 
-        Returns:
-            :return: self._adjacencyMatrix
-            :rtype: Numpy.ndarray
-        """
+        Returns
+        -------
+        np.ndarray
+            Adjacency matrix of the Operator.
+        """        
         return self._adjacencyMatrix
 
     def setOperator(self, newOperator: Operator) -> None:
-        """
-        Sets all the parameters of the current operator to user defined ones.
+        """Sets all the parameters of the current operator to user defined ones.
 
-        Args:
-            :param newOperator: New operator.
-            :type newOperator: Operator
-        """
+        Parameters
+        ----------
+        newOperator : Operator
+            New user inputted Operator.
+        """        
         self._n = newOperator.getDim()
         self._time = newOperator.getTime()
         self._operator = newOperator.getOperator()
 
     def getOperator(self) -> np.matrix:
-        """
-        Gets the numpy matrix associated with the current operator.
+        """Gets the numpy matrix associated with the current operator.
 
-        Returns:
-            :return: self._operator
-            :rtype: Numpy.matrix
-        """
+        Returns
+        -------
+        np.matrix
+            Current Operator object.
+        """        
         return self._operator
 
     def checkPST(self, nodeA, nodeB):
-        """
-         Checks if all the conditions are true and return the **VALUE** if the graph
+        """Checks if all the conditions are true and return the **VALUE** if the graph
          has PST and False otherwise.
          TODO: Check if numpy is faster for eigenvecs and vals.
 
-         Args:
-            :param nodeA: Input node.
-            :type nodeA: int
-            :param nodeB: Output node.
-            :type nodeB: int
+        Parameters
+        ----------
+        nodeA : _type_
+            Input node.
+        nodeB : _type_
+            Output node.
 
-        Returns:
-            :return: pi / (g * np.sqrt(delta)) or False
-            :rtype: **Value** or Bool
+        Returns
+        -------
+        Float/Bool
+            Either returns the time value of PST or False.
         """
         if nodeA > nodeB:
             nodeA, nodeB = swapNodes(nodeA, nodeB)
@@ -218,6 +234,46 @@ class Operator:
             result = -1
         return result
 
+    def __mul__(self, other: np.ndarray) -> np.ndarray:
+        """Left-side multiplication for the Operator class.
+
+        Parameters
+        ----------
+        other : np.ndarray
+            Another Numpy ndarray to multiply the operator by.
+
+        Returns
+        -------
+        np.ndarray
+            Result of the right-side multiplication.
+        """
+        return self._operator * other
+
+    def __rmul__(self, other: np.ndarray) -> np.ndarray:
+        """Right-side multiplication for the Operator class.
+
+        Parameters
+        ----------
+        other : np.ndarray
+            Another Numpy ndarray to multiply the operator by.
+
+        Returns
+        -------
+        np.ndarray
+            Result of the left-side multiplication.
+        """        
+        return other * self._operator
+
+    def __str__(self) -> str:
+        """String representation of the State class.
+
+        Returns
+        -------
+        str
+            String representation of the Operator object.
+        """        
+        return f"{self._operator}"
+
     # def transportEfficiency(self,initState):
     #     """
     #     Under Construction.
@@ -233,43 +289,6 @@ class Operator:
     #         print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
     #     return ef
 
-    def __mul__(self, other):
-        """
-        Left-side multiplication for the Operator class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the operator by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._operator * other
-            :rtype: Numpy.ndarray
-        """
-        return self._operator * other
-
-    def __rmul__(self, other):
-        """
-        Right-side multiplication for the Operator class.
-
-        Args:
-            :param other: Another Numpy ndarray to multiply the operator by.
-            :type other: Numpy.ndarray
-
-        Returns:
-            :return: self._operator * other
-            :rtype: Numpy.ndarray
-        """
-        return other * self._operator
-
-    def __str__(self) -> str:
-        """
-        String representation of the State class.
-
-        Returns:
-            :return: f"{self._stateVec}"
-            :rtype: str
-        """
-        return f"{self._operator}"
 
 
 class StochasticOperator(object):

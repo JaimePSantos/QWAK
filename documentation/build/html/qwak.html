@@ -309,7 +309,7 @@
 <span id="qwak-operator-module"></span><h2>qwak.Operator module<a class="headerlink" href="#module-qwak.Operator" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="qwak.Operator.Operator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">adjacencyMatrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that represents the operators that will be used in a quantum walk.
 States are represented by matrices in quantum mechanics,
@@ -323,15 +323,12 @@ be generalized in the future.</p>
 initialization, which are then used to calculate the diagonal operator through spectral
 decomposition. This was the chosen method since it is computationally cheaper than calculating
 the matrix exponent directly.</p>
-<p>:param : param laplacian: Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
-:param : type laplacian: bool
-:param : param graph: Graph where the walk will be performed.
-:param : type graph: NetworkX.Graph</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>nx.Graph</em>) – </p></li>
-<li><p><strong>laplacian</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>graph</strong> (<em>nx.Graph</em>) – Graph where the walk will be performed.</p></li>
+<li><p><strong>laplacian</strong> (<em>bool</em><em>, </em><em>optional</em>) – Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.</p></li>
+<li><p><strong>markedSearch</strong> (<em>list</em><em>, </em><em>optional</em>) – List with marked elements for search, by default None.</p></li>
 </ul>
 </dd>
 </dl>
@@ -343,16 +340,12 @@ The first step is to calculate the diagonal matrix that takes in time, transitio
 eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
 by the eigenvectors, and the last step is to perform matrix multiplication with the complex
 conjugate of the eigenvectors.</p>
-<p>:param : param time: Time for which to calculate the operator. Defaults to 0.
-:param : type time: (int, optional)
-:param : param gamma: Transition rate of the given operator. Defaults to 1.
-:param : type gamma: (int, optional)</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>time</strong> (<em>float</em><em>, </em><em>optional</em>) – Time for which to calculate the operator, by default 0.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>time</strong> (<em>float</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -360,7 +353,8 @@ conjugate of the eigenvectors.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.resetOperator">
 <span class="sig-name descname"><span class="pre">resetOperator</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.resetOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.resetOperator" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Resets operator object.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.setDim">
@@ -368,20 +362,10 @@ conjugate of the eigenvectors.</p>
 <dd><p>Sets the current operator dimensions to a user defined one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newDim</strong> (<em>[</em><em>type</em><em>]</em>) – [description]</p>
+<dd class="field-odd"><p><strong>newDim</strong> (<em>int</em>) – New dimension for the Operator object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-<p>:param : param newDim:
-:param : type newDim:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newDim</strong> (<em>int</em>) – </p>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -392,11 +376,13 @@ conjugate of the eigenvectors.</p>
 <dd><p>Gets the current graph dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._n
-:rtype: int</p>
+<dd class="field-odd"><p>Dimension of Operator object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -405,14 +391,12 @@ conjugate of the eigenvectors.</p>
 <dt class="sig sig-object py" id="qwak.Operator.Operator.setTime">
 <span class="sig-name descname"><span class="pre">setTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newTime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.setTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.setTime" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the current operator time to a user defined one.</p>
-<p>:param : param newTime: New operator time.
-:param : type newTime: float</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newTime</strong> (<em>float</em>) – New operator time.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newTime</strong> (<em>float</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -423,11 +407,13 @@ conjugate of the eigenvectors.</p>
 <dd><p>Gets the current operator time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._time
-:rtype: float</p>
+<dd class="field-odd"><p>Current time of Operator object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -438,14 +424,12 @@ conjugate of the eigenvectors.</p>
 <dd><p>Sets the adjacency matrix of the operator to a user defined one.
 Might make more sense to not give the user control over this parameter, and make
 them instead change the graph entirely.</p>
-<p>:param : param adjacencyMatrix: New Numpy.ndarray adjacency matrix.
-:param : type adjacencyMatrix: Numpy.ndarray</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>adjacencyMatrix</strong> (<em>np.ndarray</em>) – New adjacency matrix.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>adjacencyMatrix</strong> (<em>ndarray</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -453,14 +437,16 @@ them instead change the graph entirely.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.getAdjacencyMatrix">
 <span class="sig-name descname"><span class="pre">getAdjacencyMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.getAdjacencyMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.getAdjacencyMatrix" title="Permalink to this definition">#</a></dt>
-<dd><p>Gets the current adjacency matrix of the operator.</p>
+<dd><p>Gets the current adjacency matrix of the Operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._adjacencyMatrix
-:rtype: Numpy.ndarray</p>
+<dd class="field-odd"><p>Adjacency matrix of the Operator.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -469,14 +455,12 @@ them instead change the graph entirely.</p>
 <dt class="sig sig-object py" id="qwak.Operator.Operator.setOperator">
 <span class="sig-name descname"><span class="pre">setOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newOperator</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.setOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.setOperator" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets all the parameters of the current operator to user defined ones.</p>
-<p>:param : param newOperator: New operator.
-:param : type newOperator: Operator</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – New user inputted Operator.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -487,11 +471,13 @@ them instead change the graph entirely.</p>
 <dd><p>Gets the numpy matrix associated with the current operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._operator
-:rtype: Numpy.matrix</p>
+<dd class="field-odd"><p>Current Operator object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">matrix</span></code></p>
+<dd class="field-even"><p>np.matrix</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">matrix</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -499,32 +485,23 @@ them instead change the graph entirely.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.checkPST">
 <span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.checkPST" title="Permalink to this definition">#</a></dt>
-<dd><blockquote>
-<div><p>Checks if all the conditions are true and return the <strong>VALUE</strong> if the graph
-has PST and False otherwise.
+<dd><dl class="simple">
+<dt>Checks if all the conditions are true and return the <strong>VALUE</strong> if the graph</dt><dd><p>has PST and False otherwise.
 TODO: Check if numpy is faster for eigenvecs and vals.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param nodeA<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Input node.</p>
-</dd>
-<dt class="field-even">type nodeA<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
-</dd>
-<dt class="field-odd">param nodeB<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Output node.</p>
-</dd>
-<dt class="field-even">type nodeB<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
 </dd>
 </dl>
-</dd>
-</dl>
-</div></blockquote>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: pi / (g * np.sqrt(delta)) or False
-:rtype: <strong>Value</strong> or Bool</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodeA</strong> (<em>_type_</em>) – Input node.</p></li>
+<li><p><strong>nodeB</strong> (<em>_type_</em>) – Output node.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Either returns the time value of PST or False.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Float/Bool</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1239,12 +1216,12 @@ walk.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<em>nx.Graph</em>) – NetworkX graph where the walk takes place. Also used
-for defining the dimensions of the quantum walk</p></li>
+for defining the dimensions of the quantum walk.</p></li>
 <li><p><strong>initStateList</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – List with chosen initial states for uniform superposition, by default None</p></li>
-<li><p><strong>customStateList</strong> (<em>list</em><em>[</em><em>(</em><em>int</em><em>,</em><em>complex</em><em>)</em><em>]</em><em>, </em><em>optional</em>) – Custom init state, by default None</p></li>
+<li><p><strong>customStateList</strong> (<em>list</em><em>[</em><em>(</em><em>int</em><em>,</em><em>complex</em><em>)</em><em>]</em><em>, </em><em>optional</em>) – Custom init state, by default None.</p></li>
 <li><p><strong>laplacian</strong> (<em>bool</em><em>, </em><em>optional</em>) – Allows the user to choose whether to use the
-Laplacian or simple adjacency matrix, by default False</p></li>
-<li><p><strong>markedSearch</strong> (<em>list</em><em>, </em><em>optional</em>) – List with marked elements for search, by default None</p></li>
+Laplacian or simple adjacency matrix, by default False.</p></li>
+<li><p><strong>markedSearch</strong> (<em>list</em><em>, </em><em>optional</em>) – List with marked elements for search, by default None.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1257,9 +1234,9 @@ accessed with their respective get methods.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>time</strong> (<em>float</em><em>, </em><em>optional</em>) – Time for which to calculate the quantum walk, by default 0</p></li>
-<li><p><strong>initStateList</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – List with chosen initial states for uniform superposition, by default None</p></li>
-<li><p><strong>customStateList</strong> (<em>list</em><em>[</em><em>(</em><em>int</em><em>,</em><em>complex</em><em>)</em><em>]</em><em>, </em><em>optional</em>) – Custom init state, by default None</p></li>
+<li><p><strong>time</strong> (<em>float</em><em>, </em><em>optional</em>) – Time for which to calculate the quantum walk, by default 0.</p></li>
+<li><p><strong>initStateList</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – List with chosen initial states for uniform superposition, by default None.</p></li>
+<li><p><strong>customStateList</strong> (<em>list</em><em>[</em><em>(</em><em>int</em><em>,</em><em>complex</em><em>)</em><em>]</em><em>, </em><em>optional</em>) – Custom init state, by default None.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -1309,7 +1286,7 @@ evaluated and executed as a NetworkX graph generator.</p>
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.getDim">
 <span class="sig-name descname"><span class="pre">getDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getDim" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets the current graph dimension.
-:returns: Dimension of graph
+:returns: Dimension of graph.
 :rtype: int</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -1373,7 +1350,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dd><p>Gets the current graph.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Current graph</p>
+<dd class="field-odd"><p>Current graph.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>nx.Graph</p>
@@ -1390,7 +1367,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dd><p>Sets the current initial state to a user defined one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newInitState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – New initial state</p>
+<dd class="field-odd"><p><strong>newInitState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – New initial state.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1404,7 +1381,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dd><p>Gets the initial state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Initial State</p>
+<dd class="field-odd"><p>Initial State.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">State</a></p>
@@ -1421,7 +1398,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dd><p>Sets the current walk time to a user defined one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newTime</strong> (<em>float</em>) – New time</p>
+<dd class="field-odd"><p><strong>newTime</strong> (<em>float</em>) – New time.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1435,7 +1412,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dd><p>Gets the current walk time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Current value of time</p>
+<dd class="field-odd"><p>Current value of time.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>float</p>
@@ -1452,7 +1429,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dd><p>Sets the current walk operator a user defined one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – New operator</p>
+<dd class="field-odd"><p><strong>newOperator</strong> (<a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator"><em>Operator</em></a>) – New operator object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1466,7 +1443,7 @@ Also recalculates the current operator and walk dimension.</p>
 <dd><p>Gets the current walk operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Current operator object</p>
+<dd class="field-odd"><p>Current operator object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#qwak.Operator.Operator" title="qwak.Operator.Operator">Operator</a></p>
@@ -1484,7 +1461,7 @@ Also recalculates the current operator and walk dimension.</p>
 This might not be needed and removed in the future.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newWalk</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – New walk amplitudes</p>
+<dd class="field-odd"><p><strong>newWalk</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – New walk amplitudes.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1498,7 +1475,7 @@ This might not be needed and removed in the future.</p>
 <dd><p>Gets current QuantumWalk object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Current state amplitudes</p>
+<dd class="field-odd"><p>Current state amplitudes.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#qwak.QuantumWalk.QuantumWalk" title="qwak.QuantumWalk.QuantumWalk">QuantumWalk</a></p>
@@ -1515,7 +1492,7 @@ This might not be needed and removed in the future.</p>
 <dd><p>Gets current QuantumWalk State.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>State of the QuantumWalk</p>
+<dd class="field-odd"><p>State of the QuantumWalk.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#qwak.State.State" title="qwak.State.State">State</a></p>
@@ -1532,7 +1509,7 @@ This might not be needed and removed in the future.</p>
 <dd><p>Gets the array of the QuantumWalk state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Array of the QuantumWalk state</p>
+<dd class="field-odd"><p>Array of the QuantumWalk state.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>np.ndarray</p>
@@ -1550,7 +1527,7 @@ This might not be needed and removed in the future.</p>
 This might not be needed and removed in the future.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newProbDist</strong> (<a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution"><em>ProbabilityDistribution</em></a>) – New probability distribution</p>
+<dd class="field-odd"><p><strong>newProbDist</strong> (<a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution"><em>ProbabilityDistribution</em></a>) – New probability distribution.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1564,7 +1541,7 @@ This might not be needed and removed in the future.</p>
 <dd><p>Gets the current probability distribution.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ProbabilityDistribution object</p>
+<dd class="field-odd"><p>ProbabilityDistribution object.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#qwak.ProbabilityDistribution.ProbabilityDistribution" title="qwak.ProbabilityDistribution.ProbabilityDistribution">ProbabilityDistribution</a></p>
@@ -1581,7 +1558,7 @@ This might not be needed and removed in the future.</p>
 <dd><p>Gets the current probability distribution vector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Probability Distribution vector</p>
+<dd class="field-odd"><p>Probability Distribution vector.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>np.ndarray</p>
@@ -1598,7 +1575,7 @@ This might not be needed and removed in the future.</p>
 <dd><p>User inputted node for search</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – _description_</p>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – User inputted node for the search.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Amplitude associated with the search node.</p>
@@ -1618,7 +1595,7 @@ This might not be needed and removed in the future.</p>
 <dd><p>Searches and gets the probability associated with a given node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – User inputted node for the search</p>
+<dd class="field-odd"><p><strong>searchNode</strong> (<em>int</em>) – User inputted node for the search.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Probability associated with the search node.</p>
