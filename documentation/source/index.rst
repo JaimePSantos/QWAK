@@ -15,5 +15,6 @@ Contents
 --------
 .. toctree::
    self
+   Installation <installation>
    Usage <usage>
    Modules <modules>

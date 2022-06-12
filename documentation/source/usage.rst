@@ -1,17 +1,6 @@
 Usage
 =====
 
-.. _installation:
-
-Installation
-------------
-
-To use QWAK, first install it using pip:
-
-.. code-block:: console
-
-   (.venv) $ pip install .
-
 .. _walks:
 
 Creating Walks
