@@ -6,24 +6,25 @@ from scipy.linalg import inv
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 
 
-class State:
+class State:    
     """
     Class that represents the states that will be used in a quantum walk.
     States are represented by column vectors in quantum mechanics,
     therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
-
-    def __init__(self, n: int, nodeList: list = None, customStateList=None) -> None:
-        """
-        Object is initialized with a mandatory user inputted dimension, an optional
+    def __init__(self, n: int, nodeList: list = None, customStateList: list = None) -> None:
+        """Object is initialized with a mandatory user inputted dimension, an optional
         stateList parameter which will be used to create the amplitudes for each node in the state
         and an internal stateVec which will be a Numpy ndarray representing the column vector.
 
-        Args:
-            :param n: Desired dimension of the state.
-            :type n: int
-            :param nodeList: List containing what nodes will have amplitudes in the state.
-            :type nodeList: (list,optional)
+        Parameters
+        ----------
+        n : int
+            Desired dimension of the state.
+        nodeList : list, optional
+            List containing what nodes will have uniform superposition in the state, by default None.
+        customStateList : list, optional
+            Custom amplitudes for the state, by default None.
         """
         self._n = n
         if nodeList is None:
@@ -36,15 +37,17 @@ class State:
             self._customStateList = customStateList
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
-    def buildState(self, nodeList: list = None, customStateList=None) -> None:
-        """
-        Builds state vector from state list, by creating a balanced superposition of all
+    def buildState(self, nodeList: list = None, customStateList: list = None) -> None:
+        """Builds state vector from state list, by creating a balanced superposition of all
         nodes in the nodeList.
         This will be changed in the future to make nodeList make more sense.
 
-        Args:
-            :param nodeList: List of nodes that will have an amplitude in the state vector.
-            :type nodeList: list
+        Parameters
+        ----------
+        nodeList : list, optional
+            List containing what nodes will have uniform superposition in the state, by default None.
+        customStateList : list, optional
+            Custom amplitudes for the state, by default None.
         """
         # TODO: We can probably find a better way to build this function.
         if nodeList is not None:
@@ -62,13 +65,37 @@ class State:
                 self._checkStateOutOfBounds(state)
                 self._stateVec[state] = 1 / nodeAmp
 
-    def _checkStateOutOfBounds(self, node):
+    def _checkStateOutOfBounds(self, node) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        node : _type_
+            _description_
+
+        Raises
+        ------
+        StateOutOfBounds
+            _description_
+        """        
         if node >= self._n:
             raise StateOutOfBounds(
                 f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}])."
             )
 
-    def _checkUnitaryStateList(self, customStateList):
+    def _checkUnitaryStateList(self, customStateList) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        customStateList : _type_
+            _description_
+
+        Raises
+        ------
+        NonUnitaryState
+            _description_
+        """        
         unitaryState = 0
         for state in customStateList:
             unitaryState += np.abs(state[1]) ** 2
@@ -79,124 +106,154 @@ class State:
             )
 
     def herm(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return self._stateVec.H
 
     def inv(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
         return inv(self._stateVec)
 
     def resetState(self):
+        """Resets the components of the State.
+        """        
         self._stateVec = np.zeros((self._n, 1))
 
     def setDim(self, newDim: int) -> None:
-        """
-        Sets the current state dimension to a user defined one.
+        """Sets the current state dimension to a user defined one.
 
-        Args:
-            :param newDim: New state dimension.
-            :type newDim: int
+        Parameters
+        ----------
+        newDim : int
+            New state dimension.
         """
         self._n = newDim
 
     def getDim(self) -> int:
-        """
-        Gets the current state dimension.
+        """Gets the current state dimension.
 
-        Returns:
-            :return: self._n
-            :rtype: int
+        Returns
+        -------
+        int
+            State dimension.
         """
         return self._n
 
     def setNodeList(self, newNodeList: list) -> None:
-        """
-        Sets current node list to a user inputted one.
-        This might not be needed and removed in the future.
+        """Sets current node list to a user inputted one.
 
-        Args:
-            :param newNodeList: List containing the new nodes.
-            :type newNodeList: list
+        Parameters
+        ----------
+        newNodeList : list
+            List containing the new nodes.
         """
+        #TODO: Do we need this?
         self._nodeList = newNodeList
 
     def getNodeList(self) -> list:
-        """
-        Gets the current list of nodes.
+        """Gets the current list of nodes.
 
-        Returns:
-            :return: self._nodeList
-            :rtype: list
+        Returns
+        -------
+        list
+            Current list of nodes.
         """
         return self._nodeList
 
     def setStateVec(self, newVec: np.ndarray) -> None:
-        """
-        Sets the column vector associated with the state to a user defined one.
+        """Sets the column vector associated with the state to a user defined one.
 
-        Args:
-            :param newVec: New column vector for the state
-            :type newVec: Numpy.ndarray
-        """
+        Parameters
+        ----------
+        newVec : np.ndarray
+            New column vector for the state.
+        """        
         self._stateVec = newVec
 
     def getStateVec(self) -> np.ndarray:
-        """
-        Gets the column vector associated with the state.
+        """Gets the column vector associated with the state.
 
-        Returns:
-            :return: self._stateVec
-            :rtype: Numpy.ndarray
+        Returns
+        -------
+        np.ndarray
+            Vector of the State.
         """
         return self._stateVec
 
     def setState(self, newState: State) -> None:
-        """[summary]
-        Sets all the parameters of the current state to user defined ones.
+        """Sets all the parameters of the current state to user defined ones.
 
-        Args:
-            :param newState: New state.
-            :type newState: State
+        Parameters
+        ----------
+        newState : State
+            New state.
         """
         self._n = newState.getDim()
         self._nodeList = newState.getNodeList()
         self._stateVec = newState.getStateVec()
 
     def __mul__(self, other: np.ndarray) -> np.ndarray:
-        """
-        Left-side multiplication for the State class.
+        """Left-side multiplication for the State class.
 
-        Args:
-            :param other: Another Numpy ndarray to multiply the state by.
-            :type other: Numpy.ndarray
+        Parameters
+        ----------
+        other : np.ndarray
+            Another Numpy ndarray to multiply the state by.
 
-        Returns:
-            :return: self._stateVec * other
-            :rtype: Numpy.ndarray
+        Returns
+        -------
+        np.ndarray
+            Array of the multiplication
         """
         return self._stateVec * other
 
     def __rmul__(self, other: np.ndarray) -> np.ndarray:
-        """
-        Right-side multiplication for the State class.
+        """Left-side multiplication for the State class.
 
-        Args:
-            :param other: Another Numpy ndarray to multiply the state by.
-            :type other: Numpy.ndarray
+        Parameters
+        ----------
+        other : np.ndarray
+            Another Numpy ndarray to multiply the state by.
 
-        Returns:
-            :return: self._stateVec * other
-            :rtype: Numpy.ndarray
+        Returns
+        -------
+        np.ndarray
+            Array of the multiplication.
         """
         return other * self._stateVec
 
     def __str__(self) -> str:
-        """
-        String representation of the State class.
+        """String representation of the State class.
 
-        Returns:
-            :return: f"{self._stateVec}"
-            :rtype: str
-        """
+        Returns
+        -------
+        str
+            State string.
+        """        
         return f"{self._stateVec}"
 
     def __matmul__(self, other):
+        """_summary_
+
+        Parameters
+        ----------
+        other : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
         return self._stateVec @ other

@@ -23,7 +23,6 @@ class QuantumWalk:
         The final state will contain the amplitudes of the time evolution of
         the initial state, as a function of the operator. This variable is initialized
         as an instance of State class.
-        TODO: This class has mandatory init conditions. This is not in line with the rest of the classes.
 
         Parameters
         ----------
@@ -31,7 +30,8 @@ class QuantumWalk:
             Initial state which will be the basis of the time dependant evolution.
         operator : Operator
             Operator which will evolve the initial state.
-        """        
+        """
+        #TODO: This class has mandatory init conditions. This is not in line with the rest of the classes.
         self._n = state.getDim()
         self._initState = state
         self._operator = operator
@@ -40,7 +40,6 @@ class QuantumWalk:
     def buildWalk(self, initState: State = None, operator: Operator = None) -> None:
         """Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.
-        TODO: Name of init state variable not in line with class init.
 
         Parameters
         ----------
@@ -48,7 +47,8 @@ class QuantumWalk:
             Initial state which will be the basis of the time dependant evolution, by default None.
         operator : Operator, optional
             Operator which will evolve the initial state, by default None.
-        """        
+        """
+        # TODO: Name of init state variable not in line with class init.
         if initState is not None:
             self._initState = initState
         if operator is not None:
@@ -148,13 +148,13 @@ class QuantumWalk:
 
     def getAmpVec(self) -> np.ndarray:
         """Gets the vector of the final state amplitudes of the  QuantumWalk.
-        TODO: This function name is not in line with getFinalState.
 
         Returns
         -------
         np.ndarray
             Vector of the final state.
-        """        
+        """
+        # TODO: This function name is not in line with getFinalState.
         return self._finalState.getStateVec()
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:

@@ -41,13 +41,13 @@ class ProbabilityDistribution:
     def buildProbDist(self, state: State = None) -> None:
         """Builds the probability vector by multiplying the user inputted
         amplitude state by its conjugate.
-        TODO: Nao devia ser pelo complexo conjugado?
 
         Parameters
         ----------
         state : State, optional
             _description_, by default None
         """
+        # TODO: Nao devia ser pelo complexo conjugado?
         if state is not None:
             self._state = state.getStateVec()
         for st in range(self._n):
@@ -202,13 +202,13 @@ class ProbabilityDistribution:
 
 class StochasticProbabilityDistribution(object):
     """_summary_
-    TODO: Figure out why we need the object.
 
     Parameters
     ----------
     object : _type_
         _description_
-    """    
+    """
+    # TODO: Figure out why we need the object.
     def __init__(self, state: Qobj) -> None:
         """_summary_
 
