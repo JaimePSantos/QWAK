@@ -201,29 +201,54 @@ class ProbabilityDistribution:
 
 
 class StochasticProbabilityDistribution(object):
-    """ """
+    """_summary_
+    TODO: Figure out why we need the object.
 
+    Parameters
+    ----------
+    object : _type_
+        _description_
+    """    
     def __init__(self, state: Qobj) -> None:
-        """
-        Args:
-            :param state: Initial state which will be the basis of the time dependant evolution.
-            :type state: State
-        """
+        """_summary_
+
+        Parameters
+        ----------
+        state : Qobj
+            Initial state which will be the basis of the time dependant evolution.
+        """        
         self._finalState = state.getFinalState()
         self._n = state.getDim()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self, state=None):
-        """
-        Builds the final state of the quantum walk by setting it to the matrix
-        multiplication of the operator by the initial state.
-        """
+    def buildProbDist(self, state=None) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        state : _type_, optional
+            _description_, by default None
+        """        
         if state is not None:
             self._finalState = state.getFinalState()
         self._probVec = np.diagonal(self._finalState)
 
-    def getProbVec(self):
+    def getProbVec(self) -> np.ndarray:
+        """_summary_
+
+        Returns
+        -------
+        np.ndarray
+            _description_
+        """        
         return self._probVec.flatten()
 
-    def setProbVec(self, newFinalState):
+    def setProbVec(self, newFinalState) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        newFinalState : _type_
+            _description_
+        """        
         self._finalState = newFinalState
