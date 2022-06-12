@@ -429,31 +429,56 @@
 
 
 <div class="viewcode-block" id="StochasticProbabilityDistribution"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution">[docs]</a><span class="k">class</span> <span class="nc">StochasticProbabilityDistribution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;_summary_</span>
+<span class="sd">    TODO: Figure out why we need the object.</span>
 
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    object : _type_</span>
+<span class="sd">        _description_</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Qobj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-<span class="sd">            :param state: Initial state which will be the basis of the time dependant evolution.</span>
-<span class="sd">            :type state: State</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : Qobj</span>
+<span class="sd">            Initial state which will be the basis of the time dependant evolution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
-<div class="viewcode-block" id="StochasticProbabilityDistribution.buildProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.buildProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">buildProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Builds the final state of the quantum walk by setting it to the matrix</span>
-<span class="sd">        multiplication of the operator by the initial state.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="StochasticProbabilityDistribution.buildProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.buildProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">buildProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : _type_, optional</span>
+<span class="sd">            _description_, by default None</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="StochasticProbabilityDistribution.getProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.getProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">getProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticProbabilityDistribution.getProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.getProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">getProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="StochasticProbabilityDistribution.setProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.setProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">setProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticProbabilityDistribution.setProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.setProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">setProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newFinalState : _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">newFinalState</span></div></div>
 </pre></div>
         </article>
