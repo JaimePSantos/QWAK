@@ -11,17 +11,9 @@ Check out the :doc:`usage` section for further information, including how to
 .. toctree::
    :maxdepth: -1
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 Contents
 --------
 .. toctree::
    self
    Usage <usage>
    Modules <modules>
-
