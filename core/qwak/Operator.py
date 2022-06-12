@@ -205,7 +205,6 @@ class Operator:
     def checkPST(self, nodeA, nodeB):
         """Checks if all the conditions are true and return the **VALUE** if the graph
         has PST and False otherwise.
-        TODO: Check if numpy is faster for eigenvecs and vals.
 
         Parameters
         ----------
@@ -219,6 +218,7 @@ class Operator:
         Float/Bool
             Either returns the time value of PST or False.
         """
+        # TODO: Check if numpy is faster for eigenvecs and vals.
         if nodeA > nodeB:
             nodeA, nodeB = swapNodes(nodeA, nodeB)
 

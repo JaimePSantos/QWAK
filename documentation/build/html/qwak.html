@@ -511,8 +511,7 @@ them instead change the graph entirely.</p>
 <dt class="sig sig-object py" id="qwak.Operator.Operator.checkPST">
 <span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.checkPST" title="Permalink to this definition">#</a></dt>
 <dd><p>Checks if all the conditions are true and return the <strong>VALUE</strong> if the graph
-has PST and False otherwise.
-TODO: Check if numpy is faster for eigenvecs and vals.</p>
+has PST and False otherwise.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -750,8 +749,7 @@ with the dimension obtained from the state.</p>
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist">
 <span class="sig-name descname"><span class="pre">buildProbDist</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.buildProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist" title="Permalink to this definition">#</a></dt>
 <dd><p>Builds the probability vector by multiplying the user inputted
-amplitude state by its conjugate.
-TODO: Nao devia ser pelo complexo conjugado?</p>
+amplitude state by its conjugate.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a><em>, </em><em>optional</em>) – _description_, by default None</p>
@@ -944,8 +942,7 @@ TODO: Nao devia ser pelo complexo conjugado?</p>
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.StochasticProbabilityDistribution">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StochasticProbabilityDistribution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#StochasticProbabilityDistribution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.StochasticProbabilityDistribution" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>_summary_
-TODO: Figure out why we need the object.</p>
+<p>_summary_</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1022,8 +1019,7 @@ The dimension of the quantum walk will then be loaded from the initial
 state.
 The final state will contain the amplitudes of the time evolution of
 the initial state, as a function of the operator. This variable is initialized
-as an instance of State class.
-TODO: This class has mandatory init conditions. This is not in line with the rest of the classes.</p>
+as an instance of State class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1036,8 +1032,7 @@ TODO: This class has mandatory init conditions. This is not in line with the res
 <dt class="sig sig-object py" id="qwak.QuantumWalk.QuantumWalk.buildWalk">
 <span class="sig-name descname"><span class="pre">buildWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initState</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#QuantumWalk.buildWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.QuantumWalk.buildWalk" title="Permalink to this definition">#</a></dt>
 <dd><p>Builds the final state of the quantum walk by setting it to the matrix
-multiplication of the operator by the initial state.
-TODO: Name of init state variable not in line with class init.</p>
+multiplication of the operator by the initial state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1184,8 +1179,7 @@ TODO: Name of init state variable not in line with class init.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.QuantumWalk.getAmpVec">
 <span class="sig-name descname"><span class="pre">getAmpVec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#QuantumWalk.getAmpVec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.QuantumWalk.getAmpVec" title="Permalink to this definition">#</a></dt>
-<dd><p>Gets the vector of the final state amplitudes of the  QuantumWalk.
-TODO: This function name is not in line with getFinalState.</p>
+<dd><p>Gets the vector of the final state amplitudes of the  QuantumWalk.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Vector of the final state.</p>
@@ -1356,15 +1350,12 @@ therefore Numpy is used to generate ndarrays which contain these column vectors.
 <p>Object is initialized with a mandatory user inputted dimension, an optional
 stateList parameter which will be used to create the amplitudes for each node in the state
 and an internal stateVec which will be a Numpy ndarray representing the column vector.</p>
-<p>:param : param n: Desired dimension of the state.
-:param : type n: int
-:param : param nodeList: List containing what nodes will have amplitudes in the state.
-:param : type nodeList: (list,optional)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>n</strong> (<em>int</em>) – </p></li>
-<li><p><strong>nodeList</strong> (<em>list</em>) – </p></li>
+<li><p><strong>n</strong> (<em>int</em>) – Desired dimension of the state.</p></li>
+<li><p><strong>nodeList</strong> (<em>list</em><em>, </em><em>optional</em>) – List containing what nodes will have uniform superposition in the state, by default None.</p></li>
+<li><p><strong>customStateList</strong> (<em>list</em><em>, </em><em>optional</em>) – Custom amplitudes for the state, by default None.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1374,14 +1365,15 @@ and an internal stateVec which will be a Numpy ndarray representing the column v
 <dd><p>Builds state vector from state list, by creating a balanced superposition of all
 nodes in the nodeList.
 This will be changed in the future to make nodeList make more sense.</p>
-<p>:param : param nodeList: List of nodes that will have an amplitude in the state vector.
-:param : type nodeList: list</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodeList</strong> (<em>list</em><em>, </em><em>optional</em>) – List containing what nodes will have uniform superposition in the state, by default None.</p></li>
+<li><p><strong>customStateList</strong> (<em>list</em><em>, </em><em>optional</em>) – Custom amplitudes for the state, by default None.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>nodeList</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1389,40 +1381,81 @@ This will be changed in the future to make nodeList make more sense.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State._checkStateOutOfBounds">
 <span class="sig-name descname"><span class="pre">_checkStateOutOfBounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State._checkStateOutOfBounds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State._checkStateOutOfBounds" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#qwak.Errors.StateOutOfBounds" title="qwak.Errors.StateOutOfBounds"><strong>StateOutOfBounds</strong></a> – _description_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State._checkUnitaryStateList">
 <span class="sig-name descname"><span class="pre">_checkUnitaryStateList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customStateList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State._checkUnitaryStateList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State._checkUnitaryStateList" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>customStateList</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#qwak.Errors.NonUnitaryState" title="qwak.Errors.NonUnitaryState"><strong>NonUnitaryState</strong></a> – _description_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.herm">
 <span class="sig-name descname"><span class="pre">herm</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.herm"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.herm" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.inv">
 <span class="sig-name descname"><span class="pre">inv</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.inv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.inv" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.resetState">
 <span class="sig-name descname"><span class="pre">resetState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.resetState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.resetState" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Resets the components of the State.</p>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.setDim">
 <span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.setDim" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the current state dimension to a user defined one.</p>
-<p>:param : param newDim: New state dimension.
-:param : type newDim: int</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newDim</strong> (<em>int</em>) – New state dimension.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newDim</strong> (<em>int</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1433,11 +1466,13 @@ This will be changed in the future to make nodeList make more sense.</p>
 <dd><p>Gets the current state dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._n
-:rtype: int</p>
+<dd class="field-odd"><p>State dimension.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1445,16 +1480,13 @@ This will be changed in the future to make nodeList make more sense.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.setNodeList">
 <span class="sig-name descname"><span class="pre">setNodeList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newNodeList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.setNodeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.setNodeList" title="Permalink to this definition">#</a></dt>
-<dd><p>Sets current node list to a user inputted one.
-This might not be needed and removed in the future.</p>
-<p>:param : param newNodeList: List containing the new nodes.
-:param : type newNodeList: list</p>
+<dd><p>Sets current node list to a user inputted one.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newNodeList</strong> (<em>list</em>) – List containing the new nodes.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newNodeList</strong> (<em>list</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1465,11 +1497,13 @@ This might not be needed and removed in the future.</p>
 <dd><p>Gets the current list of nodes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._nodeList
-:rtype: list</p>
+<dd class="field-odd"><p>Current list of nodes.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1478,14 +1512,12 @@ This might not be needed and removed in the future.</p>
 <dt class="sig sig-object py" id="qwak.State.State.setStateVec">
 <span class="sig-name descname"><span class="pre">setStateVec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newVec</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.setStateVec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.setStateVec" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the column vector associated with the state to a user defined one.</p>
-<p>:param : param newVec: New column vector for the state
-:param : type newVec: Numpy.ndarray</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newVec</strong> (<em>np.ndarray</em>) – New column vector for the state.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newVec</strong> (<em>ndarray</em>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1496,11 +1528,13 @@ This might not be needed and removed in the future.</p>
 <dd><p>Gets the column vector associated with the state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>return: self._stateVec
-:rtype: Numpy.ndarray</p>
+<dd class="field-odd"><p>Vector of the State.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1508,16 +1542,13 @@ This might not be needed and removed in the future.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.setState">
 <span class="sig-name descname"><span class="pre">setState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newState</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.setState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.setState" title="Permalink to this definition">#</a></dt>
-<dd><p>[summary]
-Sets all the parameters of the current state to user defined ones.</p>
-<p>:param : param newState: New state.
-:param : type newState: State</p>
+<dd><p>Sets all the parameters of the current state to user defined ones.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – New state.</p>
 </dd>
-<dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>newState</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>

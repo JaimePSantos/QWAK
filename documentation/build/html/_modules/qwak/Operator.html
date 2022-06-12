@@ -433,7 +433,6 @@
 <div class="viewcode-block" id="Operator.checkPST"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.checkPST">[docs]</a>    <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Checks if all the conditions are true and return the **VALUE** if the graph</span>
 <span class="sd">        has PST and False otherwise.</span>
-<span class="sd">        TODO: Check if numpy is faster for eigenvecs and vals.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -447,6 +446,7 @@
 <span class="sd">        Float/Bool</span>
 <span class="sd">            Either returns the time value of PST or False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Check if numpy is faster for eigenvecs and vals.</span>
         <span class="k">if</span> <span class="n">nodeA</span> <span class="o">&gt;</span> <span class="n">nodeB</span><span class="p">:</span>
             <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span> <span class="o">=</span> <span class="n">swapNodes</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
 
