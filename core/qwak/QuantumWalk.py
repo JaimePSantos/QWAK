@@ -12,38 +12,43 @@ warnings.filterwarnings("ignore")
 
 
 class QuantumWalk:
-    """
-    Class that represents the final state containing the amplitudes of a
+    """Class that represents the final state containing the amplitudes of a
     continuous-time quantum walk.
-
-    """
-
+    """    
     def __init__(self, state: State, operator: Operator) -> None:
-        """
-        This object is initialized with a user inputted initial state and
+        """This object is initialized with a user inputted initial state and
         operator.
         The dimension of the quantum walk will then be loaded from the initial
         state.
         The final state will contain the amplitudes of the time evolution of
         the initial state, as a function of the operator. This variable is initialized
         as an instance of State class.
+        TODO: This class has mandatory init conditions. This is not in line with the rest of the classes.
 
-        Args:
-            :param state: Initial state which will be the basis of the time dependant evolution.
-            :type state: State
-            :param operator: Operator which will evolve the initial state.
-            :type operator: Operator.
-        """
+        Parameters
+        ----------
+        state : State
+            Initial state which will be the basis of the time dependant evolution.
+        operator : Operator
+            Operator which will evolve the initial state.
+        """        
         self._n = state.getDim()
         self._initState = state
         self._operator = operator
         self._finalState = State(self._n)
 
-    def buildWalk(self, initState=None, operator=None) -> None:
-        """
-        Builds the final state of the quantum walk by setting it to the matrix
+    def buildWalk(self, initState: State = None, operator: Operator = None) -> None:
+        """Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.
-        """
+        TODO: Name of init state variable not in line with class init.
+
+        Parameters
+        ----------
+        initState : State, optional
+            Initial state which will be the basis of the time dependant evolution, by default None.
+        operator : Operator, optional
+            Operator which will evolve the initial state, by default None.
+        """        
         if initState is not None:
             self._initState = initState
         if operator is not None:
@@ -53,147 +58,151 @@ class QuantumWalk:
         )
 
     def resetWalk(self):
+        """Resets the components of the QuantumWalk object.
+        """        
         self._operator.resetOperator()
         self._initState.resetState()
         self._finalState.resetState()
 
     def setInitState(self, newInitState: State) -> None:
-        """
-        Sets the initial state of the quantum walk to a new user inputted one.
+        """Sets the initial state of the quantum walk to a new user inputted one.
 
-        Args:
-            :param newInitState: New initial state for the quantum walk.
-            :type newInitState: State
-        """
+        Parameters
+        ----------
+        newInitState : State
+            New initial state for the quantum walk.
+        """        
         self._initState.setState(newInitState)
 
     def getInitState(self) -> State:
-        """
-        Gets the initial state of the quantum walk.
+        """Gets the initial state of the quantum walk.
 
-        Returns:
-            :return: self._initState
-            :rtype: State
-        """
+        Returns
+        -------
+        State
+            Initial state of the quantum walk.
+        """        
         return self._initState
 
     def setDim(self, newDim: int) -> None:
-        """
-        Sets the current quantum walk dimension to a user defined one.
+        """Sets the current quantum walk dimension to a user defined one.
 
-        Args:
-            :param newDim: New quantum walk dimension.
-            :type newDim: int
-        """
+        Parameters
+        ----------
+        newDim : int
+            New QuantumWalk dimension.
+        """        
         self._n = newDim
 
     def getDim(self) -> int:
-        """
-        Gets the current state dimension.
+        """Gets the current state dimension.
 
-        Returns:
-            :return: self._n
-            :rtype: int
-        """
+        Returns
+        -------
+        int
+            QuantumWalk dimension.
+        """        
         return self._n
 
     def setOperator(self, newOperator: Operator) -> None:
-        """
-        Sets the current operator to a user defined one.
+        """Sets the current operator to a user defined one.
 
-        Args:
-            :param newOperator: New quantum walk operator.
-            :type newOperator: Operator
-        """
+        Parameters
+        ----------
+        newOperator : Operator
+            New quantum walk operator.
+        """        
         self._operator.setOperator(newOperator)
 
     def getOperator(self) -> Operator:
-        """
-        Gets the current operator.
+        """Gets the current operator.
 
-        Returns:
-            :return: self._operator
-            :rtype: Operator
-        """
+        Returns
+        -------
+        Operator
+            Current QuantumWalk Operator object.
+        """        
         return self._operator
 
     def setWalk(self, newWalk: QuantumWalk) -> None:
-        """
-        Sets all the parameters of the current quantum walk to user defined ones.
+        """Sets all the parameters of the current quantum walk to user defined ones.
 
-        Args:
-            :param newWalk: New quantum walk.
-            :type newWalk: QuantumWalk
-        """
+        Parameters
+        ----------
+        newWalk : QuantumWalk
+            New quantum walk.
+        """        
         self._initState.setState(newWalk.getInitState())
         self._operator.setOperator(newWalk.getOperator())
         self._finalState.setState(newWalk.getWalk())
 
     def getFinalState(self) -> State:
-        """
-        Gets the final state associated with the walk.
+        """Gets the final state of the QuantumWalk.
 
-        Returns:
-            :return: self._finalState
-            :rtype: State
-        """
+        Returns
+        -------
+        State
+            Final state of the QuantumWalk.
+        """        
         return self._finalState
 
-    def getFinalStateVec(self) -> State:
-        """
-        Gets the final state associated with the walk.
-
-        Returns:
-            :return: self._finalState
-            :rtype: State
-        """
-        return self._finalState.getStateVec()
-
     def getAmpVec(self) -> np.ndarray:
-        """
-        Gets the array of the final state associated with the walk.
+        """Gets the vector of the final state amplitudes of the  QuantumWalk.
+        TODO: This function name is not in line with getFinalState.
 
-        Returns:
-            :return: self._finalState
-            :rtype: State
-        """
+        Returns
+        -------
+        np.ndarray
+            Vector of the final state.
+        """        
         return self._finalState.getStateVec()
 
-    def searchNodeAmplitude(self, searchNode):
-        """
-        Searches and gets the amplitude associated with a given node.
+    def searchNodeAmplitude(self, searchNode: int) -> complex:
+        """Searches and gets the amplitude associated with a given node.
 
-        Args:
-            :param searchNode: User inputted node for the search.
-            :type searchNode: int
+        Parameters
+        ----------
+        searchNode : int
+            User inputted node for the search.
 
-        Returns:
-            :return: self._finalState.getStateVec().item(searchNode)
-            :rtype: complex
-        """
+        Returns
+        -------
+        complex
+            Amplitude of the search node.
+        """        
         return self._finalState.getStateVec().item(searchNode)
 
-    def invPartRatio(self):
+    def invPartRatio(self) -> float:
+        """_summary_
+
+        Returns
+        -------
+        float
+            _description_
+        """        
         amplitudes = 0
         for amp in self._finalState.getStateVec():
             amplitudes += np.absolute(amp.item(0)) ** 4
         amplitudes = amplitudes
         return 1 / amplitudes
 
-    def transportEfficiency(self):
-        # print(f"final state {self._finalState}")
-        # print(f"final state H {self._finalState.herm()}")
-        # print(f"state mult: {statetMult}")
-        # print(f"state mult trace: {np.trace(statetMult)}")
+    def transportEfficiency(self) -> float:
+        """_summary_
+
+        Returns
+        -------
+        float
+            _description_
+        """        
         return 1 - np.trace(self._finalState @ self._finalState.herm())
 
     def __str__(self) -> str:
-        """
-        String representation of the StaticQuantumwalk class.
+        """String representation of the StaticQuantumwalk class.
 
-        Returns:
-            :return: f'{self._finalState.getStateVec()}'
-            :rtype: str
+        Returns
+        -------
+        str
+            QuantumWalk string.
         """
         return f"{self._finalState.getStateVec()}"
 
