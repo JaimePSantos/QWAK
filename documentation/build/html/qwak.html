@@ -1259,8 +1259,7 @@ TODO: This function name is not in line with getFinalState.</p>
 <dt class="sig sig-object py" id="qwak.QuantumWalk.StochasticQuantumWalk">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">StochasticQuantumWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">state</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operator</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#StochasticQuantumWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.StochasticQuantumWalk" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Class that represents the final state containing the amplitudes of a
-continuous-time quantum walk.</p>
+<p>_summary_</p>
 <p>This object is initialized with a user inputted initial state and
 operator.
 The dimension of the quantum walk will then be loaded from the initial
@@ -1268,26 +1267,28 @@ state.
 The final state will contain the amplitudes of the time evolution of
 the initial state, as a function of the operator. This variable is initialized
 as an instance of QObj class.</p>
-<p>:param : param state: Initial state which will be the basis of the time dependant evolution.
-:param : type state: State
-:param : param operator: Operator which will evolve the initial state.
-:param : type operator: Operator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – </p></li>
-<li><p><strong>operator</strong> (<a class="reference internal" href="#qwak.Operator.StochasticOperator" title="qwak.Operator.StochasticOperator"><em>StochasticOperator</em></a>) – </p></li>
+<li><p><strong>state</strong> (<a class="reference internal" href="#qwak.State.State" title="qwak.State.State"><em>State</em></a>) – Initial state which will be the basis of the time dependant evolution.</p></li>
+<li><p><strong>operator</strong> (<a class="reference internal" href="#qwak.Operator.StochasticOperator" title="qwak.Operator.StochasticOperator"><em>StochasticOperator</em></a>) – Operator which will evolve the initial state.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.StochasticQuantumWalk.buildWalk">
 <span class="sig-name descname"><span class="pre">buildWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">observables=[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opts=&lt;qutip.solver.Options</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#StochasticQuantumWalk.buildWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.StochasticQuantumWalk.buildWalk" title="Permalink to this definition">#</a></dt>
-<dd><p>Builds the final state of the quantum walk by setting it to the matrix
-multiplication of the operator by the initial state.</p>
+<dd><p>_summary_</p>
 <dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<em>_type_</em>) – _description_</p></li>
+<li><p><strong>observables</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default []</p></li>
+<li><p><strong>opts</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default Options(store_states=True, store_final_state=True)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1295,17 +1296,50 @@ multiplication of the operator by the initial state.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.StochasticQuantumWalk.getFinalState">
 <span class="sig-name descname"><span class="pre">getFinalState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#StochasticQuantumWalk.getFinalState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.StochasticQuantumWalk.getFinalState" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Qobj</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">Qobj</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.StochasticQuantumWalk.setFinalState">
 <span class="sig-name descname"><span class="pre">setFinalState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newFinalState</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#StochasticQuantumWalk.setFinalState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.StochasticQuantumWalk.setFinalState" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newFinalState</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.QuantumWalk.StochasticQuantumWalk.getDim">
 <span class="sig-name descname"><span class="pre">getDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/QuantumWalk.html#StochasticQuantumWalk.getDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.QuantumWalk.StochasticQuantumWalk.getDim" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

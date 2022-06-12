@@ -436,15 +436,11 @@
 
 
 <div class="viewcode-block" id="StochasticQuantumWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk">[docs]</a><span class="k">class</span> <span class="nc">StochasticQuantumWalk</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class that represents the final state containing the amplitudes of a</span>
-<span class="sd">    continuous-time quantum walk.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;_summary_</span>
+<span class="sd">    &quot;&quot;&quot;</span>    
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="n">StochasticOperator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This object is initialized with a user inputted initial state and</span>
+        <span class="sd">&quot;&quot;&quot;This object is initialized with a user inputted initial state and</span>
 <span class="sd">        operator.</span>
 <span class="sd">        The dimension of the quantum walk will then be loaded from the initial</span>
 <span class="sd">        state.</span>
@@ -452,11 +448,12 @@
 <span class="sd">        the initial state, as a function of the operator. This variable is initialized</span>
 <span class="sd">        as an instance of QObj class.</span>
 
-<span class="sd">        Args:</span>
-<span class="sd">            :param state: Initial state which will be the basis of the time dependant evolution.</span>
-<span class="sd">            :type state: State</span>
-<span class="sd">            :param operator: Operator which will evolve the initial state.</span>
-<span class="sd">            :type operator: Operator.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        state : State</span>
+<span class="sd">            Initial state which will be the basis of the time dependant evolution.</span>
+<span class="sd">        operator : StochasticOperator</span>
+<span class="sd">            Operator which will evolve the initial state.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">state</span>
@@ -471,10 +468,17 @@
         <span class="n">observables</span><span class="o">=</span><span class="p">[],</span>
         <span class="n">opts</span><span class="o">=</span><span class="n">Options</span><span class="p">(</span><span class="n">store_states</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">store_final_state</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Builds the final state of the quantum walk by setting it to the matrix</span>
-<span class="sd">        multiplication of the operator by the initial state.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        time : _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        observables : list, optional</span>
+<span class="sd">            _description_, by default []</span>
+<span class="sd">        opts : _type_, optional</span>
+<span class="sd">            _description_, by default Options(store_states=True, store_final_state=True)</span>
+<span class="sd">        &quot;&quot;&quot;</span>    
         <span class="c1"># TODO: Can we move the time dependency to the StochasticOperator class?</span>
         <span class="c1"># TODO: Can we make the time evolution low cost?</span>
         <span class="c1"># TODO: Is there a way to obtain amplitudes?</span>
@@ -495,13 +499,34 @@
         <span class="c1"># if you want the full list of states, keep option store_states=True and instead</span>
         <span class="c1"># of final_state.full() use states.full()</span>
 
-<div class="viewcode-block" id="StochasticQuantumWalk.getFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.getFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">getFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticQuantumWalk.getFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.getFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">getFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qobj</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Qobj</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span></div>
 
-<div class="viewcode-block" id="StochasticQuantumWalk.setFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.setFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">setFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticQuantumWalk.setFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.setFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">setFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newFinalState : _type_</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">newFinalState</span></div>
 
-<div class="viewcode-block" id="StochasticQuantumWalk.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="StochasticQuantumWalk.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            _description_</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div></div>
 </pre></div>
         </article>

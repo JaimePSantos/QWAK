@@ -208,15 +208,11 @@ class QuantumWalk:
 
 
 class StochasticQuantumWalk(object):
-    """
-    Class that represents the final state containing the amplitudes of a
-    continuous-time quantum walk.
-
-    """
+    """_summary_
+    """    
 
     def __init__(self, state: State, operator: StochasticOperator) -> None:
-        """
-        This object is initialized with a user inputted initial state and
+        """This object is initialized with a user inputted initial state and
         operator.
         The dimension of the quantum walk will then be loaded from the initial
         state.
@@ -224,11 +220,12 @@ class StochasticQuantumWalk(object):
         the initial state, as a function of the operator. This variable is initialized
         as an instance of QObj class.
 
-        Args:
-            :param state: Initial state which will be the basis of the time dependant evolution.
-            :type state: State
-            :param operator: Operator which will evolve the initial state.
-            :type operator: Operator.
+        Parameters
+        ----------
+        state : State
+            Initial state which will be the basis of the time dependant evolution.
+        operator : StochasticOperator
+            Operator which will evolve the initial state.
         """
         self._n = state.getDim()
         self._initState = state
@@ -243,10 +240,17 @@ class StochasticQuantumWalk(object):
         observables=[],
         opts=Options(store_states=True, store_final_state=True),
     ) -> None:
-        """
-        Builds the final state of the quantum walk by setting it to the matrix
-        multiplication of the operator by the initial state.
-        """
+        """_summary_
+
+        Parameters
+        ----------
+        time : _type_
+            _description_
+        observables : list, optional
+            _description_, by default []
+        opts : _type_, optional
+            _description_, by default Options(store_states=True, store_final_state=True)
+        """    
         # TODO: Can we move the time dependency to the StochasticOperator class?
         # TODO: Can we make the time evolution low cost?
         # TODO: Is there a way to obtain amplitudes?
@@ -267,11 +271,32 @@ class StochasticQuantumWalk(object):
         # if you want the full list of states, keep option store_states=True and instead
         # of final_state.full() use states.full()
 
-    def getFinalState(self):
+    def getFinalState(self) -> Qobj:
+        """_summary_
+
+        Returns
+        -------
+        Qobj
+            _description_
+        """        
         return self._finalState
 
-    def setFinalState(self, newFinalState):
+    def setFinalState(self, newFinalState) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        newFinalState : _type_
+            _description_
+        """        
         self._finalState = newFinalState
 
-    def getDim(self):
+    def getDim(self) -> int:
+        """_summary_
+
+        Returns
+        -------
+        int
+            _description_
+        """        
         return self._n
