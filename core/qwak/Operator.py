@@ -8,7 +8,7 @@ from sympy.abc import pi
 import numpy as np
 from qutip import Qobj, basis, mesolve, Options
 
-from Tools.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
+from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 
 class Operator:

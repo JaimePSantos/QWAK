@@ -1,4 +1,4 @@
-import {customCy, cy, staticChartData} from "./static-tools.js";
+import {customCy, cy, staticChartData} from "./static-utils.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 
 // #### INPUTS & DISPLAYS ####

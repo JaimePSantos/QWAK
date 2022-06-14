@@ -1,45 +1,45 @@
-Tools package
+utils package
 =============
 
 Submodules
 ----------
 
-Tools.PerfectStateTransfer module
+utils.PerfectStateTransfer module
 ---------------------------------
 
-.. automodule:: Tools.PerfectStateTransfer
+.. automodule:: utils.PerfectStateTransfer
    :members:
    :undoc-members:
    :show-inheritance:
 
-Tools.Profiler module
+utils.Profiler module
 ---------------------
 
-.. automodule:: Tools.Profiler
+.. automodule:: utils.Profiler
    :members:
    :undoc-members:
    :show-inheritance:
 
-Tools.QwakBenchmarkStub module
+utils.QwakBenchmarkStub module
 ------------------------------
 
-.. automodule:: Tools.QwakBenchmarkStub
+.. automodule:: utils.QwakBenchmarkStub
    :members:
    :undoc-members:
    :show-inheritance:
 
-Tools.runAnalyzer module
+utils.runAnalyzer module
 ------------------------
 
-.. automodule:: Tools.runAnalyzer
+.. automodule:: utils.runAnalyzer
    :members:
    :undoc-members:
    :show-inheritance:
 
-Tools.runProfiler module
+utils.runProfiler module
 ------------------------
 
-.. automodule:: Tools.runProfiler
+.. automodule:: utils.runProfiler
    :members:
    :undoc-members:
    :show-inheritance:
@@ -47,7 +47,7 @@ Tools.runProfiler module
 Module contents
 ---------------
 
-.. automodule:: Tools
+.. automodule:: utils
    :members:
    :undoc-members:
    :show-inheritance:
