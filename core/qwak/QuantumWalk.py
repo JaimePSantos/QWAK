@@ -14,7 +14,8 @@ warnings.filterwarnings("ignore")
 class QuantumWalk:
     """Class that represents the final state containing the amplitudes of a
     continuous-time quantum walk.
-    """    
+    """
+
     def __init__(self, state: State, operator: Operator) -> None:
         """This object is initialized with a user inputted initial state and
         operator.
@@ -31,7 +32,7 @@ class QuantumWalk:
         operator : Operator
             Operator which will evolve the initial state.
         """
-        #TODO: This class has mandatory init conditions. This is not in line with the rest of the classes.
+        # TODO: This class has mandatory init conditions. This is not in line with the rest of the classes.
         self._n = state.getDim()
         self._initState = state
         self._operator = operator
@@ -58,8 +59,7 @@ class QuantumWalk:
         )
 
     def resetWalk(self):
-        """Resets the components of the QuantumWalk object.
-        """        
+        """Resets the components of the QuantumWalk object."""
         self._operator.resetOperator()
         self._initState.resetState()
         self._finalState.resetState()
@@ -71,7 +71,7 @@ class QuantumWalk:
         ----------
         newInitState : State
             New initial state for the quantum walk.
-        """        
+        """
         self._initState.setState(newInitState)
 
     def getInitState(self) -> State:
@@ -81,7 +81,7 @@ class QuantumWalk:
         -------
         State
             Initial state of the quantum walk.
-        """        
+        """
         return self._initState
 
     def setDim(self, newDim: int) -> None:
@@ -91,7 +91,7 @@ class QuantumWalk:
         ----------
         newDim : int
             New QuantumWalk dimension.
-        """        
+        """
         self._n = newDim
 
     def getDim(self) -> int:
@@ -101,7 +101,7 @@ class QuantumWalk:
         -------
         int
             QuantumWalk dimension.
-        """        
+        """
         return self._n
 
     def setOperator(self, newOperator: Operator) -> None:
@@ -111,7 +111,7 @@ class QuantumWalk:
         ----------
         newOperator : Operator
             New quantum walk operator.
-        """        
+        """
         self._operator.setOperator(newOperator)
 
     def getOperator(self) -> Operator:
@@ -121,7 +121,7 @@ class QuantumWalk:
         -------
         Operator
             Current QuantumWalk Operator object.
-        """        
+        """
         return self._operator
 
     def setWalk(self, newWalk: QuantumWalk) -> None:
@@ -131,7 +131,7 @@ class QuantumWalk:
         ----------
         newWalk : QuantumWalk
             New quantum walk.
-        """        
+        """
         self._initState.setState(newWalk.getInitState())
         self._operator.setOperator(newWalk.getOperator())
         self._finalState.setState(newWalk.getWalk())
@@ -143,7 +143,7 @@ class QuantumWalk:
         -------
         State
             Final state of the QuantumWalk.
-        """        
+        """
         return self._finalState
 
     def getAmpVec(self) -> np.ndarray:
@@ -169,7 +169,7 @@ class QuantumWalk:
         -------
         complex
             Amplitude of the search node.
-        """        
+        """
         return self._finalState.getStateVec().item(searchNode)
 
     def invPartRatio(self) -> float:
@@ -179,7 +179,7 @@ class QuantumWalk:
         -------
         float
             _description_
-        """        
+        """
         amplitudes = 0
         for amp in self._finalState.getStateVec():
             amplitudes += np.absolute(amp.item(0)) ** 4
@@ -193,7 +193,7 @@ class QuantumWalk:
         -------
         float
             _description_
-        """        
+        """
         return 1 - np.trace(self._finalState @ self._finalState.herm())
 
     def __str__(self) -> str:
@@ -208,8 +208,7 @@ class QuantumWalk:
 
 
 class StochasticQuantumWalk(object):
-    """_summary_
-    """    
+    """_summary_"""
 
     def __init__(self, state: State, operator: StochasticOperator) -> None:
         """This object is initialized with a user inputted initial state and
@@ -250,7 +249,7 @@ class StochasticQuantumWalk(object):
             _description_, by default []
         opts : _type_, optional
             _description_, by default Options(store_states=True, store_final_state=True)
-        """    
+        """
         # TODO: Can we move the time dependency to the StochasticOperator class?
         # TODO: Can we make the time evolution low cost?
         # TODO: Is there a way to obtain amplitudes?
@@ -278,7 +277,7 @@ class StochasticQuantumWalk(object):
         -------
         Qobj
             _description_
-        """        
+        """
         return self._finalState
 
     def setFinalState(self, newFinalState) -> None:
@@ -288,7 +287,7 @@ class StochasticQuantumWalk(object):
         ----------
         newFinalState : _type_
             _description_
-        """        
+        """
         self._finalState = newFinalState
 
     def getDim(self) -> int:
@@ -298,5 +297,5 @@ class StochasticQuantumWalk(object):
         -------
         int
             _description_
-        """        
+        """
         return self._n

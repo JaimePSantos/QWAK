@@ -6,16 +6,17 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../'))
+
+sys.path.insert(0, os.path.abspath("../../"))
 
 # -- Project information -----------------------------------------------------
 
-project = 'QWAK'
-copyright = '2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni'
-author = 'Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni'
+project = "QWAK"
+copyright = "2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni"
+author = "Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni"
 
 # The full version, including alpha/beta/rc tags
-release = '06/04/2022'
+release = "06/04/2022"
 
 
 # -- General configuration ---------------------------------------------------
@@ -24,15 +25,15 @@ release = '06/04/2022'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.duration',
-    'sphinx.ext.autodoc',
+    "sphinx.ext.duration",
+    "sphinx.ext.autodoc",
 ]
 
-autodoc_member_order = 'bysource'
-autoclass_content = 'both'
+autodoc_member_order = "bysource"
+autoclass_content = "both"
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ["_templates"]
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
@@ -70,14 +71,14 @@ html_theme = "sphinx_rtd_theme"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static']
+html_static_path = ["_static"]
 
 add_function_parentheses = True
 
 add_module_names = False
 
-pygments_style = 'sphinx'
+pygments_style = "sphinx"
 
-html_short_title = 'QWAK'
+html_short_title = "QWAK"
 
 autodoc_typehints = "both"

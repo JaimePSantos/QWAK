@@ -6,13 +6,16 @@ from scipy.linalg import inv
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 
 
-class State:    
+class State:
     """
     Class that represents the states that will be used in a quantum walk.
     States are represented by column vectors in quantum mechanics,
     therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
-    def __init__(self, n: int, nodeList: list = None, customStateList: list = None) -> None:
+
+    def __init__(
+        self, n: int, nodeList: list = None, customStateList: list = None
+    ) -> None:
         """Object is initialized with a mandatory user inputted dimension, an optional
         stateList parameter which will be used to create the amplitudes for each node in the state
         and an internal stateVec which will be a Numpy ndarray representing the column vector.
@@ -77,7 +80,7 @@ class State:
         ------
         StateOutOfBounds
             _description_
-        """        
+        """
         if node >= self._n:
             raise StateOutOfBounds(
                 f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}])."
@@ -95,7 +98,7 @@ class State:
         ------
         NonUnitaryState
             _description_
-        """        
+        """
         unitaryState = 0
         for state in customStateList:
             unitaryState += np.abs(state[1]) ** 2
@@ -112,7 +115,7 @@ class State:
         -------
         _type_
             _description_
-        """        
+        """
         return self._stateVec.H
 
     def inv(self):
@@ -122,12 +125,11 @@ class State:
         -------
         _type_
             _description_
-        """        
+        """
         return inv(self._stateVec)
 
     def resetState(self):
-        """Resets the components of the State.
-        """        
+        """Resets the components of the State."""
         self._stateVec = np.zeros((self._n, 1))
 
     def setDim(self, newDim: int) -> None:
@@ -158,7 +160,7 @@ class State:
         newNodeList : list
             List containing the new nodes.
         """
-        #TODO: Do we need this?
+        # TODO: Do we need this?
         self._nodeList = newNodeList
 
     def getNodeList(self) -> list:
@@ -178,7 +180,7 @@ class State:
         ----------
         newVec : np.ndarray
             New column vector for the state.
-        """        
+        """
         self._stateVec = newVec
 
     def getStateVec(self) -> np.ndarray:
@@ -240,7 +242,7 @@ class State:
         -------
         str
             State string.
-        """        
+        """
         return f"{self._stateVec}"
 
     def __matmul__(self, other):

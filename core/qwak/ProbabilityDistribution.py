@@ -208,6 +208,7 @@ class StochasticProbabilityDistribution(object):
     object : _type_
         _description_
     """
+
     # TODO: Figure out why we need the object.
     def __init__(self, state: Qobj) -> None:
         """_summary_
@@ -216,7 +217,7 @@ class StochasticProbabilityDistribution(object):
         ----------
         state : Qobj
             Initial state which will be the basis of the time dependant evolution.
-        """        
+        """
         self._finalState = state.getFinalState()
         self._n = state.getDim()
         self._probVec = np.zeros((self._n, 1))
@@ -228,7 +229,7 @@ class StochasticProbabilityDistribution(object):
         ----------
         state : _type_, optional
             _description_, by default None
-        """        
+        """
         if state is not None:
             self._finalState = state.getFinalState()
         self._probVec = np.diagonal(self._finalState)
@@ -240,7 +241,7 @@ class StochasticProbabilityDistribution(object):
         -------
         np.ndarray
             _description_
-        """        
+        """
         return self._probVec.flatten()
 
     def setProbVec(self, newFinalState) -> None:
@@ -250,5 +251,5 @@ class StochasticProbabilityDistribution(object):
         ----------
         newFinalState : _type_
             _description_
-        """        
+        """
         self._finalState = newFinalState

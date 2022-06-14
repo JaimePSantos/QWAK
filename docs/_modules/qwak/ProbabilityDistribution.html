@@ -438,6 +438,7 @@
 <span class="sd">    object : _type_</span>
 <span class="sd">        _description_</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="c1"># TODO: Figure out why we need the object.</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">Qobj</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
@@ -446,7 +447,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        state : Qobj</span>
 <span class="sd">            Initial state which will be the basis of the time dependant evolution.</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
@@ -458,7 +459,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        state : _type_, optional</span>
 <span class="sd">            _description_, by default None</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diagonal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="p">)</span></div>
@@ -470,7 +471,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="StochasticProbabilityDistribution.setProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution.setProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">setProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -480,7 +481,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newFinalState : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">newFinalState</span></div></div>
 </pre></div>
         </article>
