@@ -6,8 +6,7 @@ from scipy import linalg as ln
 
 
 class OperatorTestV1:
-    """[summary]
-    """
+    """[summary]"""
 
     def __init__(self, graph, time=0, gamma=1):
         """[summary]
@@ -57,37 +56,34 @@ class OperatorTestV1:
         Returns:
             [type]: [description]
         """
-        return '%s' % self._operator
+        return "%s" % self._operator
 
     def buildDiagonalOperator(self):
-        """[summary]
-        """
+        """[summary]"""
         startTimeEigh = timeit.default_timer()
-        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix)
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(self._adjacencyMatrix)
         endTimeEigh = timeit.default_timer()
-        executionTimeEigh = (endTimeEigh - startTimeEigh)
+        executionTimeEigh = endTimeEigh - startTimeEigh
         self.eighExecutionTime = executionTimeEigh
 
         startTimeDiag = timeit.default_timer()
         D = np.diag(np.exp(-1j * self._time * self._gamma * self._eigenvalues))
         endTimeDiag = timeit.default_timer()
-        executionTimeDiag = (endTimeDiag - startTimeDiag)
+        executionTimeDiag = endTimeDiag - startTimeDiag
         self.diagExecutionTime = executionTimeDiag
 
         startTimeMatMul = timeit.default_timer()
-        self._operator = (self._eigenvectors @ D @ self._eigenvectors.H)
+        self._operator = self._eigenvectors @ D @ self._eigenvectors.H
         endTimeMatMul = timeit.default_timer()
-        executionTimeMatMul = (endTimeMatMul - startTimeMatMul)
+        executionTimeMatMul = endTimeMatMul - startTimeMatMul
         self.matMulExecutionTime = executionTimeMatMul
 
     def timedBuildDiagonalOperator(self):
-        """[summary]
-        """
+        """[summary]"""
         startTimeFullExec = timeit.default_timer()
         self.buildDiagonalOperator()
         endTimeFullExec = timeit.default_timer()
-        executionTimeFullExec = (endTimeFullExec - startTimeFullExec)
+        executionTimeFullExec = endTimeFullExec - startTimeFullExec
         self.fullExecutionTime = executionTimeFullExec
 
     #### ------- ####
@@ -172,8 +168,7 @@ class OperatorTestV1:
 
 
 class OperatorTestV2:
-    """[summary]
-    """
+    """[summary]"""
 
     def __init__(self, graph, time=0, gamma=1):
         """[summary]
@@ -223,39 +218,37 @@ class OperatorTestV2:
         Returns:
             [type]: [description]
         """
-        return '%s' % self._operator
+        return "%s" % self._operator
 
     def buildDiagonalOperator(self):
-        """[summary]
-        """
+        """[summary]"""
         startTimeEigh = timeit.default_timer()
-        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix)
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(self._adjacencyMatrix)
         endTimeEigh = timeit.default_timer()
-        executionTimeEigh = (endTimeEigh - startTimeEigh)
+        executionTimeEigh = endTimeEigh - startTimeEigh
         self.eighExecutionTime = executionTimeEigh
 
         startTimeDiag = timeit.default_timer()
-        D = np.diag(np.exp(-1j * self._time * self._gamma *
-                           self._eigenvalues)).diagonal()
+        D = np.diag(
+            np.exp(-1j * self._time * self._gamma * self._eigenvalues)
+        ).diagonal()
         endTimeDiag = timeit.default_timer()
-        executionTimeDiag = (endTimeDiag - startTimeDiag)
+        executionTimeDiag = endTimeDiag - startTimeDiag
         self.diagExecutionTime = executionTimeDiag
 
         startTimeMatMul = timeit.default_timer()
         self._operator = np.multiply(self._eigenvectors, D)
         self._operator = self._operator @ self._eigenvectors.H
         endTimeMatMul = timeit.default_timer()
-        executionTimeMatMul = (endTimeMatMul - startTimeMatMul)
+        executionTimeMatMul = endTimeMatMul - startTimeMatMul
         self.matMulExecutionTime = executionTimeMatMul
 
     def timedBuildDiagonalOperator(self):
-        """[summary]
-        """
+        """[summary]"""
         startTimeFullExec = timeit.default_timer()
         self.buildDiagonalOperator()
         endTimeFullExec = timeit.default_timer()
-        executionTimeFullExec = (endTimeFullExec - startTimeFullExec)
+        executionTimeFullExec = endTimeFullExec - startTimeFullExec
         self.fullExecutionTime = executionTimeFullExec
 
     #### ------- ####
@@ -345,8 +338,7 @@ class OperatorTestV2:
 
 
 class OperatorTestV3:
-    """[summary]
-    """
+    """[summary]"""
 
     def __init__(self, graph, time=0, gamma=1):
         """[summary]
@@ -396,39 +388,39 @@ class OperatorTestV3:
         Returns:
             [type]: [description]
         """
-        return '%s' % self._operator
+        return "%s" % self._operator
 
     def buildDiagonalOperator(self):
-        """[summary]
-        """
+        """[summary]"""
         startTimeEigh = timeit.default_timer()
         self._eigenvalues, self._eigenvectors = ln.eigh(
-            self._adjacencyMatrix, driver='evd')
+            self._adjacencyMatrix, driver="evd"
+        )
         endTimeEigh = timeit.default_timer()
-        executionTimeEigh = (endTimeEigh - startTimeEigh)
+        executionTimeEigh = endTimeEigh - startTimeEigh
         self.eighExecutionTime = executionTimeEigh
 
         startTimeDiag = timeit.default_timer()
-        D = np.diag(np.exp(-1j * self._time * self._gamma *
-                           self._eigenvalues)).diagonal()
+        D = np.diag(
+            np.exp(-1j * self._time * self._gamma * self._eigenvalues)
+        ).diagonal()
         endTimeDiag = timeit.default_timer()
-        executionTimeDiag = (endTimeDiag - startTimeDiag)
+        executionTimeDiag = endTimeDiag - startTimeDiag
         self.diagExecutionTime = executionTimeDiag
 
         startTimeMatMul = timeit.default_timer()
         self._operator = np.multiply(self._eigenvectors, D)
         self._operator = self._operator @ self._eigenvectors.conjugate().transpose()
         endTimeMatMul = timeit.default_timer()
-        executionTimeMatMul = (endTimeMatMul - startTimeMatMul)
+        executionTimeMatMul = endTimeMatMul - startTimeMatMul
         self.matMulExecutionTime = executionTimeMatMul
 
     def timedBuildDiagonalOperator(self):
-        """[summary]
-        """
+        """[summary]"""
         startTimeFullExec = timeit.default_timer()
         self.buildDiagonalOperator()
         endTimeFullExec = timeit.default_timer()
-        executionTimeFullExec = (endTimeFullExec - startTimeFullExec)
+        executionTimeFullExec = endTimeFullExec - startTimeFullExec
         self.fullExecutionTime = executionTimeFullExec
 
     #### ------- ####
@@ -518,8 +510,7 @@ class OperatorTestV3:
 
 
 class OperatorTestV4:
-    """[summary]
-    """
+    """[summary]"""
 
     def __init__(self, graph):
         """[summary]
@@ -533,10 +524,9 @@ class OperatorTestV4:
         self._operator = np.zeros((self._n, self._n))
 
         startTimeEigh = timeit.default_timer()
-        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix)
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(self._adjacencyMatrix)
         endTimeEigh = timeit.default_timer()
-        self.eighExecutionTime = (endTimeEigh - startTimeEigh)
+        self.eighExecutionTime = endTimeEigh - startTimeEigh
 
     def __mul__(self, other):
         """[summary]
@@ -566,7 +556,7 @@ class OperatorTestV4:
         Returns:
             [type]: [description]
         """
-        return '%s' % self._operator
+        return "%s" % self._operator
 
     def buildDiagonalOperator(self, time, gamma):
         """[summary]
@@ -579,8 +569,9 @@ class OperatorTestV4:
         self._gamma = gamma
 
         startTimeDiag = timeit.default_timer()
-        D = np.diag(np.exp(-1j * self._time * self._gamma *
-                           self._eigenvalues)).diagonal()
+        D = np.diag(
+            np.exp(-1j * self._time * self._gamma * self._eigenvalues)
+        ).diagonal()
         endTimeDiag = timeit.default_timer()
         self.diagExecutionTime = endTimeDiag - startTimeDiag
 
@@ -602,8 +593,9 @@ class OperatorTestV4:
         startTimeFullExec = timeit.default_timer()
         self.buildDiagonalOperator(time, gamma)
         endTimeFullExec = timeit.default_timer()
-        self.fullExecutionTime = self.eighExecutionTime + \
-                                 self.diagExecutionTime + self.matMulExecutionTime
+        self.fullExecutionTime = (
+            self.eighExecutionTime + self.diagExecutionTime + self.matMulExecutionTime
+        )
 
     #### ------- ####
 

@@ -21,9 +21,9 @@ sys.path.insert(0, os.path.abspath("."))
 
 
 # -- Project information -----------------------------------------------------
-project = 'QWAK'
-copyright = '2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni'
-author = 'Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni'
+project = "QWAK"
+copyright = "2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni"
+author = "Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni"
 
 
 # -- General configuration ---------------------------------------------------
@@ -48,10 +48,14 @@ extensions = [
 autosummary_generate = True
 
 # generate documentation from type hints
-autodoc_member_order = 'bysource'
+autodoc_member_order = "bysource"
 autodoc_typehints = "description"
 autoclass_content = "both"
-autodoc_default_options = {     "members": True,     "undoc-members": True,     "private-members": True}
+autodoc_default_options = {
+    "members": True,
+    "undoc-members": True,
+    "private-members": True,
+}
 
 # controls whether functions documented by the autofunction directive
 # appear with their full module names
@@ -66,7 +70,7 @@ napoleon_custom_sections = ["Tests", ("Test", "Tests")]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-#html_extra_path = ["robots.txt"]
+# html_extra_path = ["robots.txt"]
 
 exclude_patterns: list[str] = []
 
@@ -88,7 +92,7 @@ gettext_language_team = ""
 #
 
 html_theme = "furo"
-#html_favicon = str(Path("_static/favicon.ico"))
+# html_favicon = str(Path("_static/favicon.ico"))
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

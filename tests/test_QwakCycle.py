@@ -10,7 +10,7 @@ from QWAKTestStub import QWAKTestStub
 from testVariables import (
     probDistUniformSuperpositionCycle,
     orientedGraph,
-    probDistUniformSuperpositionComplete, 
+    probDistUniformSuperpositionComplete,
     probDistUniformSuperpositionCycleOriented,
     probDistCustomStateCycle,
     probDistCycleNewDim,

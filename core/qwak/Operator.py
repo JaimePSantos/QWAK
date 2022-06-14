@@ -203,7 +203,8 @@ class Operator:
         return self._operator
 
     def checkPST(self, nodeA, nodeB):
-        """Checks if all the conditions are true and return the **VALUE** if the graph
+        """Algorithm to check PST based on the article https://arxiv.org/abs/1606.02264 authored by Rodrigo Chaves.
+        Checks if all the conditions are true and return the **VALUE** if the graph
         has PST and False otherwise.
 
         Parameters
