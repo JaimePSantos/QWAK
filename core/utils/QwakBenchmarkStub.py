@@ -1,6 +1,6 @@
 import networkx as nx
 
-from Tools.Profiler import profile
+from utils.Profiler import profile
 from qwak.qwak import QWAK
 
 linesToPrint = 15
@@ -21,6 +21,22 @@ class QWAKBenchmark:
     def __init__(
         self, graph: nx.Graph, laplacian: bool = False, markedSearch=None
     ) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        graph : nx.Graph
+            _description_
+        laplacian : bool, optional
+            _description_, by default False
+        markedSearch : _type_, optional
+            _description_, by default None
+
+        Returns
+        -------
+        _type_
+            _description_
+        """    
         self.qwak = QWAK(graph, laplacian, markedSearch)
 
     @profile(

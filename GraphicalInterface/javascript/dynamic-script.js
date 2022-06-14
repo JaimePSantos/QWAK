@@ -6,7 +6,7 @@ import {
     dynamicMeanChartData,
     dynamicStDevChartData,
     dynamicSurvivalProbChartData
-} from "./dynamic-tools.js";
+} from "./dynamic-utils.js";
 import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
 
 // #### INPUTS & DISPLAYS ####

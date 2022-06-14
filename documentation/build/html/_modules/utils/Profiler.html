@@ -5,7 +5,7 @@
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
     <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
-        <title>Tools.Profiler - QWAK - Quantum Walk Analysis Kit</title>
+        <title>utils.Profiler - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
@@ -191,7 +191,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Tools.html">Tools package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
 </ul>
@@ -227,7 +227,7 @@
           </label>
         </div>
         <article role="main">
-          <h1>Source code for Tools.Profiler</h1><div class="highlight"><pre>
+          <h1>Source code for utils.Profiler</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">cProfile</span>
 <span class="kn">import</span> <span class="nn">pstats</span>
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
@@ -240,7 +240,7 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<div class="viewcode-block" id="profile"><a class="viewcode-back" href="../../Tools.html#Tools.Profiler.profile">[docs]</a><span class="k">def</span> <span class="nf">profile</span><span class="p">(</span>
+<div class="viewcode-block" id="profile"><a class="viewcode-back" href="../../utils.html#utils.Profiler.profile">[docs]</a><span class="k">def</span> <span class="nf">profile</span><span class="p">(</span>
     <span class="n">output_path</span><span class="p">,</span>
     <span class="n">output_file</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;cumulative&quot;</span><span class="p">,</span>
@@ -307,7 +307,7 @@
     <span class="k">return</span> <span class="n">inner</span> <span class="k">if</span> <span class="n">benchmark</span> <span class="k">else</span> <span class="n">noop_decorator</span></div>
 
 
-<div class="viewcode-block" id="prof_to_csv"><a class="viewcode-back" href="../../Tools.html#Tools.Profiler.prof_to_csv">[docs]</a><span class="k">def</span> <span class="nf">prof_to_csv</span><span class="p">(</span><span class="n">prof</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;cumulative&quot;</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="prof_to_csv"><a class="viewcode-back" href="../../utils.html#utils.Profiler.prof_to_csv">[docs]</a><span class="k">def</span> <span class="nf">prof_to_csv</span><span class="p">(</span><span class="n">prof</span><span class="p">,</span> <span class="n">sort_by</span><span class="o">=</span><span class="s2">&quot;cumulative&quot;</span><span class="p">,</span> <span class="n">lines_to_print</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">strip_dirs</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="n">out_stream</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
     <span class="n">ps</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="n">prof</span><span class="p">,</span> <span class="n">stream</span><span class="o">=</span><span class="n">out_stream</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">strip_dirs</span><span class="p">:</span>

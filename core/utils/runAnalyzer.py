@@ -3,7 +3,7 @@ import os
 import networkx as nx
 from matplotlib import pyplot as plt
 
-from Tools.QwakBenchmarkStub import QWAKBenchmark
+from utils.QwakBenchmarkStub import QWAKBenchmark
 
 if __name__ == "__main__":
     retval = os.getcwd()

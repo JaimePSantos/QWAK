@@ -2,8 +2,7 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tools" href="modules.html" /><link rel="prev" title="Installation" href="installation.html" />
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="qwak" href="modules.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>Usage - QWAK - Quantum Walk Analysis Kit</title>
@@ -192,7 +191,7 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Usage</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Tools.html">Tools package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
 </li>
 </ul>
@@ -228,9 +227,9 @@
           </label>
         </div>
         <article role="main">
-          <section id="usage">
+          <div class="section" id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h1>
-<section id="creating-walks">
+<div class="section" id="creating-walks">
 <span id="walks"></span><h2>Creating Walks<a class="headerlink" href="#creating-walks" title="Permalink to this heading">#</a></h2>
 <p>To retrieve a list of random ingredients,
 you can use the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> class:</p>
@@ -241,16 +240,16 @@ you can use the <code class="docutils literal notranslate"><span class="pre">QWA
 respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.</p>
 <dl class="simple">
 <dt>Args:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param laplacian<span class="colon">:</span></dt>
+<dt class="field-odd">param laplacian</dt>
 <dd class="field-odd"><p>Allows the user to choose whether to use the Laplacian or simple adjacency matrix.</p>
 </dd>
-<dt class="field-even">type laplacian<span class="colon">:</span></dt>
+<dt class="field-even">type laplacian</dt>
 <dd class="field-even"><p>bool</p>
 </dd>
-<dt class="field-odd">param graph<span class="colon">:</span></dt>
+<dt class="field-odd">param graph</dt>
 <dd class="field-odd"><p>NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.</p>
 </dd>
-<dt class="field-even">type graph<span class="colon">:</span></dt>
+<dt class="field-even">type graph</dt>
 <dd class="field-even"><p>NetworkX.Graph</p>
 </dd>
 </dl>
@@ -258,8 +257,8 @@ respectively. Methods runWalk or buildWalk must then be used to generate the res
 </dl>
 </dd></dl>
 
-</section>
-</section>
+</div>
+</div>
 
         </article>
       </div>
@@ -271,7 +270,7 @@ respectively. Methods runWalk or buildWalk must then be used to generate the res
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Tools</div>
+                <div class="title">qwak</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
