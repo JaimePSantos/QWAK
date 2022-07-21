@@ -1,0 +1,18 @@
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+91,0.353,0.004,0.353,0.004,{method 'dot' of 'numpy.ndarray' objects}
+1,0.154,0.154,0.245,0.245,_matfuncs.py:522(pade13_scaled)
+1,0.122,0.122,0.139,0.139,_basic.py:40(solve)
+2,0.017,0.008,0.017,0.008,function_base.py:537(asarray_chkfinite)
+1,0.016,0.016,0.155,0.155,_matfuncs.py:683(_solve_P_Q)
+1,0.014,0.014,0.713,0.713,_matfuncs.py:593(_expm)
+3,0.014,0.005,0.015,0.005,linalg.py:2349(norm)
+1,0.012,0.012,0.744,0.744,OperatorBenchmark.py:54(buildSlowDiagonalOperator)
+1,0.007,0.007,0.720,0.720,_matfuncs.py:545(expm)
+227/208,0.005,0.000,0.024,0.000,{built-in method numpy.core._multiarray_umath.implement_array_function}
+51,0.005,0.000,0.005,0.000,{method 'reduce' of 'numpy.ufunc' objects}
+7,0.004,0.001,0.004,0.001,{method 'astype' of 'numpy.ndarray' objects}
+1,0.004,0.004,0.004,0.004,{built-in method builtins.abs}
+4,0.001,0.000,0.001,0.000,{method 'randint' of 'numpy.random.mtrand.RandomState' objects}
+1,0.001,0.001,0.001,0.001,{built-in method scipy.sparse._sparsetools.csr_sort_indices}
+Next Entry
+

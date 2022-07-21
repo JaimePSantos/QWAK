@@ -1,0 +1,5 @@
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.000,0.000,0.000,0.000,OperatorBenchmark.py:15(__init__)
+1,0.000,0.000,0.000,0.000,{method 'disable' of '_lsprof.Profiler' objects}
+Next Entry
+
