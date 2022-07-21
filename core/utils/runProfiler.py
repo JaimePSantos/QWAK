@@ -1,6 +1,7 @@
 import networkx as nx
 
 from utils.QwakBenchmarkStub import QWAKBenchmark
+from utils.OperatorBenchmark import OperatorBenchmark
 
 if __name__ == "__main__":
     n = 1000
@@ -8,10 +9,14 @@ if __name__ == "__main__":
     graph = nx.cycle_graph(n)
     marked = [20]
 
-    qwController = QWAKBenchmark(graph, laplacian=False)
-    qwController.runWalk(t, marked)
-    qwController.getMean()
-    qwController.getSndMoment()
-    qwController.getStDev()
-    qwController.getSurvivalProb(19, 21)
-    qwController.getInversePartRatio()
+    # qwController = QWAKBenchmark(graph, laplacian=False)
+    # qwController.runWalk(t, marked)
+    # qwController.getMean()
+    # qwController.getSndMoment()
+    # qwController.getStDev()
+    # qwController.getSurvivalProb(19, 21)
+    # qwController.getInversePartRatio()
+
+    qwOperator = OperatorBenchmark()
+    qwOperator.buildDiagonalOperator(graph,time=t)
+    qwOperator.buildSlowDiagonalOperator(graph,time=t)
