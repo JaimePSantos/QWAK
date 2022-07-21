@@ -3,10 +3,10 @@ from collections import Counter
 
 import networkx as nx
 import numpy as np
-from QuantumWalkTest.QuantumWalkDaoTest import (
-    QuantumWalkDaoTestV2,
-    QuantumWalkDaoTestV4,
-)
+# from QuantumWalkTest.QuantumWalkDaoTest import (
+#     QuantumWalkDaoTestV2,
+#     QuantumWalkDaoTestV4,
+# )
 
 
 def getAvgTime(timeList):

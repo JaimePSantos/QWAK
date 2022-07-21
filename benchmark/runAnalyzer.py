@@ -3,8 +3,6 @@ import os
 import networkx as nx
 from matplotlib import pyplot as plt
 
-from utils.QwakBenchmarkStub import QWAKBenchmark
-
 if __name__ == "__main__":
     retval = os.getcwd()
     os.chdir(os.path.join(retval, "TestOutput", "Profiling"))

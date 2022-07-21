@@ -1,6 +1,6 @@
 import networkx as nx
 
-from utils.QwakBenchmarkStub import QWAKBenchmark
+from utils.QwakBenchmark import QWAKBenchmark
 from OperatorBenchmark import OperatorBenchmark
 
 if __name__ == "__main__":
