@@ -1,5 +1,5 @@
 import networkx as nx
-from scipy import linalg
+from scipy import linalg as ln
 import numpy as np
 
 from Profiler import profile
@@ -21,6 +21,7 @@ class OperatorBenchmark:
     )
     def __init__(
         self,
+        graph
     ) -> None:
         """_summary_
 
@@ -38,8 +39,11 @@ class OperatorBenchmark:
         _type_
             _description_
         """
-        pass
-
+        self._adjacencyMatrix = np.asarray(nx.laplacian_matrix(graph).todense().astype(complex))
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
+            self._adjacencyMatrix
+        )
+        print("Blablablabla")
     @profile(
         output_path=outPath,
         sort_by=sortBy,
@@ -48,8 +52,33 @@ class OperatorBenchmark:
         csv=csv,
     )
     def buildDiagonalOperator(self, graph: nx.Graph, laplacian: bool = False, markedSearch=None,time: float = 0) -> None:
-        self.operator = Operator(graph, laplacian, markedSearch)
-        self.operator.buildDiagonalOperator(time)
+        self._eigenvalues, self._eigenvectors = np.linalg.eigh(
+                self._adjacencyMatrix)
+        diag = np.diag(np.exp(-1j * self._eigenvalues * time)).diagonal()
+        self._operator = np.multiply(self._eigenvectors, diag)
+        self._operator = np.matmul(
+            self._operator, self._eigenvectors.conjugate().transpose()
+        )
+
+    @profile(
+        output_path=outPath,
+        sort_by=sortBy,
+        lines_to_print=linesToPrint,
+        strip_dirs=stripDirs,
+        csv=csv,
+    )
+    def buildDiagonalOperator2(self, graph: nx.Graph, laplacian: bool = False, markedSearch=None,time: float = 0) -> None:
+        if time == 0:
+            self._eigenvalues, self._eigenvectors = np.linalg.eigh(
+                self._adjacencyMatrix
+            )
+            print("Hello")
+        diag = np.diag(np.exp(-1j * self._eigenvalues * time)).diagonal()
+        self._operator = np.multiply(self._eigenvectors, diag)
+        self._operator = np.matmul(
+            self._operator, self._eigenvectors.conjugate().transpose()
+        )
+        print("bla12312313")
 
     @profile(
         output_path=outPath,
@@ -59,5 +88,4 @@ class OperatorBenchmark:
         csv=csv,
     )
     def buildSlowDiagonalOperator(self,graph: nx.Graph, laplacian: bool = False, markedSearch=None, time: float = 0) -> None:
-        self._adjacencyMatrix = np.asarray(nx.laplacian_matrix(graph).todense().astype(complex))
-        self.slowperator = linalg.expm(-1j*self._adjacencyMatrix*time)
+        self.slowperator = ln.expm(-1j*self._adjacencyMatrix*time)
