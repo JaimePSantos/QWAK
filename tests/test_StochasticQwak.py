@@ -1,7 +1,6 @@
 import networkx as nx
 import numpy as np
 
-from utils.Profiler import profile
 from qwak.qwak import StochasticQWAK
 from testVariables import (
     stochasticProbDistSingleNodeCycleNoise,
