@@ -1,4 +1,6 @@
 import networkx as nx
+from scipy import linalg
+import numpy as np
 
 from utils.Profiler import profile
 from qwak.qwak import QWAK
@@ -8,7 +10,6 @@ sortBy = "tottime"
 outPath = "qwak/"
 stripDirs = True
 csv = True
-
 
 class QWAKBenchmark:
     @profile(
@@ -36,7 +37,7 @@ class QWAKBenchmark:
         -------
         _type_
             _description_
-        """    
+        """
         self.qwak = QWAK(graph, laplacian, markedSearch)
 
     @profile(
