@@ -1,54 +1,18 @@
 ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
 1,0.134,0.134,0.134,0.134,linalg.py:1324(eigh)
 8,0.001,0.000,0.001,0.000,{method 'astype' of 'numpy.ndarray' objects}
-2,0.000,0.000,0.000,0.000,{built-in method numpy.zeros}
 501,0.000,0.000,0.000,0.000,reportviews.py:844(__iter__)
-500,0.000,0.000,0.000,0.000,_collections_abc.py:823(__contains__)
+2,0.000,0.000,0.000,0.000,{built-in method numpy.zeros}
 1,0.000,0.000,0.002,0.002,convert_matrix.py:794(to_scipy_sparse_array)
+500,0.000,0.000,0.000,0.000,_collections_abc.py:823(__contains__)
 500,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
 1,0.000,0.000,0.001,0.001,function.py:1205(<genexpr>)
 501,0.000,0.000,0.000,0.000,_collections_abc.py:904(__iter__)
 18,0.000,0.000,0.000,0.000,{built-in method numpy.array}
-501,0.000,0.000,0.000,0.000,convert_matrix.py:898(<genexpr>)
+501,0.000,0.000,0.001,0.000,convert_matrix.py:898(<genexpr>)
 500,0.000,0.000,0.000,0.000,coreviews.py:53(__getitem__)
 59,0.000,0.000,0.000,0.000,{built-in method numpy.asarray}
 55/53,0.000,0.000,0.134,0.003,{built-in method numpy.core._multiarray_umath.implement_array_function}
-17,0.000,0.000,0.000,0.000,_sputils.py:131(get_index_dtype)
-Next Entry
-
-ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
-1,0.133,0.133,0.133,0.133,linalg.py:1324(eigh)
-8,0.001,0.000,0.001,0.000,{method 'astype' of 'numpy.ndarray' objects}
-501,0.000,0.000,0.000,0.000,reportviews.py:844(__iter__)
-2,0.000,0.000,0.000,0.000,{built-in method numpy.zeros}
-500,0.000,0.000,0.000,0.000,_collections_abc.py:823(__contains__)
-1,0.000,0.000,0.002,0.002,convert_matrix.py:794(to_scipy_sparse_array)
-500,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
-1,0.000,0.000,0.001,0.001,function.py:1205(<genexpr>)
-501,0.000,0.000,0.000,0.000,_collections_abc.py:904(__iter__)
-18,0.000,0.000,0.000,0.000,{built-in method numpy.array}
-501,0.000,0.000,0.000,0.000,convert_matrix.py:898(<genexpr>)
-500,0.000,0.000,0.000,0.000,coreviews.py:53(__getitem__)
-9,0.000,0.000,0.000,0.000,{method 'reduce' of 'numpy.ufunc' objects}
-59,0.000,0.000,0.000,0.000,{built-in method numpy.asarray}
-1,0.000,0.000,0.000,0.000,{built-in method builtins.compile}
-Next Entry
-
-ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
-1,0.132,0.132,0.132,0.132,linalg.py:1324(eigh)
-8,0.001,0.000,0.001,0.000,{method 'astype' of 'numpy.ndarray' objects}
-501,0.000,0.000,0.000,0.000,reportviews.py:844(__iter__)
-2,0.000,0.000,0.000,0.000,{built-in method numpy.zeros}
-500,0.000,0.000,0.000,0.000,_collections_abc.py:823(__contains__)
-1,0.000,0.000,0.002,0.002,convert_matrix.py:794(to_scipy_sparse_array)
-500,0.000,0.000,0.000,0.000,coreviews.py:81(__getitem__)
-1,0.000,0.000,0.001,0.001,function.py:1205(<genexpr>)
-501,0.000,0.000,0.000,0.000,_collections_abc.py:904(__iter__)
-501,0.000,0.000,0.001,0.000,convert_matrix.py:898(<genexpr>)
-18,0.000,0.000,0.000,0.000,{built-in method numpy.array}
-500,0.000,0.000,0.000,0.000,coreviews.py:53(__getitem__)
-59,0.000,0.000,0.000,0.000,{built-in method numpy.asarray}
-17,0.000,0.000,0.000,0.000,_sputils.py:131(get_index_dtype)
-34,0.000,0.000,0.000,0.000,getlimits.py:647(__init__)
+500,0.000,0.000,0.000,0.000,reportviews.py:778(<lambda>)
 Next Entry
 

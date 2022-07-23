@@ -139,7 +139,7 @@ if __name__ == "__main__":
                 multipleDicts = eval(line)
         return multipleDicts
 
-    n = 500
+    n = 100
     t = 10
     graph = nx.cycle_graph(n)
     marked = [0]
@@ -147,7 +147,7 @@ if __name__ == "__main__":
     k1 = 21
     samples = 1
     N = list(range(2, 500))
-    time = list(range(0, 500))
+    time = list(range(0, 100))
 
     filePath = "operator"
     diagonalOperatorFileName = "buildDiagonalOperator.prof"
@@ -195,10 +195,11 @@ if __name__ == "__main__":
     # xx = np.linspace(min(eighTimeList2), max(eighTimeList2), 298)
     # eighTimeList2 = savgol_filter(eighTimeList2, window_size, poly_order)
     # print(eighTimeList2[-1])
-    series = pd.Series(eighTimeList2)
-    eighTimeList2 = series.rolling(5).mean().to_numpy()
     # eighTimeList2 = savgol_filter(eighTimeList2, 15, 5)
     # print(eighTimeList2)
+
+    series = pd.Series(eighTimeList2)
+    eighTimeList2 = series.rolling(5).mean().to_numpy()
 
     font = {'family': 'sans-serif',
             'size': 12}
