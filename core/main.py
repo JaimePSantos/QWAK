@@ -6,15 +6,29 @@ from qwak.qwak import QWAK
 from qwak.State import State
 
 if __name__ == "__main__":
+    t = 40
+    n = 200
+    graph = nx.circular_ladder_graph(n)
+    customInitState = [(n // 2,1/np.sqrt(2)),(n // 2 + 1,1/np.sqrt(2))]
+    qwController = QWAK(graph,customStateList=customInitState)
+    qwController.runWalk(t)
+    font = {'family': 'sans-serif',
+            'size': 12}
+    plt.rc('font', **font)
+    plt.plot(qwController.getProbVec(), linewidth=1.0, color='blue')
+    plt.ylabel("Probability")
+    plt.xlabel("Graph Node")
+    plt.show()
+
     # st = State(10,customStateList= [(1,5),(2,6)])
     # st = State(9,nodeList=[9])
     # st.buildState(nodeList = [1])
     # print(st.getStateVec())
-    n = 100
-    t = 6
-    marked = list(range(n))
-    print(marked)
-    graph = nx.cycle_graph(n)
+    # n = 100
+    # t = 6
+    # marked = list(range(n))
+    # print(marked)
+    # graph = nx.cycle_graph(n)
     # # graph=nx.complete_graph(n)
     # # graph = nx.complete_bipartite_graph(4,3)
     # # marked = range(int(n/2))
@@ -26,10 +40,10 @@ if __name__ == "__main__":
     # print(qwController.getProbDistVec())
     # plt.plot(qwController.getProbDistVec())
     # plt.show()
-    qwController = QWAK(graph, laplacian=True, markedSearch=[(n // 4, -1)])
-    qwController.runWalk(t, marked)
-    plt.plot(qwController.getProbVec())
-    plt.show()
+    # qwController = QWAK(graph, laplacian=True, markedSearch=[(n // 4, -1)])
+    # qwController.runWalk(t, marked)
+    # plt.plot(qwController.getProbVec())
+    # plt.show()
     # sp.pprint(f"PST {qwController.checkPST(0,2)}")
     # eta = []
     # times = np.linspace(0, 50, 200)
