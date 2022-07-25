@@ -105,6 +105,7 @@ class QWAK:
         self._initState.resetState()
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
+        self._probDist.resetProbDist()
 
     def setDim(self, newDim: int, graphStr: str, initStateList: list = None) -> None:
         """Sets the current walk dimensions to a user defined one.
