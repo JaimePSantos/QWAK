@@ -35,7 +35,8 @@ class ProbabilityDistribution:
 
     def resetProbDist(self) -> None:
         """Resets the ProbabilityDistribution object."""
-        self._state.resetState()
+        # TODO: Rethink state attribute
+        self._state = np.zeros((self._n, 1), dtype=complex)
         self._probVec = np.zeros((self._n, 1))
 
     def buildProbDist(self, state: State = None) -> None:

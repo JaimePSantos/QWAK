@@ -3,6 +3,7 @@ import os
 import eel
 import networkx as nx
 import numpy as np
+import copy
 
 from qwak.Errors import StateOutOfBounds
 from qwak.State import State
@@ -140,10 +141,10 @@ if __name__ == "__main__":
         timeRange = np.linspace(timeList[0], timeList[1], int(timeList[1]))
         for t in timeRange:
             dynamicQuantumWalk.runWalk(t, initStateList[0])
-            qwProbabilities = dynamicQuantumWalk.getProbDist()
+            qwProbabilities = copy.copy(dynamicQuantumWalk.getProbDist())
             qwAmps = dynamicQuantumWalk.getWalk()
-            dynAmpsList.append(qwAmps)
-            dynProbDistList.append(qwProbabilities)
+            dynAmpsList.append(copy.deepcopy(qwAmps))
+            dynProbDistList.append(copy.deepcopy(qwProbabilities))
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
             qwProbVecList.append(probLists)
@@ -161,8 +162,13 @@ if __name__ == "__main__":
     def getDynStDev():
         stDevList = []
         global dynProbDistList
+        # print(dynProbDistList)
         for probDist in dynProbDistList:
+            print(f"ProbDist in stDev: {probDist}\n")
+        for probDist in dynProbDistList:
+            # print(probDist)
             stDevList.append(probDist.stDev())
+            # print(probDist.stDev())
         return stDevList
 
     @eel.expose
