@@ -8,13 +8,13 @@ import copy
 from qwak.Errors import StateOutOfBounds
 from qwak.State import State
 from qwak.qwak import QWAK
+from GraphicalQWAK import GraphicalQWAK
 
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, "../GraphicalInterface")
 eel.init(guiPath)
 
 # TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
-# TODO: Grafico de animacao do JavaScript mexe com o tamanho dos picos.
 # TODO: Formularios para introduzir parametros.
 
 if __name__ == "__main__":
@@ -34,6 +34,8 @@ if __name__ == "__main__":
     dynamicQuantumWalk.runWalk(timeList[0], initStateList[0])
     dynProbDistList = []
     dynAmpsList = []
+
+    gQwak = GraphicalQWAK(n, graph, initState, initStateList, t, timeList)
 
     resultRounding = 3
 
@@ -90,24 +92,27 @@ if __name__ == "__main__":
     @eel.expose
     def setDim(newDim, graphStr):
         global staticQuantumWalk, dynamicQuantumWalk
-        staticQuantumWalk.setDim(newDim, graphStr)
-        dynamicQuantumWalk.setDim(newDim, graphStr)
+        # staticQuantumWalk.setDim(newDim, graphStr)
+        # dynamicQuantumWalk.setDim(newDim, graphStr)
+        gQwak.setDim(newDim,graphStr)
 
     @eel.expose
     def getDim():
-        return staticQuantumWalk.getDim()
-
+        # return staticQuantumWalk.getDim()
+        return gQwak.getDim()
     @eel.expose
     def setGraph(newGraph):
-        global staticQuantumWalk, dynamicQuantumWalk
-        newStaticGraph = eval(newGraph + f"({staticQuantumWalk.getDim()})")
-        newDynamicGraph = eval(newGraph + f"({dynamicQuantumWalk.getDim()})")
-        staticQuantumWalk.setGraph(newStaticGraph)
-        dynamicQuantumWalk.setGraph(newDynamicGraph)
+        # global staticQuantumWalk, dynamicQuantumWalk
+        # newStaticGraph = eval(newGraph + f"({staticQuantumWalk.getDim()})")
+        # newDynamicGraph = eval(newGraph + f"({dynamicQuantumWalk.getDim()})")
+        # staticQuantumWalk.setGraph(newStaticGraph)
+        # dynamicQuantumWalk.setGraph(newDynamicGraph)
+        gQwak.setGraph(newGraph)
 
     @eel.expose
     def getGraph():
-        return staticQuantumWalk.getGraph()
+        # return staticQuantumWalk.getGraph()
+        return gQwak.getGraph()
 
     @eel.expose
     def setTime(newTime):
@@ -129,7 +134,8 @@ if __name__ == "__main__":
         qwProbabilities = staticQuantumWalk.getProbDist()
         qwProbVec = qwProbabilities.getProbVec()
         probLists = qwProbVec.tolist()
-        return [False, probLists]
+        # return [False, probLists]
+        return gQwak.runWalk()
 
     @eel.expose
     def runMultipleWalks():
@@ -148,7 +154,9 @@ if __name__ == "__main__":
             qwProbVec = qwProbabilities.getProbVec()
             probLists = qwProbVec.tolist()
             qwProbVecList.append(probLists)
-        return qwProbVecList
+        # return qwProbVecList
+        return gQwak.runMultipleWalks()
+
 
     @eel.expose
     def getDynMean():
@@ -189,9 +197,10 @@ if __name__ == "__main__":
 
     @eel.expose
     def graphToJson():
-        graph = staticQuantumWalk.getGraph()
-        myCytGraph = nx.cytoscape_data(graph)
-        return myCytGraph
+        # graph = gQwak.getGraph()
+        # myCytGraph = nx.cytoscape_data(graph)
+        # return myCytGraph
+        return gQwak.getGraphToJson()
 
     @eel.expose
     def customGraphWalk():
