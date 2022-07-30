@@ -9,13 +9,19 @@ from GraphicalQWAK import GraphicalQWAK
 if __name__ == "__main__":
     n = 100
     t = 10
-    initState = [50]
+    initState = [51]
     graph = nx.cycle_graph(n)
     timeList = [0, 100]
     initStateList = [[int(n / 2), int(n / 2) + 1]]
     gQwak = GraphicalQWAK(n,graph,initState,initStateList,t,timeList)
-    print(gQwak.runWalk())
-    print(gQwak.runMultipleWalks())
+    gQwak.setStaticTime(str(t))
+    gQwak.runWalk()
+    # print(gQwak.runMultipleWalks())
+    # print(gQwak.getStaticMean())
+    gQwak.runMultipleWalks()
+    gQwak.getDynamicStDev()
+    gQwak.runMultipleWalks()
+    gQwak.getDynamicStDev()
 
 #    t = 40
 #    n = 200
