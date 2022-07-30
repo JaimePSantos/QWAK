@@ -45,6 +45,7 @@ class GraphicalQWAK:
         return [False, probLists]
 
     def runMultipleWalks(self):
+        # TODO: Adicionar state of bounds error
         qwProbVecList = []
         self._dynamicQWAK.resetWalk()
         self._dynamicProbDistList = []
@@ -61,13 +62,16 @@ class GraphicalQWAK:
         return qwProbVecList
 
     def setDim(self,newDim, graphStr):
+        # TODO: Different graphs for dynamic and static.
         self._staticQWAK.setDim(newDim, graphStr)
         self._dynamicQWAK.setDim(newDim, graphStr)
 
     def getDim(self):
+        # TODO: Different graphs for dynamic and static.
         return self._staticQWAK.getDim()
 
     def setGraph(self,newGraph):
+        # TODO: Different graphs for dynamic and static.
         newStaticGraph = eval(newGraph + f"({self._staticQWAK.getDim()})")
         newDynamicGraph = eval(newGraph + f"({self._dynamicQWAK.getDim()})")
         self._staticQWAK.setGraph(newStaticGraph)
