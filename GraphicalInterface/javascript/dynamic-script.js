@@ -116,7 +116,8 @@ document.getElementById("dynamicMeanButton").addEventListener('click', async fun
 });
 
 let setDynMean = async () => {
-    let dynMean = await getDynMean();
+    let dynMean = [];
+    dynMean = await getDynMean();
     dynamicMeanChartData.data.datasets[0].data = dynMean.flat();
     dynamicMeanChartData.data.labels = [...Array(dynMean.length).keys()];
     myDynamicMeanChart.clear();
@@ -139,16 +140,18 @@ let getDynMean = () => {
 
 // #### #### STDEV PLOT #### ####
 
-let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"), dynamicStDevChartData)
+let dynStdevChartData = JSON.parse(JSON.stringify(dynamicStDevChartData))
+let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"), dynStdevChartData);
 
 document.getElementById("dynamicStDevButton").addEventListener('click', async function () {
     setDynStDev();
 });
 
 let setDynStDev = async () => {
-    let dynStDev = await getDynStDev();
-    dynamicStDevChartData.data.datasets[0].data = dynStDev.flat();
-    dynamicStDevChartData.data.labels = [...Array(dynStDev.length).keys()];
+    let dynStDev = [];
+    dynStDev = await getDynStDev();
+    myDynamicStDevChart.data.datasets[0].data = dynStDev.flat()
+    myDynamicStDevChart.data.labels = [...Array(dynStDev.length).keys()];
     myDynamicStDevChart.clear();
     myDynamicStDevChart.update();
 }
@@ -162,6 +165,7 @@ let getDynStDev = () => {
             //     }else{
             //         return a;
             // }
+            console.log(a)
             return a;
         })
         .catch((e) => console.log(e));

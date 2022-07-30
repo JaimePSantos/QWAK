@@ -4,21 +4,38 @@ from matplotlib import pyplot as plt
 
 from qwak.qwak import QWAK
 from qwak.State import State
+from GraphicalQWAK import GraphicalQWAK 
 
 if __name__ == "__main__":
-    t = 40
-    n = 200
-    graph = nx.circular_ladder_graph(n)
-    customInitState = [(n // 2,1/np.sqrt(2)),(n // 2 + 1,1/np.sqrt(2))]
-    qwController = QWAK(graph,customStateList=customInitState)
-    qwController.runWalk(t)
-    font = {'family': 'sans-serif',
-            'size': 12}
-    plt.rc('font', **font)
-    plt.plot(qwController.getProbVec(), linewidth=1.0, color='blue')
-    plt.ylabel("Probability")
-    plt.xlabel("Graph Node")
-    plt.show()
+    n = 100
+    t = 10
+    initState = [51]
+    graph = nx.cycle_graph(n)
+    timeList = [0, 100]
+    initStateList = [[int(n / 2), int(n / 2) + 1]]
+    gQwak = GraphicalQWAK(n,graph,initState,initStateList,t,timeList)
+    gQwak.setStaticTime(str(t))
+    gQwak.runWalk()
+    # print(gQwak.runMultipleWalks())
+    # print(gQwak.getStaticMean())
+    gQwak.runMultipleWalks()
+    gQwak.getDynamicStDev()
+    gQwak.runMultipleWalks()
+    gQwak.getDynamicStDev()
+
+#    t = 40
+#    n = 200
+#    graph = nx.circular_ladder_graph(n)
+#    customInitState = [(n // 2,1/np.sqrt(2)),(n // 2 + 1,1/np.sqrt(2))]
+#    qwController = QWAK(graph,customStateList=customInitState)
+#    qwController.runWalk(t)
+#    font = {'family': 'sans-serif',
+#            'size': 12}
+#    plt.rc('font', **font)
+#    plt.plot(qwController.getProbVec(), linewidth=1.0, color='blue')
+#    plt.ylabel("Probability")
+#    plt.xlabel("Graph Node")
+#    plt.show()
 
     # st = State(10,customStateList= [(1,5),(2,6)])
     # st = State(9,nodeList=[9])
