@@ -14,6 +14,8 @@ class GraphicalQWAK:
         self,
         n,
         graph: nx.Graph,
+        staticGraph: nx.Graph,
+        dynamicGraph: nx.Graph,
         staticStateList: list,
         dynamicStateList: list,
         staticTime: float,
@@ -22,6 +24,8 @@ class GraphicalQWAK:
         self._n = n
         # TODO: Redo how graph is implemented because right now this attribute is useless.
         self._graph = graph
+        self._staticGraph = staticGraph
+        self._dynamicGraph = dynamicGraph
         self._staticStateList = staticStateList
         self._dynamicStateList = dynamicStateList
         self._staticTime = staticTime
@@ -63,27 +67,36 @@ class GraphicalQWAK:
 
     def setDim(self,newDim, graphStr):
         # TODO: Different graphs for dynamic and static.
-        self._staticQWAK.setDim(newDim, graphStr)
-        self._dynamicQWAK.setDim(newDim, graphStr)
+        self._n = newDim
+        self._staticQWAK.setDim(self._n, graphStr)
+        self._dynamicQWAK.setDim(self._n, graphStr)
 
     def getDim(self):
         # TODO: Different graphs for dynamic and static.
-        return self._staticQWAK.getDim()
+        return self._n
 
-    def setGraph(self,newGraph):
-        # TODO: Different graphs for dynamic and static.
-        newStaticGraph = eval(newGraph + f"({self._staticQWAK.getDim()})")
-        newDynamicGraph = eval(newGraph + f"({self._dynamicQWAK.getDim()})")
-        self._staticQWAK.setGraph(newStaticGraph)
-        self._dynamicQWAK.setGraph(newDynamicGraph)
+    def setStaticGraph(self,newGraphStr):
+        self._staticGraph = eval(newGraphStr + f"({self._n})")
+        self._staticQWAK.setGraph(self._staticGraph)
 
-    def getGraph(self):
-        # TODO: Different graphs for dynamic and static.
-        return self._staticQWAK.getGraph()
+    def setDynamicGraph(self,newGraphStr):
+        self._dynamicGraph = eval(newGraphStr + f"({self._n})")
+        self._dynamicQWAK.setGraph(self._dynamicGraph)
+
+    def getStaticGraph(self):
+        return self._staticGraph
+
+    def getDynamicGraph(self):
+        return self._dynamicGraph
 
     def getGraphToJson(self):
-        # TODO: This will also need to change with new graph implementation.
         return nx.cytoscape_data(self._staticQWAK.getGraph())
+
+    def getStaticGraphToJson(self):
+        return nx.cytoscape_data(self._staticGraph)
+
+    def getDynamicGraphToJson(self):
+        return nx.cytoscape_data(self._dynamicGraph)
 
     def setStaticTime(self,newTime):
         self._staticTime = eval(newTime)
@@ -119,7 +132,6 @@ class GraphicalQWAK:
         return self._staticQWAK.getMean()
 
     def getDynamicMean(self):
-        # TODO: We might need to reset the walk somewhere for the plot to work properly.
         meanList = []
         for probDist in self._dynamicProbDistList:
             meanList.append(probDist.mean())

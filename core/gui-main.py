@@ -23,10 +23,12 @@ if __name__ == "__main__":
     t = 10
     initState = [n//2]
     graph = nx.cycle_graph(n)
+    staticGraph = nx.cycle_graph(n)
+    dynamicGraph = nx.cycle_graph(n)
     timeList = [0, 100]
     initStateList = [[int(n / 2), int(n / 2) + 1]]
 
-    gQwak = GraphicalQWAK(n, graph, initState, initStateList, t, timeList)
+    gQwak = GraphicalQWAK(n, staticGraph, dynamicGraph, graph, initState, initStateList, t, timeList)
 
     resultRounding = 4
 
@@ -48,16 +50,28 @@ if __name__ == "__main__":
         return gQwak.getDim()
 
     @eel.expose
-    def setGraph(newGraph):
-        gQwak.setGraph(newGraph)
+    def setStaticGraph(newGraph):
+        gQwak.setStaticGraph(newGraph)
 
     @eel.expose
-    def getGraph():
-        return gQwak.getGraph()
+    def setDynamicGraph(newGraph):
+        gQwak.setDynamicGraph(newGraph)
 
     @eel.expose
-    def graphToJson():
-        return gQwak.getGraphToJson()
+    def getStaticGraph():
+        return gQwak.getStaticGraph()
+
+    @eel.expose
+    def getDynamicGraph():
+        return gQwak.getDynamicGraph()
+
+    @eel.expose
+    def getStaticGraphToJson():
+        return gQwak.getStaticGraphToJson()
+
+    @eel.expose
+    def getDynamicGraphToJson():
+        return gQwak.getDynamicGraphToJson()
 
     @eel.expose
     def setTime(newTime):
@@ -71,7 +85,6 @@ if __name__ == "__main__":
 
     @eel.expose
     def setDynamicTime(newTime):
-
         pass
 
     @eel.expose
