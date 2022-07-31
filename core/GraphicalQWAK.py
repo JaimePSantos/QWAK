@@ -51,19 +51,22 @@ class GraphicalQWAK:
     def runMultipleWalks(self):
         # TODO: Adicionar state of bounds error
         qwProbVecList = []
-        self._dynamicQWAK.resetWalk()
-        self._dynamicProbDistList = []
-        self._dynamicAmpList = []
-        # TODO: Adicionar um metodo ao QWAK para multiple walks.
-        timeRange = np.linspace(self._dynamicTimeList[0], self._dynamicTimeList[1], int(self._dynamicTimeList[1]))
-        for t in timeRange:
-            self._dynamicQWAK.runWalk(time=t, initStateList=self._dynamicStateList[0])
-            # TODO: Check if we can remove copy now that we're using a class.
-            qwProbabilities = copy.copy(self._dynamicQWAK.getProbDist())
-            self._dynamicAmpList.append(copy.deepcopy(self._dynamicQWAK.getWalk()))
-            self._dynamicProbDistList.append(copy.deepcopy(qwProbabilities))
-            qwProbVecList.append(qwProbabilities.getProbVec().tolist())
-        return qwProbVecList
+        try:
+            self._dynamicQWAK.resetWalk()
+            self._dynamicProbDistList = []
+            self._dynamicAmpList = []
+            # TODO: Adicionar um metodo ao QWAK para multiple walks.
+            timeRange = np.linspace(self._dynamicTimeList[0], self._dynamicTimeList[1], int(self._dynamicTimeList[1]))
+            for t in timeRange:
+                self._dynamicQWAK.runWalk(time=t, initStateList=self._dynamicStateList[0])
+                # TODO: Check if we can remove copy now that we're using a class.
+                qwProbabilities = copy.copy(self._dynamicQWAK.getProbDist())
+                self._dynamicAmpList.append(copy.deepcopy(self._dynamicQWAK.getWalk()))
+                self._dynamicProbDistList.append(copy.deepcopy(qwProbabilities))
+                qwProbVecList.append(qwProbabilities.getProbVec().tolist())
+        except StateOutOfBounds as err:
+            return [True,str(err)]
+        return [False,qwProbVecList]
 
     def setDim(self,newDim, graphStr):
         # TODO: Different graphs for dynamic and static.
