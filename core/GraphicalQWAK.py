@@ -5,7 +5,7 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds
+from qwak.Errors import StateOutOfBounds, UndefinedTimeList
 from qwak.State import State
 from qwak.qwak import QWAK
 
@@ -57,29 +57,15 @@ class GraphicalQWAK:
 
     def runMultipleWalks(self):
         # TODO: Adicionar state of bounds error
-        qwProbVecList = []
         try:
             self._dynamicQWAK.resetWalk()
-            self._dynamicProbDistList = []
-            self._dynamicAmpList = []
-            # TODO: Adicionar um metodo ao QWAK para multiple walks.
-            timeRange = np.linspace(
-                self._dynamicTimeList[0], self._dynamicTimeList[1], int(
-                    self._dynamicTimeList[1]))
-            for t in timeRange:
-                self._dynamicQWAK.runWalk(
-                    time=t, initStateList=self._dynamicStateList[0])
-                # TODO: Check if we can remove copy now that we're using
-                # a class.
-                qwProbabilities = copy.copy(
-                    self._dynamicQWAK.getProbDist())
-                self._dynamicAmpList.append(
-                    copy.deepcopy(self._dynamicQWAK.getWalk()))
-                self._dynamicProbDistList.append(
-                    copy.deepcopy(qwProbabilities))
-                qwProbVecList.append(
-                    qwProbabilities.getProbVec().tolist())
+            self._dynamicQWAK.runMultipleWalks(timeList=self._dynamicTimeList,initStateList=self._dynamicStateList[0])
+            self._dynamicAmpList = self._dynamicQWAK.getWalkList()
+            self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
+            qwProbVecList = list(map(lambda probVec: probVec.tolist(), self._dynamicQWAK.getProbVecList()))
         except StateOutOfBounds as err:
+            return [True, str(err)]
+        except UndefinedTimeList as err:
             return [True, str(err)]
         return [False, qwProbVecList]
 

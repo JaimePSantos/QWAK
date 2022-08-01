@@ -1,5 +1,6 @@
 import networkx as nx
 import numpy as np
+import copy
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList
 from qwak.State import State
@@ -45,6 +46,10 @@ class QWAK:
         graph : nx.Graph
             NetworkX graph where the walk takes place. Also used
             for defining the dimensions of the quantum walk.
+        time : float
+            __ Needs completion __
+        timeList : list
+            __ Needs completion __
         initStateList : list[int], optional
             List with chosen initial states for uniform superposition, by default None
         customStateList : list[(int,complex)], optional
@@ -56,11 +61,15 @@ class QWAK:
             List with marked elements for search, by default None.
         """
         if timeList is not None:
-            self._timeList = timeList
+            self._timeList = self._timeList = np.linspace(
+                timeList[0], timeList[1], int(
+                    timeList[1]))
+        else:
+            self._timeList = None
         self._graph = graph
         self._n = len(self._graph)
-        self._probDistList = None
-        self._ampList = None
+        self._probDistList = []
+        self._walkList = []
         self._operator = Operator(
             self._graph,
             time=time,
@@ -116,20 +125,37 @@ class QWAK:
             timeList: list = None,
             initStateList: list = None,
             customStateList: list = None) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        timeList : list, optional
+            _description_, by default None
+        initStateList : list, optional
+            _description_, by default None
+        customStateList : list, optional
+            _description_, by default None
+
+        Raises
+        ------
+        UndefinedTimeList
+            _description_
+        """
+        # TODO: Decide if we should reset walk here.
+        # self.resetWalk()
         if timeList is not None:
-            self._timeList = timeList
+            self._timeList = np.linspace(
+                timeList[0], timeList[1], int(
+                    timeList[1]))
         elif self._timeList is None:
-            raise UndefinedTimeList
+            raise UndefinedTimeList(f"TimeList is {self._timeList}.")
         for time in self._timeList:
             self.runWalk(
                 time=time,
                 initStateList=initStateList,
                 customStateList=customStateList)
-            self._probDistList.append(self.getProbDist())
-            self._ampList.append(self.getWalk())
-
-    def getProbDistList(self):
-        return self._probDistList
+            self._probDistList.append(copy.deepcopy(self.getProbDist()))
+            self._walkList.append(copy.deepcopy(self.getWalk()))
 
     def resetWalk(self) -> None:
         """Resets the components of a walk."""
@@ -306,6 +332,16 @@ class QWAK:
         """
         return self._quantumWalk
 
+    def getWalkList(self) -> list:
+        """_summary_
+
+        Returns
+        -------
+        list
+            _description_
+        """        
+        return self._walkList
+
     def getFinalState(self) -> State:
         """Gets current QuantumWalk State.
 
@@ -325,6 +361,16 @@ class QWAK:
             Array of the QuantumWalk state.
         """
         return self._quantumWalk.getAmpVec()
+
+    def getAmpVecList(self) -> list:
+        """_summary_
+
+        Returns
+        -------
+        list
+            _description_
+        """        
+        return list(map(lambda x: x.getAmpVec(),self._walkList))
 
     def setProbDist(self, newProbDist: ProbabilityDistribution) -> None:
         """Sets current walk probability distribution to a user defined one.
@@ -347,6 +393,16 @@ class QWAK:
         """
         return self._probDist
 
+    def getProbDistList(self) -> list:
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
+        return self._probDistList
+
     def getProbVec(self) -> np.ndarray:
         """Gets the current probability distribution vector.
 
@@ -357,6 +413,16 @@ class QWAK:
         """
         return self._probDist.getProbVec()
 
+    def getProbVecList(self) -> list:
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
+        return list(map(lambda probDist: probDist.getProbVec(),self._probDistList))
+    
     def searchNodeAmplitude(self, searchNode: int) -> complex:
         """User inputted node for search
 
