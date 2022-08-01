@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 
 from qwak.qwak import QWAK
 from qwak.State import State
-from GraphicalQWAK import GraphicalQWAK 
+from GraphicalQWAK import GraphicalQWAK
 
 if __name__ == "__main__":
     n = 100
@@ -13,7 +13,15 @@ if __name__ == "__main__":
     graph = nx.cycle_graph(n)
     timeList = [0, 100]
     initStateList = [[int(n / 2), int(n / 2) + 1]]
-    gQwak = GraphicalQWAK(n,graph,initState,initStateList,t,timeList)
+    gQwak = GraphicalQWAK(
+        n,
+        graph,
+        graph,
+        graph,
+        initState,
+        initStateList,
+        t,
+        timeList)
     gQwak.setStaticTime(str(t))
     gQwak.runWalk()
     # print(gQwak.runMultipleWalks())

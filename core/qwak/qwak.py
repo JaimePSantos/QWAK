@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 
-from qwak.Errors import StateOutOfBounds, NonUnitaryState
+from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList
 from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
@@ -28,6 +28,8 @@ class QWAK:
     def __init__(
         self,
         graph: nx.Graph,
+        time: float = None,
+        timeList: list = None,
         initStateList: list = None,
         customStateList: list = None,
         laplacian: bool = False,
@@ -53,21 +55,30 @@ class QWAK:
         markedSearch : list, optional
             List with marked elements for search, by default None.
         """
-
+        if timeList is not None:
+            self._timeList = timeList
         self._graph = graph
         self._n = len(self._graph)
+        self._probDistList = None
+        self._ampList = None
         self._operator = Operator(
-            self._graph, laplacian=laplacian, markedSearch=markedSearch
-        )
+            self._graph,
+            time=time,
+            laplacian=laplacian,
+            markedSearch=markedSearch)
         self._initState = State(
-            self._n, nodeList=initStateList, customStateList=customStateList
-        )
+            self._n,
+            nodeList=initStateList,
+            customStateList=customStateList)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
+        self._probDist = ProbabilityDistribution(
+            self._quantumWalk.getFinalState())
 
     def runWalk(
-        self, time: float = 0, initStateList: list = None, customStateList: list = None
-    ) -> None:
+            self,
+            time: float = None,
+            initStateList: list = None,
+            customStateList: list = None) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
         and probability distributions with the given parameters. These can be
         accessed with their respective get methods.
@@ -100,6 +111,26 @@ class QWAK:
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
+    def runMultipleWalks(
+            self,
+            timeList: list = None,
+            initStateList: list = None,
+            customStateList: list = None) -> None:
+        if timeList is not None:
+            self._timeList = timeList
+        elif self._timeList is None:
+            raise UndefinedTimeList
+        for time in self._timeList:
+            self.runWalk(
+                time=time,
+                initStateList=initStateList,
+                customStateList=customStateList)
+            self._probDistList.append(self.getProbDist())
+            self._ampList.append(self.getWalk())
+
+    def getProbDistList(self):
+        return self._probDistList
+
     def resetWalk(self) -> None:
         """Resets the components of a walk."""
         self._initState.resetState()
@@ -107,7 +138,8 @@ class QWAK:
         self._quantumWalk.resetWalk()
         self._probDist.resetProbDist()
 
-    def setDim(self, newDim: int, graphStr: str, initStateList: list = None) -> None:
+    def setDim(self, newDim: int, graphStr: str,
+               initStateList: list = None) -> None:
         """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
@@ -121,14 +153,17 @@ class QWAK:
         initStateList : list[int], optional
             Init state list with new dimension.
         """
-        # TODO: We should probably remove the graphStr as user input and just make it a class attribute. There isnt a way to get the name of the graph generator though.
+        # TODO: We should probably remove the graphStr as user input and just
+        # make it a class attribute. There isnt a way to get the name of the
+        # graph generator though.
         self._n = newDim
         self._graph = eval(graphStr + f"({self._n})")
         self._n = len(self._graph)
         self._initState = State(self._n, initStateList)
         self._operator = Operator(self._graph)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
+        self._probDist = ProbabilityDistribution(
+            self._quantumWalk.getFinalState())
 
     def getDim(self) -> int:
         """Gets the current graph dimension.
@@ -155,7 +190,8 @@ class QWAK:
         self._operator.setAdjacencyMatrix(newAdjMatrix)
         self._initState = State(self._n, initStateList)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._probDist = ProbabilityDistribution(self._quantumWalk.getFinalState())
+        self._probDist = ProbabilityDistribution(
+            self._quantumWalk.getFinalState())
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """_summary_
@@ -476,10 +512,13 @@ class StochasticQWAK:
             sinkRate=sinkRate,
         )
         self._initState = State(
-            self._n, nodeList=initStateList, customStateList=customStateList
-        )
-        self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
-        self._probDist = StochasticProbabilityDistribution(self._quantumWalk)
+            self._n,
+            nodeList=initStateList,
+            customStateList=customStateList)
+        self._quantumWalk = StochasticQuantumWalk(
+            self._initState, self._operator)
+        self._probDist = StochasticProbabilityDistribution(
+            self._quantumWalk)
 
     def runWalk(
         self,
@@ -532,9 +571,11 @@ class StochasticQWAK:
         self._operator.buildStochasticOperator(
             noiseParam=noiseParam, sinkNode=sinkNode, sinkRate=sinkRate
         )
-        self._quantumWalk = StochasticQuantumWalk(self._initState, self._operator)
+        self._quantumWalk = StochasticQuantumWalk(
+            self._initState, self._operator)
         self._quantumWalk.buildWalk(time, observables, opts)
-        self._probDist = StochasticProbabilityDistribution(self._quantumWalk)
+        self._probDist = StochasticProbabilityDistribution(
+            self._quantumWalk)
         self._probDist.buildProbDist()
 
     def setProbDist(self, newProbDist: object) -> None:

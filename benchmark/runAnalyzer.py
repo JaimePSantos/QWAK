@@ -26,7 +26,8 @@ if __name__ == "__main__":
                     try:
                         os.remove(file)
                     except OSError as e:  # name the Exception `e`
-                        print("Failed with:", e.strerror)  # look what it says
+                        # look what it says
+                        print("Failed with:", e.strerror)
                         print("Error code:", e.code)
 
     def runQwakProfiler(graph, t, marked, k0, k1):
@@ -53,23 +54,23 @@ if __name__ == "__main__":
             graph = nx.cycle_graph(n)
             runQwakProfiler(graph, t, marked, 0, 1)
 
-    def runMultipleOperatorProfilers(n,t, samples):
+    def runMultipleOperatorProfilers(n, t, samples):
         for s in range(samples):
             graph = nx.cycle_graph(n)
             runOperatorProfiler(graph, t)
 
-    def runMultipleOperatorProfilers2(n,t, samples):
+    def runMultipleOperatorProfilers2(n, t, samples):
         for s in range(samples):
             graph = nx.cycle_graph(n)
             runOperatorProfiler2(graph, t)
 
     def unmarshallFile(fileName, filePath):
-        if(os.getcwd()!="C:\\Users\\jaime\\Documents\\GitHub\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         numberOfEntries = 0
         timeDict = {}
         timeDictDict = []
-        n=197
+        n = 197
         with open(fileName) as f:
             lines = f.readlines()
             for line in lines:
@@ -78,15 +79,20 @@ if __name__ == "__main__":
                 else:
                     if "Next Entry" in line:
                         timeDictDict.append(timeDict)
-                        n+=1
+                        n += 1
                         timeDict = {}
                     else:
                         l = line.split(",")
                         timeDict[l[5]] = float(l[1])
-        return timeDict, numberOfEntries,timeDictDict
+        return timeDict, numberOfEntries, timeDictDict
 
-    def createOperatorTimeDicts(N,samples, fileName,fileName2, filePath):
-        if(os.getcwd()!="C:\\Users\\jaime\\Documents\\GitHub\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+    def createOperatorTimeDicts(
+            N,
+            samples,
+            fileName,
+            fileName2,
+            filePath):
+        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         timeDict = {}
         timeDict2 = {}
@@ -94,19 +100,28 @@ if __name__ == "__main__":
         tempTimeDictDict2 = []
         timeDictDict = {}
         timeDictDict2 = {}
-        if type(N) is list:
+        if isinstance(N, list):
             for n in N:
                 print(f"Running for graph of size: {n}")
                 runMultipleOperatorProfilers(n, t, samples)
-            timeDict, numberOfEntries,tempTimeDictDict = unmarshallFile(fileName, filePath)
-            timeDict2, numberOfEntries2,tempTimeDictDict2 = unmarshallFile(fileName2, filePath)
-            for n,d1,d2 in zip(N,tempTimeDictDict,tempTimeDictDict2):
+            timeDict, numberOfEntries, tempTimeDictDict = unmarshallFile(
+                fileName, filePath)
+            timeDict2, numberOfEntries2, tempTimeDictDict2 = unmarshallFile(
+                fileName2, filePath)
+            for n, d1, d2 in zip(
+                    N, tempTimeDictDict, tempTimeDictDict2):
                 timeDictDict[n] = d1
                 timeDictDict2[n] = d2
-        return timeDictDict,timeDictDict2
+        return timeDictDict, timeDictDict2
 
-    def createOperatorTimeDicts2(N,time,samples, fileName,fileName2, filePath):
-        if(os.getcwd()!="C:\\Users\\jaime\\Documents\\GitHub\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+    def createOperatorTimeDicts2(
+            N,
+            time,
+            samples,
+            fileName,
+            fileName2,
+            filePath):
+        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         timeDict = {}
         timeDict2 = {}
@@ -117,20 +132,22 @@ if __name__ == "__main__":
         for t in time:
             print(f"Running for time: {t}")
             runMultipleOperatorProfilers2(N, t, samples)
-        timeDict, numberOfEntries,tempTimeDictDict = unmarshallFile(fileName, filePath)
-        timeDict2, numberOfEntries2,tempTimeDictDict2 = unmarshallFile(fileName2, filePath)
-        for t,d1,d2 in zip(time,tempTimeDictDict,tempTimeDictDict2):
+        timeDict, numberOfEntries, tempTimeDictDict = unmarshallFile(
+            fileName, filePath)
+        timeDict2, numberOfEntries2, tempTimeDictDict2 = unmarshallFile(
+            fileName2, filePath)
+        for t, d1, d2 in zip(time, tempTimeDictDict, tempTimeDictDict2):
             timeDictDict[t] = d1
             timeDictDict2[t] = d2
-        return timeDictDict,timeDictDict2
+        return timeDictDict, timeDictDict2
 
     def normalizeTimeDict(timeDict, entryCount):
         for e in timeDict:
             timeDict[e] = timeDict[e] / entryCount
         return timeDict
 
-    def getTimeDictFromFile(fileName,filePath):
-        if(os.getcwd()!="C:\\Users\\jaime\\Documents\\GitHub\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+    def getTimeDictFromFile(fileName, filePath):
+        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         with open(fileName, "r+") as f:
             lines = f.readlines()
@@ -171,8 +188,10 @@ if __name__ == "__main__":
     # with open(diagonalSlowperatorTimeDictFileName, 'a+') as f:
     #     f.write(str(diagonalSlowperatorTimeDicts))
 
-    diagonlOperatorTimeDicts = getTimeDictFromFile(diagonalOperatorTimeDictFileName2,filePath)
-    diagonalSlowperatorTimeDicts = getTimeDictFromFile(diagonalSlowperatorTimeDictFileName,filePath)
+    diagonlOperatorTimeDicts = getTimeDictFromFile(
+        diagonalOperatorTimeDictFileName2, filePath)
+    diagonalSlowperatorTimeDicts = getTimeDictFromFile(
+        diagonalSlowperatorTimeDictFileName, filePath)
     nodes = list(diagonlOperatorTimeDicts.keys())
 
     eighTime = list(diagonlOperatorTimeDicts.values())
@@ -181,7 +200,6 @@ if __name__ == "__main__":
         # eighTimeList.append(eighTime[i]["linalg.py:1324(eigh)\n"])
         eighTimeList.append(sum(eighTime[i].values()))
         print(f"Fast: {i} -- {sum(eighTime[i].values())}")
-
 
     eighTime2 = list(diagonalSlowperatorTimeDicts.values())
     eighTimeList2 = []
@@ -204,8 +222,19 @@ if __name__ == "__main__":
     font = {'family': 'sans-serif',
             'size': 12}
     plt.rc('font', **font)
-    plt.plot(nodes, eighTimeList,linewidth=1.5,color='blue',label='Spectral Decomp.')
-    plt.plot(nodes, eighTimeList2,linestyle='-.',linewidth=1.5,color='red',label = 'Matrix exp.')
+    plt.plot(
+        nodes,
+        eighTimeList,
+        linewidth=1.5,
+        color='blue',
+        label='Spectral Decomp.')
+    plt.plot(
+        nodes,
+        eighTimeList2,
+        linestyle='-.',
+        linewidth=1.5,
+        color='red',
+        label='Matrix exp.')
     plt.xlabel("CTQW Time Evolution")
     plt.ylabel("Execution Time (s)")
     plt.legend()

@@ -21,14 +21,22 @@ if __name__ == "__main__":
     global n, t, initState, staticQuantumWalk
     n = 100
     t = 10
-    initState = [n//2]
+    initState = [n // 2]
     graph = nx.cycle_graph(n)
     staticGraph = nx.cycle_graph(n)
     dynamicGraph = nx.cycle_graph(n)
     timeList = [0, 100]
     initStateList = [[int(n / 2), int(n / 2) + 1]]
 
-    gQwak = GraphicalQWAK(n, staticGraph, dynamicGraph, graph, initState, initStateList, t, timeList)
+    gQwak = GraphicalQWAK(
+        n,
+        staticGraph,
+        dynamicGraph,
+        graph,
+        initState,
+        initStateList,
+        t,
+        timeList)
 
     resultRounding = 4
 
@@ -43,7 +51,7 @@ if __name__ == "__main__":
     @eel.expose
     def setDim(newDim, graphStr):
         global staticQuantumWalk, dynamicQuantumWalk
-        gQwak.setDim(newDim,graphStr)
+        gQwak.setDim(newDim, graphStr)
 
     @eel.expose
     def getDim():
@@ -129,11 +137,13 @@ if __name__ == "__main__":
 
     @eel.expose
     def getStaticSurvivalProb(k0, k1):
-        return round(gQwak.getStaticSurvivalProb(k0, k1), resultRounding)
+        return round(
+            gQwak.getStaticSurvivalProb(
+                k0, k1), resultRounding)
 
     @eel.expose
     def getDynSurvivalProb(k0, k1):
-        return gQwak.getDynamicSurvivalProb(k0,k1)
+        return gQwak.getDynamicSurvivalProb(k0, k1)
 
     @eel.expose
     def getInversePartRatio():
@@ -153,6 +163,9 @@ if __name__ == "__main__":
         adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
         gQwak.customGraphWalk(adjM)
 
-    eel.start("index.html", port=8080, cmdline_args=["--start-maximized"])
+    eel.start(
+        "index.html",
+        port=8080,
+        cmdline_args=["--start-maximized"])
 
     pass

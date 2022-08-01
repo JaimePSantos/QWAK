@@ -15,4 +15,3 @@ ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
 55/53,0.000,0.000,0.134,0.003,{built-in method numpy.core._multiarray_umath.implement_array_function}
 500,0.000,0.000,0.000,0.000,reportviews.py:778(<lambda>)
 Next Entry
-

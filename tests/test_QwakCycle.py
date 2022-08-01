@@ -100,7 +100,9 @@ class TestQWAKCycle(object):
         assert qwak.getDim() == 1000
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
-            nx.to_numpy_array(nx.cycle_graph(newDim), dtype=complex),
+            nx.to_numpy_array(
+                nx.cycle_graph(newDim),
+                dtype=complex),
             err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {qwak.getAdjacencyMatrix()}",
         )
         qwak.buildWalk(t)
@@ -114,11 +116,14 @@ class TestQWAKCycle(object):
         n = 100
         t = 12
         initStateList = [n // 2, n // 2 + 1]
-        newAdjMatrix = nx.to_numpy_array(nx.complete_graph(n), dtype=complex)
+        newAdjMatrix = nx.to_numpy_array(
+            nx.complete_graph(n), dtype=complex)
         qwak = QWAKTestStub()
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
-            nx.to_numpy_array(nx.cycle_graph(n), dtype=complex),
+            nx.to_numpy_array(
+                nx.cycle_graph(n),
+                dtype=complex),
             err_msg=f"Expected adjacency matrix of cycle of size {n} but got {qwak.getAdjacencyMatrix()}",
         )
         qwak.buildWalk(t)
@@ -182,7 +187,12 @@ class TestQWAKCycle(object):
         qwak = QWAKTestStub()
         qwak.buildWalk()
         np.testing.assert_allclose(
-            qwak.getSurvivalProb(n // 2, n // 2 + 1),
+            qwak.getSurvivalProb(
+                n //
+                2,
+                n //
+                2 +
+                1),
             0.02688956925823824,
             atol=0,
             err_msg=f"Survival Prob for a cycle of size {n} for time {t} between {n//2} and {n//2+1} should be 0.026889... but got {qwak.getSurvivalProb(n//2,n//2+1)}",

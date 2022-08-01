@@ -52,7 +52,8 @@ class ProbabilityDistribution:
         if state is not None:
             self._state = state.getStateVec()
         for st in range(self._n):
-            self._probVec[st] = self._state[st] * np.conj(self._state[st])
+            self._probVec[st] = self._state[st] * \
+                np.conj(self._state[st])
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
