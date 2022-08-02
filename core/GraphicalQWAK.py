@@ -22,14 +22,14 @@ class GraphicalQWAK:
         dynamicTimeList: list,
     ) -> None:
         self._n = n
-        # TODO: Redo how graph is implemented because right now this
-        # attribute is useless.
         self._staticGraph = staticGraph
         self._dynamicGraph = dynamicGraph
         self._staticStateList = staticStateList
         self._dynamicStateList = dynamicStateList
         self._staticTime = staticTime
-        self._dynamicTimeList = dynamicTimeList
+        self._dynamicTimeList = np.linspace(
+                dynamicTimeList[0], dynamicTimeList[1], int(
+                    dynamicTimeList[1]))
         self._staticQWAK = QWAK(self._staticGraph)
         self._staticQWAK.runWalk(
             time=self._staticTime,
@@ -102,8 +102,11 @@ class GraphicalQWAK:
         return self._staticTime
 
     def setDynamicTime(self, newTimeList):
-        self._dynamicTimeList = list(map(float, newTimeList.split(",")))
-        # self._dynamicQWAK.setTime(self._staticTime)
+        parsedTime = list(map(float, newTimeList.split(",")))
+        self._dynamicTimeList = np.linspace(
+                parsedTime[0], parsedTime[1], int(
+                    parsedTime[1]))
+        self._dynamicQWAK.setTimeList(self._dynamicTimeList)
 
     def getDynamicTime(self):
         return self._dynamicTimeList

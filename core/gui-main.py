@@ -91,15 +91,12 @@ if __name__ == "__main__":
 
     @eel.expose
     def setDynamicTime(newTime):
+        gQwak.setDynamicTime(newTime)
         pass
 
     @eel.expose
     def getDynamicTime():
-        pass
-
-    @eel.expose
-    def setTimeList(newTimeList):
-        gQwak.setDynamicTime(newTimeList)
+        return gQwak.getDynamicTime()
 
     @eel.expose
     def setInitState(initStateStr):

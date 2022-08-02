@@ -61,9 +61,7 @@ class QWAK:
             List with marked elements for search, by default None.
         """
         if timeList is not None:
-            self._timeList = self._timeList = np.linspace(
-                timeList[0], timeList[1], int(
-                    timeList[1]))
+            self._timeList = timeList
         else:
             self._timeList = None
         self._graph = graph
@@ -144,9 +142,7 @@ class QWAK:
         # TODO: Decide if we should reset walk here.
         # self.resetWalk()
         if timeList is not None:
-            self._timeList = np.linspace(
-                timeList[0], timeList[1], int(
-                    timeList[1]))
+            self._timeList = timeList
         elif self._timeList is None:
             raise UndefinedTimeList(f"TimeList is {self._timeList}.")
         for time in self._timeList:
@@ -163,6 +159,8 @@ class QWAK:
         self._operator.resetOperator()
         self._quantumWalk.resetWalk()
         self._probDist.resetProbDist()
+        self._probDistList = []
+        self._walkList = []
 
     def setDim(self, newDim: int, graphStr: str,
                initStateList: list = None) -> None:
@@ -254,6 +252,16 @@ class QWAK:
         """
         self._operator.setTime(newTime)
 
+    def setTimeList(self,newTimeList: list) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        newTime : list
+            _description_
+        """        
+        self._timeList = newTimeList
+
     def getTime(self) -> float:
         """Gets the current walk time.
 
@@ -263,6 +271,16 @@ class QWAK:
            Current value of time.
         """
         return self._operator.getTime()
+
+    def getTimeList(self) -> float:
+        """Gets the current walk time.
+
+        Returns
+        -------
+        float
+           Current value of time.
+        """
+        return self._timeList
 
     def setAdjacencyMatrix(
             self, newAdjMatrix: np.ndarray, initStateList: list = None
