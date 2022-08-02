@@ -22,7 +22,6 @@ if __name__ == "__main__":
     n = 100
     t = 10
     initState = [n // 2]
-    graph = nx.cycle_graph(n)
     staticGraph = nx.cycle_graph(n)
     dynamicGraph = nx.cycle_graph(n)
     timeList = [0, 100]
@@ -32,7 +31,6 @@ if __name__ == "__main__":
         n,
         staticGraph,
         dynamicGraph,
-        graph,
         initState,
         initStateList,
         t,

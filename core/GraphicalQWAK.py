@@ -5,7 +5,7 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds, UndefinedTimeList
+from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList
 from qwak.State import State
 from qwak.qwak import QWAK
 
@@ -14,7 +14,6 @@ class GraphicalQWAK:
     def __init__(
         self,
         n,
-        graph: nx.Graph,
         staticGraph: nx.Graph,
         dynamicGraph: nx.Graph,
         staticStateList: list,
@@ -25,18 +24,17 @@ class GraphicalQWAK:
         self._n = n
         # TODO: Redo how graph is implemented because right now this
         # attribute is useless.
-        self._graph = graph
         self._staticGraph = staticGraph
         self._dynamicGraph = dynamicGraph
         self._staticStateList = staticStateList
         self._dynamicStateList = dynamicStateList
         self._staticTime = staticTime
         self._dynamicTimeList = dynamicTimeList
-        self._staticQWAK = QWAK(graph)
+        self._staticQWAK = QWAK(self._staticGraph)
         self._staticQWAK.runWalk(
             time=self._staticTime,
             initStateList=self._staticStateList)
-        self._dynamicQWAK = QWAK(graph)
+        self._dynamicQWAK = QWAK(self._dynamicGraph)
         self._staticQWAK.runWalk(
             time=self._dynamicTimeList[0],
             initStateList=self._dynamicStateList[0])
@@ -56,16 +54,13 @@ class GraphicalQWAK:
         return [False, probLists]
 
     def runMultipleWalks(self):
-        # TODO: Adicionar state of bounds error
         try:
             self._dynamicQWAK.resetWalk()
             self._dynamicQWAK.runMultipleWalks(timeList=self._dynamicTimeList,initStateList=self._dynamicStateList[0])
             self._dynamicAmpList = self._dynamicQWAK.getWalkList()
             self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
             qwProbVecList = list(map(lambda probVec: probVec.tolist(), self._dynamicQWAK.getProbVecList()))
-        except StateOutOfBounds as err:
-            return [True, str(err)]
-        except UndefinedTimeList as err:
+        except (StateOutOfBounds,UndefinedTimeList,EmptyProbDistList) as err:
             return [True, str(err)]
         return [False, qwProbVecList]
 
@@ -92,9 +87,6 @@ class GraphicalQWAK:
 
     def getDynamicGraph(self):
         return self._dynamicGraph
-
-    def getGraphToJson(self):
-        return nx.cytoscape_data(self._staticQWAK.getGraph())
 
     def getStaticGraphToJson(self):
         return nx.cytoscape_data(self._staticGraph)
@@ -182,6 +174,7 @@ class GraphicalQWAK:
         # TODO: Running the custom graph set graph button throws an
         # error if the field on the prob dist side is not with correct
         # dimension. check out how to fix this.
+        # TODO: This function needs rework
         self._staticQWAK.setAdjacencyMatrix(customAdjacency)
         initState = State(self._staticQWAK.getDim())
         initState.buildState([self._staticQWAK.getDim() // 2])

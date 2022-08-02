@@ -89,3 +89,22 @@ class UndefinedTimeList(Error):
             _description_
         """
         super().__init__("Time interval for multiple walks is undefined: ", details)
+
+class EmptyProbDistList(Error):
+    """_summary_
+
+    Parameters
+    ----------
+    Error : _type_
+        _description_
+    """
+
+    def __init__(self, details):
+        """_summary_
+
+        Parameters
+        ----------
+        details : _type_
+            _description_
+        """
+        super().__init__("Probability distribution list is empty: ", details)

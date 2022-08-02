@@ -2,7 +2,7 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList
+from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList
 from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
@@ -200,33 +200,6 @@ class QWAK:
         """
         return self._n
 
-    def setAdjacencyMatrix(
-        self, newAdjMatrix: np.ndarray, initStateList: list = None
-    ) -> None:
-        """_summary_
-
-        Parameters
-        ----------
-        newAdjMatrix : np.ndarray
-            _description_
-        initStateList : list, optional
-            _description_, by default None
-        """
-        self._n = len(self._operator.getAdjacencyMatrix())
-        self._operator.setAdjacencyMatrix(newAdjMatrix)
-        self._initState = State(self._n, initStateList)
-        self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._probDist = ProbabilityDistribution(
-            self._quantumWalk.getFinalState())
-
-    def getAdjacencyMatrix(self) -> np.ndarray:
-        """_summary_
-
-        Returns:
-            np.ndarray: _description_
-        """
-        return self._operator.getAdjacencyMatrix()
-
     def setGraph(self, newGraph: nx.Graph) -> None:
         """Sets the current graph to a user defined one.
         Also recalculates the current operator and walk dimension.
@@ -290,6 +263,33 @@ class QWAK:
            Current value of time.
         """
         return self._operator.getTime()
+
+    def setAdjacencyMatrix(
+            self, newAdjMatrix: np.ndarray, initStateList: list = None
+    ) -> None:
+        """_summary_
+
+        Parameters
+        ----------
+        newAdjMatrix : np.ndarray
+            _description_
+        initStateList : list, optional
+            _description_, by default None
+        """
+        self._n = len(self._operator.getAdjacencyMatrix())
+        self._operator.setAdjacencyMatrix(newAdjMatrix)
+        self._initState = State(self._n, initStateList)
+        self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        self._probDist = ProbabilityDistribution(
+            self._quantumWalk.getFinalState())
+
+    def getAdjacencyMatrix(self) -> np.ndarray:
+        """_summary_
+
+        Returns:
+            np.ndarray: _description_
+        """
+        return self._operator.getAdjacencyMatrix()
 
     def setOperator(self, newOperator: Operator) -> None:
         """Sets the current walk operator a user defined one.
@@ -401,6 +401,8 @@ class QWAK:
         _type_
             _description_
         """
+        if not self._probDistList:
+            raise EmptyProbDistList(f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
 
     def getProbVec(self) -> np.ndarray:
