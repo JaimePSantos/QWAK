@@ -13,9 +13,8 @@ class State:
     therefore Numpy is used to generate ndarrays which contain these column vectors.
     """
 
-    def __init__(
-        self, n: int, nodeList: list = None, customStateList: list = None
-    ) -> None:
+    def __init__(self, n: int, nodeList: list = None,
+                 customStateList: list = None) -> None:
         """Object is initialized with a mandatory user inputted dimension, an optional
         stateList parameter which will be used to create the amplitudes for each node in the state
         and an internal stateVec which will be a Numpy ndarray representing the column vector.
@@ -40,7 +39,10 @@ class State:
             self._customStateList = customStateList
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
-    def buildState(self, nodeList: list = None, customStateList: list = None) -> None:
+    def buildState(
+            self,
+            nodeList: list = None,
+            customStateList: list = None) -> None:
         """Builds state vector from state list, by creating a balanced superposition of all
         nodes in the nodeList.
         This will be changed in the future to make nodeList make more sense.
@@ -52,7 +54,8 @@ class State:
         customStateList : list, optional
             Custom amplitudes for the state, by default None.
         """
-        # TODO: We can probably find a better way to build this function.
+        # TODO: We can probably find a better way to build this
+        # function.
         if nodeList is not None:
             self._nodeList = nodeList
         if customStateList is not None:

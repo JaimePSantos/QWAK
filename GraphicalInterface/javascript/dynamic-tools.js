@@ -1,6 +1,6 @@
 let getGraph = () => {
     return eel
-        .graphToJson()()
+        .getDynamicGraphToJson()()
         .then((a) => {
             return a ? a : Promise.reject(Error("Get Prob failed."));
         })
@@ -10,7 +10,7 @@ let getGraph = () => {
 let initGraph = async () => {
     let graphStr = 'nx.cycle_graph'
     eel.setDim(100, graphStr)
-    eel.setGraph(graphStr)
+    eel.setDynamicGraph(graphStr)
 }
 
 initGraph()

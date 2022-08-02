@@ -84,17 +84,22 @@ let setTimeRange = async () => {
 
 let setdynamicProbDist = async () => {
     let multipleWalks = await getMultipleWalks();
-    let i = 0;
-    let animationSteps = 100;
-    myAnimatedChart.clear();
-    for (const walk of multipleWalks) {
-        setTimeout(() => {
-            dynamicChartData.data.datasets[0].data = walk.flat();
-            dynamicChartData.data.labels = [...Array(walk.length).keys()];
-            dynamicChartData.options.scales.y.ticks.beginAtZero = false;
-            myAnimatedChart.update();
-        }, animationSteps * i);
-        i++;
+    if (multipleWalks[0] == true) {
+        alert(multipleWalks[1]);
+        return;
+    } else {
+        let i = 0;
+        let animationSteps = 100;
+        myAnimatedChart.clear();
+        for (const walk of multipleWalks[1]) {
+            setTimeout(() => {
+                dynamicChartData.data.datasets[0].data = walk.flat();
+                dynamicChartData.data.labels = [...Array(walk.length).keys()];
+                dynamicChartData.options.scales.y.ticks.beginAtZero = false;
+                myAnimatedChart.update();
+            }, animationSteps * i);
+            i++;
+        }
     }
 }
 
@@ -244,9 +249,9 @@ document.getElementById("runGraphButton").addEventListener('click', async functi
 });
 
 let setRunGraph = async () => {
-    let myGraph = await getGraph();
+    let myGraph = await getDynamicGraph();
     updateGraph(myGraph);
-    setGraph();
+    setDynamicGraph();
     setDimButton();
 }
 
@@ -256,14 +261,14 @@ let setDimButton = async () => {
     eel.setDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
 }
 
-let setGraph = async () => {
+let setDynamicGraph = async () => {
     dynamicQuantumWalk.graph = inputGraph.value;
-    eel.setGraph(dynamicQuantumWalk.graph);
+    eel.setDynamicGraph(dynamicQuantumWalk.graph);
 }
 
-let getGraph = () => {
+let getDynamicGraph = () => {
     return eel
-        .graphToJson()()
+        .getDynamicGraphToJson()()
         .then((a) => {
             return a ? a : Promise.reject(Error("Get Graph failed."));
         })

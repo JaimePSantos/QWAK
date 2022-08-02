@@ -1,3 +1,4 @@
+import os
 import cProfile
 import pstats
 from functools import wraps
@@ -6,8 +7,6 @@ from os.path import exists
 
 global benchmark
 benchmark = True
-
-import os
 
 
 def profile(
@@ -41,7 +40,10 @@ def profile(
     def inner(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            path = os.path.join(os.path.dirname(__file__), "TestOutput", "Profiling")
+            path = os.path.join(
+                os.path.dirname(__file__),
+                "TestOutput",
+                "Profiling")
             os.chdir(path)
             if output_file is not None:
                 _output_file = output_path + output_file
@@ -60,7 +62,8 @@ def profile(
                 else:
                     ps.sort_stats(sort_by)
                 if csv:
-                    csvFile = prof_to_csv(pr, sort_by, lines_to_print, strip_dirs)
+                    csvFile = prof_to_csv(
+                        pr, sort_by, lines_to_print, strip_dirs)
                     if exists(_output_file):
                         with open(_output_file, "a+") as f:
                             f.write(csvFile)
@@ -77,7 +80,11 @@ def profile(
     return inner if benchmark else noop_decorator
 
 
-def prof_to_csv(prof, sort_by="cumulative", lines_to_print=None, strip_dirs=False):
+def prof_to_csv(
+        prof,
+        sort_by="cumulative",
+        lines_to_print=None,
+        strip_dirs=False):
     out_stream = StringIO()
     ps = pstats.Stats(prof, stream=out_stream).print_stats()
     if strip_dirs:
@@ -90,7 +97,8 @@ def prof_to_csv(prof, sort_by="cumulative", lines_to_print=None, strip_dirs=Fals
     result = out_stream.getvalue()
     # chop off header lines
     result = "ncalls" + result.split("ncalls")[-1]
-    lines = [",".join(line.rstrip().split(None, 5)) for line in result.split("\n")]
+    lines = [",".join(line.rstrip().split(None, 5))
+             for line in result.split("\n")]
     lines.append("Next Entry")
     lines.append("\n")
     lines = list(filter(None, lines))

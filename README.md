@@ -61,9 +61,10 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 5. Update your fork with ```git checkout main``` and ```git pull --rebase upstream main```
 6. Create a branch for the changes instead of working off your local main branch ```git checkout -b <new branch name> upstream/main```
 7. Make your changes.
-8. Commit your changes: ```git commit -am <Commit message>```
-9. Push your changes to your fork ```git push -u origin <branch name>```
-10. Visit your repo on github and create a pull request to the main repo!
+8. Format your code with ```autopep8 --in-place --aggressive --aggressive --max-line-length 72 .\core\qwak\qwak.py```
+9. Commit your changes: ```git commit -am <Commit message>```
+10. Push your changes to your fork ```git push -u origin <branch name>```
+11. Visit your repo on github and create a pull request to the main repo!
 
 #### Building Documentation
 1. Install the [sphinx](https://www.sphinx-doc.org/en/master/) `pip install sphinx`

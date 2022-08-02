@@ -32,13 +32,15 @@ class QuantumWalk:
         operator : Operator
             Operator which will evolve the initial state.
         """
-        # TODO: This class has mandatory init conditions. This is not in line with the rest of the classes.
+        # TODO: This class has mandatory init conditions. This is not in
+        # line with the rest of the classes.
         self._n = state.getDim()
         self._initState = state
         self._operator = operator
         self._finalState = State(self._n)
 
-    def buildWalk(self, initState: State = None, operator: Operator = None) -> None:
+    def buildWalk(self, initState: State = None,
+                  operator: Operator = None) -> None:
         """Builds the final state of the quantum walk by setting it to the matrix
         multiplication of the operator by the initial state.
 
@@ -55,8 +57,9 @@ class QuantumWalk:
         if operator is not None:
             self._operator = operator
         self._finalState.setStateVec(
-            np.matmul(self._operator.getOperator(), self._initState.getStateVec())
-        )
+            np.matmul(
+                self._operator.getOperator(),
+                self._initState.getStateVec()))
 
     def resetWalk(self):
         """Resets the components of the QuantumWalk object."""
@@ -210,7 +213,10 @@ class QuantumWalk:
 class StochasticQuantumWalk(object):
     """_summary_"""
 
-    def __init__(self, state: State, operator: StochasticOperator) -> None:
+    def __init__(
+            self,
+            state: State,
+            operator: StochasticOperator) -> None:
         """This object is initialized with a user inputted initial state and
         operator.
         The dimension of the quantum walk will then be loaded from the initial
@@ -253,7 +259,8 @@ class StochasticQuantumWalk(object):
         # TODO: Can we move the time dependency to the StochasticOperator class?
         # TODO: Can we make the time evolution low cost?
         # TODO: Is there a way to obtain amplitudes?
-        # TODO: The final state is a of the Qobj class. Find a way to make it State class.
+        # TODO: The final state is a of the Qobj class. Find a way to
+        # make it State class.
         self._time = np.arange(0, time + 1)
         if self._operator.getSinkNode() is not None:
             self._initQutipState = Qobj(

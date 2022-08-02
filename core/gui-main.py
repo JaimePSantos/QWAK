@@ -21,12 +21,20 @@ if __name__ == "__main__":
     global n, t, initState, staticQuantumWalk
     n = 100
     t = 10
-    initState = [n//2]
-    graph = nx.cycle_graph(n)
+    initState = [n // 2]
+    staticGraph = nx.cycle_graph(n)
+    dynamicGraph = nx.cycle_graph(n)
     timeList = [0, 100]
     initStateList = [[int(n / 2), int(n / 2) + 1]]
 
-    gQwak = GraphicalQWAK(n, graph, initState, initStateList, t, timeList)
+    gQwak = GraphicalQWAK(
+        n,
+        staticGraph,
+        dynamicGraph,
+        initState,
+        initStateList,
+        t,
+        timeList)
 
     resultRounding = 4
 
@@ -41,23 +49,35 @@ if __name__ == "__main__":
     @eel.expose
     def setDim(newDim, graphStr):
         global staticQuantumWalk, dynamicQuantumWalk
-        gQwak.setDim(newDim,graphStr)
+        gQwak.setDim(newDim, graphStr)
 
     @eel.expose
     def getDim():
         return gQwak.getDim()
 
     @eel.expose
-    def setGraph(newGraph):
-        gQwak.setGraph(newGraph)
+    def setStaticGraph(newGraph):
+        gQwak.setStaticGraph(newGraph)
 
     @eel.expose
-    def getGraph():
-        return gQwak.getGraph()
+    def setDynamicGraph(newGraph):
+        gQwak.setDynamicGraph(newGraph)
 
     @eel.expose
-    def graphToJson():
-        return gQwak.getGraphToJson()
+    def getStaticGraph():
+        return gQwak.getStaticGraph()
+
+    @eel.expose
+    def getDynamicGraph():
+        return gQwak.getDynamicGraph()
+
+    @eel.expose
+    def getStaticGraphToJson():
+        return gQwak.getStaticGraphToJson()
+
+    @eel.expose
+    def getDynamicGraphToJson():
+        return gQwak.getDynamicGraphToJson()
 
     @eel.expose
     def setTime(newTime):
@@ -71,7 +91,6 @@ if __name__ == "__main__":
 
     @eel.expose
     def setDynamicTime(newTime):
-
         pass
 
     @eel.expose
@@ -116,11 +135,13 @@ if __name__ == "__main__":
 
     @eel.expose
     def getStaticSurvivalProb(k0, k1):
-        return round(gQwak.getStaticSurvivalProb(k0, k1), resultRounding)
+        return round(
+            gQwak.getStaticSurvivalProb(
+                k0, k1), resultRounding)
 
     @eel.expose
     def getDynSurvivalProb(k0, k1):
-        return gQwak.getDynamicSurvivalProb(k0,k1)
+        return gQwak.getDynamicSurvivalProb(k0, k1)
 
     @eel.expose
     def getInversePartRatio():
@@ -140,6 +161,9 @@ if __name__ == "__main__":
         adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
         gQwak.customGraphWalk(adjM)
 
-    eel.start("index.html", port=8080, cmdline_args=["--start-maximized"])
+    eel.start(
+        "index.html",
+        port=8080,
+        cmdline_args=["--start-maximized"])
 
     pass

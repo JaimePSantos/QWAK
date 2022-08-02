@@ -5,38 +5,47 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds
+from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList
 from qwak.State import State
 from qwak.qwak import QWAK
+
 
 class GraphicalQWAK:
     def __init__(
         self,
         n,
-        graph: nx.Graph,
+        staticGraph: nx.Graph,
+        dynamicGraph: nx.Graph,
         staticStateList: list,
         dynamicStateList: list,
         staticTime: float,
         dynamicTimeList: list,
     ) -> None:
         self._n = n
-        # TODO: Redo how graph is implemented because right now this attribute is useless.
-        self._graph = graph
+        # TODO: Redo how graph is implemented because right now this
+        # attribute is useless.
+        self._staticGraph = staticGraph
+        self._dynamicGraph = dynamicGraph
         self._staticStateList = staticStateList
         self._dynamicStateList = dynamicStateList
         self._staticTime = staticTime
         self._dynamicTimeList = dynamicTimeList
-        self._staticQWAK = QWAK(graph)
-        self._staticQWAK.runWalk(time = self._staticTime, initStateList = self._staticStateList)
-        self._dynamicQWAK = QWAK(graph)
-        self._staticQWAK.runWalk(time = self._dynamicTimeList[0], initStateList = self._dynamicStateList[0])
+        self._staticQWAK = QWAK(self._staticGraph)
+        self._staticQWAK.runWalk(
+            time=self._staticTime,
+            initStateList=self._staticStateList)
+        self._dynamicQWAK = QWAK(self._dynamicGraph)
+        self._staticQWAK.runWalk(
+            time=self._dynamicTimeList[0],
+            initStateList=self._dynamicStateList[0])
         self._dynamicProbDistList = []
         self._dynamicAmpList = []
 
     def runWalk(self):
         try:
             self._staticQWAK.resetWalk()
-            self._staticQWAK.runWalk(self._staticTime, self._staticStateList)
+            self._staticQWAK.runWalk(
+                self._staticTime, self._staticStateList)
         except StateOutOfBounds as err:
             return [True, str(err)]
         qwProbabilities = self._staticQWAK.getProbDist()
@@ -45,67 +54,68 @@ class GraphicalQWAK:
         return [False, probLists]
 
     def runMultipleWalks(self):
-        # TODO: Adicionar state of bounds error
-        qwProbVecList = []
-        self._dynamicQWAK.resetWalk()
-        self._dynamicProbDistList = []
-        self._dynamicAmpList = []
-        # TODO: Adicionar um metodo ao QWAK para multiple walks.
-        timeRange = np.linspace(self._dynamicTimeList[0], self._dynamicTimeList[1], int(self._dynamicTimeList[1]))
-        for t in timeRange:
-            self._dynamicQWAK.runWalk(time=t, initStateList=self._dynamicStateList[0])
-            # TODO: Check if we can remove copy now that we're using a class.
-            qwProbabilities = copy.copy(self._dynamicQWAK.getProbDist())
-            self._dynamicAmpList.append(copy.deepcopy(self._dynamicQWAK.getWalk()))
-            self._dynamicProbDistList.append(copy.deepcopy(qwProbabilities))
-            qwProbVecList.append(qwProbabilities.getProbVec().tolist())
-        return qwProbVecList
+        try:
+            self._dynamicQWAK.resetWalk()
+            self._dynamicQWAK.runMultipleWalks(timeList=self._dynamicTimeList,initStateList=self._dynamicStateList[0])
+            self._dynamicAmpList = self._dynamicQWAK.getWalkList()
+            self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
+            qwProbVecList = list(map(lambda probVec: probVec.tolist(), self._dynamicQWAK.getProbVecList()))
+        except (StateOutOfBounds,UndefinedTimeList,EmptyProbDistList) as err:
+            return [True, str(err)]
+        return [False, qwProbVecList]
 
-    def setDim(self,newDim, graphStr):
+    def setDim(self, newDim, graphStr):
         # TODO: Different graphs for dynamic and static.
-        self._staticQWAK.setDim(newDim, graphStr)
-        self._dynamicQWAK.setDim(newDim, graphStr)
+        self._n = newDim
+        self._staticQWAK.setDim(self._n, graphStr)
+        self._dynamicQWAK.setDim(self._n, graphStr)
 
     def getDim(self):
         # TODO: Different graphs for dynamic and static.
-        return self._staticQWAK.getDim()
+        return self._n
 
-    def setGraph(self,newGraph):
-        # TODO: Different graphs for dynamic and static.
-        newStaticGraph = eval(newGraph + f"({self._staticQWAK.getDim()})")
-        newDynamicGraph = eval(newGraph + f"({self._dynamicQWAK.getDim()})")
-        self._staticQWAK.setGraph(newStaticGraph)
-        self._dynamicQWAK.setGraph(newDynamicGraph)
+    def setStaticGraph(self, newGraphStr):
+        self._staticGraph = eval(newGraphStr + f"({self._n})")
+        self._staticQWAK.setGraph(self._staticGraph)
 
-    def getGraph(self):
-        # TODO: Different graphs for dynamic and static.
-        return self._staticQWAK.getGraph()
+    def setDynamicGraph(self, newGraphStr):
+        self._dynamicGraph = eval(newGraphStr + f"({self._n})")
+        self._dynamicQWAK.setGraph(self._dynamicGraph)
 
-    def getGraphToJson(self):
-        # TODO: This will also need to change with new graph implementation.
-        return nx.cytoscape_data(self._staticQWAK.getGraph())
+    def getStaticGraph(self):
+        return self._staticGraph
 
-    def setStaticTime(self,newTime):
+    def getDynamicGraph(self):
+        return self._dynamicGraph
+
+    def getStaticGraphToJson(self):
+        return nx.cytoscape_data(self._staticGraph)
+
+    def getDynamicGraphToJson(self):
+        return nx.cytoscape_data(self._dynamicGraph)
+
+    def setStaticTime(self, newTime):
         self._staticTime = eval(newTime)
         self._staticQWAK.setTime(self._staticTime)
 
     def getStaticTime(self):
         return self._staticTime
 
-    def setDynamicTime(self,newTimeList):
+    def setDynamicTime(self, newTimeList):
         self._dynamicTimeList = list(map(float, newTimeList.split(",")))
         # self._dynamicQWAK.setTime(self._staticTime)
 
     def getDynamicTime(self):
         return self._dynamicTimeList
 
-    def setDynamicInitStateList(self,newInitStateList):
+    def setDynamicInitStateList(self, newInitStateList):
         parsedInitState = newInitStateList.split(";")
         self._dynamicStateList = []
         for initState in parsedInitState:
-            self._dynamicStateList.append(list(map(int, initState.split(","))))
+            self._dynamicStateList.append(
+                list(map(int, initState.split(","))))
 
-    def setStaticInitState(self,initStateStr):
+    def setStaticInitState(self, initStateStr):
         self._staticStateList = []
         self._staticStateList = list(map(int, initStateStr.split(",")))
         newState = State(self._staticQWAK.getDim())
@@ -119,7 +129,6 @@ class GraphicalQWAK:
         return self._staticQWAK.getMean()
 
     def getDynamicMean(self):
-        # TODO: We might need to reset the walk somewhere for the plot to work properly.
         meanList = []
         for probDist in self._dynamicProbDistList:
             meanList.append(probDist.mean())
@@ -137,11 +146,11 @@ class GraphicalQWAK:
             stDevList.append(probDist.stDev())
         return stDevList
 
-    def getStaticSurvivalProb(self,k0, k1):
+    def getStaticSurvivalProb(self, k0, k1):
         # TODO: Make JS throw an error if k0 or k1 are not defined.
         return self._staticQWAK.getSurvivalProb(k0, k1)
 
-    def getDynamicSurvivalProb(self,k0, k1):
+    def getDynamicSurvivalProb(self, k0, k1):
         # TODO: Make JS throw an error if k0 or k1 are not defined.
         survProbList = []
         for probDist in self._dynamicProbDistList:
@@ -157,12 +166,15 @@ class GraphicalQWAK:
             invPartRatioList.append(amps.invPartRatio())
         return invPartRatioList
 
-    def checkPST(self,nodeA, nodeB):
+    def checkPST(self, nodeA, nodeB):
         # TODO: Make JS throw an error if k0 or k1 are not defined.
         return str(self._staticQWAK.checkPST(nodeA, nodeB))
 
-    def customGraphWalk(self,customAdjacency):
-        # TODO: Running the custom graph set graph button throws an error if the field on the prob dist side is not with correct dimension. check out how to fix this.
+    def customGraphWalk(self, customAdjacency):
+        # TODO: Running the custom graph set graph button throws an
+        # error if the field on the prob dist side is not with correct
+        # dimension. check out how to fix this.
+        # TODO: This function needs rework
         self._staticQWAK.setAdjacencyMatrix(customAdjacency)
         initState = State(self._staticQWAK.getDim())
         initState.buildState([self._staticQWAK.getDim() // 2])

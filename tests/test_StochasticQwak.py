@@ -84,7 +84,12 @@ class StochasticQWAKTestStub:
         else:
             self.qwak = testQwak
 
-    def buildWalk(self, t, noiseParam=None, sinkNode=None, sinkRate=None):
+    def buildWalk(
+            self,
+            t,
+            noiseParam=None,
+            sinkNode=None,
+            sinkRate=None):
         if t is not None:
             self.t = t
         self.qwak.runWalk(self.t)

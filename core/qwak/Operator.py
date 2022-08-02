@@ -19,10 +19,11 @@ class Operator:
     """
 
     def __init__(
-        self,
-        graph: nx.Graph,
-        laplacian: bool = False,
-        markedSearch: list = None,
+            self,
+            graph: nx.Graph,
+            time: float = None,
+            laplacian: bool = False,
+            markedSearch: list = None,
     ) -> None:
         """This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
@@ -44,17 +45,20 @@ class Operator:
         markedSearch : list, optional
             List with marked elements for search, by default None.
         """
+        if time is not None:
+            self._time = time
+        else:
+            self._time = 0
         self._graph = graph
         self._buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._isHermitian = np.allclose(
-            self._adjacencyMatrix, self._adjacencyMatrix.conjugate().transpose()
-        )
-        self._time = 0
+            self._adjacencyMatrix,
+            self._adjacencyMatrix.conjugate().transpose())
         self._buildEigenValues(self._isHermitian)
 
-    def buildDiagonalOperator(self, time: float = 0) -> None:
+    def buildDiagonalOperator(self, time: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
         eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
@@ -66,15 +70,21 @@ class Operator:
         time : float, optional
             Time for which to calculate the operator, by default 0.
         """
-        self._time = time
-        diag = np.diag(np.exp(-1j * self._eigenvalues * self._time)).diagonal()
+        if time is not None:
+            self._time = time
+        else:
+            self._time = 0
+        diag = np.diag(
+            np.exp(-1j * self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
             self._operator = np.matmul(
-                self._operator, self._eigenvectors.conjugate().transpose()
-            )
+                self._operator,
+                self._eigenvectors.conjugate().transpose())
         else:
-            self._operator = np.matmul(self._operator, inv(self._eigenvectors))
+            self._operator = np.matmul(
+                self._operator, inv(
+                    self._eigenvectors))
 
     def _buildAdjacency(self, laplacian, markedSearch):
         """_summary_
@@ -88,10 +98,11 @@ class Operator:
         """
         if laplacian:
             self._adjacencyMatrix = np.asarray(
-                nx.laplacian_matrix(self._graph).todense().astype(complex)
-            )
+                nx.laplacian_matrix(
+                    self._graph).todense().astype(complex))
         else:
-            self._adjacencyMatrix = nx.to_numpy_array(self._graph, dtype=complex)
+            self._adjacencyMatrix = nx.to_numpy_array(
+                self._graph, dtype=complex)
         if markedSearch is not None:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
@@ -109,7 +120,8 @@ class Operator:
                 self._adjacencyMatrix
             )
         else:
-            self._eigenvalues, self._eigenvectors = np.linalg.eig(self._adjacencyMatrix)
+            self._eigenvalues, self._eigenvectors = np.linalg.eig(
+                self._adjacencyMatrix)
 
     def resetOperator(self):
         """Resets Operator object."""
@@ -228,7 +240,8 @@ class Operator:
         eigenVec, D = symAdj.diagonalize()
         eigenVal = getEigenVal(D)
         isCospec = isStrCospec(symAdj, nodeA, nodeB)
-        chRoots, g, delta = checkRoots(symAdj, nodeA, eigenVec, eigenVal)
+        chRoots, g, delta = checkRoots(
+            symAdj, nodeA, eigenVec, eigenVal)
         if isCospec and chRoots:
             result = pi / (g * np.sqrt(delta))
         else:
@@ -304,7 +317,12 @@ class StochasticOperator(object):
     @author: Lorenzo Buffoni
     """
 
-    def __init__(self, graph, noiseParam=None, sinkNode=None, sinkRate=None) -> None:
+    def __init__(
+            self,
+            graph,
+            noiseParam=None,
+            sinkNode=None,
+            sinkRate=None) -> None:
         """_summary_
 
         Parameters
@@ -337,8 +355,10 @@ class StochasticOperator(object):
         self._classicalHamiltonian = []
 
     def buildStochasticOperator(
-        self, noiseParam: float = None, sinkNode: int = None, sinkRate: float = None
-    ) -> None:
+            self,
+            noiseParam: float = None,
+            sinkNode: int = None,
+            sinkRate: float = None) -> None:
         """Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
@@ -387,7 +407,8 @@ class StochasticOperator(object):
                 for j in range(self.n)
                 if self._laplacian[i, j] > 0
             ]
-            S = np.zeros([self.n + 1, self.n + 1])  # transition matrix to the sink
+            # transition matrix to the sink
+            S = np.zeros([self.n + 1, self.n + 1])
             S[self.n, self._sinkNode] = np.sqrt(2 * self._sinkRate)
             L.append(Qobj(S))
         else:

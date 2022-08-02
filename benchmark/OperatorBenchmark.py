@@ -11,6 +11,7 @@ outPath = "operator/"
 stripDirs = True
 csv = True
 
+
 class OperatorBenchmark:
     @profile(
         output_path=outPath,
@@ -39,11 +40,13 @@ class OperatorBenchmark:
         _type_
             _description_
         """
-        self._adjacencyMatrix = np.asarray(nx.laplacian_matrix(graph).todense().astype(complex))
+        self._adjacencyMatrix = np.asarray(
+            nx.laplacian_matrix(graph).todense().astype(complex))
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
             self._adjacencyMatrix
         )
         print("Blablablabla")
+
     @profile(
         output_path=outPath,
         sort_by=sortBy,
@@ -51,10 +54,16 @@ class OperatorBenchmark:
         strip_dirs=stripDirs,
         csv=csv,
     )
-    def buildDiagonalOperator(self, graph: nx.Graph, laplacian: bool = False, markedSearch=None,time: float = 0) -> None:
+    def buildDiagonalOperator(
+            self,
+            graph: nx.Graph,
+            laplacian: bool = False,
+            markedSearch=None,
+            time: float = 0) -> None:
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-                self._adjacencyMatrix)
-        diag = np.diag(np.exp(-1j * self._eigenvalues * time)).diagonal()
+            self._adjacencyMatrix)
+        diag = np.diag(
+            np.exp(-1j * self._eigenvalues * time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         self._operator = np.matmul(
             self._operator, self._eigenvectors.conjugate().transpose()
@@ -67,13 +76,19 @@ class OperatorBenchmark:
         strip_dirs=stripDirs,
         csv=csv,
     )
-    def buildDiagonalOperator2(self, graph: nx.Graph, laplacian: bool = False, markedSearch=None,time: float = 0) -> None:
+    def buildDiagonalOperator2(
+            self,
+            graph: nx.Graph,
+            laplacian: bool = False,
+            markedSearch=None,
+            time: float = 0) -> None:
         if time == 0:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
                 self._adjacencyMatrix
             )
             print("Hello")
-        diag = np.diag(np.exp(-1j * self._eigenvalues * time)).diagonal()
+        diag = np.diag(
+            np.exp(-1j * self._eigenvalues * time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         self._operator = np.matmul(
             self._operator, self._eigenvectors.conjugate().transpose()
@@ -87,5 +102,10 @@ class OperatorBenchmark:
         strip_dirs=stripDirs,
         csv=csv,
     )
-    def buildSlowDiagonalOperator(self,graph: nx.Graph, laplacian: bool = False, markedSearch=None, time: float = 0) -> None:
-        self.slowperator = ln.expm(-1j*self._adjacencyMatrix*time)
+    def buildSlowDiagonalOperator(
+            self,
+            graph: nx.Graph,
+            laplacian: bool = False,
+            markedSearch=None,
+            time: float = 0) -> None:
+        self.slowperator = ln.expm(-1j * self._adjacencyMatrix * time)

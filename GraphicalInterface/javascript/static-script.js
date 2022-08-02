@@ -222,9 +222,9 @@ document.getElementById("runGraphButton").addEventListener('click', async functi
 
 
 let setRunGraph = async () => {
-    let myGraph = await getGraph();
+    let myGraph = await getStaticGraph();
     updateGraph(myGraph);
-    setGraph();
+    setStaticGraph();
     setDimButton();
 }
 
@@ -234,14 +234,14 @@ let setDimButton = async () => {
     eel.setDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
 }
 
-let setGraph = async () => {
+let setStaticGraph = async () => {
     staticQuantumWalk.graph = inputGraph.value;
-    eel.setGraph(staticQuantumWalk.graph);
+    eel.setStaticGraph(staticQuantumWalk.graph);
 }
 
-let getGraph = () => {
+let getStaticGraph = () => {
     return eel
-        .graphToJson()()
+        .getStaticGraphToJson()()
         .then((a) => {
             return a ? a : Promise.reject(Error("Get Graph failed."));
         })

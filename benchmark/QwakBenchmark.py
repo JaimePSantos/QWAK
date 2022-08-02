@@ -11,6 +11,7 @@ outPath = "qwak/"
 stripDirs = True
 csv = True
 
+
 class QWAKBenchmark:
     @profile(
         output_path=outPath,
@@ -20,8 +21,10 @@ class QWAKBenchmark:
         csv=csv,
     )
     def __init__(
-        self, graph: nx.Graph, laplacian: bool = False, markedSearch=None
-    ) -> None:
+            self,
+            graph: nx.Graph,
+            laplacian: bool = False,
+            markedSearch=None) -> None:
         """_summary_
 
         Parameters
@@ -47,7 +50,10 @@ class QWAKBenchmark:
         strip_dirs=stripDirs,
         csv=csv,
     )
-    def runWalk(self, time: float = 0, initStateList: list = [0]) -> None:
+    def runWalk(
+            self,
+            time: float = 0,
+            initStateList: list = [0]) -> None:
         self.qwak.runWalk(time, initStateList)
 
     @profile(
@@ -70,7 +76,8 @@ class QWAKBenchmark:
         csv=csv,
     )
     def transportEfficiency(self):
-        return self.qwak.transportEfficiency(self._initState.getStateVec())
+        return self.qwak.transportEfficiency(
+            self._initState.getStateVec())
 
     @profile(
         output_path=outPath,

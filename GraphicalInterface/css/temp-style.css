@@ -1,3 +1,10 @@
+/*#wrapper-static {*/
+/*    zoom: 0.8; !* Old IE only *!*/
+/*    -moz-transform: scale(0.8);*/
+/*    -webkit-transform: scale(0.8);*/
+/*    transform: scale(0.8);*/
+/*}*/
+
 .stattablinks {
     width: 50%;
 }

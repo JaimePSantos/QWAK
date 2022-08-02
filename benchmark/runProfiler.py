@@ -18,5 +18,5 @@ if __name__ == "__main__":
     # qwController.getInversePartRatio()
 
     qwOperator = OperatorBenchmark()
-    qwOperator.buildDiagonalOperator(graph,time=t)
-    qwOperator.buildSlowDiagonalOperator(graph,time=t)
+    qwOperator.buildDiagonalOperator(graph, time=t)
+    qwOperator.buildSlowDiagonalOperator(graph, time=t)
