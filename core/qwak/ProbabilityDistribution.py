@@ -130,6 +130,7 @@ class ProbabilityDistribution:
         float
             Mean of the ProbabilityDistribution object.
         """
+        # TODO: This function has been replaced by moment(1).
         pos = np.arange(0, self._n)
         m = 0
         for x in range(self._n):
