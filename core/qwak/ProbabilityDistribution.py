@@ -54,6 +54,7 @@ class ProbabilityDistribution:
         for st in range(self._n):
             self._probVec[st] = self._state[st] * \
                 np.conj(self._state[st])
+        self._probVec = self._probVec.flatten()
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
@@ -105,7 +106,7 @@ class ProbabilityDistribution:
         np.ndarray
             Returns the array of the ProbabilityDistribution object.
         """
-        return self._probVec.flatten()
+        return self._probVec
 
     def searchNodeProbability(self, searchNode: int) -> float:
         """Searches and gets the probability associated with a given node.
@@ -130,6 +131,7 @@ class ProbabilityDistribution:
         float
             Mean of the ProbabilityDistribution object.
         """
+        # TODO: This function has been replaced by moment(1).
         pos = np.arange(0, self._n)
         m = 0
         for x in range(self._n):
@@ -201,6 +203,17 @@ class ProbabilityDistribution:
         """
         return f"{self._probVec}"
 
+    def __repr__(self) -> str:
+        """Representation of the ProbabilityDistribution object.
+
+        Returns
+        -------
+        str
+            String of the ProbabilityDistribution object.
+        """
+        return f"N: {self._n}\n" \
+               f"State:\n\t{self._state}\n" \
+               f"ProbDist:\n\t{self._probVec}"
 
 class StochasticProbabilityDistribution(object):
     """_summary_

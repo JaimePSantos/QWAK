@@ -79,7 +79,7 @@ let setInitStateRange = async () => {
 
 let setTimeRange = async () => {
     dynamicQuantumWalk.timeList = inputTimeRange.value;
-    eel.setTimeList(dynamicQuantumWalk.timeList);
+    eel.setDynamicTime(dynamicQuantumWalk.timeList);
 }
 
 let setdynamicProbDist = async () => {
