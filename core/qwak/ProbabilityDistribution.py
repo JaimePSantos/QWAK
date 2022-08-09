@@ -54,7 +54,6 @@ class ProbabilityDistribution:
         for st in range(self._n):
             self._probVec[st] = self._state[st] * \
                 np.conj(self._state[st])
-        self._probVec = self._probVec.flatten()
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
@@ -106,7 +105,7 @@ class ProbabilityDistribution:
         np.ndarray
             Returns the array of the ProbabilityDistribution object.
         """
-        return self._probVec
+        return self._probVec.flatten()
 
     def searchNodeProbability(self, searchNode: int) -> float:
         """Searches and gets the probability associated with a given node.
