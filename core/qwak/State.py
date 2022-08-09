@@ -238,16 +238,6 @@ class State:
         """
         return other * self._stateVec
 
-    def __str__(self) -> str:
-        """String representation of the State class.
-
-        Returns
-        -------
-        str
-            State string.
-        """
-        return f"{self._stateVec}"
-
     def __matmul__(self, other):
         """_summary_
 
@@ -262,3 +252,26 @@ class State:
             _description_
         """
         return self._stateVec @ other
+
+    def __str__(self) -> str:
+        """String representation of the State class.
+
+        Returns
+        -------
+        str
+            State string.
+        """
+        return f"{self._stateVec}"
+
+    def __repr__(self) -> str:
+        """Representation of the ProbabilityDistribution object.
+
+        Returns
+        -------
+        str
+            String of the ProbabilityDistribution object.
+        """
+        return f"N: {self._n}\n" \
+               f"Node list: {self._nodeList}\n" \
+               f"Custom Node list: {self._customStateList}\n" \
+               f"State:\n\t{self._stateVec}"

@@ -288,6 +288,18 @@ class Operator:
         """
         return f"{self._operator}"
 
+    def __repr__(self) -> str:
+        """Representation of the ProbabilityDistribution object.
+
+        Returns
+        -------
+        str
+            String of the ProbabilityDistribution object.
+        """
+        return f"N: {self._n}\n" \
+               f"Time: {self._time}\n" \
+               f"Graph: {nx.to_dict_of_dicts(self._graph)}\n" \
+               f"Operator:\n\t{self._operator}"
     # def transportEfficiency(self,initState):
     #     """
     #     Under Construction.

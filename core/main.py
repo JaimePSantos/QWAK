@@ -14,16 +14,21 @@ if __name__ == "__main__":
     timeList = [0, 5]
     initStateList = [[int(n / 2), int(n / 2) + 1]]
     qwak = QWAK(graph)
-    qwak.runMultipleWalks(timeList,initState)
-    # qwak.runWalk(t,initState)
+    # qwak.runMultipleWalks(timeList,initState)
+    qwak.runWalk(t,initState)
+    # print(repr(qwak.getProbDist()))
+    # print(repr(qwak.getFinalState()))
+    # print(repr(qwak.getInitState()))
+    # print(repr(qwak.getOperator()))
+    print(repr(qwak.getWalk()))
     # print(type(qwak.getProbVec()))
     # for prob in qwak.getProbDistList():
         # print(str(prob) + '\n')
     # for prob in qwak.getProbVecList():
     #     print(type(prob))
     # print(type(qwak.getProbVecList()))
-    for amp in qwak.getWalkList():
-        print(amp)
+    # for amp in qwak.getWalkList():
+    #     print(amp)
 
     # gQwak = GraphicalQWAK(
     #     n,

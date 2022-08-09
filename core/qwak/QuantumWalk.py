@@ -209,6 +209,19 @@ class QuantumWalk:
         """
         return f"{self._finalState.getStateVec()}"
 
+    def __repr__(self) -> str:
+        """Representation of the ProbabilityDistribution object.
+
+        Returns
+        -------
+        str
+            String of the ProbabilityDistribution object.
+        """
+        return f"N: {self._n}\n" \
+               f"Init State:\n\t {self._initState}\n" \
+               f"Operator:\n\t{self._operator}\n"\
+               f"Final State:\n\t{self._finalState}"
+
 
 class StochasticQuantumWalk(object):
     """_summary_"""
