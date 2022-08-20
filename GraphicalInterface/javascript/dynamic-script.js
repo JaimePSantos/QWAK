@@ -249,16 +249,16 @@ document.getElementById("runGraphButton").addEventListener('click', async functi
 });
 
 let setRunGraph = async () => {
-    let myGraph = await getDynamicGraph();
-    updateGraph(myGraph);
     setDynamicGraph();
     setDimButton();
+    let myGraph = await getDynamicGraph();
+    updateGraph(myGraph);
 }
 
 let setDimButton = async () => {
     dynamicQuantumWalk.dim = parseInt(inputDim.value);
     dynamicQuantumWalk.graph = inputGraph.value;
-    eel.setDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
+    eel.setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
 }
 
 let setDynamicGraph = async () => {

@@ -20,6 +20,8 @@ eel.init(guiPath)
 if __name__ == "__main__":
     global n, t, initState, staticQuantumWalk
     n = 100
+    staticN = 100
+    dynamicN = 100
     t = 10
     initState = [n // 2]
     staticGraph = nx.cycle_graph(n)
@@ -29,6 +31,8 @@ if __name__ == "__main__":
 
     gQwak = GraphicalQWAK(
         n,
+        staticN,
+        dynamicN,
         staticGraph,
         dynamicGraph,
         initState,
@@ -48,12 +52,27 @@ if __name__ == "__main__":
 
     @eel.expose
     def setDim(newDim, graphStr):
-        global staticQuantumWalk, dynamicQuantumWalk
         gQwak.setDim(newDim, graphStr)
+
+    @eel.expose
+    def setStaticDim(newDim, graphStr):
+        gQwak.setStaticDim(newDim, graphStr)
+
+    @eel.expose
+    def setDynamicDim(newDim, graphStr):
+        gQwak.setDynamicDim(newDim, graphStr)
 
     @eel.expose
     def getDim():
         return gQwak.getDim()
+
+    @eel.expose
+    def getStaticDim():
+        return gQwak.getStaticDim()
+
+    @eel.expose
+    def getDynamicDim():
+        return gQwak.getDynamicDim()
 
     @eel.expose
     def setStaticGraph(newGraph):

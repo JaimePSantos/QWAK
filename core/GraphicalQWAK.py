@@ -14,6 +14,8 @@ class GraphicalQWAK:
     def __init__(
         self,
         n,
+            staticN,
+            dynamicN,
         staticGraph: nx.Graph,
         dynamicGraph: nx.Graph,
         staticStateList: list,
@@ -22,6 +24,8 @@ class GraphicalQWAK:
         dynamicTimeList: list,
     ) -> None:
         self._n = n
+        self._staticN = staticN
+        self._dynamicN = dynamicN
         self._staticGraph = staticGraph
         self._dynamicGraph = dynamicGraph
         self._staticStateList = staticStateList
@@ -65,14 +69,29 @@ class GraphicalQWAK:
         return [False, qwProbVecList]
 
     def setDim(self, newDim, graphStr):
-        # TODO: Different graphs for dynamic and static.
         self._n = newDim
         self._staticQWAK.setDim(self._n, graphStr)
         self._dynamicQWAK.setDim(self._n, graphStr)
 
+    def setStaticDim(self, newDim, graphStr):
+        self._staticN = newDim
+        self._staticQWAK.setDim(self._staticN, graphStr)
+        self._staticGraph = self._staticQWAK.getGraph()
+
+    def setDynamicDim(self, newDim, graphStr):
+        self._dynamicN = newDim
+        self._dynamicQWAK.setDim(self._dynamicN, graphStr)
+        self._dynamicGraph = self._dynamicQWAK.getGraph()
+
     def getDim(self):
         # TODO: Different graphs for dynamic and static.
         return self._n
+
+    def getStaticDim(self):
+        return self._staticN
+
+    def getDynamicDin(self):
+        return self._dynamicN
 
     def setStaticGraph(self, newGraphStr):
         self._staticGraph = eval(newGraphStr + f"({self._n})")
