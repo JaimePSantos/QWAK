@@ -18,16 +18,14 @@ eel.init(guiPath)
 # TODO: Formularios para introduzir parametros.
 
 if __name__ == "__main__":
-    global n, t, initState, staticQuantumWalk
-    n = 100
     staticN = 100
     dynamicN = 100
     t = 10
-    initState = [n // 2]
-    staticGraph = nx.cycle_graph(n)
-    dynamicGraph = nx.cycle_graph(n)
+    initState = [staticN // 2]
+    staticGraph = nx.cycle_graph(staticN)
+    dynamicGraph = nx.cycle_graph(dynamicN)
     timeList = [0, 100]
-    initStateList = [[int(n / 2), int(n / 2) + 1]]
+    initStateList = [[dynamicN//2, (dynamicN//2) + 1]]
 
     gQwak = GraphicalQWAK(
         staticN,

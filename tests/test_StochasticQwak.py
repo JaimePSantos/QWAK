@@ -9,9 +9,7 @@ from testVariables import (
     stochasticProbDistSingleNodeCycleNoNoise,
 )
 
-
 import pytest
-
 
 class TestStochasticQWAK(object):
     def test_StochasticProbDistSingleNodeCycleNoNoise(self):
