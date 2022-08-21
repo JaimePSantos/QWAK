@@ -142,8 +142,15 @@ class GraphicalQWAK:
     def getStaticProbDist(self):
         return self._staticProbDist
 
+    def getDynamicProbDistList(self):
+        return self._dynamicProbDistList
+
     def getStaticProbVec(self):
         return self._staticProbDist.getProbVec()
+
+    def getDynamicProbVecList(self):
+        return list(
+                map(lambda probVec: probVec.tolist(), self._dynamicQWAK.getProbVecList()))
 
     def getStaticMean(self):
         return self._staticQWAK.getMean()
