@@ -1,16 +1,11 @@
-import networkx as nx
 import numpy as np
 
-from qwak.Errors import StateOutOfBounds, NonUnitaryState
-from qwak.State import State
-from GraphicalQWAKTestStub import GraphicalQWAKTestStub
+from tests.stubs.GraphicalQWAKTestStub import GraphicalQWAKTestStub
 
-from testVariables import (
+from tests.testVariables.graphicalQwakVar import (
     graphicalStaticProbDistCycle,
     graphicalDynamicProbDistCycle,
 )
-
-import pytest
 
 
 class TestGraphicalQWAKCycle(object):
@@ -33,7 +28,7 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicProbDistUniformSuperpositionCycle(self):
         n = 100
-        t = 12
+        t = [0,12]
         gQwak = GraphicalQWAKTestStub()
         np.testing.assert_almost_equal(
             gQwak.getDynamicProbVecList(),
