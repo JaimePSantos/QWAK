@@ -11,7 +11,7 @@ class GraphicalQWAKTestStub:
         initState = [staticN // 2, (staticN // 2) + 1]
         staticGraph = nx.cycle_graph(staticN)
         dynamicGraph = nx.cycle_graph(dynamicN)
-        dynamicTimeList = [0, 5]
+        dynamicTimeList = [0, 12]
         initStateList = [[staticN // 2, (staticN // 2) + 1]]
         if testGQwak is None:
             self.gQwak = GraphicalQWAK(
@@ -29,6 +29,9 @@ class GraphicalQWAKTestStub:
 
     def runWalk(self):
         return self.gQwak.runWalk()
+
+    def runMultipleWalks(self):
+        return self.gQwak.runMultipleWalks()
 
     def getStaticProbVec(self):
         return self.gQwak.getStaticProbVec()

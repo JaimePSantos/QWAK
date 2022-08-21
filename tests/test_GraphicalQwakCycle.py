@@ -7,6 +7,7 @@ from GraphicalQWAKTestStub import GraphicalQWAKTestStub
 
 from testVariables import (
     graphicalStaticProbDistCycle,
+    graphicalDynamicProbDistCycle,
 )
 
 import pytest
@@ -39,10 +40,10 @@ class TestGraphicalQWAKCycle(object):
             [np.zeros(n)],
             err_msg="Probability distribution before running should be 0.",
         )
-        # probVec = gQwak.runWalk()
-        # assert not probVec[0]
-        # np.testing.assert_almost_equal(
-        #     probVec[1],
-        #     graphicalStaticProbDistCycle,
-        #     err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
-        # )
+        probVec = gQwak.runMultipleWalks()
+        assert not probVec[0]
+        np.testing.assert_almost_equal(
+            probVec[1],
+            graphicalDynamicProbDistCycle,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )

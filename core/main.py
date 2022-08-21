@@ -31,7 +31,7 @@ if __name__ == "__main__":
     t = 12
     initState = [staticN // 2, (staticN // 2) + 1]
     graph = nx.cycle_graph(staticN)
-    timeList = [0, 5]
+    timeList = [0, 12]
     initStateList = [[staticN // 2, (staticN // 2) + 1]]
 
     gQwak = GraphicalQWAK(
@@ -43,9 +43,10 @@ if __name__ == "__main__":
         initStateList,
         t,
         timeList)
-    print(gQwak.runWalk()[1])
-    plt.plot(gQwak.runWalk()[1])
-    plt.show()
+    print(gQwak.runMultipleWalks()[1])
+    # print(gQwak.runWalk()[1])
+    # plt.plot(gQwak.runWalk()[1])
+    # plt.show()
 
 
 #    t = 40
