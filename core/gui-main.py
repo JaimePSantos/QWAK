@@ -30,7 +30,6 @@ if __name__ == "__main__":
     initStateList = [[int(n / 2), int(n / 2) + 1]]
 
     gQwak = GraphicalQWAK(
-        n,
         staticN,
         dynamicN,
         staticGraph,

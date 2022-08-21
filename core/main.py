@@ -7,20 +7,20 @@ from qwak.State import State
 from GraphicalQWAK import GraphicalQWAK
 
 if __name__ == "__main__":
-    n = 3
-    t = 10
-    initState = [2]
-    graph = nx.cycle_graph(n)
-    timeList = [0, 5]
-    initStateList = [[int(n / 2), int(n / 2) + 1]]
-    qwak = QWAK(graph)
+    # n = 3
+    # t = 10
+    # initState = [2]
+    # graph = nx.cycle_graph(n)
+    # timeList = [0, 5]
+    # initStateList = [[int(n / 2), int(n / 2) + 1]]
+    # qwak = QWAK(graph)
     # qwak.runMultipleWalks(timeList,initState)
-    qwak.runWalk(t,initState)
+    # qwak.runWalk(t,initState)
     # print(repr(qwak.getProbDist()))
     # print(repr(qwak.getFinalState()))
     # print(repr(qwak.getInitState()))
     # print(repr(qwak.getOperator()))
-    print(repr(qwak.getWalk()))
+    # print(repr(qwak.getWalk()))
     # print(type(qwak.getProbVec()))
     # for prob in qwak.getProbDistList():
         # print(str(prob) + '\n')
@@ -29,24 +29,26 @@ if __name__ == "__main__":
     # print(type(qwak.getProbVecList()))
     # for amp in qwak.getWalkList():
     #     print(amp)
+    staticN = 100
+    dynamicN = staticN
+    t = 10
+    initState = [staticN//2,(staticN // 2) + 1]
+    graph = nx.cycle_graph(staticN)
+    timeList = [0, 5]
+    initStateList = [[staticN // 2, (staticN // 2) + 1]]
 
-    # gQwak = GraphicalQWAK(
-    #     n,
-    #     graph,
-    #     graph,
-    #     graph,
-    #     initState,
-    #     initStateList,
-    #     t,
-    #     timeList)
-    # gQwak.setStaticTime(str(t))
-    # gQwak.runWalk()
-    # # print(gQwak.runMultipleWalks())
-    # # print(gQwak.getStaticMean())
-    # gQwak.runMultipleWalks()
-    # gQwak.getDynamicStDev()
-    # gQwak.runMultipleWalks()
-    # gQwak.getDynamicStDev()
+    gQwak = GraphicalQWAK(
+        staticN,
+        dynamicN,
+        graph,
+        graph,
+        initState,
+        initStateList,
+        t,
+        timeList)
+    plt.plot(gQwak.runWalk()[1])
+    plt.show()
+
 
 #    t = 40
 #    n = 200
