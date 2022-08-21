@@ -1,11 +1,6 @@
 import networkx as nx
-import numpy as np
 
-from core.GraphicalQWAK import GraphicalQWAK
-from qwak.Errors import StateOutOfBounds, NonUnitaryState
-from qwak.State import State
-
-import pytest
+from qwak.GraphicalQWAK import GraphicalQWAK
 
 
 class GraphicalQWAKTestStub:

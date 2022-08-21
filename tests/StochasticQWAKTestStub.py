@@ -3,6 +3,7 @@ import numpy as np
 
 from qwak.qwak import StochasticQWAK
 
+
 class StochasticQWAKTestStub:
     def __init__(self, testQwak=None):
         if testQwak is None:

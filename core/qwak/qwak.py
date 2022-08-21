@@ -66,8 +66,6 @@ class QWAK:
             self._timeList = None
         self._graph = graph
         self._n = len(self._graph)
-        self._probDistList = []
-        self._walkList = []
         self._operator = Operator(
             self._graph,
             time=time,
@@ -80,6 +78,9 @@ class QWAK:
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._probDist = ProbabilityDistribution(
             self._quantumWalk.getFinalState())
+        self._probDistList = [ProbabilityDistribution(
+            self._quantumWalk.getFinalState())]
+        self._walkList = []
 
     def runWalk(
             self,
@@ -252,14 +253,14 @@ class QWAK:
         """
         self._operator.setTime(newTime)
 
-    def setTimeList(self,newTimeList: list) -> None:
+    def setTimeList(self, newTimeList: list) -> None:
         """_summary_
 
         Parameters
         ----------
         newTime : list
             _description_
-        """        
+        """
         self._timeList = newTimeList
 
     def getTime(self) -> float:
@@ -357,7 +358,7 @@ class QWAK:
         -------
         list
             _description_
-        """        
+        """
         return self._walkList
 
     def getFinalState(self) -> State:
@@ -387,8 +388,8 @@ class QWAK:
         -------
         list
             _description_
-        """        
-        return list(map(lambda x: x.getAmpVec(),self._walkList))
+        """
+        return list(map(lambda x: x.getAmpVec(), self._walkList))
 
     def setProbDist(self, newProbDist: ProbabilityDistribution) -> None:
         """Sets current walk probability distribution to a user defined one.
@@ -420,7 +421,8 @@ class QWAK:
             _description_
         """
         if not self._probDistList:
-            raise EmptyProbDistList(f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
+            raise EmptyProbDistList(
+                f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
 
     def getProbVec(self) -> np.ndarray:
@@ -440,9 +442,10 @@ class QWAK:
         -------
         _type_
             _description_
-        """        
-        return list(map(lambda probDist: probDist.getProbVec(),self._probDistList))
-    
+        """
+        return list(
+            map(lambda probDist: probDist.getProbVec(), self._probDistList))
+
     def searchNodeAmplitude(self, searchNode: int) -> complex:
         """User inputted node for search
 

@@ -11,6 +11,7 @@ from testVariables import (
 
 import pytest
 
+
 class TestStochasticQWAK(object):
     def test_StochasticProbDistSingleNodeCycleNoNoise(self):
         n = 50

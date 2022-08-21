@@ -30,18 +30,19 @@ class GraphicalQWAK:
         self._dynamicStateList = dynamicStateList
         self._staticTime = staticTime
         self._dynamicTimeList = np.linspace(
-                dynamicTimeList[0], dynamicTimeList[1], int(
-                    dynamicTimeList[1]))
+            dynamicTimeList[0], dynamicTimeList[1], int(
+                dynamicTimeList[1]))
         self._staticQWAK = QWAK(self._staticGraph)
-        self._staticQWAK.runWalk(
-            time=self._staticTime,
-            initStateList=self._staticStateList)
+        self._staticProbDist = self._staticQWAK.getProbDist()
+        # self._staticQWAK.runWalk(
+        #     time=self._staticTime,
+        #     initStateList=self._staticStateList)
         self._dynamicQWAK = QWAK(self._dynamicGraph)
-        self._staticQWAK.runWalk(
-            time=self._dynamicTimeList[0],
-            initStateList=self._dynamicStateList[0])
-        self._dynamicProbDistList = []
-        self._dynamicAmpList = []
+        self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
+        self._dynamicAmpList = self._dynamicQWAK.getWalkList()
+        # self._staticQWAK.runWalk(
+        #     time=self._dynamicTimeList[0],
+        #     initStateList=self._dynamicStateList[0])
 
     def runWalk(self):
         try:
@@ -58,11 +59,14 @@ class GraphicalQWAK:
     def runMultipleWalks(self):
         try:
             self._dynamicQWAK.resetWalk()
-            self._dynamicQWAK.runMultipleWalks(timeList=self._dynamicTimeList,initStateList=self._dynamicStateList[0])
+            self._dynamicQWAK.runMultipleWalks(
+                timeList=self._dynamicTimeList,
+                initStateList=self._dynamicStateList[0])
             self._dynamicAmpList = self._dynamicQWAK.getWalkList()
             self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
-            qwProbVecList = list(map(lambda probVec: probVec.tolist(), self._dynamicQWAK.getProbVecList()))
-        except (StateOutOfBounds,UndefinedTimeList,EmptyProbDistList) as err:
+            qwProbVecList = list(
+                map(lambda probVec: probVec.tolist(), self._dynamicQWAK.getProbVecList()))
+        except (StateOutOfBounds, UndefinedTimeList, EmptyProbDistList) as err:
             return [True, str(err)]
         return [False, qwProbVecList]
 
@@ -112,8 +116,8 @@ class GraphicalQWAK:
     def setDynamicTime(self, newTimeList):
         parsedTime = list(map(float, newTimeList.split(",")))
         self._dynamicTimeList = np.linspace(
-                parsedTime[0], parsedTime[1], int(
-                    parsedTime[1]))
+            parsedTime[0], parsedTime[1], int(
+                parsedTime[1]))
         self._dynamicQWAK.setTimeList(self._dynamicTimeList)
 
     def getDynamicTime(self):
@@ -135,6 +139,9 @@ class GraphicalQWAK:
 
     def getStaticInitState(self):
         return self._staticStateList
+
+    def getStaticProbVec(self):
+        return self._staticPr
 
     def getStaticMean(self):
         return self._staticQWAK.getMean()

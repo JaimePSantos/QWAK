@@ -214,6 +214,7 @@ class ProbabilityDistribution:
                f"State:\n\t{self._state}\n" \
                f"ProbDist:\n\t{self._probVec}"
 
+
 class StochasticProbabilityDistribution(object):
     """_summary_
 

@@ -3,12 +3,8 @@ import os
 import eel
 import networkx as nx
 import numpy as np
-import copy
 
-from qwak.Errors import StateOutOfBounds
-from qwak.State import State
-from qwak.qwak import QWAK
-from GraphicalQWAK import GraphicalQWAK
+from qwak.GraphicalQWAK import GraphicalQWAK
 
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, "../GraphicalInterface")
@@ -25,7 +21,7 @@ if __name__ == "__main__":
     staticGraph = nx.cycle_graph(staticN)
     dynamicGraph = nx.cycle_graph(dynamicN)
     timeList = [0, 100]
-    initStateList = [[dynamicN//2, (dynamicN//2) + 1]]
+    initStateList = [[dynamicN // 2, (dynamicN // 2) + 1]]
 
     gQwak = GraphicalQWAK(
         staticN,
@@ -46,10 +42,6 @@ if __name__ == "__main__":
     @eel.expose
     def runMultipleWalks():
         return gQwak.runMultipleWalks()
-
-    @eel.expose
-    def setDim(newDim, graphStr):
-        gQwak.setDim(newDim, graphStr)
 
     @eel.expose
     def setStaticDim(newDim, graphStr):

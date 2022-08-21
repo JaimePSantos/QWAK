@@ -36,7 +36,8 @@ class QuantumWalkDaoTestV1:
         print("######### Completed: np.Eig @ D @ np.EigH ###################\n")
         self._quantumWalk = QuantumWalkTest(self._initState, self._operator)
         self._quantumWalk.timedBuildWalk()
-        self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
+        self._probDist = ProbabilityDistributionTest(
+            self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
         self.initTimes()
 
@@ -168,12 +169,15 @@ class QuantumWalkDaoTestV2:
         self._initState.timedBuildState()
 
         self._operator = OperatorTestV2(self._graph, time, gamma)
-        print("######### Running: np.Eig * [D] @ np.EigH #####################\n")
+        print(
+            "######### Running: np.Eig * [D] @ np.EigH #####################\n")
         self._operator.timedBuildDiagonalOperator()
-        print("######### Completed: np.Eig * [D] @ np.EigH ###################\n")
+        print(
+            "######### Completed: np.Eig * [D] @ np.EigH ###################\n")
         self._quantumWalk = QuantumWalkTest(self._initState, self._operator)
         self._quantumWalk.timedBuildWalk()
-        self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
+        self._probDist = ProbabilityDistributionTest(
+            self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
         self.initTimes()
 
@@ -305,12 +309,15 @@ class QuantumWalkDaoTestV3:
         self._initState.timedBuildState()
 
         self._operator = OperatorTestV3(self._graph, time, gamma)
-        print("######### Running: ln.Eig * [D] @ ln.EigH #####################\n")
+        print(
+            "######### Running: ln.Eig * [D] @ ln.EigH #####################\n")
         self._operator.timedBuildDiagonalOperator()
-        print("######### Completed: np.Eig * [D] @ ln.EigH ###################\n")
+        print(
+            "######### Completed: np.Eig * [D] @ ln.EigH ###################\n")
         self._quantumWalk = QuantumWalkTest(self._initState, self._operator)
         self._quantumWalk.timedBuildWalk()
-        self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
+        self._probDist = ProbabilityDistributionTest(
+            self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
         self.initTimes()
 
@@ -425,7 +432,13 @@ class QuantumWalkDaoTestV3:
 class QuantumWalkDaoTestV4:
     """[summary]"""
 
-    def __init__(self, graph, time=0, gamma=1, initStateList=[0], version=None):
+    def __init__(
+            self,
+            graph,
+            time=0,
+            gamma=1,
+            initStateList=[0],
+            version=None):
         """[summary]
 
         Args:
@@ -457,9 +470,11 @@ class QuantumWalkDaoTestV4:
             gamma ([type]): [description]
             initStateList ([type]): [description]
         """
-        print("######### Running Optimized: np.Eig * [D] @ np.EigH ##########\n")
+        print(
+            "######### Running Optimized: np.Eig * [D] @ np.EigH ##########\n")
         self._operator.timedBuildDiagonalOperator(time, gamma)
-        print("######### Completed Optimized: ln.Eig * [D] @ ln.EigH ########\n")
+        print(
+            "######### Completed Optimized: ln.Eig * [D] @ ln.EigH ########\n")
 
         self._initState = StateTest(self._n, initStateList)
         self._initState.timedBuildState()
@@ -467,13 +482,15 @@ class QuantumWalkDaoTestV4:
         self._quantumWalk = QuantumWalkTest(self._initState, self._operator)
         self._quantumWalk.timedBuildWalk()
 
-        self._probDist = ProbabilityDistributionTest(self._quantumWalk.getWalk())
+        self._probDist = ProbabilityDistributionTest(
+            self._quantumWalk.getWalk())
         self._probDist.timedBuildProbDist()
 
         self.initTimes()
         self.fullOperatorExecutionTime = (
-            self.eighExecutionTime + self.diagExecutionTime + self.matMulExecutionTime
-        )
+            self.eighExecutionTime +
+            self.diagExecutionTime +
+            self.matMulExecutionTime)
         self.daoExecutionTime = (
             self.initStateExecutionTime
             + self.fullOperatorExecutionTime

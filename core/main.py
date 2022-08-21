@@ -1,10 +1,7 @@
 import networkx as nx
-import numpy as np
 from matplotlib import pyplot as plt
 
-from qwak.qwak import QWAK
-from qwak.State import State
-from GraphicalQWAK import GraphicalQWAK
+from qwak.GraphicalQWAK import GraphicalQWAK
 
 if __name__ == "__main__":
     # n = 3
@@ -23,7 +20,7 @@ if __name__ == "__main__":
     # print(repr(qwak.getWalk()))
     # print(type(qwak.getProbVec()))
     # for prob in qwak.getProbDistList():
-        # print(str(prob) + '\n')
+    # print(str(prob) + '\n')
     # for prob in qwak.getProbVecList():
     #     print(type(prob))
     # print(type(qwak.getProbVecList()))
@@ -31,8 +28,8 @@ if __name__ == "__main__":
     #     print(amp)
     staticN = 100
     dynamicN = staticN
-    t = 10
-    initState = [staticN//2,(staticN // 2) + 1]
+    t = 12
+    initState = [staticN // 2, (staticN // 2) + 1]
     graph = nx.cycle_graph(staticN)
     timeList = [0, 5]
     initStateList = [[staticN // 2, (staticN // 2) + 1]]
@@ -46,6 +43,7 @@ if __name__ == "__main__":
         initStateList,
         t,
         timeList)
+    print(gQwak.runWalk()[1])
     plt.plot(gQwak.runWalk()[1])
     plt.show()
 
