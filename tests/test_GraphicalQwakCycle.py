@@ -16,15 +16,12 @@ class TestGraphicalQWAKCycle(object):
     def test_StaticProbDistUniformSuperpositionCycle(self):
         n = 100
         t = 12
-        gqwak = GraphicalQWAKTestStub()
-
-        pass
-        # qwak = QWAKTestStub()
-        # np.testing.assert_almost_equal(
-        #     qwak.getProbVec(),
-        #     np.zeros(n),
-        #     err_msg="Probability distribution before running should be 0.",
-        # )
+        gQwak = GraphicalQWAKTestStub()
+        np.testing.assert_almost_equal(
+            gQwak.getStaticProbVec(),
+            np.zeros(n),
+            err_msg="Probability distribution before running should be 0.",
+        )
         # qwak.buildWalk()
         # np.testing.assert_almost_equal(
         #     qwak.getProbVec(),

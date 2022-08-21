@@ -51,10 +51,9 @@ class GraphicalQWAK:
                 self._staticTime, self._staticStateList)
         except StateOutOfBounds as err:
             return [True, str(err)]
-        qwProbabilities = self._staticQWAK.getProbDist()
-        qwProbVec = qwProbabilities.getProbVec()
-        probLists = qwProbVec.tolist()
-        return [False, probLists]
+        self._staticProbDist = self._staticQWAK.getProbDist()
+        qwProbVec = self._staticProbDist.getProbVec().tolist()
+        return [False, qwProbVec]
 
     def runMultipleWalks(self):
         try:
@@ -140,8 +139,11 @@ class GraphicalQWAK:
     def getStaticInitState(self):
         return self._staticStateList
 
+    def getStaticProbDist(self):
+        return self._staticProbDist
+
     def getStaticProbVec(self):
-        return self._staticPr
+        return self._staticProbDist.getProbVec()
 
     def getStaticMean(self):
         return self._staticQWAK.getMean()

@@ -14,7 +14,7 @@ class GraphicalQWAKTestStub:
         dynamicTimeList = [0, 5]
         initStateList = [[staticN // 2, (staticN // 2) + 1]]
         if testGQwak is None:
-            self.GQwak = GraphicalQWAK(
+            self.gQwak = GraphicalQWAK(
                 staticN=staticN,
                 dynamicN=dynamicN,
                 staticGraph=staticGraph,
@@ -25,13 +25,13 @@ class GraphicalQWAKTestStub:
                 dynamicTimeList=dynamicTimeList,
             )
         else:
-            self.GQwak = testGQwak
+            self.gQwak = testGQwak
 
     def runWalk(self):
-        return self.GQwak.runWalk()
+        return self.gQwak.runWalk()
 
-    # def getProbVec(self):
-    #     return self.qwak.getProbVec()
+    def getStaticProbVec(self):
+        return self.gQwak.getStaticProbVec()
     #
     # def setInitState(self, newState):
     #     self.qwak.setInitState(newState)
