@@ -13,9 +13,8 @@ from qwak.qwak import QWAK
 class GraphicalQWAK:
     def __init__(
         self,
-        n,
-            staticN,
-            dynamicN,
+        staticN,
+        dynamicN,
         staticGraph: nx.Graph,
         dynamicGraph: nx.Graph,
         staticStateList: list,
@@ -23,7 +22,6 @@ class GraphicalQWAK:
         staticTime: float,
         dynamicTimeList: list,
     ) -> None:
-        self._n = n
         self._staticN = staticN
         self._dynamicN = dynamicN
         self._staticGraph = staticGraph
@@ -68,11 +66,6 @@ class GraphicalQWAK:
             return [True, str(err)]
         return [False, qwProbVecList]
 
-    def setDim(self, newDim, graphStr):
-        self._n = newDim
-        self._staticQWAK.setDim(self._n, graphStr)
-        self._dynamicQWAK.setDim(self._n, graphStr)
-
     def setStaticDim(self, newDim, graphStr):
         self._staticN = newDim
         self._staticQWAK.setDim(self._staticN, graphStr)
@@ -83,10 +76,6 @@ class GraphicalQWAK:
         self._dynamicQWAK.setDim(self._dynamicN, graphStr)
         self._dynamicGraph = self._dynamicQWAK.getGraph()
 
-    def getDim(self):
-        # TODO: Different graphs for dynamic and static.
-        return self._n
-
     def getStaticDim(self):
         return self._staticN
 
@@ -94,11 +83,11 @@ class GraphicalQWAK:
         return self._dynamicN
 
     def setStaticGraph(self, newGraphStr):
-        self._staticGraph = eval(newGraphStr + f"({self._n})")
+        self._staticGraph = eval(newGraphStr + f"({self._staticN})")
         self._staticQWAK.setGraph(self._staticGraph)
 
     def setDynamicGraph(self, newGraphStr):
-        self._dynamicGraph = eval(newGraphStr + f"({self._n})")
+        self._dynamicGraph = eval(newGraphStr + f"({self._dynamicN})")
         self._dynamicQWAK.setGraph(self._dynamicGraph)
 
     def getStaticGraph(self):
