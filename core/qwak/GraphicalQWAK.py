@@ -105,6 +105,9 @@ class GraphicalQWAK:
     def getDynamicGraphToJson(self):
         return nx.cytoscape_data(self._dynamicGraph)
 
+    def getStaticAdjacencyMatrix(self):
+        return self._staticQWAK.getAdjacencyMatrix()
+
     def setStaticTime(self, newTime):
         self._staticTime = eval(newTime)
         self._staticQWAK.setTime(self._staticTime)

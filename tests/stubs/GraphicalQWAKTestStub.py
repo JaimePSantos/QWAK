@@ -39,6 +39,18 @@ class GraphicalQWAKTestStub:
     def getDynamicProbVecList(self):
         return self.gQwak.getDynamicProbVecList()
 
+    def setStaticDim(self,newDim,graphStr):
+        self.gQwak.setStaticDim(newDim,graphStr)
+
+    def getStaticDim(self):
+        return self.gQwak.getStaticDim()
+
+    def getStaticAdjacencyMatrix(self):
+        return self.gQwak.getStaticAdjacencyMatrix()
+
+    def setStaticInitState(self,initStateStr):
+        return self.gQwak.setStaticInitState(initStateStr)
+
     #
     # def setInitState(self, newState):
     #     self.qwak.setInitState(newState)
