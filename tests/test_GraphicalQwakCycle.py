@@ -9,6 +9,8 @@ from tests.testVariables.graphicalQwakVar import (
     graphicalDynamicProbDistCycle,
     graphicalStaticProbDistCycleNewDim,
     graphicalStaticProbDistCycleNewInitState,
+    graphicalDynamicProbDistCycleNewInitState,
+    graphicalDynamicProbDistCycleNewDim,
 )
 
 
@@ -39,10 +41,10 @@ class TestGraphicalQWAKCycle(object):
             [np.zeros(n)],
             err_msg="Probability distribution before running should be 0.",
         )
-        probVec = gQwak.runMultipleWalks()
-        assert not probVec[0]
+        probVecList = gQwak.runMultipleWalks()
+        assert not probVecList[0]
         np.testing.assert_almost_equal(
-            probVec[1],
+            probVecList[1],
             graphicalDynamicProbDistCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
@@ -51,7 +53,15 @@ class TestGraphicalQWAKCycle(object):
         # TODO: Introduce oriented walks to GUI first.
         pass
 
+    def test_DynamicProbDistUniformSuperpositionCycleOriented(self):
+        # TODO: Introduce oriented walks to GUI first.
+        pass
+
     def test_StaticProbDistCustomStateCycle(self):
+        # TODO: Introduce custom state walks to GUI first.
+        pass
+
+    def test_DynamicProbDistCustomStateCycle(self):
         # TODO: Introduce custom state walks to GUI first.
         pass
 
@@ -91,6 +101,42 @@ class TestGraphicalQWAKCycle(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
+    def test_DynamicSetInitStateCycle(self):
+        n = 100
+        t = [0,12]
+        gQwak = GraphicalQWAKTestStub()
+        newInitStateList = str(n//4) + ',' + str(n//4 + 1)
+        np.testing.assert_almost_equal(
+            gQwak.getDynamicProbVecList(),
+            [np.zeros(n)],
+            err_msg="Probability distribution before running should be 0.",
+        )
+        np.testing.assert_almost_equal(
+            gQwak.getDynamicInitStateList(),
+            [[n//2,n//2+1]],
+            err_msg=f"Init state of gQwak {gQwak.getStaticInitState()} does not match expected init state {[n//2,n//2+1]}",
+        )
+        probVecList = gQwak.runMultipleWalks()
+        assert not probVecList[0]
+        np.testing.assert_almost_equal(
+            probVecList[1],
+            graphicalDynamicProbDistCycle,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+        gQwak.setDynamicInitStateList(newInitStateList)
+        np.testing.assert_almost_equal(
+            gQwak.getDynamicInitStateList(),
+            [[n//4,n//4+1]],
+            err_msg=f"Init state of gQwak {gQwak.getStaticInitState()} does not match expected new init state {[n//4,n//4+1]}",
+        )
+        probVecList = gQwak.runMultipleWalks()
+        assert not probVecList[0]
+        np.testing.assert_almost_equal(
+            probVecList[1],
+            graphicalDynamicProbDistCycleNewInitState,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+
     def test_StaticSetDimCycle(self):
         newDim = 1000
         graphStr = "nx.cycle_graph"
@@ -118,5 +164,35 @@ class TestGraphicalQWAKCycle(object):
         np.testing.assert_almost_equal(
             probVec[1],
             graphicalStaticProbDistCycleNewDim,
+            err_msg=f"Probability Distribution does not match expected for n = {newDim} and t = {t}",
+        )
+
+    def test_DynamicSetDimCycle(self):
+        newDim = 1000
+        graphStr = "nx.cycle_graph"
+        t = [0, 12]
+        initStateList = [[newDim // 2, newDim // 2 + 1]]
+        gQwak = GraphicalQWAKTestStub()
+        assert gQwak.getDynamicDim() == 100
+        gQwak.setDynamicDim(newDim, graphStr)
+        assert gQwak.getDynamicDim() == 1000
+        gQwak.setDynamicInitStateList(str(newDim // 2)+','+str(newDim // 2 + 1))
+        np.testing.assert_almost_equal(
+            gQwak.getDynamicInitStateList(),
+            [[newDim//2,newDim//2+1]],
+            err_msg=f"Init state of gQwak {gQwak.getDynamicInitStateList()} does not match expected new init state list {[[newDim//2,newDim//2+1]]}",
+        )
+        np.testing.assert_almost_equal(
+            gQwak.getDynamicAdjacencyMatrix(),
+            nx.to_numpy_array(
+                nx.cycle_graph(newDim),
+                dtype=complex),
+            err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {gQwak.getStaticAdjacencyMatrix()}",
+        )
+        probVecList = gQwak.runMultipleWalks()
+        assert not probVecList[0]
+        np.testing.assert_almost_equal(
+            probVecList[1],
+            graphicalDynamicProbDistCycleNewDim,
             err_msg=f"Probability Distribution does not match expected for n = {newDim} and t = {t}",
         )

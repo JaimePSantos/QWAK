@@ -5,7 +5,7 @@ from qwak.GraphicalQWAK import GraphicalQWAK
 
 if __name__ == "__main__":
 
-    staticN = 100
+    staticN = 1000
     dynamicN = staticN
     t = 12
     initState = [staticN // 4, (staticN // 4) + 1]
@@ -23,4 +23,4 @@ if __name__ == "__main__":
         t,
         timeList)
 
-    print(gQwak.runWalk()[1])
+    print(gQwak.runMultipleWalks()[1])

@@ -42,17 +42,32 @@ class GraphicalQWAKTestStub:
     def setStaticDim(self,newDim,graphStr):
         self.gQwak.setStaticDim(newDim,graphStr)
 
+    def setDynamicDim(self, newDim, graphStr):
+        self.gQwak.setDynamicDim(newDim,graphStr)
+
     def getStaticDim(self):
         return self.gQwak.getStaticDim()
+
+    def getDynamicDim(self):
+        return self.gQwak.getDynamicDim()
 
     def getStaticAdjacencyMatrix(self):
         return self.gQwak.getStaticAdjacencyMatrix()
 
+    def getDynamicAdjacencyMatrix(self):
+        return self.gQwak.getDynamicAdjacencyMatrix()
+
     def setStaticInitState(self,initStateStr):
-        return self.gQwak.setStaticInitState(initStateStr)
+        self.gQwak.setStaticInitState(initStateStr)
+
+    def setDynamicInitStateList(self, newInitStateList):
+        self.gQwak.setDynamicInitStateList(newInitStateList)
 
     def getStaticInitState(self):
         return self.gQwak.getStaticInitState()
+
+    def getDynamicInitStateList(self):
+        return self.gQwak.getDynamicInitStateList()
 
     #
     # def setInitState(self, newState):

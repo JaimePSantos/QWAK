@@ -82,7 +82,7 @@ class GraphicalQWAK:
     def getStaticDim(self):
         return self._staticN
 
-    def getDynamicDin(self):
+    def getDynamicDim(self):
         return self._dynamicN
 
     def setStaticGraph(self, newGraphStr):
@@ -107,6 +107,9 @@ class GraphicalQWAK:
 
     def getStaticAdjacencyMatrix(self):
         return self._staticQWAK.getAdjacencyMatrix()
+
+    def getDynamicAdjacencyMatrix(self):
+        return self._dynamicQWAK.getAdjacencyMatrix()
 
     def setStaticTime(self, newTime):
         self._staticTime = eval(newTime)
@@ -141,6 +144,9 @@ class GraphicalQWAK:
 
     def getStaticInitState(self):
         return self._staticStateList
+
+    def getDynamicInitStateList(self):
+        return self._dynamicStateList
 
     def getStaticProbDist(self):
         return self._staticProbDist
