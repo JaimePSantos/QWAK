@@ -1,6 +1,5 @@
 import os
 
-import eel
 import networkx as nx
 import numpy as np
 import copy
