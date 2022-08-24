@@ -158,7 +158,7 @@ if __name__ == "__main__":
 
     @eel.expose
     def checkPST(nodeA, nodeB):
-        pst = staticQuantumWalk.checkPST(nodeA, nodeB)
+        pst = gQwak.checkPST(nodeA, nodeB)
         return str(pst)
 
     @eel.expose
