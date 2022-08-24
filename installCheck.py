@@ -26,7 +26,8 @@ t = 50
 graph = nx.cycle_graph(n)
 marked = [n // 2, n // 2 + 1]
 customMarked = [(n // 2, 1 / np.sqrt(2)), (n // 2 + 1, 1 / np.sqrt(2))]
-customMarked2 = [(n // 2, 1j * (1 / np.sqrt(2))), (n // 2 + 1, (1 / np.sqrt(2)))]
+customMarked2 = [(n // 2, 1j * (1 / np.sqrt(2))),
+                 (n // 2 + 1, (1 / np.sqrt(2)))]
 
 qwInitState = State(n, marked)
 qwInitState.buildState(marked)
@@ -52,8 +53,7 @@ print(
     f"Moment 2: {qwController.getProbDist().moment(2)}\n"
     f"Stdev: {qwController.getProbDist().stDev()}\n"
     f"Survival Probability: {qwController.getProbDist().survivalProb(marked[0],marked[0]+1)}\n"
-    f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n"
-)
+    f"Inverse Part. Ratio: {qwController.getWalk().invPartRatio()}\n")
 
 
 qwController2 = QWAK(graph, laplacian=False)
@@ -64,8 +64,7 @@ print(
     f"Moment 2: {qwController2.getProbDist().moment(2)}\n"
     f"Stdev: {qwController2.getProbDist().stDev()}\n"
     f"Survival Probability: {qwController2.getProbDist().survivalProb(marked[0],marked[0]+1)}\n"
-    f"Inverse Part. Ratio: {qwController2.getWalk().invPartRatio()}\n"
-)
+    f"Inverse Part. Ratio: {qwController2.getWalk().invPartRatio()}\n")
 
 plt.plot(qwProbDist.getProbVec(), label="Manual Quantum Walk")
 plt.plot(qwController.getProbVec(), label="QWAK Quantum Walk")
@@ -117,7 +116,11 @@ sOperator = StochasticOperator(
 )
 sOperator.buildStochasticOperator()
 sQuantumWalk = StochasticQuantumWalk(initState, sOperator)
-sQuantumWalk.buildWalk(t, opts=Options(store_states=False, store_final_state=True))
+sQuantumWalk.buildWalk(
+    t,
+    opts=Options(
+        store_states=False,
+        store_final_state=True))
 sProbDist2 = StochasticProbabilityDistribution(sQuantumWalk)
 sProbDist2.buildProbDist()
 
@@ -130,7 +133,8 @@ plt.figure()
 plt.plot(sProbDist.getProbVec(), label="Manual Stochastic Quantum Walk")
 plt.plot(sqwController.getProbVec(), label="StochasticQWAK Quantum Walk")
 plt.plot(sProbDist2.getProbVec(), label="Manual Noisy Stochastic Quantum Walk")
-plt.plot(sqwController2.getProbVec(), label="Noisy StochasticQWAK Quantum Walk")
+plt.plot(sqwController2.getProbVec(),
+         label="Noisy StochasticQWAK Quantum Walk")
 
 plt.legend()
 plt.show()

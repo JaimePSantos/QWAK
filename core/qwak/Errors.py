@@ -90,6 +90,7 @@ class UndefinedTimeList(Error):
         """
         super().__init__("Time interval for multiple walks is undefined: ", details)
 
+
 class EmptyProbDistList(Error):
     """_summary_
 

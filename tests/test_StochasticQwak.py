@@ -2,13 +2,12 @@ import networkx as nx
 import numpy as np
 
 from qwak.qwak import StochasticQWAK
-from testVariables import (
+from tests.stubs.StochasticQWAKTestStub import StochasticQWAKTestStub
+
+from tests.testVariables.stochasticQwakVar import (
     stochasticProbDistSingleNodeCycleNoise,
     stochasticProbDistSingleNodeCycleNoNoise,
 )
-
-
-import pytest
 
 
 class TestStochasticQWAK(object):
@@ -58,41 +57,3 @@ class TestStochasticQWAK(object):
             stochasticProbDistSingleNodeCycleNoise,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
-
-
-class StochasticQWAKTestStub:
-    def __init__(self, testQwak=None):
-        if testQwak is None:
-            n = 50
-            t = 6
-            self.t = t
-            noiseParam = 0.0
-            sinkNode = None
-            sinkRate = 1.0
-            graph = nx.cycle_graph(n)
-            initStateList = [n // 2]
-            laplacian = False
-            markedSearch = None
-            self.qwak = StochasticQWAK(
-                graph,
-                initStateList=initStateList,
-                customStateList=None,
-                noiseParam=noiseParam,
-                sinkNode=sinkNode,
-                sinkRate=sinkRate,
-            )
-        else:
-            self.qwak = testQwak
-
-    def buildWalk(
-            self,
-            t,
-            noiseParam=None,
-            sinkNode=None,
-            sinkRate=None):
-        if t is not None:
-            self.t = t
-        self.qwak.runWalk(self.t)
-
-    def getProbVec(self):
-        return self.qwak.getProbVec()

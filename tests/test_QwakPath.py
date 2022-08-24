@@ -1,16 +1,12 @@
 import networkx as nx
 import numpy as np
 
-from qwak.qwak import QWAK, StochasticQWAK
-from qwak.Errors import StateOutOfBounds, NonUnitaryState
-from qwak.State import State
-from QWAKTestStub import QWAKTestStub
+from qwak.qwak import QWAK
+from tests.stubs.QWAKTestStub import QWAKTestStub
 
-from testVariables import (
+from tests.testVariables.qwakVar import (
     probDistUniformSuperpositionPath,
 )
-
-import pytest
 
 
 class TestQWAKComplete(object):

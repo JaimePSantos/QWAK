@@ -3,12 +3,8 @@ import os
 import eel
 import networkx as nx
 import numpy as np
-import copy
 
-from qwak.Errors import StateOutOfBounds
-from qwak.State import State
-from qwak.qwak import QWAK
-from GraphicalQWAK import GraphicalQWAK
+from qwak.GraphicalQWAK import GraphicalQWAK
 
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, "../GraphicalInterface")
@@ -18,17 +14,18 @@ eel.init(guiPath)
 # TODO: Formularios para introduzir parametros.
 
 if __name__ == "__main__":
-    global n, t, initState, staticQuantumWalk
-    n = 100
+    staticN = 100
+    dynamicN = 100
     t = 10
-    initState = [n // 2]
-    staticGraph = nx.cycle_graph(n)
-    dynamicGraph = nx.cycle_graph(n)
+    initState = [staticN // 2]
+    staticGraph = nx.cycle_graph(staticN)
+    dynamicGraph = nx.cycle_graph(dynamicN)
     timeList = [0, 100]
-    initStateList = [[int(n / 2), int(n / 2) + 1]]
+    initStateList = [[dynamicN // 2, (dynamicN // 2) + 1]]
 
     gQwak = GraphicalQWAK(
-        n,
+        staticN,
+        dynamicN,
         staticGraph,
         dynamicGraph,
         initState,
@@ -47,13 +44,24 @@ if __name__ == "__main__":
         return gQwak.runMultipleWalks()
 
     @eel.expose
-    def setDim(newDim, graphStr):
-        global staticQuantumWalk, dynamicQuantumWalk
-        gQwak.setDim(newDim, graphStr)
+    def setStaticDim(newDim, graphStr):
+        gQwak.setStaticDim(newDim, graphStr)
+
+    @eel.expose
+    def setDynamicDim(newDim, graphStr):
+        gQwak.setDynamicDim(newDim, graphStr)
 
     @eel.expose
     def getDim():
         return gQwak.getDim()
+
+    @eel.expose
+    def getStaticDim():
+        return gQwak.getStaticDim()
+
+    @eel.expose
+    def getDynamicDim():
+        return gQwak.getDynamicDim()
 
     @eel.expose
     def setStaticGraph(newGraph):
@@ -150,7 +158,7 @@ if __name__ == "__main__":
 
     @eel.expose
     def checkPST(nodeA, nodeB):
-        pst = staticQuantumWalk.checkPST(nodeA, nodeB)
+        pst = gQwak.checkPST(nodeA, nodeB)
         return str(pst)
 
     @eel.expose
