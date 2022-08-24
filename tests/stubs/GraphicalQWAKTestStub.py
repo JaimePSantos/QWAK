@@ -51,6 +51,9 @@ class GraphicalQWAKTestStub:
     def setStaticInitState(self,initStateStr):
         return self.gQwak.setStaticInitState(initStateStr)
 
+    def getStaticInitState(self):
+        return self.gQwak.getStaticInitState()
+
     #
     # def setInitState(self, newState):
     #     self.qwak.setInitState(newState)
