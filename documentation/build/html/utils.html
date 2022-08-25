@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="qwak package" href="qwak.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="qwak package" href="qwak.html" />
 
     <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>utils package - QWAK - Quantum Walk Analysis Kit</title>
@@ -186,10 +187,9 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">QWAK - Quantum Walk Analysis Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">Reference Manual</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">utils package</a></li>
 </ul>
@@ -227,12 +227,12 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="utils-package">
+          <section id="utils-package">
 <h1>utils package<a class="headerlink" href="#utils-package" title="Permalink to this heading">#</a></h1>
-<div class="section" id="submodules">
+<section id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
-</div>
-<div class="section" id="module-utils.PerfectStateTransfer">
+</section>
+<section id="module-utils.PerfectStateTransfer">
 <span id="utils-perfectstatetransfer-module"></span><h2>utils.PerfectStateTransfer module<a class="headerlink" href="#module-utils.PerfectStateTransfer" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="utils.PerfectStateTransfer.isStrCospec">
@@ -242,17 +242,17 @@ strongly cospectral. Two vertices a and b are strong cospectral if the character
 the colum and row a removed, is equal to the characteristic polynomial of the matrix Mb, that has the column and row b
 removed. This is easily checked using SymPy and it is what the function StrCospec does.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>_type_</em>) – _description_</p></li>
 <li><p><strong>a</strong> (<em>_type_</em>) – _description_</p></li>
 <li><p><strong>b</strong> (<em>_type_</em>) – _description_</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
@@ -266,16 +266,16 @@ it starts by defning a polynomial g(x)=gcd(phi,phiab). Then, there will be no po
 without repeated roots. This occurs when gcd(f(x),f’(x)) is a constant, then we only need to check the coeeficients and
 see if all of them is zero except the last one. This is done by the function SimplePoles.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>phi</strong> (<em>_type_</em>) – _description_</p></li>
 <li><p><strong>phiab</strong> (<em>_type_</em>) – _description_</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
@@ -290,13 +290,13 @@ It works by choosing the first prime in the list, in this case 2, then squareing
 list. The algorithm then choose the next prime and does the same procedure. At the end, we have a list with True at position
 i if i+1 is prime and False otherwise.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>n</strong> (<em>_type_</em>) – _description_</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
@@ -309,13 +309,13 @@ i if i+1 is prime and False otherwise.</p>
 algorithm get the list of primes from 1 to n, then it start a loop of integers from 2 to n, when i is prime the algorithm
 associates False to all multiples of i². It returns a list with True (False) in the entry i if i-1 is (not) square free.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>n</strong> (<em>_type_</em>) – _description_</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
@@ -329,17 +329,17 @@ all the eigenvalues such that Er|a&gt; != 0, where <a href="#id1"><span class="p
 projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,
 because we do not need to check for eigenvalues that are not in the eigenvalue support.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>a</strong> (<em>_type_</em>) – _description_</p></li>
 <li><p><strong>eigenvec</strong> (<em>_type_</em>) – _description_</p></li>
 <li><p><strong>eigenval</strong> (<em>_type_</em>) – _description_</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
@@ -364,7 +364,7 @@ then we know that PST is not possible and we return False.
 The time that PST occurs is just pi/g*Sqrt(delta) where g = gcd(theta0 - thetar), i.e. the gcd between all the differences
 of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>A</strong> (<em>_type_</em>) – _description_</p></li>
 <li><p><strong>a</strong> (<em>_type_</em>) – _description_</p></li>
@@ -372,10 +372,10 @@ of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p
 <li><p><strong>eigenval</strong> (<em>_type_</em>) – _description_</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
@@ -386,16 +386,16 @@ of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p
 <span class="sig-name descname"><span class="pre">swapNodes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PerfectStateTransfer.html#swapNodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.PerfectStateTransfer.swapNodes" title="Permalink to this definition">#</a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>nodeA</strong> (<em>_type_</em>) – _description_</p></li>
 <li><p><strong>nodeB</strong> (<em>_type_</em>) – _description_</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
@@ -406,132 +406,23 @@ of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p
 <span class="sig-name descname"><span class="pre">getEigenVal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PerfectStateTransfer.html#getEigenVal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.PerfectStateTransfer.getEigenVal" title="Permalink to this definition">#</a></dt>
 <dd><p>_summary_</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>D</strong> (<em>_type_</em>) – _description_</p>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>_description_</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>_type_</p>
 </dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-utils.Profiler">
-<span id="utils-profiler-module"></span><h2>utils.Profiler module<a class="headerlink" href="#module-utils.Profiler" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="utils.Profiler.profile">
-<span class="sig-name descname"><span class="pre">profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cumulative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines_to_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Profiler.html#profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.Profiler.profile" title="Permalink to this definition">#</a></dt>
-<dd><p>A time profiler decorator. Inspired by and modified the profile decorator of Giampaolo Rodola: <a class="reference external" href="http://code.activestate.com/recipes/577817-profile-decorator/">http://code.activestate.com/recipes/577817-profile-decorator/</a></p>
-<p>:param : param output_file: Default is None Path of the output file. If only name of the file is given, it’s saved in the current directory. If it’s None, the name of the decorated function is used.
-:param : type output_file: str or None.
-:param : param sort_by: Sorting criteria for the Stats object. For a list of valid string and SortKey refer to: <a class="reference external" href="https://docs.python.org/3/library/profile.html#pstats.Stats.sort_stats">https://docs.python.org/3/library/profile.html#pstats.Stats.sort_stats</a>
-:param : type sort_by: str or SortKey enum or tuple/list of str/SortKey enum.
-:param : param lines_to_print: Number of lines to print. Default (None) is for all the lines. This is useful in reducing the size of the printout, especially that sorting by ‘cumulative’, the time consuming operations are printed toward the top of the file.
-:param : type lines_to_print: int or None.
-:param : param strip_dirs: Whether to remove the leading path info from file names. This is also useful in reducing the size of the printout
-:param : type: strip_dirs: bool.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Profile of the decorated function</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="utils.Profiler.prof_to_csv">
-<span class="sig-name descname"><span class="pre">prof_to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prof</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_by</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cumulative'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines_to_print</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strip_dirs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/Profiler.html#prof_to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.Profiler.prof_to_csv" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-utils.QwakBenchmarkStub">
-<span id="utils-qwakbenchmarkstub-module"></span><h2>utils.QwakBenchmarkStub module<a class="headerlink" href="#module-utils.QwakBenchmarkStub" title="Permalink to this heading">#</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAKBenchmark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>_summary_</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>graph</strong> (<em>nx.Graph</em>) – _description_</p></li>
-<li><p><strong>laplacian</strong> (<em>bool</em><em>, </em><em>optional</em>) – _description_, by default False</p></li>
-<li><p><strong>markedSearch</strong> (<em>_type_</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>_description_</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>_type_</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.runWalk">
-<span class="sig-name descname"><span class="pre">runWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[0]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.runWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.runWalk" title="Permalink to this definition">#</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-<dt class="field-even">Parameters</dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>time</strong> (<em>float</em>) – </p></li>
-<li><p><strong>initStateList</strong> (<em>list</em>) – </p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.checkPST">
-<span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.checkPST" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency">
-<span class="sig-name descname"><span class="pre">transportEfficiency</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.transportEfficiency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.getMean">
-<span class="sig-name descname"><span class="pre">getMean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.getMean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.getMean" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.getSndMoment">
-<span class="sig-name descname"><span class="pre">getSndMoment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.getSndMoment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.getSndMoment" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.getStDev">
-<span class="sig-name descname"><span class="pre">getStDev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.getStDev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.getStDev" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb">
-<span class="sig-name descname"><span class="pre">getSurvivalProb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.getSurvivalProb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="utils.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio">
-<span class="sig-name descname"><span class="pre">getInversePartRatio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/QwakBenchmarkStub.html#QWAKBenchmark.getInversePartRatio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-</div>
-<div class="section" id="module-utils.runAnalyzer">
-<span id="utils-runanalyzer-module"></span><h2>utils.runAnalyzer module<a class="headerlink" href="#module-utils.runAnalyzer" title="Permalink to this heading">#</a></h2>
-</div>
-<div class="section" id="module-utils.runProfiler">
-<span id="utils-runprofiler-module"></span><h2>utils.runProfiler module<a class="headerlink" href="#module-utils.runProfiler" title="Permalink to this heading">#</a></h2>
-</div>
-<div class="section" id="module-utils">
+</section>
+<section id="module-utils">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Permalink to this heading">#</a></h2>
-</div>
-</div>
+</section>
+</section>
 
         </article>
       </div>
@@ -585,10 +476,6 @@ of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p
 <li><a class="reference internal" href="#">utils package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-utils.PerfectStateTransfer">utils.PerfectStateTransfer module</a></li>
-<li><a class="reference internal" href="#module-utils.Profiler">utils.Profiler module</a></li>
-<li><a class="reference internal" href="#module-utils.QwakBenchmarkStub">utils.QwakBenchmarkStub module</a></li>
-<li><a class="reference internal" href="#module-utils.runAnalyzer">utils.runAnalyzer module</a></li>
-<li><a class="reference internal" href="#module-utils.runProfiler">utils.runProfiler module</a></li>
 <li><a class="reference internal" href="#module-utils">Module contents</a></li>
 </ul>
 </li>

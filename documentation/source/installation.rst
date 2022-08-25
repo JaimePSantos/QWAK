@@ -1,3 +1,5 @@
+.._installation:
+
 Installation
 ============
 
@@ -75,3 +77,23 @@ And activate the environment with:
     source <name_of_env>
 
 Then you will need to install the dependencies and the package itself using pip as described above.
+
+.. _testing-installation:
+
+Testing the installation
+************************
+
+The basic testing script can be run by:
+
+.. code-block:: console
+
+    python installCheck.py
+
+If no errors are thrown and you end up with some plots opened, then the installation was successful.
+
+However, we recommend running the package's unit tests via pytest:
+
+.. code-block:: console
+
+    pip install pytest
+    pytest -v tests/
