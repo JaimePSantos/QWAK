@@ -22,7 +22,7 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
 Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
 
-Step-by-step installation instructions can be found in the documentation [installation](https://jaimepsantos.github.io/QWAK/installation.html.) page.
+Step-by-step installation instructions can be found in the documentation [installation](https://jaimepsantos.github.io/QWAK/installation.html) page.
 
 
 
