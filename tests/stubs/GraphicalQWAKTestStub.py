@@ -80,3 +80,15 @@ class GraphicalQWAKTestStub:
 
     def getDynamicGraph(self):
         return self.gQwak.getDynamicGraph()
+
+    def setStaticTime(self,newTime):
+        self.gQwak.setStaticTime(newTime)
+
+    def setDynamicTime(self,newTimeList):
+        self.gQwak.setDynamicTime(newTimeList)
+
+    def getStaticTime(self):
+        return self.gQwak.getStaticTime()
+
+    def getDynamicTime(self):
+        return self.gQwak.getDynamicTime()

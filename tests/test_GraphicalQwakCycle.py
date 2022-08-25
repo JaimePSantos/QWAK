@@ -13,6 +13,8 @@ from tests.testVariables.graphicalQwakVar import (
     graphicalDynamicProbDistCycleNewDim,
     graphicalStaticSetGraphCycleComplete,
     graphicalDynamicSetGraphCycleComplete,
+    graphicalStaticSetTimeCycle,
+    graphicalDynamicSetTimeCycle,
 )
 
 
@@ -238,5 +240,63 @@ class TestGraphicalQWAKCycle(object):
         np.testing.assert_almost_equal(
             probVecList[1],
             graphicalDynamicSetGraphCycleComplete,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+
+    def test_setStaticTimeCycle(self):
+        n = 100
+        t = 12
+        # Time is given as a string since the GUI can give values such as 2*pi for python to eval().
+        newTime = "10*np.pi"
+        gQwak = GraphicalQWAKTestStub()
+        np.testing.assert_almost_equal(
+            gQwak.getStaticProbVec(),
+            np.zeros(n),
+            err_msg="Probability distribution before running should be 0.",
+        )
+        probVec = gQwak.runWalk()
+        assert not probVec[0], "runWalk should not have thrown an error."
+        np.testing.assert_almost_equal(
+            probVec[1],
+            graphicalStaticProbDistCycle,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+        assert gQwak.getStaticTime() == 12 , "Time should be 12."
+        gQwak.setStaticTime(newTime)
+        assert gQwak.getStaticTime() == 10*np.pi , "Time should be 10*pi."
+        probVec = gQwak.runWalk()
+        assert not probVec[0], "runWalk should not have thrown an error."
+        np.testing.assert_almost_equal(
+            probVec[1],
+            graphicalStaticSetTimeCycle,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+
+    def test_setDynamicTimeCycle(self):
+        n = 100
+        t = [0,12]
+        # Time is given as a string since the GUI can give values such as 2*pi for python to eval().
+        newTimeList = '0' + ',' + str(10*np.pi)
+        gQwak = GraphicalQWAKTestStub()
+        np.testing.assert_almost_equal(
+            gQwak.getDynamicProbVecList(),
+            [np.zeros(n)],
+            err_msg="Probability distribution before running should be 0.",
+        )
+        probVecList = gQwak.runMultipleWalks()
+        assert not probVecList[0], "runMultipleWalks should not have thrown an error."
+        np.testing.assert_almost_equal(
+            probVecList[1],
+            graphicalDynamicProbDistCycle,
+            err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+        assert gQwak.getDynamicTime().all() == np.linspace(0, 12, 12).all() , "Time list should be [0-12]."
+        gQwak.setDynamicTime(newTimeList)
+        assert gQwak.getDynamicTime().all() ==np.linspace(0, 10*np.pi, int(10*np.pi)).all() , f"Time should be [0-10*pi]."
+        probVecList = gQwak.runMultipleWalks()
+        assert not probVecList[0], "runMultipleWalks should not have thrown an error."
+        np.testing.assert_almost_equal(
+            probVecList[1],
+            graphicalDynamicSetTimeCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
