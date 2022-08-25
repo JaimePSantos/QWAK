@@ -5,10 +5,11 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
 ## Table of Contents:
 
--  [Installation](#installation)
--  [Usage](#usage)
--  [Documentation](#documentation)
--  [Contributing](#contributing)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
 
 ## Requirements
 - Numpy
