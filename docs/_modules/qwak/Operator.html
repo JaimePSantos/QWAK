@@ -186,12 +186,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">QWAK - Quantum Walk Analysis Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../utils.html">Tools package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
 </ul>
@@ -249,10 +248,11 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
-        <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-        <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
+            <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;This object is initialized with a user inputted graph, which is then used to</span>
 <span class="sd">        generate the dimension of the operator and the adjacency matrix, which is</span>
@@ -274,17 +274,20 @@
 <span class="sd">        markedSearch : list, optional</span>
 <span class="sd">            List with marked elements for search, by default None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildAdjacency</span><span class="p">(</span><span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Operator.buildDiagonalOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.buildDiagonalOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildDiagonalOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="Operator.buildDiagonalOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.buildDiagonalOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildDiagonalOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Builds operator matrix from optional time and transition rate parameters, defined by user.</span>
 <span class="sd">        The first step is to calculate the diagonal matrix that takes in time, transition rate and</span>
 <span class="sd">        eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied</span>
@@ -296,15 +299,21 @@
 <span class="sd">        time : float, optional</span>
 <span class="sd">            Time for which to calculate the operator, by default 0.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
-        <span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">))</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">))</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">,</span> <span class="n">diag</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
-            <span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span> <span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">))</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span> <span class="n">inv</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="Operator._buildAdjacency"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildAdjacency">[docs]</a>    <span class="k">def</span> <span class="nf">_buildAdjacency</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
@@ -318,10 +327,11 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
-                <span class="n">nx</span><span class="o">.</span><span class="n">laplacian_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
-            <span class="p">)</span>
+                <span class="n">nx</span><span class="o">.</span><span class="n">laplacian_matrix</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">markedSearch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">marked</span> <span class="ow">in</span> <span class="n">markedSearch</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">[</span><span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">marked</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
@@ -339,7 +349,8 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Operator.resetOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.resetOperator">[docs]</a>    <span class="k">def</span> <span class="nf">resetOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Resets Operator object.&quot;&quot;&quot;</span>
@@ -458,7 +469,8 @@
         <span class="n">eigenVec</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">symAdj</span><span class="o">.</span><span class="n">diagonalize</span><span class="p">()</span>
         <span class="n">eigenVal</span> <span class="o">=</span> <span class="n">getEigenVal</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
         <span class="n">isCospec</span> <span class="o">=</span> <span class="n">isStrCospec</span><span class="p">(</span><span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
-        <span class="n">chRoots</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">checkRoots</span><span class="p">(</span><span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">eigenVec</span><span class="p">,</span> <span class="n">eigenVal</span><span class="p">)</span>
+        <span class="n">chRoots</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">checkRoots</span><span class="p">(</span>
+            <span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">eigenVec</span><span class="p">,</span> <span class="n">eigenVal</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">isCospec</span> <span class="ow">and</span> <span class="n">chRoots</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>
@@ -503,8 +515,20 @@
 <span class="sd">        str</span>
 <span class="sd">            String representation of the Operator object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span>
 
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Representation of the ProbabilityDistribution object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            String of the ProbabilityDistribution object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;N: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;Graph: </span><span class="si">{</span><span class="n">nx</span><span class="o">.</span><span class="n">to_dict_of_dicts</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;Operator:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span></div>
     <span class="c1"># def transportEfficiency(self,initState):</span>
     <span class="c1">#     &quot;&quot;&quot;</span>
     <span class="c1">#     Under Construction.</span>
@@ -534,7 +558,12 @@
 <span class="sd">    @author: Lorenzo Buffoni</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph</span><span class="p">,</span> <span class="n">noiseParam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sinkNode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sinkRate</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">graph</span><span class="p">,</span>
+            <span class="n">noiseParam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sinkNode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sinkRate</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
 
 <span class="sd">        Parameters</span>
@@ -567,8 +596,10 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="StochasticOperator.buildStochasticOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.StochasticOperator.buildStochasticOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildStochasticOperator</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">noiseParam</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sinkNode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">sinkRate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">noiseParam</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">sinkNode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">sinkRate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix</span>
 <span class="sd">        and other parameters.</span>
 
@@ -617,7 +648,8 @@
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="p">]</span>
-            <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># transition matrix to the sink</span>
+            <span class="c1"># transition matrix to the sink</span>
+            <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
             <span class="n">S</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkRate</span><span class="p">)</span>
             <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Qobj</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
         <span class="k">else</span><span class="p">:</span>

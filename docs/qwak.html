@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tools package" href="utils.html" /><link rel="prev" title="Tools" href="modules.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="utils package" href="utils.html" /><link rel="prev" title="Reference Manual" href="modules.html" />
 
     <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>qwak package - QWAK - Quantum Walk Analysis Kit</title>
@@ -187,12 +187,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="index.html">QWAK - Quantum Walk Analysis Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">Reference Manual</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">Tools package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
 </li>
 </ul>
@@ -306,12 +305,254 @@
 </dl>
 </dd></dl>
 
+<dl class="py exception">
+<dt class="sig sig-object py" id="qwak.Errors.UndefinedTimeList">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">UndefinedTimeList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Errors.html#UndefinedTimeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Errors.UndefinedTimeList" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qwak.Errors.Error" title="qwak.Errors.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span></code></a></p>
+<p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Error</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+</dl>
+<p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>details</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="qwak.Errors.EmptyProbDistList">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">EmptyProbDistList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Errors.html#EmptyProbDistList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Errors.EmptyProbDistList" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qwak.Errors.Error" title="qwak.Errors.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span></code></a></p>
+<p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Error</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+</dl>
+<p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>details</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-qwak.GraphicalQWAK">
+<span id="qwak-graphicalqwak-module"></span><h2>qwak.GraphicalQWAK module<a class="headerlink" href="#module-qwak.GraphicalQWAK" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GraphicalQWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">staticN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamicN</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">staticGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamicGraph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">staticStateList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamicStateList</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">staticTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamicTimeList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>staticGraph</strong> (<em>Graph</em>) – </p></li>
+<li><p><strong>dynamicGraph</strong> (<em>Graph</em>) – </p></li>
+<li><p><strong>staticStateList</strong> (<em>list</em>) – </p></li>
+<li><p><strong>dynamicStateList</strong> (<em>list</em>) – </p></li>
+<li><p><strong>staticTime</strong> (<em>float</em>) – </p></li>
+<li><p><strong>dynamicTimeList</strong> (<em>list</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.runWalk">
+<span class="sig-name descname"><span class="pre">runWalk</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.runWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.runWalk" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.runMultipleWalks">
+<span class="sig-name descname"><span class="pre">runMultipleWalks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.runMultipleWalks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.runMultipleWalks" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim">
+<span class="sig-name descname"><span class="pre">setStaticDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setStaticDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setDynamicDim">
+<span class="sig-name descname"><span class="pre">setDynamicDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setDynamicDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicDim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticDim">
+<span class="sig-name descname"><span class="pre">getStaticDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticDim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicDim">
+<span class="sig-name descname"><span class="pre">getDynamicDim</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicDim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setStaticGraph">
+<span class="sig-name descname"><span class="pre">setStaticGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newGraphStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setStaticGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setStaticGraph" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setDynamicGraph">
+<span class="sig-name descname"><span class="pre">setDynamicGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newGraphStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setDynamicGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicGraph" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraph">
+<span class="sig-name descname"><span class="pre">getStaticGraph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraph" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraph">
+<span class="sig-name descname"><span class="pre">getDynamicGraph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraph" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraphToJson">
+<span class="sig-name descname"><span class="pre">getStaticGraphToJson</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticGraphToJson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraphToJson" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraphToJson">
+<span class="sig-name descname"><span class="pre">getDynamicGraphToJson</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicGraphToJson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraphToJson" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticAdjacencyMatrix">
+<span class="sig-name descname"><span class="pre">getStaticAdjacencyMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticAdjacencyMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticAdjacencyMatrix" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicAdjacencyMatrix">
+<span class="sig-name descname"><span class="pre">getDynamicAdjacencyMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicAdjacencyMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicAdjacencyMatrix" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setStaticTime">
+<span class="sig-name descname"><span class="pre">setStaticTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newTime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setStaticTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setStaticTime" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticTime">
+<span class="sig-name descname"><span class="pre">getStaticTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticTime" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setDynamicTime">
+<span class="sig-name descname"><span class="pre">setDynamicTime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newTimeList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setDynamicTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicTime" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicTime">
+<span class="sig-name descname"><span class="pre">getDynamicTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicTime" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setDynamicInitStateList">
+<span class="sig-name descname"><span class="pre">setDynamicInitStateList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newInitStateList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setDynamicInitStateList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicInitStateList" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setStaticInitState">
+<span class="sig-name descname"><span class="pre">setStaticInitState</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initStateStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setStaticInitState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setStaticInitState" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticInitState">
+<span class="sig-name descname"><span class="pre">getStaticInitState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticInitState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticInitState" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInitStateList">
+<span class="sig-name descname"><span class="pre">getDynamicInitStateList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicInitStateList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInitStateList" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbDist">
+<span class="sig-name descname"><span class="pre">getStaticProbDist</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticProbDist"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbDist" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbDistList">
+<span class="sig-name descname"><span class="pre">getDynamicProbDistList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicProbDistList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbDistList" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbVec">
+<span class="sig-name descname"><span class="pre">getStaticProbVec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticProbVec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbVec" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbVecList">
+<span class="sig-name descname"><span class="pre">getDynamicProbVecList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicProbVecList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbVecList" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticMean">
+<span class="sig-name descname"><span class="pre">getStaticMean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticMean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticMean" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicMean">
+<span class="sig-name descname"><span class="pre">getDynamicMean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicMean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicMean" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticSndMoment">
+<span class="sig-name descname"><span class="pre">getStaticSndMoment</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticSndMoment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticSndMoment" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticStDev">
+<span class="sig-name descname"><span class="pre">getStaticStDev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticStDev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticStDev" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicStDev">
+<span class="sig-name descname"><span class="pre">getDynamicStDev</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicStDev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicStDev" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticSurvivalProb">
+<span class="sig-name descname"><span class="pre">getStaticSurvivalProb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticSurvivalProb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticSurvivalProb" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicSurvivalProb">
+<span class="sig-name descname"><span class="pre">getDynamicSurvivalProb</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">k0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicSurvivalProb"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicSurvivalProb" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getStaticInversePartRatio">
+<span class="sig-name descname"><span class="pre">getStaticInversePartRatio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getStaticInversePartRatio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getStaticInversePartRatio" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInvPartRatio">
+<span class="sig-name descname"><span class="pre">getDynamicInvPartRatio</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.getDynamicInvPartRatio"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInvPartRatio" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.checkPST">
+<span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.checkPST" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.customGraphWalk">
+<span class="sig-name descname"><span class="pre">customGraphWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customAdjacency</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.customGraphWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.customGraphWalk" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </section>
 <section id="module-qwak.Operator">
 <span id="qwak-operator-module"></span><h2>qwak.Operator module<a class="headerlink" href="#module-qwak.Operator" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="qwak.Operator.Operator">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Operator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class that represents the operators that will be used in a quantum walk.
 States are represented by matrices in quantum mechanics,
@@ -331,12 +572,13 @@ the matrix exponent directly.</p>
 <li><p><strong>graph</strong> (<em>nx.Graph</em>) – Graph where the walk will be performed.</p></li>
 <li><p><strong>laplacian</strong> (<em>bool</em><em>, </em><em>optional</em>) – Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.</p></li>
 <li><p><strong>markedSearch</strong> (<em>list</em><em>, </em><em>optional</em>) – List with marked elements for search, by default None.</p></li>
+<li><p><strong>time</strong> (<em>float</em>) – </p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.buildDiagonalOperator">
-<span class="sig-name descname"><span class="pre">buildDiagonalOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.buildDiagonalOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.buildDiagonalOperator" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">buildDiagonalOperator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.buildDiagonalOperator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.buildDiagonalOperator" title="Permalink to this definition">#</a></dt>
 <dd><p>Builds operator matrix from optional time and transition rate parameters, defined by user.
 The first step is to calculate the diagonal matrix that takes in time, transition rate and
 eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
@@ -1563,7 +1805,7 @@ This will be changed in the future to make nodeList make more sense.</p>
 <span id="qwak-qwak-module"></span><h2>qwak.qwak module<a class="headerlink" href="#module-qwak.qwak" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Data access class that combines all three components required to
 perform a continuous-time quantum walk, given by the multiplication of
@@ -1583,6 +1825,8 @@ walk.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<em>nx.Graph</em>) – NetworkX graph where the walk takes place. Also used
 for defining the dimensions of the quantum walk.</p></li>
+<li><p><strong>time</strong> (<em>float</em>) – </p></li>
+<li><p><strong>timeList</strong> (<em>list</em>) – </p></li>
 <li><p><strong>initStateList</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – List with chosen initial states for uniform superposition, by default None</p></li>
 <li><p><strong>customStateList</strong> (<em>list</em><em>[</em><em>(</em><em>int</em><em>,</em><em>complex</em><em>)</em><em>]</em><em>, </em><em>optional</em>) – Custom init state, by default None.</p></li>
 <li><p><strong>laplacian</strong> (<em>bool</em><em>, </em><em>optional</em>) – Allows the user to choose whether to use the
@@ -1593,7 +1837,7 @@ Laplacian or simple adjacency matrix, by default False.</p></li>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.runWalk">
-<span class="sig-name descname"><span class="pre">runWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.runWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.runWalk" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">runWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.runWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.runWalk" title="Permalink to this definition">#</a></dt>
 <dd><p>Builds class’ attributes, runs the walk and calculates the amplitudes
 and probability distributions with the given parameters. These can be
 accessed with their respective get methods.</p>
@@ -1610,6 +1854,27 @@ accessed with their respective get methods.</p>
 <li><p><strong>stOBErr</strong> – _description_</p></li>
 <li><p><strong>nUErr</strong> – _description_</p></li>
 </ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.runMultipleWalks">
+<span class="sig-name descname"><span class="pre">runMultipleWalks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">customStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.runMultipleWalks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.runMultipleWalks" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>timeList</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>initStateList</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+<li><p><strong>customStateList</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#qwak.Errors.UndefinedTimeList" title="qwak.Errors.UndefinedTimeList"><strong>UndefinedTimeList</strong></a> – _description_</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1657,40 +1922,6 @@ evaluated and executed as a NetworkX graph generator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="qwak.qwak.QWAK.setAdjacencyMatrix">
-<span class="sig-name descname"><span class="pre">setAdjacencyMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newAdjMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.setAdjacencyMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.setAdjacencyMatrix" title="Permalink to this definition">#</a></dt>
-<dd><p>_summary_</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>newAdjMatrix</strong> (<em>np.ndarray</em>) – _description_</p></li>
-<li><p><strong>initStateList</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="qwak.qwak.QWAK.getAdjacencyMatrix">
-<span class="sig-name descname"><span class="pre">getAdjacencyMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getAdjacencyMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getAdjacencyMatrix" title="Permalink to this definition">#</a></dt>
-<dd><p>_summary_</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>_description_</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>np.ndarray</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1773,6 +2004,23 @@ Also recalculates the current operator and walk dimension.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.setTimeList">
+<span class="sig-name descname"><span class="pre">setTimeList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newTimeList</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.setTimeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.setTimeList" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>newTime</strong> (<em>list</em>) – _description_</p></li>
+<li><p><strong>newTimeList</strong> (<em>list</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.getTime">
 <span class="sig-name descname"><span class="pre">getTime</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getTime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getTime" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets the current walk time.</p>
@@ -1785,6 +2033,57 @@ Also recalculates the current operator and walk dimension.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.getTimeList">
+<span class="sig-name descname"><span class="pre">getTimeList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getTimeList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getTimeList" title="Permalink to this definition">#</a></dt>
+<dd><p>Gets the current walk time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current value of time.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.setAdjacencyMatrix">
+<span class="sig-name descname"><span class="pre">setAdjacencyMatrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newAdjMatrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.setAdjacencyMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.setAdjacencyMatrix" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>newAdjMatrix</strong> (<em>np.ndarray</em>) – _description_</p></li>
+<li><p><strong>initStateList</strong> (<em>list</em><em>, </em><em>optional</em>) – _description_, by default None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.getAdjacencyMatrix">
+<span class="sig-name descname"><span class="pre">getAdjacencyMatrix</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getAdjacencyMatrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getAdjacencyMatrix" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1853,6 +2152,23 @@ This might not be needed and removed in the future.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.getWalkList">
+<span class="sig-name descname"><span class="pre">getWalkList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getWalkList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getWalkList" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.getFinalState">
 <span class="sig-name descname"><span class="pre">getFinalState</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getFinalState"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getFinalState" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets current QuantumWalk State.</p>
@@ -1882,6 +2198,23 @@ This might not be needed and removed in the future.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.getAmpVecList">
+<span class="sig-name descname"><span class="pre">getAmpVecList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getAmpVecList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getAmpVecList" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1919,6 +2252,23 @@ This might not be needed and removed in the future.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.getProbDistList">
+<span class="sig-name descname"><span class="pre">getProbDistList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getProbDistList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getProbDistList" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.getProbVec">
 <span class="sig-name descname"><span class="pre">getProbVec</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getProbVec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getProbVec" title="Permalink to this definition">#</a></dt>
 <dd><p>Gets the current probability distribution vector.</p>
@@ -1931,6 +2281,23 @@ This might not be needed and removed in the future.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.qwak.QWAK.getProbVecList">
+<span class="sig-name descname"><span class="pre">getProbVecList</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.getProbVecList"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.getProbVecList" title="Permalink to this definition">#</a></dt>
+<dd><p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>_description_</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>_type_</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2242,7 +2609,7 @@ This might not be needed and removed in the future.</p>
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Tools package</div>
+                <div class="title">utils package</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -2253,7 +2620,7 @@ This might not be needed and removed in the future.</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Tools</div>
+                <div class="title">Reference Manual</div>
                 
               </div>
             </a>
@@ -2292,6 +2659,7 @@ This might not be needed and removed in the future.</p>
 <li><a class="reference internal" href="#">qwak package</a><ul>
 <li><a class="reference internal" href="#submodules">Submodules</a></li>
 <li><a class="reference internal" href="#module-qwak.Errors">qwak.Errors module</a></li>
+<li><a class="reference internal" href="#module-qwak.GraphicalQWAK">qwak.GraphicalQWAK module</a></li>
 <li><a class="reference internal" href="#module-qwak.Operator">qwak.Operator module</a></li>
 <li><a class="reference internal" href="#module-qwak.ProbabilityDistribution">qwak.ProbabilityDistribution module</a></li>
 <li><a class="reference internal" href="#module-qwak.QuantumWalk">qwak.QuantumWalk module</a></li>

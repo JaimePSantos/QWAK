@@ -12,38 +12,6 @@ utils.PerfectStateTransfer module
    :undoc-members:
    :show-inheritance:
 
-utils.Profiler module
----------------------
-
-.. automodule:: utils.Profiler
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-utils.QwakBenchmarkStub module
-------------------------------
-
-.. automodule:: utils.QwakBenchmarkStub
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-utils.runAnalyzer module
-------------------------
-
-.. automodule:: utils.runAnalyzer
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-utils.runProfiler module
-------------------------
-
-.. automodule:: utils.runProfiler
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ---------------
 

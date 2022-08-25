@@ -185,10 +185,9 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="index.html">QWAK - Quantum Walk Analysis Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
@@ -297,17 +296,19 @@
   <h2>C</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="qwak.html#qwak.Operator.Operator.checkPST">checkPST() (Operator method)</a>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.checkPST">checkPST() (GraphicalQWAK method)</a>
 
         <ul>
-          <li><a href="qwak.html#qwak.qwak.QWAK.checkPST">(QWAK method)</a>
+          <li><a href="qwak.html#qwak.Operator.Operator.checkPST">(Operator method)</a>
 </li>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.checkPST">(QWAKBenchmark method)</a>
+          <li><a href="qwak.html#qwak.qwak.QWAK.checkPST">(QWAK method)</a>
 </li>
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="utils.html#utils.PerfectStateTransfer.checkRoots">checkRoots() (in module utils.PerfectStateTransfer)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.customGraphWalk">customGraphWalk() (GraphicalQWAK method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -316,6 +317,10 @@
 <section id="E" class="genindex-section">
   <h2>E</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="qwak.html#qwak.Errors.EmptyProbDistList">EmptyProbDistList</a>
+</li>
+    </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.Errors.Error">Error</a>
 </li>
@@ -339,6 +344,8 @@
           <li><a href="qwak.html#qwak.qwak.QWAK.getAmpVec">(QWAK method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getAmpVecList">getAmpVecList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.Operator.StochasticOperator.getClassicalHamiltonian">getClassicalHamiltonian() (StochasticOperator method)</a>
 
         <ul>
@@ -359,6 +366,30 @@
           <li><a href="qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.getDim">(StochasticQuantumWalk method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicAdjacencyMatrix">getDynamicAdjacencyMatrix() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicDim">getDynamicDim() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraph">getDynamicGraph() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraphToJson">getDynamicGraphToJson() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInitStateList">getDynamicInitStateList() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInvPartRatio">getDynamicInvPartRatio() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicMean">getDynamicMean() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbDistList">getDynamicProbDistList() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbVecList">getDynamicProbVecList() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicStDev">getDynamicStDev() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicSurvivalProb">getDynamicSurvivalProb() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicTime">getDynamicTime() (GraphicalQWAK method)</a>
+</li>
         <li><a href="utils.html#utils.PerfectStateTransfer.getEigenSupp">getEigenSupp() (in module utils.PerfectStateTransfer)</a>
 </li>
         <li><a href="utils.html#utils.PerfectStateTransfer.getEigenVal">getEigenVal() (in module utils.PerfectStateTransfer)</a>
@@ -380,11 +411,7 @@
 </li>
         </ul></li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getInversePartRatio">getInversePartRatio() (QWAK method)</a>
-
-        <ul>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.getInversePartRatio">(QWAKBenchmark method)</a>
 </li>
-        </ul></li>
         <li><a href="qwak.html#qwak.Operator.StochasticOperator.getLaplacian">getLaplacian() (StochasticOperator method)</a>
 
         <ul>
@@ -392,13 +419,7 @@
 </li>
         </ul></li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getMean">getMean() (QWAK method)</a>
-
-        <ul>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.getMean">(QWAKBenchmark method)</a>
 </li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.State.State.getNodeList">getNodeList() (State method)</a>
 </li>
         <li><a href="qwak.html#qwak.Operator.Operator.getOperator">getOperator() (Operator method)</a>
@@ -409,12 +430,16 @@
           <li><a href="qwak.html#qwak.qwak.QWAK.getOperator">(QWAK method)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.qwak.QWAK.getProbDist">getProbDist() (QWAK method)</a>
 
         <ul>
           <li><a href="qwak.html#qwak.qwak.StochasticQWAK.getProbDist">(StochasticQWAK method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getProbDistList">getProbDistList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getProbVec">getProbVec() (ProbabilityDistribution method)</a>
 
         <ul>
@@ -425,6 +450,8 @@
           <li><a href="qwak.html#qwak.qwak.StochasticQWAK.getProbVec">(StochasticQWAK method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getProbVecList">getProbVecList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.Operator.StochasticOperator.getQuantumHamiltonian">getQuantumHamiltonian() (StochasticOperator method)</a>
 
         <ul>
@@ -434,38 +461,58 @@
         <li><a href="qwak.html#qwak.Operator.StochasticOperator.getSinkNode">getSinkNode() (StochasticOperator method)</a>
 </li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getSndMoment">getSndMoment() (QWAK method)</a>
-
-        <ul>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.getSndMoment">(QWAKBenchmark method)</a>
 </li>
-        </ul></li>
         <li><a href="utils.html#utils.PerfectStateTransfer.getSquareFree">getSquareFree() (in module utils.PerfectStateTransfer)</a>
 </li>
         <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getState">getState() (ProbabilityDistribution method)</a>
 </li>
         <li><a href="qwak.html#qwak.State.State.getStateVec">getStateVec() (State method)</a>
 </li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticAdjacencyMatrix">getStaticAdjacencyMatrix() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticDim">getStaticDim() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraph">getStaticGraph() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraphToJson">getStaticGraphToJson() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticInitState">getStaticInitState() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticInversePartRatio">getStaticInversePartRatio() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticMean">getStaticMean() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbDist">getStaticProbDist() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbVec">getStaticProbVec() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticSndMoment">getStaticSndMoment() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticStDev">getStaticStDev() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticSurvivalProb">getStaticSurvivalProb() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticTime">getStaticTime() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getStDev">getStDev() (QWAK method)</a>
-
-        <ul>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.getStDev">(QWAKBenchmark method)</a>
 </li>
-        </ul></li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getSurvivalProb">getSurvivalProb() (QWAK method)</a>
-
-        <ul>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.getSurvivalProb">(QWAKBenchmark method)</a>
 </li>
-        </ul></li>
         <li><a href="qwak.html#qwak.Operator.Operator.getTime">getTime() (Operator method)</a>
 
         <ul>
           <li><a href="qwak.html#qwak.qwak.QWAK.getTime">(QWAK method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getTimeList">getTimeList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getTransportEfficiency">getTransportEfficiency() (QWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getWalk">getWalk() (QWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getWalkList">getWalkList() (QWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK">GraphicalQWAK (class in qwak.GraphicalQWAK)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -513,6 +560,8 @@
 </li>
           <li><a href="qwak.html#module-qwak.Errors">qwak.Errors</a>
 </li>
+          <li><a href="qwak.html#module-qwak.GraphicalQWAK">qwak.GraphicalQWAK</a>
+</li>
           <li><a href="qwak.html#module-qwak.Operator">qwak.Operator</a>
 </li>
           <li><a href="qwak.html#module-qwak.ProbabilityDistribution">qwak.ProbabilityDistribution</a>
@@ -526,14 +575,6 @@
           <li><a href="utils.html#module-utils">utils</a>
 </li>
           <li><a href="utils.html#module-utils.PerfectStateTransfer">utils.PerfectStateTransfer</a>
-</li>
-          <li><a href="utils.html#module-utils.Profiler">utils.Profiler</a>
-</li>
-          <li><a href="utils.html#module-utils.QwakBenchmarkStub">utils.QwakBenchmarkStub</a>
-</li>
-          <li><a href="utils.html#module-utils.runAnalyzer">utils.runAnalyzer</a>
-</li>
-          <li><a href="utils.html#module-utils.runProfiler">utils.runProfiler</a>
 </li>
         </ul></li>
     </ul></td>
@@ -571,12 +612,6 @@
         <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution">ProbabilityDistribution (class in qwak.ProbabilityDistribution)</a>
 </li>
     </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="utils.html#utils.Profiler.prof_to_csv">prof_to_csv() (in module utils.Profiler)</a>
-</li>
-        <li><a href="utils.html#utils.Profiler.profile">profile() (in module utils.Profiler)</a>
-</li>
-    </ul></td>
   </tr></table>
 </section>
 
@@ -607,14 +642,21 @@
 </li>
         </ul></li>
         <li>
+    qwak.GraphicalQWAK
+
+        <ul>
+          <li><a href="qwak.html#module-qwak.GraphicalQWAK">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
     qwak.Operator
 
         <ul>
           <li><a href="qwak.html#module-qwak.Operator">module</a>
 </li>
         </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     qwak.ProbabilityDistribution
 
@@ -643,8 +685,6 @@
           <li><a href="qwak.html#module-qwak.State">module</a>
 </li>
         </ul></li>
-        <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark">QWAKBenchmark (class in utils.QwakBenchmarkStub)</a>
-</li>
     </ul></td>
   </tr></table>
 </section>
@@ -667,10 +707,16 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="qwak.html#qwak.qwak.QWAK.runWalk">runWalk() (QWAK method)</a>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.runMultipleWalks">runMultipleWalks() (GraphicalQWAK method)</a>
 
         <ul>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.runWalk">(QWAKBenchmark method)</a>
+          <li><a href="qwak.html#qwak.qwak.QWAK.runMultipleWalks">(QWAK method)</a>
+</li>
+        </ul></li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.runWalk">runWalk() (GraphicalQWAK method)</a>
+
+        <ul>
+          <li><a href="qwak.html#qwak.qwak.QWAK.runWalk">(QWAK method)</a>
 </li>
           <li><a href="qwak.html#qwak.qwak.StochasticQWAK.runWalk">(StochasticQWAK method)</a>
 </li>
@@ -713,6 +759,14 @@
           <li><a href="qwak.html#qwak.State.State.setDim">(State method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicDim">setDynamicDim() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicGraph">setDynamicGraph() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicInitStateList">setDynamicInitStateList() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicTime">setDynamicTime() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.setFinalState">setFinalState() (StochasticQuantumWalk method)</a>
 </li>
         <li><a href="qwak.html#qwak.qwak.QWAK.setGraph">setGraph() (QWAK method)</a>
@@ -757,12 +811,22 @@
 </li>
         <li><a href="qwak.html#qwak.State.State.setStateVec">setStateVec() (State method)</a>
 </li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim">setStaticDim() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticGraph">setStaticGraph() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticInitState">setStaticInitState() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticTime">setStaticTime() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.Operator.Operator.setTime">setTime() (Operator method)</a>
 
         <ul>
           <li><a href="qwak.html#qwak.qwak.QWAK.setTime">(QWAK method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.setTimeList">setTimeList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.setWalk">setWalk() (QuantumWalk method)</a>
 
         <ul>
@@ -798,11 +862,7 @@
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.transportEfficiency">transportEfficiency() (QuantumWalk method)</a>
-
-        <ul>
-          <li><a href="utils.html#utils.QwakBenchmarkStub.QWAKBenchmark.transportEfficiency">(QWAKBenchmark method)</a>
 </li>
-        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -811,6 +871,8 @@
   <h2>U</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="qwak.html#qwak.Errors.UndefinedTimeList">UndefinedTimeList</a>
+</li>
         <li>
     utils
 
@@ -818,41 +880,13 @@
           <li><a href="utils.html#module-utils">module</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li>
     utils.PerfectStateTransfer
 
         <ul>
           <li><a href="utils.html#module-utils.PerfectStateTransfer">module</a>
-</li>
-        </ul></li>
-        <li>
-    utils.Profiler
-
-        <ul>
-          <li><a href="utils.html#module-utils.Profiler">module</a>
-</li>
-        </ul></li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
-        <li>
-    utils.QwakBenchmarkStub
-
-        <ul>
-          <li><a href="utils.html#module-utils.QwakBenchmarkStub">module</a>
-</li>
-        </ul></li>
-        <li>
-    utils.runAnalyzer
-
-        <ul>
-          <li><a href="utils.html#module-utils.runAnalyzer">module</a>
-</li>
-        </ul></li>
-        <li>
-    utils.runProfiler
-
-        <ul>
-          <li><a href="utils.html#module-utils.runProfiler">module</a>
 </li>
         </ul></li>
     </ul></td>

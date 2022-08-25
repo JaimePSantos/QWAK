@@ -186,12 +186,11 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../index.html">QWAK - Quantum Walk Analysis Kit</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../utils.html">Tools package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
 </ul>
@@ -265,7 +264,8 @@
 
 <div class="viewcode-block" id="ProbabilityDistribution.resetProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.resetProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">resetProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Resets the ProbabilityDistribution object.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
+        <span class="c1"># TODO: Rethink state attribute</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="ProbabilityDistribution.buildProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">buildProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -281,7 +281,8 @@
         <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">st</span><span class="p">])</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">*</span> \
+                <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">st</span><span class="p">])</span></div>
 
 <div class="viewcode-block" id="ProbabilityDistribution.setProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">setProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newProbDist</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
@@ -358,6 +359,7 @@
 <span class="sd">        float</span>
 <span class="sd">            Mean of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: This function has been replaced by moment(1).</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span>
         <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
@@ -427,7 +429,19 @@
 <span class="sd">        str</span>
 <span class="sd">            String of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="si">}</span><span class="s2">&quot;</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Representation of the ProbabilityDistribution object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            String of the ProbabilityDistribution object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;N: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;ProbDist:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 
 <div class="viewcode-block" id="StochasticProbabilityDistribution"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.StochasticProbabilityDistribution">[docs]</a><span class="k">class</span> <span class="nc">StochasticProbabilityDistribution</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>

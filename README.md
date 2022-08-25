@@ -1,7 +1,15 @@
 # QWAK
 Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
-[Documentation](https://jaimepsantos.github.io/QWAK/ ).
+
+
+## Table of Contents:
+
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Documentation](#documentation)
+- [Contributing](#contributing)
 
 ## Requirements
 - Numpy
@@ -9,43 +17,42 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 - Sympy
 - matplotlib
 - networkx
+- QuTip
 - eel
 
-## Installation Instructions
-#### Cloning the repository
-1. Clone the [repository](https://github.com/qwchagas/qwak): `git clone <link to repo>`
-2. Navigate to the cloned directory
+## Installation
 
-#### Setup Virtual environment (optional but recommended)
-##### &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Using python venv
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Once inside the cloned repo, create a python virtual environment: `python3 -m venv qwakEnv`
+Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4. Create a shortcut for the activation executable: `ln -s /qwakEnv/bin/activate qwakEnv`
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5. Activate the environment: `source qwakEnv`
-
-#####  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Using conda
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3. Alternatively, create a conda environment inside the cloned repo with `conda create -n qwakEnv`
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 4/5. Activate the conda environment with `conda activate qwakEnv`
+Step-by-step installation instructions can be found in the documentation [installation](https://jaimepsantos.github.io/QWAK/installation.html) page.
 
 
-#### Installing the package
-6. Install required python dependencies: `pip install numpy scipy sympy matplotlib networkx qutip`
-7. Install [eel](https://github.com/ChrisKnott/Eel) if you want to use the GUI: `pip install eel`
-8. Install the qwak package: `pip install .`
 
-#### Testing the installation
-9. Run the basic testing suite: `python installCheck.py`
+## Usage
+A basic plot of the probability distribution for a CTQW with a walker starting in a superposition of central positions, in a cyclic graph, can be achieved via the following example:
+```python
+import networkx as nx
+import matplotlib.pyplot as plt
+from qwak.qwak import QWAK
 
-#### Running the GUI
-10. From the `qwak` folder, navigate to the `core` folder using `cd core`.
-11. Run the GUI file with the command `python gui-main.py`.
+n = 100
+t = 12
+initState = [n//2,n//2 + 1]
+graph = nx.cycle_graph(n)
 
-## Using the package
-(Under construction)
+qwak = QWAK(graph)
+qwak.runWalk(t,initState)
 
-## Contributing to the package
+probVec = qwak.getProbVec()
+plt.plot(probVec)
+plt.show()
+```
+Further examples exploring all the different components will be available once the [usage](https://jaimepsantos.github.io/QWAK/usage.html) documentation is complete.
+
+## Documentation
+Documentation is a work in progress, and can be found in this [page](https://jaimepsantos.github.io/QWAK/).
+
+## Contributing
 #### Changes to the package
 1. Upgrade your build package with `python -m pip install --upgrade build`.
 2. Edit the package to reflect your changes.
