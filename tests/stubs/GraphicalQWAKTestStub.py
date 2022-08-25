@@ -69,33 +69,26 @@ class GraphicalQWAKTestStub:
     def getDynamicInitStateList(self):
         return self.gQwak.getDynamicInitStateList()
 
-    #
-    # def setInitState(self, newState):
-    #     self.qwak.setInitState(newState)
-    #
-    # def getDim(self):
-    #     return self.qwak.getDim()
-    #
-    # def setDim(self, newDim, graphStr, initStateList=None):
-    #     self.qwak.setDim(newDim, graphStr, initStateList)
-    #
-    # def getAdjacencyMatrix(self):
-    #     return self.qwak.getAdjacencyMatrix()
-    #
-    # def setAdjacencyMatrix(self, newAdjacencyMatrix, initStateList):
-    #     self.qwak.setAdjacencyMatrix(newAdjacencyMatrix, initStateList)
-    #
-    # def getMean(self):
-    #     return self.qwak.getMean()
-    #
-    # def getSndMoment(self):
-    #     return self.qwak.getSndMoment()
-    #
-    # def getStDev(self):
-    #     return self.qwak.getStDev()
-    #
-    # def getSurvivalProb(self, k0, k1):
-    #     return self.qwak.getSurvivalProb(k0, k1)
-    #
-    # def getInversePartRatio(self):
-    #     return self.qwak.getInversePartRatio()
+    def setStaticGraph(self, newGraphStr):
+        self.gQwak.setStaticGraph(newGraphStr)
+
+    def setDynamicGraph(self, newGraphStr):
+        self.gQwak.setDynamicGraph(newGraphStr)
+
+    def getStaticGraph(self):
+        return self.gQwak.getStaticGraph()
+
+    def getDynamicGraph(self):
+        return self.gQwak.getDynamicGraph()
+
+    def setStaticTime(self,newTime):
+        self.gQwak.setStaticTime(newTime)
+
+    def setDynamicTime(self,newTimeList):
+        self.gQwak.setDynamicTime(newTimeList)
+
+    def getStaticTime(self):
+        return self.gQwak.getStaticTime()
+
+    def getDynamicTime(self):
+        return self.gQwak.getDynamicTime()

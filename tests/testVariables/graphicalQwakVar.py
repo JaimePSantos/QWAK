@@ -17,3 +17,9 @@ graphicalDynamicProbDistCycleNewInitState = eval(graphicalQwakVarValues[3])
 
 graphicalStaticProbDistCycleNewDim = eval(graphicalQwakVarValues[4])
 graphicalDynamicProbDistCycleNewDim = eval(graphicalQwakVarValues[5])
+
+graphicalStaticSetGraphCycleComplete = eval(graphicalQwakVarValues[6])
+graphicalDynamicSetGraphCycleComplete = eval(graphicalQwakVarValues[7])
+
+graphicalStaticSetTimeCycle = eval(graphicalQwakVarValues[8])
+graphicalDynamicSetTimeCycle = eval(graphicalQwakVarValues[9])
