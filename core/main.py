@@ -5,11 +5,11 @@ from qwak.GraphicalQWAK import GraphicalQWAK
 
 if __name__ == "__main__":
 
-    staticN = 1000
+    staticN = 100
     dynamicN = staticN
     t = 12
-    initState = [staticN // 4, (staticN // 4) + 1]
-    graph = nx.cycle_graph(staticN)
+    initState = [staticN // 2, (staticN // 2) + 1]
+    graph = nx.complete_graph(staticN)
     timeList = [0, 12]
     initStateList = [[staticN // 2, (staticN // 2) + 1]]
 
