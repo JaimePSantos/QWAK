@@ -8,7 +8,7 @@ if __name__ == "__main__":
 
     staticN = 100
     dynamicN = staticN
-    t = 10*np.pi
+    t = 12
     initState = [staticN // 2, (staticN // 2) + 1]
     graph = nx.cycle_graph(staticN)
     timeList = [0, t]
@@ -24,4 +24,7 @@ if __name__ == "__main__":
         t,
         timeList)
 
-    print(gQwak.runMultipleWalks()[1])
+    # print(gQwak.runMultipleWalks()[1])
+    # gQwak.runWalk()
+    gQwak.runMultipleWalks()
+    print(gQwak.getDynamicStDev())
