@@ -163,7 +163,7 @@ if __name__ == "__main__":
     @eel.expose
     def checkPST(nodeA, nodeB):
         pst = gQwak.checkPST(nodeA, nodeB)
-        return str(pst)
+        return pst
 
     @eel.expose
     def customGraphWalk():

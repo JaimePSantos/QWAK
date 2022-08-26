@@ -491,9 +491,10 @@ class QWAK:
         _type_
             _description_
         """
-        nodeA = int(nodeA)
-        nodeB = int(nodeB)
-        return self._operator.checkPST(nodeA, nodeB)
+        try:
+            return self._operator.checkPST(nodeA, nodeB)
+        except MissingNodeInput as err:
+            raise err
 
     def getMean(self):
         """_summary_

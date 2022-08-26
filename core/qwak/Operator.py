@@ -8,6 +8,7 @@ from sympy.abc import pi
 import numpy as np
 from qutip import Qobj, basis, mesolve, Options
 
+from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 
@@ -232,21 +233,26 @@ class Operator:
             Either returns the time value of PST or False.
         """
         # TODO: Check if numpy is faster for eigenvecs and vals.
-        if nodeA > nodeB:
-            nodeA, nodeB = swapNodes(nodeA, nodeB)
+        try:
+            nodeA = int(nodeA)
+            nodeB = int(nodeB)
+            if nodeA > nodeB:
+                nodeA, nodeB = swapNodes(nodeA, nodeB)
 
-        symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
-        # Isto já foi calculado.
-        eigenVec, D = symAdj.diagonalize()
-        eigenVal = getEigenVal(D)
-        isCospec = isStrCospec(symAdj, nodeA, nodeB)
-        chRoots, g, delta = checkRoots(
-            symAdj, nodeA, eigenVec, eigenVal)
-        if isCospec and chRoots:
-            result = pi / (g * np.sqrt(delta))
-        else:
-            result = -1
-        return result
+            symAdj = sp.Matrix(self._adjacencyMatrix.tolist())
+            # Isto já foi calculado.
+            eigenVec, D = symAdj.diagonalize()
+            eigenVal = getEigenVal(D)
+            isCospec = isStrCospec(symAdj, nodeA, nodeB)
+            chRoots, g, delta = checkRoots(
+                symAdj, nodeA, eigenVec, eigenVal)
+            if isCospec and chRoots:
+                result = pi / (g * np.sqrt(delta))
+            else:
+                result = -1
+            return result
+        except ValueError:
+            raise MissingNodeInput(f"A node number is missing: nodeA = {nodeA}; nodeB = {nodeB}")
 
     def __mul__(self, other: np.ndarray) -> np.ndarray:
         """Left-side multiplication for the Operator class.

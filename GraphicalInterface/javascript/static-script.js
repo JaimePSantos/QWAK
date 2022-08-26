@@ -141,7 +141,17 @@ let setPST = async () => {
     let fromNode = inputPSTNodeA.value;
     let toNode = inputPSTNodeB.value;
     let PST = await getPST(fromNode, toNode);
-    inputPSTResult.value = PST;
+    console.log(PST)
+    if(PST[0]==true){
+        alert(PST[1]);
+        return;
+    }else{
+        if(PST[1]<0){
+                inputPSTResult.value = 'No PST.';
+        }else{
+                inputPSTResult.value = PST[1];
+        }
+    }
 }
 
 let getStaticMean = () => {
@@ -201,13 +211,7 @@ let getPST = (nodeA, nodeB) => {
     return eel
         .checkPST(nodeA, nodeB)()
         .then((a) => {
-            if (isNaN(parseFloat(a))) {
-                Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
-            } else if (parseFloat(a) < 0) {
-                return "No PST.";
-            } else {
-                return a;
-            }
+            return a;
         })
         .catch((e) => console.log(e));
 }
