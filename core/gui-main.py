@@ -5,6 +5,7 @@ import networkx as nx
 import numpy as np
 
 from qwak.GraphicalQWAK import GraphicalQWAK
+from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList,MissingNodeInput
 
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, "../GraphicalInterface")
@@ -140,10 +141,10 @@ if __name__ == "__main__":
 
     @eel.expose
     def getStaticSurvivalProb(k0, k1):
-        return round(
-            gQwak.getStaticSurvivalProb(
-                k0, k1), resultRounding)
-
+        survProb = gQwak.getStaticSurvivalProb(k0, k1)
+        if not survProb[1]:
+            survProb[1] = round(survProb[1], resultRounding)
+        return survProb
     @eel.expose
     def getDynSurvivalProb(k0, k1):
         return gQwak.getDynamicSurvivalProb(k0, k1)

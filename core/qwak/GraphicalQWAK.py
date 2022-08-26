@@ -4,7 +4,7 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList
+from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
 from qwak.State import State
 from qwak.qwak import QWAK
 
@@ -48,11 +48,11 @@ class GraphicalQWAK:
             self._staticQWAK.resetWalk()
             self._staticQWAK.runWalk(
                 self._staticTime, self._staticStateList)
+            self._staticProbDist = self._staticQWAK.getProbDist()
+            qwProbVec = self._staticProbDist.getProbVec().tolist()
+            return [False, qwProbVec]
         except StateOutOfBounds as err:
             return [True, str(err)]
-        self._staticProbDist = self._staticQWAK.getProbDist()
-        qwProbVec = self._staticProbDist.getProbVec().tolist()
-        return [False, qwProbVec]
 
     def runMultipleWalks(self):
         try:
@@ -64,9 +64,9 @@ class GraphicalQWAK:
             self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
             qwProbVecList = list(
                 map(lambda probVec: probVec.tolist(), self._dynamicQWAK.getProbVecList()))
+            return [False, qwProbVecList]
         except (StateOutOfBounds, UndefinedTimeList, EmptyProbDistList) as err:
             return [True, str(err)]
-        return [False, qwProbVecList]
 
     def setStaticDim(self, newDim, graphStr):
         self._staticN = newDim
@@ -191,14 +191,20 @@ class GraphicalQWAK:
 
     def getStaticSurvivalProb(self, k0, k1):
         # TODO: Make JS throw an error if k0 or k1 are not defined.
-        return self._staticQWAK.getSurvivalProb(k0, k1)
+        try:
+            return [False,self._staticQWAK.getSurvivalProb(k0, k1)]
+        except MissingNodeInput as err:
+            return [True,str(err)]
 
     def getDynamicSurvivalProb(self, k0, k1):
         # TODO: Make JS throw an error if k0 or k1 are not defined.
-        survProbList = []
-        for probDist in self._dynamicProbDistList:
-            survProbList.append(probDist.survivalProb(k0, k1))
-        return survProbList
+        try:
+            survProbList = []
+            for probDist in self._dynamicProbDistList:
+                survProbList.append(probDist.survivalProb(k0, k1))
+            return survProbList
+        except MissingNodeInput as err:
+            raise err
 
     def getStaticInversePartRatio(self):
         return self._staticQWAK.getInversePartRatio()

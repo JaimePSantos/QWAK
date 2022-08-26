@@ -123,7 +123,13 @@ let setStaticSurvivalProb = async () => {
     let fromNode = inputSurvProbNodeA.value;
     let toNode = inputSurvProbNodeB.value;
     let survProb = await getStaticSurvivalProb(fromNode, toNode);
-    inputSurvProbResult.value = survProb;
+    console.log(survProb)
+    if (survProb[0] == true){
+        alert(survProb[1]);
+        return;
+    }else{
+        inputSurvProbResult.value = survProb;
+    }
 }
 
 let setInversePartRatio = async () => {
@@ -173,11 +179,7 @@ let getStaticSurvivalProb = (fromNode, toNode) => {
     return eel
         .getStaticSurvivalProb(fromNode, toNode)()
         .then((a) => {
-            if (isNaN(a)) {
-                Promise.reject(Error("Get Survival Probability failed: SP is NaN."));
-            } else {
                 return a;
-            }
         })
         .catch((e) => console.log(e));
 }
