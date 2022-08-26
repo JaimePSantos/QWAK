@@ -15,6 +15,7 @@ from tests.testVariables.graphicalQwakVar import (
     graphicalDynamicSetGraphCycleComplete,
     graphicalStaticSetTimeCycle,
     graphicalDynamicSetTimeCycle,
+    graphicalDynamicGetMeanCycle,
 )
 
 
@@ -243,7 +244,7 @@ class TestGraphicalQWAKCycle(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
-    def test_setStaticTimeCycle(self):
+    def test_StaticSetTimeCycle(self):
         n = 100
         t = 12
         # Time is given as a string since the GUI can give values such as 2*pi for python to eval().
@@ -272,7 +273,7 @@ class TestGraphicalQWAKCycle(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
-    def test_setDynamicTimeCycle(self):
+    def test_DynamicSetTimeCycle(self):
         n = 100
         t = [0,12]
         # Time is given as a string since the GUI can give values such as 2*pi for python to eval().
@@ -299,4 +300,30 @@ class TestGraphicalQWAKCycle(object):
             probVecList[1],
             graphicalDynamicSetTimeCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        )
+
+    def test_StaticGetMeanCycle(self):
+        n = 100
+        t = 12
+        gQwak = GraphicalQWAKTestStub()
+        runWalk = gQwak.runWalk()
+        assert not runWalk[0], "runWalk should not have thrown an error."
+        np.testing.assert_allclose(
+            gQwak.getStaticMean(),
+            50.5,
+            atol=0,
+            err_msg=f"Mean for a cycle of size {n} for time {t} should be 50.5 but got {gQwak.getStaticMean()}",
+        )
+
+    def test_DynamicGetMeanCycle(self):
+        n = 100
+        t = [0,12]
+        gQwak = GraphicalQWAKTestStub()
+        runMultipleWalks = gQwak.runMultipleWalks()
+        assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
+        np.testing.assert_allclose(
+            gQwak.getDynamicMean(),
+            graphicalDynamicGetMeanCycle,
+            atol=0,
+            err_msg=f"Mean for a cycle of size {n} for time {t} should be 50.5 but got {gQwak.getStaticMean()}",
         )

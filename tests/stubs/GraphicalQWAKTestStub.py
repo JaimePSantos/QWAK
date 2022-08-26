@@ -92,3 +92,9 @@ class GraphicalQWAKTestStub:
 
     def getDynamicTime(self):
         return self.gQwak.getDynamicTime()
+
+    def getStaticMean(self):
+        return self.gQwak.getStaticMean()
+
+    def getDynamicMean(self):
+        return self.gQwak.getDynamicMean()
