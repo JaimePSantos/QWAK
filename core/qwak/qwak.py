@@ -2,7 +2,7 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList
+from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList,MissingNodeInput
 from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
@@ -491,9 +491,10 @@ class QWAK:
         _type_
             _description_
         """
-        nodeA = int(nodeA)
-        nodeB = int(nodeB)
-        return self._operator.checkPST(nodeA, nodeB)
+        try:
+            return self._operator.checkPST(nodeA, nodeB)
+        except MissingNodeInput as err:
+            raise err
 
     def getMean(self):
         """_summary_
@@ -540,7 +541,10 @@ class QWAK:
         _type_
             _description_
         """
-        return self._probDist.survivalProb(k0, k1)
+        try:
+            return self._probDist.survivalProb(k0, k1)
+        except MissingNodeInput as err:
+            raise err
 
     def getInversePartRatio(self):
         """_summary_

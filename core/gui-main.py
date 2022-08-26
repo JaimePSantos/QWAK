@@ -5,6 +5,7 @@ import networkx as nx
 import numpy as np
 
 from qwak.GraphicalQWAK import GraphicalQWAK
+from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList,MissingNodeInput
 
 dirname = os.path.dirname(__file__)
 guiPath = os.path.join(dirname, "../GraphicalInterface")
@@ -140,13 +141,16 @@ if __name__ == "__main__":
 
     @eel.expose
     def getStaticSurvivalProb(k0, k1):
-        return round(
-            gQwak.getStaticSurvivalProb(
-                k0, k1), resultRounding)
-
+        survProb = gQwak.getStaticSurvivalProb(k0, k1)
+        if not survProb[0]:
+            survProb[1] = round(survProb[1], resultRounding)
+        return survProb
     @eel.expose
     def getDynSurvivalProb(k0, k1):
-        return gQwak.getDynamicSurvivalProb(k0, k1)
+        survProbList = gQwak.getDynamicSurvivalProb(k0, k1)
+        if not survProbList[0]:
+            survProbList[1] = list(map(lambda survProb: round(survProb,resultRounding),survProbList[1]))
+        return survProbList
 
     @eel.expose
     def getInversePartRatio():
@@ -159,7 +163,7 @@ if __name__ == "__main__":
     @eel.expose
     def checkPST(nodeA, nodeB):
         pst = gQwak.checkPST(nodeA, nodeB)
-        return str(pst)
+        return pst
 
     @eel.expose
     def customGraphWalk():

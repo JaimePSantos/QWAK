@@ -109,3 +109,23 @@ class EmptyProbDistList(Error):
             _description_
         """
         super().__init__("Probability distribution list is empty: ", details)
+
+
+class MissingNodeInput(Error):
+    """_summary_
+
+    Parameters
+    ----------
+    Error : _type_
+        _description_
+    """
+
+    def __init__(self, details):
+        """_summary_
+
+        Parameters
+        ----------
+        details : _type_
+            _description_
+        """
+        super().__init__("Input nodes required: ", details)

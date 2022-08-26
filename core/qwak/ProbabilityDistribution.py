@@ -6,6 +6,7 @@ from qwak.State import State
 from qutip import Qobj, basis, mesolve, Options
 
 from qwak.QuantumWalk import QuantumWalk
+from qwak.Errors import MissingNodeInput
 
 
 warnings.filterwarnings("ignore")
@@ -185,12 +186,17 @@ class ProbabilityDistribution:
             _description_
         """
         survProb = 0
-        if k0 == k1:
-            return self._probVec[int(k0)][0]
-        else:
-            for i in range(int(k0), int(k1) + 1):
-                survProb += self._probVec[i]
-        return survProb[0]
+        try:
+            k0 = int(k0)
+            k1 = int(k1)
+            if k0 == k1:
+                return self._probVec[int(k0)][0]
+            else:
+                for i in range(int(k0), int(k1) + 1):
+                    survProb += self._probVec[i]
+            return survProb[0]
+        except ValueError:
+            raise MissingNodeInput(f"A node number is missing: k0 = {k0}; k1={k1}")
 
     def __str__(self) -> str:
         """String representation of the ProbabilityDistribution object.
