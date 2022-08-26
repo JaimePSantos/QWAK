@@ -142,12 +142,15 @@ if __name__ == "__main__":
     @eel.expose
     def getStaticSurvivalProb(k0, k1):
         survProb = gQwak.getStaticSurvivalProb(k0, k1)
-        if not survProb[1]:
+        if not survProb[0]:
             survProb[1] = round(survProb[1], resultRounding)
         return survProb
     @eel.expose
     def getDynSurvivalProb(k0, k1):
-        return gQwak.getDynamicSurvivalProb(k0, k1)
+        survProbList = gQwak.getDynamicSurvivalProb(k0, k1)
+        if not survProbList[0]:
+            survProbList[1] = list(map(lambda survProb: round(survProb,resultRounding),survProbList[1]))
+        return survProbList
 
     @eel.expose
     def getInversePartRatio():

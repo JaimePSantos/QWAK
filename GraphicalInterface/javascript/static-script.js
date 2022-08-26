@@ -128,7 +128,7 @@ let setStaticSurvivalProb = async () => {
         alert(survProb[1]);
         return;
     }else{
-        inputSurvProbResult.value = survProb;
+        inputSurvProbResult.value = survProb[1];
     }
 }
 

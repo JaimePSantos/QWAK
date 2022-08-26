@@ -218,21 +218,21 @@ let setDynSurvProb = async () => {
     let k0 = document.getElementById("dynInputSurvProbNodeA").value
     let k1 = document.getElementById("dynInputSurvProbNodeB").value
     let dynSurvProb = await getDynSurvProb(k0, k1);
-    dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb.flat();
-    dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb.length).keys()];
-    myDynamicSurvivalProbChart.clear();
-    myDynamicSurvivalProbChart.update();
+    if(dynSurvProb[0]==true){
+        alert(dynSurvProb[1]);
+        return;
+    }else{
+        dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb[1].flat();
+        dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb[1].length).keys()];
+        myDynamicSurvivalProbChart.clear();
+        myDynamicSurvivalProbChart.update();
+    }
 }
 
 let getDynSurvProb = (k0, k1) => {
     return eel
         .getDynSurvivalProb(k0, k1)()
         .then((a) => {
-            // if (Array.isArray(a)){
-            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-            //     }else{
-            //         return a;
-            // }
             return a;
         })
         .catch((e) => console.log(e));

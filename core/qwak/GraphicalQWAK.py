@@ -202,9 +202,9 @@ class GraphicalQWAK:
             survProbList = []
             for probDist in self._dynamicProbDistList:
                 survProbList.append(probDist.survivalProb(k0, k1))
-            return survProbList
+            return [False, survProbList]
         except MissingNodeInput as err:
-            raise err
+            return [True,str(err)]
 
     def getStaticInversePartRatio(self):
         return self._staticQWAK.getInversePartRatio()
