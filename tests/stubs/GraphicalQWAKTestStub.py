@@ -104,3 +104,9 @@ class GraphicalQWAKTestStub:
 
     def getDynamicStDev(self):
         return self.gQwak.getDynamicStDev()
+
+    def getStaticSurvivalProb(self,k0,k1):
+        return self.gQwak.getStaticSurvivalProb(k0,k1)
+
+    def getDynamicSurvivalProb(self,k0,k1):
+        return self.gQwak.getDynamicSurvivalProb(k0,k1)

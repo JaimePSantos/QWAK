@@ -24,6 +24,9 @@ if __name__ == "__main__":
         t,
         timeList)
 
+    gQwak.runMultipleWalks()
+    # print(gQwak.getStaticSurvivalProb(45,55)[1])
+    print(gQwak.getDynamicSurvivalProb(45,55)[1])
     # print(gQwak.runMultipleWalks()[1])
     # gQwak.runWalk()
     # gQwak.runMultipleWalks()

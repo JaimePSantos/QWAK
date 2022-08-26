@@ -17,6 +17,7 @@ from tests.testVariables.graphicalQwakVar import (
     graphicalDynamicSetTimeCycle,
     graphicalDynamicGetMeanCycle,
     graphicalDynamicGetStDevCycle,
+    graphicalDynamicGetSurvivalProbCycle,
 )
 
 
@@ -326,7 +327,7 @@ class TestGraphicalQWAKCycle(object):
             gQwak.getDynamicMean(),
             graphicalDynamicGetMeanCycle,
             atol=0,
-            err_msg=f"Mean for a cycle of size {n} for time {t} should be a list around 50.5 but got {gQwak.getDynamicStDev()}",
+            err_msg=f"Mean for a cycle of size {n} for time {t}: {gQwak.getDynamicStDev()} is wrong.",
         )
 
     def test_StaticGetStDev(self):
@@ -344,7 +345,7 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicGetStDev(self):
         n = 100
-        t = 12
+        t = [0,12]
         gQwak = GraphicalQWAKTestStub()
         runMultipleWalks = gQwak.runMultipleWalks()
         assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
@@ -352,5 +353,39 @@ class TestGraphicalQWAKCycle(object):
             gQwak.getDynamicStDev(),
             graphicalDynamicGetStDevCycle,
             atol=0,
-            err_msg=f"Standard deviation for a cycle of size {n} for time {t} should be 16.9779... but got {gQwak.getDynamicStDev()}",
+            err_msg=f"Standard deviation for a cycle of size {n} for time {t}: {gQwak.getDynamicStDev()} is wrong.",
+        )
+
+    def test_StaticGetSurvivalProb(self):
+        n = 100
+        t = 12
+        k0 = 45
+        k1 = 55
+        gQwak = GraphicalQWAKTestStub()
+        runWalk = gQwak.runWalk()
+        assert not runWalk[0], "runWalk should not have thrown an error."
+        survivalProb = gQwak.getStaticSurvivalProb(k0,k1)
+        assert not survivalProb[0], "survivalProb should not have thrown an error."
+        np.testing.assert_allclose(
+            survivalProb[1],
+            0.14801154492037774,
+            atol=0,
+            err_msg=f"SurvivalProb for a cycle of size {n} for time {t} between {k0} and {k1} should be 0.148011... but got {survivalProb}",
+        )
+
+    def test_DynamicGetSurvivalProb(self):
+        n = 100
+        t = [0,12]
+        k0 = 45
+        k1 = 55
+        gQwak = GraphicalQWAKTestStub()
+        runMultipleWalks = gQwak.runMultipleWalks()
+        assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
+        survivalProbList = gQwak.getDynamicSurvivalProb(k0,k1)
+        assert not survivalProbList[0], "survivalProbList should not have thrown an error."
+        np.testing.assert_allclose(
+            survivalProbList[1],
+            graphicalDynamicGetSurvivalProbCycle,
+            atol=0,
+            err_msg=f"Standard deviation for a cycle of size {n} for time {t}: {gQwak.getDynamicStDev()} is wrong.",
         )
