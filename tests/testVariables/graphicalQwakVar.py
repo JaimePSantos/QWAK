@@ -25,3 +25,5 @@ graphicalStaticSetTimeCycle = eval(graphicalQwakVarValues[8])
 graphicalDynamicSetTimeCycle = eval(graphicalQwakVarValues[9])
 
 graphicalDynamicGetMeanCycle = eval(graphicalQwakVarValues[10])
+
+graphicalDynamicGetStDevCycle = eval(graphicalQwakVarValues[11])

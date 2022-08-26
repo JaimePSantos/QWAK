@@ -27,4 +27,4 @@ if __name__ == "__main__":
     # print(gQwak.runMultipleWalks()[1])
     # gQwak.runWalk()
     gQwak.runMultipleWalks()
-    print(gQwak.getDynamicMean())
+    print(gQwak.getDynamicStDev())

@@ -170,7 +170,15 @@ class GraphicalQWAK:
         return meanList
 
     def getStaticSndMoment(self):
+        # TODO: This not used in the GUI.
         return self._staticQWAK.getSndMoment()
+
+    def getDynamicSndMoment(self):
+        # TODO: This not used in the GUI.
+        sndMomentList = []
+        for probDist in self._dynamicProbDistList:
+            sndMomentList.append(probDist.getSndMoment())
+        return sndMomentList
 
     def getStaticStDev(self):
         return self._staticQWAK.getStDev()

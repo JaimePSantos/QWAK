@@ -16,6 +16,7 @@ from tests.testVariables.graphicalQwakVar import (
     graphicalStaticSetTimeCycle,
     graphicalDynamicSetTimeCycle,
     graphicalDynamicGetMeanCycle,
+    graphicalDynamicGetStDevCycle,
 )
 
 
@@ -325,5 +326,31 @@ class TestGraphicalQWAKCycle(object):
             gQwak.getDynamicMean(),
             graphicalDynamicGetMeanCycle,
             atol=0,
-            err_msg=f"Mean for a cycle of size {n} for time {t} should be 50.5 but got {gQwak.getStaticMean()}",
+            err_msg=f"Mean for a cycle of size {n} for time {t} should be a list around 50.5 but got {gQwak.getDynamicStDev()}",
+        )
+
+    def test_StaticGetStDev(self):
+        n = 100
+        t = 12
+        gQwak = GraphicalQWAKTestStub()
+        runWalk = gQwak.runWalk()
+        assert not runWalk[0], "runWalk should not have thrown an error."
+        np.testing.assert_allclose(
+            gQwak.getStaticStDev(),
+            16.977926846349753,
+            atol=0,
+            err_msg=f"Standard deviation for a cycle of size {n} for time {t} should be 16.9779... but got {gQwak.getStaticStDev()}",
+        )
+
+    def test_DynamicGetStDev(self):
+        n = 100
+        t = 12
+        gQwak = GraphicalQWAKTestStub()
+        runMultipleWalks = gQwak.runMultipleWalks()
+        assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
+        np.testing.assert_allclose(
+            gQwak.getDynamicStDev(),
+            graphicalDynamicGetStDevCycle,
+            atol=0,
+            err_msg=f"Standard deviation for a cycle of size {n} for time {t} should be 16.9779... but got {gQwak.getDynamicStDev()}",
         )
