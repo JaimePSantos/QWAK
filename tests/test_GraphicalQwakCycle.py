@@ -414,7 +414,7 @@ class TestGraphicalQWAKCycle(object):
         assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
         np.testing.assert_allclose(
             gQwak.getDynamicInvPartRatio(),
-            graphicalDynamicGetStDevCycle,
+            graphicalDynamicGetInvPartRatio,
             atol=0,
             err_msg=f"Inv part ratio for a cycle of size {n} for time {t}: {gQwak.getDynamicInvPartRatio()} is wrong.",
         )

@@ -112,7 +112,7 @@ class GraphicalQWAKTestStub:
         return self.gQwak.getDynamicSurvivalProb(k0, k1)
 
     def getStaticInversePartRatio(self):
-        return self.gQwak.getInversePartRatio()
+        return self.gQwak.getStaticInversePartRatio()
 
     def getDynamicInvPartRatio(self):
         return self.gQwak.getDynamicInvPartRatio()
