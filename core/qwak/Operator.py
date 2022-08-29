@@ -252,7 +252,8 @@ class Operator:
                 result = -1
             return result
         except ValueError:
-            raise MissingNodeInput(f"A node number is missing: nodeA = {nodeA}; nodeB = {nodeB}")
+            raise MissingNodeInput(
+                f"A node number is missing: nodeA = {nodeA}; nodeB = {nodeB}")
 
     def __mul__(self, other: np.ndarray) -> np.ndarray:
         """Left-side multiplication for the Operator class.

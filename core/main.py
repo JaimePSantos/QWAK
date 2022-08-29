@@ -24,8 +24,7 @@ if __name__ == "__main__":
         t,
         timeList)
 
-    # print(gQwak.runMultipleWalks()[1])
+    gQwak.runMultipleWalks()
     # gQwak.runWalk()
-    # gQwak.runMultipleWalks()
-    # print(gQwak.getDynamicStDev())
-    # print(int(""))
+    # print(gQwak.getStaticInversePartRatio())
+    print(gQwak.getDynamicInvPartRatio())

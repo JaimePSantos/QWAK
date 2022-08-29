@@ -6,9 +6,10 @@ import sys
 filePath = 'HardcodedValues'
 fileName = 'qwakVarValues.txt'
 base_path = os.path.abspath(os.path.dirname(__file__))
-qwakVarValuesFile = os.path.join(base_path, filePath + os.sep + fileName)
+qwakVarValuesFile = os.path.join(
+    base_path, filePath + os.sep + fileName)
 
-with open(qwakVarValuesFile,'r') as f:
+with open(qwakVarValuesFile, 'r') as f:
     qwakVarValues = f.readlines()
 
 probDistUniformSuperpositionCycle = eval(qwakVarValues[0])
