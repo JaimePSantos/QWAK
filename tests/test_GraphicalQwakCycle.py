@@ -18,6 +18,7 @@ from tests.testVariables.graphicalQwakVar import (
     graphicalDynamicGetMeanCycle,
     graphicalDynamicGetStDevCycle,
     graphicalDynamicGetSurvivalProbCycle,
+    graphicalDynamicGetInvPartRatio,
 )
 
 
@@ -41,7 +42,7 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicProbDistUniformSuperpositionCycle(self):
         n = 100
-        t = [0,12]
+        t = [0, 12]
         gQwak = GraphicalQWAKTestStub()
         np.testing.assert_almost_equal(
             gQwak.getDynamicProbVecList(),
@@ -55,14 +56,6 @@ class TestGraphicalQWAKCycle(object):
             graphicalDynamicProbDistCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
-
-    def test_StaticProbDistUniformSuperpositionCycleOriented(self):
-        # TODO: Introduce oriented walks to GUI first.
-        pass
-
-    def test_DynamicProbDistUniformSuperpositionCycleOriented(self):
-        # TODO: Introduce oriented walks to GUI first.
-        pass
 
     def test_StaticProbDistCustomStateCycle(self):
         # TODO: Introduce custom state walks to GUI first.
@@ -76,7 +69,7 @@ class TestGraphicalQWAKCycle(object):
         n = 100
         t = 12
         gQwak = GraphicalQWAKTestStub()
-        newInitState = str(n//4) + ',' + str(n//4 + 1)
+        newInitState = str(n // 4) + ',' + str(n // 4 + 1)
         np.testing.assert_almost_equal(
             gQwak.getStaticProbVec(),
             np.zeros(n),
@@ -84,7 +77,7 @@ class TestGraphicalQWAKCycle(object):
         )
         np.testing.assert_almost_equal(
             gQwak.getStaticInitState(),
-            [n//2,n//2+1],
+            [n // 2, n // 2 + 1],
             err_msg=f"Init state of gQwak {gQwak.getStaticInitState()} does not match expected init state {[n//2,n//2+1]}",
         )
         probVec = gQwak.runWalk()
@@ -97,7 +90,7 @@ class TestGraphicalQWAKCycle(object):
         gQwak.setStaticInitState(newInitState)
         np.testing.assert_almost_equal(
             gQwak.getStaticInitState(),
-            [n//4,n//4+1],
+            [n // 4, n // 4 + 1],
             err_msg=f"Init state of gQwak {gQwak.getStaticInitState()} does not match expected new init state {[n//4,n//4+1]}",
         )
         probVec = gQwak.runWalk()
@@ -110,9 +103,9 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicSetInitStateCycle(self):
         n = 100
-        t = [0,12]
+        t = [0, 12]
         gQwak = GraphicalQWAKTestStub()
-        newInitStateList = str(n//4) + ',' + str(n//4 + 1)
+        newInitStateList = str(n // 4) + ',' + str(n // 4 + 1)
         np.testing.assert_almost_equal(
             gQwak.getDynamicProbVecList(),
             [np.zeros(n)],
@@ -120,7 +113,7 @@ class TestGraphicalQWAKCycle(object):
         )
         np.testing.assert_almost_equal(
             gQwak.getDynamicInitStateList(),
-            [[n//2,n//2+1]],
+            [[n // 2, n // 2 + 1]],
             err_msg=f"Init state of gQwak {gQwak.getStaticInitState()} does not match expected init state {[n//2,n//2+1]}",
         )
         probVecList = gQwak.runMultipleWalks()
@@ -133,7 +126,7 @@ class TestGraphicalQWAKCycle(object):
         gQwak.setDynamicInitStateList(newInitStateList)
         np.testing.assert_almost_equal(
             gQwak.getDynamicInitStateList(),
-            [[n//4,n//4+1]],
+            [[n // 4, n // 4 + 1]],
             err_msg=f"Init state of gQwak {gQwak.getStaticInitState()} does not match expected new init state {[n//4,n//4+1]}",
         )
         probVecList = gQwak.runMultipleWalks()
@@ -153,10 +146,11 @@ class TestGraphicalQWAKCycle(object):
         assert gQwak.getStaticDim() == 100, "Dimension should be 100."
         gQwak.setStaticDim(newDim, graphStr)
         assert gQwak.getStaticDim() == 1000, "Dimension should be 1000."
-        gQwak.setStaticInitState(str(newDim // 2)+','+str(newDim // 2 + 1))
+        gQwak.setStaticInitState(
+            str(newDim // 2) + ',' + str(newDim // 2 + 1))
         np.testing.assert_almost_equal(
             gQwak.getStaticInitState(),
-            [newDim//2,newDim//2+1],
+            [newDim // 2, newDim // 2 + 1],
             err_msg=f"Init state of gQwak {gQwak.getStaticInitState()} does not match expected new init state {[newDim//2,newDim//2+1]}",
         )
         np.testing.assert_almost_equal(
@@ -183,10 +177,11 @@ class TestGraphicalQWAKCycle(object):
         assert gQwak.getDynamicDim() == 100, "Dimension should be 100."
         gQwak.setDynamicDim(newDim, graphStr)
         assert gQwak.getDynamicDim() == 1000, "Dimension should be 1000."
-        gQwak.setDynamicInitStateList(str(newDim // 2)+','+str(newDim // 2 + 1))
+        gQwak.setDynamicInitStateList(
+            str(newDim // 2) + ',' + str(newDim // 2 + 1))
         np.testing.assert_almost_equal(
             gQwak.getDynamicInitStateList(),
-            [[newDim//2,newDim//2+1]],
+            [[newDim // 2, newDim // 2 + 1]],
             err_msg=f"Init state of gQwak {gQwak.getDynamicInitStateList()} does not match expected new init state list {[[newDim//2,newDim//2+1]]}",
         )
         np.testing.assert_almost_equal(
@@ -209,9 +204,11 @@ class TestGraphicalQWAKCycle(object):
         newGraphStr = "nx.complete_graph"
         t = 12
         gQwak = GraphicalQWAKTestStub()
-        assert nx.is_isomorphic(gQwak.getStaticGraph(),nx.cycle_graph(n)), "GQwak graph should be isomorphic to a cycle graph"
+        assert nx.is_isomorphic(gQwak.getStaticGraph(), nx.cycle_graph(
+            n)), "GQwak graph should be isomorphic to a cycle graph"
         gQwak.setStaticGraph(newGraphStr)
-        assert nx.is_isomorphic(gQwak.getStaticGraph(),nx.complete_graph(n)), "GQwak graph should be isomorphic to a complete graph"
+        assert nx.is_isomorphic(gQwak.getStaticGraph(), nx.complete_graph(
+            n)), "GQwak graph should be isomorphic to a complete graph"
         np.testing.assert_almost_equal(
             gQwak.getStaticProbVec(),
             np.zeros(n),
@@ -228,11 +225,13 @@ class TestGraphicalQWAKCycle(object):
     def test_DynamicSetGraphCycleComplete(self):
         n = 100
         newGraphStr = "nx.complete_graph"
-        t = [0,12]
+        t = [0, 12]
         gQwak = GraphicalQWAKTestStub()
-        assert nx.is_isomorphic(gQwak.getDynamicGraph(),nx.cycle_graph(n)), "GQwak graph should be isomorphic to a cycle graph"
+        assert nx.is_isomorphic(gQwak.getDynamicGraph(), nx.cycle_graph(
+            n)), "GQwak graph should be isomorphic to a cycle graph"
         gQwak.setDynamicGraph(newGraphStr)
-        assert nx.is_isomorphic(gQwak.getDynamicGraph(),nx.complete_graph(n)), "GQwak graph should be isomorphic to a complete graph"
+        assert nx.is_isomorphic(gQwak.getDynamicGraph(), nx.complete_graph(
+            n)), "GQwak graph should be isomorphic to a complete graph"
         np.testing.assert_almost_equal(
             gQwak.getDynamicProbVecList(),
             [np.zeros(n)],
@@ -249,7 +248,8 @@ class TestGraphicalQWAKCycle(object):
     def test_StaticSetTimeCycle(self):
         n = 100
         t = 12
-        # Time is given as a string since the GUI can give values such as 2*pi for python to eval().
+        # Time is given as a string since the GUI can give values such
+        # as 2*pi for python to eval().
         newTime = "10*np.pi"
         gQwak = GraphicalQWAKTestStub()
         np.testing.assert_almost_equal(
@@ -264,9 +264,9 @@ class TestGraphicalQWAKCycle(object):
             graphicalStaticProbDistCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
-        assert gQwak.getStaticTime() == 12 , "Time should be 12."
+        assert gQwak.getStaticTime() == 12, "Time should be 12."
         gQwak.setStaticTime(newTime)
-        assert gQwak.getStaticTime() == 10*np.pi , "Time should be 10*pi."
+        assert gQwak.getStaticTime() == 10 * np.pi, "Time should be 10*pi."
         probVec = gQwak.runWalk()
         assert not probVec[0], "runWalk should not have thrown an error."
         np.testing.assert_almost_equal(
@@ -277,9 +277,10 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicSetTimeCycle(self):
         n = 100
-        t = [0,12]
-        # Time is given as a string since the GUI can give values such as 2*pi for python to eval().
-        newTimeList = '0' + ',' + str(10*np.pi)
+        t = [0, 12]
+        # Time is given as a string since the GUI can give values such
+        # as 2*pi for python to eval().
+        newTimeList = '0' + ',' + str(10 * np.pi)
         gQwak = GraphicalQWAKTestStub()
         np.testing.assert_almost_equal(
             gQwak.getDynamicProbVecList(),
@@ -293,9 +294,11 @@ class TestGraphicalQWAKCycle(object):
             graphicalDynamicProbDistCycle,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
-        assert gQwak.getDynamicTime().all() == np.linspace(0, 12, 12).all() , "Time list should be [0-12]."
+        assert gQwak.getDynamicTime().all() == np.linspace(
+            0, 12, 12).all(), "Time list should be [0-12]."
         gQwak.setDynamicTime(newTimeList)
-        assert gQwak.getDynamicTime().all() ==np.linspace(0, 10*np.pi, int(10*np.pi)).all() , f"Time should be [0-10*pi]."
+        assert gQwak.getDynamicTime().all() == np.linspace(
+            0, 10 * np.pi, int(10 * np.pi)).all(), f"Time should be [0-10*pi]."
         probVecList = gQwak.runMultipleWalks()
         assert not probVecList[0], "runMultipleWalks should not have thrown an error."
         np.testing.assert_almost_equal(
@@ -319,7 +322,7 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicGetMeanCycle(self):
         n = 100
-        t = [0,12]
+        t = [0, 12]
         gQwak = GraphicalQWAKTestStub()
         runMultipleWalks = gQwak.runMultipleWalks()
         assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
@@ -345,7 +348,7 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicGetStDev(self):
         n = 100
-        t = [0,12]
+        t = [0, 12]
         gQwak = GraphicalQWAKTestStub()
         runMultipleWalks = gQwak.runMultipleWalks()
         assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
@@ -364,7 +367,7 @@ class TestGraphicalQWAKCycle(object):
         gQwak = GraphicalQWAKTestStub()
         runWalk = gQwak.runWalk()
         assert not runWalk[0], "runWalk should not have thrown an error."
-        survivalProb = gQwak.getStaticSurvivalProb(k0,k1)
+        survivalProb = gQwak.getStaticSurvivalProb(k0, k1)
         assert not survivalProb[0], "survivalProb should not have thrown an error."
         np.testing.assert_allclose(
             survivalProb[1],
@@ -375,17 +378,43 @@ class TestGraphicalQWAKCycle(object):
 
     def test_DynamicGetSurvivalProb(self):
         n = 100
-        t = [0,12]
+        t = [0, 12]
         k0 = 45
         k1 = 55
         gQwak = GraphicalQWAKTestStub()
         runMultipleWalks = gQwak.runMultipleWalks()
         assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
-        survivalProbList = gQwak.getDynamicSurvivalProb(k0,k1)
+        survivalProbList = gQwak.getDynamicSurvivalProb(k0, k1)
         assert not survivalProbList[0], "survivalProbList should not have thrown an error."
         np.testing.assert_allclose(
             survivalProbList[1],
             graphicalDynamicGetSurvivalProbCycle,
             atol=0,
             err_msg=f"Standard deviation for a cycle of size {n} for time {t}: {gQwak.getDynamicStDev()} is wrong.",
+        )
+
+    def test_StaticGetInversePartRatio(self):
+        n = 100
+        t = 12
+        gQwak = GraphicalQWAKTestStub()
+        runWalk = gQwak.runWalk()
+        assert not runWalk[0], "runWalk should not have thrown an error."
+        np.testing.assert_allclose(
+            gQwak.getStaticInversePartRatio(),
+            38.07979668560495,
+            atol=0,
+            err_msg=f"Inv part ratio for a cycle of size {n} for time {t} should be 38.07979... but got {gQwak.getStaticStDev()}",
+        )
+
+    def test_DynamicGetInversePartRatio(self):
+        n = 100
+        t = [0, 12]
+        gQwak = GraphicalQWAKTestStub()
+        runMultipleWalks = gQwak.runMultipleWalks()
+        assert not runMultipleWalks[0], "runMultipleWalks should not have thrown an error."
+        np.testing.assert_allclose(
+            gQwak.getDynamicInvPartRatio(),
+            graphicalDynamicGetStDevCycle,
+            atol=0,
+            err_msg=f"Inv part ratio for a cycle of size {n} for time {t}: {gQwak.getDynamicInvPartRatio()} is wrong.",
         )

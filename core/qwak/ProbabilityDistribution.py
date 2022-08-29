@@ -196,7 +196,8 @@ class ProbabilityDistribution:
                     survProb += self._probVec[i]
             return survProb[0]
         except ValueError:
-            raise MissingNodeInput(f"A node number is missing: k0 = {k0}; k1={k1}")
+            raise MissingNodeInput(
+                f"A node number is missing: k0 = {k0}; k1={k1}")
 
     def __str__(self) -> str:
         """String representation of the ProbabilityDistribution object.

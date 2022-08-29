@@ -2,7 +2,7 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList,MissingNodeInput
+from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
 from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk

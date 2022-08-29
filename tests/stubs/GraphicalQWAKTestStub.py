@@ -39,11 +39,11 @@ class GraphicalQWAKTestStub:
     def getDynamicProbVecList(self):
         return self.gQwak.getDynamicProbVecList()
 
-    def setStaticDim(self,newDim,graphStr):
-        self.gQwak.setStaticDim(newDim,graphStr)
+    def setStaticDim(self, newDim, graphStr):
+        self.gQwak.setStaticDim(newDim, graphStr)
 
     def setDynamicDim(self, newDim, graphStr):
-        self.gQwak.setDynamicDim(newDim,graphStr)
+        self.gQwak.setDynamicDim(newDim, graphStr)
 
     def getStaticDim(self):
         return self.gQwak.getStaticDim()
@@ -57,7 +57,7 @@ class GraphicalQWAKTestStub:
     def getDynamicAdjacencyMatrix(self):
         return self.gQwak.getDynamicAdjacencyMatrix()
 
-    def setStaticInitState(self,initStateStr):
+    def setStaticInitState(self, initStateStr):
         self.gQwak.setStaticInitState(initStateStr)
 
     def setDynamicInitStateList(self, newInitStateList):
@@ -81,10 +81,10 @@ class GraphicalQWAKTestStub:
     def getDynamicGraph(self):
         return self.gQwak.getDynamicGraph()
 
-    def setStaticTime(self,newTime):
+    def setStaticTime(self, newTime):
         self.gQwak.setStaticTime(newTime)
 
-    def setDynamicTime(self,newTimeList):
+    def setDynamicTime(self, newTimeList):
         self.gQwak.setDynamicTime(newTimeList)
 
     def getStaticTime(self):
@@ -105,8 +105,14 @@ class GraphicalQWAKTestStub:
     def getDynamicStDev(self):
         return self.gQwak.getDynamicStDev()
 
-    def getStaticSurvivalProb(self,k0,k1):
-        return self.gQwak.getStaticSurvivalProb(k0,k1)
+    def getStaticSurvivalProb(self, k0, k1):
+        return self.gQwak.getStaticSurvivalProb(k0, k1)
 
-    def getDynamicSurvivalProb(self,k0,k1):
-        return self.gQwak.getDynamicSurvivalProb(k0,k1)
+    def getDynamicSurvivalProb(self, k0, k1):
+        return self.gQwak.getDynamicSurvivalProb(k0, k1)
+
+    def getStaticInversePartRatio(self):
+        return self.gQwak.getInversePartRatio()
+
+    def getDynamicInvPartRatio(self):
+        return self.gQwak.getDynamicInvPartRatio()
