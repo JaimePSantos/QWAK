@@ -188,6 +188,7 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
@@ -237,6 +238,7 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">qutip</span> <span class="kn">import</span> <span class="n">Qobj</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">mesolve</span><span class="p">,</span> <span class="n">Options</span>
 
+<span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">MissingNodeInput</span>
 <span class="kn">from</span> <span class="nn">utils.PerfectStateTransfer</span> <span class="kn">import</span> <span class="n">isStrCospec</span><span class="p">,</span> <span class="n">checkRoots</span><span class="p">,</span> <span class="n">swapNodes</span><span class="p">,</span> <span class="n">getEigenVal</span>
 
 
@@ -461,21 +463,26 @@
 <span class="sd">            Either returns the time value of PST or False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: Check if numpy is faster for eigenvecs and vals.</span>
-        <span class="k">if</span> <span class="n">nodeA</span> <span class="o">&gt;</span> <span class="n">nodeB</span><span class="p">:</span>
-            <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span> <span class="o">=</span> <span class="n">swapNodes</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">nodeA</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeA</span><span class="p">)</span>
+            <span class="n">nodeB</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeB</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">nodeA</span> <span class="o">&gt;</span> <span class="n">nodeB</span><span class="p">:</span>
+                <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span> <span class="o">=</span> <span class="n">swapNodes</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
 
-        <span class="n">symAdj</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
-        <span class="c1"># Isto já foi calculado.</span>
-        <span class="n">eigenVec</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">symAdj</span><span class="o">.</span><span class="n">diagonalize</span><span class="p">()</span>
-        <span class="n">eigenVal</span> <span class="o">=</span> <span class="n">getEigenVal</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
-        <span class="n">isCospec</span> <span class="o">=</span> <span class="n">isStrCospec</span><span class="p">(</span><span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
-        <span class="n">chRoots</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">checkRoots</span><span class="p">(</span>
-            <span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">eigenVec</span><span class="p">,</span> <span class="n">eigenVal</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">isCospec</span> <span class="ow">and</span> <span class="n">chRoots</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
-        <span class="k">return</span> <span class="n">result</span></div>
+            <span class="n">symAdj</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="c1"># Isto já foi calculado.</span>
+            <span class="n">eigenVec</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">symAdj</span><span class="o">.</span><span class="n">diagonalize</span><span class="p">()</span>
+            <span class="n">eigenVal</span> <span class="o">=</span> <span class="n">getEigenVal</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+            <span class="n">isCospec</span> <span class="o">=</span> <span class="n">isStrCospec</span><span class="p">(</span><span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
+            <span class="n">chRoots</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">checkRoots</span><span class="p">(</span>
+                <span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">eigenVec</span><span class="p">,</span> <span class="n">eigenVal</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">isCospec</span> <span class="ow">and</span> <span class="n">chRoots</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MissingNodeInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A node number is missing: nodeA = </span><span class="si">{</span><span class="n">nodeA</span><span class="si">}</span><span class="s2">; nodeB = </span><span class="si">{</span><span class="n">nodeB</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Left-side multiplication for the Operator class.</span>

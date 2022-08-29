@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="Installation" href="installation.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Reference Manual" href="modules.html" /><link rel="prev" title="Usage" href="usage.html" />
 
     <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
-        <title>Usage - QWAK - Quantum Walk Analysis Kit</title>
+        <title>Contributing - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -188,8 +188,8 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
@@ -228,36 +228,25 @@
           </label>
         </div>
         <article role="main">
-          <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h1>
-<section id="creating-walks">
-<span id="walks"></span><h2>Creating Walks<a class="headerlink" href="#creating-walks" title="Permalink to this heading">#</a></h2>
-<p>To retrieve a list of random ingredients,
-you can use the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> class:</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="QWAK">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nx.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QWAK" title="Permalink to this definition">#</a></dt>
-<dd><p>Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
-respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param laplacian<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Allows the user to choose whether to use the Laplacian or simple adjacency matrix.</p>
-</dd>
-<dt class="field-even">type laplacian<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-<dt class="field-odd">param graph<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.</p>
-</dd>
-<dt class="field-even">type graph<span class="colon">:</span></dt>
-<dd class="field-even"><p>NetworkX.Graph</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+          <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">#</a></h1>
+<p>Contributing as a few additional steps that may require some explanation for first-time users.
+Here, we’ll give you step-by-step instructions on how to setup github for contributing to this project, how to format your code changes and how to generate updated documentation.</p>
+<section id="setting-up-the-repo-for-contributing">
+<h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Install <a class="reference external" href="https://git-scm.com/.">git</a>.</p></li>
+<li><p>Fork the <a class="reference external" href="https://github.com/JaimePSantos/QWAK">QWAK</a> repository to your account so you can work on own copy. This will allow you to open Pull Requests later.</p></li>
+<li><p>Add the upstream repository:</p>
+<blockquote>
+<div><p>..code-block:: shell</p>
+<blockquote>
+<div><p>git remote add upstream <a class="reference external" href="https://github.com/JaimePSantos/QWAK.git">https://github.com/JaimePSantos/QWAK.git</a></p>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p>Follow QWAK’s <a class="reference external" href="https://jaimepsantos.github.io/QWAK/installation.html">installation instructions</a>.</p></li>
+</ol>
 </section>
 </section>
 
@@ -266,23 +255,23 @@ respectively. Methods runWalk or buildWalk must then be used to generate the res
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="contributing.html">
+          <a class="next-page" href="modules.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Contributing</div>
+                <div class="title">Reference Manual</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="installation.html">
+          <a class="prev-page" href="usage.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Installation</div>
+                <div class="title">Usage</div>
                 
               </div>
             </a>
@@ -318,8 +307,8 @@ respectively. Methods runWalk or buildWalk must then be used to generate the res
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Usage</a><ul>
-<li><a class="reference internal" href="#creating-walks">Creating Walks</a></li>
+<li><a class="reference internal" href="#">Contributing</a><ul>
+<li><a class="reference internal" href="#setting-up-the-repo-for-contributing">Setting up the repo for contributing</a></li>
 </ul>
 </li>
 </ul>
