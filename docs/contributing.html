@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="Installation" href="installation.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Reference Manual" href="modules.html" /><link rel="prev" title="Usage" href="usage.html" />
 
     <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
-        <title>Usage - QWAK - Quantum Walk Analysis Kit</title>
+        <title>Contributing - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
@@ -188,8 +188,8 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Usage</a></li>
-<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
@@ -228,36 +228,130 @@
           </label>
         </div>
         <article role="main">
-          <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h1>
-<section id="creating-walks">
-<span id="walks"></span><h2>Creating Walks<a class="headerlink" href="#creating-walks" title="Permalink to this heading">#</a></h2>
-<p>To retrieve a list of random ingredients,
-you can use the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> class:</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="QWAK">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nx.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QWAK" title="Permalink to this definition">#</a></dt>
-<dd><p>Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
-respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.</p>
-<dl class="simple">
-<dt>Args:</dt><dd><dl class="field-list simple">
-<dt class="field-odd">param laplacian<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Allows the user to choose whether to use the Laplacian or simple adjacency matrix.</p>
-</dd>
-<dt class="field-even">type laplacian<span class="colon">:</span></dt>
-<dd class="field-even"><p>bool</p>
-</dd>
-<dt class="field-odd">param graph<span class="colon">:</span></dt>
-<dd class="field-odd"><p>NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.</p>
-</dd>
-<dt class="field-even">type graph<span class="colon">:</span></dt>
-<dd class="field-even"><p>NetworkX.Graph</p>
-</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
+          <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">#</a></h1>
+<p>Contributing has a few additional steps that may require some explanation for first-time users.
+Here, we’ll give you step-by-step instructions on how to setup github for contributing to this project,
+how to format your code changes and how to generate updated documentation.</p>
+<p>A few extra packages are required when contributing to QWAK:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install autopep8 pytest
+</pre></div>
+</div>
+<p><a class="reference external" href="https://pypi.org/project/autopep8/">Autopep8</a> formats code according to the PEP 8 style.
+<a class="reference external" href="https://docs.pytest.org/en/7.1.x/">Pytest</a> is responsible for unit testing the package to assure everything
+working correctly after a change.</p>
+<section id="setting-up-the-repo-for-contributing">
+<h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Install <a class="reference external" href="https://git-scm.com/.">git</a>.</p></li>
+<li><p>Fork the <a class="reference external" href="https://github.com/JaimePSantos/QWAK">QWAK</a> repository to your account so you can work on own copy. This will allow you to open Pull Requests later.</p></li>
+<li><p>Add the upstream repository:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git remote add upstream https://github.com/JaimePSantos/QWAK.git
+</pre></div>
+</div>
+</li>
+<li><p>Update your fork with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
+</pre></div>
+</div>
+<p>Followed by:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git pull --rebase upstream main
+</pre></div>
+</div>
+<p>This should be done somewhat regularly to ensure your fork is up-to-date with the most recent QWAK version.</p>
+</li>
+<li><p>Follow QWAK’s <a class="reference external" href="https://jaimepsantos.github.io/QWAK/installation.html">installation instructions</a> in case you haven’t installed the package yet.</p></li>
+</ol>
+</section>
+<section id="making-your-changes">
+<h2>Making your changes<a class="headerlink" href="#making-your-changes" title="Permalink to this heading">#</a></h2>
+<ol class="arabic">
+<li><p>Checkout and sync your main branch with the upstream to reflect the newest version:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
+git pull --rebase upstream main
+</pre></div>
+</div>
+</li>
+<li><p>Create a new branch to work on instead of main:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout -b &lt;new_branch_name&gt; upstream/main
+</pre></div>
+</div>
+</li>
+<li><p>Make your changes.</p></li>
+<li><p>Format your changed files with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_file&gt;
+</pre></div>
+</div>
+<p>Or, alternatively an entire folder with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --recursive --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_folder&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Ensure your changes does not break the existing code by running the following command inside the main project folder:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pytest -v tests/
+</pre></div>
+</div>
+</li>
+<li><p>If all tests are successful, commit your changes:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git commit -am &lt;commit message&gt;
+</pre></div>
+</div>
+<p>Make sure you write a short descriptive message so that the changes on the commit can be easily identified.</p>
+</li>
+<li><p>Push your changes to your fork:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git push -u origin &lt;branch name&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Visit your repo on github and create a pull request to the main repo!</p></li>
+</ol>
+</section>
+<section id="generating-documentation">
+<h2>Generating Documentation<a class="headerlink" href="#generating-documentation" title="Permalink to this heading">#</a></h2>
+<p>If you’ve added a new feature, or if you want to contribute to the documentation directly,
+you will need to install <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> automates the process of creating
+documentation pages:</p>
+<ul class="simple">
+<li><p>Via pip:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install sphinx
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>On linux:</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get install python3-sphinx
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>On windows, you can install it via conda  (or <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/installation.html#windows-other-method">manually</a>):</p></li>
+</ul>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda install sphinx
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Right now we have a <code class="code docutils literal notranslate"><span class="pre">documentation</span></code> folder separate from the <code class="code docutils literal notranslate"><span class="pre">docs</span></code> folder used to create github pages.
+This is probably not a good idea so some of these steps will be subject to change.</p>
+</div>
+<p>After the dependency is taken care of:</p>
+<ol class="arabic">
+<li><p>Generate basic documentation files for the package (probably already present in the repo so just skip):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-quickstart documentation/
+</pre></div>
+</div>
+</li>
+<li><p>From the main folder, navigate to the <code class="code docutils literal notranslate"><span class="pre">documentation</span></code> folder using <code class="code docutils literal notranslate"><span class="pre">cd</span> <span class="pre">documentation</span></code>.</p></li>
+<li><p>If you’ve changed documentation of the Python code in the <code class="code docutils literal notranslate"><span class="pre">core</span></code> folder,run autodoc so these changes are compiled by Sphinx:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-apidoc -f -o source/ ../core/&lt;modules&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Clean previous build files with <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">clean</span></code>.</p></li>
+<li><p>Build the HTML doc pages <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>.</p></li>
+<li><p>Copy the new contents to docs folder for github pages <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">linuxgit</span></code> or <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">github</span></code>.</p></li>
+<li><p>Commit your changes and open a PR as described above.</p></li>
+</ol>
 </section>
 </section>
 
@@ -266,23 +360,23 @@ respectively. Methods runWalk or buildWalk must then be used to generate the res
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="contributing.html">
+          <a class="next-page" href="modules.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Contributing</div>
+                <div class="title">Reference Manual</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="installation.html">
+          <a class="prev-page" href="usage.html">
               <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Installation</div>
+                <div class="title">Usage</div>
                 
               </div>
             </a>
@@ -318,8 +412,10 @@ respectively. Methods runWalk or buildWalk must then be used to generate the res
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Usage</a><ul>
-<li><a class="reference internal" href="#creating-walks">Creating Walks</a></li>
+<li><a class="reference internal" href="#">Contributing</a><ul>
+<li><a class="reference internal" href="#setting-up-the-repo-for-contributing">Setting up the repo for contributing</a></li>
+<li><a class="reference internal" href="#making-your-changes">Making your changes</a></li>
+<li><a class="reference internal" href="#generating-documentation">Generating Documentation</a></li>
 </ul>
 </li>
 </ul>

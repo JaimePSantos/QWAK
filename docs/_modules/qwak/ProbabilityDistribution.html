@@ -188,6 +188,7 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
@@ -235,6 +236,7 @@
 <span class="kn">from</span> <span class="nn">qutip</span> <span class="kn">import</span> <span class="n">Qobj</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">mesolve</span><span class="p">,</span> <span class="n">Options</span>
 
 <span class="kn">from</span> <span class="nn">qwak.QuantumWalk</span> <span class="kn">import</span> <span class="n">QuantumWalk</span>
+<span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">MissingNodeInput</span>
 
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
@@ -414,12 +416,17 @@
 <span class="sd">            _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">survProb</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">if</span> <span class="n">k0</span> <span class="o">==</span> <span class="n">k1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-                <span class="n">survProb</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">survProb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">k0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">)</span>
+            <span class="n">k1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">k0</span> <span class="o">==</span> <span class="n">k1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                    <span class="n">survProb</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">survProb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MissingNodeInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;A node number is missing: k0 = </span><span class="si">{</span><span class="n">k0</span><span class="si">}</span><span class="s2">; k1=</span><span class="si">{</span><span class="n">k1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;String representation of the ProbabilityDistribution object.</span>

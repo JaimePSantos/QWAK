@@ -18,4 +18,5 @@ Contents
 
    installation
    usage
+   contributing
    modules
