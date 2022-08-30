@@ -53,30 +53,16 @@ Further examples exploring all the different components will be available once t
 Documentation is a work in progress, and can be found in this [page](https://jaimepsantos.github.io/QWAK/).
 
 ## Contributing
-#### Changes to the package
-1. Upgrade your build package with `python -m pip install --upgrade build`.
-2. Edit the package to reflect your changes.
-3. Build the distribution files by running `python -m build`.
-4. Reinstall the package without using previously cached versions with `pip install . --no-cache-dir`.
-5. For some reason in windows you may need to use `python -m pip install . --no-cache-dir --use-feature=in-tree-build`
 
-#### Commit the changes the github repo
-1. Fork the repository
-2. Clone your github fork git ```clone https://github.com/<your-username>/QWAK.git```
-3. Navigate to the project folder ```cd QWAK```
-4. Add the upstream repo ```git remote add upstream https://github.com/JaimePSantos/QWAK.git```
-5. Update your fork with ```git checkout main``` and ```git pull --rebase upstream main```
-6. Create a branch for the changes instead of working off your local main branch ```git checkout -b <new branch name> upstream/main```
-7. Make your changes.
-8. Format your code with ```autopep8 --in-place --aggressive --aggressive --max-line-length 72 .\core\qwak\qwak.py```
-9. Commit your changes: ```git commit -am <Commit message>```
-10. Push your changes to your fork ```git push -u origin <branch name>```
-11. Visit your repo on github and create a pull request to the main repo!
+#### Extra requirements
+- autopep8
+- pytest
+- sphinx
 
-#### Building Documentation
-1. Install the [sphinx](https://www.sphinx-doc.org/en/master/) `pip install sphinx`
-2. Generate basic documentation files for the package `sphinx-quickstart documentation/` (probably already present in the repo so just skip)
-3. Generate autodoc files from the modules you want to document `sphinx-apidoc -f -o source/ ../core/<modules>`
-4. Clean previous build files `make clean`
-5. Build html documentation page `make html`
-6. Copy the new contents to docs folder for github pages `make linuxgit` or `make github`
+Contributing to the package follows a relatively simple workflow. After performing the necessary setup procedures, 
+you will update your fork with the latest version of the QWAK project. You can now perform your changes, format 
+them and test them. If a new feature is added, you will need to add docstrings to the new methods and update the
+existing documentation accordingly. If your contribution is directly to the documentation, you will follow a similar procedure.
+
+Step-by-step instructions on how to setup all the required components for organized contribution can be found
+on the [contributing](https://jaimepsantos.github.io/QWAK/) documentation page.
