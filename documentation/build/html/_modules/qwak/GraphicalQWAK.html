@@ -188,6 +188,7 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
@@ -229,12 +230,11 @@
           <h1>Source code for qwak.GraphicalQWAK</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">os</span>
 
-<span class="kn">import</span> <span class="nn">eel</span>
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 
-<span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">StateOutOfBounds</span><span class="p">,</span> <span class="n">UndefinedTimeList</span><span class="p">,</span> <span class="n">EmptyProbDistList</span>
+<span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">StateOutOfBounds</span><span class="p">,</span> <span class="n">UndefinedTimeList</span><span class="p">,</span> <span class="n">EmptyProbDistList</span><span class="p">,</span> <span class="n">MissingNodeInput</span>
 <span class="kn">from</span> <span class="nn">qwak.State</span> <span class="kn">import</span> <span class="n">State</span>
 <span class="kn">from</span> <span class="nn">qwak.qwak</span> <span class="kn">import</span> <span class="n">QWAK</span>
 
@@ -278,11 +278,11 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">resetWalk</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">runWalk</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_staticTime</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_staticProbDist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getProbDist</span><span class="p">()</span>
+            <span class="n">qwProbVec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticProbDist</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">qwProbVec</span><span class="p">]</span>
         <span class="k">except</span> <span class="n">StateOutOfBounds</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_staticProbDist</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getProbDist</span><span class="p">()</span>
-        <span class="n">qwProbVec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticProbDist</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
-        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">qwProbVec</span><span class="p">]</span></div>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.runMultipleWalks"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.runMultipleWalks">[docs]</a>    <span class="k">def</span> <span class="nf">runMultipleWalks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
@@ -294,9 +294,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">getProbDistList</span><span class="p">()</span>
             <span class="n">qwProbVecList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span>
                 <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">probVec</span><span class="p">:</span> <span class="n">probVec</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">getProbVecList</span><span class="p">()))</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">qwProbVecList</span><span class="p">]</span>
         <span class="k">except</span> <span class="p">(</span><span class="n">StateOutOfBounds</span><span class="p">,</span> <span class="n">UndefinedTimeList</span><span class="p">,</span> <span class="n">EmptyProbDistList</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span>
-        <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">qwProbVecList</span><span class="p">]</span></div>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.setStaticDim"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim">[docs]</a>    <span class="k">def</span> <span class="nf">setStaticDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span> <span class="o">=</span> <span class="n">newDim</span>
@@ -400,7 +400,15 @@
         <span class="k">return</span> <span class="n">meanList</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticSndMoment"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticSndMoment">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticSndMoment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: This not used in the GUI.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getSndMoment</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="GraphicalQWAK.getDynamicSndMoment"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicSndMoment">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicSndMoment</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># TODO: This not used in the GUI.</span>
+        <span class="n">sndMomentList</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">probDist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span><span class="p">:</span>
+            <span class="n">sndMomentList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probDist</span><span class="o">.</span><span class="n">getSndMoment</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">sndMomentList</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticStDev"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticStDev">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticStDev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getStDev</span><span class="p">()</span></div>
@@ -413,14 +421,20 @@
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticSurvivalProb"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticSurvivalProb">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticSurvivalProb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">):</span>
         <span class="c1"># TODO: Make JS throw an error if k0 or k1 are not defined.</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getSurvivalProb</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">)</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getSurvivalProb</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">)]</span>
+        <span class="k">except</span> <span class="n">MissingNodeInput</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicSurvivalProb"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicSurvivalProb">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicSurvivalProb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">):</span>
         <span class="c1"># TODO: Make JS throw an error if k0 or k1 are not defined.</span>
-        <span class="n">survProbList</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">for</span> <span class="n">probDist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span><span class="p">:</span>
-            <span class="n">survProbList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probDist</span><span class="o">.</span><span class="n">survivalProb</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">survProbList</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">survProbList</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">probDist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span><span class="p">:</span>
+                <span class="n">survProbList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probDist</span><span class="o">.</span><span class="n">survivalProb</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">))</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="n">survProbList</span><span class="p">]</span>
+        <span class="k">except</span> <span class="n">MissingNodeInput</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticInversePartRatio"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticInversePartRatio">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticInversePartRatio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getInversePartRatio</span><span class="p">()</span></div>
@@ -432,8 +446,10 @@
         <span class="k">return</span> <span class="n">invPartRatioList</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.checkPST"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.checkPST">[docs]</a>    <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
-        <span class="c1"># TODO: Make JS throw an error if k0 or k1 are not defined.</span>
-        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">checkPST</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">))</span></div>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">checkPST</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">))]</span>
+        <span class="k">except</span> <span class="n">MissingNodeInput</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.customGraphWalk"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.customGraphWalk">[docs]</a>    <span class="k">def</span> <span class="nf">customGraphWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customAdjacency</span><span class="p">):</span>
         <span class="c1"># TODO: Running the custom graph set graph button throws an</span>
