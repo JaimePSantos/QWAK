@@ -128,7 +128,7 @@ class Operator:
         """Resets Operator object."""
         self._operator = np.zeros((self._n, self._n))
 
-    def setDim(self, newDim: int) -> None:
+    def setDim(self, newDim: int,graph) -> None:
         """Sets the current Operator objects dimension to a user defined one.
 
         Parameters
@@ -137,6 +137,12 @@ class Operator:
             New dimension for the Operator object.
         """
         self._n = newDim
+        self._operator = np.zeros((self._n, self._n))
+        self._graph = graph
+        self._adjacencyMatrix = (
+            nx.adjacency_matrix(self._graph).todense().astype(complex)
+        )
+        self.setAdjacencyMatrix(self._adjacencyMatrix)
 
     def getDim(self) -> int:
         """Gets the current graph dimension.
@@ -307,6 +313,7 @@ class Operator:
                f"Time: {self._time}\n" \
                f"Graph: {nx.to_dict_of_dicts(self._graph)}\n" \
                f"Operator:\n\t{self._operator}"
+
     # def transportEfficiency(self,initState):
     #     """
     #     Under Construction.

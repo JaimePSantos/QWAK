@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 from qwak.GraphicalQWAK import GraphicalQWAK
+from qwak.qwak import QWAK
 
 if __name__ == "__main__":
 
@@ -13,18 +14,21 @@ if __name__ == "__main__":
     graph = nx.cycle_graph(staticN)
     timeList = [0, t]
     initStateList = [[staticN // 2, (staticN // 2) + 1]]
+    qwak = QWAK(graph,initState)
+    qwak.setDim(150,'nx.cycle_graph')
+    qwak.runWalk(t)
+    #
+    # gQwak = GraphicalQWAK(
+    #     staticN,
+    #     dynamicN,
+    #     graph,
+    #     graph,
+    #     initState,
+    #     initStateList,
+    #     t,
+    #     timeList)
 
-    gQwak = GraphicalQWAK(
-        staticN,
-        dynamicN,
-        graph,
-        graph,
-        initState,
-        initStateList,
-        t,
-        timeList)
-
-    gQwak.runMultipleWalks()
+    # gQwak.runMultipleWalks()
     # gQwak.runWalk()
     # print(gQwak.getStaticInversePartRatio())
-    print(gQwak.getDynamicInvPartRatio())
+    # print(gQwak.getDynamicInvPartRatio())

@@ -96,6 +96,7 @@ class QuantumWalk:
             New QuantumWalk dimension.
         """
         self._n = newDim
+        self._finalState = State(self._n)
 
     def getDim(self) -> int:
         """Gets the current state dimension.

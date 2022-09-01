@@ -49,7 +49,6 @@ class ProbabilityDistribution:
         state : State, optional
             _description_, by default None
         """
-        # TODO: Nao devia ser pelo complexo conjugado?
         if state is not None:
             self._state = state.getStateVec()
         for st in range(self._n):
@@ -77,6 +76,10 @@ class ProbabilityDistribution:
             _description_
         """
         return self._state
+
+    def setDim(self,newDim):
+        self._n = newDim
+        self._probVec = np.zeros((self._n, 1))
 
     def getDim(self) -> int:
         """_summary_

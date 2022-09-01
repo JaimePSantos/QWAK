@@ -197,11 +197,10 @@ class QWAK:
         else:
             raise MissingGraphInput(f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
 
-        self._initState = State(self._n, initStateList)
-        self._operator = Operator(self._graph)
-        self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        self._probDist = ProbabilityDistribution(
-            self._quantumWalk.getFinalState())
+        self._initState.setDim(newDim,newNodeList=initStateList)
+        self._operator.setDim(newDim,self._graph)
+        self._quantumWalk.setDim(newDim)
+        self._probDist.setDim(newDim)
 
     def getDim(self) -> int:
         """Gets the current graph dimension.

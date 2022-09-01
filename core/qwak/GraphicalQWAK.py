@@ -68,9 +68,9 @@ class GraphicalQWAK:
         except (StateOutOfBounds, UndefinedTimeList, EmptyProbDistList) as err:
             return [True, str(err)]
 
-    def setStaticDim(self, newDim, graphStr):
+    def setStaticDim(self, newDim, graphStr, initStateList = None):
         self._staticN = newDim
-        self._staticQWAK.setDim(self._staticN, graphStr)
+        self._staticQWAK.setDim(self._staticN, graphStr=graphStr, initStateList=initStateList)
         self._staticGraph = self._staticQWAK.getGraph()
 
     def setDynamicDim(self, newDim, graphStr):
