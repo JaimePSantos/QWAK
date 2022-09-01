@@ -10,7 +10,8 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 
-## Requirements
+## Installation
+### Dependencies
 - Numpy
 - Scipy
 - Sympy
@@ -18,8 +19,6 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 - networkx
 - QuTip
 - eel
-
-## Installation
 
 Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
 
