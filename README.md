@@ -64,4 +64,4 @@ them and test them. If a new feature is added, you will need to add docstrings t
 existing documentation accordingly. If your contribution is directly to the documentation, you will follow a similar procedure.
 
 Step-by-step instructions on how to setup all the required components for organized contribution can be found
-on the [contributing](https://jaimepsantos.github.io/QWAK/) documentation page.
+on the [contributing](https://jaimepsantos.github.io/QWAK/contributing.html) documentation page.
