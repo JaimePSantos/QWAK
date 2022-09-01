@@ -277,13 +277,16 @@ git pull --rebase upstream main
 </pre></div>
 </div>
 </li>
-<li><p>Make your changes.</p></li>
-<li><p>Format your changed files with:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_file&gt;
+<li><p>If this is the first time you’re building the package:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m pip install --upgrade build
+python -m build
 </pre></div>
 </div>
-<p>Or, alternatively an entire folder with:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --recursive --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_folder&gt;
+<p>This might not be needed, will test in the future and update the docs accordingly.</p>
+</li>
+<li><p>Make your changes.</p></li>
+<li><p>Update your package to reflect the changes:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install . --no-cache-dir
 </pre></div>
 </div>
 </li>
@@ -292,7 +295,16 @@ git pull --rebase upstream main
 </pre></div>
 </div>
 </li>
-<li><p>If all tests are successful, commit your changes:</p>
+<li><p>If all the tests are successfull, format your changed files with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_file&gt;
+</pre></div>
+</div>
+<p>Or, alternatively an entire folder with:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --recursive --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_folder&gt;
+</pre></div>
+</div>
+</li>
+<li><p>Commit your changes:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git commit -am &lt;commit message&gt;
 </pre></div>
 </div>
