@@ -39,11 +39,14 @@ class QWAKTestStub:
     def setInitState(self, newState):
         self.qwak.setInitState(newState)
 
+    def getInitState(self):
+        return self.qwak.getInitState()
+
     def getDim(self):
         return self.qwak.getDim()
 
-    def setDim(self, newDim, graphStr, initStateList=None):
-        self.qwak.setDim(newDim, graphStr, initStateList)
+    def setDim(self, newDim, graphStr=None,graph=None, initStateList=None):
+        self.qwak.setDim(newDim, graphStr=graphStr,graph=graph, initStateList=initStateList)
 
     def getAdjacencyMatrix(self):
         return self.qwak.getAdjacencyMatrix()

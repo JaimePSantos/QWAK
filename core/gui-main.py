@@ -172,6 +172,11 @@ if __name__ == "__main__":
         adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
         gQwak.customGraphWalk(adjM)
 
+    @eel.expose
+    def setStaticCustomGraph():
+        adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
+        gQwak.setStaticCustomGraph(adjM)
+
     eel.start(
         "index.html",
         port=8080,

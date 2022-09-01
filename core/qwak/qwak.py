@@ -2,7 +2,14 @@ import networkx as nx
 import numpy as np
 import copy
 
-from qwak.Errors import StateOutOfBounds, NonUnitaryState, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
+from qwak.Errors import (
+    StateOutOfBounds,
+    NonUnitaryState,
+    UndefinedTimeList,
+    EmptyProbDistList,
+    MissingNodeInput,
+    MissingGraphInput,
+)
 from qwak.State import State
 from qwak.Operator import Operator, StochasticOperator
 from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
@@ -163,7 +170,7 @@ class QWAK:
         self._probDistList = []
         self._walkList = []
 
-    def setDim(self, newDim: int, graphStr: str,
+    def setDim(self, newDim: int, graphStr: str=None, graph: nx.Graph = None,
                initStateList: list = None) -> None:
         """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
@@ -178,12 +185,18 @@ class QWAK:
         initStateList : list[int], optional
             Init state list with new dimension.
         """
-        # TODO: We should probably remove the graphStr as user input and just
-        # make it a class attribute. There isnt a way to get the name of the
-        # graph generator though.
+        # TODO: Docs need update after rework.
         self._n = newDim
-        self._graph = eval(graphStr + f"({self._n})")
-        self._n = len(self._graph)
+        if graphStr is not None:
+            self._graph = eval(graphStr + f"({self._n})")
+            # We need a reassignment here since certain graphs have different length than the number inputted.
+            self._n = len(self._graph)
+        elif graph is not None:
+            self._graph = graph
+            self._n = len(self._graph)
+        else:
+            raise MissingGraphInput(f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
+
         self._initState = State(self._n, initStateList)
         self._operator = Operator(self._graph)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)

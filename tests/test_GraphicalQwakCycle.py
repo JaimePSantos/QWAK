@@ -144,7 +144,7 @@ class TestGraphicalQWAKCycle(object):
         initStateList = [newDim // 2, newDim // 2 + 1]
         gQwak = GraphicalQWAKTestStub()
         assert gQwak.getStaticDim() == 100, "Dimension should be 100."
-        gQwak.setStaticDim(newDim, graphStr)
+        gQwak.setStaticDim(newDim, graphStr = graphStr)
         assert gQwak.getStaticDim() == 1000, "Dimension should be 1000."
         gQwak.setStaticInitState(
             str(newDim // 2) + ',' + str(newDim // 2 + 1))
