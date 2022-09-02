@@ -99,7 +99,7 @@ class TestQWAKCycle(object):
         initStateList = [newDim // 2, newDim // 2 + 1]
         qwak = QWAKTestStub()
         assert qwak.getDim() == 100
-        qwak.setDim(newDim, graphStr, initStateList)
+        qwak.setDim(newDim, graphStr = graphStr, initStateList=initStateList)
         assert qwak.getDim() == 1000
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),

@@ -33,15 +33,9 @@ class GraphicalQWAK:
                 dynamicTimeList[1]))
         self._staticQWAK = QWAK(self._staticGraph)
         self._staticProbDist = self._staticQWAK.getProbDist()
-        # self._staticQWAK.runWalk(
-        #     time=self._staticTime,
-        #     initStateList=self._staticStateList)
         self._dynamicQWAK = QWAK(self._dynamicGraph)
         self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
         self._dynamicAmpList = self._dynamicQWAK.getWalkList()
-        # self._staticQWAK.runWalk(
-        #     time=self._dynamicTimeList[0],
-        #     initStateList=self._dynamicStateList[0])
 
     def runWalk(self):
         try:
@@ -68,9 +62,9 @@ class GraphicalQWAK:
         except (StateOutOfBounds, UndefinedTimeList, EmptyProbDistList) as err:
             return [True, str(err)]
 
-    def setStaticDim(self, newDim, graphStr):
+    def setStaticDim(self, newDim, graphStr, initStateList = None):
         self._staticN = newDim
-        self._staticQWAK.setDim(self._staticN, graphStr)
+        self._staticQWAK.setDim(self._staticN, graphStr=graphStr, initStateList=initStateList)
         self._staticGraph = self._staticQWAK.getGraph()
 
     def setDynamicDim(self, newDim, graphStr):
@@ -91,6 +85,34 @@ class GraphicalQWAK:
     def setDynamicGraph(self, newGraphStr):
         self._dynamicGraph = eval(newGraphStr + f"({self._dynamicN})")
         self._dynamicQWAK.setGraph(self._dynamicGraph)
+
+    # def customGraphWalk(self, customAdjacency):
+    #     # TODO: Running the custom graph set graph button throws an
+    #     # error if the field on the prob dist side is not with correct
+    #     # dimension. check out how to fix this.
+    #     # TODO: This function needs rework
+    #     self._staticQWAK.setAdjacencyMatrix(customAdjacency)
+    #     initState = State(self._staticQWAK.getDim())
+    #     initState.buildState([self._staticQWAK.getDim() // 2])
+    #     self._staticQWAK.setInitState(initState)
+    #     self._dynamicQWAK.setInitState(initState)
+    #     self._staticQWAK.runWalk(self._staticTime)
+    #     self._dynamicQWAK.setAdjacencyMatrix(customAdjacency)
+    #     self._dynamicQWAK.runWalk(self._staticTime)
+
+    def setStaticCustomGraph(self, customAdjacency):
+        self._staticGraph = nx.from_numpy_matrix(customAdjacency)
+        self._staticQWAK.setGraph(self._staticGraph)
+        self._staticN = len(self._staticGraph)
+        self._staticStateList = [self._staticN//2]
+        self._staticQWAK.setDim(self._staticN,graph=self._staticGraph,initStateList=self._staticStateList)
+
+    def setDynamicCustomGraph(self, customAdjacency):
+        self._dynamicGraph = nx.from_numpy_matrix(customAdjacency)
+        self._dynamicQWAK.setGraph(self._dynamicGraph)
+        self._dynamicN = len(self._dynamicGraph)
+        self._dynamicStateList = [[self._dynamicN // 2]]
+        self._dynamicQWAK.setDim(self._dynamicN, graph=self._dynamicGraph, initStateList=self._dynamicStateList)
 
     def getStaticGraph(self):
         return self._staticGraph
@@ -190,14 +212,12 @@ class GraphicalQWAK:
         return stDevList
 
     def getStaticSurvivalProb(self, k0, k1):
-        # TODO: Make JS throw an error if k0 or k1 are not defined.
         try:
             return [False, self._staticQWAK.getSurvivalProb(k0, k1)]
         except MissingNodeInput as err:
             return [True, str(err)]
 
     def getDynamicSurvivalProb(self, k0, k1):
-        # TODO: Make JS throw an error if k0 or k1 are not defined.
         try:
             survProbList = []
             for probDist in self._dynamicProbDistList:
@@ -220,17 +240,3 @@ class GraphicalQWAK:
             return [False, str(self._staticQWAK.checkPST(nodeA, nodeB))]
         except MissingNodeInput as err:
             return [True, str(err)]
-
-    def customGraphWalk(self, customAdjacency):
-        # TODO: Running the custom graph set graph button throws an
-        # error if the field on the prob dist side is not with correct
-        # dimension. check out how to fix this.
-        # TODO: This function needs rework
-        self._staticQWAK.setAdjacencyMatrix(customAdjacency)
-        initState = State(self._staticQWAK.getDim())
-        initState.buildState([self._staticQWAK.getDim() // 2])
-        self._staticQWAK.setInitState(initState)
-        self._dynamicQWAK.setInitState(initState)
-        self._staticQWAK.runWalk(self._staticTime)
-        self._dynamicQWAK.setAdjacencyMatrix(customAdjacency)
-        self._dynamicQWAK.runWalk(self._staticTime)

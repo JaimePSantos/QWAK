@@ -144,7 +144,7 @@ class TestGraphicalQWAKCycle(object):
         initStateList = [newDim // 2, newDim // 2 + 1]
         gQwak = GraphicalQWAKTestStub()
         assert gQwak.getStaticDim() == 100, "Dimension should be 100."
-        gQwak.setStaticDim(newDim, graphStr)
+        gQwak.setStaticDim(newDim, graphStr = graphStr,initStateList=initStateList)
         assert gQwak.getStaticDim() == 1000, "Dimension should be 1000."
         gQwak.setStaticInitState(
             str(newDim // 2) + ',' + str(newDim // 2 + 1))
@@ -158,7 +158,7 @@ class TestGraphicalQWAKCycle(object):
             nx.to_numpy_array(
                 nx.cycle_graph(newDim),
                 dtype=complex),
-            err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {gQwak.getStaticAdjacencyMatrix()}",
+            err_msg=f"Expected adjacency matrix of {graphStr} of size {newDim} but got {len(gQwak.getStaticAdjacencyMatrix())}",
         )
         probVec = gQwak.runWalk()
         assert not probVec[0], "runWalk should not have thrown an error."

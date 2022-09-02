@@ -293,7 +293,7 @@ document.getElementById('graphCustomButton').addEventListener('click', function 
 let graphCustomButtonPress = async () => {
     let adjacencyMatrix = createAdjacencyMatrix(customCy);
     console.log(adjacencyMatrix.toArray());
-    eel.customGraphWalk();
+    eel.setStaticCustomGraph();
 }
 
 eel.expose(sendAdjacencyMatrix);
