@@ -167,19 +167,22 @@ if __name__ == "__main__":
         pst = gQwak.checkPST(nodeA, nodeB)
         return pst
 
-    @eel.expose
-    def customGraphWalk():
-        adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
-        gQwak.customGraphWalk(adjM)
+    # @eel.expose
+    # def customGraphWalk():
+    #     adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
+    #     gQwak.customGraphWalk(adjM)
 
     @eel.expose
     def setStaticCustomGraph():
         adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
         gQwak.setStaticCustomGraph(adjM)
 
+    @eel.expose
+    def setDynamicCustomGraph():
+        adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
+        gQwak.setDynamicCustomGraph(adjM)
+
     eel.start(
         "index.html",
         port=8080,
         cmdline_args=["--start-maximized"])
-
-    pass

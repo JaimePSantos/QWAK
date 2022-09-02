@@ -314,7 +314,7 @@ document.getElementById('graphCustomButton').addEventListener('click', function 
 let graphCustomButtonPress = async () => {
     let adjacencyMatrix = createAdjacencyMatrix(customCy);
     console.log(adjacencyMatrix.toArray());
-    eel.customGraphWalk();
+    eel.setDynamicCustomGraph();
 }
 
 eel.expose(sendAdjacencyMatrix);

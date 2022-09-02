@@ -15,8 +15,10 @@ if __name__ == "__main__":
     timeList = [0, t]
     initStateList = [[staticN // 2, (staticN // 2) + 1]]
     qwak = QWAK(graph,initState)
-    qwak.setDim(150,'nx.cycle_graph')
+    qwak.setDim(150,graphStr='nx.cycle_graph',initStateList=initState)
     qwak.runWalk(t)
+    plt.plot(qwak.getProbVec())
+    plt.show()
     #
     # gQwak = GraphicalQWAK(
     #     staticN,
