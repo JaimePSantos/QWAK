@@ -4,30 +4,14 @@
     background-color: #312450;
     align-content: center;
     justify-content: center;
-    margin-bottom: 3vh;
+    margin-bottom: 0vh;
 }
 
 /* Style the buttons inside the tab */
 .myTab button{
     background-color: inherit;
     float: left;
-    border: none;
     border-radius: 0;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 17px;
-    overflow: hidden;
-    width: 30vh;
-    font-size: 1vh;
-}
-
-.myTab.placeholder{
-    background-color: inherit;
-    float: left;
-    border: none;
-    border-radius: 0;
-    outline: none;
     cursor: pointer;
     transition: 0.3s;
     font-size: 17px;
@@ -58,30 +42,30 @@
 }
 
 /* Change background color of buttons on hover */
-.tab button:hover, .tab2 button:hover {
-    background-color: rgb(57, 60, 206);
+.myTab button:hover{
+    background-color: rgb(63, 5, 124);
 }
 
 /* Create an active/current tablink class */
-.tab button.active, .tab2 button.active {
-    background-color: #1587b4;
+.myTab button.active{
+    background-color: #0263f3;
 }
 
 /* Change background color of buttons on hover */
-.dynamic-tab button:hover, .tab2 button:hover {
+.dynamic-tab button:hover{
     background-color: rgb(57, 60, 206);
 }
 
 /* Create an active/current tablink class */
-.dynamic-tab button.active, .tab2 button.active {
+.dynamic-tab button.active{
     background-color: #1587b4;
 }
 
 /* Style the tab content */
-.tabcontent, .tabcontent2 {
-    display: none;
+.tabcontent{
+    /*display: none;*/
     /*padding: 6px 12px;*/
     /*border: 1px solid var(--primary-white);*/
-    border-top: none;
+    /*border-top: none;*/
     animation: fadeEffect 1s;
 }

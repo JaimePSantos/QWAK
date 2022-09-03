@@ -10,77 +10,6 @@
 }
 
 /* Style the tab */
-.tab, .tab2 {
-    display: flex;
-    overflow: hidden;
-    background-color: #312450;
-    align-content: center;
-    justify-content: center;
-}
-
-/* Style the buttons inside the tab */
-.tab button, .tab2 button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    border-radius: 0;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 17px;
-    overflow: hidden;
-}
-
-.dynamic-tab {
-    display: flex;
-    overflow: hidden;
-    background-color: #312450;
-    align-content: center;
-    justify-content: center;
-}
-
-.dynamic-tab button {
-    background-color: inherit;
-    float: left;
-    border: none;
-    border-radius: 0;
-    outline: none;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 12px;
-    overflow: hidden;
-
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover, .tab2 button:hover {
-    background-color: rgb(57, 60, 206);
-}
-
-/* Create an active/current tablink class */
-.tab button.active, .tab2 button.active {
-    background-color: #1587b4;
-}
-
-/* Change background color of buttons on hover */
-.dynamic-tab button:hover, .tab2 button:hover {
-    background-color: rgb(57, 60, 206);
-}
-
-/* Create an active/current tablink class */
-.dynamic-tab button.active, .tab2 button.active {
-    background-color: #1587b4;
-}
-
-/* Style the tab content */
-.tabcontent, .tabcontent2 {
-    display: none;
-    padding: 6px 12px;
-    border: 1px solid var(--primary-white);
-    border-top: none;
-    animation: fadeEffect 1s;
-}
-
 /* Go from zero to full opacity */
 @keyframes fadeEffect {
     from {
@@ -115,7 +44,7 @@
     align-items: center;
     width: 100%;
     padding: 0px;
-    gap: 5px;
+    gap: 0px;
 }
 
 .input-button {
@@ -171,7 +100,12 @@
 }
 
 .graph-wrapper{
-    margin-right: 200px;
+    margin-right: 5vw;
+}
+
+.probDist-wrapper {
+    margin-right: 5vw;
+    margin-top: 5.5vh;
 }
 
 .graph-display {
@@ -181,7 +115,6 @@
     border-style: double;
     border-color: rgb(12, 14, 116);
     border-width: 5px;
-    padding: 5px;
     background-color: rgb(196, 188, 130);
 }
 
@@ -190,7 +123,6 @@
     background-color: rgb(188, 176, 221);
     width: 40vw;
     height: 40vh;
-    margin-top: 35px;
     border-style: double;
     border-width: 5px;
     padding: 5px;
@@ -257,10 +189,6 @@
 }
 
 .stats-dynamic-wrapper {
-    margin-top: 50px;
-}
-
-.probDist-wrapper {
     margin-top: 50px;
 }
 
