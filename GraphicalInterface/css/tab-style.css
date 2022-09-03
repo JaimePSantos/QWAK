@@ -1,0 +1,87 @@
+.myTab{
+    display: flex;
+    overflow: hidden;
+    background-color: #312450;
+    align-content: center;
+    justify-content: center;
+    margin-bottom: 3vh;
+}
+
+/* Style the buttons inside the tab */
+.myTab button{
+    background-color: inherit;
+    float: left;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+    overflow: hidden;
+    width: 30vh;
+    font-size: 1vh;
+}
+
+.myTab.placeholder{
+    background-color: inherit;
+    float: left;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 17px;
+    overflow: hidden;
+    width: 30vh;
+    font-size: 1vh;
+}
+
+.dynamic-tab {
+    display: flex;
+    overflow: hidden;
+    background-color: #312450;
+    align-content: center;
+    justify-content: center;
+}
+
+.dynamic-tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    border-radius: 0;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 12px;
+    overflow: hidden;
+
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover, .tab2 button:hover {
+    background-color: rgb(57, 60, 206);
+}
+
+/* Create an active/current tablink class */
+.tab button.active, .tab2 button.active {
+    background-color: #1587b4;
+}
+
+/* Change background color of buttons on hover */
+.dynamic-tab button:hover, .tab2 button:hover {
+    background-color: rgb(57, 60, 206);
+}
+
+/* Create an active/current tablink class */
+.dynamic-tab button.active, .tab2 button.active {
+    background-color: #1587b4;
+}
+
+/* Style the tab content */
+.tabcontent, .tabcontent2 {
+    display: none;
+    /*padding: 6px 12px;*/
+    /*border: 1px solid var(--primary-white);*/
+    border-top: none;
+    animation: fadeEffect 1s;
+}
