@@ -20,9 +20,10 @@
     }
 }
 .graph-probdist-wrapper {
-    display: flex;
+    display: grid;
+    grid-template-columns: 50% 50%;
     /*flex-direction: line;*/
-    justify-content: space-evenly;
+    /* justify-content: space-evenly; */
     align-items: center;
     width: 100%;
     padding: 0px;
