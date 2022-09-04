@@ -34,24 +34,24 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: 3vh;
     width: 100%;
     height: 100%;
     padding: 0px;
-    margin-top: 10px;
+    margin-top: 1vh;
 }
 
 .set-graph-combo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1vh;
     width:100%;
 }
 
 .set-probDist-combo {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1vh;
     width:100%;
 }
 
@@ -65,18 +65,25 @@
 }
 
 .stats-wrapper {
-    border: solid red 1px;
+    display:flex;
+    flex-direction: column;
+    /*border: solid red 1px;*/
     width: 70vw;
-    padding:5px;
+    height:70vh;
+    /*padding:5px;*/
+    margin:0;
 }
 
 .stat-list {
     display: flex;
     padding:5px;
+    width:100%;
+    height:100%;
     flex-direction: column;
-    border:solid red 1px;
-    margin: 0 0 0em 0;
-    padding-left: 0em;
+    /*border:solid red 1px;*/
+    /*margin: 0 0 0em 0;*/
+    /*padding-left: 0em;*/
+    margin:0;
 }
 
 .graph-display {
@@ -112,4 +119,13 @@
 
 .stats-dynamic-wrapper {
     margin-top: 50px;
+}
+
+.graph-probDist-stat-wrapper{
+    display:flex;
+    flex-direction: column;
+    width:100%;
+    height:100%;
+    gap:5vh;
+    margin:0;
 }

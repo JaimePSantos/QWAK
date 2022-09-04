@@ -22,11 +22,12 @@
     justify-content: center;
     align-items: center;
 }
+
 .input-combo .myGraphInputBox{
     width: 15vw;
     height:7vh;
     border: solid;
-    border-width: 3px;
+    border-width: 0.1vh;
     font-size: 1.5vw;
 }
 
@@ -34,7 +35,7 @@
     width: 10vw;
     height:7vh;
     border: solid;
-    border-width: 3px;
+    border-width: 0.1vh;
     font-size: 1.5vw;
 }
 
@@ -46,7 +47,6 @@
     font-weight: bolder;
     padding:5px;
     gap: 10vw;
-    border:solid red 1px;
     text-align: justify;
     font-size:1.5vw;
 }
@@ -56,14 +56,14 @@
     height:7vh;
     font-size:1.5vw;
     border: solid;
-    border-width: 3px;
-    border:solid red 1px;
+    border-width: 0.1vh;;
+    /*border:solid red 1px;*/
 }
 
 .stat-list-combo .myStatText {
     width:30vw;
     height:7vh;
-    border:solid red 1px;
+    /*border:solid red 1px;*/
 }
 
 .stat-list-combo-input {
@@ -71,10 +71,23 @@
     flex-direction: column;
     color: var(--primary-white);
     font-weight: bolder;
-    gap: 10px;
+    /*gap: 10px;*/
     align-items: center;
     justify-content: center;
-    margin-top: 25px;
+    margin-top: 3vh;
+    font-size:1.5vw;
+
+}
+
+.stat-list-combo-input .myHeaderStatText {
+    display:flex;
+    flex-direction: column;
+    width:30vw;
+    height:7vh;
+    /*border:solid red 1px;*/
+    vertical-align: center;
+    text-align: center;
+    justify-content: center;
 }
 
 .stat-with-input {
@@ -83,30 +96,24 @@
     align-content: center;
     color: var(--primary-white);
     font-weight: bold;
-    font-size: 20px;
 }
 
-.stat-with-input .input-box {
-    display: flex;
+.stat-with-input .myStatText {
+    display:flex;
+    flex-direction: column;
+    width:7vw;
+    height:7vh;
+    /*border:solid red 1px;*/
+    vertical-align: center;
+    text-align: center;
     justify-content: center;
-    align-content: center;
-    width: 20%;
 }
 
-/*.input-button {*!*/
-/*    width: 50px;*/
-/*    border-style: solid;*/
-/*    border-color: black;*/
-/*    border-radius: 4px;*/
-/*    border-width: 3px;*/
-/*    font-size: 15px;*/
-/*    font-weight: bold;*/
-/*}*/
-
-/*.input-button:hover {*/
-/*    background: rgb(159, 252, 131);*/
-/*}*/
-
-/*.input-button:active {*/
-/*    background: var(--primary-light);*/
-/*}
+.stat-with-input .myStatInputBox {
+    width: 13.5vw;
+    height:7vh;
+    font-size:1.5vw;
+    border: solid;
+    border-width: 3px;
+    /*border:solid red 1px;*/
+}
