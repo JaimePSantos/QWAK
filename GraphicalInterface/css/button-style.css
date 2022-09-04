@@ -30,15 +30,25 @@
 
 .myButton.graph{
         width: 40vw;
-        font-size: 1vh;
+        font-size: 1.5vh;
 }
 
 .myButton.probDist{
         width: 40vw;
-        font-size: 1vh;
+        font-size: 1.5vh;
 }
 
 .myButton.input{
+        width: 20vh;
+        font-size: 1.5vh;
+}
+
+.myButton.customGraphInput{
+        width: 20vh;
+        font-size: 1.5vh;
+}
+
+.myButton.probDistInput{
         width: 13vh;
-        font-size: 1vh;
+        font-size: 1.5vh;
 }

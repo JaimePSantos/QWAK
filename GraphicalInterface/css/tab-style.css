@@ -11,6 +11,8 @@
 .myTab button{
     background-color: inherit;
     float: left;
+    border: solid 1px !important;
+    border-color: rgb(252, 237, 206) !important;
     border-radius: 0;
     cursor: pointer;
     transition: 0.3s;

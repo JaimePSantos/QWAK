@@ -1,0 +1,112 @@
+.input-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    gap: 1.5vw;
+}
+
+.input-fields {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0px;
+    gap: 1.5vw;
+}
+
+.input-combo {
+    display: flex;
+    gap: 1vw;
+    justify-content: center;
+    align-items: center;
+}
+.input-combo .myGraphInputBox{
+    width: 15vw;
+    height:7vh;
+    border: solid;
+    border-width: 3px;
+    font-size: 1.5vw;
+}
+
+.input-combo .myProbDistInputBox{
+    width: 10vw;
+    height:7vh;
+    border: solid;
+    border-width: 3px;
+    font-size: 1.5vw;
+}
+
+.stat-list-combo {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    color: var(--primary-white);
+    font-weight: bolder;
+    padding:5px;
+    gap: 10vw;
+    border:solid red 1px;
+    text-align: justify;
+    font-size:1.5vw;
+}
+
+.stat-list-combo .myStatInputBox{
+    width: 30vw;
+    height:7vh;
+    font-size:1.5vw;
+    border: solid;
+    border-width: 3px;
+    border:solid red 1px;
+}
+
+.stat-list-combo .myStatText {
+    width:30vw;
+    height:7vh;
+    border:solid red 1px;
+}
+
+.stat-list-combo-input {
+    display: flex;
+    flex-direction: column;
+    color: var(--primary-white);
+    font-weight: bolder;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+.stat-with-input {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    color: var(--primary-white);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.stat-with-input .input-box {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 20%;
+}
+
+/*.input-button {*!*/
+/*    width: 50px;*/
+/*    border-style: solid;*/
+/*    border-color: black;*/
+/*    border-radius: 4px;*/
+/*    border-width: 3px;*/
+/*    font-size: 15px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.input-button:hover {*/
+/*    background: rgb(159, 252, 131);*/
+/*}*/
+
+/*.input-button:active {*/
+/*    background: var(--primary-light);*/
+/*}

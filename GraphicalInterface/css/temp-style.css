@@ -19,24 +19,6 @@
         opacity: 1;
     }
 }
-
-.input-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-}
-
-.input-fields {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 0px;
-    gap: 5px;
-}
-
 .graph-probdist-wrapper {
     display: flex;
     /*flex-direction: line;*/
@@ -45,32 +27,6 @@
     width: 100%;
     padding: 0px;
     gap: 0px;
-}
-
-.input-button {
-    width: 50px;
-    background: rgb(198, 205, 221);
-    border-style: solid;
-    border-color: black;
-    border-radius: 4px;
-    border-width: 3px;
-    font-size: 15px;
-    font-weight: bold;
-}
-
-.input-button:hover {
-    background: rgb(159, 252, 131);
-}
-
-.input-button:active {
-    background: var(--primary-light);
-}
-
-.input-combo {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
 }
 
 .grid-element {
@@ -108,6 +64,21 @@
     margin-top: 5.5vh;
 }
 
+.stats-wrapper {
+    border: solid red 1px;
+    width: 70vw;
+    padding:5px;
+}
+
+.stat-list {
+    display: flex;
+    padding:5px;
+    flex-direction: column;
+    border:solid red 1px;
+    margin: 0 0 0em 0;
+    padding-left: 0em;
+}
+
 .graph-display {
     background-color: var(--primary-white);
     width: 40vw;
@@ -135,63 +106,10 @@
     /* height: 100%; */
 }
 
-.stat-list {
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-}
-
-.stat-list-combo {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
-    color: var(--primary-white);
-    font-weight: bolder;
-    margin: 1em 0;
-    gap: 10px;
-}
-
-.stat-list-combo .input-box {
-    width: 50%;
-    border: solid;
-    border-width: 3px;
-}
-
-.stat-list-combo-input {
-    display: flex;
-    flex-direction: column;
-    color: var(--primary-white);
-    font-weight: bolder;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    margin-top: 25px;
-}
-
-.stat-with-input {
-    display: flex;
-    justify-content: space-evenly;
-    align-content: center;
-    color: var(--primary-white);
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.stat-with-input .input-box {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    width: 20%;
-}
-
 .probDist-animation-wrapper {
     margin-top: 50px;
 }
 
 .stats-dynamic-wrapper {
-    margin-top: 50px;
-}
-
-.stats-wrapper {
     margin-top: 50px;
 }
