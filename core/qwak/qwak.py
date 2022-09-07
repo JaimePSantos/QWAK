@@ -54,9 +54,9 @@ class QWAK:
             NetworkX graph where the walk takes place. Also used
             for defining the dimensions of the quantum walk.
         time : float
-            __ Needs completion __
+            _ Needs completion _
         timeList : list
-            __ Needs completion __
+            _ Needs completion _
         initStateList : list[int], optional
             List with chosen initial states for uniform superposition, by default None
         customStateList : list[(int,complex)], optional

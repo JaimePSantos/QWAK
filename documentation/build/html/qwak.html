@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="utils package" href="utils.html" /><link rel="prev" title="Reference Manual" href="modules.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="utils package" href="utils.html" /><link rel="prev" title="Modules" href="modules.html" />
 
     <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
         <title>qwak package - QWAK - Quantum Walk Analysis Kit</title>
@@ -190,7 +190,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">Reference Manual</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
@@ -360,6 +360,24 @@
 </dl>
 </dd></dl>
 
+<dl class="py exception">
+<dt class="sig sig-object py" id="qwak.Errors.MissingGraphInput">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MissingGraphInput</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">details</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Errors.html#MissingGraphInput"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Errors.MissingGraphInput" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#qwak.Errors.Error" title="qwak.Errors.Error"><code class="xref py py-class docutils literal notranslate"><span class="pre">Error</span></code></a></p>
+<p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Error</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+</dl>
+<p>_summary_</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>details</strong> (<em>_type_</em>) – _description_</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="module-qwak.GraphicalQWAK">
 <span id="qwak-graphicalqwak-module"></span><h2>qwak.GraphicalQWAK module<a class="headerlink" href="#module-qwak.GraphicalQWAK" title="Permalink to this heading">#</a></h2>
@@ -391,7 +409,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim">
-<span class="sig-name descname"><span class="pre">setStaticDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setStaticDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setStaticDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setStaticDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -417,6 +435,16 @@
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setDynamicGraph">
 <span class="sig-name descname"><span class="pre">setDynamicGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newGraphStr</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setDynamicGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicGraph" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setStaticCustomGraph">
+<span class="sig-name descname"><span class="pre">setStaticCustomGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customAdjacency</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setStaticCustomGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setStaticCustomGraph" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.setDynamicCustomGraph">
+<span class="sig-name descname"><span class="pre">setDynamicCustomGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customAdjacency</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.setDynamicCustomGraph"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicCustomGraph" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -564,11 +592,6 @@
 <span class="sig-name descname"><span class="pre">checkPST</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodeA</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodeB</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.checkPST"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.checkPST" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="qwak.GraphicalQWAK.GraphicalQWAK.customGraphWalk">
-<span class="sig-name descname"><span class="pre">customGraphWalk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">customAdjacency</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/GraphicalQWAK.html#GraphicalQWAK.customGraphWalk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.GraphicalQWAK.GraphicalQWAK.customGraphWalk" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </section>
@@ -651,7 +674,7 @@ conjugate of the eigenvectors.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.Operator.Operator.setDim">
-<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.setDim" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/Operator.html#Operator.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.Operator.Operator.setDim" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the current Operator objects dimension to a user defined one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1059,6 +1082,11 @@ amplitude state by its conjugate.</p>
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.setDim">
+<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/ProbabilityDistribution.html#ProbabilityDistribution.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.ProbabilityDistribution.ProbabilityDistribution.setDim" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.ProbabilityDistribution.ProbabilityDistribution.getDim">
@@ -1717,11 +1745,14 @@ This will be changed in the future to make nodeList make more sense.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.State.State.setDim">
-<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.setDim" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newNodeList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/State.html#State.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.State.State.setDim" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the current state dimension to a user defined one.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>newDim</strong> (<em>int</em>) – New state dimension.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>newDim</strong> (<em>int</em>) – New state dimension.</p></li>
+<li><p><strong>newNodeList</strong> (<em>Optional</em><em>[</em><em>list</em><em>]</em>) – </p></li>
+</ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
@@ -1849,8 +1880,8 @@ walk.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>graph</strong> (<em>nx.Graph</em>) – NetworkX graph where the walk takes place. Also used
 for defining the dimensions of the quantum walk.</p></li>
-<li><p><strong>time</strong> (<em>float</em>) – </p></li>
-<li><p><strong>timeList</strong> (<em>list</em>) – </p></li>
+<li><p><strong>time</strong> (<em>float</em>) – _ Needs completion _</p></li>
+<li><p><strong>timeList</strong> (<em>list</em>) – _ Needs completion _</p></li>
 <li><p><strong>initStateList</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – List with chosen initial states for uniform superposition, by default None</p></li>
 <li><p><strong>customStateList</strong> (<em>list</em><em>[</em><em>(</em><em>int</em><em>,</em><em>complex</em><em>)</em><em>]</em><em>, </em><em>optional</em>) – Custom init state, by default None.</p></li>
 <li><p><strong>laplacian</strong> (<em>bool</em><em>, </em><em>optional</em>) – Allows the user to choose whether to use the
@@ -1919,7 +1950,7 @@ accessed with their respective get methods.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="qwak.qwak.QWAK.setDim">
-<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphStr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.setDim" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">setDim</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newDim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graphStr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initStateList</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/qwak/qwak.html#QWAK.setDim"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qwak.qwak.QWAK.setDim" title="Permalink to this definition">#</a></dt>
 <dd><p>Sets the current walk dimensions to a user defined one.
 Also takes a graph string to be
 evaluated and executed as a NetworkX graph generator.</p>
@@ -1929,6 +1960,7 @@ evaluated and executed as a NetworkX graph generator.</p>
 <li><p><strong>newDim</strong> (<em>int</em>) – New dimension for the quantum walk.</p></li>
 <li><p><strong>graphStr</strong> (<em>str</em>) – Graph string to generate the graph with the new dimension.</p></li>
 <li><p><strong>initStateList</strong> (<em>list</em><em>[</em><em>int</em><em>]</em><em>, </em><em>optional</em>) – Init state list with new dimension.</p></li>
+<li><p><strong>graph</strong> (<em>Optional</em><em>[</em><em>Graph</em><em>]</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2644,7 +2676,7 @@ This might not be needed and removed in the future.</p>
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Reference Manual</div>
+                <div class="title">Modules</div>
                 
               </div>
             </a>

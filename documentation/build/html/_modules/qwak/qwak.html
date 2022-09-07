@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Reference Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
@@ -232,7 +232,14 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">copy</span>
 
-<span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">StateOutOfBounds</span><span class="p">,</span> <span class="n">NonUnitaryState</span><span class="p">,</span> <span class="n">UndefinedTimeList</span><span class="p">,</span> <span class="n">EmptyProbDistList</span><span class="p">,</span><span class="n">MissingNodeInput</span>
+<span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">StateOutOfBounds</span><span class="p">,</span>
+    <span class="n">NonUnitaryState</span><span class="p">,</span>
+    <span class="n">UndefinedTimeList</span><span class="p">,</span>
+    <span class="n">EmptyProbDistList</span><span class="p">,</span>
+    <span class="n">MissingNodeInput</span><span class="p">,</span>
+    <span class="n">MissingGraphInput</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span> <span class="nn">qwak.State</span> <span class="kn">import</span> <span class="n">State</span>
 <span class="kn">from</span> <span class="nn">qwak.Operator</span> <span class="kn">import</span> <span class="n">Operator</span><span class="p">,</span> <span class="n">StochasticOperator</span>
 <span class="kn">from</span> <span class="nn">qwak.QuantumWalk</span> <span class="kn">import</span> <span class="n">QuantumWalk</span><span class="p">,</span> <span class="n">StochasticQuantumWalk</span>
@@ -277,9 +284,9 @@
 <span class="sd">            NetworkX graph where the walk takes place. Also used</span>
 <span class="sd">            for defining the dimensions of the quantum walk.</span>
 <span class="sd">        time : float</span>
-<span class="sd">            __ Needs completion __</span>
+<span class="sd">            _ Needs completion _</span>
 <span class="sd">        timeList : list</span>
-<span class="sd">            __ Needs completion __</span>
+<span class="sd">            _ Needs completion _</span>
 <span class="sd">        initStateList : list[int], optional</span>
 <span class="sd">            List with chosen initial states for uniform superposition, by default None</span>
 <span class="sd">        customStateList : list[(int,complex)], optional</span>
@@ -393,7 +400,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDistList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_walkList</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-<div class="viewcode-block" id="QWAK.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<div class="viewcode-block" id="QWAK.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Sets the current walk dimensions to a user defined one.</span>
 <span class="sd">        Also takes a graph string to be</span>
@@ -408,17 +415,22 @@
 <span class="sd">        initStateList : list[int], optional</span>
 <span class="sd">            Init state list with new dimension.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: We should probably remove the graphStr as user input and just</span>
-        <span class="c1"># make it a class attribute. There isnt a way to get the name of the</span>
-        <span class="c1"># graph generator though.</span>
+        <span class="c1"># TODO: Docs need update after rework.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">graphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">initStateList</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span> <span class="o">=</span> <span class="n">QuantumWalk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span> <span class="o">=</span> <span class="n">ProbabilityDistribution</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">())</span></div>
+        <span class="k">if</span> <span class="n">graphStr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">graphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+            <span class="c1"># We need a reassignment here since certain graphs have different length than the number inputted.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">graph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MissingGraphInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You tried to set QWAK dim without providing a graph with updated dimensions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">,</span><span class="n">newNodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Gets the current graph dimension.</span>
