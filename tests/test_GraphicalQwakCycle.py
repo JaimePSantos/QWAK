@@ -222,6 +222,29 @@ class TestGraphicalQWAKCycle(object):
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
 
+    def test_StaticSetGraphCycleLadder(self):
+        n = 100
+        newGraphStr = "nx.circular_ladder_graph"
+        t = 12
+        gQwak = GraphicalQWAKTestStub()
+        assert nx.is_isomorphic(gQwak.getStaticGraph(), nx.cycle_graph(
+            n)), "GQwak graph should be isomorphic to a cycle graph"
+        gQwak.setStaticGraph(newGraphStr)
+        assert nx.is_isomorphic(gQwak.getStaticGraph(), nx.circular_ladder_graph(
+            n)), "GQwak graph should be isomorphic to a ladder graph"
+        np.testing.assert_almost_equal(
+            gQwak.getStaticProbVec(),
+            np.zeros(n),
+            err_msg="Probability distribution before running should be 0.",
+        )
+        probVec = gQwak.runWalk()
+        assert not probVec[0], "runWalk should not have thrown an error."
+        # np.testing.assert_almost_equal(
+        #     probVec[1],
+        #     graphicalStaticSetGraphCycleComplete,
+        #     err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
+        # )
+
     def test_DynamicSetGraphCycleComplete(self):
         n = 100
         newGraphStr = "nx.complete_graph"

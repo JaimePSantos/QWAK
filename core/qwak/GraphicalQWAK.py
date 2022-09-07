@@ -50,7 +50,8 @@ class GraphicalQWAK:
 
     def runMultipleWalks(self):
         try:
-            self._dynamicQWAK.resetWalk()
+            # self._dynamicQWAK.resetWalk()
+            print(f"InitLen 4 {len(self._dynamicQWAK.getInitState().getStateVec())}")
             self._dynamicQWAK.runMultipleWalks(
                 timeList=self._dynamicTimeList,
                 initStateList=self._dynamicStateList[0])
@@ -84,21 +85,12 @@ class GraphicalQWAK:
 
     def setDynamicGraph(self, newGraphStr):
         self._dynamicGraph = eval(newGraphStr + f"({self._dynamicN})")
+        self._dynamicN = len(self._dynamicGraph)
         self._dynamicQWAK.setGraph(self._dynamicGraph)
-
-    # def customGraphWalk(self, customAdjacency):
-    #     # TODO: Running the custom graph set graph button throws an
-    #     # error if the field on the prob dist side is not with correct
-    #     # dimension. check out how to fix this.
-    #     # TODO: This function needs rework
-    #     self._staticQWAK.setAdjacencyMatrix(customAdjacency)
-    #     initState = State(self._staticQWAK.getDim())
-    #     initState.buildState([self._staticQWAK.getDim() // 2])
-    #     self._staticQWAK.setInitState(initState)
-    #     self._dynamicQWAK.setInitState(initState)
-    #     self._staticQWAK.runWalk(self._staticTime)
-    #     self._dynamicQWAK.setAdjacencyMatrix(customAdjacency)
-    #     self._dynamicQWAK.runWalk(self._staticTime)
+        # TODO: This dependency of the runMultWalk is causing trouble.
+        self._dynamicStateList = [[self._dynamicN//4]]
+        self._dynamicQWAK.setDim(self._dynamicN, graph=self._dynamicGraph, initStateList=self._dynamicStateList)
+        print(f"InitLen 5 {len(self._dynamicQWAK.getInitState().getStateVec())}")
 
     def setStaticCustomGraph(self, customAdjacency):
         self._staticGraph = nx.from_numpy_matrix(customAdjacency)
