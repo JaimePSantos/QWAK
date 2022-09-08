@@ -115,9 +115,11 @@ class QWAK:
             _description_
         """
         try:
+            print(f"InitLen 1 {len(self._initState.getStateVec())}")
             self._initState.buildState(
                 nodeList=initStateList, customStateList=customStateList
             )
+            print(f"InitLen 2 {len(self._initState.getStateVec())}")
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
@@ -153,6 +155,7 @@ class QWAK:
             self._timeList = timeList
         elif self._timeList is None:
             raise UndefinedTimeList(f"TimeList is {self._timeList}.")
+        print(f"InitLen 3 {len(self._initState.getStateVec())}")
         for time in self._timeList:
             self.runWalk(
                 time=time,
@@ -220,8 +223,9 @@ class QWAK:
         newGraph : nx.Graph
             New NetworkX graph.
         """
-        self._n = len(self._graph)
         self._graph = newGraph
+        self._n = len(self._graph)
+        self.setDim(self._n,graph=self._graph)
         self._operator = Operator(self._graph)
 
     def getGraph(self) -> nx.Graph:

@@ -5,13 +5,16 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
 ## Table of Contents:
 
-- [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 
-## Requirements
+## Installation
+
+Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
+
+#### Dependencies
 - Numpy
 - Scipy
 - Sympy
@@ -19,10 +22,6 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 - networkx
 - QuTip
 - eel
-
-## Installation
-
-Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
 
 Step-by-step installation instructions can be found in the documentation [installation](https://jaimepsantos.github.io/QWAK/installation.html) page.
 
@@ -65,4 +64,4 @@ them and test them. If a new feature is added, you will need to add docstrings t
 existing documentation accordingly. If your contribution is directly to the documentation, you will follow a similar procedure.
 
 Step-by-step instructions on how to setup all the required components for organized contribution can be found
-on the [contributing](https://jaimepsantos.github.io/QWAK/) documentation page.
+on the [contributing](https://jaimepsantos.github.io/QWAK/contributing.html) documentation page.

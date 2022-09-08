@@ -65,9 +65,30 @@ Making your changes
 
       git checkout -b <new_branch_name> upstream/main
 
+#. If this is the first time you're building the package:
+
+   .. code-block:: shell
+
+      python -m pip install --upgrade build
+      python -m build
+
+   This might not be needed, will test in the future and update the docs accordingly.
+
 #. Make your changes.
 
-#. Format your changed files with:
+#. Update your package to reflect the changes:
+
+   .. code-block:: shell
+
+      pip install . --no-cache-dir
+
+#. Ensure your changes does not break the existing code by running the following command inside the main project folder:
+
+   .. code-block:: shell
+
+      pytest -v tests/
+
+#. If all the tests are successfull, format your changed files with:
 
    .. code-block:: shell
 
@@ -79,14 +100,7 @@ Making your changes
 
       autopep8 --recursive --in-place --aggressive --aggressive --max-line-length 72 <path_to_folder>
 
-#. Ensure your changes does not break the existing code by running the following command inside the main project folder:
-
-   .. code-block:: shell
-
-      pytest -v tests/
-
-#. If all tests are successful, commit your changes:
-
+#. Commit your changes:
 
    .. code-block:: shell
 
