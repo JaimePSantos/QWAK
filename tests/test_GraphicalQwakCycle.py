@@ -234,7 +234,7 @@ class TestGraphicalQWAKCycle(object):
             n)), "GQwak graph should be isomorphic to a ladder graph"
         np.testing.assert_almost_equal(
             gQwak.getStaticProbVec(),
-            np.zeros(n),
+            np.zeros(2*n),
             err_msg="Probability distribution before running should be 0.",
         )
         probVec = gQwak.runWalk()

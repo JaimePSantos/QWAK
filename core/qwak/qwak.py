@@ -225,11 +225,7 @@ class QWAK:
         """
         self._graph = newGraph
         self._n = len(self._graph)
-        # self.setDim(self._n,graph=self._graph,initStateList=[self._n//2])
-        # self._initStateList = [self._n//2]
-        # self._initState = State(
-        #     self._n,
-        #     nodeList=self._initStateList)
+        self.setDim(self._n,graph=self._graph)
         self._operator = Operator(self._graph)
 
     def getGraph(self) -> nx.Graph:

@@ -50,8 +50,7 @@ class GraphicalQWAK:
 
     def runMultipleWalks(self):
         try:
-            # self._dynamicQWAK.resetWalk()
-            print(f"InitLen 4 {len(self._dynamicQWAK.getInitState().getStateVec())}")
+            self._dynamicQWAK.resetWalk()
             self._dynamicQWAK.runMultipleWalks(
                 timeList=self._dynamicTimeList,
                 initStateList=self._dynamicStateList[0])
@@ -81,16 +80,13 @@ class GraphicalQWAK:
 
     def setStaticGraph(self, newGraphStr):
         self._staticGraph = eval(newGraphStr + f"({self._staticN})")
+        self._staticN = len(self._staticGraph)
         self._staticQWAK.setGraph(self._staticGraph)
-
+  
     def setDynamicGraph(self, newGraphStr):
         self._dynamicGraph = eval(newGraphStr + f"({self._dynamicN})")
         self._dynamicN = len(self._dynamicGraph)
         self._dynamicQWAK.setGraph(self._dynamicGraph)
-        # TODO: This dependency of the runMultWalk is causing trouble.
-        self._dynamicStateList = [[self._dynamicN//4]]
-        self._dynamicQWAK.setDim(self._dynamicN, graph=self._dynamicGraph, initStateList=self._dynamicStateList)
-        print(f"InitLen 5 {len(self._dynamicQWAK.getInitState().getStateVec())}")
 
     def setStaticCustomGraph(self, customAdjacency):
         self._staticGraph = nx.from_numpy_matrix(customAdjacency)
