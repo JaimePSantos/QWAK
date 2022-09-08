@@ -250,7 +250,7 @@ document.getElementById("runGraphButton").addEventListener('click', async functi
 
 let setRunGraph = async () => {
     setDynamicGraph();
-    setDimButton();
+    // setDimButton();
     let myGraph = await getDynamicGraph();
     updateGraph(myGraph);
 }
