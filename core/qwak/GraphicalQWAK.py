@@ -80,25 +80,13 @@ class GraphicalQWAK:
 
     def setStaticGraph(self, newGraphStr):
         self._staticGraph = eval(newGraphStr + f"({self._staticN})")
+        self._staticN = len(self._staticGraph)
         self._staticQWAK.setGraph(self._staticGraph)
-
+  
     def setDynamicGraph(self, newGraphStr):
         self._dynamicGraph = eval(newGraphStr + f"({self._dynamicN})")
+        self._dynamicN = len(self._dynamicGraph)
         self._dynamicQWAK.setGraph(self._dynamicGraph)
-
-    # def customGraphWalk(self, customAdjacency):
-    #     # TODO: Running the custom graph set graph button throws an
-    #     # error if the field on the prob dist side is not with correct
-    #     # dimension. check out how to fix this.
-    #     # TODO: This function needs rework
-    #     self._staticQWAK.setAdjacencyMatrix(customAdjacency)
-    #     initState = State(self._staticQWAK.getDim())
-    #     initState.buildState([self._staticQWAK.getDim() // 2])
-    #     self._staticQWAK.setInitState(initState)
-    #     self._dynamicQWAK.setInitState(initState)
-    #     self._staticQWAK.runWalk(self._staticTime)
-    #     self._dynamicQWAK.setAdjacencyMatrix(customAdjacency)
-    #     self._dynamicQWAK.runWalk(self._staticTime)
 
     def setStaticCustomGraph(self, customAdjacency):
         self._staticGraph = nx.from_numpy_matrix(customAdjacency)
