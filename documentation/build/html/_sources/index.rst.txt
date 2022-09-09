@@ -13,11 +13,26 @@ walk without having prior coding knowledge. See the :doc:`installation <installa
 Gallery
 -------
 
-.. figure:: Images/StaticMultipleTime.png
+.. |staticMultipleTime| image:: ../../Images/StaticMultipleTime.png
+   :width: 43 %
 
-.. figure:: Images/DynamicProbDist.gif
+.. |dynamicSingleWalk| image:: ../../Images/DynamicProbDist.gif
+   :width: 50 %
 
+|staticMultipleTime| |dynamicSingleWalk|
 
+Funding
+-------
+
+This work is financed by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia, within project UIDB/50014/2020.
+
+.. |inescLogo| image:: ../../Images/inesctec.png
+   :width: 49 %
+
+.. |haslabLogo| image:: ../../Images/haslab.png
+   :width: 49 %
+
+|inescLogo| |haslabLogo|
 
 Contents
 --------

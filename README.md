@@ -10,6 +10,13 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 
+## Funding
+
+This work is financed by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia, within project UIDB/50014/2020.
+
+:-------------------------:|:-------------------------:
+![](Images/inesctec.png)  |  ![](Images/haslab.png)
+
 ## Installation
 
 Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
