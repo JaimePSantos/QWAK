@@ -1,8 +1,6 @@
 # QWAK
 Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
-
-
 ## Table of Contents:
 
 - [Installation](#installation)
@@ -18,6 +16,7 @@ This work is financed by National Funds through the Portuguese funding agency, F
  <img class="img" src="Images/inesctec.png" width=49% />
  <img class="img" src="Images/haslab.png" width=49% />
 </div>
+
 ## Installation
 
 Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
