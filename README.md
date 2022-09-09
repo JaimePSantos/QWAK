@@ -2,7 +2,7 @@
 Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
 ## Table of Contents:
-
+- [Funding](#funding)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
