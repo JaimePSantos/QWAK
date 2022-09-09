@@ -284,9 +284,9 @@
 <span class="sd">            NetworkX graph where the walk takes place. Also used</span>
 <span class="sd">            for defining the dimensions of the quantum walk.</span>
 <span class="sd">        time : float</span>
-<span class="sd">            _ Needs completion _</span>
+<span class="sd">            __ Needs completion __</span>
 <span class="sd">        timeList : list</span>
-<span class="sd">            _ Needs completion _</span>
+<span class="sd">            __ Needs completion __</span>
 <span class="sd">        initStateList : list[int], optional</span>
 <span class="sd">            List with chosen initial states for uniform superposition, by default None</span>
 <span class="sd">        customStateList : list[(int,complex)], optional</span>
@@ -345,9 +345,11 @@
 <span class="sd">            _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;InitLen 1 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">buildState</span><span class="p">(</span>
                 <span class="n">nodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span>
             <span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;InitLen 2 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">StateOutOfBounds</span> <span class="k">as</span> <span class="n">stOBErr</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">stOBErr</span>
         <span class="k">except</span> <span class="n">NonUnitaryState</span> <span class="k">as</span> <span class="n">nUErr</span><span class="p">:</span>
@@ -383,6 +385,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_timeList</span> <span class="o">=</span> <span class="n">timeList</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeList</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">UndefinedTimeList</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;TimeList is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_timeList</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;InitLen 3 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">time</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_timeList</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">runWalk</span><span class="p">(</span>
                 <span class="n">time</span><span class="o">=</span><span class="n">time</span><span class="p">,</span>
@@ -450,8 +453,13 @@
 <span class="sd">        newGraph : nx.Graph</span>
 <span class="sd">            New NetworkX graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">newGraph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span><span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="c1">#,initStateList=[self._n//2])</span>
+        <span class="c1"># self._initStateList = [self._n//2]</span>
+        <span class="c1"># self._initState = State(</span>
+        <span class="c1">#     self._n,</span>
+        <span class="c1">#     nodeList=self._initStateList)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getGraph"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getGraph">[docs]</a>    <span class="k">def</span> <span class="nf">getGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>

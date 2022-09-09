@@ -308,7 +308,7 @@ i if i+1 is prime and False otherwise.</p>
 <span class="sig-name descname"><span class="pre">getSquareFree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PerfectStateTransfer.html#getSquareFree"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.PerfectStateTransfer.getSquareFree" title="Permalink to this definition">#</a></dt>
 <dd><p>The function SquareFree gives a list of square-free number from 1 to n in a similar way that we found all primes. The
 algorithm get the list of primes from 1 to n, then it start a loop of integers from 2 to n, when i is prime the algorithm
-associates False to all multiples of i^2. It returns a list with True (False) in the entry i if i-1 is (not) square free.</p>
+associates False to all multiples of i². It returns a list with True (False) in the entry i if i-1 is (not) square free.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>n</strong> (<em>_type_</em>) – _description_</p>
@@ -326,7 +326,7 @@ associates False to all multiples of i^2. It returns a list with True (False) in
 <dt class="sig sig-object py" id="utils.PerfectStateTransfer.getEigenSupp">
 <span class="sig-name descname"><span class="pre">getEigenSupp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenvec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eigenval</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/PerfectStateTransfer.html#getEigenSupp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.PerfectStateTransfer.getEigenSupp" title="Permalink to this definition">#</a></dt>
 <dd><p>EigenSupp is responsible for getting the eigenvalue support of the vertice a. The eigenvalue support of the vertice a is
-all the eigenvalues such that Er a != 0, where a is vector with 1 in the a-th entry and zero in all others and Er is the
+all the eigenvalues such that Er|a&gt; != 0, where <a href="#id1"><span class="problematic" id="id2">|</span></a>a&gt; is vector with 1 in the a-th entry and zero in all others and Er is the
 projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,
 because we do not need to check for eigenvalues that are not in the eigenvalue support.</p>
 <dl class="field-list simple">

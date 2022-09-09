@@ -10,6 +10,14 @@ Additionally, a graphical user interface is provided as a user
 friendly alternative, where it is possible to study several different aspects of the quantum
 walk without having prior coding knowledge. See the :doc:`installation <installation>` page for more information.
 
+Gallery
+-------
+
+.. figure:: Images/StaticMultipleTime.png
+
+.. figure:: Images/DynamicProbDist.gif
+
+
 
 Contents
 --------

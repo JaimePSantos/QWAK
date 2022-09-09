@@ -327,7 +327,7 @@
 <div class="viewcode-block" id="getSquareFree"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getSquareFree">[docs]</a><span class="k">def</span> <span class="nf">getSquareFree</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The function SquareFree gives a list of square-free number from 1 to n in a similar way that we found all primes. The</span>
 <span class="sd">    algorithm get the list of primes from 1 to n, then it start a loop of integers from 2 to n, when i is prime the algorithm</span>
-<span class="sd">    associates False to all multiples of i^2. It returns a list with True (False) in the entry i if i-1 is (not) square free.</span>
+<span class="sd">    associates False to all multiples of i². It returns a list with True (False) in the entry i if i-1 is (not) square free.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -354,7 +354,7 @@
 
 <div class="viewcode-block" id="getEigenSupp"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getEigenSupp">[docs]</a><span class="k">def</span> <span class="nf">getEigenSupp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">eigenvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;EigenSupp is responsible for getting the eigenvalue support of the vertice a. The eigenvalue support of the vertice a is</span>
-<span class="sd">    all the eigenvalues such that Er a != 0, where a is vector with 1 in the a-th entry and zero in all others and Er is the</span>
+<span class="sd">    all the eigenvalues such that Er|a&gt; != 0, where |a&gt; is vector with 1 in the a-th entry and zero in all others and Er is the</span>
 <span class="sd">    projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,</span>
 <span class="sd">    because we do not need to check for eigenvalues that are not in the eigenvalue support.</span>
 

@@ -310,25 +310,18 @@
 
 <div class="viewcode-block" id="GraphicalQWAK.setStaticGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticGraph">[docs]</a>    <span class="k">def</span> <span class="nf">setStaticGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newGraphStr</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">newGraphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setGraph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">)</span></div>
+        <span class="c1"># self._staticStateList = [self._staticN//4]</span>
+        <span class="c1"># self._staticQWAK.setDim(self._staticN, graph=self._staticGraph, initStateList=self._staticStateList)</span>
 
 <div class="viewcode-block" id="GraphicalQWAK.setDynamicGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicGraph">[docs]</a>    <span class="k">def</span> <span class="nf">setDynamicGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newGraphStr</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">newGraphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">setGraph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">)</span></div>
-
-    <span class="c1"># def customGraphWalk(self, customAdjacency):</span>
-    <span class="c1">#     # TODO: Running the custom graph set graph button throws an</span>
-    <span class="c1">#     # error if the field on the prob dist side is not with correct</span>
-    <span class="c1">#     # dimension. check out how to fix this.</span>
-    <span class="c1">#     # TODO: This function needs rework</span>
-    <span class="c1">#     self._staticQWAK.setAdjacencyMatrix(customAdjacency)</span>
-    <span class="c1">#     initState = State(self._staticQWAK.getDim())</span>
-    <span class="c1">#     initState.buildState([self._staticQWAK.getDim() // 2])</span>
-    <span class="c1">#     self._staticQWAK.setInitState(initState)</span>
-    <span class="c1">#     self._dynamicQWAK.setInitState(initState)</span>
-    <span class="c1">#     self._staticQWAK.runWalk(self._staticTime)</span>
-    <span class="c1">#     self._dynamicQWAK.setAdjacencyMatrix(customAdjacency)</span>
-    <span class="c1">#     self._dynamicQWAK.runWalk(self._staticTime)</span>
+        <span class="c1"># TODO: This dependency of the runMultWalk is causing trouble.</span>
+        <span class="c1"># self._dynamicStateList = [[self._dynamicN//4]]</span>
+        <span class="c1"># self._dynamicQWAK.setDim(self._dynamicN, graph=self._dynamicGraph, initStateList=self._dynamicStateList)</span>
 
 <div class="viewcode-block" id="GraphicalQWAK.setStaticCustomGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticCustomGraph">[docs]</a>    <span class="k">def</span> <span class="nf">setStaticCustomGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customAdjacency</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_matrix</span><span class="p">(</span><span class="n">customAdjacency</span><span class="p">)</span>

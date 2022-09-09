@@ -13,6 +13,12 @@ walk without having prior coding knowledge. See the :doc:`installation <installa
 Gallery
 -------
 
+.. figure:: Images/StaticMultipleTime.png
+
+.. figure:: Images/DynamicProbDist.gif
+
+
+
 Contents
 --------
 .. toctree::
