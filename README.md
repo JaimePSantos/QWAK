@@ -20,6 +20,7 @@ This work is financed by National Funds through the Portuguese funding agency, F
 
 </div>
 
+
 ## Installation
 
 Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
