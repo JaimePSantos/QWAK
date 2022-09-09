@@ -14,8 +14,10 @@ Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
 This work is financed by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia, within project UIDB/50014/2020.
 
-:-------------------------:|:-------------------------:
-![](Images/inesctec.png)  |  ![](Images/haslab.png)
+<p float="left">
+  <img src="Images/inesctec.png" width="100" />
+  <img src="Images/haslab.png" width="100" /> 
+</p>
 
 ## Installation
 
