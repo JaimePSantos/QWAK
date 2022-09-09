@@ -1,14 +1,25 @@
 # QWAK
 Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.
 
-
-
 ## Table of Contents:
-
+- [Funding](#funding)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
+
+## Funding
+
+This work is financed by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia, within project UIDB/50014/2020.
+
+<div style="display: flex; flex-direction: row;vertical-align: center;justify-content: center">
+
+ <img align="center" class="img" src="Images/inesctec.png" width=49% />
+
+ <img align="center" class="img" src="Images/haslab.png" width=49% />
+
+</div>
+
 
 ## Installation
 
