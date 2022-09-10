@@ -1,24 +1,19 @@
 .input-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 100%;
-    gap: 1.5vw;
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 50%;
 }
 
 .input-fields {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    padding: 0px;
-    gap: 1.5vw;
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
 }
 
 .input-combo {
-    display: flex;
-    gap: 1vw;
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
     justify-content: center;
     align-items: center;
 }

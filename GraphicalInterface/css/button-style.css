@@ -29,11 +29,11 @@
 }
 
 .myButton.graph{
-        width: 100%;
+        width: 90%;
 }
 
 .myButton.probDist{
-        width: 100%;
+        width: 90%;
 }
 
 .myButton.input{
@@ -46,10 +46,9 @@
 
 .myButton.probDistInput{
         width: 100%;
-
 }
 
 .myButton.statInput{
-        width: 13vh;
-        font-size: 1.5vh;
+        width: 100%;
+
 }
