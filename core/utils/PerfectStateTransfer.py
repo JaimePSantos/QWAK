@@ -97,7 +97,7 @@ def sieveEratosthenes(n):
 def getSquareFree(n):
     """The function SquareFree gives a list of square-free number from 1 to n in a similar way that we found all primes. The
     algorithm get the list of primes from 1 to n, then it start a loop of integers from 2 to n, when i is prime the algorithm
-    associates False to all multiples of i². It returns a list with True (False) in the entry i if i-1 is (not) square free.
+    associates False to all multiples of i^2. It returns a list with True (False) in the entry i if i-1 is (not) square free.
 
     Parameters
     ----------
@@ -124,7 +124,7 @@ def getSquareFree(n):
 
 def getEigenSupp(a, eigenvec, eigenval):
     """EigenSupp is responsible for getting the eigenvalue support of the vertice a. The eigenvalue support of the vertice a is
-    all the eigenvalues such that Er|a> != 0, where |a> is vector with 1 in the a-th entry and zero in all others and Er is the
+    all the eigenvalues such that Er a != 0, where a is vector with 1 in the a-th entry and zero in all others and Er is the
     projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,
     because we do not need to check for eigenvalues that are not in the eigenvalue support.
 

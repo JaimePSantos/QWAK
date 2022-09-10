@@ -1,20 +1,43 @@
 QWAK - Quantum Walk Analysis Kit
 =================================
-:py:class:`.QWAK`  is a Python library for *simulating* `Quantum Random Walks <https://world.openfoodfacts.org/>`_.
 
-Check out the :doc:`usage` section for further information, including how to
-:doc:`install <installation>` the project.
+:py:class:`.QWAK` is an object-oriented Python package for the realization of
+continuous-time quantum walks. With this package you have the ability to perform both
+unitary pure quantum walks, as well as introduce classical effects with the :py:class:`.StochasticQWAK`
+quantum walk.
 
-.. note::
-   This project is under active development.
+Additionally, a graphical user interface is provided as a user
+friendly alternative, where it is possible to study several different aspects of the quantum
+walk without having prior coding knowledge. See the :doc:`installation <installation>` page for more information.
 
-.. toctree::
-   :maxdepth: -1
+Gallery
+-------
+
+.. |staticMultipleTime| image:: ../../Images/StaticMultipleTime.png
+   :width: 43 %
+
+.. |dynamicSingleWalk| image:: ../../Images/DynamicProbDist.gif
+   :width: 50 %
+
+|staticMultipleTime| |dynamicSingleWalk|
+
+Funding
+-------
+
+This work is financed by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia, within project UIDB/50014/2020.
+
+.. |inescLogo| image:: ../../Images/inesctec.png
+   :width: 49 %
+
+.. |haslabLogo| image:: ../../Images/haslab.png
+   :width: 49 %
+
+|inescLogo| |haslabLogo|
 
 Contents
 --------
 .. toctree::
-   :maxdepth:2
+   :maxdepth: 2
 
    installation
    usage
