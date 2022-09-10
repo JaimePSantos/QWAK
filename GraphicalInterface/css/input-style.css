@@ -44,17 +44,14 @@
 }
 
 .stat-list-combo .myStatInputBox{
-    width: 30vw;
-    height:7vh;
-    font-size:1.5vw;
+    width:100%;
     border: solid;
-    border-width: 0.1vh;;
+    border-width: 1px;
     /*border:solid red 1px;*/
 }
 
 .stat-list-combo .myStatText {
-    width:30vw;
-    height:7vh;
+    width:100%;
     /*border:solid red 1px;*/
 }
 
@@ -72,10 +69,7 @@
 }
 
 .stat-list-combo-input .myHeaderStatText {
-    display:flex;
-    flex-direction: column;
-    width:30vw;
-    height:7vh;
+    width:100%;
     /*border:solid red 1px;*/
     vertical-align: center;
     text-align: center;

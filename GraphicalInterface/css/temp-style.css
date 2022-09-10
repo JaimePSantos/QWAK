@@ -78,6 +78,8 @@
     grid-template-columns:100%;
     grid-template-rows: 10% 90%;
     gap:10px;
+    justify-items: center;
+    align-items: center;
 }
 
 .probDist-wrapper {
@@ -85,28 +87,20 @@
     grid-template-columns:100%;
     grid-template-rows: 10% 90%;
     gap:10px;
+    justify-items: center;
+    align-items: center;
 }
 
 .stats-wrapper {
-    display:flex;
-    flex-direction: column;
-    /*border: solid red 1px;*/
-    width: 70vw;
-    height:70vh;
-    /*padding:5px;*/
-    margin:0;
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 50% 50%;
 }
 
 .stat-list {
-    display: flex;
-    padding:5px;
-    width:100%;
-    height:100%;
-    flex-direction: column;
-    /*border:solid red 1px;*/
-    /*margin: 0 0 0em 0;*/
-    /*padding-left: 0em;*/
-    margin:0;
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 25% 25% 25% 25%;
 }
 
 .graph-container {
