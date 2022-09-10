@@ -32,15 +32,14 @@
 }
 
 .stat-list-combo {
-    display: flex;
-    justify-content: space-between;
-    align-content: center;
+    display: grid;
+    grid-template-columns:60% 40%;
+    grid-template-rows: 100%;
     color: var(--primary-white);
     font-weight: bolder;
-    padding:5px;
-    gap: 10vw;
     text-align: justify;
-    font-size:1.5vw;
+    justify-items: center;
+    align-items: center;
 }
 
 .stat-list-combo .myStatInputBox{
@@ -56,16 +55,14 @@
 }
 
 .stat-list-combo-input {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 50% 50%;
     color: var(--primary-white);
     font-weight: bolder;
     /*gap: 10px;*/
     align-items: center;
     justify-content: center;
-    margin-top: 3vh;
-    font-size:1.5vw;
-
 }
 
 .stat-list-combo-input .myHeaderStatText {
@@ -77,18 +74,17 @@
 }
 
 .stat-with-input {
-    display: flex;
-    justify-content: space-evenly;
-    align-content: center;
+    display: grid;
+    grid-template-columns:14% 14% 14% 14% 14% 14% 14%;
+    grid-template-rows: 100%;
+    justify-items: auto;
+    align-items: center;
     color: var(--primary-white);
     font-weight: bold;
 }
 
 .stat-with-input .myStatText {
-    display:flex;
-    flex-direction: column;
-    width:7vw;
-    height:7vh;
+    width:100%;
     /*border:solid red 1px;*/
     vertical-align: center;
     text-align: center;
@@ -96,9 +92,7 @@
 }
 
 .stat-with-input .myStatInputBox {
-    width: 13.5vw;
-    height:7vh;
-    font-size:1.5vw;
+    width:100%;
     border: solid;
     border-width: 3px;
     /*border:solid red 1px;*/
