@@ -29,28 +29,24 @@
 }
 
 .myButton.graph{
-        width: 40vw;
-        font-size: 1.5vh;
+        width: 100%;
 }
 
 .myButton.probDist{
-        width: 40vw;
-        font-size: 1.5vh;
+        width: 100%;
 }
 
 .myButton.input{
-        width: 20vh;
-        font-size: 1.5vh;
+        width: 100%;
 }
 
 .myButton.customGraphInput{
-        width: 20vh;
-        font-size: 1.5vh;
+        width: 100%;
 }
 
 .myButton.probDistInput{
-        width: 13vh;
-        font-size: 1.5vh;
+        width: 100%;
+
 }
 
 .myButton.statInput{

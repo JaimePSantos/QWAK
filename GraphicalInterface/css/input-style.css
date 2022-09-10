@@ -24,19 +24,16 @@
 }
 
 .input-combo .myGraphInputBox{
-    width: 15vw;
-    height:7vh;
+    width:100%;
     border: solid;
-    border-width: 0.1vh;
-    font-size: 1.5vw;
+    border-width: 1px;
+
 }
 
 .input-combo .myProbDistInputBox{
-    width: 10vw;
-    height:7vh;
+    width: 100%;
     border: solid;
-    border-width: 0.1vh;
-    font-size: 1.5vw;
+    border-width: 1px;
 }
 
 .stat-list-combo {

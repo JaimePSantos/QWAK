@@ -52,26 +52,24 @@
 <div id="wrapper">
     <!-- Main -->
     <section id="main" class="wrapper">
-        <div class="inner bla">
+        <div class="inner">
             <h1 class="major">Static CTQW</h1>
             <div class="graph-probDist-stat-wrapper">
                 <div class="graph-probdist-wrapper">
-                    <div class="myTab">
+                    <div class="graph-wrapper">
+                        <div class="myTab">
                         <button id="defaultOpen" class="tablinks">Graph Generator</button>
                         <button id="customGraphDisplay" class="tablinks">Custom Graph</button>
                     </div>
-                    <div></div>
-                    <div class="graph-wrapper">
                         <!--Tab links-->
                         <script type='module' src="javascript/static-tools.js"></script>
                         <!-- Tab content -->
                         <div id="GraphGenerator" class="tabcontent">
-                            <div class='grid-element'>
+<!--                            <div class='grid-element'>-->
                                 <div class='set-graph-combo'>
                                     <div id="cy" class="graph-display"></div>
                                     <button id="runGraphButton" class="myButton graph">Set Graph</button>
-                                </div>
-                                    <ul class='input-fields'>
+<!--                                    <ul class='input-fields'>-->
                                         <li class='input-combo'>
                                             <input type="text" name="dim" id="inputDim" class="myGraphInputBox"></input>
                                             <button id="setDimButton" class="myButton input">n</button>
@@ -80,15 +78,17 @@
                                             <input type="text" name="graph" id="inputGraph" class="myGraphInputBox"></input>
                                             <button id="setGraphButton" class="myButton input">G</button>
                                         </li>
-                                    </ul>
-                            </div>
+<!--                                    </ul>-->
+                                </div>
+
+<!--                            </div>-->
                         </div>
                         <div id="CustomGraph" class="tabcontent">
-                            <div class='grid-element'>
+<!--                            <div class='grid-element'>-->
                                 <div class='set-graph-combo'>
                                     <div id="cyCustom" class="graph-display"></div>
                                     <button id="graphCustomButton" class="myButton graph">Set Graph</button>
-                                </div>
+<!--                                </div>-->
                                 <div class='input-row'>
                                     <ul class='input-fields'>
                                         <li class='input-combo'>
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="probDist-wrapper">
-                        <div class='grid-element'>
+<!--                        <div class='grid-element'>-->
                             <div class ="set-probDist-combo">
                                 <div class="prob-dist-chart-container">
                                     <canvas id="staticProbDistChart" class="probDist-display"></canvas>
@@ -141,7 +141,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+<!--                        </div>-->
                     </div>
                 </div>
 
