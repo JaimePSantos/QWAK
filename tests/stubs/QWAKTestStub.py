@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 
-from qwak.qwak import QWAK, StochasticQWAK
+from qwak.qwak import QWAK
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
 
