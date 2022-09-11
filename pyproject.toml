@@ -27,7 +27,7 @@ dependencies = [
     "networkx",
     "qutip",
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.8"
 
 [project.optional-dependencies]
 dev = ["autopep8", "sphinx", "pytest"]
