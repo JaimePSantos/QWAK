@@ -16,9 +16,7 @@ authors = [{ name = "Jaime Santos", email = "jaimepereirasantos123@gmail.com" },
             { name = "Lorenzo Buffoni", email = "na@na.na" }]
 license = { file = "LICENSE" }
 classifiers = [
-    "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python",
-    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License (GPL)",
 ]
 keywords = ["quantum", "ctqw", "simulator"]
 dependencies = [
