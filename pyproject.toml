@@ -54,6 +54,7 @@ push = false
 [tool.bumpver.file_patterns]
 "pyproject.toml" = [
     'current_version = "{version}"',
+    'version = "{version}"'
 ]
-"core//qwak//__init__.py" = ["{version}"]
-"core//utils//__init__.py" = ["{version}"]
+"core/qwak/__init__.py" = ["{version}"]
+"core/utils/__init__.py" = ["{version}"]
