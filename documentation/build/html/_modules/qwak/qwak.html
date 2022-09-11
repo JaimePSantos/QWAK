@@ -342,11 +342,9 @@
 <span class="sd">            _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;InitLen 1 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">buildState</span><span class="p">(</span>
                 <span class="n">nodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">customStateList</span>
             <span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;InitLen 2 </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">())</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">StateOutOfBounds</span> <span class="k">as</span> <span class="n">stOBErr</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">stOBErr</span>
         <span class="k">except</span> <span class="n">NonUnitaryState</span> <span class="k">as</span> <span class="n">nUErr</span><span class="p">:</span>
@@ -400,8 +398,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDistList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_walkList</span> <span class="o">=</span> <span class="p">[]</span></div>
 
-<div class="viewcode-block" id="QWAK.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-               <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="QWAK.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+            <span class="n">graphStr</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">initStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Sets the current walk dimensions to a user defined one.</span>
 <span class="sd">        Also takes a graph string to be</span>
 <span class="sd">        evaluated and executed as a NetworkX graph generator.</span>
@@ -419,16 +421,18 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
         <span class="k">if</span> <span class="n">graphStr</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">graphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-            <span class="c1"># We need a reassignment here since certain graphs have different length than the number inputted.</span>
+            <span class="c1"># We need a reassignment here since certain graphs have</span>
+            <span class="c1"># different length than the number inputted.</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="k">elif</span> <span class="n">graph</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">MissingGraphInput</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You tried to set QWAK dim without providing a graph with updated dimensions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="n">MissingGraphInput</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;You tried to set QWAK dim without providing a graph with updated dimensions: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">,</span><span class="n">newNodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">,</span> <span class="n">newNodeList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probDist</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="n">newDim</span><span class="p">)</span></div>
 
@@ -452,7 +456,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">newGraph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span><span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">Operator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="QWAK.getGraph"><a class="viewcode-back" href="../../qwak.html#qwak.qwak.QWAK.getGraph">[docs]</a>    <span class="k">def</span> <span class="nf">getGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">:</span>
@@ -808,8 +812,6 @@
 <span class="sd">            _description_</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumWalk</span><span class="o">.</span><span class="n">transportEfficiency</span><span class="p">()</span></div></div>
-
-
 </pre></div>
         </article>
       </div>

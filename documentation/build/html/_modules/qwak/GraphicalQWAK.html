@@ -271,7 +271,7 @@
 <span class="sd">            _description_</span>
 <span class="sd">        dynamicTimeList : list</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span> <span class="o">=</span> <span class="n">staticN</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span> <span class="o">=</span> <span class="n">dynamicN</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span> <span class="o">=</span> <span class="n">staticGraph</span>
@@ -295,7 +295,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">resetWalk</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">runWalk</span><span class="p">(</span>
@@ -313,7 +313,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">resetWalk</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">runMultipleWalks</span><span class="p">(</span>
@@ -327,7 +327,7 @@
         <span class="k">except</span> <span class="p">(</span><span class="n">StateOutOfBounds</span><span class="p">,</span> <span class="n">UndefinedTimeList</span><span class="p">,</span> <span class="n">EmptyProbDistList</span><span class="p">)</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)]</span></div>
 
-<div class="viewcode-block" id="GraphicalQWAK.setStaticDim"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim">[docs]</a>    <span class="k">def</span> <span class="nf">setStaticDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">,</span> <span class="n">initStateList</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GraphicalQWAK.setStaticDim"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticDim">[docs]</a>    <span class="k">def</span> <span class="nf">setStaticDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">,</span> <span class="n">initStateList</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
 
 <span class="sd">        Parameters</span>
@@ -338,9 +338,12 @@
 <span class="sd">            _description_</span>
 <span class="sd">        initStateList : _type_, optional</span>
 <span class="sd">            _description_, by default None</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span> <span class="o">=</span> <span class="n">newDim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span><span class="p">,</span> <span class="n">graphStr</span><span class="o">=</span><span class="n">graphStr</span><span class="p">,</span> <span class="n">initStateList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span><span class="p">,</span>
+            <span class="n">graphStr</span><span class="o">=</span><span class="n">graphStr</span><span class="p">,</span>
+            <span class="n">initStateList</span><span class="o">=</span><span class="n">initStateList</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getGraph</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.setDynamicDim"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDynamicDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">):</span>
@@ -352,7 +355,7 @@
 <span class="sd">            _description_</span>
 <span class="sd">        graphStr : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span> <span class="o">=</span> <span class="n">newDim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span><span class="p">,</span> <span class="n">graphStr</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">getGraph</span><span class="p">()</span></div>
@@ -364,7 +367,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicDim"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicDim</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -374,7 +377,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.setStaticGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticGraph">[docs]</a>    <span class="k">def</span> <span class="nf">setStaticGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newGraphStr</span><span class="p">):</span>
@@ -384,11 +387,11 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newGraphStr : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">newGraphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setGraph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">)</span></div>
-  
+
 <div class="viewcode-block" id="GraphicalQWAK.setDynamicGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicGraph">[docs]</a>    <span class="k">def</span> <span class="nf">setDynamicGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newGraphStr</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
 
@@ -396,7 +399,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newGraphStr : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">newGraphStr</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">setGraph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">)</span></div>
@@ -408,12 +411,15 @@
 <span class="sd">        ----------</span>
 <span class="sd">        customAdjacency : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_matrix</span><span class="p">(</span><span class="n">customAdjacency</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setGraph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span><span class="o">//</span><span class="mi">2</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span><span class="p">,</span><span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">,</span><span class="n">initStateList</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_staticN</span><span class="p">,</span>
+            <span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">,</span>
+            <span class="n">initStateList</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.setDynamicCustomGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicCustomGraph">[docs]</a>    <span class="k">def</span> <span class="nf">setDynamicCustomGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customAdjacency</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
@@ -422,12 +428,15 @@
 <span class="sd">        ----------</span>
 <span class="sd">        customAdjacency : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_matrix</span><span class="p">(</span><span class="n">customAdjacency</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">setGraph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicStateList</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span> <span class="o">//</span> <span class="mi">2</span><span class="p">]]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span><span class="p">,</span> <span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">,</span> <span class="n">initStateList</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicStateList</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicN</span><span class="p">,</span>
+            <span class="n">graph</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">,</span>
+            <span class="n">initStateList</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicStateList</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraph">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;_summary_</span>
@@ -436,7 +445,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicGraph"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraph">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicGraph</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -446,7 +455,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticGraphToJson"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticGraphToJson">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticGraphToJson</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -456,7 +465,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">nx</span><span class="o">.</span><span class="n">cytoscape_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticGraph</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicGraphToJson"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicGraphToJson">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicGraphToJson</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -466,7 +475,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">nx</span><span class="o">.</span><span class="n">cytoscape_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dynamicGraph</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -476,7 +485,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getAdjacencyMatrix</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -486,7 +495,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">getAdjacencyMatrix</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.setStaticTime"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticTime">[docs]</a>    <span class="k">def</span> <span class="nf">setStaticTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newTime</span><span class="p">):</span>
@@ -496,7 +505,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newTime : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticTime</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">newTime</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">setTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticTime</span><span class="p">)</span></div>
 
@@ -507,7 +516,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticTime</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.setDynamicTime"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicTime">[docs]</a>    <span class="k">def</span> <span class="nf">setDynamicTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newTimeList</span><span class="p">):</span>
@@ -517,7 +526,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newTimeList : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parsedTime</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">float</span><span class="p">,</span> <span class="n">newTimeList</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicTimeList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
             <span class="n">parsedTime</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">parsedTime</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span>
@@ -531,7 +540,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicTimeList</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.setDynamicInitStateList"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicInitStateList">[docs]</a>    <span class="k">def</span> <span class="nf">setDynamicInitStateList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newInitStateList</span><span class="p">):</span>
@@ -541,7 +550,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        newInitStateList : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">parsedInitState</span> <span class="o">=</span> <span class="n">newInitStateList</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicStateList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">initState</span> <span class="ow">in</span> <span class="n">parsedInitState</span><span class="p">:</span>
@@ -555,7 +564,7 @@
 <span class="sd">        ----------</span>
 <span class="sd">        initStateStr : _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">initStateStr</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)))</span>
         <span class="n">newState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getDim</span><span class="p">())</span>
@@ -569,7 +578,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticStateList</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicInitStateList"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInitStateList">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicInitStateList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -579,7 +588,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicStateList</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -589,7 +598,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticProbDist</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicProbDistList"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbDistList">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicProbDistList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -599,7 +608,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getStaticProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">getStaticProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -609,7 +618,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticProbDist</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicProbVecList"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicProbVecList">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicProbVecList</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -619,7 +628,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">probVec</span><span class="p">:</span> <span class="n">probVec</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicQWAK</span><span class="o">.</span><span class="n">getProbVecList</span><span class="p">()))</span></div>
 
@@ -630,7 +639,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getMean</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicMean"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicMean">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicMean</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -640,7 +649,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">meanList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">probDist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span><span class="p">:</span>
             <span class="n">meanList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probDist</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
@@ -653,7 +662,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: This not used in the GUI.</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getSndMoment</span><span class="p">()</span></div>
 
@@ -664,7 +673,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># TODO: This not used in the GUI.</span>
         <span class="n">sndMomentList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">probDist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span><span class="p">:</span>
@@ -678,7 +687,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getStDev</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicStDev"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicStDev">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicStDev</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -688,7 +697,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stDevList</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">probDist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span><span class="p">:</span>
             <span class="n">stDevList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">probDist</span><span class="o">.</span><span class="n">stDev</span><span class="p">())</span>
@@ -708,7 +717,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getSurvivalProb</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">)]</span>
         <span class="k">except</span> <span class="n">MissingNodeInput</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
@@ -728,7 +737,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">survProbList</span> <span class="o">=</span> <span class="p">[]</span>
             <span class="k">for</span> <span class="n">probDist</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dynamicProbDistList</span><span class="p">:</span>
@@ -744,7 +753,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">getInversePartRatio</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="GraphicalQWAK.getDynamicInvPartRatio"><a class="viewcode-back" href="../../qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicInvPartRatio">[docs]</a>    <span class="k">def</span> <span class="nf">getDynamicInvPartRatio</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -774,7 +783,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        _type_</span>
 <span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>        
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[</span><span class="kc">False</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_staticQWAK</span><span class="o">.</span><span class="n">checkPST</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">))]</span>
         <span class="k">except</span> <span class="n">MissingNodeInput</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>

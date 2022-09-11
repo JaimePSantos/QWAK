@@ -112,11 +112,9 @@ class QWAK:
             _description_
         """
         try:
-            print(f"InitLen 1 {len(self._initState.getStateVec())}")
             self._initState.buildState(
                 nodeList=initStateList, customStateList=customStateList
             )
-            print(f"InitLen 2 {len(self._initState.getStateVec())}")
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
