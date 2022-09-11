@@ -234,12 +234,13 @@
 Here, we’ll give you step-by-step instructions on how to setup github for contributing to this project,
 how to format your code changes and how to generate updated documentation.</p>
 <p>A few extra packages are required when contributing to QWAK:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install autopep8 pytest
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install autopep8 pytest bumpver
 </pre></div>
 </div>
 <p><a class="reference external" href="https://pypi.org/project/autopep8/">Autopep8</a> formats code according to the PEP 8 style.
 <a class="reference external" href="https://docs.pytest.org/en/7.1.x/">Pytest</a> is responsible for unit testing the package to assure everything
-working correctly after a change.</p>
+working correctly after a change.
+<a class="reference external" href="https://github.com/mbarkhau/bumpver/">Bumpver</a> manages package versioning.</p>
 <section id="setting-up-the-repo-for-contributing">
 <h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
@@ -260,7 +261,12 @@ working correctly after a change.</p>
 </div>
 <p>This should be done somewhat regularly to ensure your fork is up-to-date with the most recent QWAK version.</p>
 </li>
-<li><p>Follow QWAK’s <a class="reference external" href="https://jaimepsantos.github.io/QWAK/installation.html">installation instructions</a> in case you haven’t installed the package yet.</p></li>
+<li><p>Follow QWAK’s <a class="reference external" href="https://jaimepsantos.github.io/QWAK/installation.html">installation instructions</a> in case you haven’t installed the package yet.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -e .
+</pre></div>
+</div>
+<p>This should be used to install your package in editable mode.</p>
+</li>
 </ol>
 </section>
 <section id="making-your-changes">
@@ -285,11 +291,6 @@ python -m build
 <p>This might not be needed, will test in the future and update the docs accordingly.</p>
 </li>
 <li><p>Make your changes.</p></li>
-<li><p>Update your package to reflect the changes:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install . --no-cache-dir
-</pre></div>
-</div>
-</li>
 <li><p>Ensure your changes does not break the existing code by running the following command inside the main project folder:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pytest -v tests/
 </pre></div>
@@ -301,6 +302,11 @@ python -m build
 </div>
 <p>Or, alternatively an entire folder with:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --recursive --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_folder&gt;
+</pre></div>
+</div>
+</li>
+<li><p>In case a version bump is required:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bumpver update --patch
 </pre></div>
 </div>
 </li>
