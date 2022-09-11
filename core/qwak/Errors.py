@@ -130,6 +130,7 @@ class MissingNodeInput(Error):
         """
         super().__init__("Input nodes required: ", details)
 
+
 class MissingGraphInput(Error):
     """_summary_
 

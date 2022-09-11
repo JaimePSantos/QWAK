@@ -51,6 +51,12 @@ And then install the package via:
 
   pip install .
 
+.. note:: If you're installing the package for development purposes run
+
+            pip install -e .
+
+          This allows for code changes that do not require re-installation of the package.
+
 .. _venv-installation:
 
 Installing QWAK locally with Venv

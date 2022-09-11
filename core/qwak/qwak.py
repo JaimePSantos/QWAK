@@ -11,14 +11,11 @@ from qwak.Errors import (
     MissingGraphInput,
 )
 from qwak.State import State
-from qwak.Operator import Operator, StochasticOperator
-from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
+from qwak.Operator import Operator
+from qwak.QuantumWalk import QuantumWalk
 from qwak.ProbabilityDistribution import (
     ProbabilityDistribution,
-    StochasticProbabilityDistribution,
 )
-
-from qutip import Qobj, basis, mesolve, Options
 
 
 class QWAK:
@@ -115,11 +112,9 @@ class QWAK:
             _description_
         """
         try:
-            print(f"InitLen 1 {len(self._initState.getStateVec())}")
             self._initState.buildState(
                 nodeList=initStateList, customStateList=customStateList
             )
-            print(f"InitLen 2 {len(self._initState.getStateVec())}")
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
@@ -173,8 +168,12 @@ class QWAK:
         self._probDistList = []
         self._walkList = []
 
-    def setDim(self, newDim: int, graphStr: str=None, graph: nx.Graph = None,
-               initStateList: list = None) -> None:
+    def setDim(
+            self,
+            newDim: int,
+            graphStr: str = None,
+            graph: nx.Graph = None,
+            initStateList: list = None) -> None:
         """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
@@ -192,16 +191,18 @@ class QWAK:
         self._n = newDim
         if graphStr is not None:
             self._graph = eval(graphStr + f"({self._n})")
-            # We need a reassignment here since certain graphs have different length than the number inputted.
+            # We need a reassignment here since certain graphs have
+            # different length than the number inputted.
             self._n = len(self._graph)
         elif graph is not None:
             self._graph = graph
             self._n = len(self._graph)
         else:
-            raise MissingGraphInput(f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
+            raise MissingGraphInput(
+                f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
 
-        self._initState.setDim(newDim,newNodeList=initStateList)
-        self._operator.setDim(newDim,self._graph)
+        self._initState.setDim(newDim, newNodeList=initStateList)
+        self._operator.setDim(newDim, self._graph)
         self._quantumWalk.setDim(newDim)
         self._probDist.setDim(newDim)
 
@@ -225,7 +226,7 @@ class QWAK:
         """
         self._graph = newGraph
         self._n = len(self._graph)
-        self.setDim(self._n,graph=self._graph)
+        self.setDim(self._n, graph=self._graph)
         self._operator = Operator(self._graph)
 
     def getGraph(self) -> nx.Graph:
@@ -581,168 +582,3 @@ class QWAK:
             _description_
         """
         return self._quantumWalk.transportEfficiency()
-
-
-class StochasticQWAK:
-    """_summary_"""
-
-    def __init__(
-        self,
-        graph: nx.Graph,
-        initStateList=None,
-        customStateList=None,
-        noiseParam=None,
-        sinkNode=None,
-        sinkRate=None,
-    ) -> None:
-        """_summary_
-
-        Parameters
-        ----------
-        graph : nx.Graph
-            _description_
-        initStateList : _type_, optional
-            _description_, by default None
-        customStateList : _type_, optional
-            _description_, by default None
-        noiseParam : _type_, optional
-            _description_, by default None
-        sinkNode : _type_, optional
-            _description_, by default None
-        sinkRate : _type_, optional
-            _description_, by default None
-        """
-        self._graph = graph
-        self._n = len(self._graph)
-        self._operator = StochasticOperator(
-            self._graph,
-            noiseParam=noiseParam,
-            sinkNode=sinkNode,
-            sinkRate=sinkRate,
-        )
-        self._initState = State(
-            self._n,
-            nodeList=initStateList,
-            customStateList=customStateList)
-        self._quantumWalk = StochasticQuantumWalk(
-            self._initState, self._operator)
-        self._probDist = StochasticProbabilityDistribution(
-            self._quantumWalk)
-
-    def runWalk(
-        self,
-        time: float = 0,
-        initStateList: list = None,
-        customStateList=None,
-        noiseParam=None,
-        sinkNode=None,
-        sinkRate=None,
-        observables=[],
-        opts=Options(store_states=True, store_final_state=True),
-    ) -> None:
-        """_summary_
-
-        Parameters
-        ----------
-        time : float, optional
-            _description_, by default 0
-        initStateList : list, optional
-            _description_, by default None
-        customStateList : _type_, optional
-            _description_, by default None
-        noiseParam : _type_, optional
-            _description_, by default None
-        sinkNode : _type_, optional
-            _description_, by default None
-        sinkRate : _type_, optional
-            _description_, by default None
-        observables : list, optional
-            _description_, by default []
-        opts : _type_, optional
-            _description_, by default Options(store_states=True, store_final_state=True)
-
-        Raises
-        ------
-        stOBErr
-            _description_
-        nUErr
-            _description_
-        """
-        # TODO: Move the constructors to the constructor method.
-        try:
-            self._initState.buildState(
-                nodeList=initStateList, customStateList=customStateList
-            )
-        except StateOutOfBounds as stOBErr:
-            raise stOBErr
-        except NonUnitaryState as nUErr:
-            raise nUErr
-        self._operator.buildStochasticOperator(
-            noiseParam=noiseParam, sinkNode=sinkNode, sinkRate=sinkRate
-        )
-        self._quantumWalk = StochasticQuantumWalk(
-            self._initState, self._operator)
-        self._quantumWalk.buildWalk(time, observables, opts)
-        self._probDist = StochasticProbabilityDistribution(
-            self._quantumWalk)
-        self._probDist.buildProbDist()
-
-    def setProbDist(self, newProbDist: object) -> None:
-        """_summary_
-
-        Parameters
-        ----------
-        newProbDist : object
-            _description_
-        """
-        self._probDist = newProbDist
-
-    def getProbDist(self) -> ProbabilityDistribution:
-        """_summary_
-
-        Returns
-        -------
-        ProbabilityDistribution
-            _description_
-        """
-        return self._probDist
-
-    def getProbVec(self) -> ProbabilityDistribution:
-        """_summary_
-
-        Returns
-        -------
-        ProbabilityDistribution
-            _description_
-        """
-        return self._probDist.getProbVec()
-
-    def getQuantumHamiltonian(self):
-        """_summary_
-
-        Returns
-        -------
-        _type_
-            _description_
-        """
-        return self._operator.getQuantumHamiltonian()
-
-    def getClassicalHamiltonian(self):
-        """_summary_
-
-        Returns
-        -------
-        _type_
-            _description_
-        """
-        return self._operator.getClassicalHamiltonian()
-
-    def getLaplacian(self):
-        """_summary_
-
-        Returns
-        -------
-        _type_
-            _description_
-        """
-        return self._operator.getLaplacian()

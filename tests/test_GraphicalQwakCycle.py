@@ -144,7 +144,10 @@ class TestGraphicalQWAKCycle(object):
         initStateList = [newDim // 2, newDim // 2 + 1]
         gQwak = GraphicalQWAKTestStub()
         assert gQwak.getStaticDim() == 100, "Dimension should be 100."
-        gQwak.setStaticDim(newDim, graphStr = graphStr,initStateList=initStateList)
+        gQwak.setStaticDim(
+            newDim,
+            graphStr=graphStr,
+            initStateList=initStateList)
         assert gQwak.getStaticDim() == 1000, "Dimension should be 1000."
         gQwak.setStaticInitState(
             str(newDim // 2) + ',' + str(newDim // 2 + 1))
@@ -234,7 +237,7 @@ class TestGraphicalQWAKCycle(object):
             n)), "GQwak graph should be isomorphic to a ladder graph"
         np.testing.assert_almost_equal(
             gQwak.getStaticProbVec(),
-            np.zeros(2*n),
+            np.zeros(2 * n),
             err_msg="Probability distribution before running should be 0.",
         )
         probVec = gQwak.runWalk()

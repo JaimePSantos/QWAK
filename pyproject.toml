@@ -4,3 +4,55 @@ requires = [
     "wheel",
 ]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "qwak-sim"
+version = "2022.1004-alpha"
+description = "Simulate Continuous-Time Quantum Walks"
+readme = "README.md"
+authors = [{ name = "Jaime Santos", email = "jaimepereirasantos123@gmail.com" },
+            { name = "Bruno Chagas", email = "na@na.na" },
+            { name = "Rodrigo Chaves", email = "na@na.na" },
+            { name = "Lorenzo Buffoni", email = "na@na.na" }]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+]
+keywords = ["quantum", "ctqw", "simulator"]
+dependencies = [
+    "numpy",
+    "scipy",
+    "sympy",
+    "matplotlib",
+    "networkx",
+    "qutip",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = ["autopep8", "sphinx", "pytest"]
+
+[project.urls]
+Homepage = "https://github.com/JaimePSantos/QWAK"
+documentation = "https://jaimepsantos.github.io/QWAK/"
+
+[tool.setuptools.packages.find]
+where = ["core"]
+include = ["qwak","utils"]  # alternatively: `exclude = ["additional*"]`
+namespaces = false
+
+[tool.bumpver]
+current_version = "2022.1004-alpha"
+version_pattern = "YYYY.BUILD[-TAG]"
+commit_message = "bump version {old_version} -> {new_version}"
+commit = true
+tag = true
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"'
+]
+"core/qwak/__init__.py" = ["{version}"]
+"core/utils/__init__.py" = ["{version}"]

@@ -1,5 +1,5 @@
-Modules
-=======
+qwak
+====
 
 .. toctree::
    :maxdepth: 4

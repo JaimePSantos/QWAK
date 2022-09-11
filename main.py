@@ -14,13 +14,10 @@ if __name__ == "__main__":
     graph = nx.cycle_graph(staticN)
     timeList = [0, t]
     initStateList = [[staticN // 2, (staticN // 2) + 1]]
-    nx.draw(graph)
+    qwak = QWAK(graph,initState)
+    qwak.runWalk(t)
+    plt.plot(qwak.getProbVec())
     plt.show()
-    # qwak = QWAK(graph,initState)
-    # qwak.setDim(150,graphStr='nx.cycle_graph',initStateList=initState)
-    # qwak.runWalk(t)
-    # plt.plot(qwak.getProbVec())
-    # plt.show()
     #
     # gQwak = GraphicalQWAK(
     #     staticN,

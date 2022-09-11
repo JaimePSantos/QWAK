@@ -52,6 +52,38 @@ qwak.State module
    :undoc-members:
    :show-inheritance:
 
+qwak.StochasticOperator module
+------------------------------
+
+.. automodule:: qwak.StochasticOperator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qwak.StochasticProbabilityDistribution module
+---------------------------------------------
+
+.. automodule:: qwak.StochasticProbabilityDistribution
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qwak.StochasticQuantumWalk module
+---------------------------------
+
+.. automodule:: qwak.StochasticQuantumWalk
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+qwak.StochasticQwak module
+--------------------------
+
+.. automodule:: qwak.StochasticQwak
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 qwak.qwak module
 ----------------
 
