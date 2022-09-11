@@ -26,6 +26,7 @@ build/*
 /*/__pycache__/
 __pycache__/
 qwak.egg-info
+qwak_sim.egg-info
 venv
 activate
 qwakEnv/
