@@ -8,6 +8,7 @@ from qwak.StochasticOperator import StochasticOperator
 from qwak.StochasticProbabilityDistribution import StochasticProbabilityDistribution
 from qwak.StochasticQuantumWalk import StochasticQuantumWalk
 
+
 class StochasticQWAK:
     """_summary_"""
 

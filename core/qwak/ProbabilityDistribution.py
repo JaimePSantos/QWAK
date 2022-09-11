@@ -75,7 +75,7 @@ class ProbabilityDistribution:
         """
         return self._state
 
-    def setDim(self,newDim):
+    def setDim(self, newDim):
         self._n = newDim
         self._probVec = np.zeros((self._n, 1))
 

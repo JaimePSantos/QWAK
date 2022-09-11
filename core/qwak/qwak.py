@@ -170,8 +170,12 @@ class QWAK:
         self._probDistList = []
         self._walkList = []
 
-    def setDim(self, newDim: int, graphStr: str=None, graph: nx.Graph = None,
-               initStateList: list = None) -> None:
+    def setDim(
+            self,
+            newDim: int,
+            graphStr: str = None,
+            graph: nx.Graph = None,
+            initStateList: list = None) -> None:
         """Sets the current walk dimensions to a user defined one.
         Also takes a graph string to be
         evaluated and executed as a NetworkX graph generator.
@@ -189,16 +193,18 @@ class QWAK:
         self._n = newDim
         if graphStr is not None:
             self._graph = eval(graphStr + f"({self._n})")
-            # We need a reassignment here since certain graphs have different length than the number inputted.
+            # We need a reassignment here since certain graphs have
+            # different length than the number inputted.
             self._n = len(self._graph)
         elif graph is not None:
             self._graph = graph
             self._n = len(self._graph)
         else:
-            raise MissingGraphInput(f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
+            raise MissingGraphInput(
+                f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
 
-        self._initState.setDim(newDim,newNodeList=initStateList)
-        self._operator.setDim(newDim,self._graph)
+        self._initState.setDim(newDim, newNodeList=initStateList)
+        self._operator.setDim(newDim, self._graph)
         self._quantumWalk.setDim(newDim)
         self._probDist.setDim(newDim)
 
@@ -222,7 +228,7 @@ class QWAK:
         """
         self._graph = newGraph
         self._n = len(self._graph)
-        self.setDim(self._n,graph=self._graph)
+        self.setDim(self._n, graph=self._graph)
         self._operator = Operator(self._graph)
 
     def getGraph(self) -> nx.Graph:
@@ -578,5 +584,3 @@ class QWAK:
             _description_
         """
         return self._quantumWalk.transportEfficiency()
-
-

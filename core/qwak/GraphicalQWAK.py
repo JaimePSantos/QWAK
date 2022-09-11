@@ -41,7 +41,7 @@ class GraphicalQWAK:
             _description_
         dynamicTimeList : list
             _description_
-        """        
+        """
         self._staticN = staticN
         self._dynamicN = dynamicN
         self._staticGraph = staticGraph
@@ -65,7 +65,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         try:
             self._staticQWAK.resetWalk()
             self._staticQWAK.runWalk(
@@ -83,7 +83,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         try:
             self._dynamicQWAK.resetWalk()
             self._dynamicQWAK.runMultipleWalks(
@@ -97,7 +97,7 @@ class GraphicalQWAK:
         except (StateOutOfBounds, UndefinedTimeList, EmptyProbDistList) as err:
             return [True, str(err)]
 
-    def setStaticDim(self, newDim, graphStr, initStateList = None):
+    def setStaticDim(self, newDim, graphStr, initStateList=None):
         """_summary_
 
         Parameters
@@ -108,9 +108,12 @@ class GraphicalQWAK:
             _description_
         initStateList : _type_, optional
             _description_, by default None
-        """        
+        """
         self._staticN = newDim
-        self._staticQWAK.setDim(self._staticN, graphStr=graphStr, initStateList=initStateList)
+        self._staticQWAK.setDim(
+            self._staticN,
+            graphStr=graphStr,
+            initStateList=initStateList)
         self._staticGraph = self._staticQWAK.getGraph()
 
     def setDynamicDim(self, newDim, graphStr):
@@ -122,7 +125,7 @@ class GraphicalQWAK:
             _description_
         graphStr : _type_
             _description_
-        """        
+        """
         self._dynamicN = newDim
         self._dynamicQWAK.setDim(self._dynamicN, graphStr)
         self._dynamicGraph = self._dynamicQWAK.getGraph()
@@ -134,7 +137,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticN
 
     def getDynamicDim(self):
@@ -144,7 +147,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._dynamicN
 
     def setStaticGraph(self, newGraphStr):
@@ -154,11 +157,11 @@ class GraphicalQWAK:
         ----------
         newGraphStr : _type_
             _description_
-        """        
+        """
         self._staticGraph = eval(newGraphStr + f"({self._staticN})")
         self._staticN = len(self._staticGraph)
         self._staticQWAK.setGraph(self._staticGraph)
-  
+
     def setDynamicGraph(self, newGraphStr):
         """_summary_
 
@@ -166,7 +169,7 @@ class GraphicalQWAK:
         ----------
         newGraphStr : _type_
             _description_
-        """        
+        """
         self._dynamicGraph = eval(newGraphStr + f"({self._dynamicN})")
         self._dynamicN = len(self._dynamicGraph)
         self._dynamicQWAK.setGraph(self._dynamicGraph)
@@ -178,12 +181,15 @@ class GraphicalQWAK:
         ----------
         customAdjacency : _type_
             _description_
-        """        
+        """
         self._staticGraph = nx.from_numpy_matrix(customAdjacency)
         self._staticQWAK.setGraph(self._staticGraph)
         self._staticN = len(self._staticGraph)
-        self._staticStateList = [self._staticN//2]
-        self._staticQWAK.setDim(self._staticN,graph=self._staticGraph,initStateList=self._staticStateList)
+        self._staticStateList = [self._staticN // 2]
+        self._staticQWAK.setDim(
+            self._staticN,
+            graph=self._staticGraph,
+            initStateList=self._staticStateList)
 
     def setDynamicCustomGraph(self, customAdjacency):
         """_summary_
@@ -192,12 +198,15 @@ class GraphicalQWAK:
         ----------
         customAdjacency : _type_
             _description_
-        """        
+        """
         self._dynamicGraph = nx.from_numpy_matrix(customAdjacency)
         self._dynamicQWAK.setGraph(self._dynamicGraph)
         self._dynamicN = len(self._dynamicGraph)
         self._dynamicStateList = [[self._dynamicN // 2]]
-        self._dynamicQWAK.setDim(self._dynamicN, graph=self._dynamicGraph, initStateList=self._dynamicStateList)
+        self._dynamicQWAK.setDim(
+            self._dynamicN,
+            graph=self._dynamicGraph,
+            initStateList=self._dynamicStateList)
 
     def getStaticGraph(self):
         """_summary_
@@ -206,7 +215,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticGraph
 
     def getDynamicGraph(self):
@@ -216,7 +225,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._dynamicGraph
 
     def getStaticGraphToJson(self):
@@ -226,7 +235,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return nx.cytoscape_data(self._staticGraph)
 
     def getDynamicGraphToJson(self):
@@ -236,7 +245,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return nx.cytoscape_data(self._dynamicGraph)
 
     def getStaticAdjacencyMatrix(self):
@@ -246,7 +255,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticQWAK.getAdjacencyMatrix()
 
     def getDynamicAdjacencyMatrix(self):
@@ -256,7 +265,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._dynamicQWAK.getAdjacencyMatrix()
 
     def setStaticTime(self, newTime):
@@ -266,7 +275,7 @@ class GraphicalQWAK:
         ----------
         newTime : _type_
             _description_
-        """        
+        """
         self._staticTime = eval(newTime)
         self._staticQWAK.setTime(self._staticTime)
 
@@ -277,7 +286,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticTime
 
     def setDynamicTime(self, newTimeList):
@@ -287,7 +296,7 @@ class GraphicalQWAK:
         ----------
         newTimeList : _type_
             _description_
-        """        
+        """
         parsedTime = list(map(float, newTimeList.split(",")))
         self._dynamicTimeList = np.linspace(
             parsedTime[0], parsedTime[1], int(
@@ -301,7 +310,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._dynamicTimeList
 
     def setDynamicInitStateList(self, newInitStateList):
@@ -311,7 +320,7 @@ class GraphicalQWAK:
         ----------
         newInitStateList : _type_
             _description_
-        """        
+        """
         parsedInitState = newInitStateList.split(";")
         self._dynamicStateList = []
         for initState in parsedInitState:
@@ -325,7 +334,7 @@ class GraphicalQWAK:
         ----------
         initStateStr : _type_
             _description_
-        """        
+        """
         self._staticStateList = []
         self._staticStateList = list(map(int, initStateStr.split(",")))
         newState = State(self._staticQWAK.getDim())
@@ -339,7 +348,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticStateList
 
     def getDynamicInitStateList(self):
@@ -349,7 +358,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._dynamicStateList
 
     def getStaticProbDist(self):
@@ -359,7 +368,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticProbDist
 
     def getDynamicProbDistList(self):
@@ -369,7 +378,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._dynamicProbDistList
 
     def getStaticProbVec(self):
@@ -379,7 +388,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticProbDist.getProbVec()
 
     def getDynamicProbVecList(self):
@@ -389,7 +398,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return list(map(lambda probVec: probVec.tolist(),
                         self._dynamicQWAK.getProbVecList()))
 
@@ -400,7 +409,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticQWAK.getMean()
 
     def getDynamicMean(self):
@@ -410,7 +419,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         meanList = []
         for probDist in self._dynamicProbDistList:
             meanList.append(probDist.mean())
@@ -423,7 +432,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         # TODO: This not used in the GUI.
         return self._staticQWAK.getSndMoment()
 
@@ -434,7 +443,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         # TODO: This not used in the GUI.
         sndMomentList = []
         for probDist in self._dynamicProbDistList:
@@ -448,7 +457,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticQWAK.getStDev()
 
     def getDynamicStDev(self):
@@ -458,7 +467,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         stDevList = []
         for probDist in self._dynamicProbDistList:
             stDevList.append(probDist.stDev())
@@ -478,7 +487,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         try:
             return [False, self._staticQWAK.getSurvivalProb(k0, k1)]
         except MissingNodeInput as err:
@@ -498,7 +507,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         try:
             survProbList = []
             for probDist in self._dynamicProbDistList:
@@ -514,7 +523,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         return self._staticQWAK.getInversePartRatio()
 
     def getDynamicInvPartRatio(self):
@@ -544,7 +553,7 @@ class GraphicalQWAK:
         -------
         _type_
             _description_
-        """        
+        """
         try:
             return [False, str(self._staticQWAK.checkPST(nodeA, nodeB))]
         except MissingNodeInput as err:

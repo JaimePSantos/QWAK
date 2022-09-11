@@ -221,5 +221,3 @@ class QuantumWalk:
                f"Init State:\n\t {self._initState}\n" \
                f"Operator:\n\t{self._operator}\n"\
                f"Final State:\n\t{self._finalState}"
-
-

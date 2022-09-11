@@ -36,108 +36,134 @@ gQwak = GraphicalQWAK(
 
 resultRounding = 4
 
+
 @eel.expose
 def runWalk():
     return gQwak.runWalk()
+
 
 @eel.expose
 def runMultipleWalks():
     return gQwak.runMultipleWalks()
 
+
 @eel.expose
 def setStaticDim(newDim, graphStr):
     gQwak.setStaticDim(newDim, graphStr)
+
 
 @eel.expose
 def setDynamicDim(newDim, graphStr):
     gQwak.setDynamicDim(newDim, graphStr)
 
+
 @eel.expose
 def getDim():
     return gQwak.getDim()
+
 
 @eel.expose
 def getStaticDim():
     return gQwak.getStaticDim()
 
+
 @eel.expose
 def getDynamicDim():
     return gQwak.getDynamicDim()
+
 
 @eel.expose
 def setStaticGraph(newGraph):
     gQwak.setStaticGraph(newGraph)
 
+
 @eel.expose
 def setDynamicGraph(newGraph):
     gQwak.setDynamicGraph(newGraph)
+
 
 @eel.expose
 def getStaticGraph():
     return gQwak.getStaticGraph()
 
+
 @eel.expose
 def getDynamicGraph():
     return gQwak.getDynamicGraph()
+
 
 @eel.expose
 def getStaticGraphToJson():
     return gQwak.getStaticGraphToJson()
 
+
 @eel.expose
 def getDynamicGraphToJson():
     return gQwak.getDynamicGraphToJson()
+
 
 @eel.expose
 def setTime(newTime):
     # TODO: Change name of function here and in JS
     gQwak.setStaticTime(newTime)
 
+
 @eel.expose
 def getTime():
     # TODO: Change name of function here and in JS
     return gQwak.getStaticTime()
+
 
 @eel.expose
 def setDynamicTime(newTime):
     gQwak.setDynamicTime(newTime)
     pass
 
+
 @eel.expose
 def getDynamicTime():
     return gQwak.getDynamicTime()
+
 
 @eel.expose
 def setInitState(initStateStr):
     gQwak.setStaticInitState(initStateStr)
 
+
 @eel.expose
 def setInitStateList(newInitStateList):
     gQwak.setDynamicInitStateList(newInitStateList)
+
 
 @eel.expose
 def getInitState():
     return gQwak.getStaticInitState()
 
+
 @eel.expose
 def getStaticMean():
     return round(gQwak.getStaticMean(), resultRounding)
+
 
 @eel.expose
 def getDynMean():
     return gQwak.getDynamicMean()
 
+
 @eel.expose
 def getStaticSndMoment():
     return round(gQwak.getStaticSndMoment(), resultRounding)
+
 
 @eel.expose
 def getStaticStDev():
     return round(gQwak.getStaticStDev(), resultRounding)
 
+
 @eel.expose
 def getDynStDev():
     return gQwak.getDynamicStDev()
+
 
 @eel.expose
 def getStaticSurvivalProb(k0, k1):
@@ -145,6 +171,7 @@ def getStaticSurvivalProb(k0, k1):
     if not survProb[0]:
         survProb[1] = round(survProb[1], resultRounding)
     return survProb
+
 
 @eel.expose
 def getDynSurvivalProb(k0, k1):
@@ -154,13 +181,16 @@ def getDynSurvivalProb(k0, k1):
             survProb, resultRounding), survProbList[1]))
     return survProbList
 
+
 @eel.expose
 def getInversePartRatio():
     return round(gQwak.getStaticInversePartRatio(), resultRounding)
 
+
 @eel.expose
 def getDynInvPartRatio():
     return gQwak.getDynamicInvPartRatio()
+
 
 @eel.expose
 def checkPST(nodeA, nodeB):
@@ -172,15 +202,18 @@ def checkPST(nodeA, nodeB):
 #     adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
 #     gQwak.customGraphWalk(adjM)
 
+
 @eel.expose
 def setStaticCustomGraph():
     adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
     gQwak.setStaticCustomGraph(adjM)
 
+
 @eel.expose
 def setDynamicCustomGraph():
     adjM = np.matrix(eel.sendAdjacencyMatrix()()["data"])
     gQwak.setDynamicCustomGraph(adjM)
+
 
 eel.start(
     "index.html",

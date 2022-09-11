@@ -126,7 +126,7 @@ class Operator:
         """Resets Operator object."""
         self._operator = np.zeros((self._n, self._n))
 
-    def setDim(self, newDim: int,graph) -> None:
+    def setDim(self, newDim: int, graph) -> None:
         """Sets the current Operator objects dimension to a user defined one.
 
         Parameters
@@ -326,5 +326,3 @@ class Operator:
     #         ef += np.absolute(np.matmul(eigenVec,initState))**2
     #         print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
     #     return ef
-
-
