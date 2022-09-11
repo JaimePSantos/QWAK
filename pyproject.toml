@@ -55,5 +55,5 @@ push = false
 "pyproject.toml" = [
     'current_version = "{version}"',
 ]
-"core/qwak/__init__.py" = ["{version}"]
-"core/utils/__init__.py" = ["{version}"]
+"core//qwak//__init__.py" = ["{version}"]
+"core//utils//__init__.py" = ["{version}"]
