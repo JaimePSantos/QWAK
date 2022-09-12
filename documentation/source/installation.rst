@@ -45,7 +45,13 @@ After the dependencies are met, you will only need to assure you navigated to th
   cd <path-to-cloned-folders>/QWAK/
 
 
-And then install the package via:
+And then install the package via PyPi:
+
+.. code-block:: console
+
+  pip install qwak-sim
+
+Or locally through:
 
 .. code-block:: console
 
