@@ -1,10 +1,21 @@
 .myTab{
-    display: flex;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
     overflow: hidden;
     background-color: #312450;
-    align-content: center;
-    justify-content: center;
-    margin-bottom: 0vh;
+    align-items: center;
+    justify-items: center;
+}
+
+myStatTab{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 100%;
+    overflow: hidden;
+    background-color: #312450;
+    align-items: center;
+    justify-items: center;
 }
 
 /* Style the buttons inside the tab */
@@ -18,27 +29,18 @@
     transition: 0.3s;
     font-size: 17px;
     overflow: hidden;
-    width: 30vh;
-    font-size: 1vh;
+
 }
 
-.dynamic-tab {
-    display: flex;
-    overflow: hidden;
-    background-color: #312450;
-    align-content: center;
-    justify-content: center;
-}
-
-.dynamic-tab button {
+.myStatTab button {
     background-color: inherit;
     float: left;
-    border: none;
+    border: solid 1px !important;
+    border-color: rgb(252, 237, 206) !important;
     border-radius: 0;
-    outline: none;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 12px;
+    /*font-size: 12px;*/
     overflow: hidden;
 
 }
@@ -54,14 +56,15 @@
 }
 
 /* Change background color of buttons on hover */
-.dynamic-tab button:hover{
-    background-color: rgb(57, 60, 206);
+.myStatTab button:hover{
+    background-color: rgb(63, 5, 124);
 }
 
 /* Create an active/current tablink class */
-.dynamic-tab button.active{
-    background-color: #1587b4;
+.myStatTab button.active{
+    background-color: #0263f3;
 }
+
 
 /* Style the tab content */
 .tabcontent{
