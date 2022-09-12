@@ -84,31 +84,19 @@
                             <!--                            </div>-->
                         </div>
                         <div id="CustomGraph" class="tabcontent">
-                            <!--                            <div class='grid-element'>-->
                             <div class='set-graph-combo'>
-                                <div id="cyCustom" class="graph-display"></div>
-                                <button id="graphCustomButton" class="myButton graph">Set Graph</button>
-                                <!--                                </div>-->
-                                <div class='input-row'>
-                                    <ul class='input-fields'>
-                                        <li class='input-combo'>
-                                            <button id="addNodeButton" class="myButton customGraphInput">Node</button>
-                                        </li>
-                                        <li class='input-combo'>
-                                            <button id="addEdgeButton" class="myButton customGraphInput">Draw</button>
-                                        </li>
-                                    </ul>
-                                    <ul class='input-fields'>
-                                        <li class='input-combo'>
-                                            <button id="clearGraphButton" class="myButton customGraphInput">Clear
-                                            </button>
-                                        </li>
-                                        <li class='input-combo'>
-                                            <button id="placeHolderButtonGen" class="myButton customGraphInput">Pl
-                                            </button>
-                                        </li>
-                                    </ul>
+                                <div class="graph-container">
+                                    <div id="cyCustom" class="graph-display"></div>
                                 </div>
+                                <button id="graphCustomButton" class="myButton graph">Set Graph</button>
+                                <ul class='input-fields-custom-graph'>
+                                        <button id="addNodeButton" class="myButton customGraphInput">Node</button>
+                                        <button id="addEdgeButton" class="myButton customGraphInput">Draw</button>
+                                </ul>
+                                <ul class='input-fields-custom-graph'>
+                                        <button id="clearGraphButton" class="myButton customGraphInput">Void</button>
+                                        <button id="placeHolderButtonGen" class="myButton customGraphInput">PLPL</button>
+                                </ul>
                             </div>
                         </div>
                     </div>
