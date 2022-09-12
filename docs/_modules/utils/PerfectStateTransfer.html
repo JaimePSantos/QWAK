@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>utils.PerfectStateTransfer - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
@@ -327,7 +327,7 @@
 <div class="viewcode-block" id="getSquareFree"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getSquareFree">[docs]</a><span class="k">def</span> <span class="nf">getSquareFree</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;The function SquareFree gives a list of square-free number from 1 to n in a similar way that we found all primes. The</span>
 <span class="sd">    algorithm get the list of primes from 1 to n, then it start a loop of integers from 2 to n, when i is prime the algorithm</span>
-<span class="sd">    associates False to all multiples of i². It returns a list with True (False) in the entry i if i-1 is (not) square free.</span>
+<span class="sd">    associates False to all multiples of i^2. It returns a list with True (False) in the entry i if i-1 is (not) square free.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -354,7 +354,7 @@
 
 <div class="viewcode-block" id="getEigenSupp"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getEigenSupp">[docs]</a><span class="k">def</span> <span class="nf">getEigenSupp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">eigenvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;EigenSupp is responsible for getting the eigenvalue support of the vertice a. The eigenvalue support of the vertice a is</span>
-<span class="sd">    all the eigenvalues such that Er|a&gt; != 0, where |a&gt; is vector with 1 in the a-th entry and zero in all others and Er is the</span>
+<span class="sd">    all the eigenvalues such that Er a != 0, where a is vector with 1 in the a-th entry and zero in all others and Er is the</span>
 <span class="sd">    projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,</span>
 <span class="sd">    because we do not need to check for eigenvalues that are not in the eigenvalue support.</span>
 

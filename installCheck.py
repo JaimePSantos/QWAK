@@ -1,11 +1,13 @@
 from qwak.State import State
-from qwak.Operator import Operator, StochasticOperator
-from qwak.QuantumWalk import QuantumWalk, StochasticQuantumWalk
-from qwak.ProbabilityDistribution import (
-    ProbabilityDistribution,
-    StochasticProbabilityDistribution,
-)
-from qwak.qwak import QWAK, StochasticQWAK
+from qwak.Operator import Operator
+from qwak.StochasticOperator import StochasticOperator
+from qwak.QuantumWalk import QuantumWalk
+from qwak.StochasticQuantumWalk import StochasticQuantumWalk
+from qwak.ProbabilityDistribution import ProbabilityDistribution
+from qwak.StochasticProbabilityDistribution import StochasticProbabilityDistribution
+
+from qwak.qwak import QWAK
+from qwak.StochasticQwak import StochasticQWAK
 
 from qutip import ket2dm, basis, Options, Qobj
 

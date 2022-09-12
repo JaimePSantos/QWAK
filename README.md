@@ -14,16 +14,16 @@ This work is financed by National Funds through the Portuguese funding agency, F
 
 <div style="display: flex; flex-direction: row;vertical-align: center;justify-content: center">
 
- <img align="center" class="img" src="Images/inesctec.png" width=49% />
+ <img align="center" class="img" src="https://raw.githubusercontent.com/JaimePSantos/QWAK/main/Images/inesctec.png" width=49% />
 
- <img align="center" class="img" src="Images/haslab.png" width=49% />
+ <img align="center" class="img" src="https://raw.githubusercontent.com/JaimePSantos/QWAK/main/Images/haslab.png" width=49% />
 
 </div>
 
 
 ## Installation
 
-Installing the package is very straightforward. Firstly, clone the project and then install the requirements via pip, followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
+You can install the package both through PyPi `pip install qwak-sim` or locally, by cloning the project, installing the requirements via pip followed by `pip install .` in the cloned folder. A virtual environment is highly recommended.
 
 #### Dependencies
 - Numpy

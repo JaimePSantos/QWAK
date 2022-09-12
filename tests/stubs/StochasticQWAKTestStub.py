@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 
-from qwak.qwak import StochasticQWAK
+from qwak.StochasticQwak import StochasticQWAK
 
 
 class StochasticQWAKTestStub:

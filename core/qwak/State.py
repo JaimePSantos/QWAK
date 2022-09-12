@@ -135,7 +135,7 @@ class State:
         """Resets the components of the State."""
         self._stateVec = np.zeros((self._n, 1))
 
-    def setDim(self, newDim: int, newNodeList:list = None) -> None:
+    def setDim(self, newDim: int, newNodeList: list = None) -> None:
         """Sets the current state dimension to a user defined one.
 
         Parameters

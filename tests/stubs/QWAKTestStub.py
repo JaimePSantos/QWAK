@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 
-from qwak.qwak import QWAK, StochasticQWAK
+from qwak.qwak import QWAK
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
 
@@ -45,8 +45,17 @@ class QWAKTestStub:
     def getDim(self):
         return self.qwak.getDim()
 
-    def setDim(self, newDim, graphStr=None,graph=None, initStateList=None):
-        self.qwak.setDim(newDim, graphStr=graphStr,graph=graph, initStateList=initStateList)
+    def setDim(
+            self,
+            newDim,
+            graphStr=None,
+            graph=None,
+            initStateList=None):
+        self.qwak.setDim(
+            newDim,
+            graphStr=graphStr,
+            graph=graph,
+            initStateList=initStateList)
 
     def getAdjacencyMatrix(self):
         return self.qwak.getAdjacencyMatrix()

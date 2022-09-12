@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>qwak.QuantumWalk - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
@@ -234,9 +234,8 @@
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">qwak.Operator</span> <span class="kn">import</span> <span class="n">Operator</span><span class="p">,</span> <span class="n">StochasticOperator</span>
+<span class="kn">from</span> <span class="nn">qwak.Operator</span> <span class="kn">import</span> <span class="n">Operator</span>
 <span class="kn">from</span> <span class="nn">qwak.State</span> <span class="kn">import</span> <span class="n">State</span>
-<span class="kn">from</span> <span class="nn">qutip</span> <span class="kn">import</span> <span class="n">Qobj</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">mesolve</span><span class="p">,</span> <span class="n">Options</span>
 
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
@@ -452,104 +451,6 @@
                <span class="sa">f</span><span class="s2">&quot;Init State:</span><span class="se">\n\t</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
                <span class="sa">f</span><span class="s2">&quot;Operator:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>\
                <span class="sa">f</span><span class="s2">&quot;Final State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="si">}</span><span class="s2">&quot;</span></div>
-
-
-<div class="viewcode-block" id="StochasticQuantumWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk">[docs]</a><span class="k">class</span> <span class="nc">StochasticQuantumWalk</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_&quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span>
-            <span class="n">operator</span><span class="p">:</span> <span class="n">StochasticOperator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;This object is initialized with a user inputted initial state and</span>
-<span class="sd">        operator.</span>
-<span class="sd">        The dimension of the quantum walk will then be loaded from the initial</span>
-<span class="sd">        state.</span>
-<span class="sd">        The final state will contain the amplitudes of the time evolution of</span>
-<span class="sd">        the initial state, as a function of the operator. This variable is initialized</span>
-<span class="sd">        as an instance of QObj class.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        state : State</span>
-<span class="sd">            Initial state which will be the basis of the time dependant evolution.</span>
-<span class="sd">        operator : StochasticOperator</span>
-<span class="sd">            Operator which will evolve the initial state.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">state</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initQutipState</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">operator</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span><span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="mi">0</span>
-
-<div class="viewcode-block" id="StochasticQuantumWalk.buildWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.buildWalk">[docs]</a>    <span class="k">def</span> <span class="nf">buildWalk</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">time</span><span class="p">,</span>
-        <span class="n">observables</span><span class="o">=</span><span class="p">[],</span>
-        <span class="n">opts</span><span class="o">=</span><span class="n">Options</span><span class="p">(</span><span class="n">store_states</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">store_final_state</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        time : _type_</span>
-<span class="sd">            _description_</span>
-<span class="sd">        observables : list, optional</span>
-<span class="sd">            _description_, by default []</span>
-<span class="sd">        opts : _type_, optional</span>
-<span class="sd">            _description_, by default Options(store_states=True, store_final_state=True)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: Can we move the time dependency to the StochasticOperator class?</span>
-        <span class="c1"># TODO: Can we make the time evolution low cost?</span>
-        <span class="c1"># TODO: Is there a way to obtain amplitudes?</span>
-        <span class="c1"># TODO: The final state is a of the Qobj class. Find a way to</span>
-        <span class="c1"># make it State class.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">time</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getSinkNode</span><span class="p">()</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initQutipState</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span>
-                <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">(),</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]])</span>
-            <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">mesolve</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getQuantumHamiltonian</span><span class="p">(),</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initQutipState</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">,</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getClassicalHamiltonian</span><span class="p">(),</span>
-            <span class="n">observables</span><span class="p">,</span>
-            <span class="n">options</span><span class="o">=</span><span class="n">opts</span><span class="p">,</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">final_state</span><span class="o">.</span><span class="n">full</span><span class="p">()</span></div>
-        <span class="c1"># if you want the full list of states, keep option store_states=True and instead</span>
-        <span class="c1"># of final_state.full() use states.full()</span>
-
-<div class="viewcode-block" id="StochasticQuantumWalk.getFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.getFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">getFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qobj</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Qobj</span>
-<span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span></div>
-
-<div class="viewcode-block" id="StochasticQuantumWalk.setFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.setFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">setFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newFinalState : _type_</span>
-<span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">newFinalState</span></div>
-
-<div class="viewcode-block" id="StochasticQuantumWalk.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.StochasticQuantumWalk.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            _description_</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div></div>
 </pre></div>
         </article>
       </div>

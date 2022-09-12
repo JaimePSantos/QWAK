@@ -10,12 +10,12 @@ A few extra packages are required when contributing to QWAK:
 
 .. code-block:: shell
 
-    pip install autopep8 pytest
+    pip install autopep8 pytest bumpver
 
 `Autopep8 <https://pypi.org/project/autopep8/>`_ formats code according to the PEP 8 style.
 `Pytest <https://docs.pytest.org/en/7.1.x/>`_ is responsible for unit testing the package to assure everything
 working correctly after a change.
-
+`Bumpver <https://github.com/mbarkhau/bumpver/>`_ manages package versioning.
 
 
 
@@ -49,6 +49,12 @@ Setting up the repo for contributing
 
 #. Follow QWAK's `installation instructions <https://jaimepsantos.github.io/QWAK/installation.html>`_ in case you haven't installed the package yet.
 
+   .. code-block:: shell
+
+      pip install -e .
+
+   This should be used to install your package in editable mode.
+
 Making your changes
 -------------------
 
@@ -76,12 +82,6 @@ Making your changes
 
 #. Make your changes.
 
-#. Update your package to reflect the changes:
-
-   .. code-block:: shell
-
-      pip install . --no-cache-dir
-
 #. Ensure your changes does not break the existing code by running the following command inside the main project folder:
 
    .. code-block:: shell
@@ -100,6 +100,12 @@ Making your changes
 
       autopep8 --recursive --in-place --aggressive --aggressive --max-line-length 72 <path_to_folder>
 
+#. In case a version bump is required:
+
+   .. code-block:: shell
+
+       bumpver update --patch
+
 #. Commit your changes:
 
    .. code-block:: shell
@@ -117,6 +123,8 @@ Making your changes
 #. Visit your repo on github and create a pull request to the main repo!
 
 
+
+
 Generating Documentation
 ------------------------
 
@@ -128,7 +136,7 @@ documentation pages:
 
 .. code-block:: shell
 
-    pip install sphinx
+    pip install sphinx sphinx_autodoc_typehints sphinx_copybutton sphinxcontrib.programoutput myst_parser furo
 
 * On linux:
 

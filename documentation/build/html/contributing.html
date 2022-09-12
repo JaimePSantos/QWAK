@@ -3,9 +3,9 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Modules" href="modules.html" /><link rel="prev" title="Usage" href="usage.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="qwak" href="modules.html" /><link rel="prev" title="Usage" href="usage.html" />
 
-    <meta name="generator" content="sphinx-5.0.1, furo 2022.06.04.1"/>
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>Contributing - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
@@ -190,7 +190,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
@@ -234,12 +234,13 @@
 Here, we’ll give you step-by-step instructions on how to setup github for contributing to this project,
 how to format your code changes and how to generate updated documentation.</p>
 <p>A few extra packages are required when contributing to QWAK:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install autopep8 pytest
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install autopep8 pytest bumpver
 </pre></div>
 </div>
 <p><a class="reference external" href="https://pypi.org/project/autopep8/">Autopep8</a> formats code according to the PEP 8 style.
 <a class="reference external" href="https://docs.pytest.org/en/7.1.x/">Pytest</a> is responsible for unit testing the package to assure everything
-working correctly after a change.</p>
+working correctly after a change.
+<a class="reference external" href="https://github.com/mbarkhau/bumpver/">Bumpver</a> manages package versioning.</p>
 <section id="setting-up-the-repo-for-contributing">
 <h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
@@ -260,7 +261,12 @@ working correctly after a change.</p>
 </div>
 <p>This should be done somewhat regularly to ensure your fork is up-to-date with the most recent QWAK version.</p>
 </li>
-<li><p>Follow QWAK’s <a class="reference external" href="https://jaimepsantos.github.io/QWAK/installation.html">installation instructions</a> in case you haven’t installed the package yet.</p></li>
+<li><p>Follow QWAK’s <a class="reference external" href="https://jaimepsantos.github.io/QWAK/installation.html">installation instructions</a> in case you haven’t installed the package yet.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -e .
+</pre></div>
+</div>
+<p>This should be used to install your package in editable mode.</p>
+</li>
 </ol>
 </section>
 <section id="making-your-changes">
@@ -285,11 +291,6 @@ python -m build
 <p>This might not be needed, will test in the future and update the docs accordingly.</p>
 </li>
 <li><p>Make your changes.</p></li>
-<li><p>Update your package to reflect the changes:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install . --no-cache-dir
-</pre></div>
-</div>
-</li>
 <li><p>Ensure your changes does not break the existing code by running the following command inside the main project folder:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pytest -v tests/
 </pre></div>
@@ -301,6 +302,11 @@ python -m build
 </div>
 <p>Or, alternatively an entire folder with:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --recursive --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_folder&gt;
+</pre></div>
+</div>
+</li>
+<li><p>In case a version bump is required:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bumpver update --patch
 </pre></div>
 </div>
 </li>
@@ -326,7 +332,7 @@ documentation pages:</p>
 <ul class="simple">
 <li><p>Via pip:</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install sphinx
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install sphinx sphinx_autodoc_typehints sphinx_copybutton sphinxcontrib.programoutput myst_parser furo
 </pre></div>
 </div>
 <ul class="simple">
@@ -377,7 +383,7 @@ This is probably not a good idea so some of these steps will be subject to chang
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Modules</div>
+                <div class="title">qwak</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
