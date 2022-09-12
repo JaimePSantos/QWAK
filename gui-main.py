@@ -7,9 +7,7 @@ import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
 
 dirname = str(os.path.dirname(__file__))
-print(dirname)
 guiPath = os.path.join(dirname, "GraphicalInterface")
-print(guiPath)
 eel.init(guiPath)
 
 # TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.

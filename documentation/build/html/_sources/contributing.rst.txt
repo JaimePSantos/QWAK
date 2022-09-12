@@ -136,7 +136,7 @@ documentation pages:
 
 .. code-block:: shell
 
-    pip install sphinx
+    pip install sphinx sphinx_autodoc_typehints sphinx_copybutton sphinxcontrib.programoutput myst_parser furo
 
 * On linux:
 
