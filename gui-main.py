@@ -10,9 +10,6 @@ dirname = str(os.path.dirname(__file__))
 guiPath = os.path.join(dirname, "GraphicalInterface")
 eel.init(guiPath)
 
-# TODO: Aba ou menu para Plot. Media e desvio padrao. Aba para caminhada estatica e dinamica.
-# TODO: Formularios para introduzir parametros.
-
 staticN = 100
 dynamicN = 100
 t = 10
@@ -33,7 +30,6 @@ gQwak = GraphicalQWAK(
     timeList)
 
 resultRounding = 4
-
 
 @eel.expose
 def runWalk():
