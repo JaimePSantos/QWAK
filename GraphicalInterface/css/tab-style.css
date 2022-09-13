@@ -1,7 +1,7 @@
 .myTab{
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 100%;
+    /*display: grid;*/
+    /*grid-template-columns: 50% 50%;*/
+    /*grid-template-rows: 100%;*/
     overflow: hidden;
     background-color: #312450;
     align-items: center;
@@ -9,9 +9,9 @@
 }
 
 myStatTab{
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    grid-template-rows: 100%;
+    /*display: grid;*/
+    /*grid-template-columns: 50% 50%;*/
+    /*grid-template-rows: 100%;*/
     overflow: hidden;
     background-color: #312450;
     align-items: center;
@@ -27,7 +27,7 @@ myStatTab{
     border-radius: 0;
     cursor: pointer;
     transition: 0.3s;
-    font-size: 17px;
+    /*font-size: 17px;*/
     overflow: hidden;
 
 }

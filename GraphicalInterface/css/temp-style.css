@@ -73,7 +73,7 @@ ul{
 .graph-wrapper{
     display: grid;
     grid-template-columns:100%;
-    grid-template-rows: 10% 90%;
+    grid-template-rows: 25% 75%;
     gap:10px;
     justify-items: center;
     align-items: center;
@@ -141,7 +141,7 @@ ul{
 .stats-dynamic-wrapper {
     display: grid;
     grid-template-columns:100%;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 25% 75%;
     justify-items: center;
     align-items: center;
 }
