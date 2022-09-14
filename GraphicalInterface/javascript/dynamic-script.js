@@ -248,9 +248,13 @@ document.getElementById("runGraphButton").addEventListener('click', async functi
     setRunGraph();
 });
 
+document.getElementById("setDimButton").addEventListener('click', async function () {
+    setDimButton();
+});
+
+
 let setRunGraph = async () => {
     setDynamicGraph();
-    // setDimButton();
     let myGraph = await getDynamicGraph();
     updateGraph(myGraph);
 }

@@ -50,7 +50,6 @@ def setStaticDim(newDim, graphStr):
 def setDynamicDim(newDim, graphStr):
     gQwak.setDynamicDim(newDim, graphStr)
 
-
 @eel.expose
 def getDim():
     return gQwak.getDim()
@@ -74,6 +73,7 @@ def setStaticGraph(newGraph):
 @eel.expose
 def setDynamicGraph(newGraph):
     gQwak.setDynamicGraph(newGraph)
+    print(len(gQwak.getDynamicGraph()))
 
 
 @eel.expose
