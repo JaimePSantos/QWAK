@@ -48,6 +48,7 @@
 
 .stat-list-combo .myStatInputBox{
     width:100%;
+
     border: solid;
     border-width: 1px;
     /*border:solid red 1px;*/
@@ -61,10 +62,9 @@
 .stat-list-combo-input {
     display: grid;
     grid-template-columns:100%;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 10% 90%;
     color: var(--primary-white);
     font-weight: bolder;
-    /*gap: 10px;*/
     align-items: center;
     justify-content: center;
 }

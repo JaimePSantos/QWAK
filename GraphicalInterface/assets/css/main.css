@@ -73,6 +73,11 @@ input, select, textarea {
     appearance: none;
 }
 
+.inner{
+    display:grid;
+    grid-template-rows: 10% 90%;
+    height:100%;
+}
 /* Basic */
 
 @-ms-viewport {
@@ -3210,15 +3215,14 @@ table.alt tfoot {
 .wrapper > .inner {
     padding: 5em 5em 3em 5em;
     max-width: 100%;
-    width: 75em;
+    width: 80em;
+    height:100em;
 }
 
 @media screen and (max-width: 1680px) {
-
     .wrapper > .inner {
         padding: 4em 4em 2em 4em;
     }
-
 }
 
 @media screen and (max-width: 1280px) {
@@ -3226,7 +3230,6 @@ table.alt tfoot {
     .wrapper > .inner {
         width: 100%;
     }
-
 }
 
 @media screen and (max-width: 736px) {
@@ -3235,10 +3238,6 @@ table.alt tfoot {
         padding: 3em 2em 1em 2em;
     }
 
-}
-
-.wrapper.alt {
-    background-color: #261c3e;
 }
 
 .wrapper.style1 {
@@ -3493,6 +3492,17 @@ body.is-preload .wrapper.fade > .inner {
 
 /* Footer */
 
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #261c3e;
+    height:25px;
+    align-content: center;
+    justify-content: center;
+}
+
 #sidebar + #wrapper + #footer {
     margin-left: 18em;
 }
@@ -3514,6 +3524,8 @@ body.is-preload .wrapper.fade > .inner {
 }
 
 #footer > .inner .menu {
+    align-items: center;
+    justify-items: center;
     font-size: 0.8em;
     color: rgba(255, 255, 255, 0.15);
 }
