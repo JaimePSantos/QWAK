@@ -127,6 +127,13 @@ ul{
     height: 100%;
 }
 
+.grid-element{
+    display: grid;
+    grid-template-rows: 90% 10%;
+    justify-items: center;
+    justify-content: center;
+}
+
 
 .prob-dist-chart-container {
     display:grid;

@@ -73,8 +73,6 @@ def setStaticGraph(newGraph):
 @eel.expose
 def setDynamicGraph(newGraph):
     gQwak.setDynamicGraph(newGraph)
-    print(len(gQwak.getDynamicGraph()))
-
 
 @eel.expose
 def getStaticGraph():

@@ -72,11 +72,11 @@ input, select, textarea {
     -ms-appearance: none;
     appearance: none;
 }
-
-.inner{
+.inner-qwak{
     display:grid;
     grid-template-rows: 10% 90%;
     height:100%;
+    padding:0px;
 }
 /* Basic */
 
@@ -3212,15 +3212,24 @@ table.alt tfoot {
     position: relative;
 }
 
-.wrapper > .inner {
+.wrapper > .inner-qwak {
     padding: 5em 5em 3em 5em;
     max-width: 100%;
     width: 80em;
     height:100em;
 }
 
+.wrapper > .inner {
+    padding: 5em 5em 3em 5em;
+    max-width: 100%;
+    width: 75em;
+}
+
 @media screen and (max-width: 1680px) {
     .wrapper > .inner {
+        padding: 4em 4em 2em 4em;
+    }
+    .wrapper > .inner-qwak {
         padding: 4em 4em 2em 4em;
     }
 }
@@ -3230,11 +3239,17 @@ table.alt tfoot {
     .wrapper > .inner {
         width: 100%;
     }
+    .wrapper > .inner-qwak {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 736px) {
 
     .wrapper > .inner {
+        padding: 3em 2em 1em 2em;
+    }
+    .wrapper > .inner-qwak {
         padding: 3em 2em 1em 2em;
     }
 
@@ -3490,13 +3505,17 @@ body.is-preload .wrapper.fade > .inner {
     margin: 0 auto;
 }
 
+#header + #wrapper > .wrapper > .inner-qwak {
+    margin: 0 auto;
+}
+
 /* Footer */
 
 .footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    /*position: fixed;*/
+    /*bottom: 0;*/
+    /*left: 0;*/
+    /*right: 0;*/
     background-color: #261c3e;
     height:25px;
     align-content: center;

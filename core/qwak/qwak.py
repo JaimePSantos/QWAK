@@ -150,7 +150,6 @@ class QWAK:
             self._timeList = timeList
         elif self._timeList is None:
             raise UndefinedTimeList(f"TimeList is {self._timeList}.")
-        print(f"InitLen 3 {len(self._initState.getStateVec())}")
         for time in self._timeList:
             self.runWalk(
                 time=time,
