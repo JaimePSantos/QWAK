@@ -9,7 +9,7 @@ let getGraph = () => {
 
 let initGraph = async () => {
     let graphStr = 'nx.cycle_graph'
-    eel.setDim(100, graphStr)
+    eel.setStaticDim(100, graphStr)
     eel.setStaticGraph(graphStr)
 }
 
@@ -237,11 +237,14 @@ export let staticChartData = {
         ],
     },
     options: {
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
             y: {
                 beginAtZero: true,
             },
         },
+
     },
 };
 

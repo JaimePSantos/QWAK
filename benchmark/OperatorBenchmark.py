@@ -45,7 +45,6 @@ class OperatorBenchmark:
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
             self._adjacencyMatrix
         )
-        print("Blablablabla")
 
     @profile(
         output_path=outPath,
@@ -86,14 +85,12 @@ class OperatorBenchmark:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
                 self._adjacencyMatrix
             )
-            print("Hello")
         diag = np.diag(
             np.exp(-1j * self._eigenvalues * time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         self._operator = np.matmul(
             self._operator, self._eigenvectors.conjugate().transpose()
         )
-        print("bla12312313")
 
     @profile(
         output_path=outPath,
