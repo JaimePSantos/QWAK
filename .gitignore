@@ -38,3 +38,4 @@ dist/
 /qwak/
 generatingVariables.py
 Executable
+docs/build
