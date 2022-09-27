@@ -5,7 +5,7 @@ linuxgit:
 	@cp -a build/html/. ../docs
 github:
 	@make html
-	@xcopy "build\html\" "..\docs\" /E /H /C /I
+	@xcopy "build\html\*.html" "." /EXCLUDE:excluded.txt /E /H /C /I /y
 
 # You can set these variables from the command line, and also
 # from the environment for the first two.

@@ -2,10 +2,12 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="Installation" href="installation.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/><title>Python Module Index - QWAK - Quantum Walk Analysis Kit</title>
-<link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+        <title>Usage - QWAK - Quantum Walk Analysis Kit</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -164,7 +166,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -184,9 +186,9 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul>
+  <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
@@ -220,125 +222,70 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          
-<section class="domainindex-section">
-  <h1>Python Module Index</h1>
-  <div class="domainindex-jumpbox"><a href="#cap-q"><strong>q</strong></a> | <a href="#cap-u"><strong>u</strong></a></div>
+          <section id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this heading">#</a></h1>
+<section id="creating-walks">
+<span id="walks"></span><h2>Creating Walks<a class="headerlink" href="#creating-walks" title="Permalink to this heading">#</a></h2>
+<p>To retrieve a list of random ingredients,
+you can use the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> class:</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="QWAK">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">QWAK</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">nx.Graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">laplacian</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">markedSearch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#QWAK" title="Permalink to this definition">#</a></dt>
+<dd><p>Default values for the initial state, time and transition rate are a column vector full of 0s, 0 and 1,
+respectively. Methods runWalk or buildWalk must then be used to generate the results of the quantum walk.</p>
+<dl class="simple">
+<dt>Args:</dt><dd><dl class="field-list simple">
+<dt class="field-odd">param laplacian<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Allows the user to choose whether to use the Laplacian or simple adjacency matrix.</p>
+</dd>
+<dt class="field-even">type laplacian<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+<dt class="field-odd">param graph<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NetworkX graph where the walk takes place. Also used for defining the dimensions of the quantum walk.</p>
+</dd>
+<dt class="field-even">type graph<span class="colon">:</span></dt>
+<dd class="field-even"><p>NetworkX.Graph</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
-<table class="domainindex-table">
-  <tr class="pcap">
-    <td></td><td>&#160;</td><td></td>
-  </tr>
-  <tr class="cap" id="cap-q">
-    <td></td><td><strong>q</strong></td><td></td>
-  </tr>
-  <tr>
-    <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-    <td>
-        <a href="qwak.html#module-qwak"><code class="xref">qwak</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.Errors"><code class="xref">qwak.Errors</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.GraphicalQWAK"><code class="xref">qwak.GraphicalQWAK</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.Operator"><code class="xref">qwak.Operator</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.ProbabilityDistribution"><code class="xref">qwak.ProbabilityDistribution</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.QuantumWalk"><code class="xref">qwak.QuantumWalk</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.qwak"><code class="xref">qwak.qwak</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.State"><code class="xref">qwak.State</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.StochasticOperator"><code class="xref">qwak.StochasticOperator</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.StochasticProbabilityDistribution"><code class="xref">qwak.StochasticProbabilityDistribution</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.StochasticQuantumWalk"><code class="xref">qwak.StochasticQuantumWalk</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-1">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="qwak.html#module-qwak.StochasticQwak"><code class="xref">qwak.StochasticQwak</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="pcap">
-    <td></td><td>&#160;</td><td></td>
-  </tr>
-  <tr class="cap" id="cap-u">
-    <td></td><td><strong>u</strong></td><td></td>
-  </tr>
-  <tr>
-    <td><img src="_static/minus.png" class="toggler"
-              id="toggle-2" style="display: none" alt="-" /></td>
-    <td>
-        <a href="utils.html#module-utils"><code class="xref">utils</code></a></td><td>
-    <em></em></td>
-  </tr>
-  <tr class="cg-2">
-    <td></td>
-    <td>&#160;&#160;&#160;
-        <a href="utils.html#module-utils.PerfectStateTransfer"><code class="xref">utils.PerfectStateTransfer</code></a></td><td>
-    <em></em></td>
-  </tr>
-</table>
+</section>
 
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="contributing.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Contributing</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="installation.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -359,8 +306,27 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Usage</a><ul>
+<li><a class="reference internal" href="#creating-walks">Creating Walks</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
