@@ -7,7 +7,7 @@ import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
 
 dirname = str(os.path.dirname(__file__))
-guiPath = os.path.join(dirname, "GraphicalInterface")
+guiPath = os.path.join(dirname, "gui")
 eel.init(guiPath)
 
 staticN = 100
