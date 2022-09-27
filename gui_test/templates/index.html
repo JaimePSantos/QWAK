@@ -1,0 +1,156 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>QWAK</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='main.css') }}">
+
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static',filename='noscript.css') }}"/>
+    </noscript>
+
+</head>
+<body class="is-preload">
+
+<!-- Sidebar -->
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="#intro">Welcome</a></li>
+                <li><a href="#one">Simulator</a></li>
+                <li><a href="#two">Help</a></li>
+<!--                <li><a href="#three">Get in touch</a></li>-->
+            </ul>
+        </nav>
+    </div>
+</section>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Intro -->
+    <section id="intro" class="wrapper style1 fullscreen fade-up">
+        <div class="inner">
+            <h1>QWAK</h1>
+            <p>The Quantum Walk Analysis Kit (QWAK) is a Python based framework for creating and analysing
+                continuous-time quantum walks.
+                <!-- All the math required for calculating the Schrodinger evolution of the walk's wave equation is
+                done by the Python backend through <a href="numpy.org">Numpy</a>
+                and Scipy. The Graphical interface -->
+            </p>
+            <ul class="actions">
+                <li><a href="#one" class="button scrolly">Simulator</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- One -->
+    <section id="one" class="wrapper style2 spotlights">
+        <section>
+            <a href="#" class="image"><img src="{{url_for('static',filename='images/pic01.jpg') }}" alt="" data-position="center center"/></a>
+            <div class="content">
+                <div class="inner">
+                    <h2>Static Quantum Walk</h2>
+                    <p>Run a CTQW for a single time instance and plot it's associated probability distribution along
+                        with other statistical analysis.</p>
+                    <ul class="actions">
+                        <li><a href="staticQW.html" class="button">Learn more</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section>
+            <a href="#" class="image"><img src="{{url_for('static',filename='images/pic02.jpg') }}" alt="" data-position="center center"/></a>
+            <div class="content">
+                <div class="inner">
+                    <h2>Dynamic Quantum Walk</h2>
+                    <p>Generate an animation of the time-evolution of the CTQW alongside a plot of several different
+                        statistical metrics.</p>
+                    <ul class="actions">
+                        <li><a href="dynamicQW.html" class="button">Learn more</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </section>
+
+    <!-- Two -->
+    <section id="two" class="wrapper style3 fade-up">
+        <div class="inner">
+            <h2>What we do</h2>
+            <p>Phasellus convallis elit id ullamcorper pulvinar. Duis aliquam turpis mauris, eu ultricies erat malesuada
+                quis. Aliquam dapibus, lacus eget hendrerit bibendum, urna est aliquam sem, sit amet imperdiet est velit
+                quis lorem.</p>
+            <div class="features">
+                <section>
+                    <span class="icon solid major fa-code"></span>
+                    <h3>Lorem ipsum amet</h3>
+                    <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
+                        ultricies erat dapibus.</p>
+                </section>
+                <section>
+                    <span class="icon solid major fa-lock"></span>
+                    <h3>Aliquam sed nullam</h3>
+                    <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
+                        ultricies erat dapibus.</p>
+                </section>
+                <section>
+                    <span class="icon solid major fa-cog"></span>
+                    <h3>Sed erat ullam corper</h3>
+                    <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
+                        ultricies erat dapibus.</p>
+                </section>
+                <section>
+                    <span class="icon solid major fa-desktop"></span>
+                    <h3>Veroeros quis lorem</h3>
+                    <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
+                        ultricies erat dapibus.</p>
+                </section>
+                <section>
+                    <span class="icon solid major fa-link"></span>
+                    <h3>Urna quis bibendum</h3>
+                    <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
+                        ultricies erat dapibus.</p>
+                </section>
+                <section>
+                    <span class="icon major fa-gem"></span>
+                    <h3>Aliquam urna dapibus</h3>
+                    <p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed
+                        ultricies erat dapibus.</p>
+                </section>
+            </div>
+            <ul class="actions">
+                <li><a href="generic.html" class="button">Learn more</a></li>
+            </ul>
+        </div>
+    </section>
+
+<!-- Footer -->
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; QWAK. All rights reserved.</li>
+            <li>Design: HTML5 UP</li>
+        </ul>
+    </div>
+</footer>
+
+<!-- Scripts -->
+        <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.scrolly.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/browser.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/breakpoints.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/util.js')}}"></script>
+        <script src="{{url_for('static', filename='js/main.js')}}"></script>
+
+</body>
+</html>
