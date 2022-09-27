@@ -10,27 +10,24 @@
     <title>Static Quantum Walk</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
-    <link rel="stylesheet" href="../static/css/main.css"/>
-    <link rel="stylesheet" href="/css/temp-style.css"/>
-    <link rel="stylesheet" href="/css/button-style.css"/>
-    <link rel="stylesheet" href="/css/tab-style.css"/>
-    <link rel="stylesheet" href="/css/input-style.css"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/temp-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/button-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/tab-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/input-style.css') }}">
 
     <noscript>
-        <link rel="stylesheet" href="../static/css/noscript.css"/>
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/noscript.css') }}"/>
     </noscript>
-    <script type="text/javascript" src="/eel.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
             integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
             integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type='module' src="../javascript/static-script.js" defer></script>
-    <!-- <script type='module' src="javascript/script.js" defer></script> -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='javascript/static-script.js') }}"/>
 </head>
 
 <body class="is-preload static">
@@ -63,7 +60,8 @@
                                 <button id="customGraphDisplay" class="tablinks">Custom Graph</button>
                             </div>
                             <!--Tab links-->
-                            <script type='module' src="../javascript/static-tools.js"></script>
+
+                            <link rel="stylesheet" href="{{ url_for('static',filename='javascript/static-tools.js') }}"/>
                             <!-- Tab content -->
                             <div id="GraphGenerator" class="tabcontent">
                                 <!--                            <div class='grid-element'>-->
@@ -210,13 +208,13 @@
 </div>
 
 <!-- Scripts -->
-<script src="../static/js/jquery.min.js"></script>
-<script src="../static/js/jquery.scrollex.min.js"></script>
-<script src="../static/js/jquery.scrolly.min.js"></script>
-<script src="../static/js/browser.min.js"></script>
-<script src="../static/js/breakpoints.min.js"></script>
-<script src="../static/js/util.js"></script>
-<script src="../static/js/main.js"></script>
+        <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.scrolly.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/browser.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/breakpoints.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/util.js')}}"></script>
+        <script src="{{url_for('static', filename='js/main.js')}}"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>

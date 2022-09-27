@@ -20,13 +20,15 @@ posts = [
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('index.html', posts=posts)
+    return render_template('index.html')
 
+@app.route("/staticQW")
+def staticQW():
+    return render_template('staticQW.html')
 
-# @app.route("/about")
-# def about():
-#     return render_template('about.html', title='About')
-
+@app.route("/dynamicQW")
+def dynamicQW():
+    return render_template('dynamicQW.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
