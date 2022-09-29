@@ -1,20 +1,20 @@
-let getGraph = () => {
-    return eel
-        .getDynamicGraphToJson()()
-        .then((a) => {
-            return a ? a : Promise.reject(Error("Get Prob failed."));
-        })
-        .catch((e) => console.log(e));
-};
-
-let initGraph = async () => {
-    let graphStr = 'nx.cycle_graph'
-    eel.setDynamicDim(100, graphStr)
-    eel.setDynamicGraph(graphStr)
-}
-
-initGraph()
-let myGraph = await getGraph();
+// let getGraph = () => {
+//     return eel
+//         .getDynamicGraphToJson()()
+//         .then((a) => {
+//             return a ? a : Promise.reject(Error("Get Prob failed."));
+//         })
+//         .catch((e) => console.log(e));
+// };
+//
+// let initGraph = async () => {
+//     let graphStr = 'nx.cycle_graph'
+//     eel.setDynamicDim(100, graphStr)
+//     eel.setDynamicGraph(graphStr)
+// }
+//
+// initGraph()
+// let myGraph = await getGraph();
 
 function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables
