@@ -1,20 +1,20 @@
-let getGraph = () => {
-    return eel
-        .getStaticGraphToJson()()
-        .then((a) => {
-            return a ? a : Promise.reject(Error("Get Prob failed."));
-        })
-        .catch((e) => console.log(e));
-};
+// let getGraph = () => {
+//     return eel
+//         .getStaticGraphToJson()()
+//         .then((a) => {
+//             return a ? a : Promise.reject(Error("Get Prob failed."));
+//         })
+//         .catch((e) => console.log(e));
+// };
 
-let initGraph = async () => {
-    let graphStr = 'nx.cycle_graph'
-    eel.setStaticDim(100, graphStr)
-    eel.setStaticGraph(graphStr)
-}
+// let initGraph = async () => {
+//     let graphStr = 'nx.cycle_graph'
+//     eel.setStaticDim(100, graphStr)
+//     eel.setStaticGraph(graphStr)
+// }
 
-initGraph()
-let myGraph = await getGraph();
+// initGraph()
+// let myGraph = await getGraph();
 
 function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables
@@ -39,6 +39,7 @@ function openTab(evt, graph, tabcontent, tablinks) {
 
 
 document.getElementById('defaultOpen').addEventListener('click', evt => {
+    console.log("Hello")
     openTab(evt, 'GraphGenerator', "tabcontent", "tablinks");
 })
 
@@ -54,9 +55,9 @@ export let cy = cytoscape({
     container: document.getElementById("cy"), // container to render in
     boxSelectionEnabled: false,
     autounselectify: true,
-    elements: myGraph.elements,
-    directed: myGraph.directed,
-    multigraph: myGraph.multigraph,
+    // elements: myGraph.elements,
+    // directed: myGraph.directed,
+    // multigraph: myGraph.multigraph,
     wheelSensitivity: 0.1,
     layout: {
         name: 'circle',
