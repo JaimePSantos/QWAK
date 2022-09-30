@@ -1,10 +1,12 @@
 import json
 
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 import networkx as nx
 import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
 from django.http import JsonResponse
+import requests
+
 
 app = Flask(__name__)
 
@@ -29,7 +31,7 @@ gQwak = GraphicalQWAK(
 
 resultRounding = 4
 
-@app.route("/")
+@app.route("/",methods=['GET', 'POST'])
 @app.route("/home")
 def home():
     return render_template('index.html')
@@ -42,17 +44,24 @@ def staticQW():
 def dynamicQW():
     return render_template('dynamicQW.html')
 
-@app.route('/setStaticGraph/<newGraph>',methods=['POST'])
-def setStaticGraph(newGraph,):
-    # variable = newGraph.GET.get('newGraph', 'default')
-    print('Variable:', newGraph)
+@app.route('/setStaticGraph',methods=['GET','POST'])
+def setStaticGraph():
+    newGraph = request.form.get("newGraph")
     gQwak.setStaticGraph(newGraph)
     print(gQwak.getStaticGraph())
     return ("nothing")
 
-@app.route('/getStaticGraphToJson',methods=['POST'])
+@app.route('/getStaticGraphToJson',methods=['GET','POST'])
 def getStaticGraphToJson():
     return gQwak.getStaticGraphToJson()
+
+@app.route('/setStaticDim',methods=['GET','POST'])
+def setStaticDim():
+    newDim = request.form.get("newDim")
+    graphStr = request.form.get("graphStr")
+    gQwak.setStaticDim(int(newDim), graphStr)
+    return ("nothing")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

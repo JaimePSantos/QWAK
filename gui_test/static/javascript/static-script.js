@@ -41,58 +41,79 @@ inputInit();
 
 // #### STATIC QUANTUM WALK  ####
 
-// #### #### PROB DIST CHART #### ####
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
+$(function () {
+    $('#runGraphButton').on('click', async function (e) {
+        e.preventDefault();
+        staticQuantumWalk.graph = inputGraph.value;
+        staticQuantumWalk.dim = parseInt(inputDim.value);
+        setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
+        setStaticGraph(staticQuantumWalk.graph);
+        let myGraph = await getStaticGraph();
+        console.log(myGraph)
+        updateGraph(myGraph);
+    });
+});
 
-$(function() {
-          $('#runGraphButton').on('click', function(e) {
-            e.preventDefault();
-            staticQuantumWalk.graph = inputGraph.value;
-            let myGraph;
-            console.log(staticQuantumWalk.graph)
-              $.when(
-                  $.ajax({
-                    type:'POST',
-                    url:`setStaticGraph/${staticQuantumWalk.graph}`, // <- Add the queryparameter here
-                    success: function(response){
-                        console.log('success 1');
-                        console.log(response)
-                    },
-                    error: function (response){
-                        console.log('error');
-                    }
-                }),
-                 $.ajax({
-                    type:'POST',
-                    url:`/getStaticGraphToJson`, // <- Add the queryparameter here
-                    success: function(response){
-                        console.log('success 2');
-                        myGraph = response;
-                    },
-                    error: function (response){
-                        console.log('error');
-                    }
-                }).then(function (){
-                    console.log('all complete')
-                     updateGraph(myGraph)
-                 })
-          );
-          });
-        });
+$(function () {
+    $('#setDimButton').on('click', function (e) {
+        e.preventDefault();
+        staticQuantumWalk.graph = inputGraph.value;
+        staticQuantumWalk.dim = parseInt(inputDim.value);
+        setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph)
+    });
+});
 
-// $(function() {
-//           $('#runGraphButton').on('click', function(e) {
-//             e.preventDefault();
-//             staticQuantumWalk.graph = inputGraph.value;
-//             console.log(staticQuantumWalk.graph)
-//             $.getJSON('/setStaticGraph',
-//                 function(data) {
-//               //do nothing
-//             });
-//             return false;
-//           });
-//         });
+function setStaticDim(newDim, graphStr) {
+    $.ajax({
+        type: 'POST',
+        url: `/setStaticDim`, // <- Add the queryparameter here
+        data: {newDim: newDim, graphStr: graphStr},
+        success: function (response) {
+            console.log('success 1');
+            console.log(response)
+        },
+        error: function (response) {
+            console.log('error');
+        }
+    });
+}
+
+function setStaticGraph(newGraph) {
+    $.ajax({
+        type: 'POST',
+        url: `/setStaticGraph`,
+        data: {newGraph: newGraph},
+        success: function (response) {
+            console.log('success 2');
+            console.log(response)
+        },
+        error: function (response) {
+            console.log('error');
+        }
+    })
+}
+
+async function getStaticGraph() {
+    let myGraph;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticGraphToJson`, // <- Add the queryparameter here
+        success: function (response) {
+            console.log('success 3');
+            myGraph = response;
+            console.log(myGraph);
+            return myGraph;
+        },
+        error: function (response) {
+            console.log('error');
+            myGraph = 'error'
+            return myGraph;
+        }
+    });
+    return myGraph;
+}
 
 document.getElementById("setInitStateButton").addEventListener('click', async function () {
     setInitState();
@@ -118,7 +139,7 @@ document.getElementById("staticProbDistButton").addEventListener('click', async 
 
 let setStaticProbDist = async () => {
     // let walk = await getWalk();
-    let walk = [false,5]
+    let walk = [false, 5]
     if (walk[0] == true) {
         alert(walk[1]);
         return;
@@ -176,10 +197,10 @@ let setStaticSurvivalProb = async () => {
     let toNode = inputSurvProbNodeB.value;
     // let survProb = await getStaticSurvivalProb(fromNode, toNode);
     console.log(survProb)
-    if (survProb[0] == true){
+    if (survProb[0] == true) {
         alert(survProb[1]);
         return;
-    }else{
+    } else {
         inputSurvProbResult.value = survProb[1];
     }
 }
@@ -241,7 +262,7 @@ let getStaticSurvivalProb = (fromNode, toNode) => {
     return eel
         .getStaticSurvivalProb(fromNode, toNode)()
         .then((a) => {
-                return a;
+            return a;
         })
         .catch((e) => console.log(e));
 }
@@ -274,14 +295,6 @@ cy.layout({name: "circle"}).run();
 
 // #### #### GRAPH GENERATOR #### ####
 
-
-let setRunGraph = async () => {
-    setStaticGraph();
-    setDimButton();
-    // let myGraph = await getStaticGraph();a
-    // updateGraph(myGraph);
-}
-
 // let setDimButton = async () => {
 //     staticQuantumWalk.dim = parseInt(inputDim.value);
 //     staticQuantumWalk.graph = inputGraph.value;
@@ -292,15 +305,6 @@ let setRunGraph = async () => {
 //     staticQuantumWalk.graph = inputGraph.value;
 //     eel.setStaticGraph(staticQuantumWalk.graph);
 // }
-
-let getStaticGraph = () => {
-    return eel
-        .getStaticGraphToJson()()
-        .then((a) => {
-            return a ? a : Promise.reject(Error("Get Graph failed."));
-        })
-        .catch((e) => console.log(e));
-};
 
 // #### CUSTOM GRAPH ####
 let updateGraph = (graph) => {
