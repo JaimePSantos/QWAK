@@ -39,8 +39,7 @@ let inputInit = () => {
 
 inputInit();
 
-// #### STATIC QUANTUM WALK  ####
-
+// SETTING THE GRAPH
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
 $(function () {
@@ -71,11 +70,10 @@ function setStaticDim(newDim, graphStr) {
         url: `/setStaticDim`, // <- Add the queryparameter here
         data: {newDim: newDim, graphStr: graphStr},
         success: function (response) {
-            console.log('success 1');
-            console.log(response)
+            console.log('success - Dim set to ${newDim}');
         },
         error: function (response) {
-            console.log('error');
+            console.log('setDim error');
         }
     });
 }
@@ -86,11 +84,10 @@ function setStaticGraph(newGraph) {
         url: `/setStaticGraph`,
         data: {newGraph: newGraph},
         success: function (response) {
-            console.log('success 2');
-            console.log(response)
+            console.log('success - graph set to ${newGraph}');
         },
         error: function (response) {
-            console.log('error');
+            console.log('setGraph error');
         }
     })
 }
@@ -101,50 +98,79 @@ async function getStaticGraph() {
         type: 'POST',
         url: `/getStaticGraphToJson`, // <- Add the queryparameter here
         success: function (response) {
-            console.log('success 3');
             myGraph = response;
-            console.log(myGraph);
+            console.log('success - got graph ${myGraph}');
             return myGraph;
         },
         error: function (response) {
-            console.log('error');
+            console.log('getStaticGraph error');
             myGraph = 'error'
             return myGraph;
         }
     });
     return myGraph;
 }
+// SETTING THE GRAPH
 
-document.getElementById("setInitStateButton").addEventListener('click', async function () {
-    setInitState();
+// SETTING PROBDIST
+$(function () {
+    $('#setInitStateButton').on('click', function (e) {
+        e.preventDefault();
+        staticQuantumWalk.initState = inputInitState.value;
+        setStaticInitState(staticQuantumWalk.initState)
+    });
 });
 
-document.getElementById("setTimeButton").addEventListener('click', async function () {
-    setTime();
+$(function () {
+    $('#setTimeButton').on('click', function (e) {
+        e.preventDefault();
+        staticQuantumWalk.time = (inputTime.value);
+        setStaticTime(staticQuantumWalk.time)
+    });
 });
 
-document.getElementById("staticProbDistButton").addEventListener('click', async function () {
-    setStaticProbDist();
+$(function () {
+    $('#staticProbDistButton').on('click', async function (e) {
+        e.preventDefault();
+        let staticProbDist = await getStaticProbDist();
+        setStaticProbDist(staticProbDist);
+    });
 });
 
-// let setInitState = async () => {
-//     staticQuantumWalk.initState = inputInitState.value;
-//     eel.setInitState(staticQuantumWalk.initState);
-// }
+function setStaticInitState(initStateStr) {
+    $.ajax({
+        type: 'POST',
+        url: `/setStaticInitState`, // <- Add the queryparameter here
+        data: {initStateStr: initStateStr},
+        success: function (response) {
+            console.log('success - InitState set to ${initStateStr}');
+        },
+        error: function (response) {
+            console.log('InitState error');
+        }
+    });
+}
 
-// let setTime = async () => {
-//     staticQuantumWalk.time = (inputTime.value);
-//     eel.setTime(staticQuantumWalk.time);
-// }
+function setStaticTime(newTime){
+        $.ajax({
+        type: 'POST',
+        url: `/setStaticTime`, // <- Add the queryparameter here
+        data: {newTime: newTime},
+        success: function (response) {
+            console.log('success - Time set to ${newTime}');
+        },
+        error: function (response) {
+            console.log('setTime error');
+        }
+    });
+}
 
-let setStaticProbDist = async () => {
-    // let walk = await getWalk();
-    let walk = [false, 5]
+function setStaticProbDist(walk){
+    console.log(walk)
     if (walk[0] == true) {
         alert(walk[1]);
         return;
     } else {
-        console.log(walk[1]);
         let distList = walk[1].flat();
         staticChartData.data.datasets[0].data = distList;
         staticChartData.data.labels = [...Array(distList.length).keys()];
@@ -155,17 +181,26 @@ let setStaticProbDist = async () => {
         // await setStaticStDev();
         // await setInversePartRatio();
     }
-
 }
 
-let getWalk = () => {
-    return eel
-        .runWalk()()
-        .then((a) => {
-            return a;
-        })
-        .catch((e) => console.log(e));
-};
+async function getStaticProbDist(){
+    let myWalk;
+    await $.ajax({
+        type: 'POST',
+        url: `/runWalk`, // <- Add the queryparameter here
+        success: function (response) {
+            myWalk = response;
+            console.log(`success - Runwalk ${myWalk}`);
+            return myWalk;
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+            myWalk = 'error'
+            return myWalk;
+        }
+    });
+    return myWalk;
+}
 
 //#### #### STATIC STATISTICS #### ####
 

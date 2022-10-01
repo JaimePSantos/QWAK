@@ -48,7 +48,6 @@ def dynamicQW():
 def setStaticGraph():
     newGraph = request.form.get("newGraph")
     gQwak.setStaticGraph(newGraph)
-    print(gQwak.getStaticGraph())
     return ("nothing")
 
 @app.route('/getStaticGraphToJson',methods=['GET','POST'])
@@ -61,6 +60,25 @@ def setStaticDim():
     graphStr = request.form.get("graphStr")
     gQwak.setStaticDim(int(newDim), graphStr)
     return ("nothing")
+
+@app.route('/setStaticInitState',methods=['GET','POST'])
+def setStaticInitState():
+    initStateStr = request.form.get("initStateStr")
+    gQwak.setStaticInitState(initStateStr)
+    return ("nothing")
+
+@app.route('/setStaticTime',methods=['GET','POST'])
+def setStaticTime():
+    newTime = request.form.get("newTime")
+    gQwak.setStaticTime(newTime)
+    print(gQwak.getStaticTime())
+    return ("nothing")
+
+@app.route('/runWalk',methods=['GET','POST'])
+def runWalk():
+    staticProbDist = gQwak.runWalk()
+    print(staticProbDist)
+    return staticProbDist
 
 
 if __name__ == '__main__':

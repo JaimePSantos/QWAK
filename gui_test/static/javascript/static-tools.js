@@ -1,20 +1,58 @@
-// let getGraph = () => {
-//     return eel
-//         .getStaticGraphToJson()()
-//         .then((a) => {
-//             return a ? a : Promise.reject(Error("Get Prob failed."));
-//         })
-//         .catch((e) => console.log(e));
-// };
+let initGraph = async () => {
+    let graphStr = 'nx.cycle_graph'
+    setStaticDim(100, graphStr)
+    setStaticGraph(graphStr)
+}
+function setStaticDim(newDim, graphStr) {
+    $.ajax({
+        type: 'POST',
+        url: `/setStaticDim`, // <- Add the queryparameter here
+        data: {newDim: newDim, graphStr: graphStr},
+        success: function (response) {
+            console.log('success - Dim set to ${newDim}');
+        },
+        error: function (response) {
+            console.log('setDim error');
+        }
+    });
+}
 
-// let initGraph = async () => {
-//     let graphStr = 'nx.cycle_graph'
-//     eel.setStaticDim(100, graphStr)
-//     eel.setStaticGraph(graphStr)
-// }
+function setStaticGraph(newGraph) {
+    $.ajax({
+        type: 'POST',
+        url: `/setStaticGraph`,
+        data: {newGraph: newGraph},
+        success: function (response) {
+            console.log('success - graph set to ${newGraph}');
+            console.log(response)
+        },
+        error: function (response) {
+            console.log('setGraph error');
+        }
+    })
+}
 
-// initGraph()
-// let myGraph = await getGraph();
+async function getStaticGraph() {
+    let myGraph;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticGraphToJson`, // <- Add the queryparameter here
+        success: function (response) {
+            myGraph = response;
+            console.log('success - got graph ${myGraph}');
+            return myGraph;
+        },
+        error: function (response) {
+            console.log('getStaticGraph error');
+            myGraph = 'error'
+            return myGraph;
+        }
+    });
+    return myGraph;
+}
+
+initGraph();
+let myGraph = await getStaticGraph();
 
 function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables
@@ -55,9 +93,9 @@ export let cy = cytoscape({
     container: document.getElementById("cy"), // container to render in
     boxSelectionEnabled: false,
     autounselectify: true,
-    // elements: myGraph.elements,
-    // directed: myGraph.directed,
-    // multigraph: myGraph.multigraph,
+    elements: myGraph.elements,
+    directed: myGraph.directed,
+    multigraph: myGraph.multigraph,
     wheelSensitivity: 0.1,
     layout: {
         name: 'circle',
