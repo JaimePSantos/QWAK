@@ -71,15 +71,44 @@ def setStaticInitState():
 def setStaticTime():
     newTime = request.form.get("newTime")
     gQwak.setStaticTime(newTime)
-    print(gQwak.getStaticTime())
     return ("nothing")
 
 @app.route('/runWalk',methods=['GET','POST'])
 def runWalk():
     staticProbDist = gQwak.runWalk()
-    print(staticProbDist)
     return staticProbDist
 
+@app.route('/getStaticMean',methods=['GET','POST'])
+def getStaticMean():
+    return [round(gQwak.getStaticMean(), resultRounding)]
+
+@app.route('/getStaticSndMoment',methods=['GET','POST'])
+def getStaticSndMoment():
+    return [round(gQwak.getStaticSndMoment(), resultRounding)]
+
+@app.route('/getStaticStDev',methods=['GET','POST'])
+def getStaticStDev():
+    return [round(gQwak.getStaticStDev(), resultRounding)]
+
+@app.route('/getStaticInversePartRatio',methods=['GET','POST'])
+def getStaticInversePartRatio():
+    return [round(gQwak.getStaticInversePartRatio(), resultRounding)]
+
+@app.route('/getStaticSurvivalProb',methods=['GET','POST'])
+def getStaticSurvivalProb():
+    fromNode = str(request.form.get("fromNode"))
+    toNode = str(request.form.get("toNode"))
+    survProb = gQwak.getStaticSurvivalProb(fromNode, toNode)
+    if not survProb[0]:
+        survProb[1] = round(survProb[1], resultRounding)
+    return survProb
+
+@app.route('/checkPST',methods=['GET','POST'])
+def checkPST():
+    nodeA = str(request.form.get("nodeA"))
+    nodeB = str(request.form.get("nodeB"))
+    pst = gQwak.checkPST(nodeA, nodeB)
+    return pst
 
 if __name__ == '__main__':
     app.run(debug=True)

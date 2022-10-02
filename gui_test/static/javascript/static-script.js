@@ -40,6 +40,7 @@ let inputInit = () => {
 inputInit();
 
 // SETTING THE GRAPH
+
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
 $(function () {
@@ -110,9 +111,9 @@ async function getStaticGraph() {
     });
     return myGraph;
 }
-// SETTING THE GRAPH
 
 // SETTING PROBDIST
+
 $(function () {
     $('#setInitStateButton').on('click', function (e) {
         e.preventDefault();
@@ -134,6 +135,10 @@ $(function () {
         e.preventDefault();
         let staticProbDist = await getStaticProbDist();
         setStaticProbDist(staticProbDist);
+        setStaticMean();
+        setStaticSndMoment();
+        setStaticStDev();
+        setStaticInversePartRatio();
     });
 });
 
@@ -202,36 +207,47 @@ async function getStaticProbDist(){
     return myWalk;
 }
 
-//#### #### STATIC STATISTICS #### ####
-
-document.getElementById("survProbNodesButton").addEventListener('click', async function () {
-    setStaticSurvivalProb();
+//SETTING STATISTICS
+$(function () {
+    $('#survProbNodesButton').on('click', async function (e) {
+        e.preventDefault();
+        let fromNode = inputSurvProbNodeA.value;
+        let toNode = inputSurvProbNodeB.value;
+        setStaticSurvivalProb(fromNode, toNode);
+    });
 });
 
-document.getElementById("PSTNodesButton").addEventListener('click', async function () {
-    setPST();
+$(function () {
+    $('#PSTNodesButton').on('click', async function (e) {
+        e.preventDefault();
+        let nodeA = inputPSTNodeA.value;
+        let nodeB = inputPSTNodeB.value;
+        setPst(nodeA, nodeB);
+    });
 });
 
-let setStaticMean = async () => {
-    // let statMean = await getStaticMean();
+async function setStaticMean(){
+    let statMean = await getStaticMean();
     inputMean.value = statMean;
 }
 
-let setStaticSndMoment = async () => {
-    // let statSndMom = await getStaticSndMoment();
+async function setStaticSndMoment(){
+    let statSndMom = await getStaticSndMoment();
     inputSndMoment.value = statSndMom;
 }
 
-let setStaticStDev = async () => {
-    // let statStDev = await getStaticStDev();
+async function setStaticStDev(){
+    let statStDev = await getStaticStDev();
     inputStDev.value = statStDev;
 }
 
-let setStaticSurvivalProb = async () => {
-    let fromNode = inputSurvProbNodeA.value;
-    let toNode = inputSurvProbNodeB.value;
-    // let survProb = await getStaticSurvivalProb(fromNode, toNode);
-    console.log(survProb)
+async function setStaticInversePartRatio(){
+    let invPartRatio = await getStaticInversePartRatio();
+    inputInvPartRat.value = invPartRatio;
+}
+
+async function setStaticSurvivalProb(fromNode, toNode){
+    let survProb = await getStaticSurvivalProb(fromNode, toNode);
     if (survProb[0] == true) {
         alert(survProb[1]);
         return;
@@ -240,88 +256,134 @@ let setStaticSurvivalProb = async () => {
     }
 }
 
-let setInversePartRatio = async () => {
-    // let invPartRatio = await getInversePartRatio();
-    inputInvPartRat.value = invPartRatio;
+async function setPst(nodeA, nodeB){
+    let PST = await getPst(nodeA, nodeB);
+    if(PST[0]==true){
+        alert(PST[1]);
+        return;
+    }else{
+        if(PST[1]<0){
+                inputPSTResult.value = 'No PST.';
+        }else{
+                inputPSTResult.value = PST[1];
+        }
+    }
 }
 
-let setPST = async () => {
-    let fromNode = inputPSTNodeA.value;
-    let toNode = inputPSTNodeB.value;
-    // let PST = await getPST(fromNode, toNode);
-    // console.log(PST)
-    // if(PST[0]==true){
-    //     alert(PST[1]);
-    //     return;
-    // }else{
-    //     if(PST[1]<0){
-    //             inputPSTResult.value = 'No PST.';
-    //     }else{
-    //             inputPSTResult.value = PST[1];
-    //     }
-    // }
+async function getStaticMean(){
+    let staticMean;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticMean`, // <- Add the queryparameter here
+        success: function (response) {
+            staticMean = response;
+            console.log(`success - getStaticMean ${staticMean}`);
+            return staticMean;
+        },
+        error: function (response) {
+            console.log('getStaticMean error');
+            staticMean = 'error'
+            return staticMean;
+        }
+    });
+    return staticMean;
 }
 
-let getStaticMean = () => {
-    return eel
-        .getStaticMean()()
-        .then((a) => {
-            return a ? a : Promise.reject(Error("Get Static Mean failed."));
-        })
-        .catch((e) => console.log(e));
+async function getStaticSndMoment(){
+    let staticSndMoment;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticSndMoment`,
+        success: function (response) {
+            staticSndMoment = response;
+            console.log(`success - getStaticSndMoment ${staticSndMoment}`);
+            return staticSndMoment;
+        },
+        error: function (response) {
+            console.log('getStaticSndMoment error');
+            staticSndMoment = 'error'
+            return staticSndMoment;
+        }
+    });
+    return staticSndMoment;
 }
 
-let getStaticSndMoment = () => {
-    return eel
-        .getStaticSndMoment()()
-        .then((a) => {
-            return a ? a : Promise.reject(Error("Get Static Snd Moment failed."));
-        })
-        .catch((e) => console.log(e));
+async function getStaticStDev(){
+    let staticStDev;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticStDev`,
+        success: function (response) {
+            staticStDev = response;
+            console.log(`success - getStaticStDev ${staticStDev}`);
+            return staticStDev;
+        },
+        error: function (response) {
+            console.log('getStaticStDev error');
+            staticStDev = 'error'
+            return staticStDev;
+        }
+    });
+    return staticStDev;
 }
 
-let getStaticStDev = () => {
-    return eel
-        .getStaticStDev()()
-        .then((a) => {
-            if (isNaN(a)) {
-                Promise.reject(Error("Get Static Standard Deviation faile: StDev is NaN."));
-            } else {
-                return a;
-            }
-        })
-        .catch((e) => console.log(e));
+async function getStaticInversePartRatio(){
+    let staticInversePartRatio;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticInversePartRatio`,
+        success: function (response) {
+            staticInversePartRatio = response;
+            console.log(`success - staticInversePartRatio ${staticInversePartRatio}`);
+            return staticInversePartRatio;
+        },
+        error: function (response) {
+            console.log('staticInversePartRatio error');
+            staticInversePartRatio = 'error'
+            return staticInversePartRatio;
+        }
+    });
+    return staticInversePartRatio;
 }
 
-let getStaticSurvivalProb = (fromNode, toNode) => {
-    return eel
-        .getStaticSurvivalProb(fromNode, toNode)()
-        .then((a) => {
-            return a;
-        })
-        .catch((e) => console.log(e));
+async function getStaticSurvivalProb(fromNode, toNode){
+    let staticSurvivalProb;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticSurvivalProb`,
+        data:{fromNode:fromNode, toNode:toNode},
+        success: function (response) {
+            staticSurvivalProb = response;
+            console.log(`success - staticSurvivalProb ${staticSurvivalProb}`);
+            return staticSurvivalProb;
+        },
+        error: function (response) {
+            console.log('staticSurvivalProb error');
+            staticSurvivalProb = 'error'
+            return staticSurvivalProb;
+        }
+    });
+    return staticSurvivalProb;
 }
 
-let getInversePartRatio = () => {
-    return eel
-        .getInversePartRatio()()
-        .then((a) => {
-            if (isNaN(a)) {
-                Promise.reject(Error("Get Inv. Part. Ratio failed: IPR is NaN."));
-            } else {
-                return a;
-            }
-        })
-        .catch((e) => console.log(e));
-}
-
-let getPST = (nodeA, nodeB) => {
-    return eel
-        .checkPST(nodeA, nodeB)()
-        .then((a) => {
-            return a;
-        })
-        .catch((e) => console.log(e));
+async function getPst(nodeA, nodeB){
+    let pst;
+    await $.ajax({
+        type: 'POST',
+        url: `/checkPST`,
+        data:{nodeA:nodeA, nodeB:nodeB},
+        success: function (response) {
+            pst = response;
+            console.log(`success - pst ${pst}`);
+            return pst;
+        },
+        error: function (response) {
+            console.log('pst error');
+            pst = 'error'
+            return pst;
+        }
+    });
+    return pst;
 }
 
 // #### GRAPHS  ####
