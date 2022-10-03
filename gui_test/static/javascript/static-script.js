@@ -40,6 +40,7 @@ let inputInit = () => {
 inputInit();
 
 // SETTING THE GRAPH
+// - Graph Generator
 
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
@@ -93,6 +94,12 @@ function setStaticGraph(newGraph) {
     })
 }
 
+function updateGraph(graph) {
+    cy.elements().remove()
+    cy.add(graph.elements)
+    cy.layout({name: "circle"}).run();
+}
+
 async function getStaticGraph() {
     let myGraph;
     await $.ajax({
@@ -110,6 +117,93 @@ async function getStaticGraph() {
         }
     });
     return myGraph;
+}
+
+// - Custom Graph
+// #### CUSTOM GRAPH ####
+
+
+let nodeNumber = 2;
+let nodeXPos = 200;
+let nodeYPos = 0;
+
+var eh = customCy.edgehandles();
+
+document.getElementById('addEdgeButton').addEventListener('click', function () {
+    eh.enableDrawMode();
+});
+
+document.getElementById("addNodeButton").addEventListener('click', function () {
+    addNodeButtonPress();
+});
+
+document.getElementById('clearGraphButton').addEventListener('click', function () {
+    eh.disableDrawMode();
+});
+
+$(function () {
+    $('#graphCustomButton').on('click', async function (e) {
+        e.preventDefault();
+        let customAdjacency = createAdjacencyMatrix(customCy);
+        setCustomAdjacencyMatrix(customAdjacency);
+    });
+});
+
+
+async function addNodeButtonPress() {
+    nodeNumber++;
+    nodeYPos += 50;
+    customCy.add({
+        group: 'nodes',
+        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
+        position: {x: nodeXPos, y: nodeYPos}
+    });
+}
+
+function setCustomAdjacencyMatrix(customAdjacency) {
+    console.log(customAdjacency)
+    $.ajax({
+        type: 'POST',
+        url: `/setStaticCustomGraph`, // <- Add the queryparameter here
+        data: {customAdjacency: customAdjacency},
+        async: false,
+        success: function (response) {
+            console.log('success - customAdjacency set to ${customAdjacency}');
+        },
+        error: function (response) {
+            console.log('customAdjacency error');
+        }
+    });
+}
+
+function createAdjacencyMatrix(graph) {
+    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
+
+    for (let edg of graph.json().elements.edges) {
+        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
+    }
+    adjacencyMatrix = adjacencyMatrixToString(adjacencyMatrix);
+    return adjacencyMatrix;
+}
+
+function adjacencyMatrixToString(adjacencyMatrix) {
+    let adjm = "[";
+    let elemAux = "";
+    for (let elem of adjacencyMatrix._data) {
+        elemAux = "["
+        for (let e of elem) {
+            elemAux = elemAux.concat(",", e);
+        }
+        elemAux = elemAux.concat("", "]")
+        elemAux = elemAux.slice(0, 1) + elemAux.slice(2)
+        adjm = adjm.concat(",", elemAux)
+        elemAux = "";
+    }
+    adjm = adjm.concat("", "]")
+    adjm = adjm.slice(0, 1) + adjm.slice(2)
+    return adjm
 }
 
 // SETTING PROBDIST
@@ -156,8 +250,8 @@ function setStaticInitState(initStateStr) {
     });
 }
 
-function setStaticTime(newTime){
-        $.ajax({
+function setStaticTime(newTime) {
+    $.ajax({
         type: 'POST',
         url: `/setStaticTime`, // <- Add the queryparameter here
         data: {newTime: newTime},
@@ -170,7 +264,7 @@ function setStaticTime(newTime){
     });
 }
 
-function setStaticProbDist(walk){
+function setStaticProbDist(walk) {
     console.log(walk)
     if (walk[0] == true) {
         alert(walk[1]);
@@ -188,7 +282,7 @@ function setStaticProbDist(walk){
     }
 }
 
-async function getStaticProbDist(){
+async function getStaticProbDist() {
     let myWalk;
     await $.ajax({
         type: 'POST',
@@ -226,27 +320,27 @@ $(function () {
     });
 });
 
-async function setStaticMean(){
+async function setStaticMean() {
     let statMean = await getStaticMean();
     inputMean.value = statMean;
 }
 
-async function setStaticSndMoment(){
+async function setStaticSndMoment() {
     let statSndMom = await getStaticSndMoment();
     inputSndMoment.value = statSndMom;
 }
 
-async function setStaticStDev(){
+async function setStaticStDev() {
     let statStDev = await getStaticStDev();
     inputStDev.value = statStDev;
 }
 
-async function setStaticInversePartRatio(){
+async function setStaticInversePartRatio() {
     let invPartRatio = await getStaticInversePartRatio();
     inputInvPartRat.value = invPartRatio;
 }
 
-async function setStaticSurvivalProb(fromNode, toNode){
+async function setStaticSurvivalProb(fromNode, toNode) {
     let survProb = await getStaticSurvivalProb(fromNode, toNode);
     if (survProb[0] == true) {
         alert(survProb[1]);
@@ -256,21 +350,21 @@ async function setStaticSurvivalProb(fromNode, toNode){
     }
 }
 
-async function setPst(nodeA, nodeB){
+async function setPst(nodeA, nodeB) {
     let PST = await getPst(nodeA, nodeB);
-    if(PST[0]==true){
+    if (PST[0] == true) {
         alert(PST[1]);
         return;
-    }else{
-        if(PST[1]<0){
-                inputPSTResult.value = 'No PST.';
-        }else{
-                inputPSTResult.value = PST[1];
+    } else {
+        if (PST[1] < 0) {
+            inputPSTResult.value = 'No PST.';
+        } else {
+            inputPSTResult.value = PST[1];
         }
     }
 }
 
-async function getStaticMean(){
+async function getStaticMean() {
     let staticMean;
     await $.ajax({
         type: 'POST',
@@ -289,7 +383,7 @@ async function getStaticMean(){
     return staticMean;
 }
 
-async function getStaticSndMoment(){
+async function getStaticSndMoment() {
     let staticSndMoment;
     await $.ajax({
         type: 'POST',
@@ -308,7 +402,7 @@ async function getStaticSndMoment(){
     return staticSndMoment;
 }
 
-async function getStaticStDev(){
+async function getStaticStDev() {
     let staticStDev;
     await $.ajax({
         type: 'POST',
@@ -327,7 +421,7 @@ async function getStaticStDev(){
     return staticStDev;
 }
 
-async function getStaticInversePartRatio(){
+async function getStaticInversePartRatio() {
     let staticInversePartRatio;
     await $.ajax({
         type: 'POST',
@@ -346,12 +440,12 @@ async function getStaticInversePartRatio(){
     return staticInversePartRatio;
 }
 
-async function getStaticSurvivalProb(fromNode, toNode){
+async function getStaticSurvivalProb(fromNode, toNode) {
     let staticSurvivalProb;
     await $.ajax({
         type: 'POST',
         url: `/getStaticSurvivalProb`,
-        data:{fromNode:fromNode, toNode:toNode},
+        data: {fromNode: fromNode, toNode: toNode},
         success: function (response) {
             staticSurvivalProb = response;
             console.log(`success - staticSurvivalProb ${staticSurvivalProb}`);
@@ -366,12 +460,12 @@ async function getStaticSurvivalProb(fromNode, toNode){
     return staticSurvivalProb;
 }
 
-async function getPst(nodeA, nodeB){
+async function getPst(nodeA, nodeB) {
     let pst;
     await $.ajax({
         type: 'POST',
         url: `/checkPST`,
-        data:{nodeA:nodeA, nodeB:nodeB},
+        data: {nodeA: nodeA, nodeB: nodeB},
         success: function (response) {
             pst = response;
             console.log(`success - pst ${pst}`);
@@ -389,79 +483,3 @@ async function getPst(nodeA, nodeB){
 // #### GRAPHS  ####
 
 cy.layout({name: "circle"}).run();
-
-// #### #### GRAPH GENERATOR #### ####
-
-// let setDimButton = async () => {
-//     staticQuantumWalk.dim = parseInt(inputDim.value);
-//     staticQuantumWalk.graph = inputGraph.value;
-//     eel.setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
-// }
-
-// let setStaticGraph = async () => {
-//     staticQuantumWalk.graph = inputGraph.value;
-//     eel.setStaticGraph(staticQuantumWalk.graph);
-// }
-
-// #### CUSTOM GRAPH ####
-let updateGraph = (graph) => {
-    cy.elements().remove()
-    cy.add(graph.elements)
-    cy.layout({name: "circle"}).run();
-}
-
-var eh = customCy.edgehandles();
-
-document.getElementById('addEdgeButton').addEventListener('click', function () {
-    eh.enableDrawMode();
-});
-
-document.getElementById("addNodeButton").addEventListener('click', function () {
-    addNodeButtonPress();
-});
-
-let nodeNumber = 2;
-let nodeXPos = 200;
-let nodeYPos = 0;
-
-let addNodeButtonPress = async () => {
-    nodeNumber++;
-    nodeYPos += 50;
-    customCy.add({
-        group: 'nodes',
-        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
-        position: {x: nodeXPos, y: nodeYPos}
-    });
-    // customCy.layout();
-}
-
-document.getElementById('graphCustomButton').addEventListener('click', function () {
-    graphCustomButtonPress();
-});
-
-// let graphCustomButtonPress = async () => {
-//     let adjacencyMatrix = createAdjacencyMatrix(customCy);
-//     console.log(adjacencyMatrix.toArray());
-//     eel.setStaticCustomGraph();
-// }
-
-// eel.expose(sendAdjacencyMatrix);
-
-function sendAdjacencyMatrix() {
-    return createAdjacencyMatrix(customCy);
-}
-
-function createAdjacencyMatrix(graph) {
-    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
-
-    for (let edg of graph.json().elements.edges) {
-        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
-    }
-    return adjacencyMatrix;
-}
-
-document.getElementById('clearGraphButton').addEventListener('click', function () {
-    eh.disableDrawMode();
-});

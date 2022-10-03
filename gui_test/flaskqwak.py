@@ -110,5 +110,11 @@ def checkPST():
     pst = gQwak.checkPST(nodeA, nodeB)
     return pst
 
+@app.route('/setStaticCustomGraph',methods=['GET','POST'])
+def setStaticCustomGraph():
+    customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
+    gQwak.setStaticCustomGraph(customAdjacency)
+    return ("nothing")
+
 if __name__ == '__main__':
     app.run(debug=True)
