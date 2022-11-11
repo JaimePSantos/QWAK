@@ -228,6 +228,7 @@ $(function () {
         staticQuantumWalk.reset();
         setStaticJsTime();
         setStaticJsInitState();
+        let staticProbDist = await getStaticProbDist();
         setStaticProbDist(staticProbDist);
         setStaticMean();
         setStaticSndMoment();
