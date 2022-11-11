@@ -47,6 +47,7 @@ let myChart = new Chart(document.getElementById("staticProbDistChart").getContex
 $(function () {
     $('#runGraphButton').on('click', async function (e) {
         e.preventDefault();
+        staticQuantumWalk.reset();
         staticQuantumWalk.graph = inputGraph.value;
         staticQuantumWalk.dim = parseInt(inputDim.value);
         setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
@@ -144,6 +145,7 @@ document.getElementById('clearGraphButton').addEventListener('click', function (
 $(function () {
     $('#graphCustomButton').on('click', async function (e) {
         e.preventDefault();
+        staticQuantumWalk.reset();
         let customAdjacency = createAdjacencyMatrix(customCy);
         setCustomAdjacencyMatrix(customAdjacency);
     });
