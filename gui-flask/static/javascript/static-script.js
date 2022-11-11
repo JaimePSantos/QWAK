@@ -211,23 +211,23 @@ function adjacencyMatrixToString(adjacencyMatrix) {
 $(function () {
     $('#setInitStateButton').on('click', function (e) {
         e.preventDefault();
-        staticQuantumWalk.initState = inputInitState.value;
-        setStaticInitState(staticQuantumWalk.initState)
+        setStaticJsInitState();
     });
 });
 
 $(function () {
     $('#setTimeButton').on('click', function (e) {
         e.preventDefault();
-        staticQuantumWalk.time = (inputTime.value);
-        setStaticTime(staticQuantumWalk.time)
+        setStaticJsTime();
     });
 });
 
 $(function () {
     $('#staticProbDistButton').on('click', async function (e) {
         e.preventDefault();
-        let staticProbDist = await getStaticProbDist();
+        staticQuantumWalk.reset();
+        setStaticJsTime();
+        setStaticJsInitState();
         setStaticProbDist(staticProbDist);
         setStaticMean();
         setStaticSndMoment();
@@ -236,7 +236,7 @@ $(function () {
     });
 });
 
-function setStaticInitState(initStateStr) {
+function setStaticPyInitState(initStateStr) {
     $.ajax({
         type: 'POST',
         url: `/setStaticInitState`, // <- Add the queryparameter here
@@ -250,7 +250,12 @@ function setStaticInitState(initStateStr) {
     });
 }
 
-function setStaticTime(newTime) {
+function setStaticJsInitState(){
+    staticQuantumWalk.initState = inputInitState.value;
+    setStaticPyInitState(staticQuantumWalk.initState);
+}
+
+function setStaticPyTime(newTime) {
     $.ajax({
         type: 'POST',
         url: `/setStaticTime`, // <- Add the queryparameter here
@@ -262,6 +267,11 @@ function setStaticTime(newTime) {
             console.log('setTime error');
         }
     });
+}
+
+function setStaticJsTime(){
+    staticQuantumWalk.time = (inputTime.value);
+    setStaticPyTime(staticQuantumWalk.time);
 }
 
 function setStaticProbDist(walk) {
