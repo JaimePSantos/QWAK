@@ -147,7 +147,7 @@ $(function () {
         e.preventDefault();
         staticQuantumWalk.reset();
         let customAdjacency = createAdjacencyMatrix(customCy);
-        setCustomAdjacencyMatrix(customAdjacency);
+        await setCustomAdjacencyMatrix(customAdjacency);
     });
 });
 

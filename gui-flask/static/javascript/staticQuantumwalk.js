@@ -5,6 +5,7 @@ export class StaticQuantumwalk {
         this._initState = _initState;
         this._graph = _graph;
     }
+
     reset(){
         this._dim = 100;
         this.time = 10;
