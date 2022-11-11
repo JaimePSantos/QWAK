@@ -24,7 +24,7 @@ function setStaticGraph(newGraph) {
         data: {newGraph: newGraph},
         success: function (response) {
             console.log('success - graph set to ${newGraph}');
-            console.log(response)
+            // console.log(response)
         },
         error: function (response) {
             console.log('setGraph error');
@@ -77,7 +77,6 @@ function openTab(evt, graph, tabcontent, tablinks) {
 
 
 document.getElementById('defaultOpen').addEventListener('click', evt => {
-    console.log("Hello")
     openTab(evt, 'GraphGenerator', "tabcontent", "tablinks");
 })
 

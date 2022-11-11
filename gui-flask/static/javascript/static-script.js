@@ -52,7 +52,7 @@ $(function () {
         setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
         setStaticGraph(staticQuantumWalk.graph);
         let myGraph = await getStaticGraph();
-        console.log(myGraph)
+        // console.log(myGraph)
         updateGraph(myGraph);
     });
 });
@@ -161,7 +161,7 @@ async function addNodeButtonPress() {
 }
 
 function setCustomAdjacencyMatrix(customAdjacency) {
-    console.log(customAdjacency)
+    // console.log(customAdjacency)
     $.ajax({
         type: 'POST',
         url: `/setStaticCustomGraph`, // <- Add the queryparameter here
@@ -180,7 +180,7 @@ function createAdjacencyMatrix(graph) {
     let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
 
     for (let edg of graph.json().elements.edges) {
-        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
+        // console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
         adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
         adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
     }
@@ -265,7 +265,7 @@ function setStaticTime(newTime) {
 }
 
 function setStaticProbDist(walk) {
-    console.log(walk)
+    // console.log(walk)
     if (walk[0] == true) {
         alert(walk[1]);
         return;
