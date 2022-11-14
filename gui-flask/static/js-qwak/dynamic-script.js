@@ -282,39 +282,48 @@ let setDynInvPartRatio = async () => {
 
 // #### #### SURVIVAL PROB PLOT #### ####
 
-// let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"), dynamicSurvivalProbChartData)
-//
-// document.getElementById("dynamicSurvivalProbButton").addEventListener('click', async function () {
-//     setDynSurvProb();
-// });
+let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"), dynamicSurvivalProbChartData)
 
-// let setDynSurvProb = async () => {
-//     let k0 = document.getElementById("dynInputSurvProbNodeA").value
-//     let k1 = document.getElementById("dynInputSurvProbNodeB").value
-//     let dynSurvProb = await getDynSurvProb(k0, k1);
-//     if(dynSurvProb[0]==true){
-//         alert(dynSurvProb[1]);
-//         return;
-//     }else{
-//         dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb[1].flat();
-//         dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb[1].length).keys()];
-//         myDynamicSurvivalProbChart.clear();
-//         myDynamicSurvivalProbChart.update();
-//     }
-// }
-//
-// let getDynSurvProb = (k0, k1) => {
-//     return eel
-//         .getDynSurvivalProb(k0, k1)()
-//         .then((a) => {
-//             return a;
-//         })
-//         .catch((e) => console.log(e));
-// }
+$(function () {
+    $('#dynamicSurvivalProbButton').on('click', async function (e) {
+        setDynSurvProb();
+    });
+});
 
-// #### GRAPHS  ####
-
-// cy.layout({name: "circle"}).run();
+let setDynSurvProb = async () => {
+    let k0 = document.getElementById("dynInputSurvProbNodeA").value
+    let k1 = document.getElementById("dynInputSurvProbNodeB").value
+    let dynSurvProb = await getDynamicSurvivalProb(k0, k1);
+    if(dynSurvProb[0]==true){
+        alert(dynSurvProb[1]);
+        return;
+    }else{
+        dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb[1].flat();
+        dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb[1].length).keys()];
+        myDynamicSurvivalProbChart.clear();
+        myDynamicSurvivalProbChart.update();
+    }
+}
+async function getDynamicSurvivalProb(fromNode, toNode) {
+    // TODO: Should add an error for when the nodes in the interval are larger than the graph.
+    let dynamicSurvivalProb;
+    await $.ajax({
+        type: 'POST',
+        url: `/getDynamicSurvivalProb`,
+        data: {fromNode: fromNode, toNode: toNode},
+        success: function (response) {
+            dynamicSurvivalProb = response;
+            console.log(`success - dynamicSurvivalProb ${dynamicSurvivalProb}`);
+            return dynamicSurvivalProb;
+        },
+        error: function (response) {
+            console.log('dynamicSurvivalProb error');
+            dynamicSurvivalProb = 'error'
+            return dynamicSurvivalProb;
+        }
+    });
+    return dynamicSurvivalProb;
+}
 
 // #### #### GRAPH GENERATOR #### ####
 

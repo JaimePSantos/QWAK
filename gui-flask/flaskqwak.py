@@ -147,6 +147,15 @@ def getStaticSurvivalProb():
         survProb[1] = round(survProb[1], resultRounding)
     return survProb
 
+@app.route('/getDynamicSurvivalProb',methods=['GET','POST'])
+def getDynamicSurvivalProb():
+    fromNode = str(request.form.get("fromNode"))
+    toNode = str(request.form.get("toNode"))
+    survProb = gQwak.getDynamicSurvivalProb(fromNode, toNode)
+    if not survProb[0]:
+        survProb[1] = list(map(lambda x: round(x,resultRounding),survProb[1]))
+    return survProb
+
 @app.route('/checkPST',methods=['GET','POST'])
 def checkPST():
     nodeA = str(request.form.get("nodeA"))
