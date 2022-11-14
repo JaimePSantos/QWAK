@@ -87,6 +87,17 @@
     font-weight: bold;
 }
 
+.stat-with-input-dyn {
+    display: grid;
+    grid-template-columns: 10% 26.66% 10% 26.66% 26.66%;
+    grid-template-rows: 100%;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-white);
+    font-weight: bold;
+}
+
 .stat-with-input .myStatText {
     width:100%;
     /*border:solid red 1px;*/
@@ -95,8 +106,25 @@
     justify-content: center;
 }
 
+.stat-with-input-dyn .myStatText {
+    width:100%;
+    font-size: 12px;
+    /*border:solid red 1px;*/
+    vertical-align: center;
+    text-align: center;
+    justify-content: center;
+}
+
 .stat-with-input .myStatInputBox {
     width:100%;
+    border: solid;
+    border-width: 3px;
+    /*border:solid red 1px;*/
+}
+
+.stat-with-input-dyn .myStatInputBox {
+    width:80%;
+    height:90%;
     border: solid;
     border-width: 3px;
     /*border:solid red 1px;*/

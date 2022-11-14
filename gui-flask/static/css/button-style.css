@@ -50,5 +50,9 @@
 
 .myButton.statInput{
         width: 100%;
+}
 
+.myButton.dyn-go{
+        width: 60%;
+    font-size: 8px;
 }
