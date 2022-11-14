@@ -114,6 +114,10 @@ def runMultipleWalks():
 def getStaticMean():
     return [round(gQwak.getStaticMean(), resultRounding)]
 
+@app.route('/getDynamicMean',methods=['GET','POST'])
+def getDynamicMean():
+    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicMean()))
+
 @app.route('/getStaticSndMoment',methods=['GET','POST'])
 def getStaticSndMoment():
     return [round(gQwak.getStaticSndMoment(), resultRounding)]
