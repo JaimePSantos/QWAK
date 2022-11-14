@@ -38,6 +38,7 @@ let inputInit = () => {
 }
 
 inputInit();
+console.log(cy)
 
 // SETTING THE GRAPH
 // - Graph Generator

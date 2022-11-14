@@ -6,8 +6,8 @@ export class DynamicQuantumwalk {
     }
 
     reset(){
-        this._dim = [100];
-        this.time = [10];
+        this._dim = 100;
+        this.time = [0,10];
         this._initState = [[50]];
         this._graph = 'nx.cycle_graph'
         console.log("WALK RESET")

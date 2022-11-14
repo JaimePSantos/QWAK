@@ -1,6 +1,7 @@
 import {
     customCy,
     cy,
+    staticChartData,
     dynamicChartData,
     dynamicInvPartRatioChartData,
     dynamicMeanChartData,
@@ -8,7 +9,6 @@ import {
     dynamicSurvivalProbChartData
 } from "./dynamic-tools.js";
 import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
-import {staticChartData} from "./static-tools.js";
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
@@ -19,7 +19,7 @@ let inputInitStateRange = document.getElementById("inputInitStateRange");
 // #### JAVASCRIPT QUANTUM WALK OBJECTS ####
 let defaultN = 100;
 let defaultGraph = 'nx.cycle_graph';
-let defaultTimeList = [0, 100];
+let defaultTimeList = [0, 10];
 let defaultInitStateList = [[Math.floor(defaultN / 2)]];
 
 let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList);
@@ -35,6 +35,7 @@ inputRangeInit();
 
 // SETTING THE GRAPH
 // - Graph Generator
+cy.layout({name: "circle"}).run();
 
 let myChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), staticChartData);
 
@@ -46,10 +47,17 @@ $(function () {
         dynamicQuantumWalk.dim = parseInt(inputDim.value);
         setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
         setDynamicGraph(dynamicQuantumWalk.graph);
-        let myGraph = await getDynamicGraphToJson();
-        // console.log(myGraph)
-        console.log(myGraph)
+        let myGraph = await getDynamicGraph();
         updateGraph(myGraph);
+    });
+});
+
+$(function () {
+    $('#setDimButton').on('click', function (e) {
+        e.preventDefault();
+        dynamicQuantumWalk.graph = inputGraph.value;
+        dynamicQuantumWalk.dim = parseInt(inputDim.value);
+        setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph)
     });
 });
 
@@ -81,7 +89,7 @@ function setDynamicGraph(newGraph) {
     })
 }
 
-async function getDynamicGraphToJson() {
+async function getDynamicGraph() {
     let myGraph;
     await $.ajax({
         type: 'POST',
@@ -354,59 +362,57 @@ function openTab(evt, graph, tabcontent, tablinks) {
 // };
 
 // #### CUSTOM GRAPH ####
-var eh = customCy.edgehandles();
-
-document.getElementById('addEdgeButton').addEventListener('click', function () {
-    eh.enableDrawMode();
-});
-
-document.getElementById("addNodeButton").addEventListener('click', function () {
-    addNodeButtonPress();
-});
-
-let nodeNumber = 2;
-let nodeXPos = 200;
-let nodeYPos = 0;
-
-let addNodeButtonPress = async () => {
-    nodeNumber++;
-    nodeYPos += 50;
-    customCy.add({
-        group: 'nodes',
-        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
-        position: {x: nodeXPos, y: nodeYPos}
-    });
-    // customCy.layout();
-}
-
-document.getElementById('graphCustomButton').addEventListener('click', function () {
-    graphCustomButtonPress();
-});
-
-let graphCustomButtonPress = async () => {
-    let adjacencyMatrix = createAdjacencyMatrix(customCy);
-    console.log(adjacencyMatrix.toArray());
-    eel.setDynamicCustomGraph();
-}
-
-// eel.expose(sendAdjacencyMatrix);
-function sendAdjacencyMatrix() {
-    return createAdjacencyMatrix(customCy);
-}
-
-function createAdjacencyMatrix(graph) {
-    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
-
-    for (let edg of graph.json().elements.edges) {
-        console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
-    }
-    return adjacencyMatrix;
-}
-
-document.getElementById('clearGraphButton').addEventListener('click', function () {
-    eh.disableDrawMode();
-});
-
-  
+// var eh = customCy.edgehandles();
+//
+// document.getElementById('addEdgeButton').addEventListener('click', function () {
+//     eh.enableDrawMode();
+// });
+//
+// document.getElementById("addNodeButton").addEventListener('click', function () {
+//     addNodeButtonPress();
+// });
+//
+// let nodeNumber = 2;
+// let nodeXPos = 200;
+// let nodeYPos = 0;
+//
+// let addNodeButtonPress = async () => {
+//     nodeNumber++;
+//     nodeYPos += 50;
+//     customCy.add({
+//         group: 'nodes',
+//         data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
+//         position: {x: nodeXPos, y: nodeYPos}
+//     });
+//     // customCy.layout();
+// }
+//
+// document.getElementById('graphCustomButton').addEventListener('click', function () {
+//     graphCustomButtonPress();
+// });
+//
+// let graphCustomButtonPress = async () => {
+//     let adjacencyMatrix = createAdjacencyMatrix(customCy);
+//     console.log(adjacencyMatrix.toArray());
+//     eel.setDynamicCustomGraph();
+// }
+//
+// // eel.expose(sendAdjacencyMatrix);
+// function sendAdjacencyMatrix() {
+//     return createAdjacencyMatrix(customCy);
+// }
+//
+// function createAdjacencyMatrix(graph) {
+//     let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
+//
+//     for (let edg of graph.json().elements.edges) {
+//         console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
+//         adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
+//         adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
+//     }
+//     return adjacencyMatrix;
+// }
+//
+// document.getElementById('clearGraphButton').addEventListener('click', function () {
+//     eh.disableDrawMode();
+// });
