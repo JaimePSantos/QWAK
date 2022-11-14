@@ -3,6 +3,7 @@ import os
 import networkx as nx
 import numpy as np
 import copy
+from numpy import pi
 
 from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
 from qwak.State import State

@@ -2,7 +2,7 @@ import networkx as nx
 from scipy import linalg
 import numpy as np
 
-from utils.Profiler import profile
+from Profiler import profile
 from qwak.qwak import QWAK
 
 linesToPrint = 15

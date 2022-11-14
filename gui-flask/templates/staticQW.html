@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+    <title>Static Quantum Walk</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/temp-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/button-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/tab-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/input-style.css') }}">
+
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/noscript.css') }}"/>
+    </noscript>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+            integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+            integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type='module' src="{{ url_for('static',filename='js-qwak/static-script.js') }}"></script>
+</head>
+
+<body class="is-preload static">
+
+<div class="parent-wrapper">
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="title">QWAK</a>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('staticQW')}}" class="active">Static</a></li>
+                <li><a href="{{url_for('dynamicQW')}}">Dynamic</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner-qwak">
+                <h1 class="major">Static CTQW</h1>
+                <div class="graph-probDist-stat-wrapper">
+                    <div class="graph-probdist-wrapper">
+                        <div class="graph-wrapper">
+                            <div class="myTab">
+                                <button id="defaultOpen" class="tablinks">Graph Generator</button>
+                                <button id="customGraphDisplay" class="tablinks">Custom Graph</button>
+                            </div>
+                            <!--Tab links-->
+                            <script type='module' src="{{ url_for('static',filename='js-qwak/static-tools.js') }}"></script>
+                            <!-- Tab content -->
+                            <div id="GraphGenerator" class="tabcontent">
+                                <!--                            <div class='grid-element'>-->
+                                <div class='set-graph-combo'>
+                                    <div class="graph-container">
+                                        <div id="cy" class="graph-display"></div>
+                                    </div>
+                                    <button id="runGraphButton" class="myButton graph">Set Graph</button>
+                                    <li class='input-combo'>
+                                        <input type="text" name="dim" id="inputDim" class="myGraphInputBox"></input>
+                                        <button id="setDimButton" class="myButton input">n</button>
+                                    </li>
+                                    <li class='input-combo'>
+                                        <input type="text" name="graph" id="inputGraph" class="myGraphInputBox"></input>
+                                        <button id="setGraphButton" class="myButton input">G</button>
+                                    </li>
+                                </div>
+
+                                <!--                            </div>-->
+                            </div>
+                            <div id="CustomGraph" class="tabcontent">
+                                <div class='set-graph-combo'>
+                                    <div class="graph-container">
+                                        <div id="cyCustom" class="graph-display"></div>
+                                    </div>
+                                    <button id="graphCustomButton" class="myButton graph">Set Graph</button>
+                                    <ul class='input-fields'>
+                                            <button id="addNodeButton" class="myButton customGraphInput">Node</button>
+                                            <button id="addEdgeButton" class="myButton customGraphInput">Draw</button>
+                                    </ul>
+                                    <ul class='input-fields'>
+                                            <button id="clearGraphButton" class="myButton customGraphInput">Void</button>
+                                            <button id="placeHolderButtonGen" class="myButton customGraphInput">PLPL</button>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="probDist-wrapper">
+                            <div></div>
+                            <div class="set-probDist-combo">
+                                <div class="prob-dist-chart-container">
+                                    <canvas id="staticProbDistChart" class="probDist-display"></canvas>
+                                </div>
+                                <button id="staticProbDistButton" class="myButton probDist">Run Walk</button>
+                                <ul class="input-fields">
+                                    <li class='input-combo'>
+                                        <input type="text" name="time" id="inputTime" class="myProbDistInputBox"></input>
+                                        <button id="setTimeButton" class="myButton probDistInput">tf</button>
+                                    </li>
+                                    <li class='input-combo'>
+                                        <input type="text" id="inputGamma" class="myProbDistInputBox"></input>
+                                        <button id="setGammaButton" class="myButton probDistInput">PL</button>
+                                    </li>
+                                </ul>
+                                <ul class="input-fields">
+                                    <li class='input-combo'>
+                                        <input type="text" name="initState" id="inputInitState"
+                                               class="myProbDistInputBox"></input>
+                                        <button id="setInitStateButton" class="myButton probDistInput">Ψ0</button>
+                                    </li>
+                                    <li class='input-combo'>
+                                        <input type="text" name="placeholder" id="placeholder"
+                                               class="myProbDistInputBox"></input>
+                                        <button id="setPlaceholderButton" class="myButton probDistInput">Pl</button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="stats-wrapper">
+                        <ul class="stat-list" id="statList">
+                            <li class="stat-list-combo">
+                                <div class="myStatText"> Mean</div>
+                                <input type="text" class="myStatInputBox" id="inputMean">
+                                </input>
+                            </li>
+
+                            <li class="stat-list-combo">
+                                <div class="myStatText">2nd Moment</div>
+                                <input type="text" class="myStatInputBox" id="inputSndMoment">
+                                </input>
+                            </li>
+
+                            <li class="stat-list-combo">
+                                <div class="myStatText">Standard Deviation</div>
+                                <input type="text" class="myStatInputBox" id="inputStDev">
+                                </input>
+                            </li>
+
+                            <li class="stat-list-combo">
+                                <div class="myStatText">Inverse Participation Ratio</div>
+                                <input type="text" class="myStatInputBox" id="inputInvPartRat">
+                                </input>
+                            </li>
+                        </ul>
+                        <ul class="stat-list-input" id="stat-list-input">
+
+                            <li class="stat-list-combo-input">
+                                <div class="myHeaderStatText">Survival Probability</div>
+                                <div class="stat-with-input">
+                                    <div class="myStatText">From Node</div>
+                                    <input type="text" class="myStatInputBox" id="inputSurvProbNodeA">
+                                    <div class="myStatText">To Node</div>
+                                    <input type="text" class="myStatInputBox" id="inputSurvProbNodeB">
+                                    <button id="survProbNodesButton" class="myButton statInput">Go</button>
+                                    <div class="myStatText">Result</div>
+                                    <input type="text" class="myStatInputBox" id="inputSurvProbResult">
+
+                                </div>
+                            </li>
+
+                            <li class="stat-list-combo-input">
+                                <div class="myHeaderStatText">Perfect State Transfer</div>
+                                <div class="stat-with-input">
+                                    <div class="myStatText">From Node</div>
+                                    <input type="text" class="myStatInputBox" id="inputPSTNodeA">
+                                    <div class="myStatText">To Node</div>
+                                    <input type="text" class="myStatInputBox" id="inputPSTNodeB">
+                                    <button id="PSTNodesButton" class="myButton statInput">Go</button>
+                                    <div class="myStatText">Result</div>
+                                    <input type="text" class="myStatInputBox" id="inputPSTResult">
+
+                                </div>
+                                </input>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; QWAK. All rights reserved.</li>
+                <li>Website: <a href="https://github.com/JaimePSantos/QWAK">Github</a></li>
+            </ul>
+        </div>
+    </footer>
+</div>
+
+<!-- Scripts -->
+        <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/jquery.scrolly.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/browser.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/breakpoints.min.js')}}"></script>
+        <script src="{{url_for('static', filename='js/util.js')}}"></script>
+        <script src="{{url_for('static', filename='js/main.js')}}"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-edgehandles@4.0.1/cytoscape-edgehandles.min.js"></script>
+<!-- <script src="https://unpkg.com/cytoscape-popper@2.0.0/cytoscape-popper.js"></script> -->
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"-->
+<!--        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"-->
+<!--        crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
