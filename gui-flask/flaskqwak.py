@@ -84,10 +84,22 @@ def setStaticInitState():
     gQwak.setStaticInitState(initStateStr)
     return ("nothing")
 
+@app.route('/setDynamicInitStateList',methods=['GET','POST'])
+def setDynamicInitStateList():
+    initStateStr = request.form.get("initStateStr")
+    gQwak.setDynamicInitStateList(initStateStr)
+    return ("nothing")
+
 @app.route('/setStaticTime',methods=['GET','POST'])
 def setStaticTime():
     newTime = request.form.get("newTime")
     gQwak.setStaticTime(newTime)
+    return ("nothing")
+
+@app.route('/setDynamicTime',methods=['GET','POST'])
+def setDynamicTime():
+    newTime = request.form.get("newTime")
+    gQwak.setDynamicTime(newTime)
     return ("nothing")
 
 @app.route('/runWalk',methods=['GET','POST'])

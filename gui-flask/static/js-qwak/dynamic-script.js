@@ -37,8 +37,6 @@ inputRangeInit();
 // - Graph Generator
 cy.layout({name: "circle"}).run();
 
-let myChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), staticChartData);
-
 $(function () {
     $('#runGraphButton').on('click', async function (e) {
         e.preventDefault();
@@ -114,33 +112,67 @@ let updateGraph = (graph) => {
     cy.layout({name: "circle"}).run();
 }
 
-function openTab(evt, graph, tabcontent, tablinks) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName(tabcontent);
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName(tablinks);
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-
-    // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(graph).style.display = "block";
-    evt.currentTarget.className += " active";
-}
 
 
 // #### DYNAMIC QUANTUM WALK  ####
 
 // #### #### PROB DIST ANIMATION #### ####
 
-// let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
+let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
+
+$(function () {
+    $('#setInitStateRangeButton').on('click', function (e) {
+        e.preventDefault();
+        setDynamicJsInitStateList();
+    });
+});
+
+$(function () {
+    $('#setTimeRangeButton').on('click', function (e) {
+        e.preventDefault();
+        setDynamicJsTime();
+    });
+});
+
+function setDynamicJsInitStateList(){
+    dynamicQuantumWalk.initState = inputInitStateRange.value;
+    setDynamicPyInitStateList(dynamicQuantumWalk.initState);
+}
+
+function setDynamicPyInitStateList(initStateStr) {
+    $.ajax({
+        type: 'POST',
+        url: `/setDynamicInitStateList`, // <- Add the queryparameter here
+        data: {initStateStr: initStateStr},
+        success: function (response) {
+            console.log('success - InitState set to ${initStateStr}');
+        },
+        error: function (response) {
+            console.log('InitState error');
+        }
+    });
+}
+
+function setDynamicJsTime(){
+    dynamicQuantumWalk.time = (inputTimeRange.value);
+    setDynamicPyTime(dynamicQuantumWalk.time);
+}
+
+function setDynamicPyTime(newTime) {
+    $.ajax({
+        type: 'POST',
+        url: `/setDynamicTime`, // <- Add the queryparameter here
+        data: {newTime: newTime},
+        success: function (response) {
+            console.log('success - Time set to ${newTime}');
+        },
+        error: function (response) {
+            console.log('setTime error');
+        }
+    });
+}
+
+
 //
 // document.getElementById("setInitStateRangeButton").addEventListener('click', async function () {
 //     setInitStateRange();
@@ -416,3 +448,24 @@ function openTab(evt, graph, tabcontent, tablinks) {
 // document.getElementById('clearGraphButton').addEventListener('click', function () {
 //     eh.disableDrawMode();
 // });
+
+function openTab(evt, graph, tabcontent, tablinks) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName(tabcontent);
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName(tablinks);
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(graph).style.display = "block";
+    evt.currentTarget.className += " active";
+}
