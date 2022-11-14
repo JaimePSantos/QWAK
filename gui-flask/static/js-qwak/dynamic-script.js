@@ -172,16 +172,61 @@ function setDynamicPyTime(newTime) {
     });
 }
 
+$(function () {
+    $('#dynamicProbDistButton').on('click', async function (e) {
+        e.preventDefault();
+        dynamicQuantumWalk.reset();
+        setDynamicJsTime();
+        setDynamicJsInitStateList();
+        let dynamicProbDist = await getDynamicProbDist();
+        setDynamicProbDist(dynamicProbDist);
+        // setStaticMean();
+        // setStaticSndMoment();
+        // setStaticStDev();
+        // setStaticInversePartRatio();
+    });
+});
 
-//
-// document.getElementById("setInitStateRangeButton").addEventListener('click', async function () {
-//     setInitStateRange();
-// });
-//
-// document.getElementById("setTimeRangeButton").addEventListener('click', async function () {
-//     setTimeRange();
-// });
-//
+function setDynamicProbDist(multipleWalks) {
+    // console.log(walk)
+    if (multipleWalks[0] == true) {
+        alert(multipleWalks[1]);
+        return;
+    } else {
+        let i = 0;
+        let animationSteps = 100;
+        myAnimatedChart.clear();
+        for (const walk of multipleWalks[1]) {
+            setTimeout(() => {
+                dynamicChartData.data.datasets[0].data = walk.flat();
+                dynamicChartData.data.labels = [...Array(walk.length).keys()];
+                dynamicChartData.options.scales.y.ticks.beginAtZero = false;
+                myAnimatedChart.update();
+            }, animationSteps * i);
+            i++;
+        }
+    }
+}
+async function getDynamicProbDist() {
+    let myMultipleWalk;
+    await $.ajax({
+        type: 'POST',
+        url: `/runMultipleWalks`, // <- Add the queryparameter here
+        success: function (response) {
+            myMultipleWalk = response;
+            console.log(`success - Runwalk ${myMultipleWalk}`);
+            return myMultipleWalk;
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+            myMultipleWalk = 'error'
+            return myMultipleWalk;
+        }
+    });
+    return myMultipleWalk;
+}
+
+
 // document.getElementById("dynamicProbDistButton").addEventListener('click', async function () {
 //     setdynamicProbDist();
 // });
@@ -191,10 +236,6 @@ function setDynamicPyTime(newTime) {
 //     eel.setInitStateList(dynamicQuantumWalk.initStateList);
 // }
 //
-// let setTimeRange = async () => {
-//     dynamicQuantumWalk.timeList = inputTimeRange.value;
-//     eel.setDynamicTime(dynamicQuantumWalk.timeList);
-// }
 //
 // let setdynamicProbDist = async () => {
 //     let multipleWalks = await getMultipleWalks();

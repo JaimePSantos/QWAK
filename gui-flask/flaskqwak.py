@@ -104,8 +104,11 @@ def setDynamicTime():
 
 @app.route('/runWalk',methods=['GET','POST'])
 def runWalk():
-    staticProbDist = gQwak.runWalk()
-    return staticProbDist
+    return gQwak.runWalk()
+
+@app.route('/runMultipleWalks',methods=['GET','POST'])
+def runMultipleWalks():
+    return gQwak.runMultipleWalks()
 
 @app.route('/getStaticMean',methods=['GET','POST'])
 def getStaticMean():
