@@ -169,5 +169,11 @@ def setStaticCustomGraph():
     gQwak.setStaticCustomGraph(customAdjacency)
     return ("nothing")
 
+@app.route('/setDynamicCustomGraph',methods=['GET','POST'])
+def setDynamicCustomGraph():
+    customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
+    gQwak.setDynamicCustomGraph(customAdjacency)
+    return ("nothing")
+
 if __name__ == '__main__':
     app.run(debug=True)

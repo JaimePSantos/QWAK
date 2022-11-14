@@ -130,8 +130,92 @@ let updateGraph = (graph) => {
     cy.add(graph.elements)
     cy.layout({name: "circle"}).run();
 }
+// - Custom Graph
+// #### CUSTOM GRAPH ####
+
+let nodeNumber = 2;
+let nodeXPos = 200;
+let nodeYPos = 0;
+
+var eh = customCy.edgehandles();
+
+document.getElementById('addEdgeButton').addEventListener('click', function () {
+    eh.enableDrawMode();
+});
+
+document.getElementById("addNodeButton").addEventListener('click', function () {
+    addNodeButtonPress();
+});
+
+document.getElementById('clearGraphButton').addEventListener('click', function () {
+    eh.disableDrawMode();
+});
+
+$(function () {
+    $('#graphCustomButton').on('click', async function (e) {
+        e.preventDefault();
+        dynamicQuantumWalk.reset();
+        let customAdjacency = createAdjacencyMatrix(customCy);
+        await setCustomAdjacencyMatrix(customAdjacency);
+    });
+});
 
 
+async function addNodeButtonPress() {
+    nodeNumber++;
+    nodeYPos += 50;
+    customCy.add({
+        group: 'nodes',
+        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
+        position: {x: nodeXPos, y: nodeYPos}
+    });
+}
+
+function setCustomAdjacencyMatrix(customAdjacency) {
+    // console.log(customAdjacency)
+    $.ajax({
+        type: 'POST',
+        url: `/setDynamicCustomGraph`, // <- Add the queryparameter here
+        data: {customAdjacency: customAdjacency},
+        async: false,
+        success: function (response) {
+            console.log('success - customAdjacency set to ${customAdjacency}');
+        },
+        error: function (response) {
+            console.log('customAdjacency error');
+        }
+    });
+}
+
+function createAdjacencyMatrix(graph) {
+    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
+
+    for (let edg of graph.json().elements.edges) {
+        // console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
+        adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
+    }
+    adjacencyMatrix = adjacencyMatrixToString(adjacencyMatrix);
+    return adjacencyMatrix;
+}
+
+function adjacencyMatrixToString(adjacencyMatrix) {
+    let adjm = "[";
+    let elemAux = "";
+    for (let elem of adjacencyMatrix._data) {
+        elemAux = "["
+        for (let e of elem) {
+            elemAux = elemAux.concat(",", e);
+        }
+        elemAux = elemAux.concat("", "]")
+        elemAux = elemAux.slice(0, 1) + elemAux.slice(2)
+        adjm = adjm.concat(",", elemAux)
+        elemAux = "";
+    }
+    adjm = adjm.concat("", "]")
+    adjm = adjm.slice(0, 1) + adjm.slice(2)
+    return adjm
+}
 
 // #### DYNAMIC QUANTUM WALK  ####
 
