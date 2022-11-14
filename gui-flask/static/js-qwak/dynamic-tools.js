@@ -1,20 +1,58 @@
-// let getGraph = () => {
-//     return eel
-//         .getDynamicGraphToJson()()
-//         .then((a) => {
-//             return a ? a : Promise.reject(Error("Get Prob failed."));
-//         })
-//         .catch((e) => console.log(e));
-// };
-//
-// let initGraph = async () => {
-//     let graphStr = 'nx.cycle_graph'
-//     eel.setDynamicDim(100, graphStr)
-//     eel.setDynamicGraph(graphStr)
-// }
-//
-// initGraph()
-// let myGraph = await getGraph();
+let initGraph = async () => {
+    let graphStr = 'nx.cycle_graph'
+    setDynamicDim(100, graphStr)
+    setDynamicGraph(graphStr)
+}
+
+function setDynamicDim(newDim, graphStr) {
+    $.ajax({
+        type: 'POST',
+        url: `/setDynamicDim`, // <- Add the queryparameter here
+        data: {newDim: newDim, graphStr: graphStr},
+        success: function (response) {
+            console.log('success - Dim set to ${newDim}');
+        },
+        error: function (response) {
+            console.log('setDim error');
+        }
+    });
+}
+
+function setDynamicGraph(newGraph) {
+    $.ajax({
+        type: 'POST',
+        url: `/setDynamicGraph`,
+        data: {newGraph: newGraph},
+        success: function (response) {
+            console.log('success - graph set to ${newGraph}');
+        },
+        error: function (response) {
+            console.log('setGraph error');
+        }
+    })
+}
+
+async function getDynamicGraph() {
+    let myGraph;
+    await $.ajax({
+        type: 'POST',
+        url: `/getDynamicGraphToJson`, // <- Add the queryparameter here
+        success: function (response) {
+            myGraph = response;
+            console.log('success - got graph ${myGraph}');
+            return myGraph;
+        },
+        error: function (response) {
+            console.log('getStaticGraph error');
+            myGraph = 'error'
+            return myGraph;
+        }
+    });
+    return myGraph;
+}
+
+initGraph();
+let myGraph = await getDynamicGraph();
 
 function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables

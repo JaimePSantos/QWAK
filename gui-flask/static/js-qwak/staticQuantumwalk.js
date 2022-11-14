@@ -13,6 +13,7 @@ export class StaticQuantumwalk {
         this._graph = 'nx.cycle_graph'
         console.log("WALK RESET")
     }
+
     get dim() {
         return this._dim;
     }

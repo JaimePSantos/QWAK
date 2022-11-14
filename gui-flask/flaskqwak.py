@@ -50,15 +50,32 @@ def setStaticGraph():
     gQwak.setStaticGraph(newGraph)
     return ("nothing")
 
+@app.route('/setDynamicGraph',methods=['GET','POST'])
+def setDynamicGraph():
+    newGraph = request.form.get("newGraph")
+    gQwak.setDynamicGraph(newGraph)
+    return ("nothing")
+
 @app.route('/getStaticGraphToJson',methods=['GET','POST'])
 def getStaticGraphToJson():
     return gQwak.getStaticGraphToJson()
+
+@app.route('/getDynamicGraphToJson',methods=['GET','POST'])
+def getDynamicGraphToJson():
+    return gQwak.getDynamicGraphToJson()
 
 @app.route('/setStaticDim',methods=['GET','POST'])
 def setStaticDim():
     newDim = request.form.get("newDim")
     graphStr = request.form.get("graphStr")
     gQwak.setStaticDim(int(newDim), graphStr)
+    return ("nothing")
+
+@app.route('/setDynamicDim',methods=['GET','POST'])
+def setDynamicDim():
+    newDim = request.form.get("newDim")
+    graphStr = request.form.get("graphStr")
+    gQwak.setDynamicDim(int(newDim), graphStr)
     return ("nothing")
 
 @app.route('/setStaticInitState',methods=['GET','POST'])

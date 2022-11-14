@@ -8,6 +8,7 @@ import {
     dynamicSurvivalProbChartData
 } from "./dynamic-tools.js";
 import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
+import {staticChartData} from "./static-tools.js";
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
@@ -31,6 +32,79 @@ let inputRangeInit = () => {
 }
 
 inputRangeInit();
+
+// SETTING THE GRAPH
+// - Graph Generator
+
+let myChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), staticChartData);
+
+$(function () {
+    $('#runGraphButton').on('click', async function (e) {
+        e.preventDefault();
+        dynamicQuantumWalk.reset();
+        dynamicQuantumWalk.graph = inputGraph.value;
+        dynamicQuantumWalk.dim = parseInt(inputDim.value);
+        setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
+        setDynamicGraph(dynamicQuantumWalk.graph);
+        let myGraph = await getDynamicGraphToJson();
+        // console.log(myGraph)
+        console.log(myGraph)
+        updateGraph(myGraph);
+    });
+});
+
+function setDynamicDim(newDim, graphStr) {
+    $.ajax({
+        type: 'POST',
+        url: `/setDynamicDim`, // <- Add the queryparameter here
+        data: {newDim: newDim, graphStr: graphStr},
+        success: function (response) {
+            console.log('success - Dim set to ${newDim}');
+        },
+        error: function (response) {
+            console.log('setDim error');
+        }
+    });
+}
+
+function setDynamicGraph(newGraph) {
+    $.ajax({
+        type: 'POST',
+        url: `/setDynamicGraph`,
+        data: {newGraph: newGraph},
+        success: function (response) {
+            console.log('success - graph set to ${newGraph}');
+        },
+        error: function (response) {
+            console.log('setGraph error');
+        }
+    })
+}
+
+async function getDynamicGraphToJson() {
+    let myGraph;
+    await $.ajax({
+        type: 'POST',
+        url: `/getDynamicGraphToJson`, // <- Add the queryparameter here
+        success: function (response) {
+            myGraph = response;
+            console.log('success - got graph ${myGraph}');
+            return myGraph;
+        },
+        error: function (response) {
+            console.log('getStaticGraph error');
+            myGraph = 'error'
+            return myGraph;
+        }
+    });
+    return myGraph;
+}
+
+let updateGraph = (graph) => {
+    cy.elements().remove()
+    cy.add(graph.elements)
+    cy.layout({name: "circle"}).run();
+}
 
 function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables
@@ -58,234 +132,228 @@ function openTab(evt, graph, tabcontent, tablinks) {
 
 // #### #### PROB DIST ANIMATION #### ####
 
-let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
-
-document.getElementById("setInitStateRangeButton").addEventListener('click', async function () {
-    setInitStateRange();
-});
-
-document.getElementById("setTimeRangeButton").addEventListener('click', async function () {
-    setTimeRange();
-});
-
-document.getElementById("dynamicProbDistButton").addEventListener('click', async function () {
-    setdynamicProbDist();
-});
-
-let setInitStateRange = async () => {
-    dynamicQuantumWalk.initStateList = inputInitStateRange.value;
-    eel.setInitStateList(dynamicQuantumWalk.initStateList);
-}
-
-let setTimeRange = async () => {
-    dynamicQuantumWalk.timeList = inputTimeRange.value;
-    eel.setDynamicTime(dynamicQuantumWalk.timeList);
-}
-
-let setdynamicProbDist = async () => {
-    let multipleWalks = await getMultipleWalks();
-    if (multipleWalks[0] == true) {
-        alert(multipleWalks[1]);
-        return;
-    } else {
-        let i = 0;
-        let animationSteps = 100;
-        myAnimatedChart.clear();
-        for (const walk of multipleWalks[1]) {
-            setTimeout(() => {
-                dynamicChartData.data.datasets[0].data = walk.flat();
-                dynamicChartData.data.labels = [...Array(walk.length).keys()];
-                dynamicChartData.options.scales.y.ticks.beginAtZero = false;
-                myAnimatedChart.update();
-            }, animationSteps * i);
-            i++;
-        }
-    }
-}
-
-let getMultipleWalks = () => {
-    return eel
-        .runMultipleWalks()()
-        .then((a) => {
-            return a ? a : Promise.reject(Error("Get Multiple Walks failed."));
-        })
-        .catch((e) => console.log(e));
-};
+// let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
+//
+// document.getElementById("setInitStateRangeButton").addEventListener('click', async function () {
+//     setInitStateRange();
+// });
+//
+// document.getElementById("setTimeRangeButton").addEventListener('click', async function () {
+//     setTimeRange();
+// });
+//
+// document.getElementById("dynamicProbDistButton").addEventListener('click', async function () {
+//     setdynamicProbDist();
+// });
+//
+// let setInitStateRange = async () => {
+//     dynamicQuantumWalk.initStateList = inputInitStateRange.value;
+//     eel.setInitStateList(dynamicQuantumWalk.initStateList);
+// }
+//
+// let setTimeRange = async () => {
+//     dynamicQuantumWalk.timeList = inputTimeRange.value;
+//     eel.setDynamicTime(dynamicQuantumWalk.timeList);
+// }
+//
+// let setdynamicProbDist = async () => {
+//     let multipleWalks = await getMultipleWalks();
+//     if (multipleWalks[0] == true) {
+//         alert(multipleWalks[1]);
+//         return;
+//     } else {
+//         let i = 0;
+//         let animationSteps = 100;
+//         myAnimatedChart.clear();
+//         for (const walk of multipleWalks[1]) {
+//             setTimeout(() => {
+//                 dynamicChartData.data.datasets[0].data = walk.flat();
+//                 dynamicChartData.data.labels = [...Array(walk.length).keys()];
+//                 dynamicChartData.options.scales.y.ticks.beginAtZero = false;
+//                 myAnimatedChart.update();
+//             }, animationSteps * i);
+//             i++;
+//         }
+//     }
+// }
+//
+// let getMultipleWalks = () => {
+//     return eel
+//         .runMultipleWalks()()
+//         .then((a) => {
+//             return a ? a : Promise.reject(Error("Get Multiple Walks failed."));
+//         })
+//         .catch((e) => console.log(e));
+// };
 
 // #### #### MEAN PLOT #### ####
-
-let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"), dynamicMeanChartData)
-
-document.getElementById("dynamicMeanButton").addEventListener('click', async function () {
-    setDynMean();
-});
-
-let setDynMean = async () => {
-    let dynMean = [];
-    dynMean = await getDynMean();
-    dynamicMeanChartData.data.datasets[0].data = dynMean.flat();
-    dynamicMeanChartData.data.labels = [...Array(dynMean.length).keys()];
-    myDynamicMeanChart.clear();
-    myDynamicMeanChart.update();
-}
-
-let getDynMean = () => {
-    return eel
-        .getDynMean()()
-        .then((a) => {
-            // if (Array.isArray(a)){
-            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-            //     }else{
-            //         return a;
-            // }
-            return a;
-        })
-        .catch((e) => console.log(e));
-}
+//
+// let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"), dynamicMeanChartData)
+//
+// document.getElementById("dynamicMeanButton").addEventListener('click', async function () {
+//     setDynMean();
+// });
+//
+// let setDynMean = async () => {
+//     let dynMean = [];
+//     dynMean = await getDynMean();
+//     dynamicMeanChartData.data.datasets[0].data = dynMean.flat();
+//     dynamicMeanChartData.data.labels = [...Array(dynMean.length).keys()];
+//     myDynamicMeanChart.clear();
+//     myDynamicMeanChart.update();
+// }
+//
+// let getDynMean = () => {
+//     return eel
+//         .getDynMean()()
+//         .then((a) => {
+//             // if (Array.isArray(a)){
+//             //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+//             //     }else{
+//             //         return a;
+//             // }
+//             return a;
+//         })
+//         .catch((e) => console.log(e));
+// }
 
 // #### #### STDEV PLOT #### ####
+//
+// let dynStdevChartData = JSON.parse(JSON.stringify(dynamicStDevChartData))
+// let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"), dynStdevChartData);
+//
+// document.getElementById("dynamicStDevButton").addEventListener('click', async function () {
+//     setDynStDev();
+// });
+//
+// let setDynStDev = async () => {
+//     let dynStDev = [];
+//     dynStDev = await getDynStDev();
+//     myDynamicStDevChart.data.datasets[0].data = dynStDev.flat()
+//     myDynamicStDevChart.data.labels = [...Array(dynStDev.length).keys()];
+//     myDynamicStDevChart.clear();
+//     myDynamicStDevChart.update();
+// }
 
-let dynStdevChartData = JSON.parse(JSON.stringify(dynamicStDevChartData))
-let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"), dynStdevChartData);
-
-document.getElementById("dynamicStDevButton").addEventListener('click', async function () {
-    setDynStDev();
-});
-
-let setDynStDev = async () => {
-    let dynStDev = [];
-    dynStDev = await getDynStDev();
-    myDynamicStDevChart.data.datasets[0].data = dynStDev.flat()
-    myDynamicStDevChart.data.labels = [...Array(dynStDev.length).keys()];
-    myDynamicStDevChart.clear();
-    myDynamicStDevChart.update();
-}
-
-let getDynStDev = () => {
-    return eel
-        .getDynStDev()()
-        .then((a) => {
-            // if (Array.isArray(a)){
-            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-            //     }else{
-            //         return a;
-            // }
-            console.log(a)
-            return a;
-        })
-        .catch((e) => console.log(e));
-}
+// let getDynStDev = () => {
+//     return eel
+//         .getDynStDev()()
+//         .then((a) => {
+//             // if (Array.isArray(a)){
+//             //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+//             //     }else{
+//             //         return a;
+//             // }
+//             console.log(a)
+//             return a;
+//         })
+//         .catch((e) => console.log(e));
+// }
 
 // #### #### INV PART RATIO PLOT #### ####
 
-let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"), dynamicInvPartRatioChartData)
-
-document.getElementById("dynamicInvPartRatioButton").addEventListener('click', async function () {
-    setDynInvPartRatio();
-});
-
-let setDynInvPartRatio = async () => {
-    let dynInvPartRatio = await getDynInvPartRatio();
-    dynamicInvPartRatioChartData.data.datasets[0].data = dynInvPartRatio.flat();
-    dynamicInvPartRatioChartData.data.labels = [...Array(dynInvPartRatio.length).keys()];
-    myDynamicInvPartRatioChart.clear();
-    myDynamicInvPartRatioChart.update();
-}
-
-let getDynInvPartRatio = () => {
-    return eel
-        .getDynInvPartRatio()()
-        .then((a) => {
-            // if (Array.isArray(a)){
-            //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-            //     }else{
-            //         return a;
-            // }
-            return a;
-        })
-        .catch((e) => console.log(e));
-}
+// let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"), dynamicInvPartRatioChartData)
+//
+// document.getElementById("dynamicInvPartRatioButton").addEventListener('click', async function () {
+//     setDynInvPartRatio();
+// });
+//
+// let setDynInvPartRatio = async () => {
+//     let dynInvPartRatio = await getDynInvPartRatio();
+//     dynamicInvPartRatioChartData.data.datasets[0].data = dynInvPartRatio.flat();
+//     dynamicInvPartRatioChartData.data.labels = [...Array(dynInvPartRatio.length).keys()];
+//     myDynamicInvPartRatioChart.clear();
+//     myDynamicInvPartRatioChart.update();
+// }
+//
+// let getDynInvPartRatio = () => {
+//     return eel
+//         .getDynInvPartRatio()()
+//         .then((a) => {
+//             // if (Array.isArray(a)){
+//             //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
+//             //     }else{
+//             //         return a;
+//             // }
+//             return a;
+//         })
+//         .catch((e) => console.log(e));
+// }
 
 // #### #### SURVIVAL PROB PLOT #### ####
 
-let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"), dynamicSurvivalProbChartData)
+// let myDynamicSurvivalProbChart = new Chart(document.getElementById("dynamicSurvivalProbChart").getContext("2d"), dynamicSurvivalProbChartData)
+//
+// document.getElementById("dynamicSurvivalProbButton").addEventListener('click', async function () {
+//     setDynSurvProb();
+// });
 
-document.getElementById("dynamicSurvivalProbButton").addEventListener('click', async function () {
-    setDynSurvProb();
-});
-
-let setDynSurvProb = async () => {
-    let k0 = document.getElementById("dynInputSurvProbNodeA").value
-    let k1 = document.getElementById("dynInputSurvProbNodeB").value
-    let dynSurvProb = await getDynSurvProb(k0, k1);
-    if(dynSurvProb[0]==true){
-        alert(dynSurvProb[1]);
-        return;
-    }else{
-        dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb[1].flat();
-        dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb[1].length).keys()];
-        myDynamicSurvivalProbChart.clear();
-        myDynamicSurvivalProbChart.update();
-    }
-}
-
-let getDynSurvProb = (k0, k1) => {
-    return eel
-        .getDynSurvivalProb(k0, k1)()
-        .then((a) => {
-            return a;
-        })
-        .catch((e) => console.log(e));
-}
+// let setDynSurvProb = async () => {
+//     let k0 = document.getElementById("dynInputSurvProbNodeA").value
+//     let k1 = document.getElementById("dynInputSurvProbNodeB").value
+//     let dynSurvProb = await getDynSurvProb(k0, k1);
+//     if(dynSurvProb[0]==true){
+//         alert(dynSurvProb[1]);
+//         return;
+//     }else{
+//         dynamicSurvivalProbChartData.data.datasets[0].data = dynSurvProb[1].flat();
+//         dynamicSurvivalProbChartData.data.labels = [...Array(dynSurvProb[1].length).keys()];
+//         myDynamicSurvivalProbChart.clear();
+//         myDynamicSurvivalProbChart.update();
+//     }
+// }
+//
+// let getDynSurvProb = (k0, k1) => {
+//     return eel
+//         .getDynSurvivalProb(k0, k1)()
+//         .then((a) => {
+//             return a;
+//         })
+//         .catch((e) => console.log(e));
+// }
 
 // #### GRAPHS  ####
 
-cy.layout({name: "circle"}).run();
+// cy.layout({name: "circle"}).run();
 
 // #### #### GRAPH GENERATOR #### ####
 
-document.getElementById("runGraphButton").addEventListener('click', async function () {
-    setRunGraph();
-});
+// document.getElementById("runGraphButton").addEventListener('click', async function () {
+//     setRunGraph();
+// });
 
-document.getElementById("setDimButton").addEventListener('click', async function () {
-    setDimButton();
-});
+// document.getElementById("setDimButton").addEventListener('click', async function () {
+//     setDimButton();
+// });
 
 
-let setRunGraph = async () => {
-    setDynamicGraph();
-    let myGraph = await getDynamicGraph();
-    updateGraph(myGraph);
-}
+// let setRunGraph = async () => {
+//     setDynamicGraph();
+//     let myGraph = await getDynamicGraph();
+//     updateGraph(myGraph);
+// }
 
-let setDimButton = async () => {
-    dynamicQuantumWalk.dim = parseInt(inputDim.value);
-    dynamicQuantumWalk.graph = inputGraph.value;
-    eel.setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
-}
+// let setDimButton = async () => {
+//     dynamicQuantumWalk.dim = parseInt(inputDim.value);
+//     dynamicQuantumWalk.graph = inputGraph.value;
+//     eel.setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
+// }
 
-let setDynamicGraph = async () => {
-    dynamicQuantumWalk.graph = inputGraph.value;
-    eel.setDynamicGraph(dynamicQuantumWalk.graph);
-}
+// let setDynamicGraph = async () => {
+//     dynamicQuantumWalk.graph = inputGraph.value;
+//     eel.setDynamicGraph(dynamicQuantumWalk.graph);
+// }
 
-let getDynamicGraph = () => {
-    return eel
-        .getDynamicGraphToJson()()
-        .then((a) => {
-            return a ? a : Promise.reject(Error("Get Graph failed."));
-        })
-        .catch((e) => console.log(e));
-};
+// let getDynamicGraph = () => {
+//     return eel
+//         .getDynamicGraphToJson()()
+//         .then((a) => {
+//             return a ? a : Promise.reject(Error("Get Graph failed."));
+//         })
+//         .catch((e) => console.log(e));
+// };
 
 // #### CUSTOM GRAPH ####
-let updateGraph = (graph) => {
-    cy.elements().remove()
-    cy.add(graph.elements)
-    cy.layout({name: "circle"}).run();
-}
-
 var eh = customCy.edgehandles();
 
 document.getElementById('addEdgeButton').addEventListener('click', function () {
@@ -321,8 +389,7 @@ let graphCustomButtonPress = async () => {
     eel.setDynamicCustomGraph();
 }
 
-eel.expose(sendAdjacencyMatrix);
-
+// eel.expose(sendAdjacencyMatrix);
 function sendAdjacencyMatrix() {
     return createAdjacencyMatrix(customCy);
 }

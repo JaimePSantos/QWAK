@@ -3,6 +3,7 @@ let initGraph = async () => {
     setStaticDim(100, graphStr)
     setStaticGraph(graphStr)
 }
+
 function setStaticDim(newDim, graphStr) {
     $.ajax({
         type: 'POST',
