@@ -33,6 +33,25 @@ let inputRangeInit = () => {
 
 inputRangeInit();
 
+async function getDynamicQuantity(quantity) {
+    let quant;
+    await $.ajax({
+        type: 'POST',
+        url: `/${quantity}`, // <- Add the queryparameter here
+        success: function (response) {
+            quant = response;
+            console.log(`Success:\t ${quantity} -> ${quant}`);
+            return quant;
+        },
+        error: function (response) {
+            console.log(`Error:\t ${quantity}`);
+            quant = 'error'
+            return quant;
+        }
+    });
+    return quant;
+}
+
 // SETTING THE GRAPH
 // - Graph Generator
 cy.layout({name: "circle"}).run();
@@ -178,7 +197,7 @@ $(function () {
         dynamicQuantumWalk.reset();
         setDynamicJsTime();
         setDynamicJsInitStateList();
-        let dynamicProbDist = await getDynamicProbDist();
+        let dynamicProbDist = await getDynamicQuantity('runMultipleWalks');
         setDynamicProbDist(dynamicProbDist);
     });
 });
@@ -203,24 +222,6 @@ function setDynamicProbDist(multipleWalks) {
         }
     }
 }
-async function getDynamicProbDist() {
-    let myMultipleWalk;
-    await $.ajax({
-        type: 'POST',
-        url: `/runMultipleWalks`, // <- Add the queryparameter here
-        success: function (response) {
-            myMultipleWalk = response;
-            console.log(`success - Runwalk ${myMultipleWalk}`);
-            return myMultipleWalk;
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-            myMultipleWalk = 'error'
-            return myMultipleWalk;
-        }
-    });
-    return myMultipleWalk;
-}
 
 // #### #### MEAN PLOT #### ####
 
@@ -234,94 +235,50 @@ $(function () {
 
 let setDynMean = async () => {
     let dynMean = [];
-    dynMean = await getDynamicMean();
+    dynMean = await getDynamicQuantity('getDynamicMean');
     dynamicMeanChartData.data.datasets[0].data = dynMean.flat();
     dynamicMeanChartData.data.labels = [...Array(dynMean.length).keys()];
     myDynamicMeanChart.clear();
     myDynamicMeanChart.update();
 }
 
-async function getDynamicMean() {
-    let dynMean;
-    await $.ajax({
-        type: 'POST',
-        url: `/getDynamicMean`, // <- Add the queryparameter here
-        success: function (response) {
-            dynMean = response;
-            console.log(`success - Runwalk ${dynMean}`);
-            return dynMean;
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-            dynMean = 'error'
-            return dynMean;
-        }
-    });
-    return dynMean;
-}
-
 // #### #### STDEV PLOT #### ####
 //
 let dynStdevChartData = JSON.parse(JSON.stringify(dynamicStDevChartData))
 let myDynamicStDevChart = new Chart(document.getElementById("dynamicStDevChart").getContext("2d"), dynStdevChartData);
-//
-// document.getElementById("dynamicStDevButton").addEventListener('click', async function () {
-//     setDynStDev();
-// });
-//
-// let setDynStDev = async () => {
-//     let dynStDev = [];
-//     dynStDev = await getDynStDev();
-//     myDynamicStDevChart.data.datasets[0].data = dynStDev.flat()
-//     myDynamicStDevChart.data.labels = [...Array(dynStDev.length).keys()];
-//     myDynamicStDevChart.clear();
-//     myDynamicStDevChart.update();
-// }
 
-// let getDynStDev = () => {
-//     return eel
-//         .getDynStDev()()
-//         .then((a) => {
-//             // if (Array.isArray(a)){
-//             //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-//             //     }else{
-//             //         return a;
-//             // }
-//             console.log(a)
-//             return a;
-//         })
-//         .catch((e) => console.log(e));
-// }
+$(function () {
+    $('#dynamicStDevButton').on('click', async function (e) {
+        setDynStDev();
+    });
+});
+
+let setDynStDev = async () => {
+    let dynStDev = [];
+    dynStDev = await getDynamicQuantity('getDynamicStDev');
+    myDynamicStDevChart.data.datasets[0].data = dynStDev.flat()
+    myDynamicStDevChart.data.labels = [...Array(dynStDev.length).keys()];
+    myDynamicStDevChart.clear();
+    myDynamicStDevChart.update();
+}
 
 // #### #### INV PART RATIO PLOT #### ####
 
-// let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"), dynamicInvPartRatioChartData)
-//
-// document.getElementById("dynamicInvPartRatioButton").addEventListener('click', async function () {
-//     setDynInvPartRatio();
-// });
-//
-// let setDynInvPartRatio = async () => {
-//     let dynInvPartRatio = await getDynInvPartRatio();
-//     dynamicInvPartRatioChartData.data.datasets[0].data = dynInvPartRatio.flat();
-//     dynamicInvPartRatioChartData.data.labels = [...Array(dynInvPartRatio.length).keys()];
-//     myDynamicInvPartRatioChart.clear();
-//     myDynamicInvPartRatioChart.update();
-// }
-//
-// let getDynInvPartRatio = () => {
-//     return eel
-//         .getDynInvPartRatio()()
-//         .then((a) => {
-//             // if (Array.isArray(a)){
-//             //         Promise.reject(Error("Get Dynamic Mean failed: Mean is not an array."));
-//             //     }else{
-//             //         return a;
-//             // }
-//             return a;
-//         })
-//         .catch((e) => console.log(e));
-// }
+let myDynamicInvPartRatioChart = new Chart(document.getElementById("dynamicInvPartRatioChart").getContext("2d"), dynamicInvPartRatioChartData)
+
+$(function () {
+    $('#dynamicInvPartRatioButton').on('click', async function (e) {
+        setDynInvPartRatio();
+    });
+});
+
+let setDynInvPartRatio = async () => {
+    let dynInvPartRatio = await getDynamicQuantity('getDynamicInvPartRatio');
+    dynamicInvPartRatioChartData.data.datasets[0].data = dynInvPartRatio.flat();
+    dynamicInvPartRatioChartData.data.labels = [...Array(dynInvPartRatio.length).keys()];
+    myDynamicInvPartRatioChart.clear();
+    myDynamicInvPartRatioChart.update();
+}
 
 // #### #### SURVIVAL PROB PLOT #### ####
 

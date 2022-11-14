@@ -126,9 +126,17 @@ def getStaticSndMoment():
 def getStaticStDev():
     return [round(gQwak.getStaticStDev(), resultRounding)]
 
+@app.route('/getDynamicStDev',methods=['GET','POST'])
+def getDynamicStDev():
+    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicStDev()))
+
 @app.route('/getStaticInversePartRatio',methods=['GET','POST'])
 def getStaticInversePartRatio():
     return [round(gQwak.getStaticInversePartRatio(), resultRounding)]
+
+@app.route('/getDynamicInvPartRatio',methods=['GET','POST'])
+def getDynamicInvPartRatio():
+    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicInvPartRatio()))
 
 @app.route('/getStaticSurvivalProb',methods=['GET','POST'])
 def getStaticSurvivalProb():
