@@ -5,6 +5,7 @@ from pymongo import MongoClient
 import networkx as nx
 import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
+from datetime import datetime
 from django.http import JsonResponse
 import requests
 
@@ -113,9 +114,19 @@ def runWalk():
 @app.route('/runWalkDB',methods=['GET','POST'])
 def runWalkDB():
     print(request.method)
+    now = datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
     if request.method == 'POST':
         probDist = gQwak.runWalk()
-        probDistEntry.insert_one({'probDist':probDist})
+        name = f"StaticQWAK-{now}"
+        probDistEntry.insert_one({
+            'name' : name,
+            'hasError': probDist[0],
+            'walkDim': gQwak.getStaticDim(),
+            'walkTime': gQwak.getStaticTime(),
+            'walkInit': gQwak.getStaticInitState(),
+            'walkAdjacency': list(map(lambda x: str(x), gQwak.getStaticAdjacencyMatrix())),
+            'probDist':probDist[1]
+        })
     return probDist
 
 @app.route('/runMultipleWalks',methods=['GET','POST'])

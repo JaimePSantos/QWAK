@@ -311,7 +311,7 @@ async function getStaticProbDist() {
     let myWalk;
     await $.ajax({
         type: 'POST',
-        url: `/runWalk`, // <- Add the queryparameter here
+        url: `/runWalkDB`, // <- Add the queryparameter here
         success: function (response) {
             myWalk = response;
             console.log(`success - Runwalk ${myWalk}`);
