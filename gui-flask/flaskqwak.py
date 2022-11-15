@@ -125,7 +125,11 @@ def runWalkDB():
             'walkTime': gQwak.getStaticTime(),
             'walkInit': gQwak.getStaticInitState(),
             'walkAdjacency': list(map(lambda x: str(x), gQwak.getStaticAdjacencyMatrix())),
-            'probDist':probDist[1]
+            'probDist': probDist[1],
+            'mean': gQwak.getStaticMean(),
+            'sndMoment': gQwak.getStaticSndMoment(),
+            'stDev': gQwak.getStaticStDev(),
+            'invPartRatio': gQwak.getStaticInversePartRatio(),
         })
     return probDist
 
