@@ -1,0 +1,26 @@
+{
+  "name": "qwak",
+  "version": "1.0.0",
+  "description": "Quantum Walk Analysis Kit - Continuous-time quantum walk analysis framework.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JaimePSantos/QWAK.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JaimePSantos/QWAK/issues"
+  },
+  "homepage": "https://github.com/JaimePSantos/QWAK#readme",
+  "dependencies": {
+    "mongodb": "^4.11.0"
+  }
+}
