@@ -39,3 +39,6 @@ dist/
 generatingVariables.py
 Executable
 docs/build
+
+package.json
+package-lock.json

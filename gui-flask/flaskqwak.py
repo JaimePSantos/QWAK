@@ -111,13 +111,12 @@ def setDynamicTime():
 def runWalk():
     return gQwak.runWalk()
 
-@app.route('/runWalkDB',methods=['GET','POST'])
+@app.route('/runWalkDB',methods=['POST'])
 def runWalkDB():
     print(request.method)
-    now = datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
     if request.method == 'POST':
+        name = str(request.form.get("walkName"))
         probDist = gQwak.runWalk()
-        name = f"StaticQWAK-{now}"
         probDistEntry.insert_one({
             'name' : name,
             'hasError': probDist[0],
@@ -131,7 +130,21 @@ def runWalkDB():
             'stDev': gQwak.getStaticStDev(),
             'invPartRatio': gQwak.getStaticInversePartRatio(),
         })
-    return probDist
+    return ("nothing")
+
+@app.route('/getRunWalkDB',methods=['POST'])
+def getRunWalkDB():
+    prob = 0
+    print(request.method)
+    if request.method == 'POST':
+        name = str(request.form.get("walkName"))
+        print(request.method)
+        print(name)
+        from bson import json_util
+        prob = json.loads(json_util.dumps(probDistEntry.find_one({"name":name})))
+        print(type(prob))
+        print(prob)
+    return prob
 
 @app.route('/runMultipleWalks',methods=['GET','POST'])
 def runMultipleWalks():

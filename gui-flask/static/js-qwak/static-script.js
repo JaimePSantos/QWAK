@@ -1,7 +1,6 @@
 import {customCy, cy, staticChartData} from "./static-tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 
-
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
 let inputGraph = document.getElementById("inputGraph");
@@ -225,29 +224,39 @@ $(function () {
     });
 });
 
-$(function () {
-    $('#staticProbDistButton').on('click', async function (e) {
-        e.preventDefault();
-        staticQuantumWalk.reset();
-        setStaticJsTime();
-        setStaticJsInitState();
-        let staticProbDist = await getStaticProbDist();
-        setStaticProbDist(staticProbDist);
-        setStaticMean();
-        setStaticSndMoment();
-        setStaticStDev();
-        setStaticInversePartRatio();
-    });
-});
+// $(function () {
+//     $('#staticProbDistButton').on('click', async function (e) {
+//         e.preventDefault();
+//         staticQuantumWalk.reset();
+//         setStaticJsTime();
+//         setStaticJsInitState();
+//         let staticProbDist = await getStaticProbDist();
+//         setStaticProbDist(staticProbDist);
+//         setStaticMean();
+//         setStaticSndMoment();
+//         setStaticStDev();
+//         setStaticInversePartRatio();
+//     });
+// });
 
 $(function () {
-    $('#submit').on('click', async function (e) {
+    $('#staticProbDistButton').on('click', async function (e) {
+        var currentdate = new Date();
+        var walkName = `StaticQWAK-${currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + "-"  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds()
+        }`;
         e.preventDefault();
         staticQuantumWalk.reset();
         setStaticJsTime();
         setStaticJsInitState();
-        let staticProbDist = await getStaticProbDist();
-        getStaticProbDistDB(staticProbDist);
+        await setStaticProbDistDB(walkName);
+        let staticProbDist = await getStaticProbDistDB(walkName);
+        console.log(staticProbDist);
+        plotStaticProbDistDB(staticProbDist);
     });
 });
 
@@ -307,6 +316,24 @@ function setStaticProbDist(walk) {
     }
 }
 
+function plotStaticProbDistDB(walk) {
+    // console.log(walk)
+    if (walk.hasError == true) {
+        alert(walk.probDist);
+        return;
+    } else {
+        let distList = walk.probDist.flat();
+        staticChartData.data.datasets[0].data = distList;
+        staticChartData.data.labels = [...Array(distList.length).keys()];
+        myChart.destroy();
+        myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
+        // await setStaticMean();
+        // await setStaticSndMoment();
+        // await setStaticStDev();
+        // await setInversePartRatio();
+    }
+}
+
 async function getStaticProbDist() {
     let myWalk;
     await $.ajax({
@@ -326,20 +353,34 @@ async function getStaticProbDist() {
     return myWalk;
 }
 
-async function getStaticProbDistDB() {
+async function setStaticProbDistDB(walkName) {
     let myWalk;
     await $.ajax({
         type: 'POST',
-        url: `/runWalkDB`, // <- Add the queryparameter here
-        success: function (response) {
-            myWalk = response;
+        url: `/runWalkDB`,
+        data:{walkName:walkName},
+        success: function () {
             console.log(`success - Runwalk ${myWalk}`);
-            return myWalk;
         },
         error: function (response) {
             console.log('Runwalk error');
-            myWalk = 'error'
-            return myWalk;
+        }
+    });
+}
+
+async function getStaticProbDistDB(walkName) {
+    let myWalk;
+    await $.ajax({
+        type: 'POST',
+        url: `/getRunWalkDB`,
+        data:{walkName:walkName},
+        success: function (response) {
+            console.log(`success - Runwalk ${response}`);
+            myWalk = response;
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+            myWalk = 0;
         }
     });
     return myWalk;
@@ -527,3 +568,6 @@ async function getPst(nodeA, nodeB) {
 // #### GRAPHS  ####
 
 cy.layout({name: "circle"}).run();
+
+// #### DATABASE ####
+
