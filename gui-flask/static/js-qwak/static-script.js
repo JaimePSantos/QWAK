@@ -240,6 +240,17 @@ $(function () {
     });
 });
 
+$(function () {
+    $('#submit').on('click', async function (e) {
+        e.preventDefault();
+        staticQuantumWalk.reset();
+        setStaticJsTime();
+        setStaticJsInitState();
+        let staticProbDist = await getStaticProbDist();
+        getStaticProbDistDB(staticProbDist);
+    });
+});
+
 function setStaticPyInitState(initStateStr) {
     $.ajax({
         type: 'POST',
@@ -301,6 +312,25 @@ async function getStaticProbDist() {
     await $.ajax({
         type: 'POST',
         url: `/runWalk`, // <- Add the queryparameter here
+        success: function (response) {
+            myWalk = response;
+            console.log(`success - Runwalk ${myWalk}`);
+            return myWalk;
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+            myWalk = 'error'
+            return myWalk;
+        }
+    });
+    return myWalk;
+}
+
+async function getStaticProbDistDB() {
+    let myWalk;
+    await $.ajax({
+        type: 'POST',
+        url: `/runWalkDB`, // <- Add the queryparameter here
         success: function (response) {
             myWalk = response;
             console.log(`success - Runwalk ${myWalk}`);

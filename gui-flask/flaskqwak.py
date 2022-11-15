@@ -1,12 +1,16 @@
 import json
 
-from flask import Flask, render_template, url_for, request
+from flask import Flask, render_template, url_for, request, redirect
+from pymongo import MongoClient
 import networkx as nx
 import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
 from django.http import JsonResponse
 import requests
 
+client = MongoClient('localhost', 27017)
+database = client.flas_db
+probDistEntry = database.probDistEntry
 
 app = Flask(__name__)
 
@@ -105,6 +109,14 @@ def setDynamicTime():
 @app.route('/runWalk',methods=['GET','POST'])
 def runWalk():
     return gQwak.runWalk()
+
+@app.route('/runWalkDB',methods=['GET','POST'])
+def runWalkDB():
+    print(request.method)
+    if request.method == 'POST':
+        probDist = gQwak.runWalk()
+        probDistEntry.insert_one({'probDist':probDist})
+    return probDist
 
 @app.route('/runMultipleWalks',methods=['GET','POST'])
 def runMultipleWalks():
