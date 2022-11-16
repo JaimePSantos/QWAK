@@ -1,10 +1,15 @@
 import {customCy, cy, staticChartData} from "./static-tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 import {setStaticDim,setStaticGraph,updateGraph,getStaticGraph,addNodeButtonPress,setCustomAdjacencyMatrix,createAdjacencyMatrix,adjacencyMatrixToString} from "./js-static/static-graph.js"
+import { deleteAllWalkEntries,
+    deleteWalkEntry,
+    getStaticProbDistDB,
+    setStaticProbDistDB,
+    plotStaticProbDistDB,
+    setStaticPyInitState, setStaticPyTime
+} from "./js-static/static-probDist.js"
 
 // #### INPUTS & DISPLAYS ####
-let inputTime = document.getElementById("inputTime");
-let inputInitState = document.getElementById("inputInitState");
 
 let inputMean = document.getElementById("inputMean");
 let inputSndMoment = document.getElementById("inputSndMoment");
@@ -51,8 +56,6 @@ async function setStaticQuantity(quantity) {
 }
 
 // Graph generator buttons
-
-let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
 $(function () {
     $('#runGraphButton').on('click', async function (e) {
@@ -110,17 +113,27 @@ $(function () {
 
 // SETTING PROBDIST
 
+async function setStaticJsInitState(){
+    staticQuantumWalk.initState = inputInitState.value;
+    await setStaticPyInitState(staticQuantumWalk.initState);
+}
+
+export async function setStaticJsTime(){
+    staticQuantumWalk.time = (inputTime.value);
+    await setStaticPyTime(staticQuantumWalk.time);
+}
+
 $(function () {
-    $('#setInitStateButton').on('click', function (e) {
+    $('#setInitStateButton').on('click', async function (e) {
         e.preventDefault();
-        setStaticJsInitState();
+        await setStaticJsInitState();
     });
 });
 
 $(function () {
-    $('#setTimeButton').on('click', function (e) {
+    $('#setTimeButton').on('click', async function (e) {
         e.preventDefault();
-        setStaticJsTime();
+        await setStaticJsTime();
     });
 });
 
@@ -144,52 +157,6 @@ $(function () {
     });
 });
 
-function plotStaticProbDistDB(walk) {
-    // console.log(walk)
-    if (walk.hasError == true) {
-        alert(walk.probDist);
-        return;
-    } else {
-        let distList = walk.probDist.flat();
-        staticChartData.data.datasets[0].data = distList;
-        staticChartData.data.labels = [...Array(distList.length).keys()];
-        myChart.destroy();
-        myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-    }
-}
-
-async function setStaticProbDistDB(walkName) {
-    await $.ajax({
-        type: 'POST',
-        url: `/setRunWalkDB`,
-        data:{walkName:walkName},
-        success: function () {
-            console.log(`success - Runwalk`);
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-        }
-    });
-}
-
-async function getStaticProbDistDB(walkName) {
-    let myWalk, walkId;
-    await $.ajax({
-        type: 'POST',
-        url: `/getRunWalkDB`,
-        data:{walkName:walkName},
-        success: function (response) {
-            console.log(`success - Runwalk ${response}`);
-            myWalk = response;
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-            myWalk = 0;
-        }
-    });
-    return myWalk;
-}
-
 $(function () {
     $('#setGammaButton').on('click', async function (e) {
         await deleteWalkEntry(staticQuantumWalk.walkName);
@@ -202,70 +169,6 @@ $(function () {
     });
 });
 
-async function deleteWalkEntry(walkName) {
-    await $.ajax({
-        type: 'POST',
-        url: `/deleteWalkEntry`,
-        data:{walkName:walkName},
-        success: function () {
-            console.log(`success - Runwalk`);
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-        }
-    });
-}
-
-async function deleteAllWalkEntries() {
-    await $.ajax({
-        type: 'POST',
-        url: `/deleteAllWalkEntries`,
-        success: function () {
-            console.log(`success - Runwalk`);
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-        }
-    });
-}
-
-function setStaticPyInitState(initStateStr) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticInitState`, // <- Add the queryparameter here
-        data: {initStateStr: initStateStr},
-        success: function (response) {
-            console.log('success - InitState set to ${initStateStr}');
-        },
-        error: function (response) {
-            console.log('InitState error');
-        }
-    });
-}
-
-function setStaticJsInitState(){
-    staticQuantumWalk.initState = inputInitState.value;
-    setStaticPyInitState(staticQuantumWalk.initState);
-}
-
-function setStaticPyTime(newTime) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticTime`, // <- Add the queryparameter here
-        data: {newTime: newTime},
-        success: function (response) {
-            console.log('success - Time set to ${newTime}');
-        },
-        error: function (response) {
-            console.log('setTime error');
-        }
-    });
-}
-
-function setStaticJsTime(){
-    staticQuantumWalk.time = (inputTime.value);
-    setStaticPyTime(staticQuantumWalk.time);
-}
 //SETTING STATISTICS
 $(function () {
     $('#survProbNodesButton').on('click', async function (e) {
