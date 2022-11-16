@@ -1,9 +1,8 @@
 import {customCy, cy, staticChartData} from "./static-tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
+import {setStaticDim,setStaticGraph,updateGraph,getStaticGraph,addNodeButtonPress,setCustomAdjacencyMatrix,createAdjacencyMatrix,adjacencyMatrixToString} from "./js-static/static-graph.js"
 
 // #### INPUTS & DISPLAYS ####
-let inputDim = document.getElementById("inputDim");
-let inputGraph = document.getElementById("inputGraph");
 let inputTime = document.getElementById("inputTime");
 let inputInitState = document.getElementById("inputInitState");
 
@@ -24,8 +23,6 @@ let defaultN = 100;
 let defaultT = 10;
 let defaultInitState = [Math.floor(defaultN / 2)];
 let defaultGraph = 'nx.cycle_graph';
-let defaultTimeList = [0, 100];
-let defaultInitStateList = [[Math.floor(defaultN / 2)]];
 let defaultProbDist = [];
 let defaultWalkName = "Placeholder";
 
@@ -53,8 +50,7 @@ async function setStaticQuantity(quantity) {
     });
 }
 
-// SETTING THE GRAPH
-// - Graph Generator
+// Graph generator buttons
 
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
@@ -80,59 +76,6 @@ $(function () {
         setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph)
     });
 });
-
-function setStaticDim(newDim, graphStr) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticDim`, // <- Add the queryparameter here
-        data: {newDim: newDim, graphStr: graphStr},
-        success: function (response) {
-            console.log('success - Dim set to ${newDim}');
-        },
-        error: function (response) {
-            console.log('setDim error');
-        }
-    });
-}
-
-function setStaticGraph(newGraph) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticGraph`,
-        data: {newGraph: newGraph},
-        success: function (response) {
-            console.log('success - graph set to ${newGraph}');
-        },
-        error: function (response) {
-            console.log('setGraph error');
-        }
-    })
-}
-
-function updateGraph(graph) {
-    cy.elements().remove()
-    cy.add(graph.elements)
-    cy.layout({name: "circle"}).run();
-}
-
-async function getStaticGraph() {
-    let myGraph;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticGraphToJson`, // <- Add the queryparameter here
-        success: function (response) {
-            myGraph = response;
-            console.log('success - got graph ${myGraph}');
-            return myGraph;
-        },
-        error: function (response) {
-            console.log('getStaticGraph error');
-            myGraph = 'error'
-            return myGraph;
-        }
-    });
-    return myGraph;
-}
 
 // - Custom Graph
 // #### CUSTOM GRAPH ####
@@ -164,63 +107,6 @@ $(function () {
         await setCustomAdjacencyMatrix(customAdjacency);
     });
 });
-
-
-async function addNodeButtonPress() {
-    nodeNumber++;
-    nodeYPos += 50;
-    customCy.add({
-        group: 'nodes',
-        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
-        position: {x: nodeXPos, y: nodeYPos}
-    });
-}
-
-function setCustomAdjacencyMatrix(customAdjacency) {
-    // console.log(customAdjacency)
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticCustomGraph`, // <- Add the queryparameter here
-        data: {customAdjacency: customAdjacency},
-        async: false,
-        success: function (response) {
-            console.log('success - customAdjacency set to ${customAdjacency}');
-        },
-        error: function (response) {
-            console.log('customAdjacency error');
-        }
-    });
-}
-
-function createAdjacencyMatrix(graph) {
-    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
-
-    for (let edg of graph.json().elements.edges) {
-        // console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
-    }
-    adjacencyMatrix = adjacencyMatrixToString(adjacencyMatrix);
-    return adjacencyMatrix;
-}
-
-function adjacencyMatrixToString(adjacencyMatrix) {
-    let adjm = "[";
-    let elemAux = "";
-    for (let elem of adjacencyMatrix._data) {
-        elemAux = "["
-        for (let e of elem) {
-            elemAux = elemAux.concat(",", e);
-        }
-        elemAux = elemAux.concat("", "]")
-        elemAux = elemAux.slice(0, 1) + elemAux.slice(2)
-        adjm = adjm.concat(",", elemAux)
-        elemAux = "";
-    }
-    adjm = adjm.concat("", "]")
-    adjm = adjm.slice(0, 1) + adjm.slice(2)
-    return adjm
-}
 
 // SETTING PROBDIST
 
@@ -309,7 +195,6 @@ $(function () {
         await deleteWalkEntry(staticQuantumWalk.walkName);
     });
 });
-setPlaceholderButton
 
 $(function () {
     $('#setPlaceholderButton').on('click', async function (e) {
@@ -343,6 +228,7 @@ async function deleteAllWalkEntries() {
         }
     });
 }
+
 function setStaticPyInitState(initStateStr) {
     $.ajax({
         type: 'POST',
