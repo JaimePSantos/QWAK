@@ -1,9 +1,11 @@
 export class StaticQuantumwalk {
-    constructor(_dim, _time, _initState, _graph) {
+    constructor(_dim, _time, _initState, _graph,_probDist,_walkName) {
         this._dim = _dim;
         this._time = _time;
         this._initState = _initState;
         this._graph = _graph;
+        this._probDist = _probDist;
+        this._walkName = _walkName;
     }
 
     reset(){
@@ -44,5 +46,21 @@ export class StaticQuantumwalk {
 
     set graph(newGraph) {
         this._graph = newGraph;
+    }
+
+    set probDist(newProbDist){
+        this._probDist = newProbDist;
+    }
+
+    get probDist(){
+        return this._probDist;
+    }
+
+    set walkName(newWalkName){
+        this._walkName = newWalkName;
+    }
+
+    get walkName(){
+        return this._walkName;
     }
 }

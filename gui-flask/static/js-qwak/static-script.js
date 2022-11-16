@@ -1,4 +1,4 @@
-import {customCy, cy, staticChartData} from "./static-tools.js";
+import {customCy, cy, staticChartData, defaultDist} from "./static-tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 
 // #### INPUTS & DISPLAYS ####
@@ -26,8 +26,10 @@ let defaultInitState = [Math.floor(defaultN / 2)];
 let defaultGraph = 'nx.cycle_graph';
 let defaultTimeList = [0, 100];
 let defaultInitStateList = [[Math.floor(defaultN / 2)]];
+let defaultProbDist = defaultDist;
+let defaultWalkName = "Placeholder";
 
-let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph);
+let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph,defaultProbDist,defaultWalkName);
 
 let inputInit = () => {
     inputTime.value = defaultT;
@@ -37,7 +39,19 @@ let inputInit = () => {
 }
 
 inputInit();
-console.log(cy)
+async function setStaticQuantity(quantity) {
+    await $.ajax({
+        type: 'POST',
+        url: `/${quantity}`,
+        data:{walkName:walkName},
+        success: function () {
+            console.log(`Success:\t ${quantity} -> ${quant}`);
+        },
+        error: function (response) {
+            console.log(`Error:\t ${quantity}`);
+        }
+    });
+}
 
 // SETTING THE GRAPH
 // - Graph Generator
@@ -224,25 +238,10 @@ $(function () {
     });
 });
 
-// $(function () {
-//     $('#staticProbDistButton').on('click', async function (e) {
-//         e.preventDefault();
-//         staticQuantumWalk.reset();
-//         setStaticJsTime();
-//         setStaticJsInitState();
-//         let staticProbDist = await getStaticProbDist();
-//         setStaticProbDist(staticProbDist);
-//         setStaticMean();
-//         setStaticSndMoment();
-//         setStaticStDev();
-//         setStaticInversePartRatio();
-//     });
-// });
-
 $(function () {
     $('#staticProbDistButton').on('click', async function (e) {
         var currentdate = new Date();
-        var walkName = `StaticQWAK-${currentdate.getDate() + "/"
+        staticQuantumWalk.walkName = `StaticQWAK-${currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/" 
                 + currentdate.getFullYear() + "-"  
                 + currentdate.getHours() + ":"  
@@ -253,13 +252,97 @@ $(function () {
         staticQuantumWalk.reset();
         setStaticJsTime();
         setStaticJsInitState();
-        await setStaticProbDistDB(walkName);
-        let staticProbDist = await getStaticProbDistDB(walkName);
-        console.log(staticProbDist);
-        plotStaticProbDistDB(staticProbDist);
+        await setStaticProbDistDB(staticQuantumWalk.walkName);
+        staticQuantumWalk.probDist = await getStaticProbDistDB(staticQuantumWalk.walkName);
+        plotStaticProbDistDB(staticQuantumWalk.probDist);
     });
 });
 
+function plotStaticProbDistDB(walk) {
+    // console.log(walk)
+    if (walk.hasError == true) {
+        alert(walk.probDist);
+        return;
+    } else {
+        let distList = walk.probDist.flat();
+        staticChartData.data.datasets[0].data = distList;
+        staticChartData.data.labels = [...Array(distList.length).keys()];
+        myChart.destroy();
+        myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
+    }
+}
+
+async function setStaticProbDistDB(walkName) {
+    await $.ajax({
+        type: 'POST',
+        url: `/setRunWalkDB`,
+        data:{walkName:walkName},
+        success: function () {
+            console.log(`success - Runwalk`);
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+        }
+    });
+}
+
+async function getStaticProbDistDB(walkName) {
+    let myWalk, walkId;
+    await $.ajax({
+        type: 'POST',
+        url: `/getRunWalkDB`,
+        data:{walkName:walkName},
+        success: function (response) {
+            console.log(`success - Runwalk ${response}`);
+            myWalk = response;
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+            myWalk = 0;
+        }
+    });
+    return myWalk;
+}
+
+$(function () {
+    $('#setGammaButton').on('click', async function (e) {
+        await deleteWalkEntry(staticQuantumWalk.walkName);
+    });
+});
+setPlaceholderButton
+
+$(function () {
+    $('#setPlaceholderButton').on('click', async function (e) {
+        await deleteAllWalkEntries();
+    });
+});
+
+async function deleteWalkEntry(walkName) {
+    await $.ajax({
+        type: 'POST',
+        url: `/deleteWalkEntry`,
+        data:{walkName:walkName},
+        success: function () {
+            console.log(`success - Runwalk`);
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+        }
+    });
+}
+
+async function deleteAllWalkEntries() {
+    await $.ajax({
+        type: 'POST',
+        url: `/deleteAllWalkEntries`,
+        success: function () {
+            console.log(`success - Runwalk`);
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+        }
+    });
+}
 function setStaticPyInitState(initStateStr) {
     $.ajax({
         type: 'POST',
@@ -297,95 +380,6 @@ function setStaticJsTime(){
     staticQuantumWalk.time = (inputTime.value);
     setStaticPyTime(staticQuantumWalk.time);
 }
-
-function setStaticProbDist(walk) {
-    // console.log(walk)
-    if (walk[0] == true) {
-        alert(walk[1]);
-        return;
-    } else {
-        let distList = walk[1].flat();
-        staticChartData.data.datasets[0].data = distList;
-        staticChartData.data.labels = [...Array(distList.length).keys()];
-        myChart.destroy();
-        myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-        // await setStaticMean();
-        // await setStaticSndMoment();
-        // await setStaticStDev();
-        // await setInversePartRatio();
-    }
-}
-
-function plotStaticProbDistDB(walk) {
-    // console.log(walk)
-    if (walk.hasError == true) {
-        alert(walk.probDist);
-        return;
-    } else {
-        let distList = walk.probDist.flat();
-        staticChartData.data.datasets[0].data = distList;
-        staticChartData.data.labels = [...Array(distList.length).keys()];
-        myChart.destroy();
-        myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-        // await setStaticMean();
-        // await setStaticSndMoment();
-        // await setStaticStDev();
-        // await setInversePartRatio();
-    }
-}
-
-async function getStaticProbDist() {
-    let myWalk;
-    await $.ajax({
-        type: 'POST',
-        url: `/runWalkDB`, // <- Add the queryparameter here
-        success: function (response) {
-            myWalk = response;
-            console.log(`success - Runwalk ${myWalk}`);
-            return myWalk;
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-            myWalk = 'error'
-            return myWalk;
-        }
-    });
-    return myWalk;
-}
-
-async function setStaticProbDistDB(walkName) {
-    let myWalk;
-    await $.ajax({
-        type: 'POST',
-        url: `/runWalkDB`,
-        data:{walkName:walkName},
-        success: function () {
-            console.log(`success - Runwalk ${myWalk}`);
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-        }
-    });
-}
-
-async function getStaticProbDistDB(walkName) {
-    let myWalk;
-    await $.ajax({
-        type: 'POST',
-        url: `/getRunWalkDB`,
-        data:{walkName:walkName},
-        success: function (response) {
-            console.log(`success - Runwalk ${response}`);
-            myWalk = response;
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-            myWalk = 0;
-        }
-    });
-    return myWalk;
-}
-
 //SETTING STATISTICS
 $(function () {
     $('#survProbNodesButton').on('click', async function (e) {

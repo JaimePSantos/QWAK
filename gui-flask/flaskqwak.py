@@ -5,6 +5,8 @@ from pymongo import MongoClient
 import networkx as nx
 import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
+from bson import json_util
+
 from datetime import datetime
 from django.http import JsonResponse
 import requests
@@ -107,12 +109,8 @@ def setDynamicTime():
     gQwak.setDynamicTime(newTime)
     return ("nothing")
 
-@app.route('/runWalk',methods=['GET','POST'])
-def runWalk():
-    return gQwak.runWalk()
-
-@app.route('/runWalkDB',methods=['POST'])
-def runWalkDB():
+@app.route('/setRunWalkDB',methods=['POST'])
+def setRunWalkDB():
     print(request.method)
     if request.method == 'POST':
         name = str(request.form.get("walkName"))
@@ -138,12 +136,8 @@ def getRunWalkDB():
     print(request.method)
     if request.method == 'POST':
         name = str(request.form.get("walkName"))
-        print(request.method)
-        print(name)
-        from bson import json_util
         prob = json.loads(json_util.dumps(probDistEntry.find_one({"name":name})))
-        print(type(prob))
-        print(prob)
+
     return prob
 
 @app.route('/runMultipleWalks',methods=['GET','POST'])
@@ -213,6 +207,23 @@ def setStaticCustomGraph():
 def setDynamicCustomGraph():
     customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
     gQwak.setDynamicCustomGraph(customAdjacency)
+    return ("nothing")
+
+@app.route('/deleteWalkEntry',methods=['POST'])
+def deleteWalkEntry():
+    print(request.method)
+    if request.method == 'POST':
+        name = str(request.form.get("walkName"))
+        probDistEntry.delete_one({
+            'name' : name,
+        })
+    return ("nothing")
+
+@app.route('/deleteAllWalkEntries',methods=['POST'])
+def deleteAllWalkEntries():
+    print(request.method)
+    if request.method == 'POST':
+        probDistEntry.delete_many({})
     return ("nothing")
 
 if __name__ == '__main__':
