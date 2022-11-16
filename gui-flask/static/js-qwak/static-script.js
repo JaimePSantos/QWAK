@@ -1,4 +1,4 @@
-import {customCy, cy, staticChartData, defaultDist} from "./static-tools.js";
+import {customCy, cy, staticChartData} from "./static-tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
 
 // #### INPUTS & DISPLAYS ####
@@ -26,7 +26,7 @@ let defaultInitState = [Math.floor(defaultN / 2)];
 let defaultGraph = 'nx.cycle_graph';
 let defaultTimeList = [0, 100];
 let defaultInitStateList = [[Math.floor(defaultN / 2)]];
-let defaultProbDist = defaultDist;
+let defaultProbDist = [];
 let defaultWalkName = "Placeholder";
 
 let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph,defaultProbDist,defaultWalkName);

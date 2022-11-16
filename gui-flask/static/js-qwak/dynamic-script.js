@@ -21,8 +21,10 @@ let defaultN = 100;
 let defaultGraph = 'nx.cycle_graph';
 let defaultTimeList = [0, 10];
 let defaultInitStateList = [[Math.floor(defaultN / 2)]];
+let defaultProbDist = [];
+let defaultWalkName = "Placeholder";
 
-let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList);
+let dynamicQuantumWalk = new DynamicQuantumwalk(defaultGraph, defaultTimeList, defaultInitStateList,defaultWalkName,defaultProbDist);
 
 let inputRangeInit = () => {
     inputDim.value = defaultN;
@@ -275,27 +277,47 @@ function setDynamicPyTime(newTime) {
     });
 }
 
+// $(function () {
+//     $('#dynamicProbDistButton').on('click', async function (e) {
+//         e.preventDefault();
+//         dynamicQuantumWalk.reset();
+//         setDynamicJsTime();
+//         setDynamicJsInitStateList();
+//         let dynamicProbDist = await getDynamicQuantity('runMultipleWalks');
+//         await setDynamicProbDist(dynamicProbDist);
+//     });
+// });
+
 $(function () {
     $('#dynamicProbDistButton').on('click', async function (e) {
+        var currentdate = new Date();
+        dynamicQuantumWalk.walkName = `DynamicQWAK-${currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + "-"  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds()
+        }`;
         e.preventDefault();
         dynamicQuantumWalk.reset();
         setDynamicJsTime();
         setDynamicJsInitStateList();
-        let dynamicProbDist = await getDynamicQuantity('runMultipleWalks');
-        setDynamicProbDist(dynamicProbDist);
+        await setDynamicProbDistDB(dynamicQuantumWalk.walkName);
+        dynamicQuantumWalk.probDist = await getDynamicProbDistDB(dynamicQuantumWalk.walkName);
+        plotDynamicProbDist(dynamicQuantumWalk.probDist);
     });
 });
 
-function setDynamicProbDist(multipleWalks) {
+function plotDynamicProbDist(multipleWalks) {
     // console.log(walk)
-    if (multipleWalks[0] == true) {
-        alert(multipleWalks[1]);
+    if (multipleWalks.hasError == true) {
+        alert(multipleWalks.probDist);
         return;
     } else {
         let i = 0;
         let animationSteps = 100;
         myAnimatedChart.clear();
-        for (const walk of multipleWalks[1]) {
+        for (const walk of multipleWalks.probDist) {
             setTimeout(() => {
                 dynamicChartData.data.datasets[0].data = walk.flat();
                 dynamicChartData.data.labels = [...Array(walk.length).keys()];
@@ -305,6 +327,38 @@ function setDynamicProbDist(multipleWalks) {
             i++;
         }
     }
+}
+
+async function setDynamicProbDistDB(walkName) {
+    await $.ajax({
+        type: 'POST',
+        url: `/setRunMultipleWalksDB`,
+        data:{walkName:walkName},
+        success: function () {
+            console.log(`success - Runwalk`);
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+        }
+    });
+}
+
+async function getDynamicProbDistDB(walkName) {
+    let myWalk;
+    await $.ajax({
+        type: 'POST',
+        url: `/getRunMultipleWalksDB`,
+        data:{walkName:walkName},
+        success: function (response) {
+            console.log(`success - Runwalk ${response}`);
+            myWalk = response;
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+            myWalk = 0;
+        }
+    });
+    return myWalk;
 }
 
 // #### #### MEAN PLOT #### ####

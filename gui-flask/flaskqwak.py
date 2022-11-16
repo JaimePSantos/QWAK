@@ -137,7 +137,35 @@ def getRunWalkDB():
     if request.method == 'POST':
         name = str(request.form.get("walkName"))
         prob = json.loads(json_util.dumps(probDistEntry.find_one({"name":name})))
+    return prob
 
+@app.route('/setRunMultipleWalksDB',methods=['POST','GET'])
+def setRunMultipleWalksDB():
+    print(request.method)
+    if request.method == 'POST':
+        name = str(request.form.get("walkName"))
+        probDist = gQwak.runMultipleWalks()
+        probDistEntry.insert_one({
+            'name' : name,
+            'hasError': probDist[0],
+            'walkDim': gQwak.getDynamicDim(),
+            'walkTime': gQwak.getDynamicTime().tolist(),
+            'walkInit': gQwak.getDynamicInitStateList(),
+            'walkAdjacency': list(map(lambda x: str(x), gQwak.getDynamicAdjacencyMatrix())),
+            'probDist': probDist[1],
+            'mean': gQwak.getDynamicMean(),
+            'stDev': gQwak.getDynamicStDev(),
+            'invPartRatio': gQwak.getDynamicInvPartRatio(),
+        })
+    return ("nothing")
+
+@app.route('/getRunMultipleWalksDB',methods=['POST'])
+def getRunMultipleWalksDB():
+    prob = 0
+    print(request.method)
+    if request.method == 'POST':
+        name = str(request.form.get("walkName"))
+        prob = json.loads(json_util.dumps(probDistEntry.find_one({"name":name})))
     return prob
 
 @app.route('/runMultipleWalks',methods=['GET','POST'])

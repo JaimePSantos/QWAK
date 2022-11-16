@@ -1,8 +1,10 @@
 export class DynamicQuantumwalk {
-    constructor(_graph, _timeList, _initStateList) {
+    constructor(_graph, _timeList, _initStateList,_probDist,_walkName) {
         this._graph = _graph;
         this._timeList = _timeList;
         this._initStateList = _initStateList;
+        this._probDist = _probDist;
+        this._walkName = _walkName;
     }
 
     reset(){
@@ -35,5 +37,21 @@ export class DynamicQuantumwalk {
 
     set initStateList(newInitStateList) {
         this._initStateList = newInitStateList;
+    }
+
+    set probDist(newProbDist){
+        this._probDist = newProbDist;
+    }
+
+    get probDist(){
+        return this._probDist;
+    }
+
+    set walkName(newWalkName){
+        this._walkName = newWalkName;
+    }
+
+    get walkName(){
+        return this._walkName;
     }
 }
