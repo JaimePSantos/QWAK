@@ -267,7 +267,7 @@ export let dynamicChartData = {
                 label: "Probability",
                 data: [],
                 fill: false,
-                borderColor: "rgb(75, 192, 192)",
+                borderColor: "rgb(14,84,246)",
                 pointRadius: 0,
             },
         ],
@@ -278,6 +278,10 @@ export let dynamicChartData = {
                 grid: {
                     display: false
                 }
+            },
+            y:{
+                suggestedMax:0.1,
+                suggestedMin:0,
             },
         },
     },

@@ -8,8 +8,12 @@ import {
     dynamicStDevChartData,
     dynamicSurvivalProbChartData
 } from "./dynamic-tools.js";
+
 import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
 import {setDynamicDim,setDynamicGraph,getDynamicGraph,updateGraph,addNodeButtonPress,setCustomAdjacencyMatrix,createAdjacencyMatrix,adjacencyMatrixToString} from "./js-dynamic/dynamic-graph.js"
+
+import {plotDynamicProbDist, setDynamicProbDistDB,getDynamicProbDistDB} from "./js-dynamic/dynamic-probDist.js"
+
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
 let inputGraph = document.getElementById("inputGraph");
@@ -54,8 +58,7 @@ async function getDynamicQuantity(quantity) {
     return quant;
 }
 
-// SETTING THE GRAPH
-// - Graph Generator
+// Graph Generator
 cy.layout({name: "circle"}).run();
 
 $(function () {
@@ -81,7 +84,6 @@ $(function () {
 });
 
 
-// - Custom Graph
 // #### CUSTOM GRAPH ####
 
 document.getElementById('addEdgeButton').addEventListener('click', function () {
@@ -105,11 +107,7 @@ $(function () {
     });
 });
 
-// #### DYNAMIC QUANTUM WALK  ####
-
 // #### #### PROB DIST ANIMATION #### ####
-
-let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
 
 $(function () {
     $('#setInitStateRangeButton').on('click', function (e) {
@@ -125,11 +123,6 @@ $(function () {
     });
 });
 
-function setDynamicJsInitStateList(){
-    dynamicQuantumWalk.initState = inputInitStateRange.value;
-    setDynamicPyInitStateList(dynamicQuantumWalk.initState);
-}
-
 function setDynamicPyInitStateList(initStateStr) {
     $.ajax({
         type: 'POST',
@@ -143,36 +136,6 @@ function setDynamicPyInitStateList(initStateStr) {
         }
     });
 }
-
-function setDynamicJsTime(){
-    dynamicQuantumWalk.time = (inputTimeRange.value);
-    setDynamicPyTime(dynamicQuantumWalk.time);
-}
-
-function setDynamicPyTime(newTime) {
-    $.ajax({
-        type: 'POST',
-        url: `/setDynamicTime`, // <- Add the queryparameter here
-        data: {newTime: newTime},
-        success: function (response) {
-            console.log('success - Time set to ${newTime}');
-        },
-        error: function (response) {
-            console.log('setTime error');
-        }
-    });
-}
-
-// $(function () {
-//     $('#dynamicProbDistButton').on('click', async function (e) {
-//         e.preventDefault();
-//         dynamicQuantumWalk.reset();
-//         setDynamicJsTime();
-//         setDynamicJsInitStateList();
-//         let dynamicProbDist = await getDynamicQuantity('runMultipleWalks');
-//         await setDynamicProbDist(dynamicProbDist);
-//     });
-// });
 
 $(function () {
     $('#dynamicProbDistButton').on('click', async function (e) {
@@ -194,59 +157,29 @@ $(function () {
     });
 });
 
-function plotDynamicProbDist(multipleWalks) {
-    // console.log(walk)
-    if (multipleWalks.hasError == true) {
-        alert(multipleWalks.probDist);
-        return;
-    } else {
-        let i = 0;
-        let animationSteps = 100;
-        myAnimatedChart.clear();
-        for (const walk of multipleWalks.probDist) {
-            setTimeout(() => {
-                dynamicChartData.data.datasets[0].data = walk.flat();
-                dynamicChartData.data.labels = [...Array(walk.length).keys()];
-                dynamicChartData.options.scales.y.ticks.beginAtZero = false;
-                myAnimatedChart.update();
-            }, animationSteps * i);
-            i++;
-        }
-    }
+function setDynamicJsTime(){
+    dynamicQuantumWalk.time = (inputTimeRange.value);
+    setDynamicPyTime(dynamicQuantumWalk.time);
 }
 
-async function setDynamicProbDistDB(walkName) {
-    await $.ajax({
-        type: 'POST',
-        url: `/setRunMultipleWalksDB`,
-        data:{walkName:walkName},
-        success: function () {
-            console.log(`success - Runwalk`);
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-        }
-    });
+function setDynamicJsInitStateList(){
+    dynamicQuantumWalk.initState = inputInitStateRange.value;
+    setDynamicPyInitStateList(dynamicQuantumWalk.initState);
 }
 
-async function getDynamicProbDistDB(walkName) {
-    let myWalk;
-    await $.ajax({
+function setDynamicPyTime(newTime) {
+    $.ajax({
         type: 'POST',
-        url: `/getRunMultipleWalksDB`,
-        data:{walkName:walkName},
+        url: `/setDynamicTime`, // <- Add the queryparameter here
+        data: {newTime: newTime},
         success: function (response) {
-            console.log(`success - Runwalk ${response}`);
-            myWalk = response;
+            console.log('success - Time set to ${newTime}');
         },
         error: function (response) {
-            console.log('Runwalk error');
-            myWalk = 0;
+            console.log('setTime error');
         }
     });
-    return myWalk;
 }
-
 // #### #### MEAN PLOT #### ####
 
 let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"), dynamicMeanChartData)
@@ -348,99 +281,6 @@ async function getDynamicSurvivalProb(fromNode, toNode) {
     });
     return dynamicSurvivalProb;
 }
-
-// #### #### GRAPH GENERATOR #### ####
-
-// document.getElementById("runGraphButton").addEventListener('click', async function () {
-//     setRunGraph();
-// });
-
-// document.getElementById("setDimButton").addEventListener('click', async function () {
-//     setDimButton();
-// });
-
-
-// let setRunGraph = async () => {
-//     setDynamicGraph();
-//     let myGraph = await getDynamicGraph();
-//     updateGraph(myGraph);
-// }
-
-// let setDimButton = async () => {
-//     dynamicQuantumWalk.dim = parseInt(inputDim.value);
-//     dynamicQuantumWalk.graph = inputGraph.value;
-//     eel.setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
-// }
-
-// let setDynamicGraph = async () => {
-//     dynamicQuantumWalk.graph = inputGraph.value;
-//     eel.setDynamicGraph(dynamicQuantumWalk.graph);
-// }
-
-// let getDynamicGraph = () => {
-//     return eel
-//         .getDynamicGraphToJson()()
-//         .then((a) => {
-//             return a ? a : Promise.reject(Error("Get Graph failed."));
-//         })
-//         .catch((e) => console.log(e));
-// };
-
-// #### CUSTOM GRAPH ####
-// var eh = customCy.edgehandles();
-//
-// document.getElementById('addEdgeButton').addEventListener('click', function () {
-//     eh.enableDrawMode();
-// });
-//
-// document.getElementById("addNodeButton").addEventListener('click', function () {
-//     addNodeButtonPress();
-// });
-//
-// let nodeNumber = 2;
-// let nodeXPos = 200;
-// let nodeYPos = 0;
-//
-// let addNodeButtonPress = async () => {
-//     nodeNumber++;
-//     nodeYPos += 50;
-//     customCy.add({
-//         group: 'nodes',
-//         data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
-//         position: {x: nodeXPos, y: nodeYPos}
-//     });
-//     // customCy.layout();
-// }
-//
-// document.getElementById('graphCustomButton').addEventListener('click', function () {
-//     graphCustomButtonPress();
-// });
-//
-// let graphCustomButtonPress = async () => {
-//     let adjacencyMatrix = createAdjacencyMatrix(customCy);
-//     console.log(adjacencyMatrix.toArray());
-//     eel.setDynamicCustomGraph();
-// }
-//
-// // eel.expose(sendAdjacencyMatrix);
-// function sendAdjacencyMatrix() {
-//     return createAdjacencyMatrix(customCy);
-// }
-//
-// function createAdjacencyMatrix(graph) {
-//     let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
-//
-//     for (let edg of graph.json().elements.edges) {
-//         console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
-//         adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
-//         adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
-//     }
-//     return adjacencyMatrix;
-// }
-//
-// document.getElementById('clearGraphButton').addEventListener('click', function () {
-//     eh.disableDrawMode();
-// });
 
 function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables
