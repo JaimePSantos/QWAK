@@ -15,6 +15,7 @@ QWAKCLUSTER_PASSWORD = os.environ.get('QWAKCLUSTER_PASSWORD')
 
 connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
 
+# client = MongoClient('localhost', 27017)
 client = MongoClient(connection_string)
 database = client.flask_db
 probDistEntry = database.probDistEntry
