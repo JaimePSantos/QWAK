@@ -42,3 +42,4 @@ docs/build
 
 package.json
 package-lock.json
+.env

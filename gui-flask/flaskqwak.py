@@ -6,13 +6,17 @@ import networkx as nx
 import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
 from bson import json_util
+from dotenv import load_dotenv
+import os
 
-from datetime import datetime
-from django.http import JsonResponse
-import requests
+load_dotenv()
+QWAKCLUSTER_USERNAME = os.environ.get('QWAKCLUSTER_USERNAME')
+QWAKCLUSTER_PASSWORD = os.environ.get('QWAKCLUSTER_PASSWORD')
 
-client = MongoClient('localhost', 27017)
-database = client.flas_db
+connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
+
+client = MongoClient(connection_string)
+database = client.flask_db
 probDistEntry = database.probDistEntry
 
 app = Flask(__name__)
