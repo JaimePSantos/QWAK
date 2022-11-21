@@ -144,8 +144,8 @@ class QWAK:
         UndefinedTimeList
             _description_
         """
-        # TODO: Decide if we should reset walk here.
-        # self.resetWalk()
+        # Reset required so that the copies are cleared.
+        self.resetWalk()
         if timeList is not None:
             self._timeList = timeList
         elif self._timeList is None:
