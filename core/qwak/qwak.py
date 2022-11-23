@@ -563,8 +563,29 @@ class QWAK:
         except MissingNodeInput as err:
             raise err
 
-    def getSurvivalProbList(self):
-        pass
+    def getSurvivalProbList(self,k0,k1):
+        """_summary_
+
+        Parameters
+        ----------
+        k0 : _type_
+            _description_
+        k1 : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
+        try:
+            survProbList = []
+            for prob in self._probDistList:
+                survProbList.append(prob.survivalProb(k0,k1))
+            return survProbList
+        except MissingNodeInput as err:
+            raise err
+
 
 
     def getInversePartRatio(self):
