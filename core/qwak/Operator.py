@@ -119,7 +119,7 @@ class Operator:
                 self._graph, dtype=complex)
         if markedSearch is not None:
             for marked in markedSearch:
-                self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
+                self._adjacencyMatrix[marked[0], marked[0]] = marked[1]
 
     def _buildEigenValues(self, isHermitian):
         """_summary_
