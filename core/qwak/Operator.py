@@ -21,6 +21,7 @@ class Operator:
             self,
             graph: nx.Graph,
             time: float = None,
+            gamma: float = None,
             laplacian: bool = False,
             markedSearch: list = None,
     ) -> None:
@@ -39,6 +40,10 @@ class Operator:
         ----------
         graph : nx.Graph
             Graph where the walk will be performed.
+        time : float
+            Needs Completion.
+        gamma : float
+            Needs Completion.
         laplacian : bool, optional
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.
         markedSearch : list, optional
@@ -48,6 +53,10 @@ class Operator:
             self._time = time
         else:
             self._time = 0
+        if gamma is not None:
+            self._gamma = gamma
+        else:
+            self._gamma = 1
         self._graph = graph
         self._buildAdjacency(laplacian, markedSearch)
         self._n = len(graph)
@@ -57,7 +66,7 @@ class Operator:
             self._adjacencyMatrix.conjugate().transpose())
         self._buildEigenValues(self._isHermitian)
 
-    def buildDiagonalOperator(self, time: float = None) -> None:
+    def buildDiagonalOperator(self, time: float = None, gamma: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
         eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
@@ -68,13 +77,19 @@ class Operator:
         ----------
         time : float, optional
             Time for which to calculate the operator, by default 0.
+        gamma : float, optional
+            Needs completion.
         """
         if time is not None:
             self._time = time
         else:
             self._time = 0
+        if gamma is not None:
+            self._gamma = gamma
+        else:
+            self._gamma = 1
         diag = np.diag(
-            np.exp(-1j * self._eigenvalues * self._time)).diagonal()
+            np.exp(-1j * self._eigenvalues * self._time * self._gamma)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
             self._operator = np.matmul(
