@@ -35,6 +35,7 @@ class QWAK:
         graph: nx.Graph,
         time: float = None,
         timeList: list = None,
+        gamma: float = None,
         initStateList: list = None,
         customStateList: list = None,
         laplacian: bool = False,
@@ -73,6 +74,7 @@ class QWAK:
         self._operator = Operator(
             self._graph,
             time=time,
+            gamma=gamma,
             laplacian=laplacian,
             markedSearch=markedSearch)
         self._initState = State(
@@ -82,14 +84,13 @@ class QWAK:
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._probDist = ProbabilityDistribution(
             self._quantumWalk.getFinalState())
-        # self._probDistList = [ProbabilityDistribution(
-        #     self._quantumWalk.getFinalState())]
         self._probDistList = []
         self._walkList = []
 
     def runWalk(
             self,
             time: float = None,
+            gamma: float = None,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
@@ -120,13 +121,14 @@ class QWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildDiagonalOperator(time=time)
+        self._operator.buildDiagonalOperator(time=time,gamma=gamma)
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
     def runMultipleWalks(
             self,
             timeList: list = None,
+            gamma: float = None,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """_summary_
@@ -154,6 +156,7 @@ class QWAK:
         for time in self._timeList:
             self.runWalk(
                 time=time,
+                gamma=gamma,
                 initStateList=initStateList,
                 customStateList=customStateList)
             self._probDistList.append(copy.deepcopy(self.getProbDist()))
@@ -585,8 +588,6 @@ class QWAK:
             return survProbList
         except MissingNodeInput as err:
             raise err
-
-
 
     def getInversePartRatio(self):
         """_summary_
