@@ -82,8 +82,9 @@ class QWAK:
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
         self._probDist = ProbabilityDistribution(
             self._quantumWalk.getFinalState())
-        self._probDistList = [ProbabilityDistribution(
-            self._quantumWalk.getFinalState())]
+        # self._probDistList = [ProbabilityDistribution(
+        #     self._quantumWalk.getFinalState())]
+        self._probDistList = []
         self._walkList = []
 
     def runWalk(
@@ -436,9 +437,9 @@ class QWAK:
         _type_
             _description_
         """
-        if not self._probDistList:
-            raise EmptyProbDistList(
-                f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
+        # if not self._probDistList:
+        #     raise EmptyProbDistList(
+        #         f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
 
     def getProbVec(self) -> np.ndarray:
@@ -561,6 +562,31 @@ class QWAK:
             return self._probDist.survivalProb(k0, k1)
         except MissingNodeInput as err:
             raise err
+
+    def getSurvivalProbList(self,k0,k1):
+        """_summary_
+
+        Parameters
+        ----------
+        k0 : _type_
+            _description_
+        k1 : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
+        try:
+            survProbList = []
+            for prob in self._probDistList:
+                survProbList.append(prob.survivalProb(k0,k1))
+            return survProbList
+        except MissingNodeInput as err:
+            raise err
+
+
 
     def getInversePartRatio(self):
         """_summary_
