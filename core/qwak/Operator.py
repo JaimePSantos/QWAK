@@ -5,6 +5,7 @@ import sympy as sp
 from scipy.linalg import inv
 from sympy.abc import pi
 import numpy as np
+from json_tricks import dump, dumps, load, loads, strip_comments
 
 from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
@@ -64,6 +65,51 @@ class Operator:
             self._adjacencyMatrix,
             self._adjacencyMatrix.conjugate().transpose())
         self._buildEigenValues(self._isHermitian)
+
+    def to_json(self) -> str:
+        """_summary_
+
+        Returns
+        -------
+        str
+            _description_
+        """        
+        return dumps({
+            'graph': nx.node_link_data(self._graph),
+            'time': self._time,
+            'laplacian': self._laplacian,
+            'markedSearch': self._markedSearch,
+            'adjacencyMatrix': self._adjacencyMatrix,
+            'eigenvalues': self._eigenvalues,
+            'eigenvectors': self._eigenvectors
+        })
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Operator:
+        """_summary_
+
+        Parameters
+        ----------
+        json_str : str
+            _description_
+
+        Returns
+        -------
+        Operator
+            _description_
+        """        
+        data = loads(json_str)
+        graph = nx.node_link_graph(data['graph'])
+        time = data['time']
+        laplacian = data['laplacian']
+        markedSearch = data['markedSearch']
+        adjacencyMatrix = np.array(data['adjacencyMatrix'])
+        eigenvalues = np.array(data['eigenvalues'])
+        eigenvectors = np.array(data['eigenvectors'])
+
+        operator = cls(graph, time, laplacian, markedSearch)
+        operator._setAdjacencyMatrixOnly(adjacencyMatrix)
+        return operator
 
     def buildDiagonalOperator(self, time: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
@@ -130,6 +176,46 @@ class Operator:
             self._eigenvalues, self._eigenvectors = np.linalg.eig(
                 self._adjacencyMatrix)
 
+    def getEigenValues(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
+        return self._eigenvalues
+
+    def setEigenValues(self,eigenValues):
+        """_summary_
+
+        Parameters
+        ----------
+        eigenValues : _type_
+            _description_
+        """        
+        self._eigenvalues = eigenValues
+
+    def setEigenVectors(self,eigenVectors):
+        """_summary_
+
+        Parameters
+        ----------
+        eigenVectors : _type_
+            _description_
+        """        
+        self._eigenvalues = eigenVectors
+        
+    def getEigenVectors(self):
+        """_summary_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """        
+        return self._eigenvectors
+
     def resetOperator(self):
         """Resets Operator object."""
         self._operator = np.zeros((self._n, self._n))
@@ -194,6 +280,20 @@ class Operator:
         self._n = len(self._adjacencyMatrix)
         self.resetOperator()
         self._buildEigenValues(self._isHermitian)
+
+    def _setAdjacencyMatrixOnly(self, adjacencyMatrix: np.ndarray) -> None:
+        """Sets the adjacency matrix of the operator to a user defined one.
+        Might make more sense to not give the user control over this parameter, and make
+        them instead change the graph entirely.
+
+        Parameters
+        ----------
+        adjacencyMatrix : np.ndarray
+            New adjacency matrix.
+        """
+        self._adjacencyMatrix = adjacencyMatrix.astype(complex)
+        self._n = len(self._adjacencyMatrix)
+        self.resetOperator()
 
     def getAdjacencyMatrix(self) -> np.ndarray:
         """Gets the current adjacency matrix of the Operator.

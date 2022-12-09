@@ -41,6 +41,13 @@ class State:
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
     def to_json(self):
+        """In contrast, the to_json method is not marked with the @classmethod decorator because it is a method that is called on an instance of the Operator class. This means that it can access the attributes of the instance on which it is called, and it uses these attributes to generate the JSON string representation of the Operator instance. Since it requires access to the attributes of a specific Operator instance, it cannot be called on the Operator class itself.
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
         state_dict = {
             "n": self._n,
             "node_list": self._nodeList,
@@ -51,6 +58,18 @@ class State:
 
     @classmethod
     def from_json(cls, json_str):
+        """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself, rather than on an instance of the class. This is necessary because it is used to create a new instance of the Operator class from a JSON string, and it does not require an instance of the Operator class to do so.
+
+        Parameters
+        ----------
+        json_str : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
         state_dict = loads(json_str)
         n = state_dict["n"]
         node_list = state_dict["node_list"]
