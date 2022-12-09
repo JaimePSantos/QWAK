@@ -81,7 +81,8 @@ class Operator:
             'markedSearch': self._markedSearch,
             'adjacencyMatrix': self._adjacencyMatrix,
             'eigenvalues': self._eigenvalues,
-            'eigenvectors': self._eigenvectors
+            'eigenvectors': self._eigenvectors,
+            'operator' : self._operator
         })
 
     @classmethod
@@ -106,12 +107,14 @@ class Operator:
         adjacencyMatrix = np.array(data['adjacencyMatrix'])
         eigenvalues = np.array(data['eigenvalues'])
         eigenvectors = np.array(data['eigenvectors'])
+        operator = np.array(data['operator'])
 
-        operator = cls(graph, time, laplacian, markedSearch)
-        operator._setAdjacencyMatrixOnly(adjacencyMatrix)
-        operator._setEigenValues(eigenvalues)
-        operator._setEigenVectors(eigenvectors)
-        return operator
+        newOp = cls(graph, time, laplacian, markedSearch)
+        newOp._setAdjacencyMatrixOnly(adjacencyMatrix)
+        newOp._setEigenValues(eigenvalues)
+        newOp._setEigenVectors(eigenvectors)
+        newOp._setOperatorVec(operator)
+        return newOp
 
     def buildDiagonalOperator(self, time: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
@@ -306,6 +309,16 @@ class Operator:
             Adjacency matrix of the Operator.
         """
         return self._adjacencyMatrix
+
+    def _setOperatorVec(self, newOperator: np.ndarray) -> None:
+        """Sets all the parameters of the current operator to user defined ones.
+
+        Parameters
+        ----------
+        newOperator : Operator
+            New user inputted Operator.
+        """
+        self._operator = newOperator
 
     def setOperator(self, newOperator: Operator) -> None:
         """Sets all the parameters of the current operator to user defined ones.

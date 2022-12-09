@@ -1,11 +1,12 @@
 from __future__ import annotations
 
 import warnings
-
 import numpy as np
+from json_tricks import dump, dumps, load, loads, strip_comments
 
 from qwak.Operator import Operator
 from qwak.State import State
+
 
 warnings.filterwarnings("ignore")
 
@@ -37,6 +38,47 @@ class QuantumWalk:
         self._initState = state
         self._operator = operator
         self._finalState = State(self._n)
+
+    def to_json(self) -> str:
+        """Serializes the QuantumWalk object to JSON format.
+
+        Returns
+        -------
+        str
+            JSON string representation of the QuantumWalk object.
+        """
+        return dumps({
+            "n": self._n,
+            "initState": self._initState.to_json(),
+            "operator": self._operator.to_json(),
+            "finalState": self._finalState.to_json()
+        })
+
+    @classmethod
+    def from_json(cls, json_str: str) -> QuantumWalk:
+        """Deserializes a JSON string to a QuantumWalk object.
+
+        Parameters
+        ----------
+        json_str : str
+            JSON string representation of the QuantumWalk object.
+
+        Returns
+        -------
+        QuantumWalk
+            Deserialized QuantumWalk object.
+        """
+        data = loads(json_str)
+        initState = State.from_json(data["initState"])
+        operator = Operator.from_json(data["operator"])
+
+        finalState = State.from_json(data["finalState"])
+
+        walk = cls(initState, operator)
+        walk.setFinalState(finalState)
+        walk.setDim(data["n"])
+
+        return walk
 
     def buildWalk(self, initState: State = None,
                   operator: Operator = None) -> None:
@@ -95,7 +137,7 @@ class QuantumWalk:
             New QuantumWalk dimension.
         """
         self._n = newDim
-        self._finalState = State(self._n)
+        self._finalState.setDim(self._n)
 
     def getDim(self) -> int:
         """Gets the current state dimension.
@@ -148,6 +190,16 @@ class QuantumWalk:
             Final state of the QuantumWalk.
         """
         return self._finalState
+
+    def setFinalState(self, finalState):
+        """Sets the final state of the QuantumWalk.
+
+        Parameters
+        -------
+        finalState
+            Final state of the QuantumWalk.
+        """
+        self._finalState = finalState
 
     def getAmpVec(self) -> np.ndarray:
         """Gets the vector of the final state amplitudes of the  QuantumWalk.
