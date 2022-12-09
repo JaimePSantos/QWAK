@@ -1,6 +1,6 @@
 import json
 
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template, url_for, request, redirect, session
 from pymongo import MongoClient
 import networkx as nx
 import numpy as np
@@ -15,12 +15,13 @@ QWAKCLUSTER_PASSWORD = os.environ.get('QWAKCLUSTER_PASSWORD')
 
 connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
 
-# client = MongoClient('localhost', 27017)
-client = MongoClient(connection_string)
+client = MongoClient('localhost', 27017)
+# client = MongoClient(connection_string)
 database = client.flask_db
 probDistEntry = database.probDistEntry
 
 app = Flask(__name__)
+app.secret_key = 'my_secret_key'
 
 staticN = 100
 dynamicN = 100
@@ -46,6 +47,18 @@ resultRounding = 4
 @app.route("/",methods=['GET', 'POST'])
 @app.route("/home")
 def home():
+    # Create a new GraphicalQWAK object for this session if it doesn't exist
+    if 'gQwak' not in session:
+        session['gQwak'] = GraphicalQWAK(
+            staticN,
+            dynamicN,
+            staticGraph,
+            dynamicGraph,
+            initState,
+            initStateList,
+            t,
+            timeList)
+    # print(session)
     return render_template('index.html')
 
 @app.route("/staticQW")

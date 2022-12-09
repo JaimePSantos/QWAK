@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import numpy as np
 from scipy.linalg import inv
+from json_tricks import dump, dumps, load, loads, strip_comments
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 
@@ -39,6 +40,26 @@ class State:
             self._customStateList = customStateList
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
+    def to_json(self):
+        state_dict = {
+            "n": self._n,
+            "node_list": self._nodeList,
+            "custom_state_list": self._customStateList,
+            "state_vec": self._stateVec.tolist(),
+        }
+        return dumps(state_dict)
+
+    @classmethod
+    def from_json(cls, json_str):
+        state_dict = loads(json_str)
+        n = state_dict["n"]
+        node_list = state_dict["node_list"]
+        custom_state_list = state_dict["custom_state_list"]
+        state_vec = np.array(state_dict["state_vec"], dtype=complex)
+        state = cls(n, node_list, custom_state_list)
+        state.setStateVec(state_vec)
+        return state
+
     def buildState(
             self,
             nodeList: list = None,
@@ -55,10 +76,13 @@ class State:
             Custom amplitudes for the state, by default None.
         """
         # TODO: We can probably find a better way to build this
-        # function.
+        # function.\
+        # self.resetState()
         if nodeList is not None:
+            self.resetState()
             self._nodeList = nodeList
         if customStateList is not None:
+            self.resetState()
             self._customStateList = customStateList
         if self._customStateList:
             self._checkUnitaryStateList(self._customStateList)
@@ -133,7 +157,7 @@ class State:
 
     def resetState(self):
         """Resets the components of the State."""
-        self._stateVec = np.zeros((self._n, 1))
+        self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
     def setDim(self, newDim: int, newNodeList: list = None) -> None:
         """Sets the current state dimension to a user defined one.

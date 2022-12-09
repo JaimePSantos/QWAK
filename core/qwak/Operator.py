@@ -48,8 +48,16 @@ class Operator:
             self._time = time
         else:
             self._time = 0
+        if laplacian is not None:
+            self._laplacian = laplacian
+        else:
+            self._laplacian = False
+        if markedSearch is not None:
+            self._markedSearch = markedSearch
+        else:
+            self._markedSearch = None
         self._graph = graph
-        self._buildAdjacency(laplacian, markedSearch)
+        self._buildAdjacency(self._laplacian, self._markedSearch)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n))
         self._isHermitian = np.allclose(

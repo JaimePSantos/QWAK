@@ -4,32 +4,16 @@ import numpy as np
 
 from qwak.GraphicalQWAK import GraphicalQWAK
 from qwak.qwak import QWAK
+from qwak.State import State
 
 if __name__ == "__main__":
 
-    staticN = 200
-    dynamicN = staticN
-    t = 12
-    initState = [staticN // 2, (staticN // 2) + 1]
-    graph = nx.cycle_graph(staticN)
-    timeList = [0, t]
-    initStateList = [[staticN // 2, (staticN // 2) + 1]]
-    qwak = QWAK(graph,initState)
-    qwak.runWalk(t)
-    plt.plot(qwak.getProbVec())
-    plt.show()
-    #
-    # gQwak = GraphicalQWAK(
-    #     staticN,
-    #     dynamicN,
-    #     graph,
-    #     graph,
-    #     initState,
-    #     initStateList,
-    #     t,
-    #     timeList)
+    state = State(4, [0, 1, 2, 3])
+    state.buildState()
+    json_str = state.to_json()
+    print(json_str)
 
-    # gQwak.runMultipleWalks()
-    # gQwak.runWalk()
-    # print(gQwak.getStaticInversePartRatio())
-    # print(gQwak.getDynamicInvPartRatio())
+    state2 = State.from_json(json_str)
+    print(state2.getStateVec())
+    state2.buildState(customStateList=[(0,-1)])
+    print(state2.getStateVec())
