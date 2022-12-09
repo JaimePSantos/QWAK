@@ -109,6 +109,8 @@ class Operator:
 
         operator = cls(graph, time, laplacian, markedSearch)
         operator._setAdjacencyMatrixOnly(adjacencyMatrix)
+        operator._setEigenValues(eigenvalues)
+        operator._setEigenVectors(eigenvectors)
         return operator
 
     def buildDiagonalOperator(self, time: float = None) -> None:
@@ -186,7 +188,7 @@ class Operator:
         """        
         return self._eigenvalues
 
-    def setEigenValues(self,eigenValues):
+    def _setEigenValues(self,eigenValues):
         """_summary_
 
         Parameters
@@ -196,7 +198,7 @@ class Operator:
         """        
         self._eigenvalues = eigenValues
 
-    def setEigenVectors(self,eigenVectors):
+    def _setEigenVectors(self,eigenVectors):
         """_summary_
 
         Parameters
@@ -204,7 +206,7 @@ class Operator:
         eigenVectors : _type_
             _description_
         """        
-        self._eigenvalues = eigenVectors
+        self._eigenvectors = eigenVectors
         
     def getEigenVectors(self):
         """_summary_
