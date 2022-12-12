@@ -1,6 +1,7 @@
 import networkx as nx
 import numpy as np
 import copy
+from json_tricks import dump, dumps, load, loads, strip_comments
 
 from qwak.Errors import (
     StateOutOfBounds,
@@ -85,6 +86,58 @@ class QWAK:
         self._probDistList = [ProbabilityDistribution(
             self._quantumWalk.getFinalState())]
         self._walkList = []
+
+    def to_json(self) -> str:
+        """_summary_
+
+        Returns
+        -------
+        str
+            _description_
+        """
+        return dumps({
+            'graph': nx.node_link_data(self._graph),
+            'timeList': self._timeList,
+            'initState': self._initState.to_json(),
+            'operator': self._operator.to_json(),
+            'quantumWalk': self._quantumWalk.to_json(),
+            'probDist': self._probDist.to_json(),
+            'probDistList':self._probDist.to_json(),
+            'walkList':self._walkList,
+        })
+
+    @classmethod
+    def from_json(cls, json_str: str) -> Operator:
+        """_summary_
+
+        Parameters
+        ----------
+        json_str : str
+            _description_
+
+        Returns
+        -------
+        Operator
+            _description_
+        """
+        data = loads(json_str)
+        graph = nx.node_link_graph(data['graph'])
+        timeList = data['timeList']
+        initState = data['initState']
+        operator = data['operator']
+        quantumWalk = data['quantumWalk']
+        probDist = data['probDist']
+        probDistList = data['probDistList']
+        walkList = data['walkList']
+
+        newQwak = cls(graph=graph, timeList=timeList)
+        newQwak.setInitState(State.from_json(initState))
+        newQwak.setOperator(Operator.from_json(operator))
+        newQwak.setWalk(QuantumWalk.from_json(quantumWalk))
+        newQwak.setProbDist(ProbabilityDistribution.from_json(probDist))
+        newQwak.setProbDistList(probDistList)
+        newQwak.setWalkList(walkList)
+        return newQwak
 
     def runWalk(
             self,
@@ -377,6 +430,9 @@ class QWAK:
         """
         return self._walkList
 
+    def setWalkList(self,newWalkList):
+        self._walkList = newWalkList
+
     def getFinalState(self) -> State:
         """Gets current QuantumWalk State.
 
@@ -440,6 +496,9 @@ class QWAK:
             raise EmptyProbDistList(
                 f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
+
+    def setProbDistList(self,newProbDistList):
+        self._probDistList = newProbDistList
 
     def getProbVec(self) -> np.ndarray:
         """Gets the current probability distribution vector.

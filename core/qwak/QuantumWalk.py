@@ -179,7 +179,7 @@ class QuantumWalk:
         """
         self._initState.setState(newWalk.getInitState())
         self._operator.setOperator(newWalk.getOperator())
-        self._finalState.setState(newWalk.getWalk())
+        self._finalState.setState(newWalk.getFinalState())
 
     def getFinalState(self) -> State:
         """Gets the final state of the QuantumWalk.
