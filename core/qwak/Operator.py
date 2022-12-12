@@ -73,7 +73,7 @@ class Operator:
         -------
         str
             _description_
-        """        
+        """
         return dumps({
             'graph': nx.node_link_data(self._graph),
             'time': self._time,
@@ -82,7 +82,7 @@ class Operator:
             'adjacencyMatrix': self._adjacencyMatrix,
             'eigenvalues': self._eigenvalues,
             'eigenvectors': self._eigenvectors,
-            'operator' : self._operator
+            'operator': self._operator
         })
 
     @classmethod
@@ -98,7 +98,7 @@ class Operator:
         -------
         Operator
             _description_
-        """        
+        """
         data = loads(json_str)
         graph = nx.node_link_graph(data['graph'])
         time = data['time']
@@ -188,29 +188,29 @@ class Operator:
         -------
         _type_
             _description_
-        """        
+        """
         return self._eigenvalues
 
-    def _setEigenValues(self,eigenValues):
+    def _setEigenValues(self, eigenValues):
         """_summary_
 
         Parameters
         ----------
         eigenValues : _type_
             _description_
-        """        
+        """
         self._eigenvalues = eigenValues
 
-    def _setEigenVectors(self,eigenVectors):
+    def _setEigenVectors(self, eigenVectors):
         """_summary_
 
         Parameters
         ----------
         eigenVectors : _type_
             _description_
-        """        
+        """
         self._eigenvectors = eigenVectors
-        
+
     def getEigenVectors(self):
         """_summary_
 
@@ -218,7 +218,7 @@ class Operator:
         -------
         _type_
             _description_
-        """        
+        """
         return self._eigenvectors
 
     def resetOperator(self):
@@ -286,7 +286,8 @@ class Operator:
         self.resetOperator()
         self._buildEigenValues(self._isHermitian)
 
-    def _setAdjacencyMatrixOnly(self, adjacencyMatrix: np.ndarray) -> None:
+    def _setAdjacencyMatrixOnly(
+            self, adjacencyMatrix: np.ndarray) -> None:
         """Sets the adjacency matrix of the operator to a user defined one.
         Might make more sense to not give the user control over this parameter, and make
         them instead change the graph entirely.

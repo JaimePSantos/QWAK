@@ -102,12 +102,12 @@ class QWAK:
             'operator': self._operator.to_json(),
             'quantumWalk': self._quantumWalk.to_json(),
             'probDist': self._probDist.to_json(),
-            'probDistList':self._probDist.to_json(),
-            'walkList':self._walkList,
+            'probDistList': self._probDist.to_json(),
+            'walkList': self._walkList,
         })
 
     @classmethod
-    def from_json(cls, json_str: str) -> Operator:
+    def from_json(cls, json_str: str):
         """_summary_
 
         Parameters
@@ -138,6 +138,14 @@ class QWAK:
         newQwak.setProbDistList(probDistList)
         newQwak.setWalkList(walkList)
         return newQwak
+
+    def setQWAK(self,newQWAK):
+        self.setGraph(newQWAK.getGraph())
+        self.setDim(newQWAK.getDim(),graph=self._graph)
+        self.setInitState(newQWAK.getInitState())
+        self.setOperator(newQWAK.getOperator())
+        self.setWalk(newQWAK.getWalk())
+        self.setProbDist(newQWAK.getProbDist())
 
     def runWalk(
             self,
@@ -430,7 +438,7 @@ class QWAK:
         """
         return self._walkList
 
-    def setWalkList(self,newWalkList):
+    def setWalkList(self, newWalkList):
         self._walkList = newWalkList
 
     def getFinalState(self) -> State:
@@ -497,7 +505,7 @@ class QWAK:
                 f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
 
-    def setProbDistList(self,newProbDistList):
+    def setProbDistList(self, newProbDistList):
         self._probDistList = newProbDistList
 
     def getProbVec(self) -> np.ndarray:

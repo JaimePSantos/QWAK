@@ -1,6 +1,7 @@
 import json
 
 from flask import Flask, render_template, url_for, request, redirect, session
+from flask_session import Session
 from pymongo import MongoClient
 import networkx as nx
 import numpy as np
@@ -8,6 +9,7 @@ from qwak.GraphicalQWAK import GraphicalQWAK
 from bson import json_util
 from dotenv import load_dotenv
 import os
+import random
 
 load_dotenv()
 QWAKCLUSTER_USERNAME = os.environ.get('QWAKCLUSTER_USERNAME')
@@ -21,7 +23,9 @@ database = client.flask_db
 probDistEntry = database.probDistEntry
 
 app = Flask(__name__)
-app.secret_key = 'my_secret_key'
+SESSION_TYPE = 'filesystem'
+app.config.from_object(__name__)
+Session(app)
 
 staticN = 100
 dynamicN = 100
@@ -48,7 +52,7 @@ resultRounding = 4
 @app.route("/home")
 def home():
     # Create a new GraphicalQWAK object for this session if it doesn't exist
-    if 'gQwak' not in session:
+    if not session.get('gQwak'):
         session['gQwak'] = GraphicalQWAK(
             staticN,
             dynamicN,
@@ -57,8 +61,9 @@ def home():
             initState,
             initStateList,
             t,
-            timeList)
-    # print(session)
+            timeList).to_json()
+
+    # print(len(session))
     return render_template('index.html')
 
 @app.route("/staticQW")

@@ -29,7 +29,7 @@ class ProbabilityDistribution:
         self._state = state
         self._stateVec = self._state.getStateVec()
         self._n = state.getDim()
-        self._probVec = np.zeros((self._n, 1),dtype=float)
+        self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def to_json(self):
         return dumps({
@@ -52,7 +52,7 @@ class ProbabilityDistribution:
         """Resets the ProbabilityDistribution object."""
         # TODO: Rethink state attribute
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
-        self._probVec = np.zeros((self._n, 1),dtype=float)
+        self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def buildProbDist(self, state: State = None) -> None:
         """Builds the probability vector by multiplying the user inputted
@@ -66,8 +66,8 @@ class ProbabilityDistribution:
         if state is not None:
             self._stateVec = state.getStateVec()
         for st in range(self._n):
-            self._probVec[st] = (self._stateVec[st] * \
-                np.conj(self._stateVec[st])).real
+            self._probVec[st] = (self._stateVec[st] *
+                                 np.conj(self._stateVec[st])).real
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
@@ -97,7 +97,7 @@ class ProbabilityDistribution:
 
     def setDim(self, newDim):
         self._n = newDim
-        self._probVec = np.zeros((self._n, 1),dtype=float)
+        self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def getDim(self) -> int:
         """_summary_

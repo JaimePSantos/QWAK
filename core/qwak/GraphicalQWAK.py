@@ -4,9 +4,15 @@ import networkx as nx
 import numpy as np
 import copy
 from numpy import pi
+from json_tricks import dump, dumps, load, loads, strip_comments
+
 
 from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
 from qwak.State import State
+from qwak.QuantumWalk import QuantumWalk
+from qwak.ProbabilityDistribution import (
+    ProbabilityDistribution,
+)
 from qwak.qwak import QWAK
 
 
@@ -59,6 +65,90 @@ class GraphicalQWAK:
         self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
         self._dynamicAmpList = self._dynamicQWAK.getWalkList()
 
+    def to_json(self) -> str:
+        """_summary_
+
+        Returns
+        -------
+        str
+            _description_
+        """
+        return dumps({
+            'staticN': self._staticN,
+            'dynamicN': self._dynamicN,
+            'staticGraph': nx.node_link_data(self._staticGraph),
+            'dynamicGraph': nx.node_link_data(self._dynamicGraph),
+            'staticStateList': self._staticStateList,
+            'dynamicStateList': self._dynamicStateList,
+            'staticTime': self._staticTime,
+            'dynamicTimeList': self._dynamicTimeList,
+            'staticQWAK': self._staticQWAK.to_json(),
+            'dynamicQWAK': self._dynamicQWAK.to_json(),
+            'staticProbDist': self._staticProbDist.to_json(),
+            'dynamicProbDistList': self._dynamicProbDistList,
+            'dynamicAmpList': self._dynamicAmpList,
+        })
+
+    @classmethod
+    def from_json(cls, json_str: str):
+        """_summary_
+
+        Parameters
+        ----------
+        json_str : str
+            _description_
+
+        Returns
+        -------
+        Operator
+            _description_
+        """
+        data = loads(json_str)
+        staticN = data['staticN']
+        dynamicN = data['dynamicN']
+        staticGraph = nx.node_link_graph(data['staticGraph'])
+        dynamicGraph = nx.node_link_graph(data['dynamicGraph'])
+        staticStateList = data['staticStateList']
+        dynamicStateList = data['dynamicStateList']
+        staticTime = data['staticTime']
+        dynamicTimeList = data['dynamicTimeList']
+        staticQWAK = QWAK.from_json(data['staticQWAK'])
+        dynamicQWAK = QWAK.from_json(data['dynamicQWAK'])
+        staticProbDist = ProbabilityDistribution.from_json(
+            data['staticProbDist'])
+        dynamicProbDistList =  data['dynamicProbDistList']
+        dynamicAmpList =  data['dynamicAmpList']
+
+        newGQwak = cls(
+            staticN=staticN,
+            dynamicN=dynamicN,
+            staticGraph=staticGraph,
+            dynamicGraph=dynamicGraph,
+            staticStateList=staticStateList,
+            dynamicStateList=dynamicStateList,
+            staticTime=staticTime,
+            dynamicTimeList=dynamicTimeList,)
+
+        newGQwak.setDynamicTimeList(dynamicTimeList)
+        newGQwak.setStaticQWAK(staticQWAK)
+        newGQwak.setDynamicQWAK(dynamicQWAK)
+        newGQwak.setStaticProbDist(staticProbDist)
+        newGQwak.setDynamicProbDistList(dynamicProbDistList)
+        newGQwak.setDynamicWalkList(dynamicAmpList)
+
+        return newGQwak
+
+    def setStaticQWAK(self,newStaticQWAK):
+        self._staticQWAK.setQWAK(newStaticQWAK)
+
+    def setDynamicQWAK(self,newDynamicQWAK):
+        self._dynamicQWAK.setQWAK(newDynamicQWAK)
+
+    def setDynamicTimeList(self,newTimeList):
+        self._dynamicQWAK.setTimeList(newTimeList)
+        self._dynamicTimeList = self._dynamicQWAK.getTimeList()
+
+
     def runWalk(self):
         """_summary_
 
@@ -86,6 +176,7 @@ class GraphicalQWAK:
             _description_
         """
         try:
+            print(self._dynamicTimeList)
             self._dynamicQWAK.resetWalk()
             self._dynamicQWAK.runMultipleWalks(
                 timeList=self._dynamicTimeList,
@@ -372,6 +463,9 @@ class GraphicalQWAK:
         """
         return self._staticProbDist
 
+    def setStaticProbDist(self,newStaticProbDist):
+        self._staticProbDist.setProbDist(newStaticProbDist)
+
     def getDynamicProbDistList(self):
         """_summary_
 
@@ -381,6 +475,16 @@ class GraphicalQWAK:
             _description_
         """
         return self._dynamicProbDistList
+
+    def setDynamicProbDistList(self,newDynamicProbDistList):
+        self._dynamicProbDistList = newDynamicProbDistList
+
+    def getDynamicWalkList(self):
+        return self._dynamicAmpList
+
+    def setDynamicWalkList(self,newWalkList):
+        self._dynamicAmpList = newWalkList
+        self._dynamicQWAK.setWalkList(self._dynamicAmpList)
 
     def getStaticProbVec(self):
         """_summary_
