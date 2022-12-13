@@ -65,7 +65,7 @@ class GraphicalQWAK:
         self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
         self._dynamicAmpList = self._dynamicQWAK.getWalkList()
 
-    def to_json(self) -> str:
+    def to_json(self):
         """_summary_
 
         Returns

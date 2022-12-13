@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import numpy as np
 from scipy.linalg import inv
-from json_tricks import dump, dumps, load, loads, strip_comments
+# from json_tricks import dump, dumps, load, loads, strip_comments
+import json
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
+from utils.jsonMethods import complex_to_json,json_to_complex,columnListJson_to_complex
 
 
 class State:
@@ -54,7 +56,7 @@ class State:
             "custom_state_list": self._customStateList,
             "state_vec": self._stateVec.tolist(),
         }
-        return dumps(state_dict)
+        return json.dumps(state_dict, default=complex_to_json)
 
     @classmethod
     def from_json(cls, json_str):
@@ -70,11 +72,11 @@ class State:
         _type_
             _description_
         """
-        state_dict = loads(json_str)
+        state_dict = json.loads(json_str)
         n = state_dict["n"]
         node_list = state_dict["node_list"]
         custom_state_list = state_dict["custom_state_list"]
-        state_vec = np.array(state_dict["state_vec"], dtype=complex)
+        state_vec = np.array(columnListJson_to_complex(state_dict["state_vec"]), dtype=complex)
         state = cls(n, node_list, custom_state_list)
         state.setStateVec(state_vec)
         return state

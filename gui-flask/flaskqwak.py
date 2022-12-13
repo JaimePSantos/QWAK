@@ -1,5 +1,6 @@
 import json
 
+import json_tricks as json_t
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_session import Session
 from pymongo import MongoClient
@@ -19,8 +20,9 @@ connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD
 
 client = MongoClient('localhost', 27017)
 # client = MongoClient(connection_string)
-database = client.flask_db
-probDistEntry = database.probDistEntry
+db_string = 'qwak_flask'
+database = client.get_database(db_string)
+probDistEntry = database['probDistEntry']
 
 app = Flask(__name__)
 SESSION_TYPE = 'filesystem'
@@ -51,9 +53,25 @@ resultRounding = 4
 @app.route("/",methods=['GET', 'POST'])
 @app.route("/home")
 def home():
-    # Create a new GraphicalQWAK object for this session if it doesn't exist
-    if not session.get('gQwak'):
-        session['gQwak'] = GraphicalQWAK(
+    # session.clear()
+    # for col in database.list_collection_names():
+    #     database.drop_collection(col)
+    gQwak = GraphicalQWAK(
+        staticN,
+        dynamicN,
+        staticGraph,
+        dynamicGraph,
+        initState,
+        initStateList,
+        t,
+        timeList)
+    if (not session.get('sessionId')) or (database[session['sessionId']].count_documents({}) <= 0):
+        sessionId = f'user{len(database.list_collection_names())}'
+        session['sessionId'] = sessionId
+        print(session['sessionId'])
+        sessionCollection = database[sessionId]
+        sessionCollection.insert_one({'init':sessionId})
+        gQwak = GraphicalQWAK(
             staticN,
             dynamicN,
             staticGraph,
@@ -61,9 +79,11 @@ def home():
             initState,
             initStateList,
             t,
-            timeList).to_json()
+            timeList)
+        sessionCollection.insert_one(json_t.loads(gQwak.to_json()))
+    print(session['sessionId'])
+    print(database.list_collection_names())
 
-    # print(len(session))
     return render_template('index.html')
 
 @app.route("/staticQW")

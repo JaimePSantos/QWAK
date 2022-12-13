@@ -12,15 +12,16 @@ from qwak.ProbabilityDistribution import ProbabilityDistribution
 
 if __name__ == "__main__":
 
-    # state = State(4, [0, 1, 2, 3])
-    # state.buildState()
-    # st_json_str = state.to_json()
-    # # print(json_str)
-    #
-    # deserialized_state = State.from_json(st_json_str)
-    # # print(state2.getStateVec())
-    # deserialized_state.buildState()
-    # # print(state2.getStateVec())
+    state = State(4, [0, 1, 2, 3])
+    state.buildState()
+    st_json_str = state.to_json()
+    print(st_json_str)
+
+    deserialized_state = State.from_json(st_json_str)
+    # print(state2.getStateVec())
+    deserialized_state.buildState()
+    print(deserialized_state)
+    # print(state2.getStateVec())
     #
     # graph = nx.cycle_graph(4)
     # operator = Operator(graph,0.1)
@@ -66,33 +67,33 @@ if __name__ == "__main__":
     # deserialized_qwak.runWalk(time=10,initStateList=[50])
     # plt.plot(deserialized_qwak.getProbVec())
     # plt.show()
-    staticN = 100
-    dynamicN = 100
-    t = 0
-    initState = [2]
-    staticGraph = nx.cycle_graph(staticN)
-    dynamicGraph = nx.cycle_graph(dynamicN)
-    timeList = [0, 10]
-    initStateList = [[dynamicN//2,dynamicN//2 + 1]]
-
-    gQwak = GraphicalQWAK(
-        staticN=staticN,
-        dynamicN=dynamicN,
-        staticGraph=staticGraph,
-        dynamicGraph=dynamicGraph,
-        staticStateList=initState,
-        dynamicStateList=initStateList,
-        staticTime=t,
-        dynamicTimeList=timeList)
-
-    gQwak_json_string = gQwak.to_json()
-
-    deserialized_gQwak = GraphicalQWAK.from_json(gQwak_json_string)
-    # deserialized_gQwak.runWalk()
-    deserialized_gQwak.runMultipleWalks()
-
-    for walks in deserialized_gQwak.getDynamicProbVecList():
-        print('bla')
-        plt.plot(walks)
-    plt.show()
+    # staticN = 100
+    # dynamicN = 100
+    # t = 0
+    # initState = [2]
+    # staticGraph = nx.cycle_graph(staticN)
+    # dynamicGraph = nx.cycle_graph(dynamicN)
+    # timeList = [0, 10]
+    # initStateList = [[dynamicN//2,dynamicN//2 + 1]]
+    #
+    # gQwak = GraphicalQWAK(
+    #     staticN=staticN,
+    #     dynamicN=dynamicN,
+    #     staticGraph=staticGraph,
+    #     dynamicGraph=dynamicGraph,
+    #     staticStateList=initState,
+    #     dynamicStateList=initStateList,
+    #     staticTime=t,
+    #     dynamicTimeList=timeList)
+    #
+    # gQwak_json_string = gQwak.to_json()
+    #
+    # deserialized_gQwak = GraphicalQWAK.from_json(gQwak_json_string)
+    # # deserialized_gQwak.runWalk()
+    # deserialized_gQwak.runMultipleWalks()
+    #
+    # for walks in deserialized_gQwak.getDynamicProbVecList():
+    #     print('bla')
+    #     plt.plot(walks)
+    # plt.show()
 
