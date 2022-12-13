@@ -12,17 +12,17 @@ from qwak.ProbabilityDistribution import ProbabilityDistribution
 
 if __name__ == "__main__":
 
-    state = State(4, [0, 1, 2, 3])
-    state.buildState()
-    st_json_str = state.to_json()
-    print(st_json_str)
-
-    deserialized_state = State.from_json(st_json_str)
-    # print(state2.getStateVec())
-    deserialized_state.buildState()
-    print(deserialized_state)
-    # print(state2.getStateVec())
+    # state = State(4, [0, 1, 2, 3])
+    # state.buildState()
+    # st_json_str = state.to_json()
+    # print(st_json_str)
     #
+    # deserialized_state = State.from_json(st_json_str)
+    # # print(state2.getStateVec())
+    # deserialized_state.buildState()
+    # print(deserialized_state)
+    # # print(state2.getStateVec())
+    # #
     # graph = nx.cycle_graph(4)
     # operator = Operator(graph,0.1)
     # operator.buildDiagonalOperator()
@@ -36,21 +36,21 @@ if __name__ == "__main__":
     # deserialized_operator = Operator.from_json(op_json_str)
     # # print(deserialized_operator.getOperator())
     # deserialized_operator.buildDiagonalOperator(1)
-    # # print(deserialized_operator.getOperator())
+    # print(deserialized_operator.getOperator())
     #
-    # quantumWalk = QuantumWalk(state=deserialized_state,operator=deserialized_operator)
-    # # print(quantumWalk.getOperator())
-    # qw_json_str = quantumWalk.to_json()
-    # # print(qw_json_str)
-    #
-    # deserialized_walk = QuantumWalk.from_json(qw_json_str)
-    # # print(deserialized_walk.getFinalState())
-    #
-    # deserialized_walk.buildWalk()
-    # # print(deserialized_walk.getOperator())
-    # # print(deserialized_walk.getFinalState())
-    # # print(quantumWalk.getInitState())
-    #
+    quantumWalk = QuantumWalk(state=deserialized_state,operator=deserialized_operator)
+    # print(quantumWalk.getOperator())
+    qw_json_str = quantumWalk.to_json()
+    # print(qw_json_str)
+
+    deserialized_walk = QuantumWalk.from_json(qw_json_str)
+    # print(deserialized_walk.getFinalState())
+
+    deserialized_walk.buildWalk()
+    # print(deserialized_walk.getOperator())
+    # print(deserialized_walk.getFinalState())
+    # print(quantumWalk.getInitState())
+
     # probDist = ProbabilityDistribution(deserialized_walk.getFinalState())
     # # print(probDist.getProbVec())
     # probDist_json_str = probDist.to_json()

@@ -1,12 +1,12 @@
 import json
 
-import json_tricks as json_t
 from flask import Flask, render_template, url_for, request, redirect, session
 from flask_session import Session
 from pymongo import MongoClient
 import networkx as nx
 import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
+from qwak.State import State
 from bson import json_util
 from dotenv import load_dotenv
 import os
@@ -71,16 +71,16 @@ def home():
         print(session['sessionId'])
         sessionCollection = database[sessionId]
         sessionCollection.insert_one({'init':sessionId})
-        gQwak = GraphicalQWAK(
-            staticN,
-            dynamicN,
-            staticGraph,
-            dynamicGraph,
-            initState,
-            initStateList,
-            t,
-            timeList)
-        sessionCollection.insert_one(json_t.loads(gQwak.to_json()))
+        # gQwak = GraphicalQWAK(
+        #     staticN,
+        #     dynamicN,
+        #     staticGraph,
+        #     dynamicGraph,
+        #     initState,
+        #     initStateList,
+        #     t,
+        #     timeList)
+        # sessionCollection.insert_one(json.loads(gQwak.to_json()))
     print(session['sessionId'])
     print(database.list_collection_names())
 

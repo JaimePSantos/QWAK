@@ -5,7 +5,8 @@ import sympy as sp
 from scipy.linalg import inv
 from sympy.abc import pi
 import numpy as np
-from json_tricks import dump, dumps, load, loads, strip_comments
+from utils.jsonMethods import json_matrix_to_complex,complex_to_json,complex_matrix_to_json
+import json
 
 from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
@@ -74,15 +75,15 @@ class Operator:
         str
             _description_
         """
-        return dumps({
+        return json.dumps({
             'graph': nx.node_link_data(self._graph),
             'time': self._time,
             'laplacian': self._laplacian,
             'markedSearch': self._markedSearch,
-            'adjacencyMatrix': self._adjacencyMatrix,
-            'eigenvalues': self._eigenvalues,
-            'eigenvectors': self._eigenvectors,
-            'operator': self._operator
+            'adjacencyMatrix': complex_matrix_to_json(self._adjacencyMatrix),
+            'eigenvalues': self._eigenvalues.tolist(),
+            'eigenvectors': complex_matrix_to_json(self._eigenvectors),
+            'operator': complex_matrix_to_json(self._operator),
         })
 
     @classmethod
@@ -99,15 +100,16 @@ class Operator:
         Operator
             _description_
         """
-        data = loads(json_str)
+        data = json.loads(json_str)
         graph = nx.node_link_graph(data['graph'])
         time = data['time']
         laplacian = data['laplacian']
         markedSearch = data['markedSearch']
-        adjacencyMatrix = np.array(data['adjacencyMatrix'])
+        adjacencyMatrix = np.array(json_matrix_to_complex(data['adjacencyMatrix']))
         eigenvalues = np.array(data['eigenvalues'])
-        eigenvectors = np.array(data['eigenvectors'])
-        operator = np.array(data['operator'])
+
+        eigenvectors = np.array(json_matrix_to_complex(data['eigenvectors']))
+        operator = np.array(json_matrix_to_complex(data['operator']))
 
         newOp = cls(graph, time, laplacian, markedSearch)
         newOp._setAdjacencyMatrixOnly(adjacencyMatrix)

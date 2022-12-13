@@ -6,7 +6,7 @@ from scipy.linalg import inv
 import json
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
-from utils.jsonMethods import complex_to_json,json_to_complex,columnListJson_to_complex
+from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
 
 
 class State:
@@ -54,9 +54,9 @@ class State:
             "n": self._n,
             "node_list": self._nodeList,
             "custom_state_list": self._customStateList,
-            "state_vec": self._stateVec.tolist(),
+            "state_vec": complex_matrix_to_json(self._stateVec.tolist()),
         }
-        return json.dumps(state_dict, default=complex_to_json)
+        return json.dumps(state_dict)
 
     @classmethod
     def from_json(cls, json_str):
@@ -76,7 +76,7 @@ class State:
         n = state_dict["n"]
         node_list = state_dict["node_list"]
         custom_state_list = state_dict["custom_state_list"]
-        state_vec = np.array(columnListJson_to_complex(state_dict["state_vec"]), dtype=complex)
+        state_vec = np.array(json_matrix_to_complex(state_dict["state_vec"]), dtype=complex)
         state = cls(n, node_list, custom_state_list)
         state.setStateVec(state_vec)
         return state
