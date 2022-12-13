@@ -56,31 +56,22 @@ def home():
     # session.clear()
     # for col in database.list_collection_names():
     #     database.drop_collection(col)
-    gQwak = GraphicalQWAK(
-        staticN,
-        dynamicN,
-        staticGraph,
-        dynamicGraph,
-        initState,
-        initStateList,
-        t,
-        timeList)
     if (not session.get('sessionId')) or (database[session['sessionId']].count_documents({}) <= 0):
         sessionId = f'user{len(database.list_collection_names())}'
         session['sessionId'] = sessionId
         print(session['sessionId'])
         sessionCollection = database[sessionId]
         sessionCollection.insert_one({'init':sessionId})
-        # gQwak = GraphicalQWAK(
-        #     staticN,
-        #     dynamicN,
-        #     staticGraph,
-        #     dynamicGraph,
-        #     initState,
-        #     initStateList,
-        #     t,
-        #     timeList)
-        # sessionCollection.insert_one(json.loads(gQwak.to_json()))
+        gQwak = GraphicalQWAK(
+            staticN,
+            dynamicN,
+            staticGraph,
+            dynamicGraph,
+            initState,
+            initStateList,
+            t,
+            timeList)
+        sessionCollection.insert_one(json.loads(gQwak.to_json()))
     print(session['sessionId'])
     print(database.list_collection_names())
 

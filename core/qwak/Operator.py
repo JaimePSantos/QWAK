@@ -61,7 +61,7 @@ class Operator:
         self._graph = graph
         self._buildAdjacency(self._laplacian, self._markedSearch)
         self._n = len(graph)
-        self._operator = np.zeros((self._n, self._n))
+        self._operator = np.zeros((self._n, self._n),dtype=complex)
         self._isHermitian = np.allclose(
             self._adjacencyMatrix,
             self._adjacencyMatrix.conjugate().transpose())
@@ -225,7 +225,7 @@ class Operator:
 
     def resetOperator(self):
         """Resets Operator object."""
-        self._operator = np.zeros((self._n, self._n))
+        self._operator = np.zeros((self._n, self._n),dtype=complex)
 
     def setDim(self, newDim: int, graph) -> None:
         """Sets the current Operator objects dimension to a user defined one.
@@ -236,7 +236,7 @@ class Operator:
             New dimension for the Operator object.
         """
         self._n = newDim
-        self._operator = np.zeros((self._n, self._n))
+        self._operator = np.zeros((self._n, self._n),dtype=complex)
         self._graph = graph
         self._adjacencyMatrix = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
