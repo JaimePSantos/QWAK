@@ -5,7 +5,7 @@ import sympy as sp
 from scipy.linalg import inv
 from sympy.abc import pi
 import numpy as np
-from utils.jsonMethods import json_matrix_to_complex,complex_to_json,complex_matrix_to_json
+from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
 import json
 
 from qwak.Errors import MissingNodeInput

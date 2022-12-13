@@ -2,7 +2,8 @@ from __future__ import annotations
 
 import warnings
 import numpy as np
-from json_tricks import dump, dumps, load, loads, strip_comments
+import json
+from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
 
 from qwak.Operator import Operator
 from qwak.State import State
@@ -47,7 +48,7 @@ class QuantumWalk:
         str
             JSON string representation of the QuantumWalk object.
         """
-        return dumps({
+        return json.dumps({
             "n": self._n,
             "initState": self._initState.to_json(),
             "operator": self._operator.to_json(),
@@ -68,7 +69,7 @@ class QuantumWalk:
         QuantumWalk
             Deserialized QuantumWalk object.
         """
-        data = loads(json_str)
+        data = json.loads(json_str)
         initState = State.from_json(data["initState"])
         operator = Operator.from_json(data["operator"])
 

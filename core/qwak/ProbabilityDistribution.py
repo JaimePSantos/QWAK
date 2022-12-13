@@ -3,7 +3,8 @@ import warnings
 import numpy as np
 from qwak.State import State
 from qwak.Errors import MissingNodeInput
-from json_tricks import dump, dumps, load, loads, strip_comments
+import json
+from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
 
 warnings.filterwarnings("ignore")
 
@@ -32,7 +33,7 @@ class ProbabilityDistribution:
         self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def to_json(self):
-        return dumps({
+        return json.dumps({
             'state': self._state.to_json(),
             'dim': self._n,
             'prob_vec': self._probVec.tolist()
@@ -40,7 +41,7 @@ class ProbabilityDistribution:
 
     @classmethod
     def from_json(cls, json_str):
-        json_dict = loads(json_str)
+        json_dict = json.loads(json_str)
         state = State.from_json(json_dict['state'])
         dim = json_dict['dim']
         prob_vec = np.array(json_dict['prob_vec'])
