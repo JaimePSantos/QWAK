@@ -6,6 +6,7 @@ import copy
 from numpy import pi
 from typing import Union
 import json
+# import json_tricks as json
 
 from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
 from qwak.State import State
@@ -76,6 +77,7 @@ class GraphicalQWAK:
         str
             _description_
         """
+        print(type(self._dynamicProbDistList[0]))
         return json.dumps({
             'staticN': self._staticN,
             'dynamicN': self._dynamicN,
@@ -88,13 +90,13 @@ class GraphicalQWAK:
             'staticQWAK': self._staticQWAK.to_json(),
             'dynamicQWAK': self._dynamicQWAK.to_json(),
             'staticProbDist': self._staticProbDist.to_json(),
-            'dynamicProbDistList': self._dynamicProbDistList,
+            'dynamicProbDistList':  list(map(lambda prob: prob.to_json(),self._dynamicProbDistList)),
             'dynamicAmpList': self._dynamicAmpList,
             'qwakId': self._qwakId
         })
 
     @classmethod
-    def from_json(cls, json: Union[str,dict]):
+    def from_json(cls, json_var: Union[str,dict]):
         """_summary_
 
         Parameters
@@ -107,10 +109,10 @@ class GraphicalQWAK:
         Operator
             _description_
         """
-        if isinstance(json,str):
-            data = json.loads(json)
-        elif isinstance(json,dict):
-            data = json
+        if isinstance(json_var,str):
+            data = json.loads(json_var)
+        elif isinstance(json_var,dict):
+            data = json_var
         staticN = data['staticN']
         dynamicN = data['dynamicN']
         staticGraph = nx.node_link_graph(data['staticGraph'])
@@ -123,7 +125,7 @@ class GraphicalQWAK:
         dynamicQWAK = QWAK.from_json(data['dynamicQWAK'])
         staticProbDist = ProbabilityDistribution.from_json(
             data['staticProbDist'])
-        dynamicProbDistList =  data['dynamicProbDistList']
+        # dynamicProbDistList =  data['dynamicProbDistList']
         dynamicAmpList =  data['dynamicAmpList']
         qwakId = data['qwakId']
 
@@ -142,7 +144,7 @@ class GraphicalQWAK:
         newGQwak.setStaticQWAK(staticQWAK)
         newGQwak.setDynamicQWAK(dynamicQWAK)
         newGQwak.setStaticProbDist(staticProbDist)
-        newGQwak.setDynamicProbDistList(dynamicProbDistList)
+        # newGQwak.setDynamicProbDistList(dynamicProbDistList)
         newGQwak.setDynamicWalkList(dynamicAmpList)
 
         return newGQwak
@@ -493,6 +495,7 @@ class GraphicalQWAK:
 
     def setDynamicProbDistList(self,newDynamicProbDistList):
         self._dynamicProbDistList = newDynamicProbDistList
+        self._dynamicQWAK.setProbDistList(self._dynamicProbDistList)
 
     def getDynamicWalkList(self):
         return self._dynamicAmpList

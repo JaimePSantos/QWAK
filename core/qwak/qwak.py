@@ -1,8 +1,8 @@
 import networkx as nx
 import numpy as np
 import copy
-from json_tricks import dump, dumps, load, loads, strip_comments
-
+# from json_tricks import dump, dumps, load, loads, strip_comments
+import json
 from qwak.Errors import (
     StateOutOfBounds,
     NonUnitaryState,
@@ -95,19 +95,19 @@ class QWAK:
         str
             _description_
         """
-        return dumps({
+        return json.dumps({
             'graph': nx.node_link_data(self._graph),
             'timeList': self._timeList,
             'initState': self._initState.to_json(),
             'operator': self._operator.to_json(),
             'quantumWalk': self._quantumWalk.to_json(),
             'probDist': self._probDist.to_json(),
-            'probDistList': self._probDist.to_json(),
+            'probDistList': list(map(lambda prob: prob.to_json(),self._probDistList)),
             'walkList': self._walkList,
         })
 
     @classmethod
-    def from_json(cls, json_str: str):
+    def from_json(cls, json_var: str):
         """_summary_
 
         Parameters
@@ -120,7 +120,10 @@ class QWAK:
         Operator
             _description_
         """
-        data = loads(json_str)
+        if isinstance(json_var,str):
+            data = json.loads(json_var)
+        elif isinstance(json_var,dict):
+            data = json_var
         graph = nx.node_link_graph(data['graph'])
         timeList = data['timeList']
         initState = data['initState']

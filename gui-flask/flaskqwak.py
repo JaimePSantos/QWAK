@@ -38,26 +38,26 @@ dynamicGraph = nx.cycle_graph(dynamicN)
 timeList = [0, 100]
 initStateList = [[dynamicN // 2, (dynamicN // 2) + 1]]
 
-gQwak = GraphicalQWAK(
-    staticN,
-    dynamicN,
-    staticGraph,
-    dynamicGraph,
-    initState,
-    initStateList,
-    t,
-    timeList,
-    qwakId='bla')
+# gQwak = GraphicalQWAK(
+#     staticN,
+#     dynamicN,
+#     staticGraph,
+#     dynamicGraph,
+#     initState,
+#     initStateList,
+#     t,
+#     timeList,
+#     qwakId='bla')
 
 resultRounding = 4
 
 @app.route("/",methods=['GET', 'POST'])
 @app.route("/home")
 def home():
-    session.clear()
-    for col in database.list_collection_names():
-        database.drop_collection(col)
-    if (not session.get('sessionId')) or (database[session['sessionId']].count_documents({}) <= 0):
+    # session.clear()
+    # for col in database.list_collection_names():
+    #     database.drop_collection(col)
+    if not session.get('sessionId'):
         sessionId = f'user{len(database.list_collection_names())}'
         session['sessionId'] = sessionId
         sessionCollection = database[sessionId]
@@ -73,7 +73,7 @@ def home():
             dynamicTimeList=timeList,
             qwakId=session['sessionId'])
         sessionCollection.insert_one(json.loads(gQwak.to_json()))
-
+    print(session['sessionId'])
 
     return render_template('index.html')
 
