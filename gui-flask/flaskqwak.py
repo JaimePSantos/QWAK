@@ -46,34 +46,34 @@ gQwak = GraphicalQWAK(
     initState,
     initStateList,
     t,
-    timeList)
+    timeList,
+    qwakId='bla')
 
 resultRounding = 4
 
 @app.route("/",methods=['GET', 'POST'])
 @app.route("/home")
 def home():
-    # session.clear()
-    # for col in database.list_collection_names():
-    #     database.drop_collection(col)
+    session.clear()
+    for col in database.list_collection_names():
+        database.drop_collection(col)
     if (not session.get('sessionId')) or (database[session['sessionId']].count_documents({}) <= 0):
         sessionId = f'user{len(database.list_collection_names())}'
         session['sessionId'] = sessionId
-        print(session['sessionId'])
         sessionCollection = database[sessionId]
         sessionCollection.insert_one({'init':sessionId})
         gQwak = GraphicalQWAK(
-            staticN,
-            dynamicN,
-            staticGraph,
-            dynamicGraph,
-            initState,
-            initStateList,
-            t,
-            timeList)
+            staticN=staticN,
+            dynamicN=dynamicN,
+            staticGraph=staticGraph,
+            dynamicGraph=dynamicGraph,
+            staticStateList=initState,
+            dynamicStateList=initStateList,
+            staticTime=t,
+            dynamicTimeList=timeList,
+            qwakId=session['sessionId'])
         sessionCollection.insert_one(json.loads(gQwak.to_json()))
-    print(session['sessionId'])
-    print(database.list_collection_names())
+
 
     return render_template('index.html')
 
@@ -83,12 +83,18 @@ def staticQW():
 
 @app.route("/dynamicQW")
 def dynamicQW():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
     return render_template('dynamicQW.html')
 
 @app.route('/setStaticGraph',methods=['GET','POST'])
 def setStaticGraph():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
     newGraph = request.form.get("newGraph")
     gQwak.setStaticGraph(newGraph)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/setDynamicGraph',methods=['GET','POST'])
@@ -99,6 +105,9 @@ def setDynamicGraph():
 
 @app.route('/getStaticGraphToJson',methods=['GET','POST'])
 def getStaticGraphToJson():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
     return gQwak.getStaticGraphToJson()
 
 @app.route('/getDynamicGraphToJson',methods=['GET','POST'])
@@ -107,9 +116,13 @@ def getDynamicGraphToJson():
 
 @app.route('/setStaticDim',methods=['GET','POST'])
 def setStaticDim():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
     newDim = request.form.get("newDim")
     graphStr = request.form.get("graphStr")
     gQwak.setStaticDim(int(newDim), graphStr)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/setDynamicDim',methods=['GET','POST'])
@@ -121,8 +134,12 @@ def setDynamicDim():
 
 @app.route('/setStaticInitState',methods=['GET','POST'])
 def setStaticInitState():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
     initStateStr = request.form.get("initStateStr")
     gQwak.setStaticInitState(initStateStr)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/setDynamicInitStateList',methods=['GET','POST'])
@@ -133,8 +150,12 @@ def setDynamicInitStateList():
 
 @app.route('/setStaticTime',methods=['GET','POST'])
 def setStaticTime():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
     newTime = request.form.get("newTime")
     gQwak.setStaticTime(newTime)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/setDynamicTime',methods=['GET','POST'])
@@ -145,11 +166,14 @@ def setDynamicTime():
 
 @app.route('/setRunWalkDB',methods=['POST'])
 def setRunWalkDB():
-    print(request.method)
     if request.method == 'POST':
+        sessionCollection = database[session['sessionId']]
+        sessionId = session['sessionId']
+        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
         name = str(request.form.get("walkName"))
         probDist = gQwak.runWalk()
-        probDistEntry.insert_one({
+        sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
+        sessionCollection.insert_one({
             'name' : name,
             'hasError': probDist[0],
             'walkDim': gQwak.getStaticDim(),
@@ -169,9 +193,11 @@ def getRunWalkDB():
     prob = 0
     print(request.method)
     if request.method == 'POST':
-        name = str(request.form.get("walkName"))
-        prob = json.loads(json_util.dumps(probDistEntry.find_one({"name":name})))
-    return prob
+        sessionCollection = database[session['sessionId']]
+        sessionId = session['sessionId']
+        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+        prob = gQwak.getStaticProbVec().tolist()
+    return [False,prob]
 
 @app.route('/setRunMultipleWalksDB',methods=['POST','GET'])
 def setRunMultipleWalksDB():

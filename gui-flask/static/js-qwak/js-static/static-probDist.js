@@ -11,6 +11,7 @@ export function plotStaticProbDistDB(walk) {
         alert(walk.probDist);
         return;
     } else {
+        console.log(walk.probDist)
         let distList = walk.probDist.flat();
         staticChartData.data.datasets[0].data = distList;
         staticChartData.data.labels = [...Array(distList.length).keys()];

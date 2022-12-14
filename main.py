@@ -65,7 +65,7 @@ if __name__ == "__main__":
     # deserialized_qwak.runWalk(time=10,initStateList=[50])
     # plt.plot(deserialized_qwak.getProbVec())
     # plt.show()
-
+    #
     staticN = 100
     dynamicN = 100
     t = 0
@@ -83,7 +83,8 @@ if __name__ == "__main__":
         staticStateList=initState,
         dynamicStateList=initStateList,
         staticTime=t,
-        dynamicTimeList=timeList)
+        dynamicTimeList=timeList,
+        qwakId = 'bla')
 
     gQwak_json_string = gQwak.to_json()
 

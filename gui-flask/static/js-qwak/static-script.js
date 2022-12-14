@@ -153,7 +153,7 @@ $(function () {
         setStaticJsInitState();
         await setStaticProbDistDB(staticQuantumWalk.walkName);
         staticQuantumWalk.probDist = await getStaticProbDistDB(staticQuantumWalk.walkName);
-        plotStaticProbDistDB(staticQuantumWalk.probDist);
+        plotStaticProbDistDB(staticQuantumWalk);
     });
 });
 

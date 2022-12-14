@@ -8,6 +8,8 @@ def complex_to_json(z):
 def complex_matrix_to_json(complex_matrix):
     jsonList = []
     jsonListAux = []
+    if not isinstance(complex_matrix,list):
+        complex_matrix = complex_matrix.tolist()
     for cmplist in complex_matrix:
         for cmp in cmplist:
             jsonListAux.append(complex_to_json(cmp))
