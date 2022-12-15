@@ -87,7 +87,7 @@ class Operator:
         })
 
     @classmethod
-    def from_json(cls, json_str: str) -> Operator:
+    def from_json(cls, json_var: str) -> Operator:
         """_summary_
 
         Parameters
@@ -100,7 +100,10 @@ class Operator:
         Operator
             _description_
         """
-        data = json.loads(json_str)
+        if isinstance(json_var,str):
+            data = json.loads(json_var)
+        elif isinstance(json_var,dict):
+            data = json_var
         graph = nx.node_link_graph(data['graph'])
         time = data['time']
         laplacian = data['laplacian']

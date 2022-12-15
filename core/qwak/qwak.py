@@ -98,11 +98,11 @@ class QWAK:
         return json.dumps({
             'graph': nx.node_link_data(self._graph),
             'timeList': self._timeList,
-            'initState': self._initState.to_json(),
-            'operator': self._operator.to_json(),
-            'quantumWalk': self._quantumWalk.to_json(),
-            'probDist': self._probDist.to_json(),
-            'probDistList': list(map(lambda prob: prob.to_json(),self._probDistList)),
+            'initState': json.loads(self._initState.to_json()),
+            'operator': json.loads(self._operator.to_json()),
+            'quantumWalk': json.loads(self._quantumWalk.to_json()),
+            'probDist': json.loads(self._probDist.to_json()),
+            'probDistList': list(map(lambda prob: json.loads(prob.to_json()),self._probDistList)),
             'walkList': self._walkList,
         })
 

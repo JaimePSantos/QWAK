@@ -56,7 +56,7 @@ class QuantumWalk:
         })
 
     @classmethod
-    def from_json(cls, json_str: str) -> QuantumWalk:
+    def from_json(cls, json_var: str) -> QuantumWalk:
         """Deserializes a JSON string to a QuantumWalk object.
 
         Parameters
@@ -69,7 +69,10 @@ class QuantumWalk:
         QuantumWalk
             Deserialized QuantumWalk object.
         """
-        data = json.loads(json_str)
+        if isinstance(json_var,str):
+            data = json.loads(json_var)
+        elif isinstance(json_var,dict):
+            data = json_var
         initState = State.from_json(data["initState"])
         operator = Operator.from_json(data["operator"])
 

@@ -54,9 +54,6 @@ resultRounding = 4
 @app.route("/",methods=['GET', 'POST'])
 @app.route("/home")
 def home():
-    # session.clear()
-    # for col in database.list_collection_names():
-    #     database.drop_collection(col)
     if not session.get('sessionId'):
         sessionId = f'user{len(database.list_collection_names())}'
         session['sessionId'] = sessionId
@@ -87,6 +84,13 @@ def dynamicQW():
     sessionId = session['sessionId']
     return render_template('dynamicQW.html')
 
+@app.route("/reset")
+def reset():
+    session.clear()
+    for col in database.list_collection_names():
+        database.drop_collection(col)
+    return render_template('reset.html')
+
 @app.route('/setStaticGraph',methods=['GET','POST'])
 def setStaticGraph():
     sessionCollection = database[session['sessionId']]
@@ -99,8 +103,12 @@ def setStaticGraph():
 
 @app.route('/setDynamicGraph',methods=['GET','POST'])
 def setDynamicGraph():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     newGraph = request.form.get("newGraph")
     gQwak.setDynamicGraph(newGraph)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/getStaticGraphToJson',methods=['GET','POST'])
@@ -112,6 +120,9 @@ def getStaticGraphToJson():
 
 @app.route('/getDynamicGraphToJson',methods=['GET','POST'])
 def getDynamicGraphToJson():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return gQwak.getDynamicGraphToJson()
 
 @app.route('/setStaticDim',methods=['GET','POST'])
@@ -127,9 +138,13 @@ def setStaticDim():
 
 @app.route('/setDynamicDim',methods=['GET','POST'])
 def setDynamicDim():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     newDim = request.form.get("newDim")
     graphStr = request.form.get("graphStr")
     gQwak.setDynamicDim(int(newDim), graphStr)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/setStaticInitState',methods=['GET','POST'])
@@ -144,8 +159,12 @@ def setStaticInitState():
 
 @app.route('/setDynamicInitStateList',methods=['GET','POST'])
 def setDynamicInitStateList():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     initStateStr = request.form.get("initStateStr")
     gQwak.setDynamicInitStateList(initStateStr)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/setStaticTime',methods=['GET','POST'])
@@ -160,8 +179,12 @@ def setStaticTime():
 
 @app.route('/setDynamicTime',methods=['GET','POST'])
 def setDynamicTime():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     newTime = request.form.get("newTime")
     gQwak.setDynamicTime(newTime)
+    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/setRunWalkDB',methods=['POST'])
@@ -203,65 +226,87 @@ def getRunWalkDB():
 def setRunMultipleWalksDB():
     print(request.method)
     if request.method == 'POST':
+        sessionCollection = database[session['sessionId']]
+        sessionId = session['sessionId']
+        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
         name = str(request.form.get("walkName"))
         probDist = gQwak.runMultipleWalks()
-        probDistEntry.insert_one({
-            'name' : name,
-            'hasError': probDist[0],
-            'walkDim': gQwak.getDynamicDim(),
-            'walkTime': gQwak.getDynamicTime().tolist(),
-            'walkInit': gQwak.getDynamicInitStateList(),
-            'walkAdjacency': list(map(lambda x: str(x), gQwak.getDynamicAdjacencyMatrix())),
-            'probDist': probDist[1],
-            'mean': gQwak.getDynamicMean(),
-            'stDev': gQwak.getDynamicStDev(),
-            'invPartRatio': gQwak.getDynamicInvPartRatio(),
-        })
+        sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
     return ("nothing")
 
 @app.route('/getRunMultipleWalksDB',methods=['POST'])
 def getRunMultipleWalksDB():
-    prob = 0
+    prob = []
     print(request.method)
     if request.method == 'POST':
+        sessionCollection = database[session['sessionId']]
+        sessionId = session['sessionId']
+        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
         name = str(request.form.get("walkName"))
-        prob = json.loads(json_util.dumps(probDistEntry.find_one({"name":name})))
+        prob = gQwak.getDynamicProbVecList().tolist()
     return prob
 
 @app.route('/runMultipleWalks',methods=['GET','POST'])
 def runMultipleWalks():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return gQwak.runMultipleWalks()
 
 @app.route('/getStaticMean',methods=['GET','POST'])
 def getStaticMean():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return [round(gQwak.getStaticMean(), resultRounding)]
 
 @app.route('/getDynamicMean',methods=['GET','POST'])
 def getDynamicMean():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicMean()))
 
 @app.route('/getStaticSndMoment',methods=['GET','POST'])
 def getStaticSndMoment():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return [round(gQwak.getStaticSndMoment(), resultRounding)]
 
 @app.route('/getStaticStDev',methods=['GET','POST'])
 def getStaticStDev():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return [round(gQwak.getStaticStDev(), resultRounding)]
 
 @app.route('/getDynamicStDev',methods=['GET','POST'])
 def getDynamicStDev():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicStDev()))
 
 @app.route('/getStaticInversePartRatio',methods=['GET','POST'])
 def getStaticInversePartRatio():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return [round(gQwak.getStaticInversePartRatio(), resultRounding)]
 
 @app.route('/getDynamicInvPartRatio',methods=['GET','POST'])
 def getDynamicInvPartRatio():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicInvPartRatio()))
 
 @app.route('/getStaticSurvivalProb',methods=['GET','POST'])
 def getStaticSurvivalProb():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     fromNode = str(request.form.get("fromNode"))
     toNode = str(request.form.get("toNode"))
     survProb = gQwak.getStaticSurvivalProb(fromNode, toNode)
@@ -271,6 +316,9 @@ def getStaticSurvivalProb():
 
 @app.route('/getDynamicSurvivalProb',methods=['GET','POST'])
 def getDynamicSurvivalProb():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     fromNode = str(request.form.get("fromNode"))
     toNode = str(request.form.get("toNode"))
     survProb = gQwak.getDynamicSurvivalProb(fromNode, toNode)
@@ -280,6 +328,9 @@ def getDynamicSurvivalProb():
 
 @app.route('/checkPST',methods=['GET','POST'])
 def checkPST():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     nodeA = str(request.form.get("nodeA"))
     nodeB = str(request.form.get("nodeB"))
     pst = gQwak.checkPST(nodeA, nodeB)
@@ -287,12 +338,18 @@ def checkPST():
 
 @app.route('/setStaticCustomGraph',methods=['GET','POST'])
 def setStaticCustomGraph():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
     gQwak.setStaticCustomGraph(customAdjacency)
     return ("nothing")
 
 @app.route('/setDynamicCustomGraph',methods=['GET','POST'])
 def setDynamicCustomGraph():
+    sessionCollection = database[session['sessionId']]
+    sessionId = session['sessionId']
+    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
     customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
     gQwak.setDynamicCustomGraph(customAdjacency)
     return ("nothing")

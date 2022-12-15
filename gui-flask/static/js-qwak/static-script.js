@@ -149,11 +149,15 @@ $(function () {
         }`;
         e.preventDefault();
         staticQuantumWalk.reset();
-        setStaticJsTime();
-        setStaticJsInitState();
         await setStaticProbDistDB(staticQuantumWalk.walkName);
         staticQuantumWalk.probDist = await getStaticProbDistDB(staticQuantumWalk.walkName);
         plotStaticProbDistDB(staticQuantumWalk);
+        await setStaticJsTime();
+        await setStaticJsInitState();
+        await setStaticMean();
+        await setStaticSndMoment();
+        await setStaticStDev();
+        await setStaticInversePartRatio();
     });
 });
 

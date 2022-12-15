@@ -41,8 +41,11 @@ class ProbabilityDistribution:
         })
 
     @classmethod
-    def from_json(cls, json_str):
-        json_dict = json.loads(json_str)
+    def from_json(cls, json_var):
+        if isinstance(json_var,str):
+            json_dict = json.loads(json_var)
+        elif isinstance(json_var,dict):
+            json_dict = json_var
         state = State.from_json(json_dict['state'])
         dim = json_dict['dim']
         prob_vec = np.array(json_dict['prob_vec'])

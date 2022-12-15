@@ -59,7 +59,7 @@ class State:
         return json.dumps(state_dict)
 
     @classmethod
-    def from_json(cls, json_str):
+    def from_json(cls, json_var):
         """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself, rather than on an instance of the class. This is necessary because it is used to create a new instance of the Operator class from a JSON string, and it does not require an instance of the Operator class to do so.
 
         Parameters
@@ -72,7 +72,10 @@ class State:
         _type_
             _description_
         """
-        state_dict = json.loads(json_str)
+        if isinstance(json_var,str):
+            state_dict = json.loads(json_var)
+        elif isinstance(json_var,dict):
+            state_dict = json_var
         n = state_dict["n"]
         node_list = state_dict["node_list"]
         custom_state_list = state_dict["custom_state_list"]
