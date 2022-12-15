@@ -50,9 +50,9 @@ class QuantumWalk:
         """
         return json.dumps({
             "n": self._n,
-            "initState": self._initState.to_json(),
-            "operator": self._operator.to_json(),
-            "finalState": self._finalState.to_json()
+            "initState": json.loads(self._initState.to_json()),
+            "operator": json.loads(self._operator.to_json()),
+            "finalState": json.loads(self._finalState.to_json())
         })
 
     @classmethod

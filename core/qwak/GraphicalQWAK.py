@@ -77,7 +77,6 @@ class GraphicalQWAK:
         str
             _description_
         """
-        print(type(self._dynamicProbDistList[0]))
         return json.dumps({
             'staticN': self._staticN,
             'dynamicN': self._dynamicN,
@@ -193,7 +192,6 @@ class GraphicalQWAK:
             _description_
         """
         try:
-            print(self._dynamicTimeList)
             self._dynamicQWAK.resetWalk()
             self._dynamicQWAK.runMultipleWalks(
                 timeList=self._dynamicTimeList,

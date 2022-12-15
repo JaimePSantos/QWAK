@@ -35,7 +35,7 @@ class ProbabilityDistribution:
 
     def to_json(self):
         return json.dumps({
-            'state': self._state.to_json(),
+            'state': json.loads(self._state.to_json()),
             'dim': self._n,
             'prob_vec': self._probVec.tolist()
         })
@@ -102,6 +102,7 @@ class ProbabilityDistribution:
 
     def setDim(self, newDim):
         self._n = newDim
+        print(newDim)
         self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def getDim(self) -> int:
