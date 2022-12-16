@@ -148,6 +148,7 @@ class QWAK:
         self.setInitState(newQWAK.getInitState())
         self.setOperator(newQWAK.getOperator())
         self.setWalk(newQWAK.getWalk())
+        # print(f'qw {newQWAK.getWalk().getFinalState()}')
         self.setProbDist(newQWAK.getProbDist())
 
     def runWalk(

@@ -29,9 +29,9 @@ SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
-staticN = 100
-dynamicN = 100
-t = 10
+staticN = 10
+dynamicN = 10
+t = 1
 initState = [staticN // 2]
 staticGraph = nx.cycle_graph(staticN)
 dynamicGraph = nx.cycle_graph(dynamicN)
@@ -73,12 +73,37 @@ def dynamicQW():
     sessionId = session['sessionId']
     return render_template('dynamicQW.html')
 
-@app.route("/reset")
+@app.route("/test")
+def test():
+    return render_template('test.html')
+
+@app.route("/reset",methods=['GET', 'POST'])
 def reset():
     session.clear()
     for col in database.list_collection_names():
         database.drop_collection(col)
     return render_template('reset.html')
+
+@app.route("/load", methods=['GET', 'POST'])
+def load():
+    if not session.get('sessionId'):
+        sessionId = f'user{len(database.list_collection_names())+1}'
+        session['sessionId'] = sessionId
+        print(session['sessionId'])
+        sessionCollection = database[sessionId]
+        sessionCollection.insert_one({'init':sessionId})
+        gQwak = GraphicalQWAK(
+            staticN=staticN,
+            dynamicN=dynamicN,
+            staticGraph=staticGraph,
+            dynamicGraph=dynamicGraph,
+            staticStateList=initState,
+            dynamicStateList=initStateList,
+            staticTime=t,
+            dynamicTimeList=timeList,
+            qwakId=session['sessionId'])
+        sessionCollection.insert_one(json.loads(gQwak.to_json()))
+    return("nothing")
 
 @app.route('/setStaticGraph',methods=['GET','POST'])
 def setStaticGraph():
@@ -182,6 +207,7 @@ def setRunWalkDB():
         sessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
         gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+        print(gQwak.get)
         name = str(request.form.get("walkName"))
         probDist = gQwak.runWalk()
         sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
@@ -199,6 +225,27 @@ def setRunWalkDB():
             'invPartRatio': gQwak.getStaticInversePartRatio(),
         })
     return ("nothing")
+
+@app.route('/setRunWalkDBTest',methods=['POST'])
+def setRunWalkDBTest():
+    if request.method == 'POST':
+        sessionCollection = database[session['sessionId']]
+        sessionId = session['sessionId']
+        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+        gQwak.runWalk()
+        print(gQwak.getStaticWalk())
+        print(gQwak.getStaticInversePartRatio())
+    return ("nothing")
+
+@app.route('/getRunWalkDBTest',methods=['POST'])
+def getRunWalkDBTest():
+    if request.method == 'POST':
+        sessionCollection = database[session['sessionId']]
+        sessionId = session['sessionId']
+        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+        # print(gQwak.)
+    return ("nothing")
+
 
 @app.route('/getRunWalkDB',methods=['POST'])
 def getRunWalkDB():

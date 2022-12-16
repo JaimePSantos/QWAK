@@ -102,7 +102,6 @@ class ProbabilityDistribution:
 
     def setDim(self, newDim):
         self._n = newDim
-        print(newDim)
         self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def getDim(self) -> int:

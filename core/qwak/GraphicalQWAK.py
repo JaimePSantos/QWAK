@@ -164,6 +164,8 @@ class GraphicalQWAK:
         self._dynamicQWAK.setTimeList(newTimeList)
         self._dynamicTimeList = self._dynamicQWAK.getTimeList()
 
+    def getStaticWalk(self):
+        return self._staticQWAK.getWalk()
 
     def runWalk(self):
         """_summary_

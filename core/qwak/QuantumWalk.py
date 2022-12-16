@@ -48,6 +48,7 @@ class QuantumWalk:
         str
             JSON string representation of the QuantumWalk object.
         """
+        # print(self._finalState.to_json())
         return json.dumps({
             "n": self._n,
             "initState": json.loads(self._initState.to_json()),
@@ -75,7 +76,6 @@ class QuantumWalk:
             data = json_var
         initState = State.from_json(data["initState"])
         operator = Operator.from_json(data["operator"])
-
         finalState = State.from_json(data["finalState"])
 
         walk = cls(initState, operator)

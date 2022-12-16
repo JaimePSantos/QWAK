@@ -66,10 +66,10 @@ if __name__ == "__main__":
     # plt.plot(deserialized_qwak.getProbVec())
     # plt.show()
     #
-    staticN = 100
+    staticN = 10
     dynamicN = 100
-    t = 0
-    initState = [2]
+    t = 1
+    initState = [staticN//2]
     staticGraph = nx.cycle_graph(staticN)
     dynamicGraph = nx.cycle_graph(dynamicN)
     timeList = [0, 10]
@@ -89,11 +89,13 @@ if __name__ == "__main__":
     gQwak_json_string = gQwak.to_json()
 
     deserialized_gQwak = GraphicalQWAK.from_json(gQwak_json_string)
-    # deserialized_gQwak.runWalk()
-    deserialized_gQwak.runMultipleWalks()
+    deserialized_gQwak.runWalk()
+    # deserialized_gQwak.runMultipleWalks()
 
-    for walks in deserialized_gQwak.getDynamicProbVecList():
-        print('bla')
-        plt.plot(walks)
-    plt.show()
+    print(deserialized_gQwak.getStaticInversePartRatio())
+
+    # for walks in deserialized_gQwak.getDynamicProbVecList():
+    #     print('bla')
+    #     plt.plot(walks)
+    # plt.show()
 

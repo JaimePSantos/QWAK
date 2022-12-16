@@ -24,8 +24,8 @@ let inputPSTResult = document.getElementById("inputPSTResult");
 
 
 // #### JAVASCRIPT QUANTUM WALK OBJECTS ####
-let defaultN = 100;
-let defaultT = 10;
+let defaultN = 10;
+let defaultT = 1;
 let defaultInitState = [Math.floor(defaultN / 2)];
 let defaultGraph = 'nx.cycle_graph';
 let defaultProbDist = [];
