@@ -46,7 +46,6 @@ def home():
     if not session.get('sessionId'):
         sessionId = f'user{len(database.list_collection_names())+1}'
         session['sessionId'] = sessionId
-        print(session['sessionId'])
         sessionCollection = database[sessionId]
         sessionCollection.insert_one({'init':sessionId})
         gQwak = GraphicalQWAK(
@@ -364,6 +363,19 @@ def reset():
     session.clear()
     for col in database.list_collection_names():
         database.drop_collection(col)
+
+    # Locate the directory where the session files are stored
+    session_dir = 'flask_session'
+    # Iterate through all the files in the directory
+    for file in os.listdir(session_dir):
+        # Construct the full path to the file
+        file_path = os.path.join(session_dir, file)
+        try:
+            # Attempt to delete the file
+            os.unlink(file_path)
+        except Exception as e:
+            # An error occurred while trying to delete the file
+            print(e)
     return render_template('reset.html')
 
 @app.route("/load", methods=['GET', 'POST'])
@@ -396,7 +408,7 @@ def setRunWalkDBTest():
         gQwak.runWalk()
         gQwakJson = json.loads(gQwak.to_json())
         sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
-        # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState'],indent=4))
+        # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState']['state_vec'],indent=4))
     return ("nothing")
 
 @app.route('/getRunWalkDBTest',methods=['POST'])
@@ -405,9 +417,10 @@ def getRunWalkDBTest():
         sessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
         gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        # print(gQwak.getStaticInversePartRatio())
-        # gQwakJson = json.loads(gQwak.to_json())
-        # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState'],indent=4))
+        # print(gQwak.getStaticWalk())
+        print(gQwak.getStaticInversePartRatio())
+        gQwakJson = json.loads(gQwak.to_json())
+        # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState']['state_vec'],indent=4))
     return ("nothing")
 
 

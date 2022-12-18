@@ -48,7 +48,6 @@ class QuantumWalk:
         str
             JSON string representation of the QuantumWalk object.
         """
-        # print(self._finalState.to_json())
         return json.dumps({
             "n": self._n,
             "initState": json.loads(self._initState.to_json()),
@@ -77,11 +76,8 @@ class QuantumWalk:
         initState = State.from_json(data["initState"])
         operator = Operator.from_json(data["operator"])
         finalState = State.from_json(data["finalState"])
-
         walk = cls(initState, operator)
         walk.setFinalState(finalState)
-        walk.setDim(data["n"])
-
         return walk
 
     def buildWalk(self, initState: State = None,
@@ -141,7 +137,9 @@ class QuantumWalk:
             New QuantumWalk dimension.
         """
         self._n = newDim
+        # print(self._finalState.getStateVec())
         self._finalState.setDim(self._n)
+        # print(self._finalState.getStateVec())
 
     def getDim(self) -> int:
         """Gets the current state dimension.
@@ -195,7 +193,7 @@ class QuantumWalk:
         """
         return self._finalState
 
-    def setFinalState(self, finalState):
+    def setFinalState(self, newFinalState):
         """Sets the final state of the QuantumWalk.
 
         Parameters
@@ -203,7 +201,7 @@ class QuantumWalk:
         finalState
             Final state of the QuantumWalk.
         """
-        self._finalState = finalState
+        self._finalState.setState(newFinalState)
 
     def getAmpVec(self) -> np.ndarray:
         """Gets the vector of the final state amplitudes of the  QuantumWalk.

@@ -121,13 +121,14 @@ class GraphicalQWAK:
         staticTime = data['staticTime']
         dynamicTime = data['dynamicTime']
         staticQWAK = QWAK.from_json(data['staticQWAK'])
-        dynamicQWAK = QWAK.from_json(data['dynamicQWAK'])
+        # dynamicQWAK = QWAK.from_json(data['dynamicQWAK'])
         staticProbDist = ProbabilityDistribution.from_json(
             data['staticProbDist'])
         # dynamicProbDistList =  data['dynamicProbDistList']
         dynamicAmpList =  data['dynamicAmpList']
         qwakId = data['qwakId']
-
+        # print(data['staticQWAK']['quantumWalk']['finalState']['state_vec'])
+        # print(staticQWAK.getWalk().getFinalState())
         newGQwak = cls(
             staticN=staticN,
             dynamicN=dynamicN,
@@ -140,12 +141,14 @@ class GraphicalQWAK:
             qwakId=qwakId)
 
         # newGQwak.setDynamicTimeList(dynamicTimeList)
-        # newGQwak.setStaticQWAK(staticQWAK)
-        newGQwak.setDynamicQWAK(dynamicQWAK)
-        newGQwak.setStaticProbDist(staticProbDist)
+        newGQwak.setStaticQWAK(staticQWAK)
+        # print(newGQwak.getStaticWalk().getFinalState())
+        # newGQwak.setDynamicQWAK(dynamicQWAK)
+        # newGQwak.setStaticProbDist(staticProbDist)
         # newGQwak.setDynamicProbDistList(dynamicProbDistList)
-        newGQwak.setDynamicWalkList(dynamicAmpList)
+        # newGQwak.setDynamicWalkList(dynamicAmpList)
 
+        # return newGQwak
         return newGQwak
 
     def getQwakId(self):
@@ -176,7 +179,7 @@ class GraphicalQWAK:
             _description_
         """
         try:
-            self._staticQWAK.resetWalk()
+            # self._staticQWAK.resetWalk()
             self._staticQWAK.runWalk(
                 self._staticTime, self._staticStateList)
             self._staticProbDist = self._staticQWAK.getProbDist()

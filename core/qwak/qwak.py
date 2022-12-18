@@ -95,7 +95,6 @@ class QWAK:
         str
             _description_
         """
-        print(json.dumps(json.loads(self._quantumWalk.to_json())))
         return json.dumps({
             'graph': nx.node_link_data(self._graph),
             'timeList': self._timeList,
@@ -129,7 +128,9 @@ class QWAK:
         timeList = data['timeList']
         initState = data['initState']
         operator = data['operator']
-        quantumWalk = data['quantumWalk']
+        quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
+        # print(data['quantumWalk']['finalState']['state_vec'])
+        # print(quantumWalk.getFinalState())
         probDist = data['probDist']
         probDistList = data['probDistList']
         walkList = data['walkList']
@@ -137,8 +138,8 @@ class QWAK:
         newQwak = cls(graph=graph, timeList=timeList)
         newQwak.setInitState(State.from_json(initState))
         newQwak.setOperator(Operator.from_json(operator))
-        newQwak.setWalk(QuantumWalk.from_json(quantumWalk))
-        # print(json.dumps(quantumWalk,indent=4))
+        newQwak.setWalk(quantumWalk)
+        # print(newQwak.getFinalState())
         newQwak.setProbDist(ProbabilityDistribution.from_json(probDist))
         newQwak.setProbDistList(probDistList)
         newQwak.setWalkList(walkList)
@@ -150,7 +151,6 @@ class QWAK:
         self.setInitState(newQWAK.getInitState())
         self.setOperator(newQWAK.getOperator())
         self.setWalk(newQWAK.getWalk())
-        # print(f'qw {newQWAK.getWalk().getFinalState()}')
         self.setProbDist(newQWAK.getProbDist())
 
     def runWalk(
