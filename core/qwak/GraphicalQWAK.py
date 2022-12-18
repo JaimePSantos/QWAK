@@ -140,7 +140,7 @@ class GraphicalQWAK:
             qwakId=qwakId)
 
         # newGQwak.setDynamicTimeList(dynamicTimeList)
-        newGQwak.setStaticQWAK(staticQWAK)
+        # newGQwak.setStaticQWAK(staticQWAK)
         newGQwak.setDynamicQWAK(dynamicQWAK)
         newGQwak.setStaticProbDist(staticProbDist)
         # newGQwak.setDynamicProbDistList(dynamicProbDistList)

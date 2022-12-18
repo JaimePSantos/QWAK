@@ -95,6 +95,7 @@ class QWAK:
         str
             _description_
         """
+        print(json.dumps(json.loads(self._quantumWalk.to_json())))
         return json.dumps({
             'graph': nx.node_link_data(self._graph),
             'timeList': self._timeList,
@@ -137,6 +138,7 @@ class QWAK:
         newQwak.setInitState(State.from_json(initState))
         newQwak.setOperator(Operator.from_json(operator))
         newQwak.setWalk(QuantumWalk.from_json(quantumWalk))
+        # print(json.dumps(quantumWalk,indent=4))
         newQwak.setProbDist(ProbabilityDistribution.from_json(probDist))
         newQwak.setProbDistList(probDistList)
         newQwak.setWalkList(walkList)
