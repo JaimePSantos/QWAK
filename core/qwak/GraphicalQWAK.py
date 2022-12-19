@@ -28,7 +28,7 @@ class GraphicalQWAK:
         dynamicStateList: list,
         staticTime: float,
         dynamicTimeList: list,
-        qwakId: str,
+        qwakId : str = 'undefinedUser',
     ) -> None:
         """_summary_
 
@@ -142,7 +142,6 @@ class GraphicalQWAK:
 
         # newGQwak.setDynamicTimeList(dynamicTimeList)
         newGQwak.setStaticQWAK(staticQWAK)
-        # print(newGQwak.getStaticWalk().getFinalState())
         # newGQwak.setDynamicQWAK(dynamicQWAK)
         # newGQwak.setStaticProbDist(staticProbDist)
         # newGQwak.setDynamicProbDistList(dynamicProbDistList)

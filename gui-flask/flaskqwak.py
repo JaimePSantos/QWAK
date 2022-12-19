@@ -174,7 +174,6 @@ def setRunWalkDB():
         sessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
         gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        print(gQwak.get)
         name = str(request.form.get("walkName"))
         probDist = gQwak.runWalk()
         sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
