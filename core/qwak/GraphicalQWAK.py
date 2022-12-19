@@ -127,7 +127,10 @@ class GraphicalQWAK:
         # dynamicProbDistList =  data['dynamicProbDistList']
         dynamicAmpList =  data['dynamicAmpList']
         qwakId = data['qwakId']
-        # print(data['staticQWAK']['quantumWalk']['finalState']['state_vec'])
+        # print(staticQWAK.getProbDist().getDim())
+        print(f"Dict GQWAK {data['staticQWAK']['probDist']['dim']}")
+        print(f"Obj GQWAK {staticQWAK.getProbDist().getDim()}")
+        # print(staticN)
         # print(staticQWAK.getWalk().getFinalState())
         newGQwak = cls(
             staticN=staticN,
@@ -139,15 +142,16 @@ class GraphicalQWAK:
             staticTime=staticTime,
             dynamicTimeList=dynamicTime,
             qwakId=qwakId)
-
+        # print(f"BEFORE SET {newGQwak.getStaticProbDist().getDim()}")
         # newGQwak.setDynamicTimeList(dynamicTimeList)
         newGQwak.setStaticQWAK(staticQWAK)
+        # print(f"AFTER SET {newGQwak.getStaticProbDist().getDim()}")
         # newGQwak.setDynamicQWAK(dynamicQWAK)
         # newGQwak.setStaticProbDist(staticProbDist)
         # newGQwak.setDynamicProbDistList(dynamicProbDistList)
         # newGQwak.setDynamicWalkList(dynamicAmpList)
 
-        # return newGQwak
+        # return ("nothing")
         return newGQwak
 
     def getQwakId(self):

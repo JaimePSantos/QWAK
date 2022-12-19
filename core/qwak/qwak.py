@@ -126,21 +126,22 @@ class QWAK:
             data = json_var
         graph = nx.node_link_graph(data['graph'])
         timeList = data['timeList']
-        initState = data['initState']
-        operator = data['operator']
+        initState = State.from_json(data['initState'])
+        operator = Operator.from_json(data['operator'])
         quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
         # print(data['quantumWalk']['finalState']['state_vec'])
         # print(quantumWalk.getFinalState())
-        probDist = data['probDist']
+        probDist = ProbabilityDistribution.from_json(data['probDist'])
+        # print(f"Dict QWAK {data['probDist']['dim']}")
+        # print(f"Obj QWAK {probDist.getDim()}")
         probDistList = data['probDistList']
         walkList = data['walkList']
 
         newQwak = cls(graph=graph, timeList=timeList)
-        newQwak.setInitState(State.from_json(initState))
-        newQwak.setOperator(Operator.from_json(operator))
+        newQwak.setInitState(initState)
+        newQwak.setOperator(operator)
         newQwak.setWalk(quantumWalk)
-        # print(newQwak.getFinalState())
-        newQwak.setProbDist(ProbabilityDistribution.from_json(probDist))
+        newQwak.setProbDist(probDist)
         newQwak.setProbDistList(probDistList)
         newQwak.setWalkList(walkList)
         return newQwak
@@ -151,7 +152,10 @@ class QWAK:
         self.setInitState(newQWAK.getInitState())
         self.setOperator(newQWAK.getOperator())
         self.setWalk(newQWAK.getWalk())
+        # print(f"BEFORE SET {self._probDist.getDim()}")
         self.setProbDist(newQWAK.getProbDist())
+        # print(f"AFTER SET {self._probDist.getDim()}")
+        # print(self._probDist.getDim())
 
     def runWalk(
             self,
@@ -486,6 +490,7 @@ class QWAK:
         newProbDist : ProbabilityDistribution
             New probability distribution.
         """
+        # print(newProbDist.getDim())
         self._probDist.setProbDist(newProbDist)
 
     def getProbDist(self) -> ProbabilityDistribution:

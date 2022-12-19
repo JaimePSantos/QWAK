@@ -403,9 +403,17 @@ def setRunWalkDBTest():
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
+        newDim = int(request.form.get("newDim"))
+        newGraph = request.form.get("newGraph")
+        newTime = request.form.get("newTime")
+        newInitCond = request.form.get("newInitCond")
         gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        gQwak.runWalk()
-        gQwakJson = json.loads(gQwak.to_json())
+        gQwak.setStaticDim(newDim,newGraph)
+        gQwak.setStaticGraph(newGraph)
+        gQwak.setStaticTime(newTime)
+        gQwak.setStaticInitState(newInitCond)
+        # gQwak.runWalk()
+        # gQwakJson = json.loads(gQwak.to_json())
         sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
         # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState']['state_vec'],indent=4))
     return ("nothing")
@@ -417,11 +425,10 @@ def getRunWalkDBTest():
         sessionId = session['sessionId']
         gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
         # print(gQwak.getStaticWalk())
-        print(gQwak.getStaticInversePartRatio())
+        # print(gQwak.getStaticInversePartRatio())
         gQwakJson = json.loads(gQwak.to_json())
         # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState']['state_vec'],indent=4))
     return ("nothing")
-
 
 ################## TEST ##################
 

@@ -47,9 +47,12 @@ class ProbabilityDistribution:
         elif isinstance(json_var,dict):
             json_dict = json_var
         state = State.from_json(json_dict['state'])
+        # print(json_dict['state']['n'])
         dim = json_dict['dim']
         prob_vec = np.array(json_dict['prob_vec'])
         probDist = cls(state)
+        probDist.setDim(dim)
+        # print(state.getDim())
         probDist.setProbVec(prob_vec)
         return probDist
 
