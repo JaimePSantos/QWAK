@@ -3,4 +3,4 @@ from . import ProbabilityDistribution
 from . import QuantumWalk
 from . import State
 from . import qwak
-__version__ = "2022.1005-alpha"
+__version__ = "2022.1006-alpha"
