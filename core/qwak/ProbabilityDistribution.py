@@ -29,8 +29,10 @@ class ProbabilityDistribution:
             State to be converted into a probability.
         """
         self._state = state
+        # print(f"PD Init \t  Obj QW {self._state.getDim()}")
         self._stateVec = self._state.getStateVec()
         self._n = state.getDim()
+        # print(f"PD Init \t  Obj PD {self._n}")
         self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def to_json(self):
@@ -47,12 +49,14 @@ class ProbabilityDistribution:
         elif isinstance(json_var,dict):
             json_dict = json_var
         state = State.from_json(json_dict['state'])
-        # print(json_dict['state']['n'])
+        # print(f"Dict ProbDist {json_dict['state']['n']}")
+        # print(f"Obj ProbDist {State.from_json(json_dict['state']).getDim()}")
+
         dim = json_dict['dim']
         prob_vec = np.array(json_dict['prob_vec'])
         probDist = cls(state)
-        probDist.setDim(dim)
-        # print(state.getDim())
+        # probDist.setDim(dim)
+        # probDist.setState(state)
         probDist.setProbVec(prob_vec)
         return probDist
 
@@ -72,7 +76,9 @@ class ProbabilityDistribution:
             _description_, by default None
         """
         if state is not None:
-            self._stateVec = state.getStateVec()
+            self._n = state.getDim()
+            self._state.setState(state)
+            self._stateVec = self._state.getStateVec()
         for st in range(self._n):
             self._probVec[st] = (self._stateVec[st] *
                                  np.conj(self._stateVec[st])).real
@@ -85,9 +91,9 @@ class ProbabilityDistribution:
         newProbDist : _type_
             _description_
         """
-        self._state = newProbDist.getState()
-        self._stateVec = newProbDist.getStateVec()
         self._n = newProbDist.getDim()
+        self._state.setState(newProbDist.getState())
+        self._stateVec = newProbDist.getStateVec()
         self._probVec = newProbDist.getProbVec()
 
     def getStateVec(self) -> State:
@@ -102,6 +108,9 @@ class ProbabilityDistribution:
 
     def getState(self):
         return self._state
+
+    def setState(self,newState):
+        self._state.setState(newState)
 
     def setDim(self, newDim):
         self._n = newDim

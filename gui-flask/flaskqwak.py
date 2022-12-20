@@ -7,6 +7,7 @@ import networkx as nx
 import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
 from qwak.State import State
+from qwak.qwak import QWAK
 from bson import json_util
 from dotenv import load_dotenv
 import os
@@ -379,23 +380,34 @@ def reset():
 
 @app.route("/load", methods=['GET', 'POST'])
 def load():
+    t = 1
+    initState = [staticN // 2]
+    dynamicGraph = nx.cycle_graph(dynamicN)
+    timeList = [0, 1]
+    initStateList = [[dynamicN // 2, (dynamicN // 2) + 1]]
     if not session.get('sessionId'):
         sessionId = f'user{len(database.list_collection_names())+1}'
         session['sessionId'] = sessionId
         print(session['sessionId'])
         sessionCollection = database[sessionId]
         sessionCollection.insert_one({'init':sessionId})
-        gQwak = GraphicalQWAK(
-            staticN=staticN,
-            dynamicN=dynamicN,
-            staticGraph=staticGraph,
-            dynamicGraph=dynamicGraph,
-            staticStateList=initState,
-            dynamicStateList=initStateList,
-            staticTime=t,
-            dynamicTimeList=timeList,
-            qwakId=session['sessionId'])
-        sessionCollection.insert_one(json.loads(gQwak.to_json()))
+        # gQwak = GraphicalQWAK(
+        #     staticN=staticN,
+        #     dynamicN=dynamicN,
+        #     staticGraph=staticGraph,
+        #     dynamicGraph=dynamicGraph,
+        #     staticStateList=initState,
+        #     dynamicStateList=initStateList,
+        #     staticTime=t,
+        #     dynamicTimeList=timeList,
+        #     qwakId=session['sessionId'])
+        # sessionCollection.insert_one(json.loads(gQwak.to_json()))
+        staticNTest = 5
+        staticGraphTest = nx.cycle_graph(staticN)
+        staticQWAK = QWAK(graph=staticGraphTest,qwakId=sessionId)
+        sessionCollection.insert_one(json.loads(staticQWAK.to_json()))
+
+
     return("nothing")
 
 @app.route('/setRunWalkDBTest',methods=['POST'])
@@ -403,19 +415,23 @@ def setRunWalkDBTest():
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
+
         newDim = int(request.form.get("newDim"))
-        newGraph = request.form.get("newGraph")
+        newGraphStr = request.form.get("newGraph")
+        newGraph = eval(newGraphStr + f"({newDim})")
+
         newTime = request.form.get("newTime")
         newInitCond = request.form.get("newInitCond")
-        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        gQwak.setStaticDim(newDim,newGraph)
-        gQwak.setStaticGraph(newGraph)
-        gQwak.setStaticTime(newTime)
-        gQwak.setStaticInitState(newInitCond)
-        # gQwak.runWalk()
-        # gQwakJson = json.loads(gQwak.to_json())
-        sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
-        # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState']['state_vec'],indent=4))
+        initCondList = list(map(int, newInitCond.split(",")))
+        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+        staticQWAK.setDim(newDim,newGraphStr)
+        staticQWAK.setGraph(newGraph)
+        staticQWAK.setTime(newTime)
+        newState = State(staticQWAK.getDim())
+        newState.buildState(initCondList)
+        staticQWAK.setInitState(newState)
+        staticQWAK.runWalk()
+        sessionCollection.replace_one({'qwakId': sessionId}, json.loads(staticQWAK.to_json()))
     return ("nothing")
 
 @app.route('/getRunWalkDBTest',methods=['POST'])
@@ -423,11 +439,8 @@ def getRunWalkDBTest():
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
-        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        # print(gQwak.getStaticWalk())
-        # print(gQwak.getStaticInversePartRatio())
-        gQwakJson = json.loads(gQwak.to_json())
-        # print(json.dumps(gQwakJson['staticQWAK']['quantumWalk']['finalState']['state_vec'],indent=4))
+        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+        staticQWAK = json.loads(staticQWAK.to_json())
     return ("nothing")
 
 ################## TEST ##################

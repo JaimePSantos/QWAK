@@ -63,10 +63,10 @@ class GraphicalQWAK:
             self._dynamicTime[0], self._dynamicTime[1], int(
                 self._dynamicTime[1]))
         self._staticQWAK = QWAK(self._staticGraph)
-        self._staticProbDist = self._staticQWAK.getProbDist()
-        self._dynamicQWAK = QWAK(self._dynamicGraph)
-        self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
-        self._dynamicAmpList = self._dynamicQWAK.getWalkList()
+        # self._staticProbDist = self._staticQWAK.getProbDist()
+        # self._dynamicQWAK = QWAK(self._dynamicGraph)
+        # self._dynamicProbDistList = self._dynamicQWAK.getProbDistList()
+        # self._dynamicAmpList = self._dynamicQWAK.getWalkList()
         self._qwakId = qwakId
 
     def to_json(self):
@@ -87,10 +87,10 @@ class GraphicalQWAK:
             'staticTime': self._staticTime,
             'dynamicTime': self._dynamicTime,
             'staticQWAK': json.loads(self._staticQWAK.to_json()),
-            'dynamicQWAK': json.loads(self._dynamicQWAK.to_json()),
-            'staticProbDist': self._staticProbDist.to_json(),
-            'dynamicProbDistList':  list(map(lambda prob: prob.to_json(),self._dynamicProbDistList)),
-            'dynamicAmpList': self._dynamicAmpList,
+            # 'dynamicQWAK': json.loads(self._dynamicQWAK.to_json()),
+            # 'staticProbDist': self._staticProbDist.to_json(),
+            # 'dynamicProbDistList':  list(map(lambda prob: prob.to_json(),self._dynamicProbDistList)),
+            # 'dynamicAmpList': self._dynamicAmpList,
             'qwakId': self._qwakId
         })
 
@@ -122,14 +122,14 @@ class GraphicalQWAK:
         dynamicTime = data['dynamicTime']
         staticQWAK = QWAK.from_json(data['staticQWAK'])
         # dynamicQWAK = QWAK.from_json(data['dynamicQWAK'])
-        staticProbDist = ProbabilityDistribution.from_json(
-            data['staticProbDist'])
+        # staticProbDist = ProbabilityDistribution.from_json(
+        #     data['staticProbDist'])
         # dynamicProbDistList =  data['dynamicProbDistList']
-        dynamicAmpList =  data['dynamicAmpList']
+        # dynamicAmpList =  data['dynamicAmpList']
         qwakId = data['qwakId']
         # print(staticQWAK.getProbDist().getDim())
-        print(f"Dict GQWAK {data['staticQWAK']['probDist']['dim']}")
-        print(f"Obj GQWAK {staticQWAK.getProbDist().getDim()}")
+        # print(f"Dict\t GQWAK {data['staticQWAK']['probDist']['state']['n']}")
+        # print(f"Obj\t GQWAK {staticQWAK.getProbDist().getState().getDim()}")
         # print(staticN)
         # print(staticQWAK.getWalk().getFinalState())
         newGQwak = cls(
@@ -152,7 +152,7 @@ class GraphicalQWAK:
         # newGQwak.setDynamicWalkList(dynamicAmpList)
 
         # return ("nothing")
-        return newGQwak
+        return staticQWAK
 
     def getQwakId(self):
         return self._qwakId
@@ -162,6 +162,9 @@ class GraphicalQWAK:
 
     def setStaticQWAK(self,newStaticQWAK):
         self._staticQWAK.setQWAK(newStaticQWAK)
+
+    def getStaticQWAK(self):
+        return self._staticQWAK
 
     def setDynamicQWAK(self,newDynamicQWAK):
         self._dynamicQWAK.setQWAK(newDynamicQWAK)

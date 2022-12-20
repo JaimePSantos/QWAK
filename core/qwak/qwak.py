@@ -40,6 +40,7 @@ class QWAK:
         customStateList: list = None,
         laplacian: bool = False,
         markedSearch: list = None,
+        qwakId: str = 'userUndef',
     ) -> None:
         """Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
@@ -69,6 +70,7 @@ class QWAK:
             self._timeList = timeList
         else:
             self._timeList = None
+        self._qwakId = qwakId
         self._graph = graph
         self._n = len(self._graph)
         self._operator = Operator(
@@ -81,11 +83,15 @@ class QWAK:
             nodeList=initStateList,
             customStateList=customStateList)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        # print(f"QWAK Init \t  Obj QW {self._quantumWalk.getFinalState().getDim()}")
+
         self._probDist = ProbabilityDistribution(
             self._quantumWalk.getFinalState())
-        self._probDistList = [ProbabilityDistribution(
-            self._quantumWalk.getFinalState())]
-        self._walkList = []
+        # print(f"QWAK Init\t  Obj PD {self._probDist.getState().getDim()}")
+
+        # self._probDistList = [ProbabilityDistribution(
+        #     self._quantumWalk.getFinalState())]
+        # self._walkList = []
 
     def to_json(self) -> str:
         """_summary_
@@ -102,8 +108,9 @@ class QWAK:
             'operator': json.loads(self._operator.to_json()),
             'quantumWalk': json.loads(self._quantumWalk.to_json()),
             'probDist': json.loads(self._probDist.to_json()),
-            'probDistList': list(map(lambda prob: json.loads(prob.to_json()),self._probDistList)),
-            'walkList': self._walkList,
+            # 'probDistList': list(map(lambda prob: json.loads(prob.to_json()),self._probDistList)),
+            # 'walkList': self._walkList,
+            'qwakId': self._qwakId
         })
 
     @classmethod
@@ -124,26 +131,18 @@ class QWAK:
             data = json.loads(json_var)
         elif isinstance(json_var,dict):
             data = json_var
+        qwakId = data['qwakId']
         graph = nx.node_link_graph(data['graph'])
         timeList = data['timeList']
         initState = State.from_json(data['initState'])
         operator = Operator.from_json(data['operator'])
         quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
-        # print(data['quantumWalk']['finalState']['state_vec'])
-        # print(quantumWalk.getFinalState())
         probDist = ProbabilityDistribution.from_json(data['probDist'])
-        # print(f"Dict QWAK {data['probDist']['dim']}")
-        # print(f"Obj QWAK {probDist.getDim()}")
-        probDistList = data['probDistList']
-        walkList = data['walkList']
-
-        newQwak = cls(graph=graph, timeList=timeList)
+        newQwak = cls(graph=graph, timeList=timeList,qwakId=qwakId)
         newQwak.setInitState(initState)
         newQwak.setOperator(operator)
         newQwak.setWalk(quantumWalk)
         newQwak.setProbDist(probDist)
-        newQwak.setProbDistList(probDistList)
-        newQwak.setWalkList(walkList)
         return newQwak
 
     def setQWAK(self,newQWAK):
