@@ -4,7 +4,6 @@ import numpy as np
 from qwak.State import State
 from qwak.Errors import MissingNodeInput
 import json
-# import json_tricks as json
 from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
 
 warnings.filterwarnings("ignore")

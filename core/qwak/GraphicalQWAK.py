@@ -6,7 +6,6 @@ import copy
 from numpy import pi
 from typing import Union
 import json
-# import json_tricks as json
 
 from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
 from qwak.State import State
