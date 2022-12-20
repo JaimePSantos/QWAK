@@ -8,6 +8,7 @@ import numpy as np
 from qwak.GraphicalQWAK import GraphicalQWAK
 from qwak.State import State
 from qwak.qwak import QWAK
+from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList, MissingNodeInput
 from bson import json_util
 from dotenv import load_dotenv
 import os
@@ -65,6 +66,14 @@ def home():
 
 @app.route("/staticQW")
 def staticQW():
+    if not session.get('staticQwakId'):
+        staticQwakId = f"StaticQWAK_{session['sessionId']}"
+        session['staticQwakId'] = staticQwakId
+        sessionCollection = database[session['sessionId']]
+        staticN = 5
+        staticGraph = nx.cycle_graph(staticN)
+        staticQWAK = QWAK(graph=staticGraph, qwakId=session['staticQwakId'])
+        sessionCollection.insert_one(json.loads(staticQWAK.to_json()))
     return render_template('staticQW.html')
 
 @app.route("/dynamicQW")
@@ -76,11 +85,10 @@ def dynamicQW():
 @app.route('/setStaticGraph',methods=['GET','POST'])
 def setStaticGraph():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
+    staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['staticQwakId']}))
     newGraph = request.form.get("newGraph")
-    gQwak.setStaticGraph(newGraph)
-    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
+    staticQWAK.setGraph(eval(newGraph + f"({staticQWAK.getDim()})"))
+    sessionCollection.replace_one({'qwakId': session['staticQwakId']},json.loads(staticQWAK.to_json()))
     return ("nothing")
 
 @app.route('/setDynamicGraph',methods=['GET','POST'])
@@ -96,9 +104,8 @@ def setDynamicGraph():
 @app.route('/getStaticGraphToJson',methods=['GET','POST'])
 def getStaticGraphToJson():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
-    return gQwak.getStaticGraphToJson()
+    staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['staticQwakId']}))
+    return nx.cytoscape_data(staticQWAK.getGraph())
 
 @app.route('/getDynamicGraphToJson',methods=['GET','POST'])
 def getDynamicGraphToJson():
@@ -110,12 +117,11 @@ def getDynamicGraphToJson():
 @app.route('/setStaticDim',methods=['GET','POST'])
 def setStaticDim():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
+    staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['staticQwakId']}))
     newDim = request.form.get("newDim")
     graphStr = request.form.get("graphStr")
-    gQwak.setStaticDim(int(newDim), graphStr)
-    sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
+    staticQWAK.setDim(int(newDim), graphStr)
+    sessionCollection.replace_one({'qwakId': session['staticQwakId']},json.loads(staticQWAK.to_json()))
     return ("nothing")
 
 @app.route('/setDynamicDim',methods=['GET','POST'])
@@ -173,24 +179,25 @@ def setDynamicTime():
 def setRunWalkDB():
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
-        sessionId = session['sessionId']
-        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        name = str(request.form.get("walkName"))
-        probDist = gQwak.runWalk()
-        sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
-        sessionCollection.insert_one({
-            'name' : name,
-            'hasError': probDist[0],
-            'walkDim': gQwak.getStaticDim(),
-            'walkTime': gQwak.getStaticTime(),
-            'walkInit': gQwak.getStaticInitState(),
-            'walkAdjacency': list(map(lambda x: str(x), gQwak.getStaticAdjacencyMatrix())),
-            'probDist': probDist[1],
-            'mean': gQwak.getStaticMean(),
-            'sndMoment': gQwak.getStaticSndMoment(),
-            'stDev': gQwak.getStaticStDev(),
-            'invPartRatio': gQwak.getStaticInversePartRatio(),
-        })
+
+        newDim = int(request.form.get("newDim"))
+        newGraphStr = request.form.get("newGraph")
+        newGraph = eval(newGraphStr + f"({newDim})")
+
+        newTime = eval(request.form.get("newTime"))
+        newInitCond = request.form.get("newInitCond")
+        initCondList = list(map(int, newInitCond.split(",")))
+
+        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
+        staticQWAK.setDim(newDim, newGraphStr)
+        staticQWAK.setGraph(newGraph)
+        staticQWAK.setTime(newTime)
+        newState = State(staticQWAK.getDim())
+        newState.buildState(initCondList)
+        staticQWAK.setInitState(newState)
+        # TODO: SOME WAY TO CATCH THE ERROR HERE
+        staticQWAK.runWalk()
+        sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
     return ("nothing")
 
 @app.route('/getRunWalkDB',methods=['POST'])
@@ -199,10 +206,18 @@ def getRunWalkDB():
     print(request.method)
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
-        sessionId = session['sessionId']
-        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        prob = gQwak.getStaticProbVec().tolist()
-    return [False,prob]
+        try:
+            staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
+            resultDict = {
+                'prob': staticQWAK.getProbVec().tolist(),
+                'mean': staticQWAK.getMean(),
+                'sndMoment': staticQWAK.getSndMoment(),
+                'stDev': staticQWAK.getStDev(),
+                'invPartRatio': staticQWAK.getInversePartRatio()
+            }
+        except StateOutOfBounds as err:
+            return [True, str(err)]
+    return [False,resultDict]
 
 @app.route('/setRunMultipleWalksDB',methods=['POST','GET'])
 def setRunMultipleWalksDB():
@@ -380,11 +395,6 @@ def reset():
 
 @app.route("/load", methods=['GET', 'POST'])
 def load():
-    t = 1
-    initState = [staticN // 2]
-    dynamicGraph = nx.cycle_graph(dynamicN)
-    timeList = [0, 1]
-    initStateList = [[dynamicN // 2, (dynamicN // 2) + 1]]
     if not session.get('sessionId'):
         sessionId = f'user{len(database.list_collection_names())+1}'
         session['sessionId'] = sessionId
@@ -440,7 +450,9 @@ def getRunWalkDBTest():
         sessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
         staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        staticQWAK = json.loads(staticQWAK.to_json())
+        staticQWAKJson = json.loads(staticQWAK.to_json())
+        print(staticQWAK.getProbDist().getProbVec())
+
     return ("nothing")
 
 ################## TEST ##################

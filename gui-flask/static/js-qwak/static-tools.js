@@ -1,6 +1,6 @@
 let initGraph = async () => {
     let graphStr = 'nx.cycle_graph'
-    setStaticDim(100, graphStr)
+    setStaticDim(5, graphStr)
     setStaticGraph(graphStr)
 }
 

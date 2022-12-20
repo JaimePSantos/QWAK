@@ -149,11 +149,20 @@ $(function () {
         }`;
         e.preventDefault();
         staticQuantumWalk.reset();
-        await setStaticProbDistDB(staticQuantumWalk.walkName);
-        staticQuantumWalk.probDist = await getStaticProbDistDB(staticQuantumWalk.walkName);
+        await setStaticProbDistDB(inputDim.value,inputGraph.value,inputTime.value,inputInitState.value);
+        let walkResult = await getStaticProbDistDB();
+        if(walkResult[0] == "True"){
+            staticQuantumWalk.hasError = true;
+            staticQuantumWalk.probDist = walkResult[1];
+        }else{
+            staticQuantumWalk.hasError = false;
+            staticQuantumWalk.probDist = walkResult[1]['prob'];
+            staticQuantumWalk.mean = walkResult[1]['mean'];
+            staticQuantumWalk.sndMoment = walkResult[1]['sndMoment'];
+            staticQuantumWalk.stDev = walkResult[1]['stDev'];
+            staticQuantumWalk.invPartRatio = walkResult[1]['invPartRatio'];
+        }
         plotStaticProbDistDB(staticQuantumWalk);
-        await setStaticJsTime();
-        await setStaticJsInitState();
         await setStaticMean();
         await setStaticSndMoment();
         await setStaticStDev();
@@ -193,33 +202,29 @@ $(function () {
 });
 
 async function setStaticMean() {
-    let statMean = await getStaticMean();
-    inputMean.value = statMean;
+    inputMean.value = staticQuantumWalk.mean;
 }
 
 async function setStaticSndMoment() {
-    let statSndMom = await getStaticSndMoment();
-    inputSndMoment.value = statSndMom;
+    inputSndMoment.value = staticQuantumWalk.sndMoment;
 }
 
 async function setStaticStDev() {
-    let statStDev = await getStaticStDev();
-    inputStDev.value = statStDev;
+    inputStDev.value = staticQuantumWalk.stDev;
 }
 
 async function setStaticInversePartRatio() {
-    let invPartRatio = await getStaticInversePartRatio();
-    inputInvPartRat.value = invPartRatio;
+    inputInvPartRat.value = staticQuantumWalk.invPartRatio;
 }
 
 async function setStaticSurvivalProb(fromNode, toNode) {
-    let survProb = await getStaticSurvivalProb(fromNode, toNode);
-    if (survProb[0] == true) {
-        alert(survProb[1]);
-        return;
-    } else {
-        inputSurvProbResult.value = survProb[1];
-    }
+    // if (survProb[0] == true) {
+    //     alert(survProb[1]);
+    //     return;
+    // } else {
+    //     inputSurvProbResult.value = survProb[1];
+    // }
+    inputSurvProbResult.value = staticQuantumWalk.invPartRatio
 }
 
 async function setPst(nodeA, nodeB) {

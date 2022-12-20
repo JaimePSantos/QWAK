@@ -102,6 +102,7 @@ class QWAK:
             _description_
         """
         return json.dumps({
+            'dim':self._n,
             'graph': nx.node_link_data(self._graph),
             'timeList': self._timeList,
             'initState': json.loads(self._initState.to_json()),
@@ -151,10 +152,7 @@ class QWAK:
         self.setInitState(newQWAK.getInitState())
         self.setOperator(newQWAK.getOperator())
         self.setWalk(newQWAK.getWalk())
-        # print(f"BEFORE SET {self._probDist.getDim()}")
         self.setProbDist(newQWAK.getProbDist())
-        # print(f"AFTER SET {self._probDist.getDim()}")
-        # print(self._probDist.getDim())
 
     def runWalk(
             self,
@@ -189,6 +187,7 @@ class QWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
+
         self._operator.buildDiagonalOperator(time=time)
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())

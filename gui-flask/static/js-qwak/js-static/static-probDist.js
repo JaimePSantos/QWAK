@@ -20,11 +20,11 @@ export function plotStaticProbDistDB(walk) {
     }
 }
 
-export async function setStaticProbDistDB(walkName) {
+export async function setStaticProbDistDB(newDim,newGraph,newTime,newInitCond) {
     await $.ajax({
         type: 'POST',
         url: `/setRunWalkDB`,
-        data:{walkName:walkName},
+        data: {newDim:newDim,newGraph: newGraph, newTime:newTime,newInitCond:newInitCond},
         success: function () {
             console.log(`success - Runwalk`);
         },
@@ -46,7 +46,7 @@ export async function getStaticProbDistDB(walkName) {
         },
         error: function (response) {
             console.log('Runwalk error');
-            myWalk = 0;
+            myWalk = response;
         }
     });
     return myWalk;

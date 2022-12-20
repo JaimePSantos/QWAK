@@ -6,6 +6,10 @@ export class StaticQuantumwalk {
         this._graph = _graph;
         this._probDist = _probDist;
         this._walkName = _walkName;
+        this._mean = 0;
+        this._sndMoment = 0;
+        this._stDev = 0;
+        this._invPartRatio = 0;
     }
 
     reset(){
@@ -63,4 +67,37 @@ export class StaticQuantumwalk {
     get walkName(){
         return this._walkName;
     }
+
+    set mean(newMean){
+        this._mean = newMean;
+    }
+
+    get mean(){
+        return this._mean;
+    }
+
+    set sndMoment(newSndMoment){
+        this._sndMoment = newSndMoment;
+    }
+
+    get sndMoment(){
+        return this._sndMoment;
+    }
+
+    set stDev(newStDev){
+        this._stDev = newStDev;
+    }
+
+    get stDev(){
+        return this._stDev;
+    }
+
+    set invPartRatio(newInvPartRatio){
+        this._invPartRatio = newInvPartRatio;
+    }
+
+    get invPartRatio(){
+        return this._invPartRatio;
+    }
+
 }
