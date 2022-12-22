@@ -10,6 +10,8 @@ export class StaticQuantumwalk {
         this._sndMoment = 0;
         this._stDev = 0;
         this._invPartRatio = 0;
+        this._survivalProb = 0;
+        this._PST = 0;
     }
 
     reset(){
@@ -100,4 +102,19 @@ export class StaticQuantumwalk {
         return this._invPartRatio;
     }
 
+    set survivalProb(newSurvivalProb){
+        this._survivalProb = newSurvivalProb;
+    }
+
+    get survivalProb(){
+        return this._survivalProb;
+    }
+
+    set PST(newPst){
+        this._PST = newPst;
+    }
+
+    get PST(){
+        return this._PST;
+    }
 }

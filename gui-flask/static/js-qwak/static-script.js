@@ -1,12 +1,21 @@
 import {customCy, cy, staticChartData} from "./static-tools.js";
 import {StaticQuantumwalk} from "./staticQuantumwalk.js";
-import {setStaticDim,setStaticGraph,updateGraph,getStaticGraph,addNodeButtonPress,setCustomAdjacencyMatrix,createAdjacencyMatrix,adjacencyMatrixToString} from "./js-static/static-graph.js"
+import {setStaticDim,
+    setStaticGraph,
+    updateGraph,
+    getStaticGraph,
+    addNodeButtonPress,
+    setCustomAdjacencyMatrix,
+    createAdjacencyMatrix,
+    adjacencyMatrixToString} from "./js-static/static-graph.js"
 import { deleteAllWalkEntries,
     deleteWalkEntry,
     getStaticProbDistDB,
     setStaticProbDistDB,
     plotStaticProbDistDB,
-    setStaticPyInitState, setStaticPyTime
+    setStaticPyInitState,
+    setStaticPyTime,
+    getStaticSurvivalProb,
 } from "./js-static/static-probDist.js"
 
 // #### INPUTS & DISPLAYS ####
@@ -63,20 +72,17 @@ $(function () {
         staticQuantumWalk.reset();
         staticQuantumWalk.graph = inputGraph.value;
         staticQuantumWalk.dim = parseInt(inputDim.value);
-        setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
-        setStaticGraph(staticQuantumWalk.graph);
-        let myGraph = await getStaticGraph();
-        // console.log(myGraph)
+        let myGraph = await setStaticGraph(staticQuantumWalk.dim,staticQuantumWalk.graph);
         updateGraph(myGraph);
     });
 });
 
 $(function () {
-    $('#setDimButton').on('click', function (e) {
+    $('#setDimButton').on('click', async function (e) {
         e.preventDefault();
         staticQuantumWalk.graph = inputGraph.value;
         staticQuantumWalk.dim = parseInt(inputDim.value);
-        setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph)
+        await setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph)
     });
 });
 
@@ -188,7 +194,7 @@ $(function () {
         e.preventDefault();
         let fromNode = inputSurvProbNodeA.value;
         let toNode = inputSurvProbNodeB.value;
-        setStaticSurvivalProb(fromNode, toNode);
+        await setStaticSurvivalProb(fromNode, toNode);
     });
 });
 
@@ -218,27 +224,23 @@ async function setStaticInversePartRatio() {
 }
 
 async function setStaticSurvivalProb(fromNode, toNode) {
-    // if (survProb[0] == true) {
-    //     alert(survProb[1]);
-    //     return;
-    // } else {
-    //     inputSurvProbResult.value = survProb[1];
-    // }
-    inputSurvProbResult.value = staticQuantumWalk.invPartRatio
+    staticQuantumWalk.survivalProb = await getStaticSurvivalProb(fromNode,toNode);
+    inputSurvProbResult.value = staticQuantumWalk.survivalProb
 }
 
 async function setPst(nodeA, nodeB) {
-    let PST = await getPst(nodeA, nodeB);
-    if (PST[0] == true) {
-        alert(PST[1]);
-        return;
-    } else {
-        if (PST[1] < 0) {
-            inputPSTResult.value = 'No PST.';
-        } else {
-            inputPSTResult.value = PST[1];
-        }
-    }
+    staticQuantumWalk.PST = await getPst(nodeA, nodeB);
+    inputPSTResult.value = staticQuantumWalk.PST
+    // if (PST[0] == true) {
+    //     alert(PST[1]);
+    //     return;
+    // } else {
+    //     if (PST[1] < 0) {
+    //         inputPSTResult.value = 'No PST.';
+    //     } else {
+    //         inputPSTResult.value = PST[1];
+    //     }
+    // }
 }
 
 async function getStaticMean() {
@@ -317,25 +319,25 @@ async function getStaticInversePartRatio() {
     return staticInversePartRatio;
 }
 
-async function getStaticSurvivalProb(fromNode, toNode) {
-    let staticSurvivalProb;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticSurvivalProb`,
-        data: {fromNode: fromNode, toNode: toNode},
-        success: function (response) {
-            staticSurvivalProb = response;
-            console.log(`success - staticSurvivalProb ${staticSurvivalProb}`);
-            return staticSurvivalProb;
-        },
-        error: function (response) {
-            console.log('staticSurvivalProb error');
-            staticSurvivalProb = 'error'
-            return staticSurvivalProb;
-        }
-    });
-    return staticSurvivalProb;
-}
+// async function getStaticSurvivalProb(fromNode, toNode) {
+//     let staticSurvivalProb;
+//     await $.ajax({
+//         type: 'POST',
+//         url: `/getStaticSurvivalProb`,
+//         data: {fromNode: fromNode, toNode: toNode},
+//         success: function (response) {
+//             staticSurvivalProb = response;
+//             console.log(`success - staticSurvivalProb ${staticSurvivalProb}`);
+//             return staticSurvivalProb;
+//         },
+//         error: function (response) {
+//             console.log('staticSurvivalProb error');
+//             staticSurvivalProb = 'error'
+//             return staticSurvivalProb;
+//         }
+//     });
+//     return staticSurvivalProb;
+// }
 
 async function getPst(nodeA, nodeB) {
     let pst;

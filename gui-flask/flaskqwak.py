@@ -86,10 +86,12 @@ def dynamicQW():
 def setStaticGraph():
     sessionCollection = database[session['sessionId']]
     staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['staticQwakId']}))
+    newDim = int(request.form.get("newDim"))
     newGraph = request.form.get("newGraph")
-    staticQWAK.setGraph(eval(newGraph + f"({staticQWAK.getDim()})"))
+    staticQWAK.setDim(newDim,graphStr=newGraph)
+    staticQWAK.setGraph(eval(f"{newGraph}({staticQWAK.getDim()})"))
     sessionCollection.replace_one({'qwakId': session['staticQwakId']},json.loads(staticQWAK.to_json()))
-    return ("nothing")
+    return nx.cytoscape_data(staticQWAK.getGraph())
 
 @app.route('/setDynamicGraph',methods=['GET','POST'])
 def setDynamicGraph():
@@ -302,14 +304,13 @@ def getDynamicInvPartRatio():
 @app.route('/getStaticSurvivalProb',methods=['GET','POST'])
 def getStaticSurvivalProb():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+    staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
     fromNode = str(request.form.get("fromNode"))
     toNode = str(request.form.get("toNode"))
-    survProb = gQwak.getStaticSurvivalProb(fromNode, toNode)
-    if not survProb[0]:
-        survProb[1] = round(survProb[1], resultRounding)
-    return survProb
+    survProb = staticQWAK.getSurvivalProb(fromNode, toNode)
+    # if not survProb[0]:
+    #     survProb[1] = round(survProb[1], resultRounding)
+    return str(survProb)
 
 @app.route('/getDynamicSurvivalProb',methods=['GET','POST'])
 def getDynamicSurvivalProb():
@@ -326,12 +327,11 @@ def getDynamicSurvivalProb():
 @app.route('/checkPST',methods=['GET','POST'])
 def checkPST():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+    staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
     nodeA = str(request.form.get("nodeA"))
     nodeB = str(request.form.get("nodeB"))
-    pst = gQwak.checkPST(nodeA, nodeB)
-    return pst
+    pst = staticQWAK.checkPST(nodeA, nodeB)
+    return str(pst)
 
 @app.route('/setStaticCustomGraph',methods=['GET','POST'])
 def setStaticCustomGraph():

@@ -257,7 +257,7 @@ class QWAK:
         # TODO: Docs need update after rework.
         self._n = newDim
         if graphStr is not None:
-            self._graph = eval(graphStr + f"({self._n})")
+            self._graph = eval(f"{graphStr}({self._n})")
             # We need a reassignment here since certain graphs have
             # different length than the number inputted.
             self._n = len(self._graph)

@@ -19,18 +19,23 @@ export function setStaticDim(newDim, graphStr) {
     });
 }
 
-export function setStaticGraph(newGraph) {
+export async function setStaticGraph(newDim,newGraph) {
+    let myGraph;
     $.ajax({
         type: 'POST',
         url: `/setStaticGraph`,
-        data: {newGraph: newGraph},
+        data: {newDim:newDim,newGraph:newGraph},
         success: function (response) {
             console.log('success - graph set to ${newGraph}');
+            myGraph = response;
+            return myGraph;
         },
         error: function (response) {
-            console.log('setGraph error');
+            myGraph = response;
+            return myGraph;
         }
-    })
+    });
+    return myGraph;
 }
 
 export function updateGraph(graph) {

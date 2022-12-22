@@ -1,7 +1,7 @@
 let initGraph = async () => {
     let graphStr = 'nx.cycle_graph'
-    setStaticDim(5, graphStr)
-    setStaticGraph(graphStr)
+    setStaticDim(5, graphStr);
+    setStaticGraph(5,graphStr);
 }
 
 function setStaticDim(newDim, graphStr) {
@@ -18,19 +18,24 @@ function setStaticDim(newDim, graphStr) {
     });
 }
 
-function setStaticGraph(newGraph) {
+async function setStaticGraph(newDim,newGraph) {
+    let myGraph;
     $.ajax({
         type: 'POST',
         url: `/setStaticGraph`,
-        data: {newGraph: newGraph},
+        data: {newDim:newDim,newGraph:newGraph},
         success: function (response) {
             console.log('success - graph set to ${newGraph}');
-            // console.log(response)
+            myGraph = response;
+            return myGraph;
         },
         error: function (response) {
             console.log('setGraph error');
+            myGraph = response;
+            return myGraph;
         }
-    })
+    });
+    return myGraph;
 }
 
 async function getStaticGraph() {

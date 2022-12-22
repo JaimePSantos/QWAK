@@ -231,7 +231,7 @@ class ProbabilityDistribution:
             else:
                 for i in range(int(k0), int(k1) + 1):
                     survProb += self._probVec[i]
-            return survProb[0]
+            return survProb
         except ValueError:
             raise MissingNodeInput(
                 f"A node number is missing: k0 = {k0}; k1={k1}")

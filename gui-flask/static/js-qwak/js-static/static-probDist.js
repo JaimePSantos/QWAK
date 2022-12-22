@@ -52,6 +52,25 @@ export async function getStaticProbDistDB(walkName) {
     return myWalk;
 }
 
+export async function getStaticSurvivalProb(fromNode,toNode) {
+    let survProb;
+    await $.ajax({
+        type: 'POST',
+        url: `/getStaticSurvivalProb`,
+        data:{fromNode:fromNode,toNode:toNode},
+        success: function (response) {
+            console.log(`success - Runwalk ${response}`);
+            survProb = response;
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+            survProb = response;
+        }
+    });
+    return survProb;
+}
+
+
 export async function deleteWalkEntry(walkName) {
     await $.ajax({
         type: 'POST',
