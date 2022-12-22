@@ -66,7 +66,7 @@ async function setStaticQuantity(quantity) {
 
 // Graph generator buttons
 
-$(function () {
+$(async function () {
     $('#runGraphButton').on('click', async function (e) {
         e.preventDefault();
         staticQuantumWalk.reset();

@@ -20,7 +20,7 @@ function setStaticDim(newDim, graphStr) {
 
 async function setStaticGraph(newDim,newGraph) {
     let myGraph;
-    $.ajax({
+    await $.ajax({
         type: 'POST',
         url: `/setStaticGraph`,
         data: {newDim:newDim,newGraph:newGraph},

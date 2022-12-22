@@ -21,12 +21,13 @@ export function setStaticDim(newDim, graphStr) {
 
 export async function setStaticGraph(newDim,newGraph) {
     let myGraph;
-    $.ajax({
+    await $.ajax({
         type: 'POST',
         url: `/setStaticGraph`,
         data: {newDim:newDim,newGraph:newGraph},
         success: function (response) {
-            console.log('success - graph set to ${newGraph}');
+            console.log(`success - graph set to ${newGraph}:\n ${response}`)
+            // console.log(response);
             myGraph = response;
             return myGraph;
         },
