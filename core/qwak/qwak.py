@@ -282,7 +282,7 @@ class QWAK:
         """
         return self._n
 
-    def setGraph(self, newGraph: nx.Graph) -> None:
+    def setGraph(self, newGraph: nx.Graph, initStateList = None) -> None:
         """Sets the current graph to a user defined one.
         Also recalculates the current operator and walk dimension.
 
@@ -294,7 +294,6 @@ class QWAK:
         self._graph = newGraph
         self._n = len(self._graph)
         self.setDim(self._n, graph=self._graph)
-        self._operator = Operator(self._graph)
 
     def getGraph(self) -> nx.Graph:
         """Gets the current graph.
@@ -305,6 +304,16 @@ class QWAK:
             Current graph.
         """
         return self._graph
+
+    def setCustomGraph(self, customAdjMatrix):
+        self._graph = nx.from_numpy_matrix(customAdjMatrix)
+        self.setGraph(newGraph=self._graph)
+        self._initStateList = [self._n // 2]
+        self.setDim(
+            self._n,
+            graph=self._graph,
+            initStateList=self._initStateList)
+
 
     def setInitState(self, newInitState: State) -> None:
         """Sets the current initial state to a user defined one.
