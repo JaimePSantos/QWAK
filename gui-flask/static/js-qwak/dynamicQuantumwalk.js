@@ -54,4 +54,52 @@ export class DynamicQuantumwalk {
     get walkName(){
         return this._walkName;
     }
+
+     set mean(newMean){
+        this._mean = newMean;
+    }
+
+    get mean(){
+        return this._mean;
+    }
+
+    set sndMoment(newSndMoment){
+        this._sndMoment = newSndMoment;
+    }
+
+    get sndMoment(){
+        return this._sndMoment;
+    }
+
+    set stDev(newStDev){
+        this._stDev = newStDev;
+    }
+
+    get stDev(){
+        return this._stDev;
+    }
+
+    set invPartRatio(newInvPartRatio){
+        this._invPartRatio = newInvPartRatio;
+    }
+
+    get invPartRatio(){
+        return this._invPartRatio;
+    }
+
+    set survivalProb(newSurvivalProb){
+        this._survivalProb = newSurvivalProb;
+    }
+
+    get survivalProb(){
+        return this._survivalProb;
+    }
+
+    set PST(newPst){
+        this._PST = newPst;
+    }
+
+    get PST(){
+        return this._PST;
+    }
 }
