@@ -400,25 +400,23 @@ def load():
     if not session.get('sessionId'):
         sessionId = f'user{len(database.list_collection_names())+1}'
         session['sessionId'] = sessionId
-        print(session['sessionId'])
         sessionCollection = database[sessionId]
         sessionCollection.insert_one({'init':sessionId})
-        # gQwak = GraphicalQWAK(
-        #     staticN=staticN,
-        #     dynamicN=dynamicN,
-        #     staticGraph=staticGraph,
-        #     dynamicGraph=dynamicGraph,
-        #     staticStateList=initState,
-        #     dynamicStateList=initStateList,
-        #     staticTime=t,
-        #     dynamicTimeList=timeList,
-        #     qwakId=session['sessionId'])
-        # sessionCollection.insert_one(json.loads(gQwak.to_json()))
+
+        staticQwakId = f"StaticQWAK_{session['sessionId']}"
+        session['staticQwakId'] = staticQwakId
         staticNTest = 5
-        staticGraphTest = nx.cycle_graph(staticN)
-        staticQWAK = QWAK(graph=staticGraphTest,qwakId=sessionId)
+        staticGraphTest = nx.cycle_graph(staticNTest)
+        staticQWAK = QWAK(graph=staticGraphTest,qwakId=staticQwakId)
         sessionCollection.insert_one(json.loads(staticQWAK.to_json()))
 
+        dynamicQwakId = f"DynamicQWAK_{session['sessionId']}"
+        session['dynamicQwakId'] = dynamicQwakId
+        sessionCollection = database[session['sessionId']]
+        dynamicNTest = 5
+        dynamicGraphTest = nx.cycle_graph(dynamicNTest)
+        dynamicQwak = QWAK(graph=dynamicGraphTest, qwakId=session['dynamicQwakId'])
+        sessionCollection.insert_one(json.loads(dynamicQwak.to_json(True)))
 
     return("nothing")
 
@@ -435,7 +433,8 @@ def setRunWalkDBTest():
         newTime = float(request.form.get("newTime"))
         newInitCond = request.form.get("newInitCond")
         initCondList = list(map(int, newInitCond.split(",")))
-        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+
+        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
         staticQWAK.setDim(newDim,newGraphStr)
         staticQWAK.setGraph(newGraph)
         staticQWAK.setTime(newTime)
@@ -443,6 +442,7 @@ def setRunWalkDBTest():
         newState.buildState(initCondList)
         staticQWAK.setInitState(newState)
         staticQWAK.runWalk()
+
         sessionCollection.replace_one({'qwakId': sessionId}, json.loads(staticQWAK.to_json()))
     return ("nothing")
 
@@ -461,17 +461,28 @@ def getRunWalkDBTest():
 def setRunMultipleWalksDBTest():
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
-        newTime = eval(request.form.get("newTimeList"))
+
+        newDim = int(request.form.get("newDim"))
+        newGraphStr = request.form.get("newGraph")
+        newGraph = eval(newGraphStr + f"({newDim})")
+
+        newTimeList = eval(request.form.get("newTimeList"))
         newInitCond = request.form.get("newInitCond")
         initCondList = list(map(int, newInitCond.split(",")))
-        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
-        staticQWAK.setTime(newTime)
-        newState = State(staticQWAK.getDim())
+
+        dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}),True)
+        dynamicQWAK.setDim(newDim,newGraphStr)
+        dynamicQWAK.setGraph(newGraph)
+        dynamicQWAK.setTimeList(newTimeList)
+        newState = State(dynamicQWAK.getDim())
         newState.buildState(initCondList)
-        staticQWAK.setInitState(newState)
-        # TODO: SOME WAY TO CATCH THE ERROR HERE
-        staticQWAK.runWalk()
-        sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
+        dynamicQWAK.setInitState(newState)
+        dynamicQWAK.runMultipleWalks()
+
+        for probDist in dynamicQWAK.getProbDistList():
+            print(probDist.getProbVec())
+
+        sessionCollection.replace_one({'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(True)))
     return ("nothing")
 
 @app.route('/getRunMultipleWalksDBTest',methods=['POST'])

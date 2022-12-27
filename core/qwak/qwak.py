@@ -88,11 +88,10 @@ class QWAK:
             self._quantumWalk.getFinalState())
         # print(f"QWAK Init\t  Obj PD {self._probDist.getState().getDim()}")
 
-        # self._probDistList = [ProbabilityDistribution(
-        #     self._quantumWalk.getFinalState())]
+        self._probDistList = []
         # self._walkList = []
 
-    def to_json(self) -> str:
+    def to_json(self,isDynamic = False) -> str:
         """_summary_
 
         Returns
@@ -100,21 +99,36 @@ class QWAK:
         str
             _description_
         """
-        return json.dumps({
-            'dim':self._n,
-            'graph': nx.node_link_data(self._graph),
-            'timeList': self._timeList,
-            'initState': json.loads(self._initState.to_json()),
-            'operator': json.loads(self._operator.to_json()),
-            'quantumWalk': json.loads(self._quantumWalk.to_json()),
-            'probDist': json.loads(self._probDist.to_json()),
-            # 'probDistList': list(map(lambda prob: json.loads(prob.to_json()),self._probDistList)),
-            # 'walkList': self._walkList,
-            'qwakId': self._qwakId
-        })
+        if isDynamic:
+            qwakJson = json.dumps({
+                'dim':self._n,
+                'graph': nx.node_link_data(self._graph),
+                'timeList': self._timeList.tolist(),
+                'initState': json.loads(self._initState.to_json()),
+                'operator': json.loads(self._operator.to_json()),
+                'quantumWalk': json.loads(self._quantumWalk.to_json()),
+                # 'probDist': json.loads(self._probDist.to_json()),
+                'probDistList':[probDist.to_json() for probDist in self._probDistList],
+                # 'walkList': self._walkList,
+                'qwakId': self._qwakId
+            })
+        else:
+            qwakJson = json.dumps({
+                'dim':self._n,
+                'graph': nx.node_link_data(self._graph),
+                'timeList': self._timeList,
+                'initState': json.loads(self._initState.to_json()),
+                'operator': json.loads(self._operator.to_json()),
+                'quantumWalk': json.loads(self._quantumWalk.to_json()),
+                'probDist': json.loads(self._probDist.to_json()),
+                # 'probDistList': list(map(lambda prob: json.loads(prob.to_json()),self._probDistList)),
+                # 'walkList': self._walkList,
+                'qwakId': self._qwakId
+            })
+        return qwakJson
 
     @classmethod
-    def from_json(cls, json_var: str):
+    def from_json(cls, json_var: str,isDynamic = False):
         """_summary_
 
         Parameters
@@ -137,12 +151,16 @@ class QWAK:
         initState = State.from_json(data['initState'])
         operator = Operator.from_json(data['operator'])
         quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
-        probDist = ProbabilityDistribution.from_json(data['probDist'])
         newQwak = cls(graph=graph, timeList=timeList,qwakId=qwakId)
         newQwak.setInitState(initState)
         newQwak.setOperator(operator)
         newQwak.setWalk(quantumWalk)
-        newQwak.setProbDist(probDist)
+        if isDynamic:
+            probDistList = [ProbabilityDistribution.from_json(probDist) for probDist in data['probDistList']]
+            newQwak.setProbDistList(probDistList)
+        else:
+            probDist = ProbabilityDistribution.from_json(data['probDist'])
+            newQwak.setProbDist(probDist)
         return newQwak
 
     def setQWAK(self,newQWAK):
@@ -224,7 +242,7 @@ class QWAK:
                 initStateList=initStateList,
                 customStateList=customStateList)
             self._probDistList.append(copy.deepcopy(self.getProbDist()))
-            self._walkList.append(copy.deepcopy(self.getWalk()))
+            # self._walkList.append(copy.deepcopy(self.getWalk()))
 
     def resetWalk(self) -> None:
         """Resets the components of a walk."""
@@ -354,7 +372,10 @@ class QWAK:
         newTime : list
             _description_
         """
-        self._timeList = newTimeList
+        timeList = np.linspace(
+            newTimeList[0], newTimeList[1], int(
+                newTimeList[1]))
+        self._timeList = timeList
 
     def getTime(self) -> float:
         """Gets the current walk time.

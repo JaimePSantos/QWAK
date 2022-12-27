@@ -110,3 +110,24 @@ async function load() {
         }
     });
 }
+
+$(function () {
+    $('#testRunWalkButDyn').on('click', async function (e) {
+        e.preventDefault();
+        await setRunMultipleWalksDBTest(inputDimDyn.value,inputGraphDyn.value,inputTimeDyn.value,inputInitStateDyn.value);
+    });
+});
+
+async function setRunMultipleWalksDBTest(newDim,newGraph,newTime,newInitCond) {
+    await $.ajax({
+        type: 'POST',
+        data: {newDim:newDim,newGraph: newGraph, newTimeList:newTime,newInitCond:newInitCond},
+        url: `/setRunMultipleWalksDBTest`,
+        success: function () {
+            console.log(`success - Runwalk`);
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+        }
+    });
+}
