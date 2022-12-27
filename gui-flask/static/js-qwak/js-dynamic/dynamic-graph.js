@@ -25,7 +25,7 @@ export function setDynamicGraph(newGraph) {
     $.ajax({
         type: 'POST',
         url: `/setDynamicGraph`,
-        data: {newGraph: newGraph},
+        data: {newDim:newDim, newGraph: newGraph},
         success: function (response) {
             console.log('success - graph set to ${newGraph}');
         },

@@ -8,15 +8,15 @@
 <body>
 
 <div>
-<a>Page for functionality testing.</a>
+<h2 style="justify-items: center">Page for functionality testing.</h2>
 </div>
 
-<div>
+<div style=" padding-top:30px;">
     <button id="resetBut">reset</button>
     <button id="loadBut">load</button>
 </div>
 
-<div>
+<div style=" padding-top:30px;">
     <label>
         Dim
     </label>
@@ -38,6 +38,30 @@
 
     <button id="testRunWalkBut">RunWalk</button>
     <button id="testGetRunWalkBut">GetRunWalk</button>
+</div>
+
+<div style=" padding-top:30px;">
+    <label>
+        Dim
+    </label>
+    <input type="text" name="dim" id="inputDimDyn" size="5"></input>
+    <label>
+        Graph
+    </label>
+    <input type="text" name="graph" id="inputGraphDyn" size="10"></input>
+    <label>
+        Time
+    </label>
+    <input type="text" name="time" id="inputTimeDyn" size="5"></input>
+    <label>
+        Init
+    </label>
+    <input type="text" name="initState" id="inputInitStateDyn" size="5"></input></div>
+
+<div>
+
+    <button id="testRunWalkButDyn">RunWalkDyn</button>
+    <button id="testGetRunWalkButDyn">GetRunWalkDyn</button>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.min.js"></script>

@@ -67,8 +67,8 @@ $(function () {
         dynamicQuantumWalk.reset();
         dynamicQuantumWalk.graph = inputGraph.value;
         dynamicQuantumWalk.dim = parseInt(inputDim.value);
-        setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
-        setDynamicGraph(dynamicQuantumWalk.graph);
+        // setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
+        setDynamicGraph(dynamicQuantumWalk.dim,dynamicQuantumWalk.graph);
         let myGraph = await getDynamicGraph();
         updateGraph(myGraph);
     });

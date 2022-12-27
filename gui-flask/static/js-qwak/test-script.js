@@ -4,6 +4,12 @@ let inputGraph = document.getElementById("inputGraph");
 let inputTime = document.getElementById("inputTime");
 let inputInitState = document.getElementById("inputInitState");
 
+let inputDimDyn = document.getElementById("inputDimDyn");
+let inputGraphDyn = document.getElementById("inputGraphDyn");
+let inputTimeDyn = document.getElementById("inputTimeDyn");
+let inputInitStateDyn = document.getElementById("inputInitStateDyn");
+
+
 let defaultN = 5;
 let defaultT = 1;
 let defaultInitState = [Math.floor(defaultN / 2)];
@@ -14,6 +20,11 @@ let inputInit = () => {
     inputInitState.value = defaultInitState
     inputDim.value = defaultN;
     inputGraph.value = defaultGraph;
+
+    inputTimeDyn.value = [defaultT-1,defaultT];
+    inputInitStateDyn.value = [defaultInitState]
+    inputDimDyn.value = defaultN;
+    inputGraphDyn.value = defaultGraph;
 }
 
 inputInit();
@@ -22,11 +33,6 @@ inputInit();
 $(function () {
     $('#testRunWalkBut').on('click', async function (e) {
         e.preventDefault();
-        // await setStaticDim(inputDim.value, inputGraph.value);
-        // await setStaticGraph(inputGraph.value);
-        // await setStaticJsTime();
-        // await setStaticJsInitState();
-        // // let myGraph = await getStaticGraph();
         await setStaticProbDistDBTest(inputDim.value,inputGraph.value,inputTime.value,inputInitState.value);
     });
 });
@@ -51,105 +57,6 @@ $(function () {
         await load();
     });
 });
-
-$(function () {
-    $('#setInitStateButton').on('click', async function (e) {
-        e.preventDefault();
-        await setStaticJsInitState();
-    });
-});
-
-$(function () {
-    $('#setTimeButton').on('click', async function (e) {
-        e.preventDefault();
-        await setStaticJsTime();
-    });
-});
-
-async function setStaticJsInitState(){
-    await setStaticPyInitState(inputInitState.value);
-}
-
-export async function setStaticJsTime(){
-    await setStaticPyTime(inputTime.value);
-}
-
-async function setStaticPyInitState(initStateStr) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticInitState`, // <- Add the queryparameter here
-        data: {initStateStr: initStateStr},
-        success: function (response) {
-            console.log('success - InitState set to ${initStateStr}');
-        },
-        error: function (response) {
-            console.log('InitState error');
-        }
-    });
-}
-
-async function setStaticPyTime(newTime) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticTime`, // <- Add the queryparameter here
-        data: {newTime: newTime},
-        success: function (response) {
-            console.log('success - Time set to ${newTime}');
-        },
-        error: function (response) {
-            console.log('setTime error');
-        }
-    });
-}
-
-async function getStaticGraph() {
-    let myGraph;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticGraphToJson`, // <- Add the queryparameter here
-        success: function (response) {
-            myGraph = response;
-            console.log('success - got graph ${myGraph}');
-            return myGraph;
-        },
-        error: function (response) {
-            console.log('getStaticGraph error');
-            myGraph = 'error'
-            return myGraph;
-        }
-    });
-    return myGraph;
-}
-
-async function setStaticGraph(newGraph) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticGraph`,
-        data: {newGraph: newGraph},
-        success: function (response) {
-            console.log('success - graph set to ${newGraph}');
-        },
-        error: function (response) {
-            console.log('setGraph error');
-        }
-    })
-}
-
-async function setStaticDim(newDim, graphStr) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticDim`, // <- Add the queryparameter here
-        data: {newDim: newDim, graphStr: graphStr},
-        success: function (response) {
-            console.log('success - Dim set to ${newDim}');
-        },
-        error: function (response) {
-            console.log('setDim error');
-        }
-    });
-}
-
-
 
 async function setStaticProbDistDBTest(newDim,newGraph,newTime,newInitCond) {
     await $.ajax({

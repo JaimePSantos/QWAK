@@ -277,14 +277,19 @@ def setDynamicTime():
 
 @app.route('/setRunMultipleWalksDB',methods=['POST','GET'])
 def setRunMultipleWalksDB():
-    print(request.method)
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
-        sessionId = session['sessionId']
-        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        name = str(request.form.get("walkName"))
-        probDist = gQwak.runMultipleWalks()
-        sessionCollection.replace_one({'qwakId': sessionId}, json.loads(gQwak.to_json()))
+        newTime = eval(request.form.get("newTimeList"))
+        newInitCond = request.form.get("newInitCond")
+        initCondList = list(map(int, newInitCond.split(",")))
+        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
+        staticQWAK.setTime(newTime)
+        newState = State(staticQWAK.getDim())
+        newState.buildState(initCondList)
+        staticQWAK.setInitState(newState)
+        # TODO: SOME WAY TO CATCH THE ERROR HERE
+        staticQWAK.runWalk()
+        sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
     return ("nothing")
 
 @app.route('/getRunMultipleWalksDB',methods=['POST'])
@@ -427,7 +432,7 @@ def setRunWalkDBTest():
         newGraphStr = request.form.get("newGraph")
         newGraph = eval(newGraphStr + f"({newDim})")
 
-        newTime = request.form.get("newTime")
+        newTime = float(request.form.get("newTime"))
         newInitCond = request.form.get("newInitCond")
         initCondList = list(map(int, newInitCond.split(",")))
         staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
@@ -451,6 +456,35 @@ def getRunWalkDBTest():
         print(staticQWAK.getProbDist().getProbVec())
 
     return ("nothing")
+
+@app.route('/setRunMultipleWalksDBTest',methods=['POST','GET'])
+def setRunMultipleWalksDBTest():
+    if request.method == 'POST':
+        sessionCollection = database[session['sessionId']]
+        newTime = eval(request.form.get("newTimeList"))
+        newInitCond = request.form.get("newInitCond")
+        initCondList = list(map(int, newInitCond.split(",")))
+        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
+        staticQWAK.setTime(newTime)
+        newState = State(staticQWAK.getDim())
+        newState.buildState(initCondList)
+        staticQWAK.setInitState(newState)
+        # TODO: SOME WAY TO CATCH THE ERROR HERE
+        staticQWAK.runWalk()
+        sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
+    return ("nothing")
+
+@app.route('/getRunMultipleWalksDBTest',methods=['POST'])
+def getRunMultipleWalksDBTest():
+    prob = []
+    print(request.method)
+    if request.method == 'POST':
+        sessionCollection = database[session['sessionId']]
+        sessionId = session['sessionId']
+        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+        name = str(request.form.get("walkName"))
+        prob = gQwak.getDynamicProbVecList().tolist()
+    return prob
 
 ################## TEST ##################
 
