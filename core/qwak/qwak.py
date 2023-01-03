@@ -65,13 +65,13 @@ class QWAK:
         markedSearch : list, optional
             List with marked elements for search, by default None.
         """
-        if timeList is not None:
-            self._timeList = timeList
-        else:
-            self._timeList = None
-        self._qwakId = qwakId
         self._graph = graph
         self._n = len(self._graph)
+        if timeList is not None:
+            self._timeList = np.array(timeList)
+        else:
+            self._timeList = np.zeros(self._n)
+        self._qwakId = qwakId
         self._operator = Operator(
             self._graph,
             time=time,
@@ -116,7 +116,7 @@ class QWAK:
             qwakJson = json.dumps({
                 'dim':self._n,
                 'graph': nx.node_link_data(self._graph),
-                'timeList': self._timeList,
+                # 'timeList': self._timeList.tolist(),
                 'initState': json.loads(self._initState.to_json()),
                 'operator': json.loads(self._operator.to_json()),
                 'quantumWalk': json.loads(self._quantumWalk.to_json()),

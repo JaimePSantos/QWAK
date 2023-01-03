@@ -26,11 +26,11 @@ export function plotDynamicProbDist(multipleWalks) {
     }
 }
 
-export async function setDynamicProbDistDB(walkName) {
+export async function setDynamicProbDistDB(newDim,newGraph,newTimeList,newInitCond) {
     await $.ajax({
         type: 'POST',
         url: `/setRunMultipleWalksDB`,
-        data:{walkName:walkName},
+        data: {newDim:newDim,newGraph: newGraph, newTimeList:newTimeList,newInitCond:newInitCond},
         success: function () {
             console.log(`success - Runwalk`);
         },
@@ -40,12 +40,11 @@ export async function setDynamicProbDistDB(walkName) {
     });
 }
 
-export async function getDynamicProbDistDB(walkName) {
+export async function getDynamicProbDistDB() {
     let myWalk;
     await $.ajax({
         type: 'POST',
         url: `/getRunMultipleWalksDB`,
-        data:{walkName:walkName},
         success: function (response) {
             console.log(`success - Runwalk ${response}`);
             myWalk = response;

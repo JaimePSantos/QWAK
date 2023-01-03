@@ -74,7 +74,7 @@ def dynamicQW():
         dynamicN = 5
         dynamicGraph = nx.cycle_graph(dynamicN)
         dynamicQwak = QWAK(graph=dynamicGraph, qwakId=session['dynamicQwakId'])
-        sessionCollection.insert_one(json.loads(dynamicQwak.to_json()))
+        sessionCollection.insert_one(json.loads(dynamicQwak.to_json(isDynamic=True)))
     return render_template('dynamicQW.html')
 
 @app.route('/setStaticDim',methods=['GET','POST'])
@@ -155,7 +155,6 @@ def setRunWalkDB():
 
 @app.route('/getRunWalkDB',methods=['POST'])
 def getRunWalkDB():
-    prob = 0
     print(request.method)
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
@@ -231,28 +230,29 @@ def checkPST():
 @app.route('/setDynamicDim',methods=['GET','POST'])
 def setDynamicDim():
     sessionCollection = database[session['sessionId']]
-    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['dynamicQwakId']}))
+    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['dynamicQwakId']}),isDynamic=True)
+    print(type(dynamicQWAK.getTimeList()))
     newDim = request.form.get("newDim")
     graphStr = request.form.get("graphStr")
     dynamicQWAK.setDim(int(newDim), graphStr)
-    sessionCollection.replace_one({'qwakId': session['dynamicQwakId']},json.loads(dynamicQWAK.to_json()))
+    sessionCollection.replace_one({'qwakId': session['dynamicQwakId']},json.loads(dynamicQWAK.to_json(isDynamic=True)))
     return ("nothing")
 
 @app.route('/setDynamicGraph',methods=['GET','POST'])
 def setDynamicGraph():
     sessionCollection = database[session['sessionId']]
-    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['dynamicQwakId']}))
+    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['dynamicQwakId']}),isDynamic=True)
     newDim = int(request.form.get("newDim"))
     newGraph = request.form.get("newGraph")
     dynamicQWAK.setDim(newDim,graphStr=newGraph)
     dynamicQWAK.setGraph(eval(f"{newGraph}({dynamicQWAK.getDim()})"))
-    sessionCollection.replace_one({'qwakId': session['dynamicQwakId']},json.loads(dynamicQWAK.to_json()))
+    sessionCollection.replace_one({'qwakId': session['dynamicQwakId']},json.loads(dynamicQWAK.to_json(isDynamic=True)))
     return nx.cytoscape_data(dynamicQWAK.getGraph())
 
 @app.route('/getDynamicGraphToJson',methods=['GET','POST'])
 def getDynamicGraphToJson():
     sessionCollection = database[session['sessionId']]
-    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['dynamicQwakId']}))
+    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['dynamicQwakId']}),isDynamic=True)
     return nx.cytoscape_data(dynamicQWAK.getGraph())
 
 @app.route('/setDynamicInitStateList',methods=['GET','POST'])
@@ -279,30 +279,46 @@ def setDynamicTime():
 def setRunMultipleWalksDB():
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
-        newTime = eval(request.form.get("newTimeList"))
+
+        newDim = int(request.form.get("newDim"))
+        newGraphStr = request.form.get("newGraph")
+        newGraph = eval(newGraphStr + f"({newDim})")
+
+        newTimeList = eval(request.form.get("newTimeList"))
         newInitCond = request.form.get("newInitCond")
         initCondList = list(map(int, newInitCond.split(",")))
-        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
-        staticQWAK.setTime(newTime)
-        newState = State(staticQWAK.getDim())
+
+        dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}),isDynamic=True)
+        dynamicQWAK.setDim(newDim,newGraphStr)
+        dynamicQWAK.setGraph(newGraph)
+        dynamicQWAK.setTimeList(newTimeList)
+        newState = State(dynamicQWAK.getDim())
         newState.buildState(initCondList)
-        staticQWAK.setInitState(newState)
-        # TODO: SOME WAY TO CATCH THE ERROR HERE
-        staticQWAK.runWalk()
-        sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
+        dynamicQWAK.setInitState(newState)
+        dynamicQWAK.runMultipleWalks()
+
+        for probDist in dynamicQWAK.getProbDistList():
+            print(probDist.getProbVec())
+
+        sessionCollection.replace_one({'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(isDynamic=True)))
     return ("nothing")
 
 @app.route('/getRunMultipleWalksDB',methods=['POST'])
 def getRunMultipleWalksDB():
-    prob = []
     print(request.method)
     if request.method == 'POST':
-        sessionCollection = database[session['sessionId']]
-        sessionId = session['sessionId']
-        gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-        name = str(request.form.get("walkName"))
-        prob = gQwak.getDynamicProbVecList().tolist()
-    return prob
+        try:
+            sessionCollection = database[session['sessionId']]
+            dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}),isDynamic=True)
+            probDistList = []
+            for probDist in dynamicQWAK.getProbDistList():
+                probDistList.append(probDist.getProbVec())
+            resultDict = {
+                'prob': probDistList
+            }
+        except StateOutOfBounds as err:
+            return [True, str(err)]
+    return [False,resultDict]
 
 @app.route('/runMultipleWalks',methods=['GET','POST'])
 def runMultipleWalks():
@@ -416,7 +432,7 @@ def load():
         dynamicNTest = 5
         dynamicGraphTest = nx.cycle_graph(dynamicNTest)
         dynamicQwak = QWAK(graph=dynamicGraphTest, qwakId=session['dynamicQwakId'])
-        sessionCollection.insert_one(json.loads(dynamicQwak.to_json(True)))
+        sessionCollection.insert_one(json.loads(dynamicQwak.to_json(isDynamic=True)))
 
     return("nothing")
 
@@ -482,7 +498,7 @@ def setRunMultipleWalksDBTest():
         for probDist in dynamicQWAK.getProbDistList():
             print(probDist.getProbVec())
 
-        sessionCollection.replace_one({'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(True)))
+        sessionCollection.replace_one({'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(isDynamic=True)))
     return ("nothing")
 
 @app.route('/getRunMultipleWalksDBTest',methods=['POST'])

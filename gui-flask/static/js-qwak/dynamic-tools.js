@@ -37,12 +37,12 @@ export let defaultDist = [
 
 let initGraph = async () => {
     let graphStr = 'nx.cycle_graph'
-    setDynamicDim(5, graphStr)
-    setDynamicGraph(5,graphStr)
+    await setDynamicDim(5, graphStr)
+    await setDynamicGraph(5,graphStr)
 }
 
-function setDynamicDim(newDim, graphStr) {
-    $.ajax({
+async function setDynamicDim(newDim, graphStr) {
+    await $.ajax({
         type: 'POST',
         url: `/setDynamicDim`, // <- Add the queryparameter here
         data: {newDim: newDim, graphStr: graphStr},
@@ -55,8 +55,8 @@ function setDynamicDim(newDim, graphStr) {
     });
 }
 
-function setDynamicGraph(newGraph) {
-    $.ajax({
+async function setDynamicGraph(newDim,newGraph) {
+    await $.ajax({
         type: 'POST',
         url: `/setDynamicGraph`,
         data: {newDim:newDim,newGraph: newGraph},

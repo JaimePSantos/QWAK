@@ -7,8 +7,8 @@ let inputGraph = document.getElementById("inputGraph");
 
 // - Graph Generator
 
-export function setDynamicDim(newDim, graphStr) {
-    $.ajax({
+export async function setDynamicDim(newDim, graphStr) {
+    await $.ajax({
         type: 'POST',
         url: `/setDynamicDim`, // <- Add the queryparameter here
         data: {newDim: newDim, graphStr: graphStr},
@@ -21,18 +21,24 @@ export function setDynamicDim(newDim, graphStr) {
     });
 }
 
-export function setDynamicGraph(newGraph) {
-    $.ajax({
+export async function setDynamicGraph(newDim,newGraph) {
+    let myGraph;
+    await $.ajax({
         type: 'POST',
         url: `/setDynamicGraph`,
         data: {newDim:newDim, newGraph: newGraph},
         success: function (response) {
-            console.log('success - graph set to ${newGraph}');
+            console.log(`success - graph set to ${newGraph}`);
+            myGraph = response;
+            return myGraph;
         },
         error: function (response) {
             console.log('setGraph error');
+            myGraph = response;
+            return myGraph;
         }
     })
+    return myGraph;
 }
 
 export async function getDynamicGraph() {

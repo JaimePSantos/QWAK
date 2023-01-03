@@ -21,9 +21,9 @@ let inputTimeRange = document.getElementById("inputTimeRange");
 let inputInitStateRange = document.getElementById("inputInitStateRange");
 
 // #### JAVASCRIPT QUANTUM WALK OBJECTS ####
-let defaultN = 100;
+let defaultN = 5;
 let defaultGraph = 'nx.cycle_graph';
-let defaultTimeList = [0, 10];
+let defaultTimeList = [0, 5];
 let defaultInitStateList = [[Math.floor(defaultN / 2)]];
 let defaultProbDist = [];
 let defaultWalkName = "Placeholder";
@@ -67,9 +67,7 @@ $(function () {
         dynamicQuantumWalk.reset();
         dynamicQuantumWalk.graph = inputGraph.value;
         dynamicQuantumWalk.dim = parseInt(inputDim.value);
-        // setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph);
-        setDynamicGraph(dynamicQuantumWalk.dim,dynamicQuantumWalk.graph);
-        let myGraph = await getDynamicGraph();
+        let myGraph =  await setDynamicGraph(dynamicQuantumWalk.dim,dynamicQuantumWalk.graph);
         updateGraph(myGraph);
     });
 });
@@ -149,10 +147,15 @@ $(function () {
         }`;
         e.preventDefault();
         dynamicQuantumWalk.reset();
-        setDynamicJsTime();
-        setDynamicJsInitStateList();
-        await setDynamicProbDistDB(dynamicQuantumWalk.walkName);
-        dynamicQuantumWalk.probDist = await getDynamicProbDistDB(dynamicQuantumWalk.walkName);
+        await setDynamicProbDistDB(inputDim.value,inputGraph.value,inputTimeRange.value,inputInitStateRange.value);
+        let walkResult = await getDynamicProbDistDB(dynamicQuantumWalk.walkName);
+         if(walkResult[0] == "True"){
+            dynamicQuantumWalk.hasError = true;
+            dynamicQuantumWalk.probDist = walkResult[1];
+        }else{
+            dynamicQuantumWalk.hasError = false;
+            dynamicQuantumWalk.probDist = walkResult[1]['prob'];
+        }
         plotDynamicProbDist(dynamicQuantumWalk.probDist);
     });
 });
