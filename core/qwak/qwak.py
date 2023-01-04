@@ -231,7 +231,7 @@ class QWAK:
             _description_
         """
         # TODO: Decide if we should reset walk here.
-        # self.resetWalk()
+        self._probDistList = []
         if timeList is not None:
             self._timeList = timeList
         elif self._timeList is None:

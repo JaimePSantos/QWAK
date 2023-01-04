@@ -312,7 +312,7 @@ def getRunMultipleWalksDB():
             dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}),isDynamic=True)
             probDistList = []
             for probDist in dynamicQWAK.getProbDistList():
-                probDistList.append(probDist.getProbVec())
+                probDistList.append(probDist.getProbVec().tolist())
             resultDict = {
                 'prob': probDistList
             }

@@ -156,7 +156,8 @@ $(function () {
             dynamicQuantumWalk.hasError = false;
             dynamicQuantumWalk.probDist = walkResult[1]['prob'];
         }
-        plotDynamicProbDist(dynamicQuantumWalk.probDist);
+         console.log(dynamicQuantumWalk.probDist)
+        plotDynamicProbDist(dynamicQuantumWalk);
     });
 });
 
