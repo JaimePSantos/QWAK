@@ -82,14 +82,11 @@ class QWAK:
             nodeList=initStateList,
             customStateList=customStateList)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
-        # print(f"QWAK Init \t  Obj QW {self._quantumWalk.getFinalState().getDim()}")
 
         self._probDist = ProbabilityDistribution(
             self._quantumWalk.getFinalState())
-        # print(f"QWAK Init\t  Obj PD {self._probDist.getState().getDim()}")
 
         self._probDistList = []
-        # self._walkList = []
 
     def to_json(self,isDynamic = False) -> str:
         """_summary_
@@ -517,7 +514,6 @@ class QWAK:
         newProbDist : ProbabilityDistribution
             New probability distribution.
         """
-        # print(newProbDist.getDim())
         self._probDist.setProbDist(newProbDist)
 
     def getProbDist(self) -> ProbabilityDistribution:
@@ -675,15 +671,22 @@ class QWAK:
         except MissingNodeInput as err:
             raise err
 
-    def getInversePartRatio(self):
-        """_summary_
+    # def getInversePartRatio(self):
+    #     """_summary_
+    #
+    #     Returns
+    #     -------
+    #     _type_
+    #         _description_
+    #     """
+    #     return self._quantumWalk.invPartRatio()
 
-        Returns
-        -------
-        _type_
-            _description_
-        """
-        return self._quantumWalk.invPartRatio()
+    def getInversePartRatio(self):
+        return self._probDist.invPartRatio()
+
+    def getInversePartRatioList(self,resultRounding):
+        stDevList = [round(probDist.invPartRatio(),resultRounding) for probDist in self._probDistList]
+        return stDevList
 
     def getTransportEfficiency(self):
         """_summary_

@@ -106,7 +106,6 @@ class Operator:
             data = json_var
         graph = nx.node_link_graph(data['graph'])
         time = data['time']
-        # print(f"Time Dict\t Operator {data['time']}")
         laplacian = data['laplacian']
         markedSearch = data['markedSearch']
         adjacencyMatrix = np.array(json_matrix_to_complex(data['adjacencyMatrix']))
@@ -136,7 +135,6 @@ class Operator:
         """
         if time is not None:
             self._time = time
-        print(self._time)
         diag = np.diag(
             np.exp(-1j * self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)

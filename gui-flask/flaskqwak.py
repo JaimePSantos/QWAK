@@ -344,9 +344,9 @@ def getDynamicStDev():
 @app.route('/getDynamicInvPartRatio',methods=['GET','POST'])
 def getDynamicInvPartRatio():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicInvPartRatio()))
+    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}), isDynamic=True)
+    stDevList = dynamicQWAK.getInversePartRatioList(resultRounding)
+    return stDevList
 
 @app.route('/getDynamicSurvivalProb',methods=['GET','POST'])
 def getDynamicSurvivalProb():

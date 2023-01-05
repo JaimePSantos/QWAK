@@ -137,9 +137,7 @@ class QuantumWalk:
             New QuantumWalk dimension.
         """
         self._n = newDim
-        # print(self._finalState.getStateVec())
         self._finalState.setDim(self._n)
-        # print(self._finalState.getStateVec())
 
     def getDim(self) -> int:
         """Gets the current state dimension.

@@ -28,10 +28,8 @@ class ProbabilityDistribution:
             State to be converted into a probability.
         """
         self._state = state
-        # print(f"PD Init \t  Obj QW {self._state.getDim()}")
         self._stateVec = self._state.getStateVec()
         self._n = state.getDim()
-        # print(f"PD Init \t  Obj PD {self._n}")
         self._probVec = np.zeros((self._n, 1), dtype=float)
 
     def to_json(self):
@@ -48,14 +46,9 @@ class ProbabilityDistribution:
         elif isinstance(json_var,dict):
             json_dict = json_var
         state = State.from_json(json_dict['state'])
-        # print(f"Dict ProbDist {json_dict['state']['n']}")
-        # print(f"Obj ProbDist {State.from_json(json_dict['state']).getDim()}")
-
         dim = json_dict['dim']
         prob_vec = np.array(json_dict['prob_vec'])
         probDist = cls(state)
-        # probDist.setDim(dim)
-        # probDist.setState(state)
         probDist.setProbVec(prob_vec)
         return probDist
 
@@ -193,6 +186,14 @@ class ProbabilityDistribution:
         for x in range(self._n):
             m += (pos[x] ** k) * self._probVec[x]
         return float(m)
+
+    def invPartRatio(self):
+        invPartRatio = 0
+        for prob in self._probVec:
+            invPartRatio += np.absolute(prob.item(0))**2
+        invPartRatio=1/invPartRatio
+        return invPartRatio
+
 
     def stDev(self) -> float:
         """_summary_
