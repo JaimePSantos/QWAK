@@ -40,7 +40,7 @@ dynamicGraph = nx.cycle_graph(dynamicN)
 timeList = [0, 1]
 initStateList = [[dynamicN // 2, (dynamicN // 2) + 1]]
 
-resultRounding = 4
+resultRounding = 3
 
 @app.route("/",methods=['GET', 'POST'])
 @app.route("/home")
@@ -330,9 +330,9 @@ def runMultipleWalks():
 @app.route('/getDynamicMean',methods=['GET','POST'])
 def getDynamicMean():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicMean()))
+    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}),isDynamic=True)
+    meanList = dynamicQWAK.getMeanList(resultRounding)
+    return meanList
 
 @app.route('/getDynamicStDev',methods=['GET','POST'])
 def getDynamicStDev():

@@ -627,6 +627,10 @@ class QWAK:
         """
         return self._probDist.moment(1)
 
+    def getMeanList(self,resultRounding):
+        meanList = [round(probDist.moment(1),resultRounding) for probDist in self._probDistList]
+        return meanList
+
     def getSndMoment(self):
         """_summary_
 
