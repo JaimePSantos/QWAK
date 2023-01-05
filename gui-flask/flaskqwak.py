@@ -337,9 +337,9 @@ def getDynamicMean():
 @app.route('/getDynamicStDev',methods=['GET','POST'])
 def getDynamicStDev():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicStDev()))
+    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}), isDynamic=True)
+    stDevList = dynamicQWAK.getStDevList(resultRounding)
+    return stDevList
 
 @app.route('/getDynamicInvPartRatio',methods=['GET','POST'])
 def getDynamicInvPartRatio():

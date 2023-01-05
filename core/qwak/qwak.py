@@ -651,6 +651,10 @@ class QWAK:
         """
         return self._probDist.stDev()
 
+    def getStDevList(self,resultRounding):
+        stDevList = [round(probDist.stDev(),resultRounding) for probDist in self._probDistList]
+        return stDevList
+
     def getSurvivalProb(self, k0, k1):
         """_summary_
 
