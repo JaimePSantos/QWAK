@@ -6,18 +6,11 @@ let inputInitState = document.getElementById("inputInitState");
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
 export function plotStaticProbDistDB(walk) {
-    // console.log(walk)
-    if (walk.hasError == true) {
-        alert(walk.probDist);
-        return;
-    } else {
-        console.log(walk.probDist)
         let distList = walk.probDist.flat();
         staticChartData.data.datasets[0].data = distList;
         staticChartData.data.labels = [...Array(distList.length).keys()];
         myChart.destroy();
         myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-    }
 }
 
 export async function setStaticProbDistDB(newDim,newGraph,newTime,newInitCond) {
@@ -34,12 +27,12 @@ export async function setStaticProbDistDB(newDim,newGraph,newTime,newInitCond) {
     });
 }
 
-export async function getStaticProbDistDB(walkName) {
+export async function getStaticProbDistDB(newDim,newGraph,newTime,newInitCond) {
     let myWalk, walkId;
     await $.ajax({
         type: 'POST',
         url: `/getRunWalkDB`,
-        data:{walkName:walkName},
+        data: {newDim:newDim,newGraph: newGraph, newTime:newTime,newInitCond:newInitCond},
         success: function (response) {
             console.log(`success - Runwalk ${response}`);
             myWalk = response;

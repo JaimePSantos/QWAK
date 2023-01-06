@@ -86,6 +86,15 @@ $(function () {
     });
 });
 
+$(function () {
+    $('#setGraphButton').on('click', async function (e) {
+        e.preventDefault();
+        staticQuantumWalk.graph = inputGraph.value;
+        staticQuantumWalk.dim = parseInt(inputDim.value);
+        await setStaticGraph(staticQuantumWalk.dim, staticQuantumWalk.graph)
+    });
+});
+
 // - Custom Graph
 // #### CUSTOM GRAPH ####
 
@@ -155,11 +164,10 @@ $(function () {
         }`;
         e.preventDefault();
         staticQuantumWalk.reset();
-        await setStaticProbDistDB(inputDim.value,inputGraph.value,inputTime.value,inputInitState.value);
-        let walkResult = await getStaticProbDistDB();
-        if(walkResult[0] == "True"){
-            staticQuantumWalk.hasError = true;
+        let walkResult = await getStaticProbDistDB(inputDim.value,inputGraph.value,inputTime.value,inputInitState.value);
+        if(walkResult[0] == true){
             staticQuantumWalk.probDist = walkResult[1];
+            alert(staticQuantumWalk.probDist)
         }else{
             staticQuantumWalk.hasError = false;
             staticQuantumWalk.probDist = walkResult[1]['prob'];
@@ -167,12 +175,13 @@ $(function () {
             staticQuantumWalk.sndMoment = walkResult[1]['sndMoment'];
             staticQuantumWalk.stDev = walkResult[1]['stDev'];
             staticQuantumWalk.invPartRatio = walkResult[1]['invPartRatio'];
+            plotStaticProbDistDB(staticQuantumWalk);
+            await setStaticMean();
+            await setStaticSndMoment();
+            await setStaticStDev();
+            await setStaticInversePartRatio();
         }
-        plotStaticProbDistDB(staticQuantumWalk);
-        await setStaticMean();
-        await setStaticSndMoment();
-        await setStaticStDev();
-        await setStaticInversePartRatio();
+
     });
 });
 

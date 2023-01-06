@@ -159,7 +159,15 @@ def getRunWalkDB():
     if request.method == 'POST':
         sessionCollection = database[session['sessionId']]
         try:
+            newTime = eval(request.form.get("newTime"))
+            newInitCond = request.form.get("newInitCond")
+            initCondList = list(map(int, newInitCond.split(",")))
             staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
+            staticQWAK.setTime(newTime)
+            newState = State(staticQWAK.getDim())
+            newState.buildState(initCondList)
+            staticQWAK.setInitState(newState)
+            staticQWAK.runWalk()
             resultDict = {
                 'prob': staticQWAK.getProbVec().tolist(),
                 'mean': staticQWAK.getMean(),
@@ -167,9 +175,10 @@ def getRunWalkDB():
                 'stDev': staticQWAK.getStDev(),
                 'invPartRatio': staticQWAK.getInversePartRatio()
             }
+            sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
+            return [False, resultDict]
         except StateOutOfBounds as err:
             return [True, str(err)]
-    return [False,resultDict]
 
 @app.route('/getStaticMean',methods=['GET','POST'])
 def getStaticMean():
@@ -358,7 +367,6 @@ def getDynamicSurvivalProb():
         survProbList = dynamicQWAK.getSurvivalProbList(fromNode,toNode,resultRounding)
         return [False,survProbList]
     except MissingNodeInput as err:
-        print('hi')
         return [True,str(err)]
 
 @app.route('/setDynamicCustomGraph',methods=['GET','POST'])

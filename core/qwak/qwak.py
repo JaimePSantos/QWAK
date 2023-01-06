@@ -144,20 +144,24 @@ class QWAK:
             data = json_var
         qwakId = data['qwakId']
         graph = nx.node_link_graph(data['graph'])
-        timeList = data['timeList']
+
         initState = State.from_json(data['initState'])
         operator = Operator.from_json(data['operator'])
         quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
-        newQwak = cls(graph=graph, timeList=timeList,qwakId=qwakId)
-        newQwak.setInitState(initState)
-        newQwak.setOperator(operator)
-        newQwak.setWalk(quantumWalk)
         if isDynamic:
+            timeList = data['timeList']
+            newQwak = cls(graph=graph, timeList=timeList,qwakId=qwakId)
             probDistList = [ProbabilityDistribution.from_json(probDist) for probDist in data['probDistList']]
             newQwak.setProbDistList(probDistList)
         else:
             probDist = ProbabilityDistribution.from_json(data['probDist'])
+            newQwak = cls(graph=graph, qwakId=qwakId)
             newQwak.setProbDist(probDist)
+        newQwak.setInitState(initState)
+        newQwak.setOperator(operator)
+        newQwak.setWalk(quantumWalk)
+
+
         return newQwak
 
     def setQWAK(self,newQWAK):
