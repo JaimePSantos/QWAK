@@ -14,8 +14,7 @@ if __name__ == "__main__":
 
     qw = QWAK(nx.complete_graph(100))
     qw.runWalk(10,[50])
-    print(f"quantum walk {qw.getInversePartRatio()}")
-    print(f"prob dist {qw.getInversePartRatio2()}")
+    # print(f"quantum walk {qw.getInversePartRatio()}")
     # # state = State(4, [0, 1, 2, 3])
     # # state.buildState()
     # # st_json_str = state.to_json()

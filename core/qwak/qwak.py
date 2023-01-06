@@ -647,7 +647,7 @@ class QWAK:
         """
         return self._probDist.stDev()
 
-    def getStDevList(self,resultRounding):
+    def getStDevList(self,resultRounding=0):
         stDevList = [round(probDist.stDev(),resultRounding) for probDist in self._probDistList]
         return stDevList
 
@@ -671,20 +671,17 @@ class QWAK:
         except MissingNodeInput as err:
             raise err
 
-    # def getInversePartRatio(self):
-    #     """_summary_
-    #
-    #     Returns
-    #     -------
-    #     _type_
-    #         _description_
-    #     """
-    #     return self._quantumWalk.invPartRatio()
+    def getSurvivalProbList(self,k0,k1,resultRounding=0):
+        try:
+            survProbList = [round(probDist.survivalProb(k0,k1),resultRounding) for probDist in self._probDistList]
+            return survProbList
+        except MissingNodeInput as err:
+            raise err
 
     def getInversePartRatio(self):
         return self._probDist.invPartRatio()
 
-    def getInversePartRatioList(self,resultRounding):
+    def getInversePartRatioList(self,resultRounding=0):
         stDevList = [round(probDist.invPartRatio(),resultRounding) for probDist in self._probDistList]
         return stDevList
 

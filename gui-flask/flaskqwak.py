@@ -351,14 +351,15 @@ def getDynamicInvPartRatio():
 @app.route('/getDynamicSurvivalProb',methods=['GET','POST'])
 def getDynamicSurvivalProb():
     sessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
+    dynamicQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['dynamicQwakId']}), isDynamic=True)
     fromNode = str(request.form.get("fromNode"))
     toNode = str(request.form.get("toNode"))
-    survProb = gQwak.getDynamicSurvivalProb(fromNode, toNode)
-    if not survProb[0]:
-        survProb[1] = list(map(lambda x: round(x,resultRounding),survProb[1]))
-    return survProb
+    try:
+        survProbList = dynamicQWAK.getSurvivalProbList(fromNode,toNode,resultRounding)
+        return [False,survProbList]
+    except MissingNodeInput as err:
+        print('hi')
+        return [True,str(err)]
 
 @app.route('/setDynamicCustomGraph',methods=['GET','POST'])
 def setDynamicCustomGraph():

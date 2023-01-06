@@ -231,7 +231,7 @@ class ProbabilityDistribution:
                 return self._probVec[int(k0)][0]
             else:
                 for i in range(int(k0), int(k1) + 1):
-                    survProb += self._probVec[i]
+                    survProb += self._probVec[i][0]
             return survProb
         except ValueError:
             raise MissingNodeInput(

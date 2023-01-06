@@ -255,6 +255,7 @@ let setDynSurvProb = async () => {
     let k0 = document.getElementById("dynInputSurvProbNodeA").value
     let k1 = document.getElementById("dynInputSurvProbNodeB").value
     let dynSurvProb = await getDynamicSurvivalProb(k0, k1);
+    console.log(dynSurvProb)
     if(dynSurvProb[0]==true){
         alert(dynSurvProb[1]);
         return;
