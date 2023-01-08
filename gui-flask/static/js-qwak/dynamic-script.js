@@ -83,6 +83,7 @@ $(function () {
 
 
 // #### CUSTOM GRAPH ####
+var eh = customCy.edgehandles();
 
 document.getElementById('addEdgeButton').addEventListener('click', function () {
     eh.enableDrawMode();
@@ -147,9 +148,8 @@ $(function () {
         }`;
         e.preventDefault();
         dynamicQuantumWalk.reset();
-        await setDynamicProbDistDB(inputDim.value,inputGraph.value,inputTimeRange.value,inputInitStateRange.value);
-        let walkResult = await getDynamicProbDistDB(dynamicQuantumWalk.walkName);
-         if(walkResult[0] == "True"){
+        let walkResult = await getDynamicProbDistDB(inputDim.value,inputGraph.value,inputTimeRange.value,inputInitStateRange.value);
+         if(walkResult[0] == true){
             dynamicQuantumWalk.hasError = true;
             dynamicQuantumWalk.probDist = walkResult[1];
         }else{

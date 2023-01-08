@@ -160,8 +160,6 @@ class QWAK:
         newQwak.setInitState(initState)
         newQwak.setOperator(operator)
         newQwak.setWalk(quantumWalk)
-
-
         return newQwak
 
     def setQWAK(self,newQWAK):
@@ -231,7 +229,6 @@ class QWAK:
         UndefinedTimeList
             _description_
         """
-        # TODO: Decide if we should reset walk here.
         self._probDistList = []
         if timeList is not None:
             self._timeList = timeList
@@ -243,7 +240,6 @@ class QWAK:
                 initStateList=initStateList,
                 customStateList=customStateList)
             self._probDistList.append(copy.deepcopy(self.getProbDist()))
-            # self._walkList.append(copy.deepcopy(self.getWalk()))
 
     def resetWalk(self) -> None:
         """Resets the components of a walk."""
