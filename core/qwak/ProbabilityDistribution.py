@@ -30,7 +30,7 @@ class ProbabilityDistribution:
         self._state = state
         self._stateVec = self._state.getStateVec()
         self._n = state.getDim()
-        self._probVec = np.zeros((self._n, 1), dtype=float)
+        self._probVec = np.zeros(self._n, dtype=float)
 
     def to_json(self):
         return json.dumps({
@@ -46,7 +46,6 @@ class ProbabilityDistribution:
         elif isinstance(json_var,dict):
             json_dict = json_var
         state = State.from_json(json_dict['state'])
-        dim = json_dict['dim']
         prob_vec = np.array(json_dict['prob_vec'])
         probDist = cls(state)
         probDist.setProbVec(prob_vec)
@@ -56,7 +55,7 @@ class ProbabilityDistribution:
         """Resets the ProbabilityDistribution object."""
         # TODO: Rethink state attribute
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
-        self._probVec = np.zeros((self._n, 1), dtype=float)
+        self._probVec = np.zeros(self._n, dtype=float)
 
     def buildProbDist(self, state: State = None) -> None:
         """Builds the probability vector by multiplying the user inputted
@@ -71,9 +70,7 @@ class ProbabilityDistribution:
             self._n = state.getDim()
             self._state.setState(state)
             self._stateVec = self._state.getStateVec()
-        for st in range(self._n):
-            self._probVec[st] = (self._stateVec[st] *
-                                 np.conj(self._stateVec[st])).real
+        self._probVec = np.array([(state[0]*np.conj(state[0])).real for state in self._stateVec])
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
@@ -136,7 +133,7 @@ class ProbabilityDistribution:
         np.ndarray
             Returns the array of the ProbabilityDistribution object.
         """
-        return self._probVec.flatten()
+        return self._probVec
 
     def searchNodeProbability(self, searchNode: int) -> float:
         """Searches and gets the probability associated with a given node.
@@ -231,7 +228,7 @@ class ProbabilityDistribution:
                 return self._probVec[int(k0)][0]
             else:
                 for i in range(int(k0), int(k1) + 1):
-                    survProb += self._probVec[i][0]
+                    survProb += self._probVec[i]
             return survProb
         except ValueError:
             raise MissingNodeInput(

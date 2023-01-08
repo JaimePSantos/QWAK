@@ -87,28 +87,6 @@ def setStaticDim():
     sessionCollection.replace_one({'qwakId': session['staticQwakId']},json.loads(staticQWAK.to_json()))
     return ("nothing")
 
-@app.route('/setStaticInitState',methods=['GET','POST'])
-def setStaticInitState():
-    # sessionCollection = database[session['sessionId']]
-    # sessionId = session['sessionId']
-    # gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
-    # initStateStr = request.form.get("initStateStr")
-    # gQwak.setStaticInitState(initStateStr)
-    # sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
-    print("Deprecated.")
-    return ("nothing")
-
-@app.route('/setStaticTime',methods=['GET','POST'])
-def setStaticTime():
-    # sessionCollection = database[session['sessionId']]
-    # sessionId = session['sessionId']
-    # gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId':sessionId}))
-    # newTime = request.form.get("newTime")
-    # gQwak.setStaticTime(newTime)
-    # sessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
-    print("Deprecated.")
-    return ("nothing")
-
 @app.route('/setStaticGraph',methods=['GET','POST'])
 def setStaticGraph():
     sessionCollection = database[session['sessionId']]
@@ -131,26 +109,8 @@ def setStaticCustomGraph():
     sessionCollection = database[session['sessionId']]
     staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId':session['staticQwakId']}))
     customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
-    print(customAdjacency)
     staticQWAK.setCustomGraph(customAdjacency)
     sessionCollection.replace_one({'qwakId': session['staticQwakId']},json.loads(staticQWAK.to_json()))
-    return ("nothing")
-
-@app.route('/setRunWalkDB',methods=['POST'])
-def setRunWalkDB():
-    if request.method == 'POST':
-        sessionCollection = database[session['sessionId']]
-        newTime = eval(request.form.get("newTime"))
-        newInitCond = request.form.get("newInitCond")
-        initCondList = list(map(int, newInitCond.split(",")))
-        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
-        staticQWAK.setTime(newTime)
-        newState = State(staticQWAK.getDim())
-        newState.buildState(initCondList)
-        staticQWAK.setInitState(newState)
-        # TODO: SOME WAY TO CATCH THE ERROR HERE
-        staticQWAK.runWalk()
-        sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
     return ("nothing")
 
 @app.route('/getRunWalkDB',methods=['POST'])
@@ -180,52 +140,17 @@ def getRunWalkDB():
         except StateOutOfBounds as err:
             return [True, str(err)]
 
-@app.route('/getStaticMean',methods=['GET','POST'])
-def getStaticMean():
-    # sessionCollection = database[session['sessionId']]
-    # sessionId = session['sessionId']
-    # gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-    # return [round(gQwak.getStaticMean(), resultRounding)]
-    print("Deprecated.")
-    return ("nothing")
-
-@app.route('/getStaticSndMoment',methods=['GET','POST'])
-def getStaticSndMoment():
-    # sessionCollection = database[session['sessionId']]
-    # sessionId = session['sessionId']
-    # gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-    # return [round(gQwak.getStaticSndMoment(), resultRounding)]
-    print("Deprecated.")
-    return ("nothing")
-
-@app.route('/getStaticStDev',methods=['GET','POST'])
-def getStaticStDev():
-    # sessionCollection = database[session['sessionId']]
-    # sessionId = session['sessionId']
-    # gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-    # return [round(gQwak.getStaticStDev(), resultRounding)]
-    print("Deprecated.")
-    return ("nothing")
-
-@app.route('/getStaticInversePartRatio',methods=['GET','POST'])
-def getStaticInversePartRatio():
-    # sessionCollection = database[session['sessionId']]
-    # sessionId = session['sessionId']
-    # gQwak = GraphicalQWAK.from_json(sessionCollection.find_one({'qwakId': sessionId}))
-    # return [round(gQwak.getStaticInversePartRatio(), resultRounding)]
-    print("Deprecated.")
-    return ("nothing")
-
 @app.route('/getStaticSurvivalProb',methods=['GET','POST'])
 def getStaticSurvivalProb():
-    sessionCollection = database[session['sessionId']]
-    staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
-    fromNode = str(request.form.get("fromNode"))
-    toNode = str(request.form.get("toNode"))
-    survProb = staticQWAK.getSurvivalProb(fromNode, toNode)
-    # if not survProb[0]:
-    #     survProb[1] = round(survProb[1], resultRounding)
-    return str(survProb)
+    try:
+        sessionCollection = database[session['sessionId']]
+        staticQWAK = QWAK.from_json(sessionCollection.find_one({'qwakId': session['staticQwakId']}))
+        fromNode = str(request.form.get("fromNode"))
+        toNode = str(request.form.get("toNode"))
+        survProb = staticQWAK.getSurvivalProb(fromNode, toNode)
+        return [False,str(survProb)]
+    except MissingNodeInput as err:
+        return [True, str(err)]
 
 @app.route('/checkPST',methods=['GET','POST'])
 def checkPST():
@@ -289,8 +214,6 @@ def getRunMultipleWalksDB():
     if request.method == 'POST':
         try:
             sessionCollection = database[session['sessionId']]
-
-            newDim = int(request.form.get("newDim"))
             newTimeList = eval(request.form.get("newTimeList"))
             newInitCond = request.form.get("newInitCond")
             initCondList = list(map(int, newInitCond.split(",")))

@@ -233,8 +233,13 @@ async function setStaticInversePartRatio() {
 }
 
 async function setStaticSurvivalProb(fromNode, toNode) {
-    staticQuantumWalk.survivalProb = await getStaticSurvivalProb(fromNode,toNode);
-    inputSurvProbResult.value = staticQuantumWalk.survivalProb
+    let survProb = await getStaticSurvivalProb(fromNode,toNode);
+    if(survProb[0]==true){
+        alert(survProb[1]);
+    }else{
+        staticQuantumWalk.survivalProb = survProb[1];
+        inputSurvProbResult.value = staticQuantumWalk.survivalProb;
+    }
 }
 
 async function setPst(nodeA, nodeB) {
