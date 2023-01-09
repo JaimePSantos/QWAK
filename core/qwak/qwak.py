@@ -607,7 +607,6 @@ class QWAK:
             else round(self._probDist.moment(1), resultRounding)
 
     def getMeanList(self, resultRounding=None):
-
         return [
             probDist.moment(1) for probDist in self._probDistList] if (
             resultRounding is None) \
@@ -650,13 +649,20 @@ class QWAK:
                 probDist.stDev(),
                 resultRounding) for probDist in self._probDistList]
 
-    def getInversePartRatio(self):
-        return self._probDist.invPartRatio()
+    def getInversePartRatio(self, resultRounding=None):
+        return self._probDist.invPartRatio() if (
+            resultRounding is None) \
+            else round(
+            self._probDist.invPartRatio(), resultRounding)
 
-    def getInversePartRatioList(self, resultRounding=0):
-        stDevList = [round(probDist.invPartRatio(), resultRounding)
-                     for probDist in self._probDistList]
-        return stDevList
+    def getInversePartRatioList(self, resultRounding=None):
+        return [
+            probDist.invPartRatio() for probDist in self._probDistList] if (
+            resultRounding is None) \
+            else [
+            round(
+                probDist.invPartRatio(),
+                resultRounding) for probDist in self._probDistList]
 
     def getSurvivalProb(self, k0, k1):
         """_summary_
@@ -683,8 +689,8 @@ class QWAK:
             return [
                 probDist.survivalProb(
                     k0,
-                    k1) for probDist in self._probDistList] if (resultRounding is None) \
-            else [
+                    k1) for probDist in self._probDistList] if (
+                resultRounding is None) else [
                 round(
                     probDist.survivalProb(
                         k0,

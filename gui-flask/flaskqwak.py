@@ -18,10 +18,10 @@ load_dotenv()
 QWAKCLUSTER_USERNAME = os.environ.get('QWAKCLUSTER_USERNAME')
 QWAKCLUSTER_PASSWORD = os.environ.get('QWAKCLUSTER_PASSWORD')
 
-connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
+# connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
 
-# client = MongoClient('localhost', 27017)
-client = MongoClient(connection_string)
+client = MongoClient('localhost', 27017)
+# client = MongoClient(connection_string)
 db_string = 'qwak_flask'
 database = client.get_database(db_string)
 probDistEntry = database['probDistEntry']
@@ -133,7 +133,7 @@ def getRunWalkDB():
                 'mean': staticQWAK.getMean(resultRounding),
                 'sndMoment': staticQWAK.getSndMoment(resultRounding),
                 'stDev': staticQWAK.getStDev(resultRounding),
-                'invPartRatio': staticQWAK.getInversePartRatio()
+                'invPartRatio': staticQWAK.getInversePartRatio(resultRounding)
             }
             sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
             return [False, resultDict]
