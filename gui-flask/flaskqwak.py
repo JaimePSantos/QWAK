@@ -20,8 +20,8 @@ QWAKCLUSTER_PASSWORD = os.environ.get('QWAKCLUSTER_PASSWORD')
 
 connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
 
-client = MongoClient('localhost', 27017)
-# client = MongoClient(connection_string)
+# client = MongoClient('localhost', 27017)
+client = MongoClient(connection_string)
 db_string = 'qwak_flask'
 database = client.get_database(db_string)
 probDistEntry = database['probDistEntry']
