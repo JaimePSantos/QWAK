@@ -3,7 +3,7 @@ from __future__ import annotations
 import warnings
 import numpy as np
 import json
-from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
+from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
 
 from qwak.Operator import Operator
 from qwak.State import State
@@ -69,9 +69,9 @@ class QuantumWalk:
         QuantumWalk
             Deserialized QuantumWalk object.
         """
-        if isinstance(json_var,str):
+        if isinstance(json_var, str):
             data = json.loads(json_var)
-        elif isinstance(json_var,dict):
+        elif isinstance(json_var, dict):
             data = json_var
         initState = State.from_json(data["initState"])
         operator = Operator.from_json(data["operator"])

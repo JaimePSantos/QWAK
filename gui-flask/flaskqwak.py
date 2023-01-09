@@ -130,9 +130,9 @@ def getRunWalkDB():
             staticQWAK.runWalk()
             resultDict = {
                 'prob': staticQWAK.getProbVec().tolist(),
-                'mean': staticQWAK.getMean(),
-                'sndMoment': staticQWAK.getSndMoment(),
-                'stDev': staticQWAK.getStDev(),
+                'mean': staticQWAK.getMean(resultRounding),
+                'sndMoment': staticQWAK.getSndMoment(resultRounding),
+                'stDev': staticQWAK.getStDev(resultRounding),
                 'invPartRatio': staticQWAK.getInversePartRatio()
             }
             sessionCollection.replace_one({'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))

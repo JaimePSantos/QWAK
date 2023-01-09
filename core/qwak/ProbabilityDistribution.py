@@ -4,7 +4,7 @@ import numpy as np
 from qwak.State import State
 from qwak.Errors import MissingNodeInput
 import json
-from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
+from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
 
 warnings.filterwarnings("ignore")
 
@@ -41,9 +41,9 @@ class ProbabilityDistribution:
 
     @classmethod
     def from_json(cls, json_var):
-        if isinstance(json_var,str):
+        if isinstance(json_var, str):
             json_dict = json.loads(json_var)
-        elif isinstance(json_var,dict):
+        elif isinstance(json_var, dict):
             json_dict = json_var
         state = State.from_json(json_dict['state'])
         prob_vec = np.array(json_dict['prob_vec'])
@@ -70,7 +70,8 @@ class ProbabilityDistribution:
             self._n = state.getDim()
             self._state.setState(state)
             self._stateVec = self._state.getStateVec()
-        self._probVec = np.array([(state[0]*np.conj(state[0])).real for state in self._stateVec])
+        self._probVec = np.array(
+            [(state[0] * np.conj(state[0])).real for state in self._stateVec])
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
@@ -98,7 +99,7 @@ class ProbabilityDistribution:
     def getState(self):
         return self._state
 
-    def setState(self,newState):
+    def setState(self, newState):
         self._state.setState(newState)
 
     def setDim(self, newDim):
@@ -188,9 +189,8 @@ class ProbabilityDistribution:
         invPartRatio = 0
         for prob in self._probVec:
             invPartRatio += np.absolute(prob.item(0))**2
-        invPartRatio=1/invPartRatio
+        invPartRatio = 1 / invPartRatio
         return invPartRatio
-
 
     def stDev(self) -> float:
         """_summary_

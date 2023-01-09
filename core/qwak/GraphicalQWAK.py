@@ -27,7 +27,7 @@ class GraphicalQWAK:
         dynamicStateList: list,
         staticTime: float,
         dynamicTimeList: list,
-        qwakId : str = 'undefinedUser',
+        qwakId: str = 'undefinedUser',
     ) -> None:
         """_summary_
 
@@ -94,7 +94,7 @@ class GraphicalQWAK:
         })
 
     @classmethod
-    def from_json(cls, json_var: Union[str,dict]):
+    def from_json(cls, json_var: Union[str, dict]):
         """_summary_
 
         Parameters
@@ -107,9 +107,9 @@ class GraphicalQWAK:
         Operator
             _description_
         """
-        if isinstance(json_var,str):
+        if isinstance(json_var, str):
             data = json.loads(json_var)
-        elif isinstance(json_var,dict):
+        elif isinstance(json_var, dict):
             data = json_var
         staticN = data['staticN']
         dynamicN = data['dynamicN']
@@ -156,19 +156,19 @@ class GraphicalQWAK:
     def getQwakId(self):
         return self._qwakId
 
-    def setQwakId(self,newId):
+    def setQwakId(self, newId):
         self._qwakId = newId
 
-    def setStaticQWAK(self,newStaticQWAK):
+    def setStaticQWAK(self, newStaticQWAK):
         self._staticQWAK.setQWAK(newStaticQWAK)
 
     def getStaticQWAK(self):
         return self._staticQWAK
 
-    def setDynamicQWAK(self,newDynamicQWAK):
+    def setDynamicQWAK(self, newDynamicQWAK):
         self._dynamicQWAK.setQWAK(newDynamicQWAK)
 
-    def setDynamicTimeList(self,newTimeList):
+    def setDynamicTimeList(self, newTimeList):
         self._dynamicQWAK.setTimeList(newTimeList)
         self._dynamicTimeList = self._dynamicQWAK.getTimeList()
 
@@ -488,7 +488,7 @@ class GraphicalQWAK:
         """
         return self._staticProbDist
 
-    def setStaticProbDist(self,newStaticProbDist):
+    def setStaticProbDist(self, newStaticProbDist):
         self._staticProbDist.setProbDist(newStaticProbDist)
 
     def getDynamicProbDistList(self):
@@ -501,14 +501,14 @@ class GraphicalQWAK:
         """
         return self._dynamicProbDistList
 
-    def setDynamicProbDistList(self,newDynamicProbDistList):
+    def setDynamicProbDistList(self, newDynamicProbDistList):
         self._dynamicProbDistList = newDynamicProbDistList
         self._dynamicQWAK.setProbDistList(self._dynamicProbDistList)
 
     def getDynamicWalkList(self):
         return self._dynamicAmpList
 
-    def setDynamicWalkList(self,newWalkList):
+    def setDynamicWalkList(self, newWalkList):
         self._dynamicAmpList = newWalkList
         self._dynamicQWAK.setWalkList(self._dynamicAmpList)
 

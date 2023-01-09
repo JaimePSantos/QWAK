@@ -88,7 +88,7 @@ class QWAK:
 
         self._probDistList = []
 
-    def to_json(self,isDynamic = False) -> str:
+    def to_json(self, isDynamic=False) -> str:
         """_summary_
 
         Returns
@@ -98,20 +98,20 @@ class QWAK:
         """
         if isDynamic:
             qwakJson = json.dumps({
-                'dim':self._n,
+                'dim': self._n,
                 'graph': nx.node_link_data(self._graph),
                 'timeList': self._timeList.tolist(),
                 'initState': json.loads(self._initState.to_json()),
                 'operator': json.loads(self._operator.to_json()),
                 'quantumWalk': json.loads(self._quantumWalk.to_json()),
                 # 'probDist': json.loads(self._probDist.to_json()),
-                'probDistList':[probDist.to_json() for probDist in self._probDistList],
+                'probDistList': [probDist.to_json() for probDist in self._probDistList],
                 # 'walkList': self._walkList,
                 'qwakId': self._qwakId
             })
         else:
             qwakJson = json.dumps({
-                'dim':self._n,
+                'dim': self._n,
                 'graph': nx.node_link_data(self._graph),
                 # 'timeList': self._timeList.tolist(),
                 'initState': json.loads(self._initState.to_json()),
@@ -125,7 +125,7 @@ class QWAK:
         return qwakJson
 
     @classmethod
-    def from_json(cls, json_var: str,isDynamic = False):
+    def from_json(cls, json_var: str, isDynamic=False):
         """_summary_
 
         Parameters
@@ -138,9 +138,9 @@ class QWAK:
         Operator
             _description_
         """
-        if isinstance(json_var,str):
+        if isinstance(json_var, str):
             data = json.loads(json_var)
-        elif isinstance(json_var,dict):
+        elif isinstance(json_var, dict):
             data = json_var
         qwakId = data['qwakId']
         graph = nx.node_link_graph(data['graph'])
@@ -150,11 +150,13 @@ class QWAK:
         quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
         if isDynamic:
             timeList = data['timeList']
-            newQwak = cls(graph=graph, timeList=timeList,qwakId=qwakId)
-            probDistList = [ProbabilityDistribution.from_json(probDist) for probDist in data['probDistList']]
+            newQwak = cls(graph=graph, timeList=timeList, qwakId=qwakId)
+            probDistList = [ProbabilityDistribution.from_json(
+                probDist) for probDist in data['probDistList']]
             newQwak.setProbDistList(probDistList)
         else:
-            probDist = ProbabilityDistribution.from_json(data['probDist'])
+            probDist = ProbabilityDistribution.from_json(
+                data['probDist'])
             newQwak = cls(graph=graph, qwakId=qwakId)
             newQwak.setProbDist(probDist)
         newQwak.setInitState(initState)
@@ -162,9 +164,9 @@ class QWAK:
         newQwak.setWalk(quantumWalk)
         return newQwak
 
-    def setQWAK(self,newQWAK):
+    def setQWAK(self, newQWAK):
         self.setGraph(newQWAK.getGraph())
-        self.setDim(newQWAK.getDim(),graph=self._graph)
+        self.setDim(newQWAK.getDim(), graph=self._graph)
         self.setInitState(newQWAK.getInitState())
         self.setOperator(newQWAK.getOperator())
         self.setWalk(newQWAK.getWalk())
@@ -297,7 +299,7 @@ class QWAK:
         """
         return self._n
 
-    def setGraph(self, newGraph: nx.Graph, initStateList = None) -> None:
+    def setGraph(self, newGraph: nx.Graph, initStateList=None) -> None:
         """Sets the current graph to a user defined one.
         Also recalculates the current operator and walk dimension.
 
@@ -328,7 +330,6 @@ class QWAK:
             self._n,
             graph=self._graph,
             initStateList=self._initStateList)
-
 
     def setInitState(self, newInitState: State) -> None:
         """Sets the current initial state to a user defined one.
@@ -560,8 +561,8 @@ class QWAK:
         _type_
             _description_
         """
-        return list(
-            map(lambda probDist: probDist.getProbVec(), self._probDistList))
+        return [probDist.getProbVec()
+                for probDist in self._probDistList]
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:
         """User inputted node for search
@@ -593,27 +594,7 @@ class QWAK:
         """
         return self._probDist.searchNodeProbability(searchNode)
 
-    def checkPST(self, nodeA, nodeB):
-        """_summary_
-
-        Parameters
-        ----------
-        nodeA : _type_
-            _description_
-        nodeB : _type_
-            _description_
-
-        Returns
-        -------
-        _type_
-            _description_
-        """
-        try:
-            return self._operator.checkPST(nodeA, nodeB)
-        except MissingNodeInput as err:
-            raise err
-
-    def getMean(self):
+    def getMean(self, resultRounding=None):
         """_summary_
 
         Returns
@@ -621,13 +602,21 @@ class QWAK:
         _type_
             _description_
         """
-        return self._probDist.moment(1)
+        return self._probDist.moment(1) if (
+            resultRounding is None) \
+            else round(self._probDist.moment(1), resultRounding)
 
-    def getMeanList(self,resultRounding):
-        meanList = [round(probDist.moment(1),resultRounding) for probDist in self._probDistList]
-        return meanList
+    def getMeanList(self, resultRounding=None):
 
-    def getSndMoment(self):
+        return [
+            probDist.moment(1) for probDist in self._probDistList] if (
+            resultRounding is None) \
+            else [
+            round(
+                probDist.moment(1),
+                resultRounding) for probDist in self._probDistList]
+
+    def getSndMoment(self, resultRounding=None):
         """_summary_
 
         Returns
@@ -635,9 +624,11 @@ class QWAK:
         _type_
             _description_
         """
-        return self._probDist.moment(2)
+        return self._probDist.moment(2) if (resultRounding is None) \
+            else round(
+            self._probDist.moment(2), resultRounding)
 
-    def getStDev(self):
+    def getStDev(self, resultRounding=None):
         """_summary_
 
         Returns
@@ -645,10 +636,26 @@ class QWAK:
         _type_
             _description_
         """
-        return self._probDist.stDev()
+        return self._probDist.stDev() if (resultRounding is None) \
+            else round(
+            self._probDist.stDev(),
+            resultRounding)
 
-    def getStDevList(self,resultRounding=0):
-        stDevList = [round(probDist.stDev(),resultRounding) for probDist in self._probDistList]
+    def getStDevList(self, resultRounding=None):
+        return [
+            probDist.stDev() for probDist in self._probDistList] if (
+            resultRounding is None) \
+            else [
+            round(
+                probDist.stDev(),
+                resultRounding) for probDist in self._probDistList]
+
+    def getInversePartRatio(self):
+        return self._probDist.invPartRatio()
+
+    def getInversePartRatioList(self, resultRounding=0):
+        stDevList = [round(probDist.invPartRatio(), resultRounding)
+                     for probDist in self._probDistList]
         return stDevList
 
     def getSurvivalProb(self, k0, k1):
@@ -671,19 +678,40 @@ class QWAK:
         except MissingNodeInput as err:
             raise err
 
-    def getSurvivalProbList(self,k0,k1,resultRounding=0):
+    def getSurvivalProbList(self, k0, k1, resultRounding=0):
         try:
-            survProbList = [round(probDist.survivalProb(k0,k1),resultRounding) for probDist in self._probDistList]
-            return survProbList
+            return [
+                probDist.survivalProb(
+                    k0,
+                    k1) for probDist in self._probDistList] if (resultRounding is None) \
+            else [
+                round(
+                    probDist.survivalProb(
+                        k0,
+                        k1),
+                    resultRounding) for probDist in self._probDistList]
         except MissingNodeInput as err:
             raise err
 
-    def getInversePartRatio(self):
-        return self._probDist.invPartRatio()
+    def checkPST(self, nodeA, nodeB):
+        """_summary_
 
-    def getInversePartRatioList(self,resultRounding=0):
-        stDevList = [round(probDist.invPartRatio(),resultRounding) for probDist in self._probDistList]
-        return stDevList
+        Parameters
+        ----------
+        nodeA : _type_
+            _description_
+        nodeB : _type_
+            _description_
+
+        Returns
+        -------
+        _type_
+            _description_
+        """
+        try:
+            return self._operator.checkPST(nodeA, nodeB)
+        except MissingNodeInput as err:
+            raise err
 
     def getTransportEfficiency(self):
         """_summary_

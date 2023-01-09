@@ -5,7 +5,7 @@ import sympy as sp
 from scipy.linalg import inv
 from sympy.abc import pi
 import numpy as np
-from utils.jsonMethods import json_matrix_to_complex,complex_matrix_to_json
+from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
 import json
 
 from qwak.Errors import MissingNodeInput
@@ -61,7 +61,7 @@ class Operator:
         self._graph = graph
         self._buildAdjacency(self._laplacian, self._markedSearch)
         self._n = len(graph)
-        self._operator = np.zeros((self._n, self._n),dtype=complex)
+        self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._isHermitian = np.allclose(
             self._adjacencyMatrix,
             self._adjacencyMatrix.conjugate().transpose())
@@ -100,18 +100,22 @@ class Operator:
         Operator
             _description_
         """
-        if isinstance(json_var,str):
+        if isinstance(json_var, str):
             data = json.loads(json_var)
-        elif isinstance(json_var,dict):
+        elif isinstance(json_var, dict):
             data = json_var
         graph = nx.node_link_graph(data['graph'])
         time = data['time']
         laplacian = data['laplacian']
         markedSearch = data['markedSearch']
-        adjacencyMatrix = np.array(json_matrix_to_complex(data['adjacencyMatrix']))
+        adjacencyMatrix = np.array(
+            json_matrix_to_complex(
+                data['adjacencyMatrix']))
         eigenvalues = np.array(data['eigenvalues'])
 
-        eigenvectors = np.array(json_matrix_to_complex(data['eigenvectors']))
+        eigenvectors = np.array(
+            json_matrix_to_complex(
+                data['eigenvectors']))
         operator = np.array(json_matrix_to_complex(data['operator']))
 
         newOp = cls(graph, time, laplacian, markedSearch)
@@ -226,7 +230,7 @@ class Operator:
 
     def resetOperator(self):
         """Resets Operator object."""
-        self._operator = np.zeros((self._n, self._n),dtype=complex)
+        self._operator = np.zeros((self._n, self._n), dtype=complex)
 
     def setDim(self, newDim: int, graph) -> None:
         """Sets the current Operator objects dimension to a user defined one.
@@ -237,7 +241,7 @@ class Operator:
             New dimension for the Operator object.
         """
         self._n = newDim
-        self._operator = np.zeros((self._n, self._n),dtype=complex)
+        self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._graph = graph
         self._adjacencyMatrix = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
