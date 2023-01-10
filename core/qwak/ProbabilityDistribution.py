@@ -70,7 +70,7 @@ class ProbabilityDistribution:
             self._n = state.getDim()
             self._state.setState(state)
             self._stateVec = self._state.getStateVec()
-        self._probVec = [((state.item(0) * np.conj(state.item(0))).real) for state in self._stateVec]
+        self._probVec = np.array([((state.item(0) * np.conj(state.item(0))).real) for state in self._stateVec])
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
