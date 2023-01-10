@@ -70,8 +70,7 @@ class ProbabilityDistribution:
             self._n = state.getDim()
             self._state.setState(state)
             self._stateVec = self._state.getStateVec()
-        self._probVec = np.array(
-            [(state[0] * np.conj(state[0])).real for state in self._stateVec])
+        self._probVec = [((state.item(0) * np.conj(state.item(0))).real) for state in self._stateVec]
 
     def setProbDist(self, newProbDist) -> None:
         """_summary_
@@ -104,7 +103,7 @@ class ProbabilityDistribution:
 
     def setDim(self, newDim):
         self._n = newDim
-        self._probVec = np.zeros((self._n, 1), dtype=float)
+        self._probVec = np.zeros(self._n, dtype=float)
 
     def getDim(self) -> int:
         """_summary_

@@ -5,6 +5,7 @@ from flask_session import Session
 from pymongo import MongoClient
 import networkx as nx
 import numpy as np
+from numpy import pi
 from qwak.GraphicalQWAK import GraphicalQWAK
 from qwak.State import State
 from qwak.qwak import QWAK
