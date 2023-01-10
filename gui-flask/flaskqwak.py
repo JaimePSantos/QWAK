@@ -19,10 +19,10 @@ load_dotenv()
 QWAKCLUSTER_USERNAME = os.environ.get('QWAKCLUSTER_USERNAME')
 QWAKCLUSTER_PASSWORD = os.environ.get('QWAKCLUSTER_PASSWORD')
 
-connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
+# connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
 
-# client = MongoClient('localhost', 27017)
-client = MongoClient(connection_string)
+client = MongoClient('localhost', 27017)
+# client = MongoClient(connection_string)
 db_string = 'qwak_flask'
 database = client.get_database(db_string)
 probDistEntry = database['probDistEntry']
@@ -31,15 +31,6 @@ app = Flask(__name__)
 SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
-
-staticN = 5
-dynamicN = 5
-t = 1
-initState = [staticN // 2]
-staticGraph = nx.cycle_graph(staticN)
-dynamicGraph = nx.cycle_graph(dynamicN)
-timeList = [0, 5]
-initStateList = [[dynamicN // 2, (dynamicN // 2) + 1]]
 
 resultRounding = 3
 
@@ -199,26 +190,6 @@ def getDynamicGraphToJson():
     probDistSessionCollection = database[session['sessionId']]
     dynamicQWAK = QWAK.from_json(probDistSessionCollection.find_one({'qwakId':session['dynamicQwakId']}),isDynamic=True)
     return nx.cytoscape_data(dynamicQWAK.getGraph())
-
-@app.route('/setDynamicInitStateList',methods=['GET','POST'])
-def setDynamicInitStateList():
-    probDistSessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(probDistSessionCollection.find_one({'qwakId': sessionId}))
-    initStateStr = request.form.get("initStateStr")
-    gQwak.setDynamicInitStateList(initStateStr)
-    probDistSessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
-    return ("nothing")
-
-@app.route('/setDynamicTime',methods=['GET','POST'])
-def setDynamicTime():
-    probDistSessionCollection = database[session['sessionId']]
-    sessionId = session['sessionId']
-    gQwak = GraphicalQWAK.from_json(probDistSessionCollection.find_one({'qwakId': sessionId}))
-    newTime = request.form.get("newTime")
-    gQwak.setDynamicTime(newTime)
-    probDistSessionCollection.replace_one({'qwakId': sessionId},json.loads(gQwak.to_json()))
-    return ("nothing")
 
 @app.route('/getRunMultipleWalksDB',methods=['POST','GET'])
 def getRunMultipleWalksDB():

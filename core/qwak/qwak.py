@@ -664,7 +664,7 @@ class QWAK:
                 probDist.invPartRatio(),
                 resultRounding) for probDist in self._probDistList]
 
-    def getSurvivalProb(self, k0, k1):
+    def getSurvivalProb(self, k0, k1,resultRounding):
         """_summary_
 
         Parameters

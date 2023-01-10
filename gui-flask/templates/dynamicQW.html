@@ -72,11 +72,11 @@
                                     <button id="runGraphButton" class="button fit">Set Graph</button>
                                     <li class='input-combo'>
                                             <input type="text" name="time" id="inputDim" class="input-box"></input>
-                                            <button id="setDimButton" class="myButton input">n</button>
+                                            <div id="setDimButton" class="myText probDistInput">n</div>
                                         </li>
                                     <li class='input-combo'>
                                             <input type="text" name="graph" id="inputGraph" class="input-box"></input>
-                                            <button id="setGraphButton" class="myButton input">G</button>
+                                            <div id="setGraphButton" class="myText probDistInput">G</div>
                                         </li>
                                 </div>
                             </div>
@@ -107,27 +107,27 @@
                                     </div>
                                 <button id="dynamicProbDistButton" class="myButton probDist">Run Walk</button>
                                 <ul class='input-fields'>
+                                    <li class='input-combo2'>
+                                        <div id="setTimeRangeButton" class="myText probDistInput">[tf]</div>
+                                        <input type="text" name="timeRange" id="inputTimeRange" class="myProbDistInputBox"></input>
+                                    </li>
                                     <li class='input-combo'>
-                                                <input type="text" name="timeRange" id="inputTimeRange" class="myProbDistInputBox"></input>
-                                                <button id="setTimeRangeButton" class="myButton probDistInput">[tf]</button>
-                                            </li>
-                                    <li class='input-combo'>
-                                                <input type="text" step=0.01 min=0 name="gammaRange" id="inputGammaRange"
+                                        <input type="text" step=0.01 min=0 name="initStateRange" id="inputInitStateRange"
                                                        class="myProbDistInputBox"></input>
-                                                <button id="setGammaRangeButton" class="myButton probDistInput">[NA]</button>
-                                            </li>
+                                        <div id="setGammaRangeButton" class="myText probDistInput">[Ψ0]</div>
+                                    </li>
                                 </ul>
                                 <ul class='input-fields'>
-                                    <li class='input-combo'>
-                                                <input type="text" name="initStateRange" id="inputInitStateRange"
+                                    <li class='input-combo2'>
+                                        <div id="placeholderDiv" class="myText probDistInput">NA</div>
+                                        <input type="text" name="placeholder" id="placeholderInp"
                                                        class="myProbDistInputBox"></input>
-                                                <button id="setInitStateRangeButton" class="myButton probDistInput">[Ψ0]</button>
-                                            </li>
+                                    </li>
                                     <li class='input-combo'>
-                                                <input type="text" step="0.01" min=0 name="placeholder" id="placeholder2"
+                                        <input type="text" step="0.01" min=0 name="placeholder" id="placeholderInp2"
                                                        class="input-box"></input>
-                                                <button id="setPlaceholderButton2" class="button">[Pl]</button>
-                                            </li>
+                                        <div id="placeholderDiv2" class="myText probDistInput">NA</div>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

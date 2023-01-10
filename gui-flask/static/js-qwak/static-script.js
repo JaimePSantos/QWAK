@@ -77,24 +77,6 @@ $(async function () {
     });
 });
 
-$(function () {
-    $('#setDimButton').on('click', async function (e) {
-        e.preventDefault();
-        staticQuantumWalk.graph = inputGraph.value;
-        staticQuantumWalk.dim = parseInt(inputDim.value);
-        await setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph)
-    });
-});
-
-$(function () {
-    $('#setGraphButton').on('click', async function (e) {
-        e.preventDefault();
-        staticQuantumWalk.graph = inputGraph.value;
-        staticQuantumWalk.dim = parseInt(inputDim.value);
-        await setStaticGraph(staticQuantumWalk.dim, staticQuantumWalk.graph)
-    });
-});
-
 // - Custom Graph
 // #### CUSTOM GRAPH ####
 
@@ -139,20 +121,6 @@ export async function setStaticJsTime(){
 }
 
 $(function () {
-    $('#setInitStateButton').on('click', async function (e) {
-        e.preventDefault();
-        await setStaticJsInitState();
-    });
-});
-
-$(function () {
-    $('#setTimeButton').on('click', async function (e) {
-        e.preventDefault();
-        await setStaticJsTime();
-    });
-});
-
-$(function () {
     $('#staticProbDistButton').on('click', async function (e) {
         var currentdate = new Date();
         staticQuantumWalk.walkName = `StaticQWAK-${currentdate.getDate() + "/"
@@ -188,12 +156,6 @@ $(function () {
 $(function () {
     $('#setGammaButton').on('click', async function (e) {
         await deleteWalkEntry(staticQuantumWalk.walkName);
-    });
-});
-
-$(function () {
-    $('#setPlaceholderButton').on('click', async function (e) {
-        await deleteAllWalkEntries();
     });
 });
 

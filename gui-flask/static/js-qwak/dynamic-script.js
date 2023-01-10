@@ -72,16 +72,6 @@ $(function () {
     });
 });
 
-$(function () {
-    $('#setDimButton').on('click', function (e) {
-        e.preventDefault();
-        dynamicQuantumWalk.graph = inputGraph.value;
-        dynamicQuantumWalk.dim = parseInt(inputDim.value);
-        setDynamicDim(dynamicQuantumWalk.dim, dynamicQuantumWalk.graph)
-    });
-});
-
-
 // #### CUSTOM GRAPH ####
 var eh = customCy.edgehandles();
 
@@ -112,13 +102,6 @@ $(function () {
     $('#setInitStateRangeButton').on('click', function (e) {
         e.preventDefault();
         setDynamicJsInitStateList();
-    });
-});
-
-$(function () {
-    $('#setTimeRangeButton').on('click', function (e) {
-        e.preventDefault();
-        setDynamicJsTime();
     });
 });
 

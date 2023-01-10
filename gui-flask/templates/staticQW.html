@@ -72,14 +72,13 @@
                                     <button id="runGraphButton" class="myButton graph">Set Graph</button>
                                     <li class='input-combo'>
                                         <input type="text" name="dim" id="inputDim" class="myGraphInputBox"></input>
-                                        <button id="setDimButton" class="myButton input">n</button>
+                                        <div id="setDimButton" class="myText probDistInput">n</div>
                                     </li>
                                     <li class='input-combo'>
                                         <input type="text" name="graph" id="inputGraph" class="myGraphInputBox"></input>
-                                        <button id="setGraphButton" class="myButton input">G</button>
+                                        <div id="setGraphButton" class="myText probDistInput">G</div>
                                     </li>
                                 </div>
-
                                 <!--                            </div>-->
                             </div>
                             <div id="CustomGraph" class="tabcontent">
@@ -109,25 +108,25 @@
                                     <button id="staticProbDistButton" class="myButton probDist">Run Walk</button>
                                 </form>
                                 <ul class="input-fields">
-                                    <li class='input-combo'>
+                                    <li class='input-combo2'>
+                                        <div id="setTimeButton" class="myText probDistInput">tf</div>
                                         <input type="text" name="time" id="inputTime" class="myProbDistInputBox"></input>
-                                        <button id="setTimeButton" class="myButton probDistInput">tf</button>
                                     </li>
                                     <li class='input-combo'>
-                                        <input type="text" id="inputGamma" class="myProbDistInputBox"></input>
-                                        <button id="setGammaButton" class="myButton probDistInput">PL</button>
+                                        <input type="text" id="inputInitState" class="myProbDistInputBox"></input>
+                                        <div id="setInitStateButton" class="myText probDistInput">Ψ0</div>
                                     </li>
                                 </ul>
                                 <ul class="input-fields">
-                                    <li class='input-combo'>
-                                        <input type="text" name="initState" id="inputInitState"
+                                    <li class='input-combo2'>
+                                        <div id="setPlaceholderButton" class="myText probDistInput">PL</div>
+                                        <input type="text" name="initState" id="placeholder"
                                                class="myProbDistInputBox"></input>
-                                        <button id="setInitStateButton" class="myButton probDistInput">Ψ0</button>
                                     </li>
                                     <li class='input-combo'>
-                                        <input type="text" name="placeholder" id="placeholder"
+                                        <input type="text" name="placeholder" id="placeholder2"
                                                class="myProbDistInputBox"></input>
-                                        <button id="setPlaceholderButton" class="myButton probDistInput">Pl</button>
+                                        <div id="setPlaceholderButton2" class="myText probDistInput">Pl</div>
                                     </li>
                                 </ul>
                             </div>
