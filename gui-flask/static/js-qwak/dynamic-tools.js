@@ -37,7 +37,6 @@ export let defaultDist = [
 
 let initGraph = async () => {
     let graphStr = 'nx.cycle_graph'
-    await setDynamicDim(5, graphStr)
     await setDynamicGraph(5,graphStr)
 }
 

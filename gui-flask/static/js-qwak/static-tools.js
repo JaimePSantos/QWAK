@@ -1,21 +1,6 @@
 let initGraph = async () => {
     let graphStr = 'nx.cycle_graph'
-    setStaticDim(5, graphStr);
     setStaticGraph(5,graphStr);
-}
-
-function setStaticDim(newDim, graphStr) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticDim`, // <- Add the queryparameter here
-        data: {newDim: newDim, graphStr: graphStr},
-        success: function (response) {
-            console.log('success - Dim set to ${newDim}');
-        },
-        error: function (response) {
-            console.log('setDim error');
-        }
-    });
 }
 
 async function setStaticGraph(newDim,newGraph) {

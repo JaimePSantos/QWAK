@@ -79,16 +79,6 @@ def dynamicQW():
         probDistSessionCollection.insert_one(json.loads(dynamicQwak.to_json(isDynamic=True)))
     return render_template('dynamicQW.html')
 
-@app.route('/setStaticDim',methods=['GET','POST'])
-def setStaticDim():
-    probDistSessionCollection = database[session['sessionId']]
-    staticQWAK = QWAK.from_json(probDistSessionCollection.find_one({'qwakId':session['staticQwakId']}))
-    newDim = request.form.get("newDim")
-    graphStr = request.form.get("graphStr")
-    staticQWAK.setDim(int(newDim), graphStr)
-    probDistSessionCollection.replace_one({'qwakId': session['staticQwakId']},json.loads(staticQWAK.to_json()))
-    return ("nothing")
-
 @app.route('/setStaticGraph',methods=['GET','POST'])
 def setStaticGraph():
     probDistSessionCollection = database[session['sessionId']]
@@ -162,17 +152,6 @@ def checkPST():
     nodeB = str(request.form.get("nodeB"))
     pst = staticQWAK.checkPST(nodeA, nodeB)
     return str(pst)
-
-@app.route('/setDynamicDim',methods=['GET','POST'])
-def setDynamicDim():
-    probDistSessionCollection = database[session['sessionId']]
-    dynamicQWAK = QWAK.from_json(probDistSessionCollection.find_one({'qwakId':session['dynamicQwakId']}),isDynamic=True)
-    print(type(dynamicQWAK.getTimeList()))
-    newDim = request.form.get("newDim")
-    graphStr = request.form.get("graphStr")
-    dynamicQWAK.setDim(int(newDim), graphStr)
-    probDistSessionCollection.replace_one({'qwakId': session['dynamicQwakId']},json.loads(dynamicQWAK.to_json(isDynamic=True)))
-    return ("nothing")
 
 @app.route('/setDynamicGraph',methods=['GET','POST'])
 def setDynamicGraph():
