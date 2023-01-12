@@ -13,10 +13,6 @@ warnings.filterwarnings("ignore")
 
 
 class QuantumWalk:
-    """Class that represents the final state containing the amplitudes of a
-    continuous-time quantum walk.
-    """
-
     def __init__(self, state: State, operator: Operator) -> None:
         """This object is initialized with a user inputted initial state and
         operator.
@@ -33,8 +29,6 @@ class QuantumWalk:
         operator : Operator
             Operator which will evolve the initial state.
         """
-        # TODO: This class has mandatory init conditions. This is not in
-        # line with the rest of the classes.
         self._n = state.getDim()
         self._initState = state
         self._operator = operator
@@ -102,7 +96,7 @@ class QuantumWalk:
                 self._operator.getOperator(),
                 self._initState.getStateVec()))
 
-    def resetWalk(self):
+    def resetWalk(self) -> None:
         """Resets the components of the QuantumWalk object."""
         self._operator.resetOperator()
         self._initState.resetState()
@@ -191,12 +185,12 @@ class QuantumWalk:
         """
         return self._finalState
 
-    def setFinalState(self, newFinalState):
+    def setFinalState(self, newFinalState: State) -> None:
         """Sets the final state of the QuantumWalk.
 
         Parameters
         -------
-        finalState
+        finalState: State
             Final state of the QuantumWalk.
         """
         self._finalState.setState(newFinalState)
@@ -227,27 +221,13 @@ class QuantumWalk:
         """
         return self._finalState.getStateVec().item(searchNode)
 
-    def invPartRatio(self) -> float:
-        """_summary_
-
-        Returns
-        -------
-        float
-            _description_
-        """
-        amplitudes = 0
-        for amp in self._finalState.getStateVec():
-            amplitudes += np.absolute(amp.item(0)) ** 4
-        amplitudes = amplitudes
-        return 1 / amplitudes
-
     def transportEfficiency(self) -> float:
-        """_summary_
+        """Calculates the transport efficiency of the quantum walk.
 
         Returns
         -------
         float
-            _description_
+            Transport efficiency of the quantum walk.
         """
         return 1 - np.trace(self._finalState @ self._finalState.herm())
 

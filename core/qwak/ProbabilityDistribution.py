@@ -9,12 +9,6 @@ from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
 from functools import reduce
 
 class ProbabilityDistribution:
-    """
-    Class containing the vector containing the probabilities associated with the
-    final state of a continuous-time quantum walk.
-
-    """
-
     def __init__(self, state: State) -> None:
         """The dimension of the probability vector will then be loaded from
         the state inputted by the user.

@@ -13,13 +13,6 @@ from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 class Operator:
-    """
-    
-    States are represented by matrices in quantum mechanics,
-    therefore Numpy is used to generate ndarrays which contain these matrices.
-
-    """
-
     def __init__(
             self,
             graph: nx.Graph,
