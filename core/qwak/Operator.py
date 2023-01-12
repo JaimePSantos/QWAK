@@ -97,8 +97,7 @@ class Operator:
 
     @classmethod
     def from_json(cls, json_var: Union([str,dict])) -> Operator:
-        """
-            Converts a JSON string to an operator object.
+        """Converts a JSON string to an operator object.
 
         Parameters
         ----------
@@ -108,7 +107,7 @@ class Operator:
         Returns
         -------
         Operator
-            _description_
+            Operator object.
         """
         if isinstance(json_var, str):
             data = json.loads(json_var)
@@ -137,8 +136,11 @@ class Operator:
 
     def buildDiagonalOperator(self, time: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
+
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
-        eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
+        eigenvalues and convert it to a list of the diagonal entries. 
+        
+        The entries are then multiplied
         by the eigenvectors, and the last step is to perform matrix multiplication with the complex
         conjugate of the eigenvectors.
 
@@ -161,15 +163,15 @@ class Operator:
                 self._operator, inv(
                     self._eigenvectors))
 
-    def _buildAdjacency(self, laplacian, markedSearch):
-        """_summary_
+    def _buildAdjacency(self, laplacian:bool, markedSearch:list) -> None:
+        """Builds the adjacency matrix of the graph, which is either the Laplacian or the simple matrix.
 
         Parameters
         ----------
-        laplacian : _type_
-            _description_
-        markedSearch : _type_
-            _description_
+        laplacian : bool
+            Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
+        markedSearch : list
+            List of elements for the search.
         """
         if laplacian:
             self._adjacencyMatrix = np.asarray(
@@ -182,13 +184,13 @@ class Operator:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
-    def _buildEigenValues(self, isHermitian):
-        """_summary_
+    def _buildEigenValues(self, isHermitian:bool) -> None:
+        """Builds the eigenvalues and eigenvectors of the adjacency matrix.
 
         Parameters
         ----------
         isHermitian : bool
-            _description_
+            Checks if the adjacency matrix is Hermitian.
         """
         if isHermitian:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
@@ -198,57 +200,59 @@ class Operator:
             self._eigenvalues, self._eigenvectors = np.linalg.eig(
                 self._adjacencyMatrix)
 
-    def getEigenValues(self):
-        """_summary_
+    def getEigenValues(self) -> list:
+        """Returns the eigenvalues of the adjacency matrix.
 
         Returns
         -------
-        _type_
-            _description_
+        list
+            List of eigenvalues.
         """
         return self._eigenvalues
 
-    def _setEigenValues(self, eigenValues):
-        """_summary_
+    def _setEigenValues(self, eigenValues:list) -> None:
+        """Sets the eigenvalues of the adjacency matrix.
 
         Parameters
         ----------
-        eigenValues : _type_
-            _description_
+        eigenValues : list
+            List of eigenvalues.
         """
         self._eigenvalues = eigenValues
 
-    def _setEigenVectors(self, eigenVectors):
-        """_summary_
+    def _setEigenVectors(self, eigenVectors:list) -> None:
+        """Sets the eigenvectors of the adjacency matrix.
 
         Parameters
         ----------
-        eigenVectors : _type_
+        eigenVectors : list
             _description_
         """
         self._eigenvectors = eigenVectors
 
-    def getEigenVectors(self):
-        """_summary_
+    def getEigenVectors(self) -> list:
+        """Returns the eigenvectors of the adjacency matrix.
 
         Returns
         -------
-        _type_
-            _description_
+        list
+            List of eigenvectors.
         """
         return self._eigenvectors
 
-    def resetOperator(self):
+    def resetOperator(self) -> None:
         """Resets Operator object."""
         self._operator = np.zeros((self._n, self._n), dtype=complex)
 
-    def setDim(self, newDim: int, graph) -> None:
+    def setDim(self, newDim: int, graph: nx.Graph) -> None:
         """Sets the current Operator objects dimension to a user defined one.
 
         Parameters
         ----------
         newDim : int
             New dimension for the Operator object.
+        graph : nx.Graph
+            New graph for the Operator object.
         """
         self._n = newDim
         self._operator = np.zeros((self._n, self._n), dtype=complex)
