@@ -65,7 +65,7 @@ if __name__ == "__main__":
             runOperatorProfiler2(graph, t)
 
     def unmarshallFile(fileName, filePath):
-        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+        if (os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         numberOfEntries = 0
         timeDict = {}
@@ -92,7 +92,7 @@ if __name__ == "__main__":
             fileName,
             fileName2,
             filePath):
-        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+        if (os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         timeDict = {}
         timeDict2 = {}
@@ -121,7 +121,7 @@ if __name__ == "__main__":
             fileName,
             fileName2,
             filePath):
-        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+        if (os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         timeDict = {}
         timeDict2 = {}
@@ -147,7 +147,7 @@ if __name__ == "__main__":
         return timeDict
 
     def getTimeDictFromFile(fileName, filePath):
-        if(os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
+        if (os.getcwd() != "C:\\Users\\jaime\\Documents\\GitHub\\QWAK\\benchmark\\TestOutput\\Profiling\\operator"):
             os.chdir(filePath)
         with open(fileName, "r+") as f:
             lines = f.readlines()

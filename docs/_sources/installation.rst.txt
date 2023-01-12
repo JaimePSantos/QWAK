@@ -63,6 +63,10 @@ Or locally through:
 
           This allows for code changes that do not require re-installation of the package.
 
+.. WARNING:: The GUI was migrated to a fullstack web app and some changes were made to the GraphicalQWAK class.
+
+             For this reason, the local eel GUI might be temporarily unavailable.
+
 .. _venv-installation:
 
 Installing QWAK locally with Venv

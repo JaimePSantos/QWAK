@@ -190,6 +190,9 @@
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html#utils">utils</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
 </li>
@@ -229,7 +232,7 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#Q"><strong>Q</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#_"><strong>_</strong></a> | <a href="#A"><strong>A</strong></a> | <a href="#B"><strong>B</strong></a> | <a href="#C"><strong>C</strong></a> | <a href="#E"><strong>E</strong></a> | <a href="#F"><strong>F</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#H"><strong>H</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#J"><strong>J</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#N"><strong>N</strong></a> | <a href="#O"><strong>O</strong></a> | <a href="#P"><strong>P</strong></a> | <a href="#Q"><strong>Q</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a></div>
 </section>
 <section id="_" class="genindex-section">
   <h2>_</h2>
@@ -241,15 +244,23 @@
 </li>
         <li><a href="qwak.html#qwak.Operator.Operator._buildEigenValues">_buildEigenValues() (Operator method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator._buildLaplacian">_buildLaplacian() (StochasticOperator method)</a>
 </li>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator._buildQuantumHamiltonian">_buildQuantumHamiltonian() (StochasticOperator method)</a>
 </li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.State.State._checkStateOutOfBounds">_checkStateOutOfBounds() (State method)</a>
 </li>
         <li><a href="qwak.html#qwak.State.State._checkUnitaryStateList">_checkUnitaryStateList() (State method)</a>
+</li>
+        <li><a href="qwak.html#qwak.Operator.Operator._setAdjacencyMatrixOnly">_setAdjacencyMatrixOnly() (Operator method)</a>
+</li>
+        <li><a href="qwak.html#qwak.Operator.Operator._setEigenValues">_setEigenValues() (Operator method)</a>
+</li>
+        <li><a href="qwak.html#qwak.Operator.Operator._setEigenVectors">_setEigenVectors() (Operator method)</a>
+</li>
+        <li><a href="qwak.html#qwak.Operator.Operator._setOperatorVec">_setOperatorVec() (Operator method)</a>
 </li>
     </ul></td>
   </tr></table>
@@ -309,6 +320,10 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="utils.html#utils.PerfectStateTransfer.checkRoots">checkRoots() (in module utils.PerfectStateTransfer)</a>
 </li>
+        <li><a href="utils.html#utils.jsonMethods.complex_matrix_to_json">complex_matrix_to_json() (in module utils.jsonMethods)</a>
+</li>
+        <li><a href="utils.html#utils.jsonMethods.complex_to_json">complex_to_json() (in module utils.jsonMethods)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -323,6 +338,28 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.Errors.Error">Error</a>
 </li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="F" class="genindex-section">
+  <h2>F</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.from_json">from_json() (GraphicalQWAK class method)</a>
+
+        <ul>
+          <li><a href="qwak.html#qwak.Operator.Operator.from_json">(Operator class method)</a>
+</li>
+          <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.from_json">(ProbabilityDistribution class method)</a>
+</li>
+          <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.from_json">(QuantumWalk class method)</a>
+</li>
+          <li><a href="qwak.html#qwak.qwak.QWAK.from_json">(QWAK class method)</a>
+</li>
+          <li><a href="qwak.html#qwak.State.State.from_json">(State class method)</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>
@@ -343,8 +380,6 @@
           <li><a href="qwak.html#qwak.qwak.QWAK.getAmpVec">(QWAK method)</a>
 </li>
         </ul></li>
-        <li><a href="qwak.html#qwak.qwak.QWAK.getAmpVecList">getAmpVecList() (QWAK method)</a>
-</li>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator.getClassicalHamiltonian">getClassicalHamiltonian() (StochasticOperator method)</a>
 
         <ul>
@@ -391,9 +426,15 @@
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicTime">getDynamicTime() (GraphicalQWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getDynamicWalkList">getDynamicWalkList() (GraphicalQWAK method)</a>
+</li>
         <li><a href="utils.html#utils.PerfectStateTransfer.getEigenSupp">getEigenSupp() (in module utils.PerfectStateTransfer)</a>
 </li>
         <li><a href="utils.html#utils.PerfectStateTransfer.getEigenVal">getEigenVal() (in module utils.PerfectStateTransfer)</a>
+</li>
+        <li><a href="qwak.html#qwak.Operator.Operator.getEigenValues">getEigenValues() (Operator method)</a>
+</li>
+        <li><a href="qwak.html#qwak.Operator.Operator.getEigenVectors">getEigenVectors() (Operator method)</a>
 </li>
         <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.getFinalState">getFinalState() (QuantumWalk method)</a>
 
@@ -413,6 +454,8 @@
         </ul></li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getInversePartRatio">getInversePartRatio() (QWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getInversePartRatioList">getInversePartRatioList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator.getLaplacian">getLaplacian() (StochasticOperator method)</a>
 
         <ul>
@@ -421,10 +464,10 @@
         </ul></li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getMean">getMean() (QWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getMeanList">getMeanList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.State.State.getNodeList">getNodeList() (State method)</a>
 </li>
-    </ul></td>
-    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.Operator.Operator.getOperator">getOperator() (Operator method)</a>
 
         <ul>
@@ -433,6 +476,8 @@
           <li><a href="qwak.html#qwak.qwak.QWAK.getOperator">(QWAK method)</a>
 </li>
         </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.qwak.QWAK.getProbDist">getProbDist() (QWAK method)</a>
 
         <ul>
@@ -459,6 +504,8 @@
           <li><a href="qwak.html#qwak.StochasticQwak.StochasticQWAK.getQuantumHamiltonian">(StochasticQWAK method)</a>
 </li>
         </ul></li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getQwakId">getQwakId() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator.getSinkNode">getSinkNode() (StochasticOperator method)</a>
 </li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getSndMoment">getSndMoment() (QWAK method)</a>
@@ -467,8 +514,12 @@
 </li>
         <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getState">getState() (ProbabilityDistribution method)</a>
 </li>
-        <li><a href="qwak.html#qwak.State.State.getStateVec">getStateVec() (State method)</a>
+        <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getStateVec">getStateVec() (ProbabilityDistribution method)</a>
+
+        <ul>
+          <li><a href="qwak.html#qwak.State.State.getStateVec">(State method)</a>
 </li>
+        </ul></li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticAdjacencyMatrix">getStaticAdjacencyMatrix() (GraphicalQWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticDim">getStaticDim() (GraphicalQWAK method)</a>
@@ -487,6 +538,8 @@
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticProbVec">getStaticProbVec() (GraphicalQWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticQWAK">getStaticQWAK() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticSndMoment">getStaticSndMoment() (GraphicalQWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticStDev">getStaticStDev() (GraphicalQWAK method)</a>
@@ -495,9 +548,15 @@
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticTime">getStaticTime() (GraphicalQWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.getStaticWalk">getStaticWalk() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getStDev">getStDev() (QWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getStDevList">getStDevList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getSurvivalProb">getSurvivalProb() (QWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.getSurvivalProbList">getSurvivalProbList() (QWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.Operator.Operator.getTime">getTime() (Operator method)</a>
 
@@ -510,8 +569,6 @@
         <li><a href="qwak.html#qwak.qwak.QWAK.getTransportEfficiency">getTransportEfficiency() (QWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.qwak.QWAK.getWalk">getWalk() (QWAK method)</a>
-</li>
-        <li><a href="qwak.html#qwak.qwak.QWAK.getWalkList">getWalkList() (QWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK">GraphicalQWAK (class in qwak.GraphicalQWAK)</a>
 </li>
@@ -535,7 +592,7 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.State.State.inv">inv() (State method)</a>
 </li>
-        <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.invPartRatio">invPartRatio() (QuantumWalk method)</a>
+        <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.invPartRatio">invPartRatio() (ProbabilityDistribution method)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
@@ -547,12 +604,24 @@
   </tr></table>
 </section>
 
+<section id="J" class="genindex-section">
+  <h2>J</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="utils.html#utils.jsonMethods.json_matrix_to_complex">json_matrix_to_complex() (in module utils.jsonMethods)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="utils.html#utils.jsonMethods.json_to_complex">json_to_complex() (in module utils.jsonMethods)</a>
+</li>
+    </ul></td>
+  </tr></table>
+</section>
+
 <section id="M" class="genindex-section">
   <h2>M</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.mean">mean() (ProbabilityDistribution method)</a>
-</li>
         <li><a href="qwak.html#qwak.Errors.MissingGraphInput">MissingGraphInput</a>
 </li>
         <li><a href="qwak.html#qwak.Errors.MissingNodeInput">MissingNodeInput</a>
@@ -586,6 +655,8 @@
           <li><a href="qwak.html#module-qwak.StochasticQwak">qwak.StochasticQwak</a>
 </li>
           <li><a href="utils.html#module-utils">utils</a>
+</li>
+          <li><a href="utils.html#module-utils.jsonMethods">utils.jsonMethods</a>
 </li>
           <li><a href="utils.html#module-utils.PerfectStateTransfer">utils.PerfectStateTransfer</a>
 </li>
@@ -790,6 +861,8 @@
         </ul></li>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator.setClassicalHamiltonian">setClassicalHamiltonian() (StochasticOperator method)</a>
 </li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.setCustomGraph">setCustomGraph() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.Operator.Operator.setDim">setDim() (Operator method)</a>
 
         <ul>
@@ -810,10 +883,22 @@
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicInitStateList">setDynamicInitStateList() (GraphicalQWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicProbDistList">setDynamicProbDistList() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicQWAK">setDynamicQWAK() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicTime">setDynamicTime() (GraphicalQWAK method)</a>
 </li>
-        <li><a href="qwak.html#qwak.StochasticQuantumWalk.StochasticQuantumWalk.setFinalState">setFinalState() (StochasticQuantumWalk method)</a>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicTimeList">setDynamicTimeList() (GraphicalQWAK method)</a>
 </li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setDynamicWalkList">setDynamicWalkList() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.setFinalState">setFinalState() (QuantumWalk method)</a>
+
+        <ul>
+          <li><a href="qwak.html#qwak.StochasticQuantumWalk.StochasticQuantumWalk.setFinalState">(StochasticQuantumWalk method)</a>
+</li>
+        </ul></li>
         <li><a href="qwak.html#qwak.qwak.QWAK.setGraph">setGraph() (QWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.setInitState">setInitState() (QuantumWalk method)</a>
@@ -842,6 +927,8 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="qwak.html#qwak.qwak.QWAK.setProbDistList">setProbDistList() (QWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbVec">setProbVec() (ProbabilityDistribution method)</a>
 
         <ul>
@@ -850,10 +937,18 @@
         </ul></li>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator.setQuantumHamiltonian">setQuantumHamiltonian() (StochasticOperator method)</a>
 </li>
+        <li><a href="qwak.html#qwak.qwak.QWAK.setQWAK">setQWAK() (QWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setQwakId">setQwakId() (GraphicalQWAK method)</a>
+</li>
         <li><a href="qwak.html#qwak.StochasticOperator.StochasticOperator.setSinkNode">setSinkNode() (StochasticOperator method)</a>
 </li>
-        <li><a href="qwak.html#qwak.State.State.setState">setState() (State method)</a>
+        <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setState">setState() (ProbabilityDistribution method)</a>
+
+        <ul>
+          <li><a href="qwak.html#qwak.State.State.setState">(State method)</a>
 </li>
+        </ul></li>
         <li><a href="qwak.html#qwak.State.State.setStateVec">setStateVec() (State method)</a>
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticCustomGraph">setStaticCustomGraph() (GraphicalQWAK method)</a>
@@ -863,6 +958,10 @@
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticGraph">setStaticGraph() (GraphicalQWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticInitState">setStaticInitState() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticProbDist">setStaticProbDist() (GraphicalQWAK method)</a>
+</li>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticQWAK">setStaticQWAK() (GraphicalQWAK method)</a>
 </li>
         <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.setStaticTime">setStaticTime() (GraphicalQWAK method)</a>
 </li>
@@ -908,6 +1007,22 @@
   <h2>T</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="qwak.html#qwak.GraphicalQWAK.GraphicalQWAK.to_json">to_json() (GraphicalQWAK method)</a>
+
+        <ul>
+          <li><a href="qwak.html#qwak.Operator.Operator.to_json">(Operator method)</a>
+</li>
+          <li><a href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.to_json">(ProbabilityDistribution method)</a>
+</li>
+          <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.to_json">(QuantumWalk method)</a>
+</li>
+          <li><a href="qwak.html#qwak.qwak.QWAK.to_json">(QWAK method)</a>
+</li>
+          <li><a href="qwak.html#qwak.State.State.to_json">(State method)</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="qwak.html#qwak.QuantumWalk.QuantumWalk.transportEfficiency">transportEfficiency() (QuantumWalk method)</a>
 </li>
     </ul></td>
@@ -929,6 +1044,13 @@
         </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    utils.jsonMethods
+
+        <ul>
+          <li><a href="utils.html#module-utils.jsonMethods">module</a>
+</li>
+        </ul></li>
         <li>
     utils.PerfectStateTransfer
 

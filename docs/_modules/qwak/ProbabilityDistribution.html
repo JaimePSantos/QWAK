@@ -189,8 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -228,25 +227,18 @@
         </div>
         <article role="main">
           <h1>Source code for qwak.ProbabilityDistribution</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
 <span class="kn">from</span> <span class="nn">qwak.State</span> <span class="kn">import</span> <span class="n">State</span>
-
 <span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">MissingNodeInput</span>
-
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">utils.jsonMethods</span> <span class="kn">import</span> <span class="n">json_matrix_to_complex</span><span class="p">,</span> <span class="n">complex_matrix_to_json</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
 
 
 <div class="viewcode-block" id="ProbabilityDistribution"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution">[docs]</a><span class="k">class</span> <span class="nc">ProbabilityDistribution</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Class containing the vector containing the probabilities associated with the</span>
-<span class="sd">    final state of a continuous-time quantum walk.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;The dimension of the probability vector will then be loaded from</span>
 <span class="sd">        the state inputted by the user.</span>
@@ -258,15 +250,57 @@
 <span class="sd">        state : State</span>
 <span class="sd">            State to be converted into a probability.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">state</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+
+<div class="viewcode-block" id="ProbabilityDistribution.to_json"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Converts the ProbabilityDistribution object to a JSON string.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            JSON string of the ProbabilityDistribution object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+            <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">to_json</span><span class="p">()),</span>
+            <span class="s1">&#39;dim&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span>
+            <span class="s1">&#39;prob_vec&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+        <span class="p">})</span></div>
+
+<div class="viewcode-block" id="ProbabilityDistribution.from_json"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span>
+                  <span class="n">json_var</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span>
+                                  <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">ProbabilityDistribution</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Converts a JSON string to a ProbabilityDistribution object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        json_var : Union[str, dict]</span>
+<span class="sd">            JSON string or dictionary to be converted to a ProbabilityDistribution object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        ProbabilityDistribution</span>
+<span class="sd">            ProbabilityDistribution object converted from JSON.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">json_var</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">json_dict</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_var</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">json_var</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">json_dict</span> <span class="o">=</span> <span class="n">json_var</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">State</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json_dict</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">])</span>
+        <span class="n">prob_vec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">json_dict</span><span class="p">[</span><span class="s1">&#39;prob_vec&#39;</span><span class="p">])</span>
+        <span class="n">probDist</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+        <span class="n">probDist</span><span class="o">.</span><span class="n">setProbVec</span><span class="p">(</span><span class="n">prob_vec</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">probDist</span></div>
 
 <div class="viewcode-block" id="ProbabilityDistribution.resetProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.resetProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">resetProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Resets the ProbabilityDistribution object.&quot;&quot;&quot;</span>
         <span class="c1"># TODO: Rethink state attribute</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ProbabilityDistribution.buildProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">buildProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Builds the probability vector by multiplying the user inputted</span>
@@ -275,47 +309,76 @@
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        state : State, optional</span>
-<span class="sd">            _description_, by default None</span>
+<span class="sd">            State to be converted into a probability, by default None</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">state</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">st</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">st</span><span class="p">]</span> <span class="o">*</span> \
-                <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="p">[</span><span class="n">st</span><span class="p">])</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[((</span><span class="n">state</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">(</span><span class="n">state</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="mi">0</span><span class="p">)))</span><span class="o">.</span><span class="n">real</span><span class="p">)</span> <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="ProbabilityDistribution.setProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">setProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newProbDist</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+<div class="viewcode-block" id="ProbabilityDistribution.setProbDist"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbDist">[docs]</a>    <span class="k">def</span> <span class="nf">setProbDist</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newProbDist</span><span class="p">:</span> <span class="n">ProbabilityDistribution</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current probability distribution to a user inputted one.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        newProbDist : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        newProbDist : ProbabilityDistribution</span>
+<span class="sd">            New probability distribution for the object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span> <span class="o">=</span> <span class="n">newProbDist</span><span class="o">.</span><span class="n">getState</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newProbDist</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newProbDist</span><span class="o">.</span><span class="n">getState</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">newProbDist</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">newProbDist</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ProbabilityDistribution.getState"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getState">[docs]</a>    <span class="k">def</span> <span class="nf">getState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+<div class="viewcode-block" id="ProbabilityDistribution.getStateVec"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getStateVec">[docs]</a>    <span class="k">def</span> <span class="nf">getStateVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the state vector associated with a distribution.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        State</span>
-<span class="sd">            _description_</span>
+<span class="sd">            Returns the state vector of the ProbabilityDistribution object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span></div>
+
+<div class="viewcode-block" id="ProbabilityDistribution.getState"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getState">[docs]</a>    <span class="k">def</span> <span class="nf">getState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the state associated with a distribution.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        State</span>
+<span class="sd">            Returns the state of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_state</span></div>
 
-<div class="viewcode-block" id="ProbabilityDistribution.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">):</span>
+<div class="viewcode-block" id="ProbabilityDistribution.setState"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setState">[docs]</a>    <span class="k">def</span> <span class="nf">setState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current state to a user inputted one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newState : State</span>
+<span class="sd">            New state for the distribution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newState</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ProbabilityDistribution.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current dimension to a user inputted one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newDim : int</span>
+<span class="sd">            New dimension for the distribution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ProbabilityDistribution.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+        <span class="sd">&quot;&quot;&quot;Gets the dimension associated with a distribution.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
-<span class="sd">            _description_</span>
+<span class="sd">            Returns the dimension of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
 
@@ -327,7 +390,7 @@
 <span class="sd">        newProbVec : np.ndarray</span>
 <span class="sd">            New probability vector for the distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">newProbVec</span><span class="o">.</span><span class="n">getProbDist</span><span class="p">()</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span> <span class="o">=</span> <span class="n">newProbVec</span></div>
 
 <div class="viewcode-block" id="ProbabilityDistribution.getProbVec"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getProbVec">[docs]</a>    <span class="k">def</span> <span class="nf">getProbVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Gets the probability vector associated with a distribution.</span>
@@ -337,7 +400,7 @@
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Returns the array of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span></div>
 
 <div class="viewcode-block" id="ProbabilityDistribution.searchNodeProbability"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.searchNodeProbability">[docs]</a>    <span class="k">def</span> <span class="nf">searchNodeProbability</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searchNode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Searches and gets the probability associated with a given node.</span>
@@ -354,33 +417,18 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">searchNode</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ProbabilityDistribution.mean"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Gets the mean of the current probability distribution.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        float</span>
-<span class="sd">            Mean of the ProbabilityDistribution object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># TODO: This function has been replaced by moment(1).</span>
-        <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span>
-        <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">):</span>
-            <span class="n">m</span> <span class="o">+=</span> <span class="n">pos</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="p">)</span></div>
-
-<div class="viewcode-block" id="ProbabilityDistribution.moment"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.moment">[docs]</a>    <span class="k">def</span> <span class="nf">moment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+<div class="viewcode-block" id="ProbabilityDistribution.moment"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.moment">[docs]</a>    <span class="k">def</span> <span class="nf">moment</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the kth moment of the probability distribution.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        k : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        k : int</span>
+<span class="sd">            User inputted moment.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
-<span class="sd">            _description_</span>
+<span class="sd">            kth moment of the probability distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span>
         <span class="n">m</span> <span class="o">=</span> <span class="mi">0</span>
@@ -388,47 +436,53 @@
             <span class="n">m</span> <span class="o">+=</span> <span class="p">(</span><span class="n">pos</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">**</span> <span class="n">k</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">m</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="ProbabilityDistribution.stDev"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.stDev">[docs]</a>    <span class="k">def</span> <span class="nf">stDev</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+<div class="viewcode-block" id="ProbabilityDistribution.invPartRatio"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.invPartRatio">[docs]</a>    <span class="k">def</span> <span class="nf">invPartRatio</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the inverse participation ratio of the probability distribution.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
-<span class="sd">            _description_</span>
+<span class="sd">            Inverse participation ratio of the probability distribution.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">absolute</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ProbabilityDistribution.stDev"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.stDev">[docs]</a>    <span class="k">def</span> <span class="nf">stDev</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the standard deviation of the probability distribution.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Standard deviation of the probability distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">stDev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">moment</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-        <span class="k">if</span> <span class="n">stDev</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">stDev</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">stDev</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">stDev</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="ProbabilityDistribution.survivalProb"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.survivalProb">[docs]</a>    <span class="k">def</span> <span class="nf">survivalProb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+<div class="viewcode-block" id="ProbabilityDistribution.survivalProb"><a class="viewcode-back" href="../../qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.survivalProb">[docs]</a>    <span class="k">def</span> <span class="nf">survivalProb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fromNode</span><span class="p">,</span> <span class="n">toNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the survival probability of the probability distribution.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        k0 : _type_</span>
-<span class="sd">            _description_</span>
-<span class="sd">        k1 : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        fromNode : _type_</span>
+<span class="sd">            Starting Node.</span>
+<span class="sd">        toNode : _type_</span>
+<span class="sd">            Ending node.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
-<span class="sd">            _description_</span>
+<span class="sd">            Survival probability of the probability distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">survProb</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">k0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">)</span>
-            <span class="n">k1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">k0</span> <span class="o">==</span> <span class="n">k1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">fromNode</span> <span class="o">==</span> <span class="n">toNode</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">)][</span><span class="mi">0</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">k0</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">k1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">fromNode</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">toNode</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
                     <span class="n">survProb</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-            <span class="k">return</span> <span class="n">survProb</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">survProb</span>
         <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MissingNodeInput</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;A node number is missing: k0 = </span><span class="si">{</span><span class="n">k0</span><span class="si">}</span><span class="s2">; k1=</span><span class="si">{</span><span class="n">k1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+                <span class="sa">f</span><span class="s2">&quot;A node number is missing: fromNode = </span><span class="si">{</span><span class="n">fromNode</span><span class="si">}</span><span class="s2">; toNode=</span><span class="si">{</span><span class="n">toNode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;String representation of the ProbabilityDistribution object.</span>
@@ -449,7 +503,7 @@
 <span class="sd">            String of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;N: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-               <span class="sa">f</span><span class="s2">&quot;State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_state</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
                <span class="sa">f</span><span class="s2">&quot;ProbDist:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_probVec</span><span class="si">}</span><span class="s2">&quot;</span></div>
 </pre></div>
         </article>

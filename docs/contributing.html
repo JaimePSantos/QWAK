@@ -192,6 +192,9 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html#utils">utils</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
 </li>
@@ -347,15 +350,10 @@ documentation pages:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda install sphinx
 </pre></div>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Right now we have a <code class="code docutils literal notranslate"><span class="pre">documentation</span></code> folder separate from the <code class="code docutils literal notranslate"><span class="pre">docs</span></code> folder used to create github pages.
-This is probably not a good idea so some of these steps will be subject to change.</p>
-</div>
 <p>After the dependency is taken care of:</p>
 <ol class="arabic">
 <li><p>Generate basic documentation files for the package (probably already present in the repo so just skip):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-quickstart documentation/
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-quickstart docs/
 </pre></div>
 </div>
 </li>
@@ -370,6 +368,15 @@ This is probably not a good idea so some of these steps will be subject to chang
 <li><p>Copy the new contents to docs folder for github pages <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">linuxgit</span></code> or <code class="code docutils literal notranslate"><span class="pre">make</span> <span class="pre">github</span></code>.</p></li>
 <li><p>Commit your changes and open a PR as described above.</p></li>
 </ol>
+</section>
+<section id="updating-pypi-package">
+<h2>Updating PyPi package<a class="headerlink" href="#updating-pypi-package" title="Permalink to this heading">#</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m pip install --upgrade build
+python -m build
+python -m pip install --upgrade twine
+twine upload dist/*
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -434,6 +441,7 @@ This is probably not a good idea so some of these steps will be subject to chang
 <li><a class="reference internal" href="#setting-up-the-repo-for-contributing">Setting up the repo for contributing</a></li>
 <li><a class="reference internal" href="#making-your-changes">Making your changes</a></li>
 <li><a class="reference internal" href="#generating-documentation">Generating Documentation</a></li>
+<li><a class="reference internal" href="#updating-pypi-package">Updating PyPi package</a></li>
 </ul>
 </li>
 </ul>

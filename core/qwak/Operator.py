@@ -1,22 +1,19 @@
 from __future__ import annotations
+from typing import Union
 
 import networkx as nx
 import sympy as sp
 from scipy.linalg import inv
 from sympy.abc import pi
 import numpy as np
+from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+import json
 
 from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 
 class Operator:
-    """
-    Class that represents the operators that will be used in a quantum walk.
-    States are represented by matrices in quantum mechanics,
-    therefore Numpy is used to generate ndarrays which contain these matrices.
-    """
-
     def __init__(
             self,
             graph: nx.Graph,
@@ -25,7 +22,10 @@ class Operator:
             laplacian: bool = False,
             markedSearch: list = None,
     ) -> None:
-        """This object is initialized with a user inputted graph, which is then used to
+        """
+        Class for the quantum walk operator.
+
+        This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
         the central structure required to perform walks on regular graphs. Note that this
         version of the software only supports regular undirected graphs, which will hopefully
@@ -40,10 +40,10 @@ class Operator:
         ----------
         graph : nx.Graph
             Graph where the walk will be performed.
-        time : float
-            Needs Completion.
         gamma : float
             Needs Completion.
+        time: float, optional
+            Time for which to calculate the operator, by default None.
         laplacian : bool, optional
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.
         markedSearch : list, optional
@@ -57,19 +57,89 @@ class Operator:
             self._gamma = gamma
         else:
             self._gamma = 1
+        if laplacian is not None:
+            self._laplacian = laplacian
+        else:
+            self._laplacian = False
+        if markedSearch is not None:
+            self._markedSearch = markedSearch
+        else:
+            self._markedSearch = None
         self._graph = graph
-        self._buildAdjacency(laplacian, markedSearch)
+        self._buildAdjacency(self._laplacian, self._markedSearch)
         self._n = len(graph)
-        self._operator = np.zeros((self._n, self._n))
+        self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._isHermitian = np.allclose(
             self._adjacencyMatrix,
             self._adjacencyMatrix.conjugate().transpose())
         self._buildEigenValues(self._isHermitian)
 
+    def to_json(self) -> str:
+        """
+            Converts the operator object to a JSON string.
+
+        Returns
+        -------
+        str
+            JSON string of the operator object.
+        """
+        return json.dumps({
+            'graph': nx.node_link_data(self._graph),
+            'time': self._time,
+            'laplacian': self._laplacian,
+            'markedSearch': self._markedSearch,
+            'adjacencyMatrix': complex_matrix_to_json(self._adjacencyMatrix),
+            'eigenvalues': self._eigenvalues.tolist(),
+            'eigenvectors': complex_matrix_to_json(self._eigenvectors),
+            'operator': complex_matrix_to_json(self._operator),
+        })
+
+    @classmethod
+    def from_json(cls, json_var: Union([str, dict])) -> Operator:
+        """Converts a JSON string to an operator object.
+
+        Parameters
+        ----------
+        json_str : str
+            JSON string of the operator object.
+
+        Returns
+        -------
+        Operator
+            Operator object.
+        """
+        if isinstance(json_var, str):
+            data = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            data = json_var
+        graph = nx.node_link_graph(data['graph'])
+        time = data['time']
+        laplacian = data['laplacian']
+        markedSearch = data['markedSearch']
+        adjacencyMatrix = np.array(
+            json_matrix_to_complex(
+                data['adjacencyMatrix']))
+        eigenvalues = np.array(data['eigenvalues'])
+
+        eigenvectors = np.array(
+            json_matrix_to_complex(
+                data['eigenvectors']))
+        operator = np.array(json_matrix_to_complex(data['operator']))
+
+        newOp = cls(graph, time, laplacian, markedSearch)
+        newOp._setAdjacencyMatrixOnly(adjacencyMatrix)
+        newOp._setEigenValues(eigenvalues)
+        newOp._setEigenVectors(eigenvectors)
+        newOp._setOperatorVec(operator)
+        return newOp
+
     def buildDiagonalOperator(self, time: float = None, gamma: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
+
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
-        eigenvalues and convert it to a list of the diagonal entries. The entries are then multiplied
+        eigenvalues and convert it to a list of the diagonal entries.
+
+        The entries are then multiplied
         by the eigenvectors, and the last step is to perform matrix multiplication with the complex
         conjugate of the eigenvectors.
 
@@ -100,15 +170,18 @@ class Operator:
                 self._operator, inv(
                     self._eigenvectors))
 
-    def _buildAdjacency(self, laplacian, markedSearch):
-        """_summary_
+    def _buildAdjacency(
+            self,
+            laplacian: bool,
+            markedSearch: list) -> None:
+        """Builds the adjacency matrix of the graph, which is either the Laplacian or the simple matrix.
 
         Parameters
         ----------
-        laplacian : _type_
-            _description_
-        markedSearch : _type_
-            _description_
+        laplacian : bool
+            Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
+        markedSearch : list
+            List of elements for the search.
         """
         if laplacian:
             self._adjacencyMatrix = np.asarray(
@@ -121,13 +194,13 @@ class Operator:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] = marked[1]
 
-    def _buildEigenValues(self, isHermitian):
-        """_summary_
+    def _buildEigenValues(self, isHermitian: bool) -> None:
+        """Builds the eigenvalues and eigenvectors of the adjacency matrix.
 
         Parameters
         ----------
         isHermitian : bool
-            _description_
+            Checks if the adjacency matrix is Hermitian.
         """
         if isHermitian:
             self._eigenvalues, self._eigenvectors = np.linalg.eigh(
@@ -137,20 +210,62 @@ class Operator:
             self._eigenvalues, self._eigenvectors = np.linalg.eig(
                 self._adjacencyMatrix)
 
-    def resetOperator(self):
-        """Resets Operator object."""
-        self._operator = np.zeros((self._n, self._n))
+    def getEigenValues(self) -> list:
+        """Returns the eigenvalues of the adjacency matrix.
 
-    def setDim(self, newDim: int, graph) -> None:
+        Returns
+        -------
+        list
+            List of eigenvalues.
+        """
+        return self._eigenvalues
+
+    def _setEigenValues(self, eigenValues: list) -> None:
+        """Sets the eigenvalues of the adjacency matrix.
+
+        Parameters
+        ----------
+        eigenValues : list
+            List of eigenvalues.
+        """
+        self._eigenvalues = eigenValues
+
+    def _setEigenVectors(self, eigenVectors: list) -> None:
+        """Sets the eigenvectors of the adjacency matrix.
+
+        Parameters
+        ----------
+        eigenVectors : list
+            _description_
+        """
+        self._eigenvectors = eigenVectors
+
+    def getEigenVectors(self) -> list:
+        """Returns the eigenvectors of the adjacency matrix.
+
+        Returns
+        -------
+        list
+            List of eigenvectors.
+        """
+        return self._eigenvectors
+
+    def resetOperator(self) -> None:
+        """Resets Operator object."""
+        self._operator = np.zeros((self._n, self._n), dtype=complex)
+
+    def setDim(self, newDim: int, graph: nx.Graph) -> None:
         """Sets the current Operator objects dimension to a user defined one.
 
         Parameters
         ----------
         newDim : int
             New dimension for the Operator object.
+        graph : nx.Graph
+            New graph for the Operator object.
         """
         self._n = newDim
-        self._operator = np.zeros((self._n, self._n))
+        self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._graph = graph
         self._adjacencyMatrix = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
@@ -202,6 +317,21 @@ class Operator:
         self.resetOperator()
         self._buildEigenValues(self._isHermitian)
 
+    def _setAdjacencyMatrixOnly(
+            self, adjacencyMatrix: np.ndarray) -> None:
+        """Sets the adjacency matrix of the operator to a user defined one.
+        Might make more sense to not give the user control over this parameter, and make
+        them instead change the graph entirely.
+
+        Parameters
+        ----------
+        adjacencyMatrix : np.ndarray
+            New adjacency matrix.
+        """
+        self._adjacencyMatrix = adjacencyMatrix.astype(complex)
+        self._n = len(self._adjacencyMatrix)
+        self.resetOperator()
+
     def getAdjacencyMatrix(self) -> np.ndarray:
         """Gets the current adjacency matrix of the Operator.
 
@@ -211,6 +341,16 @@ class Operator:
             Adjacency matrix of the Operator.
         """
         return self._adjacencyMatrix
+
+    def _setOperatorVec(self, newOperator: np.ndarray) -> None:
+        """Sets all the parameters of the current operator to user defined ones.
+
+        Parameters
+        ----------
+        newOperator : Operator
+            New user inputted Operator.
+        """
+        self._operator = newOperator
 
     def setOperator(self, newOperator: Operator) -> None:
         """Sets all the parameters of the current operator to user defined ones.

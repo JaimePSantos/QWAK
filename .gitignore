@@ -39,6 +39,7 @@ dist/
 generatingVariables.py
 Executable
 docs/build
+gui-flask/flask_session
 
 package.json
 package-lock.json

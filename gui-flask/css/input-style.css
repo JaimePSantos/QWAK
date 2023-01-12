@@ -81,7 +81,7 @@
     display: grid;
     grid-template-columns:14% 14% 14% 14% 14% 14% 14%;
     grid-template-rows: 100%;
-    justify-items: auto;
+    justify-items: center;
     align-items: center;
     color: var(--primary-white);
     font-weight: bold;
@@ -101,3 +101,4 @@
     border-width: 3px;
     /*border:solid red 1px;*/
 }
+

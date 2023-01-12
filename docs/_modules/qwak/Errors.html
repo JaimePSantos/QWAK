@@ -189,8 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -229,154 +228,103 @@
         <article role="main">
           <h1>Source code for qwak.Errors</h1><div class="highlight"><pre>
 <div class="viewcode-block" id="Error"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error">[docs]</a><span></span><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    BaseException : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_name</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the error instance with error name and details</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        error_name : _type_</span>
-<span class="sd">            _description_</span>
-<span class="sd">        details : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        error_name : str</span>
+<span class="sd">            Name of the error.</span>
+<span class="sd">        details : str</span>
+<span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">error_name</span> <span class="o">=</span> <span class="n">error_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">details</span>
 
-<div class="viewcode-block" id="Error.as_string"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error.as_string">[docs]</a>    <span class="k">def</span> <span class="nf">as_string</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+<div class="viewcode-block" id="Error.as_string"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error.as_string">[docs]</a>    <span class="k">def</span> <span class="nf">as_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a string representation of the error message</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        str</span>
+<span class="sd">            String representation of the error message.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></div></div>
 
 
 <div class="viewcode-block" id="StateOutOfBounds"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.StateOutOfBounds">[docs]</a><span class="k">class</span> <span class="nc">StateOutOfBounds</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    Error : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the state is out of the expected bounds.</span>
+<span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        details : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        details : str</span>
+<span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Condition out of bounds: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="NonUnitaryState"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.NonUnitaryState">[docs]</a><span class="k">class</span> <span class="nc">NonUnitaryState</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    Error : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the state is not unitary.</span>
+<span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        details : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        details : str</span>
+<span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;State is not unitary: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="UndefinedTimeList"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.UndefinedTimeList">[docs]</a><span class="k">class</span> <span class="nc">UndefinedTimeList</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    Error : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the time interval for multiple walks is undefined.</span>
+<span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        details : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        details : str</span>
+<span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Time interval for multiple walks is undefined: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="EmptyProbDistList"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.EmptyProbDistList">[docs]</a><span class="k">class</span> <span class="nc">EmptyProbDistList</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    Error : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the probability distribution list is empty.</span>
+<span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        details : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        details : str</span>
+<span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Probability distribution list is empty: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MissingNodeInput"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.MissingNodeInput">[docs]</a><span class="k">class</span> <span class="nc">MissingNodeInput</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    Error : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when input nodes are required but not provided.</span>
+<span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        details : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        details : str</span>
+<span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Input nodes required: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MissingGraphInput"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.MissingGraphInput">[docs]</a><span class="k">class</span> <span class="nc">MissingGraphInput</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    Error : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when a graph is required but not provided.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        details : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        details : str</span>
+<span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Graph required: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 </pre></div>

@@ -12,6 +12,14 @@ utils.PerfectStateTransfer module
    :undoc-members:
    :show-inheritance:
 
+utils.jsonMethods module
+------------------------
+
+.. automodule:: utils.jsonMethods
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Module contents
 ---------------
 
