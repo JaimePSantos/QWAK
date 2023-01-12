@@ -836,7 +836,7 @@ class QWAK:
 
         """
         try:
-            return self._operator.checkPST(nodeA, nodeB)
+            return self._operator.checkPST(fromNode, toNode)
         except MissingNodeInput as err:
             raise err
 
