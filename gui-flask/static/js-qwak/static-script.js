@@ -217,101 +217,6 @@ async function setPst(nodeA, nodeB) {
     // }
 }
 
-async function getStaticMean() {
-    let staticMean;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticMean`, // <- Add the queryparameter here
-        success: function (response) {
-            staticMean = response;
-            console.log(`success - getStaticMean ${staticMean}`);
-            return staticMean;
-        },
-        error: function (response) {
-            console.log('getStaticMean error');
-            staticMean = 'error'
-            return staticMean;
-        }
-    });
-    return staticMean;
-}
-
-async function getStaticSndMoment() {
-    let staticSndMoment;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticSndMoment`,
-        success: function (response) {
-            staticSndMoment = response;
-            console.log(`success - getStaticSndMoment ${staticSndMoment}`);
-            return staticSndMoment;
-        },
-        error: function (response) {
-            console.log('getStaticSndMoment error');
-            staticSndMoment = 'error'
-            return staticSndMoment;
-        }
-    });
-    return staticSndMoment;
-}
-
-async function getStaticStDev() {
-    let staticStDev;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticStDev`,
-        success: function (response) {
-            staticStDev = response;
-            console.log(`success - getStaticStDev ${staticStDev}`);
-            return staticStDev;
-        },
-        error: function (response) {
-            console.log('getStaticStDev error');
-            staticStDev = 'error'
-            return staticStDev;
-        }
-    });
-    return staticStDev;
-}
-
-async function getStaticInversePartRatio() {
-    let staticInversePartRatio;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticInversePartRatio`,
-        success: function (response) {
-            staticInversePartRatio = response;
-            console.log(`success - staticInversePartRatio ${staticInversePartRatio}`);
-            return staticInversePartRatio;
-        },
-        error: function (response) {
-            console.log('staticInversePartRatio error');
-            staticInversePartRatio = 'error'
-            return staticInversePartRatio;
-        }
-    });
-    return staticInversePartRatio;
-}
-
-// async function getStaticSurvivalProb(fromNode, toNode) {
-//     let staticSurvivalProb;
-//     await $.ajax({
-//         type: 'POST',
-//         url: `/getStaticSurvivalProb`,
-//         data: {fromNode: fromNode, toNode: toNode},
-//         success: function (response) {
-//             staticSurvivalProb = response;
-//             console.log(`success - staticSurvivalProb ${staticSurvivalProb}`);
-//             return staticSurvivalProb;
-//         },
-//         error: function (response) {
-//             console.log('staticSurvivalProb error');
-//             staticSurvivalProb = 'error'
-//             return staticSurvivalProb;
-//         }
-//     });
-//     return staticSurvivalProb;
-// }
 
 async function getPst(nodeA, nodeB) {
     let pst;
@@ -336,6 +241,4 @@ async function getPst(nodeA, nodeB) {
 // #### GRAPHS  ####
 
 cy.layout({name: "circle"}).run();
-
-// #### DATABASE ####
 

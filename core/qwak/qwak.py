@@ -658,13 +658,12 @@ class QWAK:
     def getInversePartRatioList(self, resultRounding=None):
         return [
             probDist.invPartRatio() for probDist in self._probDistList] if (
-            resultRounding is None) \
-            else [
+            resultRounding is None) else [
             round(
                 probDist.invPartRatio(),
                 resultRounding) for probDist in self._probDistList]
 
-    def getSurvivalProb(self, k0, k1,resultRounding):
+    def getSurvivalProb(self, k0, k1, resultRounding):
         """_summary_
 
         Parameters

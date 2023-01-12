@@ -31,114 +31,140 @@ gQwak = GraphicalQWAK(
 
 resultRounding = 4
 
-@app.route("/",methods=['GET', 'POST'])
+
+@app.route("/", methods=['GET', 'POST'])
 @app.route("/home")
 def home():
     return render_template('index.html')
+
 
 @app.route("/staticQW")
 def staticQW():
     return render_template('staticQW.html')
 
+
 @app.route("/dynamicQW")
 def dynamicQW():
     return render_template('dynamicQW.html')
 
-@app.route('/setStaticGraph',methods=['GET','POST'])
+
+@app.route('/setStaticGraph', methods=['GET', 'POST'])
 def setStaticGraph():
     newGraph = request.form.get("newGraph")
     gQwak.setStaticGraph(newGraph)
     return ("nothing")
 
-@app.route('/setDynamicGraph',methods=['GET','POST'])
+
+@app.route('/setDynamicGraph', methods=['GET', 'POST'])
 def setDynamicGraph():
     newGraph = request.form.get("newGraph")
     gQwak.setDynamicGraph(newGraph)
     return ("nothing")
 
-@app.route('/getStaticGraphToJson',methods=['GET','POST'])
+
+@app.route('/getStaticGraphToJson', methods=['GET', 'POST'])
 def getStaticGraphToJson():
     return gQwak.getStaticGraphToJson()
 
-@app.route('/getDynamicGraphToJson',methods=['GET','POST'])
+
+@app.route('/getDynamicGraphToJson', methods=['GET', 'POST'])
 def getDynamicGraphToJson():
     return gQwak.getDynamicGraphToJson()
 
-@app.route('/setStaticDim',methods=['GET','POST'])
+
+@app.route('/setStaticDim', methods=['GET', 'POST'])
 def setStaticDim():
     newDim = request.form.get("newDim")
     graphStr = request.form.get("graphStr")
     gQwak.setStaticDim(int(newDim), graphStr)
     return ("nothing")
 
-@app.route('/setDynamicDim',methods=['GET','POST'])
+
+@app.route('/setDynamicDim', methods=['GET', 'POST'])
 def setDynamicDim():
     newDim = request.form.get("newDim")
     graphStr = request.form.get("graphStr")
     gQwak.setDynamicDim(int(newDim), graphStr)
     return ("nothing")
 
-@app.route('/setStaticInitState',methods=['GET','POST'])
+
+@app.route('/setStaticInitState', methods=['GET', 'POST'])
 def setStaticInitState():
     initStateStr = request.form.get("initStateStr")
     gQwak.setStaticInitState(initStateStr)
     return ("nothing")
 
-@app.route('/setDynamicInitStateList',methods=['GET','POST'])
+
+@app.route('/setDynamicInitStateList', methods=['GET', 'POST'])
 def setDynamicInitStateList():
     initStateStr = request.form.get("initStateStr")
     gQwak.setDynamicInitStateList(initStateStr)
     return ("nothing")
 
-@app.route('/setStaticTime',methods=['GET','POST'])
+
+@app.route('/setStaticTime', methods=['GET', 'POST'])
 def setStaticTime():
     newTime = request.form.get("newTime")
     gQwak.setStaticTime(newTime)
     return ("nothing")
 
-@app.route('/setDynamicTime',methods=['GET','POST'])
+
+@app.route('/setDynamicTime', methods=['GET', 'POST'])
 def setDynamicTime():
     newTime = request.form.get("newTime")
     gQwak.setDynamicTime(newTime)
     return ("nothing")
 
-@app.route('/runWalk',methods=['GET','POST'])
+
+@app.route('/runWalk', methods=['GET', 'POST'])
 def runWalk():
     return gQwak.runWalk()
 
-@app.route('/runMultipleWalks',methods=['GET','POST'])
+
+@app.route('/runMultipleWalks', methods=['GET', 'POST'])
 def runMultipleWalks():
     return gQwak.runMultipleWalks()
 
-@app.route('/getStaticMean',methods=['GET','POST'])
+
+@app.route('/getStaticMean', methods=['GET', 'POST'])
 def getStaticMean():
     return [round(gQwak.getStaticMean(), resultRounding)]
 
-@app.route('/getDynamicMean',methods=['GET','POST'])
-def getDynamicMean():
-    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicMean()))
 
-@app.route('/getStaticSndMoment',methods=['GET','POST'])
+@app.route('/getDynamicMean', methods=['GET', 'POST'])
+def getDynamicMean():
+    return list(map(lambda x: round(x, resultRounding),
+                gQwak.getDynamicMean()))
+
+
+@app.route('/getStaticSndMoment', methods=['GET', 'POST'])
 def getStaticSndMoment():
     return [round(gQwak.getStaticSndMoment(), resultRounding)]
 
-@app.route('/getStaticStDev',methods=['GET','POST'])
+
+@app.route('/getStaticStDev', methods=['GET', 'POST'])
 def getStaticStDev():
     return [round(gQwak.getStaticStDev(), resultRounding)]
 
-@app.route('/getDynamicStDev',methods=['GET','POST'])
-def getDynamicStDev():
-    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicStDev()))
 
-@app.route('/getStaticInversePartRatio',methods=['GET','POST'])
+@app.route('/getDynamicStDev', methods=['GET', 'POST'])
+def getDynamicStDev():
+    return list(map(lambda x: round(x, resultRounding),
+                gQwak.getDynamicStDev()))
+
+
+@app.route('/getStaticInversePartRatio', methods=['GET', 'POST'])
 def getStaticInversePartRatio():
     return [round(gQwak.getStaticInversePartRatio(), resultRounding)]
 
-@app.route('/getDynamicInvPartRatio',methods=['GET','POST'])
-def getDynamicInvPartRatio():
-    return list(map(lambda x: round(x,resultRounding), gQwak.getDynamicInvPartRatio()))
 
-@app.route('/getStaticSurvivalProb',methods=['GET','POST'])
+@app.route('/getDynamicInvPartRatio', methods=['GET', 'POST'])
+def getDynamicInvPartRatio():
+    return list(map(lambda x: round(x, resultRounding),
+                gQwak.getDynamicInvPartRatio()))
+
+
+@app.route('/getStaticSurvivalProb', methods=['GET', 'POST'])
 def getStaticSurvivalProb():
     fromNode = str(request.form.get("fromNode"))
     toNode = str(request.form.get("toNode"))
@@ -147,33 +173,41 @@ def getStaticSurvivalProb():
         survProb[1] = round(survProb[1], resultRounding)
     return survProb
 
-@app.route('/getDynamicSurvivalProb',methods=['GET','POST'])
+
+@app.route('/getDynamicSurvivalProb', methods=['GET', 'POST'])
 def getDynamicSurvivalProb():
     fromNode = str(request.form.get("fromNode"))
     toNode = str(request.form.get("toNode"))
     survProb = gQwak.getDynamicSurvivalProb(fromNode, toNode)
     if not survProb[0]:
-        survProb[1] = list(map(lambda x: round(x,resultRounding),survProb[1]))
+        survProb[1] = list(
+            map(lambda x: round(x, resultRounding), survProb[1]))
     return survProb
 
-@app.route('/checkPST',methods=['GET','POST'])
+
+@app.route('/checkPST', methods=['GET', 'POST'])
 def checkPST():
     nodeA = str(request.form.get("nodeA"))
     nodeB = str(request.form.get("nodeB"))
     pst = gQwak.checkPST(nodeA, nodeB)
     return pst
 
-@app.route('/setStaticCustomGraph',methods=['GET','POST'])
+
+@app.route('/setStaticCustomGraph', methods=['GET', 'POST'])
 def setStaticCustomGraph():
-    customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
+    customAdjacency = np.matrix(
+        eval(request.form.get("customAdjacency")))
     gQwak.setStaticCustomGraph(customAdjacency)
     return ("nothing")
 
-@app.route('/setDynamicCustomGraph',methods=['GET','POST'])
+
+@app.route('/setDynamicCustomGraph', methods=['GET', 'POST'])
 def setDynamicCustomGraph():
-    customAdjacency = np.matrix(eval(request.form.get("customAdjacency")))
+    customAdjacency = np.matrix(
+        eval(request.form.get("customAdjacency")))
     gQwak.setDynamicCustomGraph(customAdjacency)
     return ("nothing")
+
 
 if __name__ == '__main__':
     app.run(debug=True)

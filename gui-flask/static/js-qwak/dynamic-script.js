@@ -150,29 +150,11 @@ $(function () {
     });
 });
 
-function setDynamicJsTime(){
-    dynamicQuantumWalk.time = (inputTimeRange.value);
-    setDynamicPyTime(dynamicQuantumWalk.time);
-}
-
 function setDynamicJsInitStateList(){
     dynamicQuantumWalk.initState = inputInitStateRange.value;
     setDynamicPyInitStateList(dynamicQuantumWalk.initState);
 }
 
-function setDynamicPyTime(newTime) {
-    $.ajax({
-        type: 'POST',
-        url: `/setDynamicTime`, // <- Add the queryparameter here
-        data: {newTime: newTime},
-        success: function (response) {
-            console.log('success - Time set to ${newTime}');
-        },
-        error: function (response) {
-            console.log('setTime error');
-        }
-    });
-}
 // #### #### MEAN PLOT #### ####
 
 let myDynamicMeanChart = new Chart(document.getElementById("dynamicMeanChart").getContext("2d"), dynamicMeanChartData)
