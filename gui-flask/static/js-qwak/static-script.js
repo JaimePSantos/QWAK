@@ -1,17 +1,14 @@
-import {customCy, cy, staticChartData} from "./static-tools.js";
-import {StaticQuantumwalk} from "./staticQuantumwalk.js";
+import {customCy, cy, staticChartData} from "./js-static/static-tools.js";
+import {StaticQuantumwalk} from "./js-static/staticQuantumwalk.js";
 import {setStaticDim,
     setStaticGraph,
     updateGraph,
-    getStaticGraph,
     addNodeButtonPress,
     setCustomAdjacencyMatrix,
     createAdjacencyMatrix,
-    adjacencyMatrixToString} from "./js-static/static-graph.js"
-import { deleteAllWalkEntries,
-    deleteWalkEntry,
+    } from "./js-static/static-graph.js"
+import {deleteWalkEntry,
     getStaticProbDistDB,
-    setStaticProbDistDB,
     plotStaticProbDistDB,
     setStaticPyInitState,
     setStaticPyTime,

@@ -1,18 +1,18 @@
 import {
-    customCy,
-    cy,
+    customCyDynamic,
+    cyDynamic,
     staticChartData,
     dynamicChartData,
     dynamicInvPartRatioChartData,
     dynamicMeanChartData,
     dynamicStDevChartData,
     dynamicSurvivalProbChartData
-} from "./dynamic-tools.js";
+} from "./js-dynamic/dynamic-tools.js";
 
-import {DynamicQuantumwalk} from "./dynamicQuantumwalk.js";
-import {setDynamicDim,setDynamicGraph,getDynamicGraph,updateGraph,addNodeButtonPress,setCustomAdjacencyMatrix,createAdjacencyMatrix,adjacencyMatrixToString} from "./js-dynamic/dynamic-graph.js"
+import {DynamicQuantumwalk} from "./js-dynamic/dynamicQuantumwalk.js";
+import {setDynamicGraph,updateGraph,addNodeButtonPress,setCustomAdjacencyMatrix,createAdjacencyMatrix} from "./js-dynamic/dynamic-graph.js"
 
-import {plotDynamicProbDist, setDynamicProbDistDB,getDynamicProbDistDB} from "./js-dynamic/dynamic-probDist.js"
+import {plotDynamicProbDist,getDynamicProbDistDB} from "./js-dynamic/dynamic-probDist.js"
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
@@ -59,7 +59,7 @@ async function getDynamicQuantity(quantity) {
 }
 
 // Graph Generator
-cy.layout({name: "circle"}).run();
+cyDynamic.layout({name: "circle"}).run();
 
 $(function () {
     $('#runGraphButton').on('click', async function (e) {
@@ -73,7 +73,7 @@ $(function () {
 });
 
 // #### CUSTOM GRAPH ####
-var eh = customCy.edgehandles();
+var eh = customCyDynamic.edgehandles();
 
 document.getElementById('addEdgeButton').addEventListener('click', function () {
     eh.enableDrawMode();
@@ -91,7 +91,7 @@ $(function () {
     $('#graphCustomButton').on('click', async function (e) {
         e.preventDefault();
         dynamicQuantumWalk.reset();
-        let customAdjacency = createAdjacencyMatrix(customCy);
+        let customAdjacency = createAdjacencyMatrix(customCyDynamic);
         await setCustomAdjacencyMatrix(customAdjacency);
     });
 });

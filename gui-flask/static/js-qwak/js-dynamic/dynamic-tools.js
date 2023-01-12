@@ -40,20 +40,6 @@ let initGraph = async () => {
     await setDynamicGraph(5,graphStr)
 }
 
-async function setDynamicDim(newDim, graphStr) {
-    await $.ajax({
-        type: 'POST',
-        url: `/setDynamicDim`, // <- Add the queryparameter here
-        data: {newDim: newDim, graphStr: graphStr},
-        success: function (response) {
-            console.log('success - Dim set to ${newDim}');
-        },
-        error: function (response) {
-            console.log('setDim error');
-        }
-    });
-}
-
 async function setDynamicGraph(newDim,newGraph) {
     await $.ajax({
         type: 'POST',
@@ -111,7 +97,6 @@ function openTab(evt, graph, tabcontent, tablinks) {
     evt.currentTarget.className += " active";
 }
 
-
 document.getElementById('defaultOpen').addEventListener('click', evt => {
     openTab(evt, 'GraphGenerator', "tabcontent", "tablinks");
 })
@@ -124,8 +109,8 @@ document.getElementById('customGraphDisplay').addEventListener('click', evt => {
 })
 
 
-export let cy = cytoscape({
-    container: document.getElementById("cy"), // container to render in
+export let cyDynamic = cytoscape({
+    container: document.getElementById("cyDynamic"), // container to render in
     boxSelectionEnabled: false,
     autounselectify: true,
     elements: myGraph.elements,
@@ -158,7 +143,7 @@ export let cy = cytoscape({
 
 document.getElementById('customGraphDisplay').click()
 
-export let customCy = cytoscape({
+export let customCyDynamic = cytoscape({
     container: document.getElementById('cyCustom'),
     directed: false,
     wheelSensitivity: 0.1,
@@ -440,4 +425,4 @@ document.getElementById('defaultDynStat').click()
 
 document.getElementById('defaultOpen').click()
 
-cy.layout({name: "circle"}).run();
+cyDynamic.layout({name: "circle"}).run();

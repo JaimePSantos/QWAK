@@ -1,4 +1,4 @@
-import {staticChartData} from "../static-tools.js";
+import {staticChartData} from "./static-tools.js";
 
 let inputTime = document.getElementById("inputTime");
 let inputInitState = document.getElementById("inputInitState");

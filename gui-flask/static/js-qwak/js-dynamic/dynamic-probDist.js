@@ -1,7 +1,7 @@
 import {
     staticChartData,
     dynamicChartData,
-} from "../dynamic-tools.js";
+} from "./dynamic-tools.js";
 
 let myAnimatedChart = new Chart(document.getElementById("dynamicProbDistChart").getContext("2d"), dynamicChartData);
 

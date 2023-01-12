@@ -1,9 +1,6 @@
 import {
-    customCy,
-    cy,} from "../dynamic-tools.js";
-
-let inputDim = document.getElementById("inputDim");
-let inputGraph = document.getElementById("inputGraph");
+    customCyDynamic,
+    cyDynamic,} from "./dynamic-tools.js";
 
 // - Graph Generator
 
@@ -41,29 +38,10 @@ export async function setDynamicGraph(newDim,newGraph) {
     return myGraph;
 }
 
-export async function getDynamicGraph() {
-    let myGraph;
-    await $.ajax({
-        type: 'POST',
-        url: `/getDynamicGraphToJson`, // <- Add the queryparameter here
-        success: function (response) {
-            myGraph = response;
-            console.log('success - got graph ${myGraph}');
-            return myGraph;
-        },
-        error: function (response) {
-            console.log('getStaticGraph error');
-            myGraph = 'error'
-            return myGraph;
-        }
-    });
-    return myGraph;
-}
-
 export let updateGraph = (graph) => {
-    cy.elements().remove()
-    cy.add(graph.elements)
-    cy.layout({name: "circle"}).run();
+    cyDynamic.elements().remove()
+    cyDynamic.add(graph.elements)
+    cyDynamic.layout({name: "circle"}).run();
 }
 
 // - Custom Graph
@@ -72,12 +50,12 @@ let nodeNumber = 2;
 let nodeXPos = 200;
 let nodeYPos = 0;
 
-var eh = customCy.edgehandles();
+var eh = customCyDynamic.edgehandles();
 
 export async function addNodeButtonPress() {
     nodeNumber++;
     nodeYPos += 50;
-    customCy.add({
+    customCyDynamic.add({
         group: 'nodes',
         data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
         position: {x: nodeXPos, y: nodeYPos}

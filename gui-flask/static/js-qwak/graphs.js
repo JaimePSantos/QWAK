@@ -1,11 +1,27 @@
-import {customCy, cy} from "./static-tools.js";
+import {
+    customCyDynamic,
+    cyDynamic,} from "./js-dynamic/dynamic-tools.js";
 
-// - Graph Generator
+import {customCy, cy} from "./js-static/static-tools.js";
 
 export function setStaticDim(newDim, graphStr) {
     $.ajax({
         type: 'POST',
         url: `/setStaticDim`, // <- Add the queryparameter here
+        data: {newDim: newDim, graphStr: graphStr},
+        success: function (response) {
+            console.log('success - Dim set to ${newDim}');
+        },
+        error: function (response) {
+            console.log('setDim error');
+        }
+    });
+}
+
+export async function setDynamicDim(newDim, graphStr) {
+    await $.ajax({
+        type: 'POST',
+        url: `/setDynamicDim`, // <- Add the queryparameter here
         data: {newDim: newDim, graphStr: graphStr},
         success: function (response) {
             console.log('success - Dim set to ${newDim}');
@@ -36,43 +52,44 @@ export async function setStaticGraph(newDim,newGraph) {
     return myGraph;
 }
 
-export function updateGraph(graph) {
-    cy.elements().remove()
-    cy.add(graph.elements)
-    cy.layout({name: "circle"}).run();
-}
-
-export async function getStaticGraph() {
+export async function setDynamicGraph(newDim,newGraph) {
     let myGraph;
     await $.ajax({
         type: 'POST',
-        url: `/getStaticGraphToJson`, // <- Add the queryparameter here
+        url: `/setDynamicGraph`,
+        data: {newDim:newDim, newGraph: newGraph},
         success: function (response) {
+            console.log(`success - graph set to ${newGraph}`);
             myGraph = response;
-            console.log('success - got graph ${myGraph}');
             return myGraph;
         },
         error: function (response) {
-            console.log('getStaticGraph error');
-            myGraph = 'error'
+            console.log('setGraph error');
+            myGraph = response;
             return myGraph;
         }
-    });
+    })
     return myGraph;
 }
 
-// Custom Graph
+export let updateGraph = (graph) => {
+    cyDynamic.elements().remove()
+    cyDynamic.add(graph.elements)
+    cyDynamic.layout({name: "circle"}).run();
+}
+
+// - Custom Graph
 
 let nodeNumber = 2;
 let nodeXPos = 200;
 let nodeYPos = 0;
 
-var eh = customCy.edgehandles();
+var eh = customCyDynamic.edgehandles();
 
 export async function addNodeButtonPress() {
     nodeNumber++;
     nodeYPos += 50;
-    customCy.add({
+    customCyDynamic.add({
         group: 'nodes',
         data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
         position: {x: nodeXPos, y: nodeYPos}
@@ -83,7 +100,7 @@ export function setCustomAdjacencyMatrix(customAdjacency) {
     // console.log(customAdjacency)
     $.ajax({
         type: 'POST',
-        url: `/setStaticCustomGraph`, // <- Add the queryparameter here
+        url: `/setDynamicCustomGraph`, // <- Add the queryparameter here
         data: {customAdjacency: customAdjacency},
         async: false,
         success: function (response) {
