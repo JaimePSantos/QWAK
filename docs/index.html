@@ -240,6 +240,10 @@ quantum walk.</p>
 <p>Additionally, a graphical user interface is provided as a user
 friendly alternative, where it is possible to study several different aspects of the quantum
 walk without having prior coding knowledge. See the <a class="reference internal" href="installation.html"><span class="doc">installation</span></a> page for more information.</p>
+<p>Alternatively, a fullstack web app is available on <a class="reference external" href="https://qwak-sim.herokuapp.com/">Heroku</a>. This app is
+built using Flask and PyMongo. The Flask server generates a session for each user, and a database collection is created
+for each session. The collection will be made of static and dynamic QWAK JSON objects, which will be converted to
+a Python class instance in Flask.</p>
 <section id="gallery">
 <h2>Gallery<a class="headerlink" href="#gallery" title="Permalink to this heading">#</a></h2>
 <p><a class="reference internal" href="_images/StaticMultipleTime.png"><img alt="staticMultipleTime" src="_images/StaticMultipleTime.png" style="width: 43%;" /></a> <a class="reference internal" href="_images/DynamicProbDist.gif"><img alt="dynamicSingleWalk" src="_images/DynamicProbDist.gif" style="width: 50%;" /></a></p>
@@ -267,6 +271,7 @@ walk without having prior coding knowledge. See the <a class="reference internal
 <li class="toctree-l2"><a class="reference internal" href="contributing.html#setting-up-the-repo-for-contributing">Setting up the repo for contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html#making-your-changes">Making your changes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="contributing.html#generating-documentation">Generating Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#updating-pypi-package">Updating PyPi package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">qwak</a><ul>
