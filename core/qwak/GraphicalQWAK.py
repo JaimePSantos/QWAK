@@ -27,6 +27,8 @@ class GraphicalQWAK:
         dynamicStateList: list,
         staticTime: float,
         dynamicTimeList: list,
+        staticGamma: float = None,
+        dynamicGamma: float = None,
         qwakId: str = 'undefinedUser',
     ) -> None:
         """_summary_
@@ -49,6 +51,10 @@ class GraphicalQWAK:
             _description_
         dynamicTimeList : list
             _description_
+        staticGamma : float
+            _description_
+        dynamicGamma : float
+            _description_
         """
         self._staticN = staticN
         self._dynamicN = dynamicN
@@ -61,6 +67,8 @@ class GraphicalQWAK:
         self._dynamicTimeList = np.linspace(
             self._dynamicTime[0], self._dynamicTime[1], int(
                 self._dynamicTime[1]))
+        self._staticGamma = staticGamma
+        self._dynamicGamma = dynamicGamma
         self._staticQWAK = QWAK(self._staticGraph)
         # self._staticProbDist = self._staticQWAK.getProbDist()
         # self._dynamicQWAK = QWAK(self._dynamicGraph)
@@ -186,7 +194,7 @@ class GraphicalQWAK:
         try:
             # self._staticQWAK.resetWalk()
             self._staticQWAK.runWalk(
-                self._staticTime, self._staticStateList)
+                time=self._staticTime,gamma=self._staticGamma,initStateList=self._staticStateList)
             self._staticProbDist = self._staticQWAK.getProbDist()
             qwProbVec = self._staticProbDist.getProbVec().tolist()
             return [False, qwProbVec]

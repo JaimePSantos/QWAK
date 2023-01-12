@@ -18,6 +18,7 @@ class Operator:
             self,
             graph: nx.Graph,
             time: float = None,
+            gamma: float = None,
             laplacian: bool = False,
             markedSearch: list = None,
     ) -> None:
@@ -39,6 +40,8 @@ class Operator:
         ----------
         graph : nx.Graph
             Graph where the walk will be performed.
+        gamma : float
+            Needs Completion.
         time: float, optional
             Time for which to calculate the operator, by default None.
         laplacian : bool, optional
@@ -50,6 +53,10 @@ class Operator:
             self._time = time
         else:
             self._time = 0
+        if gamma is not None:
+            self._gamma = gamma
+        else:
+            self._gamma = 1
         if laplacian is not None:
             self._laplacian = laplacian
         else:
@@ -126,7 +133,7 @@ class Operator:
         newOp._setOperatorVec(operator)
         return newOp
 
-    def buildDiagonalOperator(self, time: float = None) -> None:
+    def buildDiagonalOperator(self, time: float = None, gamma: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
 
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
@@ -140,11 +147,19 @@ class Operator:
         ----------
         time : float, optional
             Time for which to calculate the operator, by default 0.
+        gamma : float, optional
+            Needs completion.
         """
         if time is not None:
             self._time = time
+        else:
+            self._time = 0
+        if gamma is not None:
+            self._gamma = gamma
+        else:
+            self._gamma = 1
         diag = np.diag(
-            np.exp(-1j * self._eigenvalues * self._time)).diagonal()
+            np.exp(-1j * self._eigenvalues * self._time * self._gamma)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
             self._operator = np.matmul(
@@ -177,7 +192,7 @@ class Operator:
                 self._graph, dtype=complex)
         if markedSearch is not None:
             for marked in markedSearch:
-                self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
+                self._adjacencyMatrix[marked[0], marked[0]] = marked[1]
 
     def _buildEigenValues(self, isHermitian: bool) -> None:
         """Builds the eigenvalues and eigenvectors of the adjacency matrix.
