@@ -1,3 +1,6 @@
+from __future__ import annotations
+from typing import Union
+
 import networkx as nx
 import numpy as np
 import copy
@@ -19,17 +22,6 @@ from qwak.ProbabilityDistribution import (
 
 
 class QWAK:
-    """Data access class that combines all three components required to
-    perform a continuous-time quantum walk, given by the multiplication of
-    an operator (represented by the Operator class) by an initial state
-    (State class).  This multiplication is achieved in the
-    StaticQuantumwalk class, which returns a final state (State Class)
-    representing the amplitudes of each state associated with a graph node.
-    These amplitudes can then be transformed to probability distributions
-    (ProbabilityDistribution class) suitable for plotting with matplotlib,
-    or your package of choice.
-    """
-
     def __init__(
         self,
         graph: nx.Graph,
@@ -41,7 +33,17 @@ class QWAK:
         markedSearch: list = None,
         qwakId: str = 'userUndef',
     ) -> None:
-        """Default values for the initial state, time and transition rate are a
+        """Data access class that combines all three components required to
+        perform a continuous-time quantum walk, given by the multiplication of
+        an operator (represented by the Operator class) by an initial state
+        (State class).  This multiplication is achieved in the
+        StaticQuantumwalk class, which returns a final state (State Class)
+        representing the amplitudes of each state associated with a graph node.
+        These amplitudes can then be transformed to probability distributions
+        (ProbabilityDistribution class) suitable for plotting with matplotlib,
+        or your package of choice.
+        
+        Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
         buildWalk must then be used to generate the results of the quantum
         walk.
@@ -52,9 +54,9 @@ class QWAK:
             NetworkX graph where the walk takes place. Also used
             for defining the dimensions of the quantum walk.
         time : float
-            _ Needs completion _
+            Time interval for the quantum walk, by default None.
         timeList : list
-            _ Needs completion _
+            List with time intervals for multiple walks, by default None.
         initStateList : list[int], optional
             List with chosen initial states for uniform superposition, by default None
         customStateList : list[(int,complex)], optional
@@ -64,6 +66,8 @@ class QWAK:
             Laplacian or simple adjacency matrix, by default False.
         markedSearch : list, optional
             List with marked elements for search, by default None.
+        qwakId : str, optional
+            User-defined ID for the QWAK instance, by default 'userUndef'.
         """
         self._graph = graph
         self._n = len(self._graph)
@@ -89,13 +93,19 @@ class QWAK:
         self._probDistList = []
 
     def to_json(self, isDynamic=False) -> str:
-        """_summary_
+        """Returns a JSON representation of the QWAK instance
+
+        Parameters
+        ----------
+        isDynamic : bool, optional
+            If True, the JSON will contain the timeList, probDistList and
+            walkList attributes, by default False.
 
         Returns
         -------
         str
-            _description_
-        """
+            JSON representation of the QWAK instance.
+        """        
         if isDynamic:
             qwakJson = json.dumps({
                 'dim': self._n,
@@ -104,40 +114,38 @@ class QWAK:
                 'initState': json.loads(self._initState.to_json()),
                 'operator': json.loads(self._operator.to_json()),
                 'quantumWalk': json.loads(self._quantumWalk.to_json()),
-                # 'probDist': json.loads(self._probDist.to_json()),
                 'probDistList': [probDist.to_json() for probDist in self._probDistList],
-                # 'walkList': self._walkList,
                 'qwakId': self._qwakId
             })
         else:
             qwakJson = json.dumps({
                 'dim': self._n,
                 'graph': nx.node_link_data(self._graph),
-                # 'timeList': self._timeList.tolist(),
                 'initState': json.loads(self._initState.to_json()),
                 'operator': json.loads(self._operator.to_json()),
                 'quantumWalk': json.loads(self._quantumWalk.to_json()),
                 'probDist': json.loads(self._probDist.to_json()),
-                # 'probDistList': list(map(lambda prob: json.loads(prob.to_json()),self._probDistList)),
-                # 'walkList': self._walkList,
                 'qwakId': self._qwakId
             })
         return qwakJson
 
     @classmethod
-    def from_json(cls, json_var: str, isDynamic=False):
-        """_summary_
+    def from_json(cls, json_var: str, isDynamic=False) -> QWAK:
+        """Returns a QWAK instance from a JSON representation.
 
         Parameters
         ----------
-        json_str : str
-            _description_
+        json_var : str
+            JSON representation of the QWAK instance.
+        isDynamic : bool, optional
+            If True, the JSON will contain the timeList and probDistList attributes, 
+            by default False.
 
         Returns
         -------
-        Operator
-            _description_
-        """
+        QWAK
+            QWAK instance from a JSON representation.
+        """        
         if isinstance(json_var, str):
             data = json.loads(json_var)
         elif isinstance(json_var, dict):
@@ -164,7 +172,14 @@ class QWAK:
         newQwak.setWalk(quantumWalk)
         return newQwak
 
-    def setQWAK(self, newQWAK):
+    def setQWAK(self, newQWAK: QWAK) -> None:
+        """Sets the QWAK instance's attributes to the ones of the given QWAK instance.
+
+        Parameters
+        ----------
+        newQWAK : QWAK
+            QWAK instance to copy the attributes from.
+        """        
         self.setGraph(newQWAK.getGraph())
         self.setDim(newQWAK.getDim(), graph=self._graph)
         self.setInitState(newQWAK.getInitState())
@@ -193,9 +208,9 @@ class QWAK:
         Raises
         ------
         stOBErr
-            _description_
+            State out of bounds exception.
         nUErr
-            _description_
+            State not unitary exception.
         """
         try:
             self._initState.buildState(
@@ -215,21 +230,22 @@ class QWAK:
             timeList: list = None,
             initStateList: list = None,
             customStateList: list = None) -> None:
-        """_summary_
+        """Runs the walk for multiple times and stores the probability distributions
+        in a list.
 
         Parameters
         ----------
         timeList : list, optional
-            _description_, by default None
+            List of times for which to calculate the quantum walk, by default None.
         initStateList : list, optional
-            _description_, by default None
+            List with chosen initial states for uniform superposition, by default None.
         customStateList : list, optional
-            _description_, by default None
+            Custom init state, by default None.
 
         Raises
         ------
         UndefinedTimeList
-            _description_
+            Raised when the timeList is None.
         """
         self._probDistList = []
         if timeList is not None:
@@ -268,10 +284,11 @@ class QWAK:
             New dimension for the quantum walk.
         graphStr : str
             Graph string to generate the graph with the new dimension.
+        graph : nx.Graph, optional
+            Graph with the new dimension.
         initStateList : list[int], optional
             Init state list with new dimension.
         """
-        # TODO: Docs need update after rework.
         self._n = newDim
         if graphStr is not None:
             self._graph = eval(f"{graphStr}({self._n})")
@@ -292,6 +309,7 @@ class QWAK:
 
     def getDim(self) -> int:
         """Gets the current graph dimension.
+
         Returns
         -------
         int
@@ -322,7 +340,14 @@ class QWAK:
         """
         return self._graph
 
-    def setCustomGraph(self, customAdjMatrix):
+    def setCustomGraph(self, customAdjMatrix: np.ndarray) -> None:
+        """Sets the current graph to a user defined one.
+
+        Parameters
+        ----------
+        customAdjMatrix : np.ndarray
+            Adjacency matrix of the new graph.
+        """        
         self._graph = nx.from_numpy_matrix(customAdjMatrix)
         self.setGraph(newGraph=self._graph)
         self._initStateList = [self._n // 2]
@@ -363,12 +388,12 @@ class QWAK:
         self._operator.setTime(newTime)
 
     def setTimeList(self, newTimeList: list) -> None:
-        """_summary_
+        """Sets the current walk time to a user defined one.
 
         Parameters
         ----------
-        newTime : list
-            _description_
+        newTimeList : list
+            New time list.
         """
         timeList = np.linspace(
             newTimeList[0], newTimeList[1], int(
@@ -398,14 +423,14 @@ class QWAK:
     def setAdjacencyMatrix(
             self, newAdjMatrix: np.ndarray, initStateList: list = None
     ) -> None:
-        """_summary_
+        """Sets the current adjacency matrix to a user defined one.
 
         Parameters
         ----------
         newAdjMatrix : np.ndarray
-            _description_
+            New adjacency matrix.
         initStateList : list, optional
-            _description_, by default None
+            New initial state list, by default None.
         """
         self._n = len(self._operator.getAdjacencyMatrix())
         self._operator.setAdjacencyMatrix(newAdjMatrix)
@@ -415,10 +440,11 @@ class QWAK:
             self._quantumWalk.getFinalState())
 
     def getAdjacencyMatrix(self) -> np.ndarray:
-        """_summary_
+        """Gets the current adjacency matrix.
 
         Returns:
-            np.ndarray: _description_
+            np.ndarray:
+                Current adjacency matrix.
         """
         return self._operator.getAdjacencyMatrix()
 
@@ -463,19 +489,6 @@ class QWAK:
         """
         return self._quantumWalk
 
-    def getWalkList(self) -> list:
-        """_summary_
-
-        Returns
-        -------
-        list
-            _description_
-        """
-        return self._walkList
-
-    def setWalkList(self, newWalkList):
-        self._walkList = newWalkList
-
     def getFinalState(self) -> State:
         """Gets current QuantumWalk State.
 
@@ -495,16 +508,6 @@ class QWAK:
             Array of the QuantumWalk state.
         """
         return self._quantumWalk.getAmpVec()
-
-    def getAmpVecList(self) -> list:
-        """_summary_
-
-        Returns
-        -------
-        list
-            _description_
-        """
-        return list(map(lambda x: x.getAmpVec(), self._walkList))
 
     def setProbDist(self, newProbDist: ProbabilityDistribution) -> None:
         """Sets current walk probability distribution to a user defined one.
@@ -528,19 +531,26 @@ class QWAK:
         return self._probDist
 
     def getProbDistList(self) -> list:
-        """_summary_
+        """Returns a list of probability distributions in the case of multiple walks.
 
         Returns
         -------
-        _type_
-            _description_
+        list
+            List of ProbabilityDistribution objects.
         """
         if not self._probDistList:
             raise EmptyProbDistList(
                 f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
 
-    def setProbDistList(self, newProbDistList):
+    def setProbDistList(self, newProbDistList: list) -> None:
+        """Sets the current probability distribution list to a user defined one.
+
+        Parameters
+        ----------
+        newProbDistList : list
+            New probability distribution list.
+        """        
         self._probDistList = newProbDistList
 
     def getProbVec(self) -> np.ndarray:
@@ -554,12 +564,12 @@ class QWAK:
         return self._probDist.getProbVec()
 
     def getProbVecList(self) -> list:
-        """_summary_
+        """Returns a list of probability distribution vectors in the case of multiple walks.
 
         Returns
         -------
-        _type_
-            _description_
+        list
+            List of probability distribution vectors.
         """
         return [probDist.getProbVec()
                 for probDist in self._probDistList]
@@ -594,19 +604,36 @@ class QWAK:
         """
         return self._probDist.searchNodeProbability(searchNode)
 
-    def getMean(self, resultRounding=None):
-        """_summary_
+    def getMean(self, resultRounding: int = None) -> float:
+        """Gets the mean of the probability distribution.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
 
         Returns
         -------
-        _type_
-            _description_
-        """
+        float
+            Mean of the probability distribution.
+        """        
         return self._probDist.moment(1) if (
             resultRounding is None) \
             else round(self._probDist.moment(1), resultRounding)
 
-    def getMeanList(self, resultRounding=None):
+    def getMeanList(self, resultRounding: int =None) -> list:
+        """Gets the mean of the probability distribution list.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of means of the probability distributions.
+        """        
         return [
             probDist.moment(1) for probDist in self._probDistList] if (
             resultRounding is None) \
@@ -615,32 +642,54 @@ class QWAK:
                 probDist.moment(1),
                 resultRounding) for probDist in self._probDistList]
 
-    def getSndMoment(self, resultRounding=None):
-        """_summary_
+    def getSndMoment(self, resultRounding: int = None) -> float:
+        """Gets the second moment of the probability distribution.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
 
         Returns
         -------
-        _type_
-            _description_
-        """
+        float
+            Second moment of the probability distribution.
+        """        
         return self._probDist.moment(2) if (resultRounding is None) \
             else round(
             self._probDist.moment(2), resultRounding)
 
-    def getStDev(self, resultRounding=None):
-        """_summary_
+    def getStDev(self, resultRounding: int = None) -> float:
+        """Gets the standard deviation of the probability distribution.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
 
         Returns
         -------
-        _type_
-            _description_
-        """
+        float
+            Standard deviation of the probability distribution.
+        """        
         return self._probDist.stDev() if (resultRounding is None) \
             else round(
             self._probDist.stDev(),
             resultRounding)
 
-    def getStDevList(self, resultRounding=None):
+    def getStDevList(self, resultRounding: int = None) -> list:
+        """Gets the standard deviation of the probability distribution list.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of standard deviations of the probability distributions.
+        """        
         return [
             probDist.stDev() for probDist in self._probDistList] if (
             resultRounding is None) \
@@ -649,13 +698,37 @@ class QWAK:
                 probDist.stDev(),
                 resultRounding) for probDist in self._probDistList]
 
-    def getInversePartRatio(self, resultRounding=None):
+    def getInversePartRatio(self, resultRounding: int = None) -> float:
+        """Gets the inverse participation ratio of the probability distribution.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
+
+        Returns
+        -------
+        float
+            Inverse participation ratio of the probability distribution.
+        """        
         return self._probDist.invPartRatio() if (
             resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
 
-    def getInversePartRatioList(self, resultRounding=None):
+    def getInversePartRatioList(self, resultRounding: int = None) -> list:
+        """Gets the inverse participation ratio of the probability distribution list.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of inverse participation ratios of the probability distributions.
+        """        
         return [
             probDist.invPartRatio() for probDist in self._probDistList] if (
             resultRounding is None) else [
@@ -663,67 +736,100 @@ class QWAK:
                 probDist.invPartRatio(),
                 resultRounding) for probDist in self._probDistList]
 
-    def getSurvivalProb(self, k0, k1, resultRounding=None):
-        """_summary_
+    def getSurvivalProb(self, fromNode, toNode, resultRounding: int = None) -> float:
+        """Gets the survival probability of the probability distribution.
 
         Parameters
         ----------
-        k0 : _type_
-            _description_
-        k1 : _type_
-            _description_
+        fromNode : _type_
+            Starting node.
+        toNode : _type_
+            Ending node.
+        resultRounding : int, optional
+            Rounding of the result, by default None.
 
         Returns
         -------
-        _type_
-            _description_
-        """
+        float
+            Survival probability of the probability distribution.
+
+        Raises
+        ------
+        MissingNodeInput
+            Missing input node error.
+        """        
         try:
-            return self._probDist.survivalProb(k0, k1) if(resultRounding is None) else round(self._probDist.survivalProb(k0, k1),resultRounding)
+            return self._probDist.survivalProb(fromNode, toNode) if(resultRounding is None) else round(self._probDist.survivalProb(fromNode, toNode),resultRounding)
         except MissingNodeInput as err:
             raise err
 
-    def getSurvivalProbList(self, k0, k1, resultRounding=0):
+    def getSurvivalProbList(self, fromNode, toNode, resultRounding: int = None) -> list:
+        """Gets the survival probability of the probability distribution list.
+
+        Parameters
+        ----------
+        fromNode : _type_
+            Starting node.
+        toNode : _type_
+            Ending node.
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of survival probabilities of the probability distributions.
+
+        Raises
+        ------
+        MissingNodeInput
+            Missing input node error.
+        """        
         try:
             return [
                 probDist.survivalProb(
-                    k0,
-                    k1) for probDist in self._probDistList] if (
+                    fromNode,
+                    toNode) for probDist in self._probDistList] if (
                 resultRounding is None) else [
                 round(
                     probDist.survivalProb(
-                        k0,
-                        k1),
+                        fromNode,
+                        toNode),
                     resultRounding) for probDist in self._probDistList]
         except MissingNodeInput as err:
             raise err
 
-    def checkPST(self, nodeA, nodeB):
-        """_summary_
+    def checkPST(self, fromNode, toNode) -> Union([str,bool]):
+        """Checks if a structure allows for PST between certain nodes.
 
         Parameters
         ----------
-        nodeA : _type_
-            _description_
-        nodeB : _type_
-            _description_
-
+        fromNode : _type_
+            Starting node.
+        toNode : _type_
+            Ending node.
         Returns
         -------
-        _type_
+        Union([str,bool])
             _description_
-        """
+
+        Raises
+        ------
+        MissingNodeInput
+            Missing input node error.
+            
+        """        
         try:
             return self._operator.checkPST(nodeA, nodeB)
         except MissingNodeInput as err:
             raise err
 
-    def getTransportEfficiency(self):
-        """_summary_
+    def getTransportEfficiency(self)->float:
+        """Gets the transport efficiency of the quantum walk.
 
         Returns
         -------
-        _type_
-            _description_
+        float
+            Transport efficiency of the quantum walk.
         """
         return self._quantumWalk.transportEfficiency()
