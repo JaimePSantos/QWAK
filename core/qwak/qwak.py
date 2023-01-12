@@ -538,9 +538,9 @@ class QWAK:
         list
             List of ProbabilityDistribution objects.
         """
-        if not self._probDistList:
-            raise EmptyProbDistList(
-                f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
+        # if not self._probDistList:
+        #     raise EmptyProbDistList(
+        #         f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
 
     def setProbDistList(self, newProbDistList: list) -> None:

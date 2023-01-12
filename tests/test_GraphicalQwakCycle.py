@@ -44,11 +44,12 @@ class Disabled_TestGraphicalQWAKCycle(object):
         n = 100
         t = [0, 12]
         gQwak = GraphicalQWAKTestStub()
-        np.testing.assert_almost_equal(
-            gQwak.getDynamicProbVecList(),
-            [np.zeros(n)],
-            err_msg="Probability distribution before running should be 0.",
-        )
+        # np.testing.assert_almost_equal(
+        #     gQwak.getDynamicProbVecList(),
+        #     [np.zeros(n)],
+        #     err_msg="Probability distribution before running should be 0.",
+        # )
+        assert not len(gQwak.getDynamicProbVecList()), "Probability distribution before running should be 0."
         probVecList = gQwak.runMultipleWalks()
         assert not probVecList[0], "runMultipleWalks should not have thrown an error."
         np.testing.assert_almost_equal(
@@ -106,11 +107,12 @@ class Disabled_TestGraphicalQWAKCycle(object):
         t = [0, 12]
         gQwak = GraphicalQWAKTestStub()
         newInitStateList = str(n // 4) + ',' + str(n // 4 + 1)
-        np.testing.assert_almost_equal(
-            gQwak.getDynamicProbVecList(),
-            [np.zeros(n)],
-            err_msg="Probability distribution before running should be 0.",
-        )
+        # np.testing.assert_almost_equal(
+        #     gQwak.getDynamicProbVecList(),
+        #     [np.zeros(n)],
+        #     err_msg="Probability distribution before running should be 0.",
+        # )
+        assert not len(gQwak.getDynamicProbVecList()), "Probability distribution before running should be 0."
         np.testing.assert_almost_equal(
             gQwak.getDynamicInitStateList(),
             [[n // 2, n // 2 + 1]],
@@ -258,11 +260,12 @@ class Disabled_TestGraphicalQWAKCycle(object):
         gQwak.setDynamicGraph(newGraphStr)
         assert nx.is_isomorphic(gQwak.getDynamicGraph(), nx.complete_graph(
             n)), "GQwak graph should be isomorphic to a complete graph"
-        np.testing.assert_almost_equal(
-            gQwak.getDynamicProbVecList(),
-            [np.zeros(n)],
-            err_msg="Probability distribution before running should be 0.",
-        )
+        # np.testing.assert_almost_equal(
+        #     gQwak.getDynamicProbVecList(),
+        #     [np.zeros(n)],
+        #     err_msg="Probability distribution before running should be 0.",
+        # )
+        assert not len(gQwak.getDynamicProbVecList()), "Probability distribution before running should be 0."
         probVecList = gQwak.runMultipleWalks()
         assert not probVecList[0], "runMultipleWalks should not have thrown an error."
         np.testing.assert_almost_equal(
@@ -308,11 +311,12 @@ class Disabled_TestGraphicalQWAKCycle(object):
         # as 2*pi for python to eval().
         newTimeList = '0' + ',' + str(10 * np.pi)
         gQwak = GraphicalQWAKTestStub()
-        np.testing.assert_almost_equal(
-            gQwak.getDynamicProbVecList(),
-            [np.zeros(n)],
-            err_msg="Probability distribution before running should be 0.",
-        )
+        # np.testing.assert_almost_equal(
+        #     gQwak.getDynamicProbVecList(),
+        #     [np.zeros(n)],
+        #     err_msg="Probability distribution before running should be 0.",
+        # )
+        assert not len(gQwak.getDynamicProbVecList()), "Probability distribution before running should be 0."
         probVecList = gQwak.runMultipleWalks()
         assert not probVecList[0], "runMultipleWalks should not have thrown an error."
         np.testing.assert_almost_equal(
