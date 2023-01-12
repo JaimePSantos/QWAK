@@ -10,12 +10,6 @@ from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
 
 
 class State:
-    """
-    Class that represents the states that will be used in a quantum walk.
-    States are represented by column vectors in quantum mechanics,
-    therefore Numpy is used to generate ndarrays which contain these column vectors.
-    """
-
     def __init__(self, n: int, nodeList: list = None,
                  customStateList: list = None) -> None:
         """Object is initialized with a mandatory user inputted dimension, an optional
