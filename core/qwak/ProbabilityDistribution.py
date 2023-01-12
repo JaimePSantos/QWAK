@@ -246,7 +246,7 @@ class ProbabilityDistribution:
         survProb = 0
         try:
             if fromNode == toNode:
-                return self._probVec[int(k0)][0]
+                return self._probVec[int(fromNode)][0]
             else:
                 for i in range(int(fromNode), int(toNode) + 1):
                     survProb += self._probVec[i]
