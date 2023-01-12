@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "qwak-sim"
-version = "2023.1009-alpha"
+version = "2023.1010-alpha"
 description = "Simulate Continuous-Time Quantum Walks"
 readme = "README.md"
 authors = [{ name = "Jaime Santos", email = "jaimepereirasantos123@gmail.com" },
@@ -42,7 +42,7 @@ include = ["qwak","utils"]  # alternatively: `exclude = ["additional*"]`
 namespaces = false
 
 [tool.bumpver]
-current_version = "2023.1009-alpha"
+current_version = "2023.1010-alpha"
 version_pattern = "YYYY.BUILD[-TAG]"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
