@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Union
 
 import numpy as np
 from scipy.linalg import inv
@@ -41,13 +42,20 @@ class State:
             self._customStateList = customStateList
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
-    def to_json(self):
-        """In contrast, the to_json method is not marked with the @classmethod decorator because it is a method that is called on an instance of the Operator class. This means that it can access the attributes of the instance on which it is called, and it uses these attributes to generate the JSON string representation of the Operator instance. Since it requires access to the attributes of a specific Operator instance, it cannot be called on the Operator class itself.
+    def to_json(self) -> str:
+        """In contrast, the to_json method is not marked with the @classmethod decorator because 
+        it is a method that is called on an instance of the Operator class. 
+
+        This means that it can access the attributes of the instance on which it is called, and it 
+        uses these attributes to generate the JSON string representation of the Operator instance. 
+        
+        Since it requires access to the attributes of a specific Operator instance, it cannot be 
+        called on the Operator class itself.
 
         Returns
         -------
-        _type_
-            _description_
+        str
+            JSON string representation of the Operator instance.
         """
         state_dict = {
             "n": self._n,
@@ -59,18 +67,22 @@ class State:
         return json.dumps(state_dict)
 
     @classmethod
-    def from_json(cls, json_var):
-        """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself, rather than on an instance of the class. This is necessary because it is used to create a new instance of the Operator class from a JSON string, and it does not require an instance of the Operator class to do so.
+    def from_json(cls, json_var:Union([str, dict])):
+        """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself, 
+        rather than on an instance of the class. 
+        
+        This is necessary because it is used to create a new instance of the Operator class from a JSON string, 
+        and it does not require an instance of the Operator class to do so.
 
         Parameters
         ----------
-        json_str : _type_
-            _description_
+        json_var : Union([str, dict])
+            JSON string or dictionary representation of the Operator instance.
 
         Returns
         -------
-        _type_
-            _description_
+        Operator
+            Operator instance from JSON string or dictionary representation.
         """
         if isinstance(json_var, str):
             state_dict = json.loads(json_var)
@@ -104,7 +116,6 @@ class State:
         """
         # TODO: We can probably find a better way to build this
         # function.\
-        # self.resetState()
         if nodeList is not None:
             self.resetState()
             self._nodeList = nodeList
@@ -122,18 +133,18 @@ class State:
                 self._checkStateOutOfBounds(state)
                 self._stateVec[state] = 1 / nodeAmp
 
-    def _checkStateOutOfBounds(self, node) -> None:
-        """_summary_
+    def _checkStateOutOfBounds(self, node:int) -> None:
+        """Checks if the state is out of bounds for the system.
 
         Parameters
         ----------
-        node : _type_
-            _description_
+        node : int
+            Node to check.
 
         Raises
         ------
         StateOutOfBounds
-            _description_
+            Out of bounds exception.
         """
         if node >= self._n:
             raise StateOutOfBounds(
@@ -141,17 +152,17 @@ class State:
             )
 
     def _checkUnitaryStateList(self, customStateList) -> None:
-        """_summary_
+        """Checks if the sum of the square of the amplitudes is 1.
 
         Parameters
         ----------
-        customStateList : _type_
-            _description_
+        customStateList : list
+            Custom state list.
 
         Raises
         ------
         NonUnitaryState
-            _description_
+            Non unitary state exception.
         """
         unitaryState = 0
         for state in customStateList:
@@ -162,27 +173,27 @@ class State:
                 f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1."
             )
 
-    def herm(self):
-        """_summary_
+    def herm(self) -> np.ndarray:
+        """Returns the Hermitian conjugate of the state vector.
 
         Returns
         -------
-        _type_
-            _description_
+        np.ndarray
+            Hermitian conjugate of the state vector.
         """
         return self._stateVec.H
 
-    def inv(self):
-        """_summary_
+    def inv(self) -> np.ndarray:
+        """Returns the inverse of the state vector.
 
         Returns
         -------
-        _type_
-            _description_
+        np.ndarray
+            Inverse of the state vector.
         """
         return inv(self._stateVec)
 
-    def resetState(self):
+    def resetState(self) -> None:
         """Resets the components of the State."""
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
@@ -193,6 +204,8 @@ class State:
         ----------
         newDim : int
             New state dimension.
+        newNodeList : list, optional
+            List containing the new nodes, by default None.
         """
         self._n = newDim
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
@@ -292,18 +305,18 @@ class State:
         """
         return other * self._stateVec
 
-    def __matmul__(self, other):
-        """_summary_
+    def __matmul__(self, other: np.ndarray) -> np.ndarray:
+        """Matrix multiplication for the State class.
 
         Parameters
         ----------
-        other : _type_
-            _description_
+        other : np.ndarray
+            Another Numpy ndarray to multiply the state by.
 
         Returns
         -------
-        _type_
-            _description_
+        np.ndarray
+            Array of the multiplication.
         """
         return self._stateVec @ other
 
@@ -318,12 +331,12 @@ class State:
         return f"{self._stateVec}"
 
     def __repr__(self) -> str:
-        """Representation of the ProbabilityDistribution object.
+        """String representation of the State class.
 
         Returns
         -------
         str
-            String of the ProbabilityDistribution object.
+            State string.
         """
         return f"N: {self._n}\n" \
                f"Node list: {self._nodeList}\n" \

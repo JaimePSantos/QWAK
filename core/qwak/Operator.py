@@ -1,4 +1,5 @@
 from __future__ import annotations
+from typing import Union
 
 import networkx as nx
 import sympy as sp
@@ -10,9 +11,6 @@ import json
 
 from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
-
-from typing import Union
-
 
 class Operator:
     """
