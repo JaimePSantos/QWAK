@@ -222,8 +222,6 @@ class ProbabilityDistribution:
         """
         survProb = 0
         try:
-            k0 = int(k0)
-            k1 = int(k1)
             if k0 == k1:
                 return self._probVec[int(k0)][0]
             else:

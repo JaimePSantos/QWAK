@@ -161,7 +161,7 @@ def getStaticSurvivalProb():
                                     'qwakId': session['staticQwakId']}))
         fromNode = str(request.form.get("fromNode"))
         toNode = str(request.form.get("toNode"))
-        survProb = staticQWAK.getSurvivalProb(fromNode, toNode)
+        survProb = staticQWAK.getSurvivalProb(fromNode, toNode,resultRounding)
         return [False, str(survProb)]
     except MissingNodeInput as err:
         return [True, str(err)]
@@ -172,11 +172,13 @@ def checkPST():
     probDistSessionCollection = database[session['sessionId']]
     staticQWAK = QWAK.from_json(probDistSessionCollection.find_one({
                                 'qwakId': session['staticQwakId']}))
-    nodeA = str(request.form.get("nodeA"))
-    nodeB = str(request.form.get("nodeB"))
-    pst = staticQWAK.checkPST(nodeA, nodeB)
-    return str(pst)
-
+    nodeA = request.form.get("nodeA")
+    nodeB = request.form.get("nodeB")
+    try:
+        pst = staticQWAK.checkPST(nodeA, nodeB)
+        return [False,str(pst)]
+    except MissingNodeInput as err:
+        return [True,str(err)]
 
 @app.route('/setDynamicGraph', methods=['GET', 'POST'])
 def setDynamicGraph():

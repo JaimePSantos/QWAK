@@ -204,17 +204,16 @@ async function setStaticSurvivalProb(fromNode, toNode) {
 
 async function setPst(nodeA, nodeB) {
     staticQuantumWalk.PST = await getPst(nodeA, nodeB);
-    inputPSTResult.value = staticQuantumWalk.PST
-    // if (PST[0] == true) {
-    //     alert(PST[1]);
-    //     return;
-    // } else {
-    //     if (PST[1] < 0) {
-    //         inputPSTResult.value = 'No PST.';
-    //     } else {
-    //         inputPSTResult.value = PST[1];
-    //     }
-    // }
+    if (staticQuantumWalk.PST[0] == true) {
+        alert(staticQuantumWalk.PST[1]);
+        return;
+    } else {
+        if (staticQuantumWalk.PST[1] < 0) {
+            inputPSTResult.value = 'No PST.';
+        } else {
+            inputPSTResult.value = staticQuantumWalk.PST[1];
+        }
+    }
 }
 
 

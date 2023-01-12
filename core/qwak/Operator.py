@@ -11,12 +11,15 @@ import json
 from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
+from typing import Union
+
 
 class Operator:
     """
-    Class that represents the operators that will be used in a quantum walk.
+    
     States are represented by matrices in quantum mechanics,
     therefore Numpy is used to generate ndarrays which contain these matrices.
+
     """
 
     def __init__(
@@ -26,7 +29,10 @@ class Operator:
             laplacian: bool = False,
             markedSearch: list = None,
     ) -> None:
-        """This object is initialized with a user inputted graph, which is then used to
+        """
+        Class for the quantum walk operator.
+
+        This object is initialized with a user inputted graph, which is then used to
         generate the dimension of the operator and the adjacency matrix, which is
         the central structure required to perform walks on regular graphs. Note that this
         version of the software only supports regular undirected graphs, which will hopefully
@@ -41,6 +47,8 @@ class Operator:
         ----------
         graph : nx.Graph
             Graph where the walk will be performed.
+        time: float, optional
+            Time for which to calculate the operator, by default None.
         laplacian : bool, optional
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.
         markedSearch : list, optional
@@ -68,12 +76,13 @@ class Operator:
         self._buildEigenValues(self._isHermitian)
 
     def to_json(self) -> str:
-        """_summary_
+        """
+            Converts the operator object to a JSON string.
 
         Returns
         -------
         str
-            _description_
+            JSON string of the operator object.
         """
         return json.dumps({
             'graph': nx.node_link_data(self._graph),
@@ -87,13 +96,14 @@ class Operator:
         })
 
     @classmethod
-    def from_json(cls, json_var: str) -> Operator:
-        """_summary_
+    def from_json(cls, json_var: Union([str,dict])) -> Operator:
+        """
+            Converts a JSON string to an operator object.
 
         Parameters
         ----------
         json_str : str
-            _description_
+            JSON string of the operator object.
 
         Returns
         -------

@@ -663,7 +663,7 @@ class QWAK:
                 probDist.invPartRatio(),
                 resultRounding) for probDist in self._probDistList]
 
-    def getSurvivalProb(self, k0, k1, resultRounding):
+    def getSurvivalProb(self, k0, k1, resultRounding=None):
         """_summary_
 
         Parameters
@@ -679,7 +679,7 @@ class QWAK:
             _description_
         """
         try:
-            return self._probDist.survivalProb(k0, k1)
+            return self._probDist.survivalProb(k0, k1) if(resultRounding is None) else round(self._probDist.survivalProb(k0, k1),resultRounding)
         except MissingNodeInput as err:
             raise err
 
