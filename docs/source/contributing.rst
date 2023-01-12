@@ -150,18 +150,13 @@ documentation pages:
 
     conda install sphinx
 
-.. WARNING::
-
-   Right now we have a :code:`documentation` folder separate from the :code:`docs` folder used to create github pages.
-   This is probably not a good idea so some of these steps will be subject to change.
-
 After the dependency is taken care of:
 
 #. Generate basic documentation files for the package (probably already present in the repo so just skip):
 
    .. code-block:: shell
 
-      sphinx-quickstart documentation/
+      sphinx-quickstart docs/
 
 #. From the main folder, navigate to the :code:`documentation` folder using :code:`cd documentation`.
 
@@ -179,9 +174,15 @@ After the dependency is taken care of:
 
 #. Commit your changes and open a PR as described above.
 
+Updating PyPi package
+---------------------
 
+.. code-block:: shell
 
-
+    python -m pip install --upgrade build
+    python -m build
+    python -m pip install --upgrade twine
+    twine upload dist/*
 
 
 

@@ -1,22 +1,15 @@
-import warnings
+from __future__ import annotations
+from typing import Union
 
 import numpy as np
-
 from qwak.State import State
-
 from qwak.Errors import MissingNodeInput
-
-
-warnings.filterwarnings("ignore")
+import json
+from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+from functools import reduce
 
 
 class ProbabilityDistribution:
-    """
-    Class containing the vector containing the probabilities associated with the
-    final state of a continuous-time quantum walk.
-
-    """
-
     def __init__(self, state: State) -> None:
         """The dimension of the probability vector will then be loaded from
         the state inputted by the user.
@@ -28,15 +21,57 @@ class ProbabilityDistribution:
         state : State
             State to be converted into a probability.
         """
-        self._state = state.getStateVec()
+        self._state = state
+        self._stateVec = self._state.getStateVec()
         self._n = state.getDim()
-        self._probVec = np.zeros((self._n, 1))
+        self._probVec = np.zeros(self._n, dtype=float)
+
+    def to_json(self) -> str:
+        """
+            Converts the ProbabilityDistribution object to a JSON string.
+
+        Returns
+        -------
+        str
+            JSON string of the ProbabilityDistribution object.
+        """
+        return json.dumps({
+            'state': json.loads(self._state.to_json()),
+            'dim': self._n,
+            'prob_vec': self._probVec.tolist()
+        })
+
+    @classmethod
+    def from_json(cls,
+                  json_var: Union[str,
+                                  dict]) -> ProbabilityDistribution:
+        """Converts a JSON string to a ProbabilityDistribution object.
+
+        Parameters
+        ----------
+        json_var : Union[str, dict]
+            JSON string or dictionary to be converted to a ProbabilityDistribution object.
+
+        Returns
+        -------
+        ProbabilityDistribution
+            ProbabilityDistribution object converted from JSON.
+        """
+        if isinstance(json_var, str):
+            json_dict = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            json_dict = json_var
+        state = State.from_json(json_dict['state'])
+        prob_vec = np.array(json_dict['prob_vec'])
+        probDist = cls(state)
+        probDist.setProbVec(prob_vec)
+        return probDist
 
     def resetProbDist(self) -> None:
         """Resets the ProbabilityDistribution object."""
         # TODO: Rethink state attribute
-        self._state = np.zeros((self._n, 1), dtype=complex)
-        self._probVec = np.zeros((self._n, 1))
+        self._stateVec = np.zeros((self._n, 1), dtype=complex)
+        self._probVec = np.zeros(self._n, dtype=float)
 
     def buildProbDist(self, state: State = None) -> None:
         """Builds the probability vector by multiplying the user inputted
@@ -45,47 +80,76 @@ class ProbabilityDistribution:
         Parameters
         ----------
         state : State, optional
-            _description_, by default None
+            State to be converted into a probability, by default None
         """
         if state is not None:
-            self._state = state.getStateVec()
-        for st in range(self._n):
-            self._probVec[st] = self._state[st] * \
-                np.conj(self._state[st])
+            self._n = state.getDim()
+            self._state.setState(state)
+            self._stateVec = self._state.getStateVec()
+        self._probVec = np.array(
+            [((state.item(0) * np.conj(state.item(0))).real) for state in self._stateVec])
 
-    def setProbDist(self, newProbDist) -> None:
-        """_summary_
+    def setProbDist(self, newProbDist: ProbabilityDistribution) -> None:
+        """Sets the current probability distribution to a user inputted one.
 
         Parameters
         ----------
-        newProbDist : _type_
-            _description_
+        newProbDist : ProbabilityDistribution
+            New probability distribution for the object.
         """
-        self._state = newProbDist.getState()
         self._n = newProbDist.getDim()
+        self._state.setState(newProbDist.getState())
+        self._stateVec = newProbDist.getStateVec()
         self._probVec = newProbDist.getProbVec()
 
-    def getState(self) -> State:
-        """_summary_
+    def getStateVec(self) -> State:
+        """Gets the state vector associated with a distribution.
 
         Returns
         -------
         State
-            _description_
+            Returns the state vector of the ProbabilityDistribution object.
+        """
+        return self._stateVec
+
+    def getState(self) -> State:
+        """Gets the state associated with a distribution.
+
+        Returns
+        -------
+        State
+            Returns the state of the ProbabilityDistribution object.
         """
         return self._state
 
-    def setDim(self, newDim):
+    def setState(self, newState: State) -> None:
+        """Sets the current state to a user inputted one.
+
+        Parameters
+        ----------
+        newState : State
+            New state for the distribution.
+        """
+        self._state.setState(newState)
+
+    def setDim(self, newDim: int) -> None:
+        """Sets the current dimension to a user inputted one.
+
+        Parameters
+        ----------
+        newDim : int
+            New dimension for the distribution.
+        """
         self._n = newDim
-        self._probVec = np.zeros((self._n, 1))
+        self._probVec = np.zeros(self._n, dtype=float)
 
     def getDim(self) -> int:
-        """_summary_
+        """Gets the dimension associated with a distribution.
 
         Returns
         -------
         int
-            _description_
+            Returns the dimension of the ProbabilityDistribution object.
         """
         return self._n
 
@@ -97,7 +161,7 @@ class ProbabilityDistribution:
         newProbVec : np.ndarray
             New probability vector for the distribution.
         """
-        self._probVec = newProbVec.getProbDist()
+        self._probVec = newProbVec
 
     def getProbVec(self) -> np.ndarray:
         """Gets the probability vector associated with a distribution.
@@ -107,7 +171,7 @@ class ProbabilityDistribution:
         np.ndarray
             Returns the array of the ProbabilityDistribution object.
         """
-        return self._probVec.flatten()
+        return self._probVec
 
     def searchNodeProbability(self, searchNode: int) -> float:
         """Searches and gets the probability associated with a given node.
@@ -124,33 +188,18 @@ class ProbabilityDistribution:
         """
         return self._probVec.item(searchNode)
 
-    def mean(self) -> float:
-        """Gets the mean of the current probability distribution.
-
-        Returns
-        -------
-        float
-            Mean of the ProbabilityDistribution object.
-        """
-        # TODO: This function has been replaced by moment(1).
-        pos = np.arange(0, self._n)
-        m = 0
-        for x in range(self._n):
-            m += pos[x] * self._probVec[x]
-        return float(m)
-
-    def moment(self, k) -> float:
-        """_summary_
+    def moment(self, k: int) -> float:
+        """Calculates the kth moment of the probability distribution.
 
         Parameters
         ----------
-        k : _type_
-            _description_
+        k : int
+            User inputted moment.
 
         Returns
         -------
         float
-            _description_
+            kth moment of the probability distribution.
         """
         pos = np.arange(0, self._n)
         m = 0
@@ -158,47 +207,53 @@ class ProbabilityDistribution:
             m += (pos[x] ** k) * self._probVec[x]
         return float(m)
 
-    def stDev(self) -> float:
-        """_summary_
+    def invPartRatio(self) -> float:
+        """Calculates the inverse participation ratio of the probability distribution.
 
         Returns
         -------
         float
-            _description_
+            Inverse participation ratio of the probability distribution.
+        """
+        return 1 / (np.sum(np.absolute(self._probVec)**2))
+
+    def stDev(self) -> float:
+        """Calculates the standard deviation of the probability distribution.
+
+        Returns
+        -------
+        float
+            Standard deviation of the probability distribution.
         """
         stDev = self.moment(2) - self.moment(1) ** 2
-        if stDev <= 0:
-            return 0
-        return np.sqrt(stDev)
+        return np.sqrt(stDev) if (stDev > 0) else 0
 
-    def survivalProb(self, k0, k1) -> float:
-        """_summary_
+    def survivalProb(self, fromNode, toNode) -> float:
+        """Calculates the survival probability of the probability distribution.
 
         Parameters
         ----------
-        k0 : _type_
-            _description_
-        k1 : _type_
-            _description_
+        fromNode : _type_
+            Starting Node.
+        toNode : _type_
+            Ending node.
 
         Returns
         -------
         float
-            _description_
+            Survival probability of the probability distribution.
         """
         survProb = 0
         try:
-            k0 = int(k0)
-            k1 = int(k1)
-            if k0 == k1:
-                return self._probVec[int(k0)][0]
+            if fromNode == toNode:
+                return self._probVec[int(fromNode)][0]
             else:
-                for i in range(int(k0), int(k1) + 1):
+                for i in range(int(fromNode), int(toNode) + 1):
                     survProb += self._probVec[i]
-            return survProb[0]
+            return survProb
         except ValueError:
             raise MissingNodeInput(
-                f"A node number is missing: k0 = {k0}; k1={k1}")
+                f"A node number is missing: fromNode = {fromNode}; toNode={toNode}")
 
     def __str__(self) -> str:
         """String representation of the ProbabilityDistribution object.
@@ -219,5 +274,5 @@ class ProbabilityDistribution:
             String of the ProbabilityDistribution object.
         """
         return f"N: {self._n}\n" \
-               f"State:\n\t{self._state}\n" \
+               f"State:\n\t{self._stateVec}\n" \
                f"ProbDist:\n\t{self._probVec}"

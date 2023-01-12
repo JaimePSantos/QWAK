@@ -1,20 +1,18 @@
 from __future__ import annotations
 
 import warnings
-
 import numpy as np
+import json
+from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
 
 from qwak.Operator import Operator
 from qwak.State import State
+
 
 warnings.filterwarnings("ignore")
 
 
 class QuantumWalk:
-    """Class that represents the final state containing the amplitudes of a
-    continuous-time quantum walk.
-    """
-
     def __init__(self, state: State, operator: Operator) -> None:
         """This object is initialized with a user inputted initial state and
         operator.
@@ -31,12 +29,50 @@ class QuantumWalk:
         operator : Operator
             Operator which will evolve the initial state.
         """
-        # TODO: This class has mandatory init conditions. This is not in
-        # line with the rest of the classes.
         self._n = state.getDim()
         self._initState = state
         self._operator = operator
         self._finalState = State(self._n)
+
+    def to_json(self) -> str:
+        """Serializes the QuantumWalk object to JSON format.
+
+        Returns
+        -------
+        str
+            JSON string representation of the QuantumWalk object.
+        """
+        return json.dumps({
+            "n": self._n,
+            "initState": json.loads(self._initState.to_json()),
+            "operator": json.loads(self._operator.to_json()),
+            "finalState": json.loads(self._finalState.to_json())
+        })
+
+    @classmethod
+    def from_json(cls, json_var: str) -> QuantumWalk:
+        """Deserializes a JSON string to a QuantumWalk object.
+
+        Parameters
+        ----------
+        json_str : str
+            JSON string representation of the QuantumWalk object.
+
+        Returns
+        -------
+        QuantumWalk
+            Deserialized QuantumWalk object.
+        """
+        if isinstance(json_var, str):
+            data = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            data = json_var
+        initState = State.from_json(data["initState"])
+        operator = Operator.from_json(data["operator"])
+        finalState = State.from_json(data["finalState"])
+        walk = cls(initState, operator)
+        walk.setFinalState(finalState)
+        return walk
 
     def buildWalk(self, initState: State = None,
                   operator: Operator = None) -> None:
@@ -60,7 +96,7 @@ class QuantumWalk:
                 self._operator.getOperator(),
                 self._initState.getStateVec()))
 
-    def resetWalk(self):
+    def resetWalk(self) -> None:
         """Resets the components of the QuantumWalk object."""
         self._operator.resetOperator()
         self._initState.resetState()
@@ -95,7 +131,7 @@ class QuantumWalk:
             New QuantumWalk dimension.
         """
         self._n = newDim
-        self._finalState = State(self._n)
+        self._finalState.setDim(self._n)
 
     def getDim(self) -> int:
         """Gets the current state dimension.
@@ -137,7 +173,7 @@ class QuantumWalk:
         """
         self._initState.setState(newWalk.getInitState())
         self._operator.setOperator(newWalk.getOperator())
-        self._finalState.setState(newWalk.getWalk())
+        self._finalState.setState(newWalk.getFinalState())
 
     def getFinalState(self) -> State:
         """Gets the final state of the QuantumWalk.
@@ -148,6 +184,16 @@ class QuantumWalk:
             Final state of the QuantumWalk.
         """
         return self._finalState
+
+    def setFinalState(self, newFinalState: State) -> None:
+        """Sets the final state of the QuantumWalk.
+
+        Parameters
+        -------
+        finalState: State
+            Final state of the QuantumWalk.
+        """
+        self._finalState.setState(newFinalState)
 
     def getAmpVec(self) -> np.ndarray:
         """Gets the vector of the final state amplitudes of the  QuantumWalk.
@@ -175,27 +221,13 @@ class QuantumWalk:
         """
         return self._finalState.getStateVec().item(searchNode)
 
-    def invPartRatio(self) -> float:
-        """_summary_
-
-        Returns
-        -------
-        float
-            _description_
-        """
-        amplitudes = 0
-        for amp in self._finalState.getStateVec():
-            amplitudes += np.absolute(amp.item(0)) ** 4
-        amplitudes = amplitudes
-        return 1 / amplitudes
-
     def transportEfficiency(self) -> float:
-        """_summary_
+        """Calculates the transport efficiency of the quantum walk.
 
         Returns
         -------
         float
-            _description_
+            Transport efficiency of the quantum walk.
         """
         return 1 - np.trace(self._finalState @ self._finalState.herm())
 

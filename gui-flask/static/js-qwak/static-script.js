@@ -1,12 +1,22 @@
-import {customCy, cy, staticChartData} from "./static-tools.js";
-import {StaticQuantumwalk} from "./staticQuantumwalk.js";
-
+import {customCy, cy} from "./js-static/static-tools.js";
+import {staticChartData} from "./js-static/static-charts.js";
+import {StaticQuantumwalk} from "./js-static/staticQuantumwalk.js";
+import {
+    setStaticGraph,
+    updateGraph,
+    addNodeButtonPress,
+    setCustomAdjacencyMatrix,
+    createAdjacencyMatrix,
+    } from "./graphs.js"
+import {deleteWalkEntry,
+    getStaticProbDistDB,
+    plotStaticProbDistDB,
+    setStaticPyInitState,
+    setStaticPyTime,
+    getStaticSurvivalProb,
+} from "./js-static/static-probDist.js"
 
 // #### INPUTS & DISPLAYS ####
-let inputDim = document.getElementById("inputDim");
-let inputGraph = document.getElementById("inputGraph");
-let inputTime = document.getElementById("inputTime");
-let inputInitState = document.getElementById("inputInitState");
 
 let inputMean = document.getElementById("inputMean");
 let inputSndMoment = document.getElementById("inputSndMoment");
@@ -21,14 +31,14 @@ let inputPSTResult = document.getElementById("inputPSTResult");
 
 
 // #### JAVASCRIPT QUANTUM WALK OBJECTS ####
-let defaultN = 100;
-let defaultT = 10;
+let defaultN = 5;
+let defaultT = 1;
 let defaultInitState = [Math.floor(defaultN / 2)];
 let defaultGraph = 'nx.cycle_graph';
-let defaultTimeList = [0, 100];
-let defaultInitStateList = [[Math.floor(defaultN / 2)]];
+let defaultProbDist = [];
+let defaultWalkName = "Placeholder";
 
-let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph);
+let staticQuantumWalk = new StaticQuantumwalk(defaultN, defaultT, defaultInitState, defaultGraph,defaultProbDist,defaultWalkName);
 
 let inputInit = () => {
     inputTime.value = defaultT;
@@ -38,88 +48,32 @@ let inputInit = () => {
 }
 
 inputInit();
-console.log(cy)
+async function setStaticQuantity(quantity) {
+    await $.ajax({
+        type: 'POST',
+        url: `/${quantity}`,
+        data:{walkName:walkName},
+        success: function () {
+            console.log(`Success:\t ${quantity} -> ${quant}`);
+        },
+        error: function (response) {
+            console.log(`Error:\t ${quantity}`);
+        }
+    });
+}
 
-// SETTING THE GRAPH
-// - Graph Generator
+// Graph generator buttons
 
-let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-
-$(function () {
+$(async function () {
     $('#runGraphButton').on('click', async function (e) {
         e.preventDefault();
         staticQuantumWalk.reset();
         staticQuantumWalk.graph = inputGraph.value;
         staticQuantumWalk.dim = parseInt(inputDim.value);
-        setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph);
-        setStaticGraph(staticQuantumWalk.graph);
-        let myGraph = await getStaticGraph();
-        // console.log(myGraph)
-        updateGraph(myGraph);
+        let myGraph = await setStaticGraph(staticQuantumWalk.dim,staticQuantumWalk.graph);
+        updateGraph(myGraph,cy);
     });
 });
-
-$(function () {
-    $('#setDimButton').on('click', function (e) {
-        e.preventDefault();
-        staticQuantumWalk.graph = inputGraph.value;
-        staticQuantumWalk.dim = parseInt(inputDim.value);
-        setStaticDim(staticQuantumWalk.dim, staticQuantumWalk.graph)
-    });
-});
-
-function setStaticDim(newDim, graphStr) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticDim`, // <- Add the queryparameter here
-        data: {newDim: newDim, graphStr: graphStr},
-        success: function (response) {
-            console.log('success - Dim set to ${newDim}');
-        },
-        error: function (response) {
-            console.log('setDim error');
-        }
-    });
-}
-
-function setStaticGraph(newGraph) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticGraph`,
-        data: {newGraph: newGraph},
-        success: function (response) {
-            console.log('success - graph set to ${newGraph}');
-        },
-        error: function (response) {
-            console.log('setGraph error');
-        }
-    })
-}
-
-function updateGraph(graph) {
-    cy.elements().remove()
-    cy.add(graph.elements)
-    cy.layout({name: "circle"}).run();
-}
-
-async function getStaticGraph() {
-    let myGraph;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticGraphToJson`, // <- Add the queryparameter here
-        success: function (response) {
-            myGraph = response;
-            console.log('success - got graph ${myGraph}');
-            return myGraph;
-        },
-        error: function (response) {
-            console.log('getStaticGraph error');
-            myGraph = 'error'
-            return myGraph;
-        }
-    });
-    return myGraph;
-}
 
 // - Custom Graph
 // #### CUSTOM GRAPH ####
@@ -136,7 +90,7 @@ document.getElementById('addEdgeButton').addEventListener('click', function () {
 });
 
 document.getElementById("addNodeButton").addEventListener('click', function () {
-    addNodeButtonPress();
+    addNodeButtonPress(customCy);
 });
 
 document.getElementById('clearGraphButton').addEventListener('click', function () {
@@ -152,168 +106,56 @@ $(function () {
     });
 });
 
-
-async function addNodeButtonPress() {
-    nodeNumber++;
-    nodeYPos += 50;
-    customCy.add({
-        group: 'nodes',
-        data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
-        position: {x: nodeXPos, y: nodeYPos}
-    });
-}
-
-function setCustomAdjacencyMatrix(customAdjacency) {
-    // console.log(customAdjacency)
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticCustomGraph`, // <- Add the queryparameter here
-        data: {customAdjacency: customAdjacency},
-        async: false,
-        success: function (response) {
-            console.log('success - customAdjacency set to ${customAdjacency}');
-        },
-        error: function (response) {
-            console.log('customAdjacency error');
-        }
-    });
-}
-
-function createAdjacencyMatrix(graph) {
-    let adjacencyMatrix = math.zeros(graph.json().elements.nodes.length, graph.json().elements.nodes.length)
-
-    for (let edg of graph.json().elements.edges) {
-        // console.log(`Source: ${edg.data.source} -> Target: ${edg.data.target}`);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.source), parseInt(edg.data.target)), 1);
-        adjacencyMatrix.subset(math.index(parseInt(edg.data.target), parseInt(edg.data.source)), 1);
-    }
-    adjacencyMatrix = adjacencyMatrixToString(adjacencyMatrix);
-    return adjacencyMatrix;
-}
-
-function adjacencyMatrixToString(adjacencyMatrix) {
-    let adjm = "[";
-    let elemAux = "";
-    for (let elem of adjacencyMatrix._data) {
-        elemAux = "["
-        for (let e of elem) {
-            elemAux = elemAux.concat(",", e);
-        }
-        elemAux = elemAux.concat("", "]")
-        elemAux = elemAux.slice(0, 1) + elemAux.slice(2)
-        adjm = adjm.concat(",", elemAux)
-        elemAux = "";
-    }
-    adjm = adjm.concat("", "]")
-    adjm = adjm.slice(0, 1) + adjm.slice(2)
-    return adjm
-}
-
 // SETTING PROBDIST
 
-$(function () {
-    $('#setInitStateButton').on('click', function (e) {
-        e.preventDefault();
-        setStaticJsInitState();
-    });
-});
+async function setStaticJsInitState(){
+    staticQuantumWalk.initState = inputInitState.value;
+    await setStaticPyInitState(staticQuantumWalk.initState);
+}
 
-$(function () {
-    $('#setTimeButton').on('click', function (e) {
-        e.preventDefault();
-        setStaticJsTime();
-    });
-});
+export async function setStaticJsTime(){
+    staticQuantumWalk.time = (inputTime.value);
+    await setStaticPyTime(staticQuantumWalk.time);
+}
 
 $(function () {
     $('#staticProbDistButton').on('click', async function (e) {
+        var currentdate = new Date();
+        staticQuantumWalk.walkName = `StaticQWAK-${currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/" 
+                + currentdate.getFullYear() + "-"  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds()
+        }`;
         e.preventDefault();
         staticQuantumWalk.reset();
-        setStaticJsTime();
-        setStaticJsInitState();
-        let staticProbDist = await getStaticProbDist();
-        setStaticProbDist(staticProbDist);
-        setStaticMean();
-        setStaticSndMoment();
-        setStaticStDev();
-        setStaticInversePartRatio();
+        let walkResult = await getStaticProbDistDB(inputDim.value,inputGraph.value,inputTime.value,inputInitState.value);
+        if(walkResult[0] == true){
+            staticQuantumWalk.probDist = walkResult[1];
+            alert(staticQuantumWalk.probDist)
+        }else{
+            staticQuantumWalk.hasError = false;
+            staticQuantumWalk.probDist = walkResult[1]['prob'];
+            staticQuantumWalk.mean = walkResult[1]['mean'];
+            staticQuantumWalk.sndMoment = walkResult[1]['sndMoment'];
+            staticQuantumWalk.stDev = walkResult[1]['stDev'];
+            staticQuantumWalk.invPartRatio = walkResult[1]['invPartRatio'];
+            plotStaticProbDistDB(staticQuantumWalk);
+            await setStaticMean();
+            await setStaticSndMoment();
+            await setStaticStDev();
+            await setStaticInversePartRatio();
+        }
+
     });
 });
 
-function setStaticPyInitState(initStateStr) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticInitState`, // <- Add the queryparameter here
-        data: {initStateStr: initStateStr},
-        success: function (response) {
-            console.log('success - InitState set to ${initStateStr}');
-        },
-        error: function (response) {
-            console.log('InitState error');
-        }
+$(function () {
+    $('#setGammaButton').on('click', async function (e) {
+        await deleteWalkEntry(staticQuantumWalk.walkName);
     });
-}
-
-function setStaticJsInitState(){
-    staticQuantumWalk.initState = inputInitState.value;
-    setStaticPyInitState(staticQuantumWalk.initState);
-}
-
-function setStaticPyTime(newTime) {
-    $.ajax({
-        type: 'POST',
-        url: `/setStaticTime`, // <- Add the queryparameter here
-        data: {newTime: newTime},
-        success: function (response) {
-            console.log('success - Time set to ${newTime}');
-        },
-        error: function (response) {
-            console.log('setTime error');
-        }
-    });
-}
-
-function setStaticJsTime(){
-    staticQuantumWalk.time = (inputTime.value);
-    setStaticPyTime(staticQuantumWalk.time);
-}
-
-function setStaticProbDist(walk) {
-    // console.log(walk)
-    if (walk[0] == true) {
-        alert(walk[1]);
-        return;
-    } else {
-        let distList = walk[1].flat();
-        staticChartData.data.datasets[0].data = distList;
-        staticChartData.data.labels = [...Array(distList.length).keys()];
-        myChart.destroy();
-        myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
-        // await setStaticMean();
-        // await setStaticSndMoment();
-        // await setStaticStDev();
-        // await setInversePartRatio();
-    }
-}
-
-async function getStaticProbDist() {
-    let myWalk;
-    await $.ajax({
-        type: 'POST',
-        url: `/runWalk`, // <- Add the queryparameter here
-        success: function (response) {
-            myWalk = response;
-            console.log(`success - Runwalk ${myWalk}`);
-            return myWalk;
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-            myWalk = 'error'
-            return myWalk;
-        }
-    });
-    return myWalk;
-}
+});
 
 //SETTING STATISTICS
 $(function () {
@@ -321,7 +163,7 @@ $(function () {
         e.preventDefault();
         let fromNode = inputSurvProbNodeA.value;
         let toNode = inputSurvProbNodeB.value;
-        setStaticSurvivalProb(fromNode, toNode);
+        await setStaticSurvivalProb(fromNode, toNode);
     });
 });
 
@@ -335,144 +177,45 @@ $(function () {
 });
 
 async function setStaticMean() {
-    let statMean = await getStaticMean();
-    inputMean.value = statMean;
+    inputMean.value = staticQuantumWalk.mean;
 }
 
 async function setStaticSndMoment() {
-    let statSndMom = await getStaticSndMoment();
-    inputSndMoment.value = statSndMom;
+    inputSndMoment.value = staticQuantumWalk.sndMoment;
 }
 
 async function setStaticStDev() {
-    let statStDev = await getStaticStDev();
-    inputStDev.value = statStDev;
+    inputStDev.value = staticQuantumWalk.stDev;
 }
 
 async function setStaticInversePartRatio() {
-    let invPartRatio = await getStaticInversePartRatio();
-    inputInvPartRat.value = invPartRatio;
+    inputInvPartRat.value = staticQuantumWalk.invPartRatio;
 }
 
 async function setStaticSurvivalProb(fromNode, toNode) {
-    let survProb = await getStaticSurvivalProb(fromNode, toNode);
-    if (survProb[0] == true) {
+    let survProb = await getStaticSurvivalProb(fromNode,toNode);
+    if(survProb[0]==true){
         alert(survProb[1]);
-        return;
-    } else {
-        inputSurvProbResult.value = survProb[1];
+    }else{
+        staticQuantumWalk.survivalProb = survProb[1];
+        inputSurvProbResult.value = staticQuantumWalk.survivalProb;
     }
 }
 
 async function setPst(nodeA, nodeB) {
-    let PST = await getPst(nodeA, nodeB);
-    if (PST[0] == true) {
-        alert(PST[1]);
+    staticQuantumWalk.PST = await getPst(nodeA, nodeB);
+    if (staticQuantumWalk.PST[0] == true) {
+        alert(staticQuantumWalk.PST[1]);
         return;
     } else {
-        if (PST[1] < 0) {
+        if (staticQuantumWalk.PST[1] < 0) {
             inputPSTResult.value = 'No PST.';
         } else {
-            inputPSTResult.value = PST[1];
+            inputPSTResult.value = staticQuantumWalk.PST[1];
         }
     }
 }
 
-async function getStaticMean() {
-    let staticMean;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticMean`, // <- Add the queryparameter here
-        success: function (response) {
-            staticMean = response;
-            console.log(`success - getStaticMean ${staticMean}`);
-            return staticMean;
-        },
-        error: function (response) {
-            console.log('getStaticMean error');
-            staticMean = 'error'
-            return staticMean;
-        }
-    });
-    return staticMean;
-}
-
-async function getStaticSndMoment() {
-    let staticSndMoment;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticSndMoment`,
-        success: function (response) {
-            staticSndMoment = response;
-            console.log(`success - getStaticSndMoment ${staticSndMoment}`);
-            return staticSndMoment;
-        },
-        error: function (response) {
-            console.log('getStaticSndMoment error');
-            staticSndMoment = 'error'
-            return staticSndMoment;
-        }
-    });
-    return staticSndMoment;
-}
-
-async function getStaticStDev() {
-    let staticStDev;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticStDev`,
-        success: function (response) {
-            staticStDev = response;
-            console.log(`success - getStaticStDev ${staticStDev}`);
-            return staticStDev;
-        },
-        error: function (response) {
-            console.log('getStaticStDev error');
-            staticStDev = 'error'
-            return staticStDev;
-        }
-    });
-    return staticStDev;
-}
-
-async function getStaticInversePartRatio() {
-    let staticInversePartRatio;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticInversePartRatio`,
-        success: function (response) {
-            staticInversePartRatio = response;
-            console.log(`success - staticInversePartRatio ${staticInversePartRatio}`);
-            return staticInversePartRatio;
-        },
-        error: function (response) {
-            console.log('staticInversePartRatio error');
-            staticInversePartRatio = 'error'
-            return staticInversePartRatio;
-        }
-    });
-    return staticInversePartRatio;
-}
-
-async function getStaticSurvivalProb(fromNode, toNode) {
-    let staticSurvivalProb;
-    await $.ajax({
-        type: 'POST',
-        url: `/getStaticSurvivalProb`,
-        data: {fromNode: fromNode, toNode: toNode},
-        success: function (response) {
-            staticSurvivalProb = response;
-            console.log(`success - staticSurvivalProb ${staticSurvivalProb}`);
-            return staticSurvivalProb;
-        },
-        error: function (response) {
-            console.log('staticSurvivalProb error');
-            staticSurvivalProb = 'error'
-            return staticSurvivalProb;
-        }
-    });
-    return staticSurvivalProb;
-}
 
 async function getPst(nodeA, nodeB) {
     let pst;
@@ -497,3 +240,4 @@ async function getPst(nodeA, nodeB) {
 // #### GRAPHS  ####
 
 cy.layout({name: "circle"}).run();
+

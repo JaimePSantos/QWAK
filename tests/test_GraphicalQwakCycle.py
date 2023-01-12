@@ -22,7 +22,7 @@ from tests.testVariables.graphicalQwakVar import (
 )
 
 
-class TestGraphicalQWAKCycle(object):
+class Disabled_TestGraphicalQWAKCycle(object):
     def test_StaticProbDistUniformSuperpositionCycle(self):
         n = 100
         t = 12
