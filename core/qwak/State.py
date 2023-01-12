@@ -37,13 +37,13 @@ class State:
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
     def to_json(self) -> str:
-        """In contrast, the to_json method is not marked with the @classmethod decorator because 
-        it is a method that is called on an instance of the Operator class. 
+        """In contrast, the to_json method is not marked with the @classmethod decorator because
+        it is a method that is called on an instance of the Operator class.
 
-        This means that it can access the attributes of the instance on which it is called, and it 
-        uses these attributes to generate the JSON string representation of the Operator instance. 
-        
-        Since it requires access to the attributes of a specific Operator instance, it cannot be 
+        This means that it can access the attributes of the instance on which it is called, and it
+        uses these attributes to generate the JSON string representation of the Operator instance.
+
+        Since it requires access to the attributes of a specific Operator instance, it cannot be
         called on the Operator class itself.
 
         Returns
@@ -61,11 +61,11 @@ class State:
         return json.dumps(state_dict)
 
     @classmethod
-    def from_json(cls, json_var:Union([str, dict])):
-        """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself, 
-        rather than on an instance of the class. 
-        
-        This is necessary because it is used to create a new instance of the Operator class from a JSON string, 
+    def from_json(cls, json_var: Union([str, dict])):
+        """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself,
+        rather than on an instance of the class.
+
+        This is necessary because it is used to create a new instance of the Operator class from a JSON string,
         and it does not require an instance of the Operator class to do so.
 
         Parameters
@@ -127,7 +127,7 @@ class State:
                 self._checkStateOutOfBounds(state)
                 self._stateVec[state] = 1 / nodeAmp
 
-    def _checkStateOutOfBounds(self, node:int) -> None:
+    def _checkStateOutOfBounds(self, node: int) -> None:
         """Checks if the state is out of bounds for the system.
 
         Parameters

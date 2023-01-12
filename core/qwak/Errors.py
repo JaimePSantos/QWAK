@@ -1,5 +1,5 @@
 class Error(BaseException):
-    def __init__(self, error_name:str, details:str):
+    def __init__(self, error_name: str, details: str):
         """Initialize the error instance with error name and details
 
         Parameters
@@ -24,7 +24,7 @@ class Error(BaseException):
 
 
 class StateOutOfBounds(Error):
-    def __init__(self, details:str) -> None:
+    def __init__(self, details: str) -> None:
         """This exception is raised when the state is out of the expected bounds.
         Initialize the error instance with error name and details.
 
@@ -37,7 +37,7 @@ class StateOutOfBounds(Error):
 
 
 class NonUnitaryState(Error):
-    def __init__(self, details:str) -> None:
+    def __init__(self, details: str) -> None:
         """This exception is raised when the state is not unitary.
         Initialize the error instance with error name and details.
 
@@ -50,7 +50,7 @@ class NonUnitaryState(Error):
 
 
 class UndefinedTimeList(Error):
-    def __init__(self, details : str) -> None:
+    def __init__(self, details: str) -> None:
         """This exception is raised when the time interval for multiple walks is undefined.
         Initialize the error instance with error name and details.
 
@@ -76,7 +76,7 @@ class EmptyProbDistList(Error):
 
 
 class MissingNodeInput(Error):
-    def __init__(self, details:str) -> None:
+    def __init__(self, details: str) -> None:
         """This exception is raised when input nodes are required but not provided.
         Initialize the error instance with error name and details.
 

@@ -42,7 +42,7 @@ class QWAK:
         These amplitudes can then be transformed to probability distributions
         (ProbabilityDistribution class) suitable for plotting with matplotlib,
         or your package of choice.
-        
+
         Default values for the initial state, time and transition rate are a
         column vector full of 0s, 0 and 1, respectively. Methods runWalk or
         buildWalk must then be used to generate the results of the quantum
@@ -105,7 +105,7 @@ class QWAK:
         -------
         str
             JSON representation of the QWAK instance.
-        """        
+        """
         if isDynamic:
             qwakJson = json.dumps({
                 'dim': self._n,
@@ -138,14 +138,14 @@ class QWAK:
         json_var : str
             JSON representation of the QWAK instance.
         isDynamic : bool, optional
-            If True, the JSON will contain the timeList and probDistList attributes, 
+            If True, the JSON will contain the timeList and probDistList attributes,
             by default False.
 
         Returns
         -------
         QWAK
             QWAK instance from a JSON representation.
-        """        
+        """
         if isinstance(json_var, str):
             data = json.loads(json_var)
         elif isinstance(json_var, dict):
@@ -179,7 +179,7 @@ class QWAK:
         ----------
         newQWAK : QWAK
             QWAK instance to copy the attributes from.
-        """        
+        """
         self.setGraph(newQWAK.getGraph())
         self.setDim(newQWAK.getDim(), graph=self._graph)
         self.setInitState(newQWAK.getInitState())
@@ -347,7 +347,7 @@ class QWAK:
         ----------
         customAdjMatrix : np.ndarray
             Adjacency matrix of the new graph.
-        """        
+        """
         self._graph = nx.from_numpy_matrix(customAdjMatrix)
         self.setGraph(newGraph=self._graph)
         self._initStateList = [self._n // 2]
@@ -550,7 +550,7 @@ class QWAK:
         ----------
         newProbDistList : list
             New probability distribution list.
-        """        
+        """
         self._probDistList = newProbDistList
 
     def getProbVec(self) -> np.ndarray:
@@ -616,12 +616,12 @@ class QWAK:
         -------
         float
             Mean of the probability distribution.
-        """        
+        """
         return self._probDist.moment(1) if (
             resultRounding is None) \
             else round(self._probDist.moment(1), resultRounding)
 
-    def getMeanList(self, resultRounding: int =None) -> list:
+    def getMeanList(self, resultRounding: int = None) -> list:
         """Gets the mean of the probability distribution list.
 
         Parameters
@@ -633,7 +633,7 @@ class QWAK:
         -------
         list
             List of means of the probability distributions.
-        """        
+        """
         return [
             probDist.moment(1) for probDist in self._probDistList] if (
             resultRounding is None) \
@@ -654,7 +654,7 @@ class QWAK:
         -------
         float
             Second moment of the probability distribution.
-        """        
+        """
         return self._probDist.moment(2) if (resultRounding is None) \
             else round(
             self._probDist.moment(2), resultRounding)
@@ -671,7 +671,7 @@ class QWAK:
         -------
         float
             Standard deviation of the probability distribution.
-        """        
+        """
         return self._probDist.stDev() if (resultRounding is None) \
             else round(
             self._probDist.stDev(),
@@ -689,7 +689,7 @@ class QWAK:
         -------
         list
             List of standard deviations of the probability distributions.
-        """        
+        """
         return [
             probDist.stDev() for probDist in self._probDistList] if (
             resultRounding is None) \
@@ -710,13 +710,14 @@ class QWAK:
         -------
         float
             Inverse participation ratio of the probability distribution.
-        """        
+        """
         return self._probDist.invPartRatio() if (
             resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
 
-    def getInversePartRatioList(self, resultRounding: int = None) -> list:
+    def getInversePartRatioList(
+            self, resultRounding: int = None) -> list:
         """Gets the inverse participation ratio of the probability distribution list.
 
         Parameters
@@ -728,7 +729,7 @@ class QWAK:
         -------
         list
             List of inverse participation ratios of the probability distributions.
-        """        
+        """
         return [
             probDist.invPartRatio() for probDist in self._probDistList] if (
             resultRounding is None) else [
@@ -736,7 +737,11 @@ class QWAK:
                 probDist.invPartRatio(),
                 resultRounding) for probDist in self._probDistList]
 
-    def getSurvivalProb(self, fromNode, toNode, resultRounding: int = None) -> float:
+    def getSurvivalProb(
+            self,
+            fromNode,
+            toNode,
+            resultRounding: int = None) -> float:
         """Gets the survival probability of the probability distribution.
 
         Parameters
@@ -757,13 +762,24 @@ class QWAK:
         ------
         MissingNodeInput
             Missing input node error.
-        """        
+        """
         try:
-            return self._probDist.survivalProb(fromNode, toNode) if(resultRounding is None) else round(self._probDist.survivalProb(fromNode, toNode),resultRounding)
+            return self._probDist.survivalProb(
+                fromNode,
+                toNode) if (
+                resultRounding is None) else round(
+                self._probDist.survivalProb(
+                    fromNode,
+                    toNode),
+                resultRounding)
         except MissingNodeInput as err:
             raise err
 
-    def getSurvivalProbList(self, fromNode, toNode, resultRounding: int = None) -> list:
+    def getSurvivalProbList(
+            self,
+            fromNode,
+            toNode,
+            resultRounding: int = None) -> list:
         """Gets the survival probability of the probability distribution list.
 
         Parameters
@@ -784,7 +800,7 @@ class QWAK:
         ------
         MissingNodeInput
             Missing input node error.
-        """        
+        """
         try:
             return [
                 probDist.survivalProb(
@@ -799,7 +815,7 @@ class QWAK:
         except MissingNodeInput as err:
             raise err
 
-    def checkPST(self, fromNode, toNode) -> Union([str,bool]):
+    def checkPST(self, fromNode, toNode) -> Union([str, bool]):
         """Checks if a structure allows for PST between certain nodes.
 
         Parameters
@@ -817,14 +833,14 @@ class QWAK:
         ------
         MissingNodeInput
             Missing input node error.
-            
-        """        
+
+        """
         try:
             return self._operator.checkPST(nodeA, nodeB)
         except MissingNodeInput as err:
             raise err
 
-    def getTransportEfficiency(self)->float:
+    def getTransportEfficiency(self) -> float:
         """Gets the transport efficiency of the quantum walk.
 
         Returns

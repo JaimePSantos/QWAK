@@ -8,6 +8,7 @@ import json
 from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
 from functools import reduce
 
+
 class ProbabilityDistribution:
     def __init__(self, state: State) -> None:
         """The dimension of the probability vector will then be loaded from
@@ -33,7 +34,7 @@ class ProbabilityDistribution:
         -------
         str
             JSON string of the ProbabilityDistribution object.
-        """   
+        """
         return json.dumps({
             'state': json.loads(self._state.to_json()),
             'dim': self._n,
@@ -41,8 +42,10 @@ class ProbabilityDistribution:
         })
 
     @classmethod
-    def from_json(cls, json_var: Union[str, dict]) -> ProbabilityDistribution:
-        """Converts a JSON string to a ProbabilityDistribution object. 
+    def from_json(cls,
+                  json_var: Union[str,
+                                  dict]) -> ProbabilityDistribution:
+        """Converts a JSON string to a ProbabilityDistribution object.
 
         Parameters
         ----------
@@ -53,7 +56,7 @@ class ProbabilityDistribution:
         -------
         ProbabilityDistribution
             ProbabilityDistribution object converted from JSON.
-        """        
+        """
         if isinstance(json_var, str):
             json_dict = json.loads(json_var)
         elif isinstance(json_var, dict):
@@ -116,7 +119,7 @@ class ProbabilityDistribution:
         -------
         State
             Returns the state of the ProbabilityDistribution object.
-        """        
+        """
         return self._state
 
     def setState(self, newState: State) -> None:
@@ -126,7 +129,7 @@ class ProbabilityDistribution:
         ----------
         newState : State
             New state for the distribution.
-        """        
+        """
         self._state.setState(newState)
 
     def setDim(self, newDim: int) -> None:
@@ -136,7 +139,7 @@ class ProbabilityDistribution:
         ----------
         newDim : int
             New dimension for the distribution.
-        """        
+        """
         self._n = newDim
         self._probVec = np.zeros(self._n, dtype=float)
 
@@ -185,14 +188,14 @@ class ProbabilityDistribution:
         """
         return self._probVec.item(searchNode)
 
-    def moment(self, k:int) -> float:
+    def moment(self, k: int) -> float:
         """Calculates the kth moment of the probability distribution.
 
         Parameters
         ----------
         k : int
             User inputted moment.
-            
+
         Returns
         -------
         float
@@ -204,7 +207,7 @@ class ProbabilityDistribution:
             m += (pos[x] ** k) * self._probVec[x]
         return float(m)
 
-    def invPartRatio(self)-> float:
+    def invPartRatio(self) -> float:
         """Calculates the inverse participation ratio of the probability distribution.
 
         Returns
@@ -212,7 +215,7 @@ class ProbabilityDistribution:
         float
             Inverse participation ratio of the probability distribution.
         """
-        return 1/(np.sum(np.absolute(self._probVec)**2))
+        return 1 / (np.sum(np.absolute(self._probVec)**2))
 
     def stDev(self) -> float:
         """Calculates the standard deviation of the probability distribution.
@@ -223,7 +226,7 @@ class ProbabilityDistribution:
             Standard deviation of the probability distribution.
         """
         stDev = self.moment(2) - self.moment(1) ** 2
-        return np.sqrt(stDev) if (stDev>0) else 0
+        return np.sqrt(stDev) if (stDev > 0) else 0
 
     def survivalProb(self, fromNode, toNode) -> float:
         """Calculates the survival probability of the probability distribution.

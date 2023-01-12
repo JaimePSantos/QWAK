@@ -12,6 +12,7 @@ import json
 from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
+
 class Operator:
     def __init__(
             self,
@@ -87,7 +88,7 @@ class Operator:
         })
 
     @classmethod
-    def from_json(cls, json_var: Union([str,dict])) -> Operator:
+    def from_json(cls, json_var: Union([str, dict])) -> Operator:
         """Converts a JSON string to an operator object.
 
         Parameters
@@ -129,8 +130,8 @@ class Operator:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
 
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
-        eigenvalues and convert it to a list of the diagonal entries. 
-        
+        eigenvalues and convert it to a list of the diagonal entries.
+
         The entries are then multiplied
         by the eigenvectors, and the last step is to perform matrix multiplication with the complex
         conjugate of the eigenvectors.
@@ -154,7 +155,10 @@ class Operator:
                 self._operator, inv(
                     self._eigenvectors))
 
-    def _buildAdjacency(self, laplacian:bool, markedSearch:list) -> None:
+    def _buildAdjacency(
+            self,
+            laplacian: bool,
+            markedSearch: list) -> None:
         """Builds the adjacency matrix of the graph, which is either the Laplacian or the simple matrix.
 
         Parameters
@@ -175,7 +179,7 @@ class Operator:
             for marked in markedSearch:
                 self._adjacencyMatrix[marked[0], marked[0]] += marked[1]
 
-    def _buildEigenValues(self, isHermitian:bool) -> None:
+    def _buildEigenValues(self, isHermitian: bool) -> None:
         """Builds the eigenvalues and eigenvectors of the adjacency matrix.
 
         Parameters
@@ -201,7 +205,7 @@ class Operator:
         """
         return self._eigenvalues
 
-    def _setEigenValues(self, eigenValues:list) -> None:
+    def _setEigenValues(self, eigenValues: list) -> None:
         """Sets the eigenvalues of the adjacency matrix.
 
         Parameters
@@ -211,7 +215,7 @@ class Operator:
         """
         self._eigenvalues = eigenValues
 
-    def _setEigenVectors(self, eigenVectors:list) -> None:
+    def _setEigenVectors(self, eigenVectors: list) -> None:
         """Sets the eigenvectors of the adjacency matrix.
 
         Parameters
