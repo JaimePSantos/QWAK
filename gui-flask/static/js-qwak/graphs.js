@@ -1,9 +1,3 @@
-import {
-    customCyDynamic,
-    cyDynamic,} from "./js-dynamic/dynamic-tools.js";
-
-import {customCy, cy} from "./js-static/static-tools.js";
-
 export function setStaticDim(newDim, graphStr) {
     $.ajax({
         type: 'POST',
@@ -72,10 +66,10 @@ export async function setDynamicGraph(newDim,newGraph) {
     return myGraph;
 }
 
-export let updateGraph = (graph) => {
-    cyDynamic.elements().remove()
-    cyDynamic.add(graph.elements)
-    cyDynamic.layout({name: "circle"}).run();
+export let updateGraph = (graph,cyObject) => {
+    cyObject.elements().remove()
+    cyObject.add(graph.elements)
+    cyObject.layout({name: "circle"}).run();
 }
 
 // - Custom Graph
@@ -84,12 +78,10 @@ let nodeNumber = 2;
 let nodeXPos = 200;
 let nodeYPos = 0;
 
-var eh = customCyDynamic.edgehandles();
-
-export async function addNodeButtonPress() {
+export async function addNodeButtonPress(cyObject) {
     nodeNumber++;
     nodeYPos += 50;
-    customCyDynamic.add({
+    cyObject.add({
         group: 'nodes',
         data: {id: nodeNumber.toString(), name: nodeNumber.toString()},
         position: {x: nodeXPos, y: nodeYPos}
@@ -97,7 +89,6 @@ export async function addNodeButtonPress() {
 }
 
 export function setCustomAdjacencyMatrix(customAdjacency) {
-    // console.log(customAdjacency)
     $.ajax({
         type: 'POST',
         url: `/setDynamicCustomGraph`, // <- Add the queryparameter here

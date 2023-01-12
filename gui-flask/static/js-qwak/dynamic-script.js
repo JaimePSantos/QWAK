@@ -1,18 +1,24 @@
+import {DynamicQuantumwalk} from "./js-dynamic/dynamicQuantumwalk.js";
 import {
     customCyDynamic,
-    cyDynamic,
-    staticChartData,
+    cyDynamic
+} from "./js-dynamic/dynamic-tools.js";
+import {
     dynamicChartData,
     dynamicInvPartRatioChartData,
     dynamicMeanChartData,
     dynamicStDevChartData,
     dynamicSurvivalProbChartData
-} from "./js-dynamic/dynamic-tools.js";
+} from "./js-dynamic/dynamic-charts.js";
 
-import {DynamicQuantumwalk} from "./js-dynamic/dynamicQuantumwalk.js";
-import {setDynamicGraph,updateGraph,addNodeButtonPress,setCustomAdjacencyMatrix,createAdjacencyMatrix} from "./js-dynamic/dynamic-graph.js"
+import {setDynamicGraph,
+    updateGraph,
+    addNodeButtonPress,
+    setCustomAdjacencyMatrix,
+    createAdjacencyMatrix} from "./graphs.js"
 
-import {plotDynamicProbDist,getDynamicProbDistDB} from "./js-dynamic/dynamic-probDist.js"
+import {plotDynamicProbDist,
+    getDynamicProbDistDB} from "./js-dynamic/dynamic-probDist.js"
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
@@ -68,7 +74,7 @@ $(function () {
         dynamicQuantumWalk.graph = inputGraph.value;
         dynamicQuantumWalk.dim = parseInt(inputDim.value);
         let myGraph =  await setDynamicGraph(dynamicQuantumWalk.dim,dynamicQuantumWalk.graph);
-        updateGraph(myGraph);
+        updateGraph(myGraph,cyDynamic);
     });
 });
 
@@ -80,7 +86,7 @@ document.getElementById('addEdgeButton').addEventListener('click', function () {
 });
 
 document.getElementById("addNodeButton").addEventListener('click', function () {
-    addNodeButtonPress();
+    addNodeButtonPress(customCyDynamic);
 });
 
 document.getElementById('clearGraphButton').addEventListener('click', function () {

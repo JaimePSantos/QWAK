@@ -1,12 +1,13 @@
-import {customCy, cy, staticChartData} from "./js-static/static-tools.js";
+import {customCy, cy} from "./js-static/static-tools.js";
+import {staticChartData} from "./js-static/static-charts.js";
 import {StaticQuantumwalk} from "./js-static/staticQuantumwalk.js";
-import {setStaticDim,
+import {
     setStaticGraph,
     updateGraph,
     addNodeButtonPress,
     setCustomAdjacencyMatrix,
     createAdjacencyMatrix,
-    } from "./js-static/static-graph.js"
+    } from "./graphs.js"
 import {deleteWalkEntry,
     getStaticProbDistDB,
     plotStaticProbDistDB,
@@ -70,7 +71,7 @@ $(async function () {
         staticQuantumWalk.graph = inputGraph.value;
         staticQuantumWalk.dim = parseInt(inputDim.value);
         let myGraph = await setStaticGraph(staticQuantumWalk.dim,staticQuantumWalk.graph);
-        updateGraph(myGraph);
+        updateGraph(myGraph,cy);
     });
 });
 
@@ -89,7 +90,7 @@ document.getElementById('addEdgeButton').addEventListener('click', function () {
 });
 
 document.getElementById("addNodeButton").addEventListener('click', function () {
-    addNodeButtonPress();
+    addNodeButtonPress(customCy);
 });
 
 document.getElementById('clearGraphButton').addEventListener('click', function () {

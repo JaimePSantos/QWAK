@@ -1,7 +1,4 @@
-import {staticChartData} from "./static-tools.js";
-
-let inputTime = document.getElementById("inputTime");
-let inputInitState = document.getElementById("inputInitState");
+import {staticChartData} from "./static-charts.js";
 
 let myChart = new Chart(document.getElementById("staticProbDistChart").getContext("2d"), staticChartData);
 
@@ -63,34 +60,6 @@ export async function getStaticSurvivalProb(fromNode,toNode) {
     return survProb;
 }
 
-
-export async function deleteWalkEntry(walkName) {
-    await $.ajax({
-        type: 'POST',
-        url: `/deleteWalkEntry`,
-        data:{walkName:walkName},
-        success: function () {
-            console.log(`success - Runwalk`);
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-        }
-    });
-}
-
-export async function deleteAllWalkEntries() {
-    await $.ajax({
-        type: 'POST',
-        url: `/deleteAllWalkEntries`,
-        success: function () {
-            console.log(`success - Runwalk`);
-        },
-        error: function (response) {
-            console.log('Runwalk error');
-        }
-    });
-}
-
 export async function setStaticPyInitState(initStateStr) {
     $.ajax({
         type: 'POST',
@@ -115,6 +84,33 @@ export async function setStaticPyTime(newTime) {
         },
         error: function (response) {
             console.log('setTime error');
+        }
+    });
+}
+
+export async function deleteWalkEntry(walkName) {
+    await $.ajax({
+        type: 'POST',
+        url: `/deleteWalkEntry`,
+        data:{walkName:walkName},
+        success: function () {
+            console.log(`success - Runwalk`);
+        },
+        error: function (response) {
+            console.log('Runwalk error');
+        }
+    });
+}
+
+export async function deleteAllWalkEntries() {
+    await $.ajax({
+        type: 'POST',
+        url: `/deleteAllWalkEntries`,
+        success: function () {
+            console.log(`success - Runwalk`);
+        },
+        error: function (response) {
+            console.log('Runwalk error');
         }
     });
 }
