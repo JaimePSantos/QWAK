@@ -3,7 +3,7 @@ from typing import Union
 
 import networkx as nx
 import sympy as sp
-from scipy.linalg import inv
+from scipy.linalg import inv, expm
 from sympy.abc import pi
 import numpy as np
 from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
@@ -192,7 +192,7 @@ class Operator:
             self._gamma = gamma
         else:
             self._gamma = 1
-        self._operator = np.expm(-1j * self._adjacencyMatrix * self._time * self._gamma)
+        self._operator = expm(-1j * self._adjacencyMatrix * self._time * self._gamma)
 
     def _buildAdjacency(
             self,
