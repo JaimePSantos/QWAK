@@ -61,7 +61,7 @@ class State:
         return json.dumps(state_dict)
 
     @classmethod
-    def from_json(cls, json_var: Union([str, dict])):
+    def from_json(cls, json_var: Union[str, dict]):
         """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself,
         rather than on an instance of the class.
 

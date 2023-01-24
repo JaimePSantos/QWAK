@@ -819,7 +819,7 @@ class QWAK:
         except MissingNodeInput as err:
             raise err
 
-    def checkPST(self, fromNode, toNode) -> Union([str, bool]):
+    def checkPST(self, fromNode, toNode) -> Union[str, bool]:
         """Checks if a structure allows for PST between certain nodes.
 
         Parameters

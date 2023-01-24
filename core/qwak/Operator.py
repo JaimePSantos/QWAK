@@ -95,7 +95,7 @@ class Operator:
         })
 
     @classmethod
-    def from_json(cls, json_var: Union([str, dict])) -> Operator:
+    def from_json(cls, json_var: Union[str, dict]) -> Operator:
         """Converts a JSON string to an operator object.
 
         Parameters
