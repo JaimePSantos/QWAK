@@ -3,7 +3,7 @@ from __future__ import annotations
 import warnings
 import numpy as np
 import json
-from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 
 from qwak.Operator import Operator
 from qwak.State import State

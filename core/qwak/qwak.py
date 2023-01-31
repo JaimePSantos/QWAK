@@ -31,7 +31,7 @@ class QWAK:
         initStateList: list = None,
         customStateList: list = None,
         laplacian: bool = False,
-        markedSearch: list = None,
+        markedElements: list = None,
         qwakId: str = 'userUndef',
     ) -> None:
         """Data access class that combines all three components required to
@@ -65,7 +65,7 @@ class QWAK:
         laplacian : bool, optional
             Allows the user to choose whether to use the
             Laplacian or simple adjacency matrix, by default False.
-        markedSearch : list, optional
+        markedElements : list, optional
             List with marked elements for search, by default None.
         qwakId : str, optional
             User-defined ID for the QWAK instance, by default 'userUndef'.
@@ -82,7 +82,7 @@ class QWAK:
             time=time,
             gamma=gamma,
             laplacian=laplacian,
-            markedSearch=markedSearch)
+            markedElements=markedElements)
         self._initState = State(
             self._n,
             nodeList=initStateList,
@@ -853,3 +853,23 @@ class QWAK:
             Transport efficiency of the quantum walk.
         """
         return self._quantumWalk.transportEfficiency()
+
+    def getMarkedElements(self) -> list:
+        """Gets the marked elements of the quantum walk.
+
+        Returns
+        -------
+        list
+            Marked elements of the quantum walk.
+        """
+        return self._operator.getMarkedElements()
+
+    def setMarkedElements(self, markedElements: list) -> None:
+        """Sets the marked elements of the quantum walk.
+
+        Parameters
+        ----------
+        markedElements : list
+            Marked elements of the quantum walk.
+        """
+        self._operator.setMarkedElements(markedElements)

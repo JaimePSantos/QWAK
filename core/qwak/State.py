@@ -6,7 +6,7 @@ from scipy.linalg import inv
 import json
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
-from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 
 
 class State:

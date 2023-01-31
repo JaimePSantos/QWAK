@@ -6,7 +6,7 @@ import sympy as sp
 from scipy.linalg import inv, expm
 from sympy.abc import pi
 import numpy as np
-from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 import json
 
 from qwak.Errors import MissingNodeInput
@@ -20,7 +20,7 @@ class Operator:
             time: float = None,
             gamma: float = None,
             laplacian: bool = False,
-            markedSearch: list = None,
+            markedElements: list = None,
     ) -> None:
         """
         Class for the quantum walk operator.
@@ -46,7 +46,7 @@ class Operator:
             Time for which to calculate the operator, by default None.
         laplacian : bool, optional
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.
-        markedSearch : list, optional
+        markedElements : list, optional
             List with marked elements for search, by default None.
         """
         if time is not None:
@@ -61,12 +61,12 @@ class Operator:
             self._laplacian = laplacian
         else:
             self._laplacian = False
-        if markedSearch is not None:
-            self._markedSearch = markedSearch
+        if markedElements is not None:
+            self._markedElements = markedElements
         else:
-            self._markedSearch = None
+            self._markedElements = None
         self._graph = graph
-        self._adjacencyMatrix = self._buildAdjacency(self._laplacian, self._markedSearch)
+        self._adjacencyMatrix = self._buildAdjacency(self._laplacian, self._markedElements)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._isHermitian = np.allclose(
@@ -88,7 +88,7 @@ class Operator:
             'graph': nx.node_link_data(self._graph),
             'time': self._time,
             'laplacian': self._laplacian,
-            'markedSearch': self._markedSearch,
+            'markedElements': self._markedElements,
             'adjacencyMatrix': complex_matrix_to_json(self._adjacencyMatrix),
             'eigenvalues': self._eigenvalues.tolist(),
             'eigenvectors': complex_matrix_to_json(self._eigenvectors),
@@ -116,7 +116,7 @@ class Operator:
         graph = nx.node_link_graph(data['graph'])
         time = data['time']
         laplacian = data['laplacian']
-        markedSearch = data['markedSearch']
+        markedElements = data['markedElements']
         adjacencyMatrix = np.array(
             json_matrix_to_complex(
                 data['adjacencyMatrix']))
@@ -127,7 +127,7 @@ class Operator:
                 data['eigenvectors']))
         operator = np.array(json_matrix_to_complex(data['operator']))
 
-        newOp = cls(graph, time, laplacian, markedSearch)
+        newOp = cls(graph, time, laplacian, markedElements)
         newOp._setAdjacencyMatrixOnly(adjacencyMatrix)
         newOp._setEigenValues(eigenvalues)
         newOp._setEigenVectors(eigenvectors)
@@ -197,14 +197,14 @@ class Operator:
     def _buildAdjacency(
             self,
             laplacian: bool,
-            markedSearch: list) -> None:
+            markedElements: list) -> None:
         """Builds the adjacency matrix of the graph, which is either the Laplacian or the simple matrix.
 
         Parameters
         ----------
         laplacian : bool
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
-        markedSearch : list
+        markedElements : list
             List of elements for the search.
         """
         if laplacian:
@@ -214,8 +214,8 @@ class Operator:
         else:
             adjacencyMatrix = nx.to_numpy_array(
                 self._graph, dtype=complex)
-        if markedSearch is not None:
-            for marked in markedSearch:
+        if markedElements is not None:
+            for marked in markedElements:
                 adjacencyMatrix[marked[0], marked[0]] = marked[1]
         return adjacencyMatrix
 
@@ -439,6 +439,26 @@ class Operator:
         except ValueError:
             raise MissingNodeInput(
                 f"A node number is missing: nodeA = {nodeA}; nodeB = {nodeB}")
+
+    def getMarkedElements(self) -> list:
+        """Returns the marked elements of the operator.
+
+        Returns
+        -------
+        list
+            List of marked elements.
+        """
+        return self._markedElements
+
+    def setMarkedElements(self, markedElements: list) -> None:
+        """Sets the marked elements of the operator.
+
+        Parameters
+        ----------
+        markedElements : list
+            List of marked elements.
+        """
+        self._markedElements = markedElements
 
     def __mul__(self, other: np.ndarray) -> np.ndarray:
         """Left-side multiplication for the Operator class.
