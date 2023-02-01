@@ -17,14 +17,14 @@ class TestQWAKComplete(object):
         graph = nx.complete_graph(n)
         initStateList = [n // 2, n // 2 + 1]
         laplacian = False
-        markedSearch = None
+        markedElements = None
         qwak = QWAKTestStub(
             QWAK(
                 graph,
                 initStateList=initStateList,
                 customStateList=None,
                 laplacian=laplacian,
-                markedSearch=markedSearch,
+                markedElements=markedElements,
             )
         )
         np.testing.assert_almost_equal(
@@ -46,14 +46,14 @@ class TestQWAKComplete(object):
         #        graph = orientedGraph
         #        initStateList = [n // 2, n // 2 + 1]
         #        laplacian = False
-        #        markedSearch = None
+        #        markedElements = None
         #        qwak = QWAKTestStub(
         #            QWAK(
         #                graph,
         #                initStateList=initStateList,
         #                customStateList=None,
         #                laplacian=laplacian,
-        #                markedSearch=markedSearch,
+        #                markedElements=markedElements,
         #            )
         #        )
         #        np.testing.assert_almost_equal(

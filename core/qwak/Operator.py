@@ -3,10 +3,10 @@ from typing import Union
 
 import networkx as nx
 import sympy as sp
-from scipy.linalg import inv
+from scipy.linalg import inv, expm
 from sympy.abc import pi
 import numpy as np
-from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 import json
 
 from qwak.Errors import MissingNodeInput
@@ -20,7 +20,7 @@ class Operator:
             time: float = None,
             gamma: float = None,
             laplacian: bool = False,
-            markedSearch: list = None,
+            markedElements: list = None,
     ) -> None:
         """
         Class for the quantum walk operator.
@@ -46,7 +46,7 @@ class Operator:
             Time for which to calculate the operator, by default None.
         laplacian : bool, optional
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.
-        markedSearch : list, optional
+        markedElements : list, optional
             List with marked elements for search, by default None.
         """
         if time is not None:
@@ -61,17 +61,18 @@ class Operator:
             self._laplacian = laplacian
         else:
             self._laplacian = False
-        if markedSearch is not None:
-            self._markedSearch = markedSearch
+        if markedElements is not None:
+            self._markedElements = markedElements
         else:
-            self._markedSearch = None
+            self._markedElements = None
         self._graph = graph
-        self._buildAdjacency(self._laplacian, self._markedSearch)
+        self._adjacencyMatrix = self._buildAdjacency(self._laplacian, self._markedElements)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._isHermitian = np.allclose(
             self._adjacencyMatrix,
             self._adjacencyMatrix.conjugate().transpose())
+        #TODO: Refactor eigenvalues and eigenvectors to be more readable.
         self._buildEigenValues(self._isHermitian)
 
     def to_json(self) -> str:
@@ -87,7 +88,7 @@ class Operator:
             'graph': nx.node_link_data(self._graph),
             'time': self._time,
             'laplacian': self._laplacian,
-            'markedSearch': self._markedSearch,
+            'markedElements': self._markedElements,
             'adjacencyMatrix': complex_matrix_to_json(self._adjacencyMatrix),
             'eigenvalues': self._eigenvalues.tolist(),
             'eigenvectors': complex_matrix_to_json(self._eigenvectors),
@@ -95,12 +96,12 @@ class Operator:
         })
 
     @classmethod
-    def from_json(cls, json_var: Union([str, dict])) -> Operator:
+    def from_json(cls, json_var: Union[str, dict]) -> Operator:
         """Converts a JSON string to an operator object.
 
         Parameters
         ----------
-        json_str : str
+        json_var : str, dict
             JSON string of the operator object.
 
         Returns
@@ -115,7 +116,7 @@ class Operator:
         graph = nx.node_link_graph(data['graph'])
         time = data['time']
         laplacian = data['laplacian']
-        markedSearch = data['markedSearch']
+        markedElements = data['markedElements']
         adjacencyMatrix = np.array(
             json_matrix_to_complex(
                 data['adjacencyMatrix']))
@@ -126,7 +127,7 @@ class Operator:
                 data['eigenvectors']))
         operator = np.array(json_matrix_to_complex(data['operator']))
 
-        newOp = cls(graph, time, laplacian, markedSearch)
+        newOp = cls(graph, time, laplacian, markedElements)
         newOp._setAdjacencyMatrixOnly(adjacencyMatrix)
         newOp._setEigenValues(eigenvalues)
         newOp._setEigenVectors(eigenvectors)
@@ -158,6 +159,7 @@ class Operator:
             self._gamma = gamma
         else:
             self._gamma = 1
+        #TODO: Refactor this part since it is not very obvious how the adjacency matrix connects.
         diag = np.diag(
             np.exp(-1j * self._eigenvalues * self._time * self._gamma)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
@@ -170,29 +172,52 @@ class Operator:
                 self._operator, inv(
                     self._eigenvectors))
 
+    def buildExpmOperator(self, time: float = None, gamma: float = None) -> None:
+        """Builds operator matrix from optional time and transition rate parameters, defined by user.
+
+        Uses the scipy function expm to calculate the matrix exponential of the adjacency matrix.
+
+        Parameters
+        ----------
+        time : float, optional
+            Time for which to calculate the operator, by default 0.
+        gamma : float, optional
+            Needs completion.
+        """
+        if time is not None:
+            self._time = time
+        else:
+            self._time = 0
+        if gamma is not None:
+            self._gamma = gamma
+        else:
+            self._gamma = 1
+        self._operator = expm(-1j * self._adjacencyMatrix * self._time * self._gamma)
+
     def _buildAdjacency(
             self,
             laplacian: bool,
-            markedSearch: list) -> None:
+            markedElements: list) -> None:
         """Builds the adjacency matrix of the graph, which is either the Laplacian or the simple matrix.
 
         Parameters
         ----------
         laplacian : bool
             Allows the user to choose whether to use the Laplacian or simple adjacency matrix.
-        markedSearch : list
+        markedElements : list
             List of elements for the search.
         """
         if laplacian:
-            self._adjacencyMatrix = np.asarray(
+            adjacencyMatrix = np.asarray(
                 nx.laplacian_matrix(
                     self._graph).todense().astype(complex))
         else:
-            self._adjacencyMatrix = nx.to_numpy_array(
+            adjacencyMatrix = nx.to_numpy_array(
                 self._graph, dtype=complex)
-        if markedSearch is not None:
-            for marked in markedSearch:
-                self._adjacencyMatrix[marked[0], marked[0]] = marked[1]
+        if markedElements is not None:
+            for marked in markedElements:
+                adjacencyMatrix[marked[0], marked[0]] = marked[1]
+        return adjacencyMatrix
 
     def _buildEigenValues(self, isHermitian: bool) -> None:
         """Builds the eigenvalues and eigenvectors of the adjacency matrix.
@@ -209,6 +234,7 @@ class Operator:
         else:
             self._eigenvalues, self._eigenvectors = np.linalg.eig(
                 self._adjacencyMatrix)
+        return self._eigenvalues, self._eigenvectors
 
     def getEigenValues(self) -> list:
         """Returns the eigenvalues of the adjacency matrix.
@@ -413,6 +439,26 @@ class Operator:
         except ValueError:
             raise MissingNodeInput(
                 f"A node number is missing: nodeA = {nodeA}; nodeB = {nodeB}")
+
+    def getMarkedElements(self) -> list:
+        """Returns the marked elements of the operator.
+
+        Returns
+        -------
+        list
+            List of marked elements.
+        """
+        return self._markedElements
+
+    def setMarkedElements(self, markedElements: list) -> None:
+        """Sets the marked elements of the operator.
+
+        Parameters
+        ----------
+        markedElements : list
+            List of marked elements.
+        """
+        self._markedElements = markedElements
 
     def __mul__(self, other: np.ndarray) -> np.ndarray:
         """Left-side multiplication for the Operator class.

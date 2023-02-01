@@ -6,7 +6,7 @@ from scipy.linalg import inv
 import json
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
-from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 
 
 class State:
@@ -61,7 +61,7 @@ class State:
         return json.dumps(state_dict)
 
     @classmethod
-    def from_json(cls, json_var: Union([str, dict])):
+    def from_json(cls, json_var: Union[str, dict]):
         """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself,
         rather than on an instance of the class.
 
