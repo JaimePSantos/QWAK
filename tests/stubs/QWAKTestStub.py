@@ -16,14 +16,14 @@ class QWAKTestStub:
         graph = nx.cycle_graph(n)
         initStateList = [n // 2, n // 2 + 1]
         laplacian = False
-        markedSearch = None
+        markedElements = None
         if testQwak is None:
             self.qwak = QWAK(
                 graph,
                 initStateList=initStateList,
                 customStateList=None,
                 laplacian=laplacian,
-                markedSearch=markedSearch,
+                markedElements=markedElements,
             )
         else:
             self.qwak = testQwak
