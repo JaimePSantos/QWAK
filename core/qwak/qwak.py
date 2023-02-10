@@ -23,16 +23,16 @@ from qwak.ProbabilityDistribution import (
 
 class QWAK:
     def __init__(
-        self,
-        graph: nx.Graph,
-        time: float = None,
-        timeList: list = None,
-        gamma: float = None,
-        initStateList: list = None,
-        customStateList: list = None,
-        laplacian: bool = False,
-        markedElements: list = None,
-        qwakId: str = 'userUndef',
+            self,
+            graph: nx.Graph,
+            time: float = None,
+            timeList: list = None,
+            gamma: float = None,
+            initStateList: list = None,
+            customStateList: list = None,
+            laplacian: bool = False,
+            markedElements: list = None,
+            qwakId: str = 'userUndef',
     ) -> None:
         """Data access class that combines all three components required to
         perform a continuous-time quantum walk, given by the multiplication of
@@ -223,7 +223,45 @@ class QWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildDiagonalOperator(time=time,gamma=gamma)
+        self._operator.buildDiagonalOperator(time=time, gamma=gamma)
+        self._quantumWalk.buildWalk(self._initState, self._operator)
+        self._probDist.buildProbDist(self._quantumWalk.getFinalState())
+
+    def runExpmWalk(
+            self,
+            time: float = None,
+            gamma: float = None,
+            initStateList: list = None,
+            customStateList: list = None) -> None:
+        """Builds class' attributes, runs the walk and calculates the amplitudes
+        and probability distributions with the given parameters. These can be
+        accessed with their respective get methods.
+
+        Parameters
+        ----------
+        time : float, optional
+            Time for which to calculate the quantum walk, by default 0.
+        initStateList : list[int], optional
+            List with chosen initial states for uniform superposition, by default None.
+        customStateList : list[(int,complex)], optional
+            Custom init state, by default None.
+
+        Raises
+        ------
+        stOBErr
+            State out of bounds exception.
+        nUErr
+            State not unitary exception.
+        """
+        try:
+            self._initState.buildState(
+                nodeList=initStateList, customStateList=customStateList
+            )
+        except StateOutOfBounds as stOBErr:
+            raise stOBErr
+        except NonUnitaryState as nUErr:
+            raise nUErr
+        self._operator.buildExpmOperator(time=time, gamma=gamma)
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
@@ -622,7 +660,7 @@ class QWAK:
             Mean of the probability distribution.
         """
         return self._probDist.moment(1) if (
-            resultRounding is None) \
+                resultRounding is None) \
             else round(self._probDist.moment(1), resultRounding)
 
     def getMeanList(self, resultRounding: int = None) -> list:
@@ -640,7 +678,7 @@ class QWAK:
         """
         return [
             probDist.moment(1) for probDist in self._probDistList] if (
-            resultRounding is None) \
+                resultRounding is None) \
             else [
             round(
                 probDist.moment(1),
@@ -696,7 +734,7 @@ class QWAK:
         """
         return [
             probDist.stDev() for probDist in self._probDistList] if (
-            resultRounding is None) \
+                resultRounding is None) \
             else [
             round(
                 probDist.stDev(),
@@ -716,7 +754,7 @@ class QWAK:
             Inverse participation ratio of the probability distribution.
         """
         return self._probDist.invPartRatio() if (
-            resultRounding is None) \
+                resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
 
@@ -736,7 +774,7 @@ class QWAK:
         """
         return [
             probDist.invPartRatio() for probDist in self._probDistList] if (
-            resultRounding is None) else [
+                resultRounding is None) else [
             round(
                 probDist.invPartRatio(),
                 resultRounding) for probDist in self._probDistList]
@@ -771,7 +809,7 @@ class QWAK:
             return self._probDist.survivalProb(
                 fromNode,
                 toNode) if (
-                resultRounding is None) else round(
+                    resultRounding is None) else round(
                 self._probDist.survivalProb(
                     fromNode,
                     toNode),
@@ -810,7 +848,7 @@ class QWAK:
                 probDist.survivalProb(
                     fromNode,
                     toNode) for probDist in self._probDistList] if (
-                resultRounding is None) else [
+                    resultRounding is None) else [
                 round(
                     probDist.survivalProb(
                         fromNode,

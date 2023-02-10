@@ -166,11 +166,11 @@ class Operator:
         if self._isHermitian:
             self._operator = np.matmul(
                 self._operator,
-                self._eigenvectors.conjugate().transpose())
+                self._eigenvectors.conjugate().transpose()).round(5)
         else:
             self._operator = np.matmul(
                 self._operator, inv(
-                    self._eigenvectors))
+                    self._eigenvectors)).round(5)
 
     def buildExpmOperator(self, time: float = None, gamma: float = None) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
