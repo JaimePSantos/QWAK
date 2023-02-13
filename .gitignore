@@ -44,3 +44,4 @@ gui-flask/flask_session
 package.json
 package-lock.json
 .env
+.jupyter/*
