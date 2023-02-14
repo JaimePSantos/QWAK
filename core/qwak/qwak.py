@@ -25,13 +25,13 @@ class QWAK:
     def __init__(
             self,
             graph: nx.Graph,
-            time: float = None,
+            time: float = 0,
             timeList: list = None,
-            gamma: float = None,
+            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None,
             laplacian: bool = False,
-            markedElements: list = None,
+            markedElements: list = [],
             qwakId: str = 'userUndef',
     ) -> None:
         """Data access class that combines all three components required to
@@ -191,8 +191,8 @@ class QWAK:
 
     def runWalk(
             self,
-            time: float = None,
-            gamma: float = None,
+            time: float = 0,
+            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
@@ -229,8 +229,8 @@ class QWAK:
 
     def runExpmWalk(
             self,
-            time: float = None,
-            gamma: float = None,
+            time: float = 0,
+            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
@@ -268,7 +268,7 @@ class QWAK:
     def runMultipleWalks(
             self,
             timeList: list = None,
-            gamma: float = None,
+            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Runs the walk for multiple times and stores the probability distributions
@@ -296,7 +296,7 @@ class QWAK:
         for time in self._timeList:
             self.runWalk(
                 time=time,
-                gamma=gamma,
+                #gamma=gamma,
                 initStateList=initStateList,
                 customStateList=customStateList)
             self._probDistList.append(copy.deepcopy(self.getProbDist()))

@@ -16,10 +16,10 @@ class Operator:
     def __init__(
             self,
             graph: nx.Graph,
-            time: float = None,
-            gamma: float = None,
+            time: float = 0,
+            gamma: float = 1,
             laplacian: bool = False,
-            markedElements: list = None,
+            markedElements: list = [],
     ) -> None:
         """
         Class for the quantum walk operator.
@@ -48,33 +48,19 @@ class Operator:
         markedElements : list, optional
             List with marked elements for search, by default None.
         """
-        if time is not None:
-            self._time = time
-        else:
-            self._time = 0
-        if gamma is not None:
-            self._gamma = gamma
-        else:
-            self._gamma = 1
-        if laplacian is not None:
-            self._laplacian = laplacian
-        else:
-            self._laplacian = False
-        if markedElements is not None:
-            self._markedElements = markedElements
-        else:
-            self._markedElements = None
+        self._time = time
+        self._gamma = gamma
+        self._laplacian = laplacian
+        self._markedElements = markedElements
         self._graph = graph
-        self._hamiltonian = self._buildAdjacency(self._laplacian, self._markedElements)
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n), dtype=complex)
-        self._isHermitian = np.allclose(
-            self._hamiltonian,
-            self._hamiltonian.conjugate().transpose())
-        #TODO: Refactor eigenvalues and eigenvectors to be more readable.
-        self._buildEigenValues(self._isHermitian)
 
-    def buildDiagonalOperator(self, time: float = None, gamma: float = None,round: int = None) -> None:
+        self._hamiltonian = self._buildHamiltonian(self._laplacian, self._markedElements)
+        self._isHermitian = self._hermitianTest(self._hamiltonian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
+
+    def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
 
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
@@ -92,37 +78,20 @@ class Operator:
             Needs completion.
         round : int, optional
         """
-        if time is not None:
-            self._time = time
-        else:
-            self._time = 0
-        if gamma is not None:
-            self._gamma = gamma
-        else:
-            self._gamma = 1
-        #TODO: Refactor this part since it is not very obvious how the adjacency matrix connects.
+        self._time = time
+        self._gamma = gamma
         diag = np.diag(
-            np.exp(-1j * self._eigenvalues * self._time * self._gamma)).diagonal()
+            np.exp(-1j * self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
-            if round is not None:
-                self._operator = np.matmul(
-                    self._operator,
-                    self._eigenvectors.conjugate().transpose()).round(round)
-            else:
-                self._operator = np.matmul(
+            self._operator = np.matmul(
                     self._operator, self._eigenvectors.conjugate().transpose())
         else:
-            if round is not None:
-                self._operator = np.matmul(
-                    self._operator, inv(
-                        self._eigenvectors)).round(round)
-            else:
-                self._operator = np.matmul(
+            self._operator = np.matmul(
                     self._operator, inv(
                     self._eigenvectors))
 
-    def buildExpmOperator(self, time: float = None, gamma: float = None) -> None:
+    def buildExpmOperator(self, time: float = 0, gamma: float = 1) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
 
         Uses the scipy function expm to calculate the matrix exponential of the adjacency matrix.
@@ -134,21 +103,16 @@ class Operator:
         gamma : float, optional
             Needs completion.
         """
-        if time is not None:
-            self._time = time
-        else:
-            self._time = 0
-        if gamma is not None:
-            self._gamma = gamma
-        else:
-            self._gamma = 1
-        self._operator = expm(-1j * self._hamiltonian * self._time * self._gamma)
+        self._time = time
+        self._gamma = gamma
+        self._operator = expm(-1j * self._hamiltonian * self._time)
 
-    def _buildAdjacency(
+    def _buildHamiltonian(
             self,
             laplacian: bool,
-            markedElements: list) -> np.ndarray:
-        """Builds the adjacency matrix of the graph, which is either the Laplacian or the simple matrix.
+            markedElements: list
+                    ) -> np.ndarray:
+        """Builds the hamiltonian of the graph, which is either the Laplacian or the simple matrix.
 
         Parameters
         ----------
@@ -158,18 +122,19 @@ class Operator:
             List of elements for the search.
         """
         if laplacian:
-            adjacencyMatrix = np.asarray(
+            adjM = np.asarray(
                 nx.laplacian_matrix(
                     self._graph).todense().astype(complex))
         else:
-            adjacencyMatrix = nx.to_numpy_array(
+            adjM = nx.to_numpy_array(
                 self._graph, dtype=complex)
-        if markedElements is not None:
+        hamiltonian = - adjM * self._gamma
+        if markedElements:
             for marked in markedElements:
-                adjacencyMatrix[marked[0], marked[0]] = marked[1]
-        return adjacencyMatrix
+                hamiltonian[marked[0], marked[0]] = marked[1]
+        return hamiltonian
 
-    def _buildEigenValues(self, isHermitian: bool) -> None:
+    def _buildEigenValues(self, hamiltonian) -> None:
         """Builds the eigenvalues and eigenvectors of the adjacency matrix.
 
         Parameters
@@ -177,14 +142,30 @@ class Operator:
         isHermitian : bool
             Checks if the adjacency matrix is Hermitian.
         """
-        if isHermitian:
-            self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-                self._hamiltonian
+
+        if self._isHermitian:
+            eigenvalues, eigenvectors = np.linalg.eigh(
+                hamiltonian
             )
         else:
-            self._eigenvalues, self._eigenvectors = np.linalg.eig(
-                self._hamiltonian)
-        return self._eigenvalues, self._eigenvectors
+            eigenvalues, eigenvectors  = np.linalg.eig(
+                hamiltonian )
+        return eigenvalues, eigenvectors
+
+    def _hermitianTest(self, hamiltonian) -> bool:
+        """Checks if the adjacency matrix is Hermitian.
+
+        Parameters
+        ----------
+        hamiltonian : np.ndarray
+            Adjacency matrix.
+
+        Returns
+        -------
+        bool
+            True if Hermitian, False otherwise.
+        """
+        return np.allclose(hamiltonian, hamiltonian.conj().T)
 
     def getEigenValues(self) -> list:
         """Returns the eigenvalues of the adjacency matrix.
@@ -243,6 +224,7 @@ class Operator:
         self._n = newDim
         self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._graph = graph
+        #TODO: We might need to make a laplacian check here.
         self._hamiltonian = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
         )
@@ -288,10 +270,11 @@ class Operator:
         adjacencyMatrix : np.ndarray
             New adjacency matrix.
         """
+        #TODO: Laplacian check here aswell.
         self._hamiltonian = adjacencyMatrix.astype(complex)
         self._n = len(self._hamiltonian)
         self.resetOperator()
-        self._buildEigenValues(self._isHermitian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
 
     def _setAdjacencyMatrixOnly(
             self, adjacencyMatrix: np.ndarray) -> None:
