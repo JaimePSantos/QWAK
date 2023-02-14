@@ -70,14 +70,14 @@ configVec = zip(colors,lines,lines2)
 
 n = 10
 graph = nx.hypercube_graph(n)
-gamma = (2 / n) + approx_1_over_n_squared(n, 20)
+gamma = (1 / n) + approx_1_over_n_squared(n, 20)
 
 N = len(graph)
 markedSearch = [(N//2,-1)]
 initCond = list(range(0, len(graph)))
 
-qw = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=True)
-timeList = np.linspace(0, (np.pi / (2 + 2*(1/n)) * np.sqrt(N)), 20)
+qw = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=False)
+timeList = np.linspace(0, (np.pi / (2) * np.sqrt(N)), 20)
 
 qw.runMultipleWalks(timeList = timeList, initStateList=initCond)
 markedProbList = searchProbStepsPlotting(qw)

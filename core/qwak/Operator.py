@@ -121,18 +121,24 @@ class Operator:
         markedElements : list
             List of elements for the search.
         """
-        if laplacian:
-            adjM = np.asarray(
-                nx.laplacian_matrix(
-                    self._graph).todense().astype(complex))
-        else:
-            adjM = nx.to_numpy_array(
+        # if laplacian:
+        #     adjM = np.asarray(
+        #         -nx.laplacian_matrix(
+        #             self._graph).todense().astype(complex))
+        # else:
+        adjM = nx.to_numpy_array(
                 self._graph, dtype=complex)
+        if laplacian:
+            adjM = adjM - self._degree_diagonal_matrix(self._graph)
         hamiltonian = - adjM * self._gamma
         if markedElements:
             for marked in markedElements:
                 hamiltonian[marked[0], marked[0]] = marked[1]
         return hamiltonian
+
+    def _degree_diagonal_matrix(self,G):
+        degrees = np.array(list(dict(G.degree()).values()))
+        return np.diag(degrees)
 
     def _buildEigenValues(self, hamiltonian) -> None:
         """Builds the eigenvalues and eigenvectors of the adjacency matrix.
