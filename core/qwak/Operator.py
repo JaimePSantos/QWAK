@@ -56,7 +56,10 @@ class Operator:
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n), dtype=complex)
 
-        self._hamiltonian = self._buildHamiltonian(self._laplacian, self._markedElements)
+        self._hamiltonian = self._buildHamiltonian(self._graph,self._laplacian)
+        if self._markedElements:
+            self._hamiltonian = self._buildSearchHamiltonian(self._hamiltonian, self._markedElements)
+
         self._isHermitian = self._hermitianTest(self._hamiltonian)
         self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
 
@@ -109,8 +112,8 @@ class Operator:
 
     def _buildHamiltonian(
             self,
+            graph,
             laplacian: bool,
-            markedElements: list
                     ) -> np.ndarray:
         """Builds the hamiltonian of the graph, which is either the Laplacian or the simple matrix.
 
@@ -126,19 +129,22 @@ class Operator:
         #         -nx.laplacian_matrix(
         #             self._graph).todense().astype(complex))
         # else:
-        adjM = nx.to_numpy_array(
-                self._graph, dtype=complex)
+        adjM = - nx.to_numpy_array(
+                graph, dtype=complex)
         if laplacian:
-            adjM = adjM - self._degree_diagonal_matrix(self._graph)
-        hamiltonian = - adjM * self._gamma
-        if markedElements:
-            for marked in markedElements:
-                hamiltonian[marked[0], marked[0]] = marked[1]
-        return hamiltonian
+            adjM = - np.asarray(
+                nx.laplacian_matrix(
+                    self._graph).todense().astype(complex))
+        return adjM * self._gamma
 
     def _degree_diagonal_matrix(self,G):
         degrees = np.array(list(dict(G.degree()).values()))
         return np.diag(degrees)
+
+    def _buildSearchHamiltonian(self,hamiltonian,markedElements):
+        for marked in markedElements:
+            hamiltonian[marked[0], marked[0]] = marked[1]
+        return hamiltonian
 
     def _buildEigenValues(self, hamiltonian) -> None:
         """Builds the eigenvalues and eigenvectors of the adjacency matrix.

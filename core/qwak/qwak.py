@@ -301,6 +301,41 @@ class QWAK:
                 customStateList=customStateList)
             self._probDistList.append(copy.deepcopy(self.getProbDist()))
 
+    def runMultipleExpmWalks(
+            self,
+            timeList: list = None,
+            gamma: float = 1,
+            initStateList: list = None,
+            customStateList: list = None) -> None:
+        """Runs the walk for multiple times and stores the probability distributions
+        in a list.
+
+        Parameters
+        ----------
+        timeList : list, optional
+            List of times for which to calculate the quantum walk, by default None.
+        initStateList : list, optional
+            List with chosen initial states for uniform superposition, by default None.
+        customStateList : list, optional
+            Custom init state, by default None.
+
+        Raises
+        ------
+        UndefinedTimeList
+            Raised when the timeList is None.
+        """
+        self._probDistList = []
+        if timeList is not None:
+            self._timeList = timeList
+        elif self._timeList is None:
+            raise UndefinedTimeList(f"TimeList is {self._timeList}.")
+        for time in self._timeList:
+            self.runExpmWalk(
+                time=time,
+                initStateList=initStateList,
+                customStateList=customStateList)
+            self._probDistList.append(copy.deepcopy(self.getProbDist()))
+
     def resetWalk(self) -> None:
         """Resets the components of a walk."""
         self._initState.resetState()

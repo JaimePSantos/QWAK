@@ -69,8 +69,8 @@ lines2 = ['--','--','--','--']
 configVec = zip(colors,lines,lines2)
 
 
-n = 10
-graph = nx.hypercube_graph(n)
+n = 1024
+graph = nx.complete_graph(n)
 gamma = (1 / n) + approx_1_over_n_squared(n, 20)
 gammaLapla = (2 / n) + approx_1_over_n_squared(n, 20)
 
@@ -80,19 +80,15 @@ initCond = list(range(0, len(graph)))
 
 qw = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=False)
 
-# qwExpm = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=True)
-qwLapla = QWAK(graph=graph, gamma=gammaLapla, markedElements=markedSearch, laplacian=True)
+qwLapla = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=True)
 
 timeList = np.linspace(0, (np.pi / (2) * np.sqrt(N)), 20)
-timeListLapla = np.linspace(0, 2*(np.pi / (2) * np.sqrt(N)), 20)
 
 qw.runMultipleWalks(timeList = timeList, initStateList=initCond)
-# qwExpm.runMultipleExpmWalks(timeList = timeList, initStateList=initCond)
-qwLapla.runMultipleWalks(timeList = timeListLapla, initStateList=initCond)
+qwLapla.runMultipleWalks(timeList = timeList, initStateList=initCond)
 
 markedProbList = searchProbStepsPlotting(qw)
-# markedProbListExpm = searchProbStepsPlotting(qwExpm)
 markedProbListLapla = searchProbStepsPlotting(qwLapla)
 
-plotSearch2([markedSearch,markedSearch],[markedProbList,markedProbListLapla],[timeList,timeListLapla],configVec,[ "QWAK", "QWAKLapla"])
+plotSearch2([markedSearch,markedSearch],[markedProbList,markedProbListLapla],[timeList,timeList],configVec,[ "QWAK", "QWAKLapa"])
 plt.show()
