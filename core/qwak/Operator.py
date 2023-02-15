@@ -59,7 +59,6 @@ class Operator:
         self._hamiltonian = self._buildHamiltonian(self._graph,self._laplacian)
         if self._markedElements:
             self._hamiltonian = self._buildSearchHamiltonian(self._hamiltonian, self._markedElements)
-            print(f'Lapla Hamiltonian: {self._hamiltonian}') if self._laplacian else print(f'Adj Hamiltonian: {self._hamiltonian}')
 
         self._isHermitian = self._hermitianTest(self._hamiltonian)
         self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)

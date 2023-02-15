@@ -127,7 +127,7 @@ class TestQWAKCycle(object):
         qwak = QWAKTestStub()
         np.testing.assert_almost_equal(
             qwak.getAdjacencyMatrix(),
-            nx.to_numpy_array(
+            -nx.to_numpy_array(
                 nx.cycle_graph(n),
                 dtype=complex),
             err_msg=f"Expected adjacency matrix of cycle of size {n} but got {qwak.getAdjacencyMatrix()}",
