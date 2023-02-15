@@ -69,13 +69,13 @@ lines2 = ['--','--','--','--']
 configVec = zip(colors,lines,lines2)
 
 
-n = 1024
+n = 100
 graph = nx.complete_graph(n)
 gamma = (1 / n) + approx_1_over_n_squared(n, 20)
 gammaLapla = (2 / n) + approx_1_over_n_squared(n, 20)
 
 N = len(graph)
-markedSearch = [(N//2,-1)]
+markedSearch = [(0,-1)]
 initCond = list(range(0, len(graph)))
 
 qw = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=False)

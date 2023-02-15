@@ -59,6 +59,7 @@ class Operator:
         self._hamiltonian = self._buildHamiltonian(self._graph,self._laplacian)
         if self._markedElements:
             self._hamiltonian = self._buildSearchHamiltonian(self._hamiltonian, self._markedElements)
+            print(f'Lapla Hamiltonian: {self._hamiltonian}') if self._laplacian else print(f'Adj Hamiltonian: {self._hamiltonian}')
 
         self._isHermitian = self._hermitianTest(self._hamiltonian)
         self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
@@ -124,18 +125,11 @@ class Operator:
         markedElements : list
             List of elements for the search.
         """
-        # if laplacian:
-        #     adjM = np.asarray(
-        #         -nx.laplacian_matrix(
-        #             self._graph).todense().astype(complex))
-        # else:
-        adjM = - nx.to_numpy_array(
-                graph, dtype=complex)
+        adjM = nx.to_numpy_array(
+            graph, dtype=complex)
         if laplacian:
-            adjM = - np.asarray(
-                nx.laplacian_matrix(
-                    self._graph).todense().astype(complex))
-        return adjM * self._gamma
+            adjM = adjM - self._degree_diagonal_matrix(graph)
+        return -adjM * self._gamma
 
     def _degree_diagonal_matrix(self,G):
         degrees = np.array(list(dict(G.degree()).values()))
@@ -143,7 +137,7 @@ class Operator:
 
     def _buildSearchHamiltonian(self,hamiltonian,markedElements):
         for marked in markedElements:
-            hamiltonian[marked[0], marked[0]] = marked[1]
+            hamiltonian[marked[0], marked[0]] += marked[1]
         return hamiltonian
 
     def _buildEigenValues(self, hamiltonian) -> None:

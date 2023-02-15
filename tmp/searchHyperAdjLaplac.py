@@ -79,13 +79,13 @@ markedSearch = [(N//2,-1)]
 initCond = list(range(0, len(graph)))
 
 qw = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=False)
-qwLapla = QWAK(graph=graph, gamma=gammaLapla, markedElements=markedSearch, laplacian=True)
+qwLapla = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=True)
 
 timeList = np.linspace(0, (np.pi / (2) * np.sqrt(N)), 20)
-timeListLapla = np.linspace(0, 2*(np.pi / (2) * np.sqrt(N)), 20)
+timeListLapla = np.linspace(0, (np.pi / (2) * np.sqrt(N)), 20)
 
 qw.runMultipleWalks(timeList = timeList, initStateList=initCond)
-qwLapla.runMultipleWalks(timeList = timeListLapla, initStateList=initCond)
+qwLapla.runMultipleWalks(timeList = timeList, initStateList=initCond)
 
 markedProbList = searchProbStepsPlotting(qw)
 markedProbListLapla = searchProbStepsPlotting(qwLapla)
