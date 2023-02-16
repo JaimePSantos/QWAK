@@ -94,105 +94,10 @@ class QWAK:
 
         self._probDistList = []
 
-    def to_json(self, isDynamic=False) -> str:
-        """Returns a JSON representation of the QWAK instance
-
-        Parameters
-        ----------
-        isDynamic : bool, optional
-            If True, the JSON will contain the timeList, probDistList and
-            walkList attributes, by default False.
-
-        Returns
-        -------
-        str
-            JSON representation of the QWAK instance.
-        """
-        if isDynamic:
-            qwakJson = json.dumps({
-                'dim': self._n,
-                'graph': nx.node_link_data(self._graph),
-                'timeList': self._timeList.tolist(),
-                'initState': json.loads(self._initState.to_json()),
-                'operator': json.loads(self._operator.to_json()),
-                'quantumWalk': json.loads(self._quantumWalk.to_json()),
-                'probDistList': [probDist.to_json() for probDist in self._probDistList],
-                'qwakId': self._qwakId
-            })
-        else:
-            qwakJson = json.dumps({
-                'dim': self._n,
-                'graph': nx.node_link_data(self._graph),
-                'initState': json.loads(self._initState.to_json()),
-                'operator': json.loads(self._operator.to_json()),
-                'quantumWalk': json.loads(self._quantumWalk.to_json()),
-                'probDist': json.loads(self._probDist.to_json()),
-                'qwakId': self._qwakId
-            })
-        return qwakJson
-
-    @classmethod
-    def from_json(cls, json_var: str, isDynamic=False) -> QWAK:
-        """Returns a QWAK instance from a JSON representation.
-
-        Parameters
-        ----------
-        json_var : str
-            JSON representation of the QWAK instance.
-        isDynamic : bool, optional
-            If True, the JSON will contain the timeList and probDistList attributes,
-            by default False.
-
-        Returns
-        -------
-        QWAK
-            QWAK instance from a JSON representation.
-        """
-        if isinstance(json_var, str):
-            data = json.loads(json_var)
-        elif isinstance(json_var, dict):
-            data = json_var
-        qwakId = data['qwakId']
-        graph = nx.node_link_graph(data['graph'])
-
-        initState = State.from_json(data['initState'])
-        operator = Operator.from_json(data['operator'])
-        quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
-        if isDynamic:
-            timeList = data['timeList']
-            newQwak = cls(graph=graph, timeList=timeList, qwakId=qwakId)
-            probDistList = [ProbabilityDistribution.from_json(
-                probDist) for probDist in data['probDistList']]
-            newQwak.setProbDistList(probDistList)
-        else:
-            probDist = ProbabilityDistribution.from_json(
-                data['probDist'])
-            newQwak = cls(graph=graph, qwakId=qwakId)
-            newQwak.setProbDist(probDist)
-        newQwak.setInitState(initState)
-        newQwak.setOperator(operator)
-        newQwak.setWalk(quantumWalk)
-        return newQwak
-
-    def setQWAK(self, newQWAK: QWAK) -> None:
-        """Sets the QWAK instance's attributes to the ones of the given QWAK instance.
-
-        Parameters
-        ----------
-        newQWAK : QWAK
-            QWAK instance to copy the attributes from.
-        """
-        self.setGraph(newQWAK.getGraph())
-        self.setDim(newQWAK.getDim(), graph=self._graph)
-        self.setInitState(newQWAK.getInitState())
-        self.setOperator(newQWAK.getOperator())
-        self.setWalk(newQWAK.getWalk())
-        self.setProbDist(newQWAK.getProbDist())
 
     def runWalk(
             self,
             time: float = 0,
-            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
@@ -223,14 +128,13 @@ class QWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildDiagonalOperator(time=time, gamma=gamma)
+        self._operator.buildDiagonalOperator(time=time)
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
     def runExpmWalk(
             self,
             time: float = 0,
-            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
@@ -261,14 +165,13 @@ class QWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildExpmOperator(time=time, gamma=gamma)
+        self._operator.buildExpmOperator(time=time)
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
     def runMultipleWalks(
             self,
             timeList: list = None,
-            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Runs the walk for multiple times and stores the probability distributions
@@ -296,7 +199,6 @@ class QWAK:
         for time in self._timeList:
             self.runWalk(
                 time=time,
-                #gamma=gamma,
                 initStateList=initStateList,
                 customStateList=customStateList)
             self._probDistList.append(copy.deepcopy(self.getProbDist()))
@@ -304,7 +206,6 @@ class QWAK:
     def runMultipleExpmWalks(
             self,
             timeList: list = None,
-            gamma: float = 1,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Runs the walk for multiple times and stores the probability distributions
@@ -946,3 +847,108 @@ class QWAK:
             Marked elements of the quantum walk.
         """
         self._operator.setMarkedElements(markedElements)
+
+    def getQWAK(self) :
+        """Gets the QWAK instance.
+
+        Returns
+        -------
+        QWAK
+            QWAK instance.
+        """
+        return self._qwak
+
+    def setQWAK(self, newQWAK: QWAK) -> None:
+        """Sets the QWAK instance's attributes to the ones of the given QWAK instance.
+
+        Parameters
+        ----------
+        newQWAK : QWAK
+            QWAK instance to copy the attributes from.
+        """
+        self.setGraph(newQWAK.getGraph())
+        self.setDim(newQWAK.getDim(), graph=self._graph)
+        self.setInitState(newQWAK.getInitState())
+        self.setOperator(newQWAK.getOperator())
+        self.setWalk(newQWAK.getWalk())
+        self.setProbDist(newQWAK.getProbDist())
+
+    def to_json(self, isDynamic=False) -> str:
+        """Returns a JSON representation of the QWAK instance
+
+        Parameters
+        ----------
+        isDynamic : bool, optional
+            If True, the JSON will contain the timeList, probDistList and
+            walkList attributes, by default False.
+
+        Returns
+        -------
+        str
+            JSON representation of the QWAK instance.
+        """
+        if isDynamic:
+            qwakJson = json.dumps({
+                'dim': self._n,
+                'graph': nx.node_link_data(self._graph),
+                'timeList': self._timeList.tolist(),
+                'initState': json.loads(self._initState.to_json()),
+                'operator': json.loads(self._operator.to_json()),
+                'quantumWalk': json.loads(self._quantumWalk.to_json()),
+                'probDistList': [probDist.to_json() for probDist in self._probDistList],
+                'qwakId': self._qwakId
+            })
+        else:
+            qwakJson = json.dumps({
+                'dim': self._n,
+                'graph': nx.node_link_data(self._graph),
+                'initState': json.loads(self._initState.to_json()),
+                'operator': json.loads(self._operator.to_json()),
+                'quantumWalk': json.loads(self._quantumWalk.to_json()),
+                'probDist': json.loads(self._probDist.to_json()),
+                'qwakId': self._qwakId
+            })
+        return qwakJson
+
+    @classmethod
+    def from_json(cls, json_var: str, isDynamic=False) -> QWAK:
+        """Returns a QWAK instance from a JSON representation.
+
+        Parameters
+        ----------
+        json_var : str
+            JSON representation of the QWAK instance.
+        isDynamic : bool, optional
+            If True, the JSON will contain the timeList and probDistList attributes,
+            by default False.
+
+        Returns
+        -------
+        QWAK
+            QWAK instance from a JSON representation.
+        """
+        if isinstance(json_var, str):
+            data = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            data = json_var
+        qwakId = data['qwakId']
+        graph = nx.node_link_graph(data['graph'])
+
+        initState = State.from_json(data['initState'])
+        operator = Operator.from_json(data['operator'])
+        quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
+        if isDynamic:
+            timeList = data['timeList']
+            newQwak = cls(graph=graph, timeList=timeList, qwakId=qwakId)
+            probDistList = [ProbabilityDistribution.from_json(
+                probDist) for probDist in data['probDistList']]
+            newQwak.setProbDistList(probDistList)
+        else:
+            probDist = ProbabilityDistribution.from_json(
+                data['probDist'])
+            newQwak = cls(graph=graph, qwakId=qwakId)
+            newQwak.setProbDist(probDist)
+        newQwak.setInitState(initState)
+        newQwak.setOperator(operator)
+        newQwak.setWalk(quantumWalk)
+        return newQwak

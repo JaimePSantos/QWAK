@@ -100,7 +100,7 @@ configVec = zip(colors,lines,lines2)
 # plotSearch2([markedSearch,markedSearch],[markedProbList,markedProbListLapla],[timeList,timeListLapla],configVec,[ "QWAK", "QWAKLapla"])
 # plt.show()
 
-n=11
+n=3
 graph = nx.hypercube_graph(n)
 # gamma = 1/n + approx_1_over_n_squared(n,10)# Gamma do paper do renato https://arxiv.org/pdf/2212.08889.pdf
 # o melhor gamma para n = 10 parece estar entre 0.113 e 0.115
@@ -108,13 +108,16 @@ gamma = 0
 for k in range(1,n+1):
     gamma += ( math.factorial(n) / (math.factorial(k)*math.factorial(n-k)) ) * 1/k
 gamma = gamma * (1/(2**n))/2
+# gamma = 1/n
+
 N = len(graph)
+print(f'N = {N}')
 initCond = list(range(0,len(graph)))
 
 maxFoundGamma = 0.11436917138223161
 
-timeList = np.linspace(0, (np.pi/(2) * np.sqrt(N)),5)
-gammaList = np.linspace(gamma,2*gamma ,10).tolist()# + [maxFoundGamma] + [gamma]
+timeList = np.linspace(0, 2*(np.pi/(2) * np.sqrt(N)),50)
+gammaList = [gamma] #+ #np.linspace(gamma,2*gamma ,10).tolist()+ [maxFoundGamma] +
 print(f'gammaList = {gammaList} \n gamma = {gamma}' )#-> 0.7880258300395853')
 # print(f'(0.7880803569765136, 0.11436917138223161)')
 markedProbList = []

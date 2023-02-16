@@ -16,8 +16,8 @@ class Operator:
     def __init__(
             self,
             graph: nx.Graph,
-            time: float = 0,
             gamma: float = 1,
+            time: float = 0,
             laplacian: bool = False,
             markedElements: list = [],
     ) -> None:
@@ -63,7 +63,7 @@ class Operator:
         self._isHermitian = self._hermitianTest(self._hamiltonian)
         self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
 
-    def buildDiagonalOperator(self, time: float = 0, gamma: float = 1) -> None:
+    def buildDiagonalOperator(self, time: float = 0) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
 
         The first step is to calculate the diagonal matrix that takes in time, transition rate and
@@ -82,7 +82,6 @@ class Operator:
         round : int, optional
         """
         self._time = time
-        self._gamma = gamma
         diag = np.diag(
             np.exp(-1j * self._eigenvalues * self._time)).diagonal()
         self._operator = np.multiply(self._eigenvectors, diag)
@@ -94,7 +93,7 @@ class Operator:
                     self._operator, inv(
                     self._eigenvectors))
 
-    def buildExpmOperator(self, time: float = 0, gamma: float = 1) -> None:
+    def buildExpmOperator(self, time: float = 0) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
 
         Uses the scipy function expm to calculate the matrix exponential of the adjacency matrix.
@@ -103,11 +102,8 @@ class Operator:
         ----------
         time : float, optional
             Time for which to calculate the operator, by default 0.
-        gamma : float, optional
-            Needs completion.
         """
         self._time = time
-        self._gamma = gamma
         self._operator = expm(-1j * self._hamiltonian * self._time)
 
     def _buildHamiltonian(
@@ -127,12 +123,8 @@ class Operator:
         adjM = nx.to_numpy_array(
             graph, dtype=complex)
         if laplacian:
-            adjM = adjM - self._degree_diagonal_matrix(graph)
+            adjM = adjM - self._degreeDiagonalMatrix(graph)
         return -adjM * self._gamma
-
-    def _degree_diagonal_matrix(self,G):
-        degrees = np.array(list(dict(G.degree()).values()))
-        return np.diag(degrees)
 
     def _buildSearchHamiltonian(self,hamiltonian,markedElements):
         for marked in markedElements:
@@ -191,6 +183,16 @@ class Operator:
             List of eigenvalues.
         """
         self._eigenvalues = eigenValues
+
+    def getEigenVectors(self) -> list:
+        """Returns the eigenvectors of the adjacency matrix.
+
+        Returns
+        -------
+        list
+            List of eigenvectors.
+        """
+        return self._eigenvectors
 
     def _setEigenVectors(self, eigenVectors: list) -> None:
         """Sets the eigenvectors of the adjacency matrix.
@@ -456,6 +458,11 @@ class Operator:
         newOp._setEigenVectors(eigenvectors)
         newOp._setOperatorVec(operator)
         return newOp
+
+    @staticmethod
+    def _degreeDiagonalMatrix(G):
+        degrees = np.array(list(dict(G.degree()).values()))
+        return np.diag(degrees)
 
     def __mul__(self, other: np.ndarray) -> np.ndarray:
         """Left-side multiplication for the Operator class.
