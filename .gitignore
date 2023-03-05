@@ -45,3 +45,4 @@ package.json
 package-lock.json
 .env
 .jupyter/*
+Notebook/Datasets/
