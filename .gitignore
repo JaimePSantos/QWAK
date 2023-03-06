@@ -46,3 +46,4 @@ package-lock.json
 .env
 .jupyter/*
 Notebook/Datasets/
+Notebook/ising_model.ipynb
