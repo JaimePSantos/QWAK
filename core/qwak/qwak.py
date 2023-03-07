@@ -426,6 +426,26 @@ class QWAK:
         """
         return self._operator.getAdjacencyMatrix()
 
+    def setHamiltonian(self, newHamiltonian: np.ndarray) -> None:
+        """Sets the current Hamiltonian to a user defined one.
+
+        Parameters
+        ----------
+        newHamiltonian : np.ndarray
+            New Hamiltonian.
+        """
+        self._operator.setHamiltonian(newHamiltonian)
+
+    def getHamiltonian(self) -> np.ndarray:
+        """Gets the current Hamiltonian.
+
+        Returns
+        -------
+        np.ndarray
+            Current Hamiltonian.
+        """
+        return self._operator.getHamiltonian()
+
     def setOperator(self, newOperator: Operator) -> None:
         """Sets the current walk operator a user defined one.
 

@@ -204,15 +204,26 @@ class Operator:
         """
         self._eigenvectors = eigenVectors
 
-    def getEigenVectors(self) -> list:
-        """Returns the eigenvectors of the adjacency matrix.
+    def getHamiltonian(self):
+        """Returns the hamiltonian of the graph, which is either the Laplacian or the simple matrix.
 
         Returns
         -------
-        list
-            List of eigenvectors.
+        np.ndarray
+            Hamiltonian of the graph.
         """
-        return self._eigenvectors
+        return self._hamiltonian
+
+    def setHamiltonian(self, hamiltonian):
+        """Sets the hamiltonian for the walk.
+
+        Parameters
+        ----------
+        hamiltonian : np.ndarray
+            Hamiltonian of the graph.
+        """
+        self._hamiltonian = hamiltonian
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
 
     def resetOperator(self) -> None:
         """Resets Operator object."""
