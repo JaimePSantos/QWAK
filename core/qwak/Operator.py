@@ -120,11 +120,11 @@ class Operator:
         markedElements : list
             List of elements for the search.
         """
-        adjM = nx.to_numpy_array(
+        self._adjacency = nx.to_numpy_array(
             graph, dtype=complex)
         if laplacian:
-            adjM = adjM - self._degreeDiagonalMatrix(graph)
-        return -adjM * self._gamma
+            self._adjacency = self._adjacency - self._degreeDiagonalMatrix(graph)
+        return -self._adjacency * self._gamma
 
     def _buildSearchHamiltonian(self,hamiltonian,markedElements):
         for marked in markedElements:
@@ -289,6 +289,7 @@ class Operator:
             New adjacency matrix.
         """
         #TODO: Laplacian check here aswell.
+        #TODO: Inconsistentcy with adjaceny matrix.
         self._hamiltonian = adjacencyMatrix.astype(complex)
         self._n = len(self._hamiltonian)
         self.resetOperator()
@@ -317,7 +318,7 @@ class Operator:
         np.ndarray
             Adjacency matrix of the Operator.
         """
-        return self._hamiltonian
+        return self._adjacency
 
     def _setOperatorVec(self, newOperator: np.ndarray) -> None:
         """Sets all the parameters of the current operator to user defined ones.

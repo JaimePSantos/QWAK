@@ -73,7 +73,7 @@ class QWAK:
         self._graph = graph
         self._n = len(self._graph)
         if timeList is not None:
-            self._timeList = np.array(timeList)
+            self._timeList = timeList
         else:
             self._timeList = np.zeros(self._n)
         self._qwakId = qwakId
