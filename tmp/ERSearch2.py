@@ -58,10 +58,10 @@ def multiple_erdos_renyi_qwak(N,pList,timeList,numberOfWalks,markedElements):
     markedProbList = [0]*len(timeList)
     probDistList = []
     pValMatrix = []
-    i = 1
+    sampleCounter = 1
     for pVal in pList:
-        print(f'PVAL {round(pVal, 4)}/{max(pList)} \t Sample {i}/{len(pList)}')
-        i += 1
+        print(f'PVAL {round(pVal, 4)}/{max(pList)} \t Sample {sampleCounter}/{len(pList)}')
+        sampleCounter += 1
         for i in range(numberOfWalks):
             graph = nx.erdos_renyi_graph(N,pVal)
             if pVal>1:
@@ -145,7 +145,7 @@ def plot_heatmap(p_values, t_values, prob_values, x_num_ticks=5, y_num_ticks=5, 
         plt.show()
 
 
-N = 500
+N = 300
 p = math.log(N,3/2)/N
 pMax = 0.5
 samples = 200
