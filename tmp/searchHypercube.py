@@ -65,7 +65,6 @@ def smooth_matrices(matrix1, matrix2, matrix3, sigma=1):
 
     return (smoothed_matrix1, smoothed_matrix2, smoothed_matrix3)
 
-
 def write_nested_list_to_file(file_path, nested_lst):
     """
     Write a nested list of elements to a text file.
@@ -94,22 +93,6 @@ def load_nested_list_from_file(file_path):
             nested_lst.append(lst)
     return nested_lst
 
-
-def plotSearch(N, probT, tSpace, configVec):
-    plotName = ""
-    for T, walk, config, n in zip(tSpace, probT, configVec, N):
-        # print(config)
-        plt.plot(T, walk, color=config[0], linestyle=config[1], label="N=%s" % n)
-        plt.vlines(max(T), 0, 1, color=config[0], linestyle=config[2])
-        plt.legend()
-        plt.xlabel("Number of steps")
-        plt.ylabel("Probability of marked elements")
-    for n in N:
-        plotName += '_' + str(n)
-    plt.savefig(r"C:\Users\jaime\Documents\GitHub\QWAK\Notebook\Output\\" + f"Search{plotName}")
-    # plt.clf()
-
-
 def gamma_hypercube(n):
     total = 0
     for r in range(1, n + 1):
@@ -117,9 +100,11 @@ def gamma_hypercube(n):
         total += binomial_coefficient * (1 / r)
     return ((1 / (2 ** n)) * total) / 2
 
+
+
 def plot_search(markedList, probT, tSpace, configVec, gamma_range, x_num_ticks=5, y_num_ticks=5, round_val=3, filepath=None,
                 xlabel='Number of steps', ylabel='Probability of marked elements', cbar_label='Gamma', font_size=12, figsize=(8, 6),
-                cbar_num_ticks=None, cbar_tick_labels=None):
+                cbar_num_ticks=None, cbar_tick_labels=None, plot_title='Hypercube Search'):
 
     fig, ax = plt.subplots(figsize=figsize)
 
@@ -129,6 +114,7 @@ def plot_search(markedList, probT, tSpace, configVec, gamma_range, x_num_ticks=5
         ax.plot(T, walk, color=config[0], linestyle=config[1])
         ax.set_xlabel(xlabel, fontsize=font_size + 2)
         ax.set_ylabel(ylabel, fontsize=font_size + 2)
+        ax.set_title(plot_title, fontsize=font_size+4)
 
     ax.tick_params(axis='both', which='major', labelsize=font_size)
 
@@ -186,15 +172,19 @@ n=9
 graph = nx.hypercube_graph(n)
 gamma = gamma_hypercube(n)
 gammaMin = gamma/1.10
+t =  (np.pi/(2) * np.sqrt(N))
+maxTime = 2.2*t
+
 N = len(graph)
 print(f'N = {N}')
+print(f'GammaMin = {gammaMin}')
+print(f'T = {2.2*t}')
 
 initCond = list(range(0,len(graph)))
-t =  (np.pi/(2) * np.sqrt(N))
 
 samples = 200
-tMax = 2.2*t
-timeList = np.linspace(0,tMax,samples)
+timeList = np.linspace(0,maxTime,samples)
+print(max(timeList))
 gammaList =  np.linspace(gammaMin,gamma ,samples).tolist()
 markedElements = [(N//2,-1)]
 
@@ -202,9 +192,9 @@ colors = plt.cm.rainbow(np.linspace(0, 1, len(gammaList)))
 lines = ['-']*len(gammaList)
 configVec = list(zip(colors,lines))
 
-time_file = f'Datasets/HypercubeSearch/timeMatrix_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(tMax,1)}.txt'
-markedElements_file = f'Datasets/HypercubeSearch/markedElementsMatrix_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(tMax,1)}.txt'
-marked_prob_file = f'Datasets/HypercubeSearch/markedProbMatrix_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(tMax,1)}.txt'
+time_file = f'Datasets/HypercubeSearch/timeMatrix_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(maxTime)}.txt'
+markedElements_file = f'Datasets/HypercubeSearch/markedElementsMatrix_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(maxTime)}.txt'
+marked_prob_file = f'Datasets/HypercubeSearch/markedProbMatrix_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(maxTime)}.txt'
 
 if os.path.exists(time_file) and os.path.exists(markedElements_file) and os.path.exists(marked_prob_file):
     markedProbMatrix = load_nested_list_from_file(marked_prob_file)
@@ -220,13 +210,15 @@ else:
         write_nested_list_to_file(time_file, timeMatrix)
     if not os.path.exists(marked_prob_file):
         write_nested_list_to_file(marked_prob_file, markedProbMatrix)
-
+        
 gamma_range=gammaList
 x_num_ticks=10
 y_num_ticks=10
 round_val=2
 
-filepath=None
+filepath=f'Output/HypercubeSearch/hypercubePlot_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(maxTime)}.png'
+
+plot_title = f'N={N}'
 
 xlabel='Time'
 ylabel='Solution Probability'
@@ -237,27 +229,9 @@ figsize=(9, 6)
 
 cbar_num_ticks=10
 
-cbar_tick_labels=[r' $\gamma = \frac{\gamma_{opt}}{5}$'] + [f'{round(x,round_val)}' for x in np.linspace(gamma/1.25,gamma ,cbar_num_ticks-2).tolist()] + [r' $\gamma = \gamma_{opt}$']
-
-gamma_range=gammaList
-x_num_ticks=10
-y_num_ticks=10
-round_val=2
-
-filepath=f'Output/HypercubeSearch/hypercubeSearchPlot_N{N}_S{samples}_GMIN{round(gammaMin,3)}_TMAX{round(tMax,1)}.png'
-
-xlabel='Time'
-ylabel='Solution Probability'
-cbar_label='Hopping Rate'
-
-font_size=14
-figsize=(9, 6)
-
-cbar_num_ticks=10
-
-cbar_tick_labels=[r' $\gamma = \frac{\gamma_{opt}}{5}$'] + [f'{round(x,round_val)}' for x in np.linspace(gamma/1.25,gamma ,cbar_num_ticks-2).tolist()] + [r' $\gamma = \gamma_{opt}$']
+cbar_tick_labels=[r' $\gamma = \frac{10}{11}\gamma_{opt}$'] + [f'{round(x,3)}' for x in np.linspace(gammaMin,gamma ,cbar_num_ticks-2).tolist()] + [r' $\gamma = \gamma_{opt}$']
 
 plot_search(markedList=markedElementsMatrix, probT=markedProbMatrix, tSpace=timeMatrix, configVec=configVec,
-            gamma_range=gamma_range,x_num_ticks=x_num_ticks, y_num_ticks=y_num_ticks, round_val=round_val,
-            filepath=filepath,xlabel=xlabel, ylabel=ylabel, cbar_label=cbar_label, font_size=font_size,
-            figsize=figsize,cbar_num_ticks=cbar_num_ticks, cbar_tick_labels=cbar_tick_labels)
+            gamma_range=gamma_range,x_num_ticks=x_num_ticks, y_num_ticks=y_num_ticks, round_val=round_val, 
+            filepath=filepath,xlabel=xlabel, ylabel=ylabel, cbar_label=cbar_label, font_size=font_size, 
+            figsize=figsize,cbar_num_ticks=cbar_num_ticks, cbar_tick_labels=cbar_tick_labels,plot_title=plot_title)
