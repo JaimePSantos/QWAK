@@ -46,3 +46,4 @@ package-lock.json
 .env
 .jupyter/*
 Notebook/ising_model.ipynb
+Notebook/Datasets/SpinGlass*
