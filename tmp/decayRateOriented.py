@@ -28,18 +28,7 @@ def multiple_oriented_decayRate(N, k,fromNode, toNode, timeList, baseGraph, alph
         decayRateMatrix.append(qw.getSurvivalProbList(fromNode,toNode))
     return decayRateMatrix
 
-
 def multiple_oriented_probDistList(N, k,fromNode, toNode, timeList, baseGraph, alphaList, initCond):
-    probMatrix = []
-    for alpha in alphaList:
-        weight = np.exp(1j * alpha)
-        graph = getWeightedGraph(baseGraph, weight)
-        qw = QWAK(graph)
-        qw.runMultipleWalks(timeList=timeList, customStateList=initCond)
-        probMatrix.append(qw.getProbDistList())
-    return probMatrix
-
-def multiple_oriented_probDistList2(N, k,fromNode, toNode, timeList, baseGraph, alphaList, initCond):
     probMatrix = []
     probDist = []
     for alpha in alphaList:
@@ -81,15 +70,77 @@ def load_nested_list_from_file(file_path):
             nested_lst.append(lst)
     return nested_lst
 
+def plot_decay_rate_matrix(decay_rate_matrix, time_list, alpha_list, alpha_label_list=None,
+                           title=None, xlabel='Time', ylabel='Decay Rate', legend_loc='best',
+                           save_path=None, font_size=12,figsize=(10,6),
+                           color_list=None, line_style_list=None):
+    """
+    Plots the decay rate matrix as a function of time for different alpha values.
+
+    :param decay_rate_matrix: the decay rate matrix, a nested list of floats with shape (len(alpha_list), len(time_list))
+    :param time_list: the list of time values at which the decay rate was calculated
+    :param alpha_list: the list of alpha values used to generate the decay rate matrix
+    :param alpha_label_list: optional list of labels for each alpha value (defaults to alpha_list)
+    :param title: optional title for the plot
+    :param xlabel: optional label for the x-axis
+    :param ylabel: optional label for the y-axis
+    :param legend_loc: optional legend location (defaults to 'best')
+    :param save_path: optional path to save the plot (defaults to None, which shows the plot)
+    :param font_size: optional font size for the plot (defaults to 12)
+    :param figsize: optional tuple specifying the figure size (defaults to (10,6))
+    :param color_list: optional list of colors to use for each alpha value (defaults to None)
+    :param line_style_list: optional list of line styles to use for each alpha value (defaults to None)
+    """
+
+    # set default alpha labels
+    if alpha_label_list is None:
+        alpha_label_list = alpha_list
+
+    # plot the decay rate for each alpha value
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.loglog()
+    ax.set_xlim([time_list[0], time_list[-1]])
+    for i in range(len(alpha_list)):
+        color = None
+        line_style = None
+        if color_list is not None:
+            color = color_list[i]
+        if line_style_list is not None:
+            line_style = line_style_list[i]
+        ax.plot(time_list, decay_rate_matrix[i], label=alpha_label_list[i], color=color, linestyle=line_style)
+
+    # set the axis labels
+    ax.set_xlabel(xlabel, fontsize=font_size+2)
+    ax.set_ylabel(ylabel, fontsize=font_size+2)
+
+    # set the plot title
+    if title is not None:
+        ax.set_title(title, fontsize=font_size+4)
+
+    # set the legend
+    legend =ax.legend(loc=legend_loc,ncol=len(alpha_list), fontsize=font_size-1)
+    legend.set_title(r'$\alpha$', prop={'size': font_size - 1})
+
+    # set font size for ticks
+    ax.tick_params(axis='both', labelsize=font_size)
+    fig.tight_layout()
+
+    # save or show the plot
+    if save_path is not None:
+        plt.savefig(save_path)
+        plt.show()
+    else:
+        plt.show()
+
 
 n =  9
 N = 2 ** n
 print(N)
 
 alpha = np.pi / 2
-alphaList = [0, np.pi/ 2, np.pi/ 3]
+alphaList = [0, np.pi/ 3, np.pi/ 2 ]
 print(alphaList)
-alphaLabelList = [r'$0$', r'$\frac{\pi}{4}$', r'$\frac{\pi}{2}$']
+alphaLabelList = [r'$0$', r'$\frac{\pi}{3}$', r'$\frac{\pi}{2}$']
 
 baseGraph = nx.path_graph(N, create_using=nx.DiGraph)
 
@@ -103,56 +154,40 @@ l = 0
 gamma = l * np.pi
 
 t = 100 
-samples = 100 
-timeList = np.linspace(0, t, samples)
-print(timeList)
+samples = 500
+timeList = np.linspace(1, t, samples)
 initCond = [(N // 2 - k, np.cos(theta)), (N // 2 + k, np.exp(1j * gamma) * np.sin(theta))]
 
-decayRateMatrix_file = f'Datasets/OrientedDecayRate/decayRateMatrix{N}_NWALKS{len(alphaList)}_S{samples}_TMAX{t}.txt'
+fromNode = N // 2 - k - 1
+toNode = N // 2 + k + 2
 
-#if os.path.exists(decayRateMatrix_file):
-#    decayRateMatrix = load_nested_list_from_file(decayRateMatrix_file)
-#    print('File exists!')
-#else:
-#    print('File Doesnt Exist!')
-#    fromNode = N // 2 - k -1
-#    toNode = N // 2 + k +1 
-#    decayRateMatrix = multiple_oriented_decayRate(N,k,fromNode,toNode,timeList,baseGraph,alphaList,initCond)
-#    if not os.path.exists(decayRateMatrix_file):
-#        write_nested_list_to_file(decayRateMatrix_file, decayRateMatrix)
+decayRateMatrix_file = f'Datasets/OrientedDecayRate/decayRateMatrix{N}_NWALKS{len(alphaList)}_S{samples}_TMAX{t}_FROM{fromNode}_TO{toNode}.txt'
 
 if os.path.exists(decayRateMatrix_file):
-    decayRateMatrix = load_nested_list_from_file(decayRateMatrix_file)
-    print('File exists!')
+   decayRateMatrix = load_nested_list_from_file(decayRateMatrix_file)
+   print('File exists!')
 else:
-    print('File Doesnt Exist!')
-    fromNode = N//2-k-1
-    toNode = N//2+k+2 
-    #decayRateMatrix = multiple_oriented_decayRate(N,k,fromNode,toNode,timeList,baseGraph,alphaList,initCond)
-    probDistMatrix = multiple_oriented_probDistList2(N,k,fromNode,toNode,timeList,baseGraph,alphaList,initCond)
-    print(len(probDistMatrix))
-    probList = []
-    decayRateMatrix = []
-    for probDistList in probDistMatrix:
-        for prob in probDistList:
-            p = prob.getProbVec()
-            probList.append(np.sum(p[fromNode : toNode]))
-        decayRateMatrix.append(probList)
-        probList = []
+   print('File Doesnt Exist!')
+   fromNode = N // 2 - k -1
+   toNode = N // 2 + k +1
+   decayRateMatrix = multiple_oriented_decayRate(N,k,fromNode,toNode,timeList,baseGraph,alphaList,initCond)
+   if not os.path.exists(decayRateMatrix_file):
+       write_nested_list_to_file(decayRateMatrix_file, decayRateMatrix)
 
-    if not os.path.exists(decayRateMatrix_file):
-        write_nested_list_to_file(decayRateMatrix_file, decayRateMatrix)
+decayRateMatrix_output = f'Output/OrientedDecayRate/decayRateMatrix{N}_NWALKS{len(alphaList)}_S{samples}_TMAX{t}_FROM{fromNode}_TO{toNode}.png'
 
-for x in decayRateMatrix:
-    plt.loglog()
-    plt.plot(x)
+font_size = 14
+figsize=(8, 6)
+xlabel = 'Time'
+ylabel = r"$P_{[-%s,%s]}$"%(k,k)
+title = f'N={N}'
+legend_loc = "lower left"
 
-plt.xlim([1, 100])
-labelsize = 23
-mpl.rcParams['figure.figsize'] = [12, 10]
-plt.legend(loc="lower left", ncol=len(alphaList),fontsize=labelsize)
-plt.ylabel(r"$P_{[-%s,%s]}(x)$"%(k,k),fontsize=labelsize)
-plt.xlabel("Time",fontsize=labelsize)
-mpl.rc('xtick', labelsize=labelsize)
-mpl.rc('ytick', labelsize=labelsize)
-plt.show()
+color_list = ['b','g','r']
+line_style_list = ['--', '-.','-' ]
+
+plot_decay_rate_matrix(decayRateMatrix, timeList, alphaList, alpha_label_list=alphaLabelList,
+                       title=title,xlabel=xlabel, ylabel=ylabel, legend_loc=legend_loc,
+                       save_path=decayRateMatrix_output, font_size=font_size,figsize=figsize,
+                       color_list= color_list , line_style_list=line_style_list)
+

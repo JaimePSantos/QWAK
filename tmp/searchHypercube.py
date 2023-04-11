@@ -169,6 +169,7 @@ def multiple_hypercube_qwak(N,gammaList,timeList,markedElements,initCond):
 
 
 n=9
+N = 2**n
 graph = nx.hypercube_graph(n)
 gamma = gamma_hypercube(n)
 gammaMin = gamma/1.10
