@@ -6,20 +6,10 @@ import numpy as np
 import matplotlib as mpl
 from matplotlib import pyplot as plt
 from math import sqrt, ceil, pow
-import scipy.special as sp
 from scipy.linalg import expm
-import sympy as simp
 import math
-from qwak.State import State
-from qwak.Operator import Operator
-from qwak.QuantumWalk import QuantumWalk
-from qwak.ProbabilityDistribution import ProbabilityDistribution
-from qwak.qwak import QWAK
 import copy
-import plotly.graph_objects as go
-import seaborn as sns
 import matplotlib.pyplot as plt
-import pandas as pd
 import os
 
 from scipy.ndimage import gaussian_filter
@@ -144,8 +134,8 @@ def plot_heatmap(p_values, t_values, prob_values, x_num_ticks=5, y_num_ticks=5, 
     else:
         plt.show()
 
-
-N = 300
+n = 9
+N = 2**n 
 p = math.log(N,3/2)/N
 pMax = 0.5
 samples = 200
