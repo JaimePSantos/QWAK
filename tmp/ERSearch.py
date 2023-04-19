@@ -144,8 +144,8 @@ def plot_heatmap(p_values, t_values, prob_values, x_num_ticks=5, y_num_ticks=5, 
     else:
         plt.show()
 
-
-N = 500
+n = 9
+N = 2**n
 p = math.log(N,3/2)/N
 pMax = 0.5
 samples = 200
