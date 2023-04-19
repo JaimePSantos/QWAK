@@ -9,7 +9,6 @@ import sympy as simp
 import os
 from matplotlib.colors import ListedColormap, BoundaryNorm, LinearSegmentedColormap
 
-
 def plot_decay_rate_matrix(decay_rate_matrix, time_list, alpha_list, alpha_label_list=None,
                            title=None, xlabel='Time', ylabel='Decay Rate', legend_loc='best',
                            save_path=None, font_size=12,figsize=(10,6),
@@ -152,3 +151,59 @@ def plot_search_hypercube(markedList, probT, tSpace, configVec, gamma_range, x_n
         plt.show()
     else:
         plt.show()
+
+# create a general plotting functions with the functionality of the three functions above
+def plot_search_complete_general(markedList, probT, tSpace, configVec, gamma_range, x_num_ticks=5, y_num_ticks=5, x_round_val=3, y_round_val=3, filepath=None,
+
+                                 xlabel='Number of steps', ylabel='Probability of marked elements', cbar_label='Gamma', font_size=12, figsize=(8, 6),
+                                 cbar_num_ticks=None, cbar_tick_labels=None, plot_title='Hypercube Search'):
+
+    fig, ax = plt.subplots(figsize=figsize)
+
+    for i, (T, walk, config, marked) in enumerate(zip(tSpace, probT, configVec, markedList)):
+        max_prob = np.max(walk)
+        max_prob_t = T[np.argmax(walk)]
+        ax.plot(T, walk, color=config[0], linestyle=config[1], label=f'Solutions: {len(marked)}')
+        ax.axvline(max_prob_t, color=config[0], linestyle='dashed', linewidth=1.5,
+                   ymax=max_prob/ax.get_ylim()[1])
+        ax.set_xlabel(xlabel, fontsize=font_size + 2)
+        ax.set_ylabel(ylabel, fontsize=font_size + 2)
+        ax.set_title(plot_title, fontsize=font_size+4)
+
+    ax.tick_params(axis='both', which='major', labelsize=font_size)
+
+    num_t_ticks = min(y_num_ticks, len(tSpace[0]))
+    t_tick_labels = np.round(np.linspace(min(tSpace[0]), max(tSpace[0]), num_t_ticks), y_round_val)
+
+    ax.set_yticks(np.linspace(0, np.max(probT), num_t_ticks))
+    ax.set_yticklabels(np.round(np.linspace(0, np.max(probT), num_t_ticks), y_round_val))
+
+    num_x_ticks = min(x_num_ticks, len(tSpace[0]))
+    x_tick_labels = np.round(np.linspace(min(tSpace[0]), max(tSpace[0]), num_x_ticks), x_round_val)
+
+
+    ax.set_xticks(np.linspace(min(tSpace[0]), max(tSpace[0]), num_x_ticks))
+    ax.set_xticklabels(x_tick_labels)
+
+    colors = [config[0] for config in configVec]
+    cmap = LinearSegmentedColormap.from_list('custom_cmap', colors, N=len(colors))
+    norm = BoundaryNorm(gamma_range, len(gamma_range)-1)
+
+    if cbar_num_ticks is not None:
+        cbar_ticks = np.linspace(gamma_range[0], gamma_range[-1], cbar_num_ticks)
+
+    else:
+        cbar_ticks = None
+
+#create a function that prints all prime numbers within a range
+def prime_numbers(start, end):
+    for n in range(start, end + 1):
+        if n > 1:
+            for i in range(2, n):
+                if (n % i) == 0:
+                    break
+            else:
+                print(n)
+
+prime_numbers(1, 100)
+
