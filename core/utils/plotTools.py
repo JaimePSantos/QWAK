@@ -6,7 +6,7 @@ from qwak.Errors import EmptyProbDistList
 from matplotlib.colors import LinearSegmentedColormap, BoundaryNorm, Normalize
 
 
-def plot_data(
+def plot_qwak(
         x_value_matrix,
         y_value_matrix,
         x_label=None,
@@ -280,52 +280,3 @@ def plot_data(
         plt.show()
     else:
         plt.show()
-
-
-def searchProbStepsPlotting(qwak: QWAK):
-    """Plots the probability of finding the target as a function of the number of steps.
-
-    Parameters
-    ----------
-    qwak : QWAK
-        QWAK object containing the results of the simulation.
-    """
-    markedProbability = 0
-    markedProbDistList = []
-    markdElements = qwak.getMarkedElements()
-    probDistList = qwak.getProbDistList()
-    if probDistList == []:
-        raise EmptyProbDistList(
-            "The probability distribution list is empty.")
-    for probDist in probDistList:
-        for element in markdElements:
-            markedProbability += probDist.searchNodeProbability(
-                element[0])
-        markedProbDistList.append(markedProbability)
-        markedProbability = 0
-    return markedProbDistList
-
-
-def searchProbStepsPlotting2(qwak: QWAK, probDistList):
-    """Plots the probability of finding the target as a function of the number of steps.
-
-    Parameters
-    ----------
-    qwak : QWAK
-        QWAK object containing the results of the simulation.
-    """
-    markedProbability = 0
-    markedProbDistList = []
-    markdElements = qwak.getMarkedElements()
-    probDistList = probDistList
-    if probDistList == []:
-        raise EmptyProbDistList(
-            "The probability distribution list is empty.")
-    for probDist in probDistList:
-        for element in markdElements:
-            markedProbability += probDist.searchNodeProbability(
-                element[0])
-        markedProbDistList.append(markedProbability)
-        markedProbability = 0
-    # print(markedProbDistList)
-    return markedProbDistList
