@@ -23,16 +23,16 @@ from qwak.ProbabilityDistribution import (
 
 class QWAK:
     def __init__(
-        self,
-        graph: nx.Graph,
-        time: float = None,
-        timeList: list = None,
-        gamma: float = None,
-        initStateList: list = None,
-        customStateList: list = None,
-        laplacian: bool = False,
-        markedElements: list = None,
-        qwakId: str = 'userUndef',
+            self,
+            graph: nx.Graph,
+            time: float = 0,
+            timeList: list = None,
+            gamma: float = 1,
+            initStateList: list = None,
+            customStateList: list = None,
+            laplacian: bool = False,
+            markedElements: list = [],
+            qwakId: str = 'userUndef',
     ) -> None:
         """Data access class that combines all three components required to
         perform a continuous-time quantum walk, given by the multiplication of
@@ -73,7 +73,7 @@ class QWAK:
         self._graph = graph
         self._n = len(self._graph)
         if timeList is not None:
-            self._timeList = np.array(timeList)
+            self._timeList = timeList
         else:
             self._timeList = np.zeros(self._n)
         self._qwakId = qwakId
@@ -94,105 +94,10 @@ class QWAK:
 
         self._probDistList = []
 
-    def to_json(self, isDynamic=False) -> str:
-        """Returns a JSON representation of the QWAK instance
-
-        Parameters
-        ----------
-        isDynamic : bool, optional
-            If True, the JSON will contain the timeList, probDistList and
-            walkList attributes, by default False.
-
-        Returns
-        -------
-        str
-            JSON representation of the QWAK instance.
-        """
-        if isDynamic:
-            qwakJson = json.dumps({
-                'dim': self._n,
-                'graph': nx.node_link_data(self._graph),
-                'timeList': self._timeList.tolist(),
-                'initState': json.loads(self._initState.to_json()),
-                'operator': json.loads(self._operator.to_json()),
-                'quantumWalk': json.loads(self._quantumWalk.to_json()),
-                'probDistList': [probDist.to_json() for probDist in self._probDistList],
-                'qwakId': self._qwakId
-            })
-        else:
-            qwakJson = json.dumps({
-                'dim': self._n,
-                'graph': nx.node_link_data(self._graph),
-                'initState': json.loads(self._initState.to_json()),
-                'operator': json.loads(self._operator.to_json()),
-                'quantumWalk': json.loads(self._quantumWalk.to_json()),
-                'probDist': json.loads(self._probDist.to_json()),
-                'qwakId': self._qwakId
-            })
-        return qwakJson
-
-    @classmethod
-    def from_json(cls, json_var: str, isDynamic=False) -> QWAK:
-        """Returns a QWAK instance from a JSON representation.
-
-        Parameters
-        ----------
-        json_var : str
-            JSON representation of the QWAK instance.
-        isDynamic : bool, optional
-            If True, the JSON will contain the timeList and probDistList attributes,
-            by default False.
-
-        Returns
-        -------
-        QWAK
-            QWAK instance from a JSON representation.
-        """
-        if isinstance(json_var, str):
-            data = json.loads(json_var)
-        elif isinstance(json_var, dict):
-            data = json_var
-        qwakId = data['qwakId']
-        graph = nx.node_link_graph(data['graph'])
-
-        initState = State.from_json(data['initState'])
-        operator = Operator.from_json(data['operator'])
-        quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
-        if isDynamic:
-            timeList = data['timeList']
-            newQwak = cls(graph=graph, timeList=timeList, qwakId=qwakId)
-            probDistList = [ProbabilityDistribution.from_json(
-                probDist) for probDist in data['probDistList']]
-            newQwak.setProbDistList(probDistList)
-        else:
-            probDist = ProbabilityDistribution.from_json(
-                data['probDist'])
-            newQwak = cls(graph=graph, qwakId=qwakId)
-            newQwak.setProbDist(probDist)
-        newQwak.setInitState(initState)
-        newQwak.setOperator(operator)
-        newQwak.setWalk(quantumWalk)
-        return newQwak
-
-    def setQWAK(self, newQWAK: QWAK) -> None:
-        """Sets the QWAK instance's attributes to the ones of the given QWAK instance.
-
-        Parameters
-        ----------
-        newQWAK : QWAK
-            QWAK instance to copy the attributes from.
-        """
-        self.setGraph(newQWAK.getGraph())
-        self.setDim(newQWAK.getDim(), graph=self._graph)
-        self.setInitState(newQWAK.getInitState())
-        self.setOperator(newQWAK.getOperator())
-        self.setWalk(newQWAK.getWalk())
-        self.setProbDist(newQWAK.getProbDist())
 
     def runWalk(
             self,
-            time: float = None,
-            gamma: float = None,
+            time: float = 0,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Builds class' attributes, runs the walk and calculates the amplitudes
@@ -223,14 +128,50 @@ class QWAK:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        self._operator.buildDiagonalOperator(time=time,gamma=gamma)
+        self._operator.buildDiagonalOperator(time=time)
+        self._quantumWalk.buildWalk(self._initState, self._operator)
+        self._probDist.buildProbDist(self._quantumWalk.getFinalState())
+
+    def runExpmWalk(
+            self,
+            time: float = 0,
+            initStateList: list = None,
+            customStateList: list = None) -> None:
+        """Builds class' attributes, runs the walk and calculates the amplitudes
+        and probability distributions with the given parameters. These can be
+        accessed with their respective get methods.
+
+        Parameters
+        ----------
+        time : float, optional
+            Time for which to calculate the quantum walk, by default 0.
+        initStateList : list[int], optional
+            List with chosen initial states for uniform superposition, by default None.
+        customStateList : list[(int,complex)], optional
+            Custom init state, by default None.
+
+        Raises
+        ------
+        stOBErr
+            State out of bounds exception.
+        nUErr
+            State not unitary exception.
+        """
+        try:
+            self._initState.buildState(
+                nodeList=initStateList, customStateList=customStateList
+            )
+        except StateOutOfBounds as stOBErr:
+            raise stOBErr
+        except NonUnitaryState as nUErr:
+            raise nUErr
+        self._operator.buildExpmOperator(time=time)
         self._quantumWalk.buildWalk(self._initState, self._operator)
         self._probDist.buildProbDist(self._quantumWalk.getFinalState())
 
     def runMultipleWalks(
             self,
             timeList: list = None,
-            gamma: float = None,
             initStateList: list = None,
             customStateList: list = None) -> None:
         """Runs the walk for multiple times and stores the probability distributions
@@ -258,7 +199,40 @@ class QWAK:
         for time in self._timeList:
             self.runWalk(
                 time=time,
-                gamma=gamma,
+                initStateList=initStateList,
+                customStateList=customStateList)
+            self._probDistList.append(copy.deepcopy(self.getProbDist()))
+
+    def runMultipleExpmWalks(
+            self,
+            timeList: list = None,
+            initStateList: list = None,
+            customStateList: list = None) -> None:
+        """Runs the walk for multiple times and stores the probability distributions
+        in a list.
+
+        Parameters
+        ----------
+        timeList : list, optional
+            List of times for which to calculate the quantum walk, by default None.
+        initStateList : list, optional
+            List with chosen initial states for uniform superposition, by default None.
+        customStateList : list, optional
+            Custom init state, by default None.
+
+        Raises
+        ------
+        UndefinedTimeList
+            Raised when the timeList is None.
+        """
+        self._probDistList = []
+        if timeList is not None:
+            self._timeList = timeList
+        elif self._timeList is None:
+            raise UndefinedTimeList(f"TimeList is {self._timeList}.")
+        for time in self._timeList:
+            self.runExpmWalk(
+                time=time,
                 initStateList=initStateList,
                 customStateList=customStateList)
             self._probDistList.append(copy.deepcopy(self.getProbDist()))
@@ -452,6 +426,26 @@ class QWAK:
         """
         return self._operator.getAdjacencyMatrix()
 
+    def setHamiltonian(self, newHamiltonian: np.ndarray) -> None:
+        """Sets the current Hamiltonian to a user defined one.
+
+        Parameters
+        ----------
+        newHamiltonian : np.ndarray
+            New Hamiltonian.
+        """
+        self._operator.setHamiltonian(newHamiltonian)
+
+    def getHamiltonian(self) -> np.ndarray:
+        """Gets the current Hamiltonian.
+
+        Returns
+        -------
+        np.ndarray
+            Current Hamiltonian.
+        """
+        return self._operator.getHamiltonian()
+
     def setOperator(self, newOperator: Operator) -> None:
         """Sets the current walk operator a user defined one.
 
@@ -622,7 +616,7 @@ class QWAK:
             Mean of the probability distribution.
         """
         return self._probDist.moment(1) if (
-            resultRounding is None) \
+                resultRounding is None) \
             else round(self._probDist.moment(1), resultRounding)
 
     def getMeanList(self, resultRounding: int = None) -> list:
@@ -640,7 +634,7 @@ class QWAK:
         """
         return [
             probDist.moment(1) for probDist in self._probDistList] if (
-            resultRounding is None) \
+                resultRounding is None) \
             else [
             round(
                 probDist.moment(1),
@@ -696,7 +690,7 @@ class QWAK:
         """
         return [
             probDist.stDev() for probDist in self._probDistList] if (
-            resultRounding is None) \
+                resultRounding is None) \
             else [
             round(
                 probDist.stDev(),
@@ -716,7 +710,7 @@ class QWAK:
             Inverse participation ratio of the probability distribution.
         """
         return self._probDist.invPartRatio() if (
-            resultRounding is None) \
+                resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
 
@@ -736,7 +730,7 @@ class QWAK:
         """
         return [
             probDist.invPartRatio() for probDist in self._probDistList] if (
-            resultRounding is None) else [
+                resultRounding is None) else [
             round(
                 probDist.invPartRatio(),
                 resultRounding) for probDist in self._probDistList]
@@ -771,7 +765,7 @@ class QWAK:
             return self._probDist.survivalProb(
                 fromNode,
                 toNode) if (
-                resultRounding is None) else round(
+                    resultRounding is None) else round(
                 self._probDist.survivalProb(
                     fromNode,
                     toNode),
@@ -810,7 +804,7 @@ class QWAK:
                 probDist.survivalProb(
                     fromNode,
                     toNode) for probDist in self._probDistList] if (
-                resultRounding is None) else [
+                    resultRounding is None) else [
                 round(
                     probDist.survivalProb(
                         fromNode,
@@ -873,3 +867,108 @@ class QWAK:
             Marked elements of the quantum walk.
         """
         self._operator.setMarkedElements(markedElements)
+
+    def getQWAK(self) :
+        """Gets the QWAK instance.
+
+        Returns
+        -------
+        QWAK
+            QWAK instance.
+        """
+        return self._qwak
+
+    def setQWAK(self, newQWAK: QWAK) -> None:
+        """Sets the QWAK instance's attributes to the ones of the given QWAK instance.
+
+        Parameters
+        ----------
+        newQWAK : QWAK
+            QWAK instance to copy the attributes from.
+        """
+        self.setGraph(newQWAK.getGraph())
+        self.setDim(newQWAK.getDim(), graph=self._graph)
+        self.setInitState(newQWAK.getInitState())
+        self.setOperator(newQWAK.getOperator())
+        self.setWalk(newQWAK.getWalk())
+        self.setProbDist(newQWAK.getProbDist())
+
+    def to_json(self, isDynamic=False) -> str:
+        """Returns a JSON representation of the QWAK instance
+
+        Parameters
+        ----------
+        isDynamic : bool, optional
+            If True, the JSON will contain the timeList, probDistList and
+            walkList attributes, by default False.
+
+        Returns
+        -------
+        str
+            JSON representation of the QWAK instance.
+        """
+        if isDynamic:
+            qwakJson = json.dumps({
+                'dim': self._n,
+                'graph': nx.node_link_data(self._graph),
+                'timeList': self._timeList.tolist(),
+                'initState': json.loads(self._initState.to_json()),
+                'operator': json.loads(self._operator.to_json()),
+                'quantumWalk': json.loads(self._quantumWalk.to_json()),
+                'probDistList': [probDist.to_json() for probDist in self._probDistList],
+                'qwakId': self._qwakId
+            })
+        else:
+            qwakJson = json.dumps({
+                'dim': self._n,
+                'graph': nx.node_link_data(self._graph),
+                'initState': json.loads(self._initState.to_json()),
+                'operator': json.loads(self._operator.to_json()),
+                'quantumWalk': json.loads(self._quantumWalk.to_json()),
+                'probDist': json.loads(self._probDist.to_json()),
+                'qwakId': self._qwakId
+            })
+        return qwakJson
+
+    @classmethod
+    def from_json(cls, json_var: str, isDynamic=False) -> QWAK:
+        """Returns a QWAK instance from a JSON representation.
+
+        Parameters
+        ----------
+        json_var : str
+            JSON representation of the QWAK instance.
+        isDynamic : bool, optional
+            If True, the JSON will contain the timeList and probDistList attributes,
+            by default False.
+
+        Returns
+        -------
+        QWAK
+            QWAK instance from a JSON representation.
+        """
+        if isinstance(json_var, str):
+            data = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            data = json_var
+        qwakId = data['qwakId']
+        graph = nx.node_link_graph(data['graph'])
+
+        initState = State.from_json(data['initState'])
+        operator = Operator.from_json(data['operator'])
+        quantumWalk = QuantumWalk.from_json(data['quantumWalk'])
+        if isDynamic:
+            timeList = data['timeList']
+            newQwak = cls(graph=graph, timeList=timeList, qwakId=qwakId)
+            probDistList = [ProbabilityDistribution.from_json(
+                probDist) for probDist in data['probDistList']]
+            newQwak.setProbDistList(probDistList)
+        else:
+            probDist = ProbabilityDistribution.from_json(
+                data['probDist'])
+            newQwak = cls(graph=graph, qwakId=qwakId)
+            newQwak.setProbDist(probDist)
+        newQwak.setInitState(initState)
+        newQwak.setOperator(operator)
+        newQwak.setWalk(quantumWalk)
+        return newQwak
