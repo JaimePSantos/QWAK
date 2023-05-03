@@ -246,6 +246,8 @@ class Operator:
         self._hamiltonian = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
         )
+        #TODO: This function and setAdjacencyMatrix need to be reworked.
+        self._adjacency = self._hamiltonian
         self.setAdjacencyMatrix(self._hamiltonian)
 
     def getDim(self) -> int:
@@ -291,6 +293,7 @@ class Operator:
         #TODO: Laplacian check here aswell.
         #TODO: Inconsistentcy with adjaceny matrix.
         self._hamiltonian = adjacencyMatrix.astype(complex)
+        self._adjacency = self._hamiltonian
         self._n = len(self._hamiltonian)
         self.resetOperator()
         self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
