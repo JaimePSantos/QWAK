@@ -1,1 +1,6 @@
 Notebook/** linguist-vendored
+gui-eel/assets/** linguist-vendored
+gui-eel/css/** linguist-vendored
+gui-flask/css/** linguist-vendored
+gui-flask/static/css/** linguist-vendored
+gui-flask/static/sass/** linguist-vendored

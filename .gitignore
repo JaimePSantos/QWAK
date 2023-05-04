@@ -44,3 +44,6 @@ gui-flask/flask_session
 package.json
 package-lock.json
 .env
+.jupyter/*
+Notebook/ising_model.ipynb
+Notebook/Datasets/SpinGlass*

@@ -16,7 +16,7 @@ class StochasticQWAKTestStub:
             graph = nx.cycle_graph(n)
             initStateList = [n // 2]
             laplacian = False
-            markedSearch = None
+            markedElements = None
             self.qwak = StochasticQWAK(
                 graph,
                 initStateList=initStateList,

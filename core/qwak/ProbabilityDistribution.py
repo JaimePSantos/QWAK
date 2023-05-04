@@ -5,7 +5,7 @@ import numpy as np
 from qwak.State import State
 from qwak.Errors import MissingNodeInput
 import json
-from utils.jsonMethods import json_matrix_to_complex, complex_matrix_to_json
+from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 from functools import reduce
 
 
@@ -255,6 +255,20 @@ class ProbabilityDistribution:
             raise MissingNodeInput(
                 f"A node number is missing: fromNode = {fromNode}; toNode={toNode}")
 
+    def searchNodeProbability(self, searchNode: int) -> float:
+        """Searches and gets the probability associated with a given node.
+
+        Parameters
+        ----------
+        searchNode : int
+            User inputted node for the search.
+
+        Returns
+        -------
+        float
+            Probability of the searched node.
+        """
+        return self._probVec.item(searchNode)
     def __str__(self) -> str:
         """String representation of the ProbabilityDistribution object.
 
@@ -276,3 +290,5 @@ class ProbabilityDistribution:
         return f"N: {self._n}\n" \
                f"State:\n\t{self._stateVec}\n" \
                f"ProbDist:\n\t{self._probVec}"
+
+

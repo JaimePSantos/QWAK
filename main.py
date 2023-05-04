@@ -1,6 +1,10 @@
 import networkx as nx
 from matplotlib import pyplot as plt
 import numpy as np
+import math
+import scipy.special as sp
+from scipy.linalg import expm
+from utils.plotTools import searchProbStepsPlotting
 
 from qwak.GraphicalQWAK import GraphicalQWAK
 from qwak.qwak import QWAK
@@ -10,95 +14,85 @@ from qwak.QuantumWalk import QuantumWalk
 from qwak.ProbabilityDistribution import ProbabilityDistribution
 
 
-if __name__ == "__main__":
+def plotSearch(N, probT, tSpace, configVec):
+    plotName = ""
+    for T, walk, config, n in zip(tSpace, probT, configVec, N):
+        # print(config)
+        plt.plot(T, walk, color=config[0], linestyle=config[1], label="N=%s" % n)
+        plt.vlines(max(T), 0, 1, color=config[0], linestyle=config[2])
+        plt.legend()
+        plt.xlabel("Number of steps")
+        plt.ylabel("Probability of marked elements")
+    for n in N:
+        plotName += '_' + str(n)
+    plt.savefig(r"C:\Users\jaime\Documents\GitHub\QWAK\Notebook\Output\\" + f"Search{plotName}")
+    # plt.clf()
 
-    qw = QWAK(nx.complete_graph(100))
-    qw.runWalk(10,[50])
-    # print(f"quantum walk {qw.getInversePartRatio()}")
-    # # state = State(4, [0, 1, 2, 3])
-    # # state.buildState()
-    # # st_json_str = state.to_json()
-    # # print(st_json_str)
-    # #
-    # # deserialized_state = State.from_json(st_json_str)
-    # # # print(state2.getStateVec())
-    # # deserialized_state.buildState()
-    # # print(deserialized_state)
-    # # # print(state2.getStateVec())
-    # # #
-    # # graph = nx.cycle_graph(4)
-    # # operator = Operator(graph,0.1)
-    # # operator.buildDiagonalOperator()
-    # # # print(operator.getOperator())
-    # #
-    # # # Serialize the operator to JSON
-    # # op_json_str = operator.to_json()
-    # # # print(op_json_str)
-    # #
-    # # # Deserialize the JSON string back into an instance of the Operator class
-    # # deserialized_operator = Operator.from_json(op_json_str)
-    # # # print(deserialized_operator.getOperator())
-    # # deserialized_operator.buildDiagonalOperator(1)
-    # # print(deserialized_operator.getOperator())
-    # #
-    # # quantumWalk = QuantumWalk(state=deserialized_state,operator=deserialized_operator)
-    # # # print(quantumWalk.getOperator())
-    # # qw_json_str = quantumWalk.to_json()
-    # # # print(qw_json_str)
-    # #
-    # # deserialized_walk = QuantumWalk.from_json(qw_json_str)
-    # #
-    # # deserialized_walk.buildWalk()
-    # # print(deserialized_walk.getFinalState())
-    # #
-    # #
-    # # probDist = ProbabilityDistribution(deserialized_walk.getFinalState())
-    # # # print(probDist.getProbVec())
-    # # probDist_json_str = probDist.to_json()
-    # #
-    # # deserialized_probDist = ProbabilityDistribution.from_json(probDist_json_str)
-    # # deserialized_probDist.buildProbDist()
-    # # print(deserialized_probDist)
-    #
-    # # graph = nx.cycle_graph(100)
-    # # qwak = QWAK(graph)
-    # # qwak_json_str = qwak.to_json()
-    # #
-    # # deserialized_qwak = QWAK.from_json(qwak_json_str)
-    # # deserialized_qwak.runWalk(time=10,initStateList=[50])
-    # # plt.plot(deserialized_qwak.getProbVec())
-    # # plt.show()
-    # #
-    # staticN = 10
-    # dynamicN = 100
-    # t = 1
-    # initState = [staticN//2]
-    # staticGraph = nx.cycle_graph(staticN)
-    # dynamicGraph = nx.cycle_graph(dynamicN)
-    # timeList = [0, 10]
-    # initStateList = [[dynamicN//2,dynamicN//2 + 1]]
-    #
-    # gQwak = GraphicalQWAK(
-    #     staticN=staticN,
-    #     dynamicN=dynamicN,
-    #     staticGraph=staticGraph,
-    #     dynamicGraph=dynamicGraph,
-    #     staticStateList=initState,
-    #     dynamicStateList=initStateList,
-    #     staticTime=t,
-    #     dynamicTimeList=timeList,
-    #     qwakId = 'bla')
-    #
-    # gQwak_json_string = gQwak.to_json()
-    #
-    # deserialized_gQwak = GraphicalQWAK.from_json(gQwak_json_string)
-    # deserialized_gQwak.runWalk()
-    # # deserialized_gQwak.runMultipleWalks()
-    #
-    # print(deserialized_gQwak.getStaticInversePartRatio())
-    #
-    # # for walks in deserialized_gQwak.getDynamicProbVecList():
-    # #     print('bla')
-    # #     plt.plot(walks)
-    # # plt.show()
-    #
+
+def plotSearch2(markedList, probT, tSpace, configVec,labels):
+    plotName = ""
+    for T, walk, config, marked, label in zip(tSpace, probT, configVec, markedList,labels):
+        plt.plot(T, walk, color=config[0], linestyle=config[1], label=label)
+        plt.vlines(max(T), 0, max(probT[0]), color=config[0], linestyle=config[2])
+        plt.legend()
+        plt.xlabel("Number of steps")
+        plt.ylabel("Probability of marked elements")
+    for marked in markedList:
+        plotName += '_' + str(len(marked))
+    # plt.savefig(r"C:\Users\jaime\Documents\GitHub\QWAK\Notebook\Output\\"+f"Search{plotName}")
+    # plt.clf()
+
+
+def taylor_series_approximation(n, num_terms):
+    approx = 0
+    for i in range(num_terms):
+        approx += ((-1) ** i) * (n ** (-2 * i - 2)) / math.factorial(2 * i + 2)
+    return approx
+
+
+def taylor_series_approximation2(n, order):
+    taylor_series = 0
+    for i in range(order):
+        taylor_series += (-1) ** i * sp.binom(order, i) * (1 / n) ** (order - i)
+    return taylor_series
+
+
+def approx_1_over_n_squared(n, order):
+    sum = 0
+    for i in range(0, order):
+        sum += 1 / (n ** (2 + i))
+    return sum
+
+colors = ['r','b','g','k']
+lines = ['-','-','-','-']
+lines2 = ['--','--','--','--']
+configVec = zip(colors,lines,lines2)
+
+
+n = 10
+graph = nx.hypercube_graph(n)
+gamma = (1 / n) + approx_1_over_n_squared(n, 20)
+gammaLapla = (2 / n) + approx_1_over_n_squared(n, 20)
+
+N = len(graph)
+markedSearch = [(N//2,-1)]
+initCond = list(range(0, len(graph)))
+
+qw = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=False)
+
+# qwExpm = QWAK(graph=graph, gamma=gamma, markedElements=markedSearch, laplacian=True)
+qwLapla = QWAK(graph=graph, gamma=gammaLapla, markedElements=markedSearch, laplacian=True)
+
+timeList = np.linspace(0, (np.pi / (2) * np.sqrt(N)), 20)
+timeListLapla = np.linspace(0, 2*(np.pi / (2) * np.sqrt(N)), 20)
+
+qw.runMultipleWalks(timeList = timeList, initStateList=initCond)
+# qwExpm.runMultipleExpmWalks(timeList = timeList, initStateList=initCond)
+qwLapla.runMultipleWalks(timeList = timeListLapla, initStateList=initCond)
+
+markedProbList = searchProbStepsPlotting(qw)
+# markedProbListExpm = searchProbStepsPlotting(qwExpm)
+markedProbListLapla = searchProbStepsPlotting(qwLapla)
+
+plotSearch2([markedSearch,markedSearch],[markedProbList,markedProbListLapla],[timeList,timeListLapla],configVec,[ "QWAK", "QWAKLapla"])
+plt.show()
