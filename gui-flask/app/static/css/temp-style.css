@@ -135,14 +135,16 @@ ul{
     justify-content: center;
 }
 
-.grid-element-dyn{
+
+.grid-element-dyn {
     display: grid;
-    width:100%;
+    width: 100%;
     grid-template-rows: 90% 10%;
-    gap:5px;
+    gap: 5px;
     justify-items: center;
     justify-content: center;
 }
+
 
 
 .prob-dist-chart-container {
@@ -169,6 +171,7 @@ ul{
     grid-template-columns:100%;
     grid-template-rows: 15% 85%;
     justify-items: center;
-    align-items: center;
+    align-items: start;
+    gap:10px;
 }
 

@@ -8,10 +8,9 @@
     justify-items: center;
 }
 
-myStatTab{
-    /*display: grid;*/
-    /*grid-template-columns: 50% 50%;*/
-    /*grid-template-rows: 100%;*/
+.myStatTab{
+    height: 100%;
+    width: 50%;
     overflow: hidden;
     background-color: #312450;
     align-items: center;
