@@ -154,10 +154,10 @@ ul{
     height: 320px;
     justify-items: center;
     align-items: center;
-    /*border-style: double;*/
-    /*border-width: 5px;*/
+    border-style: double;
+    border-width: 5px;
     /*padding: 5px;*/
-    /*border-color: var(--primary-dark);*/
+    border-color: blue;
 }
 
 .probDist-display {

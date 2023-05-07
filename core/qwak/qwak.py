@@ -911,7 +911,7 @@ class QWAK:
             qwakJson = json.dumps({
                 'dim': self._n,
                 'graph': nx.node_link_data(self._graph),
-                'timeList': self._timeList.tolist(),
+                'timeList': self._timeList,
                 'initState': json.loads(self._initState.to_json()),
                 'operator': json.loads(self._operator.to_json()),
                 'quantumWalk': json.loads(self._quantumWalk.to_json()),

@@ -11,9 +11,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/temp-style.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/button-style.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/tab-style.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/input-style.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/buttons.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/inputs.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/tabs.css') }}">
 
     <noscript>
         <link rel="stylesheet" href="{{ url_for('static',filename='css/noscript.css') }}"/>
@@ -68,7 +68,7 @@
                                     <div class="graph-container">
                                         <div id="cyDynamic" class="graph-display"></div>
                                     </div>
-                                    <button id="runGraphButton" class="button fit">Set Graph</button>
+                                    <button id="runGraphButton" class="myButton graph">Set Graph</button>
                                     <li class='input-combo'>
                                             <input type="text" name="time" id="inputDim" class="input-box"></input>
                                             <div id="setDimButton" class="myText probDistInput">n</div>
@@ -84,14 +84,14 @@
                                         <div class="graph-container">
                                             <div id="cyCustom" class="graph-display"></div>
                                         </div>
-                                            <button id="graphCustomButton" class="button fit">Set Graph</button>
+                                            <button id="graphCustomButton" class="myButton graph">Set Graph</button>
                                     <ul class='input-fields'>
-                                                <button id="addNodeButton" class="button">Node</button>
-                                                <button id="addEdgeButton" class="button">Draw</button>
+                                                <button id="addNodeButton" class="myButton">Node</button>
+                                                <button id="addEdgeButton" class="myButton">Draw</button>
                                         </ul>
                                         <ul class='input-fields'>
-                                                <button id="clearGraphButton" class="button">Clear</button>
-                                                <button id="placeHolderButtonGen" class="Wbutton">Pl</button>
+                                                <button id="clearGraphButton" class="myButton">Clear</button>
+                                                <button id="placeHolderButtonGen" class="myButton">Pl</button>
                                         </ul>
                                     </div>
 
