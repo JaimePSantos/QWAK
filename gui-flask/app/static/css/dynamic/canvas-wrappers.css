@@ -1,3 +1,7 @@
+ul{
+    margin:0;
+}
+
 .graph-probDist-stat-dynamic-wrapper{
     display:grid;
     grid-template-rows: 52% 48%;
@@ -27,20 +31,20 @@
     align-items: center;
 }
 
-.myTab{
-    /*display: grid;*/
-    /*grid-template-columns: 50% 50%;*/
-    /*grid-template-rows: 100%;*/
-    overflow: hidden;
-    background-color: #312450;
-    align-items: center;
+.probDist-wrapper {
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 10% 90%;
+    gap:10px;
     justify-items: center;
+    align-items: center;
 }
 
-.tabcontent{
-    /*display: none;*/
-    /*padding: 6px 12px;*/
-    /*border: 1px solid var(--primary-white);*/
-    /*border-top: none;*/
-    animation: fadeEffect 1s;
+.stats-dynamic-wrapper {
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 15% 85%;
+    justify-items: center;
+    align-items: start;
+    gap:10px;
 }

@@ -73,9 +73,9 @@ class QWAK:
         self._graph = graph
         self._n = len(self._graph)
         if timeList is not None:
-            self._timeList = timeList
+            self._timeList = [x for x in timeList]
         else:
-            self._timeList = np.zeros(self._n)
+            self._timeList = [0]*self._n
         self._qwakId = qwakId
         self._operator = Operator(
             self._graph,
@@ -376,7 +376,7 @@ class QWAK:
         timeList = np.linspace(
             newTimeList[0], newTimeList[1], int(
                 newTimeList[1]))
-        self._timeList = timeList
+        self._timeList = timeList.tolist()
 
     def getTime(self) -> float:
         """Gets the current walk time.

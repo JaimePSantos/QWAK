@@ -72,3 +72,23 @@
     /*border-top: none;*/
     animation: fadeEffect 1s;
 }
+
+.grid-element{
+    display: grid;
+    grid-template-rows: 90% 10%;
+    justify-items: center;
+    justify-content: center;
+}
+
+.grid-element-dyn {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 90% 10%;
+    gap: 5px;
+    justify-items: center;
+    justify-content: center;
+}
+
+.stattablinks {
+    width: 50%;
+}
