@@ -9,24 +9,30 @@
     grid-template-columns:50% 50%;
     grid-template-rows: 100%;
     gap:10px;
+    padding: 0px;
 }
 
-.input-combo {
+.graph-input-combo-right,
+.probDist-input-combo-right {
     display: grid;
     grid-template-columns:80% 20%;
     grid-template-rows: 100%;
     gap:2px;
     justify-content: center;
     align-items: center;
+    padding: 0px;
+
 }
 
-.input-combo2 {
+.probDist-input-combo-left {
     display: grid;
     grid-template-columns:20% 80%;
     grid-template-rows: 100%;
     gap:2px;
     justify-content: center;
     align-items: center;
+    padding: 0px;
+
 }
 
 .input-combo .myGraphInputBox{

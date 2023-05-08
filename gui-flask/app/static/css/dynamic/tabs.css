@@ -71,6 +71,7 @@
     /*border: 1px solid var(--primary-white);*/
     /*border-top: none;*/
     animation: fadeEffect 1s;
+    width:100%;
 }
 
 .grid-element{

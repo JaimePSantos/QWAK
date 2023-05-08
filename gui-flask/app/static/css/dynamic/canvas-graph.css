@@ -11,8 +11,8 @@
 .graph-container {
     display: grid;
     background-color: var(--primary-white);
-    width: 588px;
-    height: 330px;
+    width: 578px;
+    height: 320px;
     border-style: double;
     border-color: rgb(12, 14, 116);
     border-width: 5px;

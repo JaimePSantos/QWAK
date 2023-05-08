@@ -4,7 +4,7 @@ ul{
 
 .graph-probDist-stat-dynamic-wrapper{
     display:grid;
-    grid-template-rows: 52% 48%;
+    grid-template-rows: 43% 48%;
     width:100%;
     height:100%;
     gap:0px;
@@ -26,18 +26,26 @@ ul{
     display: grid;
     grid-template-columns:100%;
     grid-template-rows: 10% 90%;
-    gap:10px;
+    gap:0px;
+    height:100%;
     justify-items: center;
     align-items: center;
+    justify-items: center;
+    align-items: start;
+    align-content: start;
 }
 
 .probDist-wrapper {
     display: grid;
     grid-template-columns:100%;
     grid-template-rows: 10% 90%;
-    gap:10px;
+    gap:0px;
+    height: 100%;
     justify-items: center;
     align-items: center;
+    justify-items: center;
+    align-items: start;
+    align-content: start;
 }
 
 .stats-dynamic-wrapper {
