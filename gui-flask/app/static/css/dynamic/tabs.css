@@ -63,6 +63,15 @@
     background-color: #0263f3;
 }
 
+.stattablinks {
+    height:45%;
+    width: 50%;
+}
+
+.stattabcontent{
+    width: 100%;
+    height: 100%;
+}
 /* Style the tab content */
 .tabcontent{
     animation: fadeEffect 1s;
@@ -72,11 +81,13 @@
 
 .grid-element{
     display: grid;
-    grid-template-rows: 90% 10%;
+    grid-template-rows: 80% 20%;
+    width: 100%;
+    height:100%;
     justify-items: center;
     justify-content: center;
-    align-items: start;
-    align-content: start;
+    align-items: center;
+    align-content: center;
 }
 
 .grid-element-dyn {
@@ -86,16 +97,9 @@
     grid-template-rows: 80% 20%;
     /*gap: 5px;*/
     justify-items: center;
-    justify-content: center;
-    align-items: start;
-    align-content: start;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+
 }
 
-.stattablinks {
-    width: 50%;
-}
-
-.stattabcontent{
-    width: 100%;
-    height: 100%;
-}
