@@ -72,6 +72,7 @@
     /*border-top: none;*/
     animation: fadeEffect 1s;
     width:100%;
+    height:100%;
 }
 
 .grid-element{

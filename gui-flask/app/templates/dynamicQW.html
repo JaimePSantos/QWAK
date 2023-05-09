@@ -73,11 +73,11 @@
                                     <button id="runGraphButton" class="myButton graph">Set Graph</button>
                                     <li class='graph-input-combo-right'>
                                             <input type="text" name="time" id="inputDim" class="input-box"></input>
-                                            <div id="setDimButton" class="myText probDistInput">n</div>
+                                            <div id="setDimButton" class="myText graphInput">n</div>
                                         </li>
                                     <li class='graph-input-combo-right'>
                                             <input type="text" name="graph" id="inputGraph" class="input-box"></input>
-                                            <div id="setGraphButton" class="myText probDistInput">G</div>
+                                            <div id="setGraphButton" class="myText graphInput">G</div>
                                         </li>
                                 </div>
                             </div>
@@ -101,7 +101,8 @@
                             </div>
                         </div>
                         <div class='probDist-wrapper'>
-                            <div class="myTab"></div>
+                            <div class="myTab">
+                            </div>
                             <div class="set-probDist-combo">
                                 <div class="prob-dist-chart-container">
                                         <canvas id="dynamicProbDistChart" class="probDist-display"></canvas>
@@ -126,7 +127,7 @@
                                     </li>
                                     <li class='probDist-input-combo-right'>
                                         <input type="text" step="0.01" min=0 name="placeholder" id="placeholderInp2"
-                                                       class="input-box"></input>
+                                                       class="myProbDistInputBox"></input>
                                         <div id="placeholderDiv2" class="myText probDistInput">[NA]</div>
                                     </li>
                                 </ul>

@@ -12,39 +12,60 @@
     padding: 0px;
 }
 
-.graph-input-combo-right,
-.probDist-input-combo-right {
+input-combo {
     display: grid;
     grid-template-columns:80% 20%;
     grid-template-rows: 100%;
     gap:2px;
     justify-content: center;
     align-items: center;
+}
+
+.probDist-input-combo-right {
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    align-content: start;
+    justify-items: start;
     padding: 0px;
 
 }
 
 .probDist-input-combo-left {
     display: grid;
-    grid-template-columns:20% 80%;
+    grid-template-columns:50% 50%;
     grid-template-rows: 100%;
-    gap:2px;
+    gap:5px;
     justify-content: center;
     align-items: center;
     padding: 0px;
-
+    align-content: end;
+    justify-items: end;
 }
 
-.input-combo .myGraphInputBox{
+.graph-input-combo-right{
+    display: grid;
+    grid-template-columns:80% 20%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.myGraphInputBox{
     width:100%;
     border: solid;
     border-width: 1px;
 
 }
 
-.input-combo .myProbDistInputBox{
-    width: 100%;
-    border: solid;
+.myProbDistInputBox{
+    width: 100% !important;
+    border: dashed;
     border-width: 1px;
 }
 

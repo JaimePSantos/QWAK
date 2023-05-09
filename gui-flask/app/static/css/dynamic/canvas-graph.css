@@ -2,15 +2,15 @@
     display: grid;
     grid-template-columns:100%;
     grid-template-rows: 65% 13% 12% 12%;
+    height: 90%;
     width:100%;
-    gap:5px;
+    gap:0px;
     justify-items: center;
     align-items: center;
 }
 
 .graph-container {
     display: grid;
-    background-color: var(--primary-white);
     width: 578px;
     height: 320px;
     border-style: double;

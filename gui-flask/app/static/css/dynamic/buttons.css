@@ -81,5 +81,9 @@
 }
 
 .myText.probDistInput{
+        width: 40%;
+}
+
+.myText.graphInput{
         width: 100%;
 }

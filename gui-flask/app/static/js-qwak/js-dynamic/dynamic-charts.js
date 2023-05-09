@@ -24,6 +24,7 @@ export let dynamicChartData = {
                 suggestedMin:0,
             },
         },
+        maintainAspectRatio: false,
     },
 };
 
