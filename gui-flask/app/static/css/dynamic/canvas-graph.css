@@ -1,18 +1,20 @@
 .set-graph-combo {
     display: grid;
-    grid-template-columns:100%;
-    grid-template-rows: 65% 13% 12% 12%;
+    grid-template-columns: 100%;
+    grid-template-rows: 70% 10% 10% 10%;
     height: 90%;
-    width:100%;
-    gap:0px;
+    width: 100%;
+    gap: 0px;
     justify-items: center;
     align-items: center;
+    align-items: start;
+    align-content: start;
 }
 
 .graph-container {
     display: grid;
-    width: 578px;
-    height: 320px;
+    width: 800px;
+    height: 550px;
     border-style: double;
     border-color: rgb(12, 14, 116);
     border-width: 5px;

@@ -1,25 +1,26 @@
 .set-probDist-combo {
     display: grid;
     grid-template-columns:100%;
-    grid-template-rows: 65% 13% 12% 12%;
+    grid-template-rows: 70% 10% 10% 10%;
     height: 90%;
     width:100%;
     gap:0px;
     justify-items: center;
     align-items: center;
-
+    align-items: start;
+    align-content: start;
 }
 
 .prob-dist-chart-container {
     display:grid;
     background-color: rgb(188, 176, 221);
-    width: 578px;
-    height: 320px;
+    width: 800px;
+    height: 550px;
     justify-items: center;
     align-items: center;
     border-style: double;
     border-width: 5px;
-    /*padding: 5px;*/
+    padding: 5px;
     border-color: rgb(12, 14, 116);
 }
 

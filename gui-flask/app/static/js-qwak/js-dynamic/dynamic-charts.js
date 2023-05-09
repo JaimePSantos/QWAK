@@ -58,7 +58,7 @@ export let dynamicMeanChartData = {
                 label: "Node",
                 data: [],
                 fill: false,
-                borderColor: "rgb(75, 192, 192)",
+                borderColor: "rgb(246,14,14)",
                 pointRadius: 0,
             },
         ],
@@ -71,6 +71,7 @@ export let dynamicMeanChartData = {
                 }
             },
         },
+        maintainAspectRatio: false,
     },
 };
 
@@ -83,7 +84,7 @@ export let dynamicStDevChartData = {
                 label: "Node",
                 data: [],
                 fill: false,
-                borderColor: "rgb(75, 192, 192)",
+                borderColor: "rgb(246,14,14)",
                 pointRadius: 0,
             },
         ],
@@ -96,6 +97,7 @@ export let dynamicStDevChartData = {
                 }
             },
         },
+        maintainAspectRatio: false,
     },
 };
 
@@ -108,7 +110,7 @@ export let dynamicInvPartRatioChartData = {
                 label: "Node",
                 data: [],
                 fill: false,
-                borderColor: "rgb(75, 192, 192)",
+                borderColor: "rgb(246,14,14)",
                 pointRadius: 0,
             },
         ],
@@ -121,6 +123,7 @@ export let dynamicInvPartRatioChartData = {
                 }
             },
         },
+        maintainAspectRatio: false,
     },
 };
 
@@ -133,7 +136,7 @@ export let dynamicSurvivalProbChartData = {
                 label: "Node",
                 data: [],
                 fill: false,
-                borderColor: "rgb(75, 192, 192)",
+                borderColor: "rgb(246,14,14)",
                 pointRadius: 0,
             },
         ],
@@ -146,6 +149,7 @@ export let dynamicSurvivalProbChartData = {
                 }
             },
         },
+        maintainAspectRatio: false,
     },
 };
 
