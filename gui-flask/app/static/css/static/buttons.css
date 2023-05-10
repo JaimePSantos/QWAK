@@ -45,7 +45,7 @@
     transform: translateY(-2px);
 }
 
-.myButton.stat-survivalProb{
+.myButton.stat-pst{
     width: 80%;
     border: solid 2px !important;
     border-color: rgba(255, 255, 255, 0.37) !important;

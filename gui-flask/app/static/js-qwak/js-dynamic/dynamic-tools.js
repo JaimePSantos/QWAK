@@ -126,6 +126,8 @@ export let cyDynamic = cytoscape({
             style: {
                 "background-color": "#666",
                 label: "data(id)",
+                height: '50%',
+                width: '50%'
             },
         },
 
@@ -161,7 +163,9 @@ export let customCyDynamic = cytoscape({
         {
             selector: 'node[name]',
             style: {
-                'content': 'data(name)'
+                'content': 'data(name)',
+                height: '50%',
+                width: '50%'
             }
         },
 

@@ -19,6 +19,7 @@ import {setDynamicGraph,
 
 import {plotDynamicProbDist,
     getDynamicProbDistDB} from "./js-dynamic/dynamic-probDist.js"
+// import {customCy, cy} from "./js-static/static-tools";
 
 // #### INPUTS & DISPLAYS ####
 let inputDim = document.getElementById("inputDim");
@@ -258,6 +259,8 @@ async function getDynamicSurvivalProb(fromNode, toNode) {
     return dynamicSurvivalProb;
 }
 
+let resizeTimeout;
+
 function openTab(evt, graph, tabcontent, tablinks) {
     // Declare all variables
     var i, tabcontent, tablinks;
@@ -278,3 +281,11 @@ function openTab(evt, graph, tabcontent, tablinks) {
     document.getElementById(graph).style.display = "block";
     evt.currentTarget.className += " active";
 }
+
+window.addEventListener("resize", function(){
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(function() {
+        cyDynamic.resize();
+        cyDynamic.fit();
+    }, 200);  // Delay in milliseconds
+});

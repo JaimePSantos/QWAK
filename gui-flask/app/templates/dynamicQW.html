@@ -30,7 +30,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <script type='module' src="{{ url_for('static',filename='js-qwak/dynamic-script.js') }}"></script>
-    <script type='module' src="{{ url_for('static',filename='js-qwak/js-dynamic/dynamic-graph.js') }}"></script>
+<!--    <script type='module' src="{{ url_for('static',filename='js-qwak/js-dynamic/dynamic-graph.js') }}"></script>-->
     <script type='module' src="{{ url_for('static',filename='js-qwak/js-dynamic/dynamic-probDist.js') }}"></script>
     <script type='module' src="{{ url_for('static',filename='js-qwak/js-dynamic/dynamic-tools.js') }}"></script>
 </head>
@@ -146,7 +146,7 @@
                             <!-- Tab content -->
                             <div id="Mean" class="stattabcontent">
                                 <div class='grid-element'>
-                                    <div class="prob-dist-chart-container">
+                                    <div class="prob-dist-stat-chart-container">
                                         <canvas id="dynamicMeanChart" class="prob-dist-chart"></canvas>
                                     </div>
                                     <button id="dynamicMeanButton" class="myButton stat-button">GO!</button>
@@ -154,7 +154,7 @@
                             </div>
                             <div id="StDev" class="stattabcontent">
                                 <div class='grid-element'>
-                                    <div class="prob-dist-chart-container">
+                                    <div class="prob-dist-stat-chart-container">
                                         <canvas id="dynamicStDevChart" class="prob-dist-chart"></canvas>
                                     </div>
                                     <button id="dynamicStDevButton" class="myButton stat-button">GO!</button>
@@ -162,7 +162,7 @@
                             </div>
                             <div id="InvPartRatio" class="stattabcontent">
                                 <div class='grid-element'>
-                                    <div class="prob-dist-chart-container">
+                                    <div class="prob-dist-stat-chart-container">
                                         <canvas id="dynamicInvPartRatioChart" class="prob-dist-chart"></canvas>
                                     </div>
                                     <button id="dynamicInvPartRatioButton" class="myButton stat-button">GO!</button>
@@ -170,7 +170,7 @@
                             </div>
                             <div id="SurvivalProb" class="stattabcontent">
                                 <div class='grid-element'>
-                                    <div class="prob-dist-chart-container">
+                                    <div class="prob-dist-stat-chart-container">
                                         <canvas id="dynamicSurvivalProbChart" class="prob-dist-chart"></canvas>
                                     </div>
                                     <div class="stat-with-input-dyn">
@@ -178,7 +178,7 @@
                                         <input type="text" class="myStatInputBox" id="dynInputSurvProbNodeA">
                                         <div class="myStatText">To</div>
                                         <input type="text" class="myStatInputBox" id="dynInputSurvProbNodeB">
-                                        <button id="dynamicSurvivalProbButton" class="myButton stat-pst">Go</button>
+                                        <button id="dynamicSurvivalProbButton" class="myButton stat-survivalProb">Go</button>
                                     </div>
                                 </div>
                             </div>

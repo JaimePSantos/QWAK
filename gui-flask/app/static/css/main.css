@@ -73,10 +73,12 @@ input, select, textarea {
     -ms-appearance: none;
     appearance: none;
 }
+
 .inner-qwak{
     display:grid;
     grid-template-rows: 10% 90%;
-    height:100%;
+    width: 80em;
+    height:100em;
     padding: 71px 0px 0px 0px !important;
 }
 /* Basic */
