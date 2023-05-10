@@ -37,6 +37,22 @@
     transform: translateY(-2px);
 }
 
+.myButton.stat-button{
+    width: 20%;
+    border: solid 2px !important;
+    border-color: rgba(255, 255, 255, 0.37) !important;
+    box-shadow: 0px 3px 5px rgb(9, 9, 9);
+    transform: translateY(-2px);
+}
+
+.myButton.stat-pst{
+    width: 80%;
+    border: solid 2px !important;
+    border-color: rgba(255, 255, 255, 0.37) !important;
+    box-shadow: 0px 3px 5px rgb(9, 9, 9);
+    transform: translateY(-2px);
+}
+
 .myButton.input{
         width: 100%;
 }
@@ -51,11 +67,6 @@
 
 .myButton.statInput{
         width: 100%;
-}
-
-.myButton.dyn-go{
-        width: 60%;
-    font-size: 8px;
 }
 
 .myText{
