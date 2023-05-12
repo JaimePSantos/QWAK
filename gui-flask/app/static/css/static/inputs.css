@@ -9,10 +9,9 @@
     grid-template-columns:50% 50%;
     grid-template-rows: 100%;
     gap:10px;
-    padding: 0px;
 }
 
-input-combo {
+.input-combo {
     display: grid;
     grid-template-columns:80% 20%;
     grid-template-rows: 100%;
@@ -21,52 +20,68 @@ input-combo {
     align-items: center;
 }
 
-.probDist-input-combo-right {
+.input-combo2 {
     display: grid;
-    grid-template-columns:50% 50%;
+    grid-template-columns:20% 80%;
     grid-template-rows: 100%;
-    gap:5px;
+    gap:2px;
     justify-content: center;
     align-items: center;
-    align-content: start;
-    justify-items: start;
-    padding: 0px;
-
 }
 
-.probDist-input-combo-left {
-    display: grid;
-    grid-template-columns:50% 50%;
-    grid-template-rows: 100%;
-    gap:5px;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    align-content: end;
-    justify-items: end;
-}
-
-.graph-input-combo-right{
-    display: grid;
-    grid-template-columns:80% 20%;
-    grid-template-rows: 100%;
-    gap:5px;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-}
-
-.myGraphInputBox{
+.input-combo .myGraphInputBox{
     width:100%;
     border: solid;
     border-width: 1px;
 
 }
 
-.myProbDistInputBox{
-    width: 100% !important;
-    border: dashed;
+.input-combo .myProbDistInputBox{
+    width: 100%;
+    border: solid;
     border-width: 1px;
+}
+
+.stat-list-combo {
+    display: grid;
+    grid-template-columns:60% 40%;
+    grid-template-rows: 100%;
+    color: var(--primary-white);
+    font-weight: bolder;
+    text-align: justify;
+    justify-items: center;
+    align-items: center;
+}
+
+.stat-list-combo .myStatInputBox{
+    width:100%;
+
+    border: solid;
+    border-width: 1px;
+    /*border:solid red 1px;*/
+}
+
+.stat-list-combo .myStatText {
+    width:100%;
+    /*border:solid red 1px;*/
+}
+
+.stat-list-combo-input {
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 10% 90%;
+    color: var(--primary-white);
+    font-weight: bolder;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-list-combo-input .myHeaderStatText {
+    width:100%;
+    /*border:solid red 1px;*/
+    vertical-align: center;
+    text-align: center;
+    justify-content: center;
 }
 
 .stat-with-input {
@@ -100,7 +115,7 @@ input-combo {
 
 .stat-with-input-dyn .myStatText {
     width:100%;
-    font-size: 20px;
+    font-size: 12px;
     /*border:solid red 1px;*/
     vertical-align: center;
     text-align: center;
@@ -115,7 +130,8 @@ input-combo {
 }
 
 .stat-with-input-dyn .myStatInputBox {
-    width:70%;
+    width:80%;
+    height:90%;
     border: solid;
     border-width: 3px;
     /*border:solid red 1px;*/

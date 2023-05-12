@@ -1,20 +1,8 @@
-.set-graph-combo {
-    display: grid;
-    grid-template-columns: 100%;
-    grid-template-rows: 70% 10% 10% 10%;
-    height: 90%;
-    width: 100%;
-    gap: 0px;
-    justify-items: center;
-    align-items: center;
-    align-items: start;
-    align-content: start;
-}
-
 .graph-container {
     display: grid;
-    width: 800px;
-    height: 550px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    width: 95%;
+    height: 95%;
     border-style: double;
     border-color: rgb(12, 14, 116);
     border-width: 5px;
@@ -26,4 +14,17 @@
 .graph-display {
     width: 100%;
     height: 100%;
+}
+
+.set-graph-combo {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 70% 10% 10% 10%;
+    height: 90%;
+    width: 100%;
+    gap: 0px;
+    justify-items: center;
+    align-items: center;
+    align-items: start;
+    align-content: start;
 }

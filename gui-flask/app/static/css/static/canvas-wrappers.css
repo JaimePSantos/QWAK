@@ -2,13 +2,12 @@ ul{
     margin:0;
 }
 
-.graph-probDist-stat-dynamic-wrapper{
+.graph-probDist-stat-wrapper{
     display:grid;
-    grid-template-rows: 55% 45%;
+    grid-template-rows: 50% 50%;
     width:100%;
     height:100%;
-    gap:0px;
-
+    /*gap:10px;*/
 }
 
 .graph-probdist-wrapper {
@@ -20,7 +19,6 @@ ul{
     width: 100%;
     height:100%;
     padding: 0px;
-    gap: 10px;
 }
 
 .graph-wrapper{
@@ -47,13 +45,9 @@ ul{
     align-content: start;
 }
 
-.stats-dynamic-wrapper {
+.stats-wrapper {
     display: grid;
     grid-template-columns:100%;
-    grid-template-rows: 15% 85%;
-    justify-items: center;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    /*gap:10px;*/
+    grid-template-rows: 50% 50%;
+    gap:10px;
 }
