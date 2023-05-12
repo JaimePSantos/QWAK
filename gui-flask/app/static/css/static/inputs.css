@@ -42,6 +42,12 @@
     border-width: 1px;
 }
 
+.stat-list {
+    display: grid;
+    grid-template-columns:100%;
+    grid-template-rows: 25% 25% 25% 25%;
+}
+
 .stat-list-combo {
     display: grid;
     grid-template-columns:60% 40%;
@@ -82,6 +88,10 @@
     vertical-align: center;
     text-align: center;
     justify-content: center;
+}
+
+.stat-list-input {
+    display: grid;
 }
 
 .stat-with-input {

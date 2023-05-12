@@ -1,13 +1,10 @@
-ul{
-    margin:0;
-}
-
 .graph-probDist-stat-wrapper{
     display:grid;
     grid-template-rows: 50% 50%;
     width:100%;
     height:100%;
     /*gap:10px;*/
+    gap:0px;
 }
 
 .graph-probdist-wrapper {
@@ -49,5 +46,5 @@ ul{
     display: grid;
     grid-template-columns:100%;
     grid-template-rows: 50% 50%;
-    gap:10px;
+    gap:0px;
 }
