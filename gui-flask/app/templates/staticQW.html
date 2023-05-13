@@ -78,13 +78,13 @@
                                         <div id="cy" class="graph-display"></div>
                                     </div>
                                     <button id="runGraphButton" class="myButton graph">Set Graph</button>
-                                    <li class='input-combo'>
-                                        <input type="text" name="dim" id="inputDim" class="myGraphInputBox"></input>
-                                        <div id="setDimButton" class="myText probDistInput">n</div>
+                                    <li class='graph-input-combo-right'>
+                                        <input type="text" name="dim" id="inputDim" class="input-box"></input>
+                                        <div id="setDimButton" class="myText graphInput">n</div>
                                     </li>
-                                    <li class='input-combo'>
-                                        <input type="text" name="graph" id="inputGraph" class="myGraphInputBox"></input>
-                                        <div id="setGraphButton" class="myText probDistInput">G</div>
+                                    <li class='graph-input-combo-right'>
+                                        <input type="text" name="graph" id="inputGraph" class="input-box"></input>
+                                        <div id="setGraphButton" class="myText graphInput">G</div>
                                     </li>
                                 </div>
                                 <!--                            </div>-->
@@ -112,26 +112,24 @@
                                 <div class="prob-dist-chart-container">
                                     <canvas id="staticProbDistChart" class="probDist-display"></canvas>
                                 </div>
-                                <form action="" method="post" class="my-form">
-                                    <button id="staticProbDistButton" class="myButton probDist">Run Walk</button>
-                                </form>
+                                <button id="staticProbDistButton" class="myButton probDist">Run Walk</button>
                                 <ul class="input-fields">
-                                    <li class='input-combo2'>
+                                    <li class='probDist-input-combo-left'>
                                         <div id="setTimeButton" class="myText probDistInput">tf</div>
                                         <input type="text" name="time" id="inputTime" class="myProbDistInputBox"></input>
                                     </li>
-                                    <li class='input-combo'>
+                                    <li class='probDist-input-combo-right'>
                                         <input type="text" id="inputInitState" class="myProbDistInputBox"></input>
                                         <div id="setInitStateButton" class="myText probDistInput">Ψ0</div>
                                     </li>
                                 </ul>
                                 <ul class="input-fields">
-                                    <li class='input-combo2'>
+                                    <li class='probDist-input-combo-left'>
                                         <div id="setPlaceholderButton" class="myText probDistInput">PL</div>
                                         <input type="text" name="initState" id="placeholder"
                                                class="myProbDistInputBox"></input>
                                     </li>
-                                    <li class='input-combo'>
+                                    <li class='probDist-input-combo-right'>
                                         <input type="text" name="placeholder" id="placeholder2"
                                                class="myProbDistInputBox"></input>
                                         <div id="setPlaceholderButton2" class="myText probDistInput">Pl</div>

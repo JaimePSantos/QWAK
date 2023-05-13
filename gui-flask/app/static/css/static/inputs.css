@@ -20,6 +20,41 @@
     align-items: center;
 }
 
+.probDist-input-combo-right {
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    align-content: start;
+    justify-items: start;
+    padding: 0px;
+
+}
+
+.probDist-input-combo-left {
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    align-content: end;
+    justify-items: end;
+}
+
+.graph-input-combo-right{
+    display: grid;
+    grid-template-columns:80% 20%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
 .input-combo2 {
     display: grid;
     grid-template-columns:20% 80%;
