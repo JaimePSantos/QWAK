@@ -9,7 +9,7 @@ from flask_session import Session
 # connection_string = f"mongodb+srv://{QWAKCLUSTER_USERNAME}:{QWAKCLUSTER_PASSWORD}@qwakcluster.kkszzg0.mongodb.net/test"
 
 if 'MONGODB_URI' in os.environ:
-    connection_string = os.environ['MONGODB_URI']
+    connection_string = os.environ.get('MONGODB_URI')
 else:
     connection_string = 'mongodb://localhost:27017/'
 
