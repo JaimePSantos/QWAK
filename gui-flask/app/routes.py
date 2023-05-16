@@ -294,24 +294,6 @@ def setDynamicCustomGraph():
     return ("nothing")
 
 
-@app.route('/deleteWalkEntry', methods=['POST'])
-def deleteWalkEntry():
-    print(request.method)
-    if request.method == 'POST':
-        name = str(request.form.get("walkName"))
-        probDistEntry.delete_one({
-            'name': name,
-        })
-    return ("nothing")
-
-
-@app.route('/deleteAllWalkEntries', methods=['POST'])
-def deleteAllWalkEntries():
-    print(request.method)
-    if request.method == 'POST':
-        probDistEntry.delete_many({})
-    return ("nothing")
-
 ################## TEST ##################
 
 

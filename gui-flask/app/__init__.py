@@ -12,7 +12,6 @@ if 'MONGODB_URI' in os.environ:
 else:
     connection_string = 'mongodb://localhost:27017/'
 
-# client = MongoClient('localhost', 27017)
 client = MongoClient(connection_string)
 db_string = 'qwak_flask'
 database = client.get_database(db_string)
