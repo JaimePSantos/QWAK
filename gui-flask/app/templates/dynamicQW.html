@@ -1,0 +1,221 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>Dynamic Quantum Walk</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/main.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/canvas-wrappers.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/canvas-graph.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/canvas-probDist.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/buttons.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/inputs.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='css/dynamic/tabs.css') }}">
+
+    <noscript>
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/noscript.css') }}"/>
+    </noscript>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
+            integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.20.0/cytoscape.min.js"
+            integrity="sha512-cjmYAonfXK+azDmWqvnqq8xmygHRHqVI7S0zuRxQnvcYVeoakwthRX6pPKoXfG1oIjDvMUtteRV9PhQjJwKWxQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type='module' src="{{ url_for('static',filename='js-qwak/dynamic-script.js') }}"></script>
+<!--    <script type='module' src="{{ url_for('static',filename='js-qwak/js-dynamic/dynamic-graph.js') }}"></script>-->
+    <script type='module' src="{{ url_for('static',filename='js-qwak/js-dynamic/dynamic-probDist.js') }}"></script>
+    <script type='module' src="{{ url_for('static',filename='js-qwak/js-dynamic/dynamic-tools.js') }}"></script>
+</head>
+<body class="is-preload">
+
+<div class="parent-wrapper">
+    <!-- Header -->
+    <header id="header">
+        <a href="https://github.com/JaimePSantos/qwak" class="title">QWAK</a>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('home')}}">Home</a></li>
+                <li><a href="{{url_for('staticQW')}}">Static</a></li>
+                <li><a href="{{url_for('dynamicQW')}}" class="active">Dynamic</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <section id="main" class="wrapper">
+            <div class="inner-qwak">
+                <h1 class="major">Dynamic CTQW</h1>
+                <div class="graph-probDist-stat-dynamic-wrapper">
+                    <div class="graph-probdist-wrapper">
+                        <div class="graph-wrapper">
+                            <!--Tab links-->
+                            <div class="myTab">
+                                <button id="defaultOpen" class="tablinks">Graph Generator</button>
+                                <button id="customGraphDisplay" class="tablinks">Custom Graph</button>
+                            </div>
+                            <!-- Tab content -->
+                            <div id="GraphGenerator" class="tabcontent">
+                                <div class='set-graph-combo'>
+                                    <div id="cyDynamic" class="graph-container">
+                                    </div>
+                                    <button id="runGraphButton" class="myButton graph">Set Graph</button>
+                                    <li class='graph-input-combo-right'>
+                                            <input type="text" name="time" id="inputDim" class="input-box"></input>
+                                            <div id="setDimButton" class="myText graphInput">n</div>
+                                        </li>
+                                    <li class='graph-input-combo-right'>
+                                            <input type="text" name="graph" id="inputGraph" class="input-box"></input>
+                                            <div id="setGraphButton" class="myText graphInput">G</div>
+                                        </li>
+                                </div>
+                            </div>
+                            <div id="CustomGraph" class="tabcontent">
+                                <div class='set-graph-combo'>
+                                        <div id="cyCustom" class="graph-container">
+                                        </div>
+                                            <button id="graphCustomButton" class="myButton graph">Set Graph</button>
+                                    <ul class='input-fields'>
+                                                <button id="addNodeButton" class="myButton">Node</button>
+                                                <button id="addEdgeButton" class="myButton">Draw</button>
+                                        </ul>
+                                        <ul class='input-fields'>
+                                                <button id="clearGraphButton" class="myButton">Clear</button>
+                                                <button id="placeHolderButtonGen" class="myButton">Pl</button>
+                                        </ul>
+                                    </div>
+
+
+                            </div>
+                        </div>
+                        <div class='probDist-wrapper'>
+                            <div class="myTab">
+                            </div>
+                            <div class="set-probDist-combo">
+                                <div class="prob-dist-chart-container">
+                                        <canvas id="dynamicProbDistChart" class="probDist-display" style="display: grid;"></canvas>
+                                    </div>
+                                <button id="dynamicProbDistButton" class="myButton probDist">Run Walk</button>
+                                <ul class='input-fields'>
+                                    <li class='probDist-input-combo-left'>
+                                        <div id="setTimeRangeButton" class="myText probDistInput">[tf]</div>
+                                        <input type="text" name="timeRange" id="inputTimeRange" class="myProbDistInputBox"></input>
+                                    </li>
+                                    <li class='probDist-input-combo-right'>
+                                        <input type="text" step=0.01 min=0 name="initStateRange" id="inputInitStateRange"
+                                                       class="myProbDistInputBox"></input>
+                                        <div id="setGammaRangeButton" class="myText probDistInput">[Ψ0]</div>
+                                    </li>
+                                </ul>
+                                <ul class='input-fields'>
+                                    <li class='probDist-input-combo-left'>
+                                        <div id="placeholderDiv" class="myText probDistInput">[NA]</div>
+                                        <input type="text" name="placeholder" id="placeholderInp"
+                                                       class="myProbDistInputBox"></input>
+                                    </li>
+                                    <li class='probDist-input-combo-right'>
+                                        <input type="text" step="0.01" min=0 name="placeholder" id="placeholderInp2"
+                                                       class="myProbDistInputBox"></input>
+                                        <div id="placeholderDiv2" class="myText probDistInput">[NA]</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class='stats-dynamic-wrapper'>
+    <!--                    <div class="tab-pane" id="dynamicstats">-->
+                            <!-- Tab links -->
+                            <div class="myStatTab">
+                                <button id="defaultDynStat" class="stattablinks">Mean</button>
+                                <button id="stDevDynStat" class="stattablinks">Standard Deviation</button>
+                                <button id="invPartRatioDynStat" class="stattablinks">Inv. Part. Ratio</button>
+                                <button id="survProbDynStat" class="stattablinks">Survival Probability</button>
+                            </div>
+                            <!-- Tab content -->
+                            <div id="Mean" class="stattabcontent">
+                                <div class='grid-element'>
+                                    <div class="prob-dist-stat-chart-container">
+                                        <canvas id="dynamicMeanChart" class="prob-dist-chart"></canvas>
+                                    </div>
+                                    <button id="dynamicMeanButton" class="myButton stat-button">GO!</button>
+                                </div>
+                            </div>
+                            <div id="StDev" class="stattabcontent">
+                                <div class='grid-element'>
+                                    <div class="prob-dist-stat-chart-container">
+                                        <canvas id="dynamicStDevChart" class="prob-dist-chart"></canvas>
+                                    </div>
+                                    <button id="dynamicStDevButton" class="myButton stat-button">GO!</button>
+                                </div>
+                            </div>
+                            <div id="InvPartRatio" class="stattabcontent">
+                                <div class='grid-element'>
+                                    <div class="prob-dist-stat-chart-container">
+                                        <canvas id="dynamicInvPartRatioChart" class="prob-dist-chart"></canvas>
+                                    </div>
+                                    <button id="dynamicInvPartRatioButton" class="myButton stat-button">GO!</button>
+                                </div>
+                            </div>
+                            <div id="SurvivalProb" class="stattabcontent">
+                                <div class='grid-element'>
+                                    <div class="prob-dist-stat-chart-container">
+                                        <canvas id="dynamicSurvivalProbChart" class="prob-dist-chart"></canvas>
+                                    </div>
+                                    <div class="stat-with-input-dyn">
+                                        <div class="myStatText">From</div>
+                                        <input type="text" class="myStatInputBox" id="dynInputSurvProbNodeA">
+                                        <div class="myStatText">To</div>
+                                        <input type="text" class="myStatInputBox" id="dynInputSurvProbNodeB">
+                                        <button id="dynamicSurvivalProbButton" class="myButton stat-survivalProb">Go</button>
+                                    </div>
+                                </div>
+                            </div>
+
+    <!--                    </div>-->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer" class="footer">
+        <div class="inner">
+            <ul class="menu">
+                <li>&copy; QWAK. All rights reserved.</li>
+                <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<!-- Scripts -->
+<script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.scrollex.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/jquery.scrolly.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/browser.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/breakpoints.min.js')}}"></script>
+<script src="{{url_for('static', filename='js/util.js')}}"></script>
+<script src="{{url_for('static', filename='js/main.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.1.1/math.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/cytoscape-edgehandles@4.0.1/cytoscape-edgehandles.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"
+        integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

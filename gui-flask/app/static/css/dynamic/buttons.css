@@ -1,0 +1,100 @@
+.myButton{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    -moz-transition: border-color 0.2s ease;
+    -webkit-transition: border-color 0.2s ease;
+    -ms-transition: border-color 0.2s ease;
+    transition: border-color 0.2s ease;
+    background-color: transparent;
+    border: solid 1px !important;
+    border-color: rgba(255, 255, 255, 0.37) !important;
+    border-radius: 3em;
+    color: #ffffff !important;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 0.6em;
+    font-weight: bold;
+    height: calc(4.75em + 2px);
+    letter-spacing: 0.25em;
+    line-height: 4.75em;
+    outline: 0;
+    padding: 0 3.75em;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.myButton.graph,
+.myButton.probDist{
+    width: 50%;
+    border: solid 2px !important;
+    border-color: rgba(255, 255, 255, 0.37) !important;
+    box-shadow: 0px 3px 5px rgb(9, 9, 9);
+    transform: translateY(-2px);
+}
+
+.myButton.stat-button{
+    width: 20%;
+    border: solid 2px !important;
+    border-color: rgba(255, 255, 255, 0.37) !important;
+    box-shadow: 0px 3px 5px rgb(9, 9, 9);
+    transform: translateY(-2px);
+}
+
+.myButton.stat-survivalProb{
+    width: 80%;
+    border: solid 2px !important;
+    border-color: rgba(255, 255, 255, 0.37) !important;
+    box-shadow: 0px 3px 5px rgb(9, 9, 9);
+    transform: translateY(-2px);
+}
+
+.myButton.input{
+        width: 100%;
+}
+
+.myButton.customGraphInput{
+        width: 100%;
+}
+
+.myButton.probDistInput{
+        width: 100%;
+}
+
+.myButton.statInput{
+        width: 100%;
+}
+
+.myText{
+    background-color: transparent;
+    border: dashed 1px !important;
+    border-color: rgba(255, 255, 255, 0.37) !important;
+    border-radius: 0.9em;
+    color: #ffffff !important;
+    /*cursor: pointer;*/
+    display: inline-block;
+    font-size: 0.6em;
+    font-weight: bold;
+    height: calc(4.75em + 2px);
+    letter-spacing: 0.25em;
+    line-height: 4.75em;
+    outline: 0;
+    padding: 0 0em;
+    position: relative;
+    text-align: center;
+    /*text-decoration: none;*/
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.myText.probDistInput{
+        width: 40%;
+}
+
+.myText.graphInput{
+        width: 100%;
+}

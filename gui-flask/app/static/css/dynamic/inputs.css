@@ -1,0 +1,133 @@
+.input-row {
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 50%;
+}
+
+.input-fields {
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
+    gap:10px;
+    padding: 0px;
+}
+
+input-combo {
+    display: grid;
+    grid-template-columns:80% 20%;
+    grid-template-rows: 100%;
+    gap:2px;
+    justify-content: center;
+    align-items: center;
+}
+
+.probDist-input-combo-right {
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    align-content: start;
+    justify-items: start;
+    padding: 0px;
+
+}
+
+.probDist-input-combo-left {
+    display: grid;
+    grid-template-columns:50% 50%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    align-content: end;
+    justify-items: end;
+}
+
+.graph-input-combo-right{
+    display: grid;
+    grid-template-columns:80% 20%;
+    grid-template-rows: 100%;
+    gap:5px;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+}
+
+.myGraphInputBox{
+    width:100%;
+    border: solid;
+    border-width: 1px;
+
+}
+
+.myProbDistInputBox{
+    width: 100% !important;
+    border: dashed;
+    border-width: 1px;
+}
+
+.stat-with-input {
+    display: grid;
+    grid-template-columns:14% 14% 14% 14% 14% 14% 14%;
+    grid-template-rows: 100%;
+    justify-items: auto;
+    align-items: center;
+    color: var(--primary-white);
+    font-weight: bold;
+}
+
+.stat-with-input-dyn {
+    display: grid;
+    grid-template-columns: 10% 26.66% 10% 26.66% 26.66%;
+    grid-template-rows: 100%;
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    color: var(--primary-white);
+    font-weight: bold;
+}
+
+.stat-with-input .myStatText {
+    width:100%;
+    /*border:solid red 1px;*/
+    vertical-align: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.stat-with-input-dyn .myStatText {
+    width:100%;
+    font-size: 20px;
+    /*border:solid red 1px;*/
+    vertical-align: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.stat-with-input .myStatInputBox {
+    width:100%;
+    border: solid;
+    border-width: 3px;
+    /*border:solid red 1px;*/
+}
+
+.stat-with-input-dyn .myStatInputBox {
+    width:70%;
+    border: solid;
+    border-width: 3px;
+    /*border:solid red 1px;*/
+}
+
+.my-form{
+    display:flex;
+    width:100%;
+    margin:auto;
+    margin-left: 5%;
+    margin-right:auto;
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+}

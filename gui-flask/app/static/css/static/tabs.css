@@ -1,0 +1,105 @@
+.myTab{
+    /*display: grid;*/
+    /*grid-template-columns: 50% 50%;*/
+    /*grid-template-rows: 100%;*/
+    overflow: hidden;
+    background-color: #312450;
+    align-items: center;
+    justify-items: center;
+}
+
+.myStatTab{
+    height: 100%;
+    width: 40%;
+    overflow: hidden;
+    background-color: #312450;
+    align-items: center;
+    justify-items: center;
+}
+
+/* Style the buttons inside the tab */
+.myTab button{
+    background-color: inherit;
+    float: left;
+    border: solid 1px !important;
+    border-color: rgb(252, 237, 206) !important;
+    border-radius: 0;
+    cursor: pointer;
+    transition: 0.3s;
+    /*font-size: 17px;*/
+    overflow: hidden;
+}
+
+.myStatTab button {
+    background-color: inherit;
+    float: left;
+    border: solid 1px !important;
+    border-color: rgb(252, 237, 206) !important;
+    border-radius: 0;
+    cursor: pointer;
+    transition: 0.3s;
+    /*font-size: 12px;*/
+    overflow: hidden;
+
+}
+
+/* Change background color of buttons on hover */
+.myTab button:hover{
+    background-color: rgb(63, 5, 124);
+}
+
+/* Create an active/current tablink class */
+.myTab button.active{
+    background-color: #0263f3;
+}
+
+/* Change background color of buttons on hover */
+.myStatTab button:hover{
+    background-color: rgb(63, 5, 124);
+}
+
+/* Create an active/current tablink class */
+.myStatTab button.active{
+    background-color: #0263f3;
+}
+
+.stattablinks {
+    height:45%;
+    width: 50%;
+}
+
+.stattabcontent{
+    width: 100%;
+    height: 100%;
+}
+/* Style the tab content */
+.tabcontent{
+    animation: fadeEffect 1s;
+    width:100%;
+    height:100%;
+}
+
+.grid-element{
+    display: grid;
+    grid-template-rows: 80% 20%;
+    width: 100%;
+    height:100%;
+    justify-items: center;
+    /*justify-content: center;*/
+    align-items: center;
+    align-content: center;
+}
+
+.grid-element-dyn {
+    display: grid;
+    width: 100%;
+    height:100%;
+    grid-template-rows: 80% 20%;
+    /*gap: 5px;*/
+    justify-items: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+
+}
+
