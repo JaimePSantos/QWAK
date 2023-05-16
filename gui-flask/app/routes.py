@@ -121,7 +121,7 @@ def getRunWalkDB():
             newState = State(staticQWAK.getDim())
             newState.buildState(initCondList)
             staticQWAK.setInitState(newState)
-            staticQWAK.runWalk()
+            staticQWAK.runWalk(time=newTime)
             resultDict = {
                 'prob': staticQWAK.getProbVec().tolist(),
                 'mean': staticQWAK.getMean(resultRounding),

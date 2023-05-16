@@ -115,6 +115,7 @@ async function setStaticJsInitState(){
 
 export async function setStaticJsTime(){
     staticQuantumWalk.time = (inputTime.value);
+    console.log(staticQuantumWalk.time)
     await setStaticPyTime(staticQuantumWalk.time);
 }
 
@@ -130,6 +131,7 @@ $(function () {
         }`;
         e.preventDefault();
         staticQuantumWalk.reset();
+        console.log(inputTime.value)
         let walkResult = await getStaticProbDistDB(inputDim.value,inputGraph.value,inputTime.value,inputInitState.value);
         if(walkResult[0] == true){
             staticQuantumWalk.probDist = walkResult[1];
@@ -241,3 +243,9 @@ async function getPst(nodeA, nodeB) {
 
 cy.layout({name: "circle"}).run();
 
+window.addEventListener("resize", function(){
+    cy.resize();
+    customCy.resize();
+    cy.fit();
+    customCy.fit();
+});

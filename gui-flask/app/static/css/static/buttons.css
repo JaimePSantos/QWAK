@@ -66,7 +66,13 @@
 }
 
 .myButton.statInput{
-        width: 100%;
+        width: 90%;
+        height:90%;
+        padding: 0px;
+        border: solid 2px !important;
+        border-color: rgba(255, 255, 255, 0.37) !important;
+        box-shadow: 0px 3px 5px rgb(9, 9, 9);
+        transform: translateY(-2px);
 }
 
 .myText{

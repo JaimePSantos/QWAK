@@ -88,10 +88,8 @@ class QWAK:
             nodeList=initStateList,
             customStateList=customStateList)
         self._quantumWalk = QuantumWalk(self._initState, self._operator)
-
         self._probDist = ProbabilityDistribution(
             self._quantumWalk.getFinalState())
-
         self._probDistList = []
 
 
