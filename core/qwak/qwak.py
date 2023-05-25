@@ -891,6 +891,16 @@ class QWAK:
         self.setWalk(newQWAK.getWalk())
         self.setProbDist(newQWAK.getProbDist())
 
+    def getQWAKId(self) -> str:
+        """Gets the QWAK instance's ID.
+
+        Returns
+        -------
+        str
+            QWAK instance's ID.
+        """
+        return self._qwakId
+
     def to_json(self, isDynamic=False) -> str:
         """Returns a JSON representation of the QWAK instance
 

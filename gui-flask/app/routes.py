@@ -358,6 +358,7 @@ def setRunWalkDBTest():
     if request.method == 'POST':
         probDistSessionCollection = database[session['sessionId']]
         sessionId = session['sessionId']
+        print(sessionId)
 
         newDim = int(request.form.get("newDim"))
         newGraphStr = request.form.get("newGraph")
@@ -375,25 +376,24 @@ def setRunWalkDBTest():
         newState = State(staticQWAK.getDim())
         newState.buildState(initCondList)
         staticQWAK.setInitState(newState)
-        staticQWAK.runWalk()
+        staticQWAK.runWalk(newTime)
 
+        print(f'qwakId: {staticQWAK.getQWAKId()} \t dim: {staticQWAK.getDim()}\t time: {staticQWAK.getTime()} \t initCondList: {staticQWAK.getInitState().getStateVec()}')
+        
         probDistSessionCollection.replace_one(
-            {'qwakId': sessionId}, json.loads(staticQWAK.to_json()))
+            {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
     return ("nothing")
 
 
 @app.route('/getRunWalkDBTest', methods=['POST'])
 def getRunWalkDBTest():
-    if request.method == 'POST':
-        probDistSessionCollection = database[session['sessionId']]
-        sessionId = session['sessionId']
-        staticQWAK = QWAK.from_json(
-            probDistSessionCollection.find_one({'qwakId': sessionId}))
-        staticQWAKJson = json.loads(staticQWAK.to_json())
-        print(staticQWAK.getProbDist().getProbVec())
+    probDistSessionCollection = database[session['sessionId']]
 
+    staticQWAK = QWAK.from_json(probDistSessionCollection.find_one({
+                                    'qwakId': session['staticQwakId']}))
+    print(staticQWAK.getProbDist().getProbVec())
+    
     return ("nothing")
-
 
 @app.route('/setRunMultipleWalksDBTest', methods=['POST', 'GET'])
 def setRunMultipleWalksDBTest():
