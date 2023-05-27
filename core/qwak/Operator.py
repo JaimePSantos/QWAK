@@ -546,3 +546,4 @@ class Operator:
     #         ef += np.absolute(np.matmul(eigenVec,initState))**2
     #         print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
     #     return ef
+    
