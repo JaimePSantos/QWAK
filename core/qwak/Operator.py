@@ -379,13 +379,16 @@ class Operator:
             if nodeA > nodeB:
                 nodeA, nodeB = swapNodes(nodeA, nodeB)
 
-            symAdj = sp.Matrix(self._hamiltonian.tolist())
+            symAdj = sp.Matrix(self._adjacency.real)
             # Isto já foi calculado.
-            eigenVec, D = symAdj.diagonalize()
-            eigenVal = getEigenVal(D)
+            M = np.array(symAdj.tolist()).astype(np.float64)
+            P = self._eigenvectors
+            P_inv = np.linalg.inv(P)
+            D = np.matmul(P_inv, np.matmul(M, P))
             isCospec = isStrCospec(symAdj, nodeA, nodeB)
             chRoots, g, delta = checkRoots(
-                symAdj, nodeA, eigenVec, eigenVal)
+                symAdj, nodeA, sp.ImmutableMatrix(self._eigenvectors), self._eigenvalues
+                )
             if isCospec and chRoots:
                 result = pi / (g * np.sqrt(delta))
             else:

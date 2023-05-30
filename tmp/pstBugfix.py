@@ -4,11 +4,18 @@ import numpy as np
 import matplotlib as mpl
 from matplotlib import pyplot as plt
 
-n=3
-graph = nx.hypercube_graph(n)
-t = 0
-initCond = [0]
+n1 = 4
+n2 = 3
+n3 = 3
 
-qw = QWAK(graph=graph)
-print(f'PST: {qw.checkPST(0,7)}')
-qw.runWalk(time=t,initStateList=initCond)
+graph1 = nx.cycle_graph(n1)
+graph2 = nx.path_graph(n2)
+graph3 = nx.hypercube_graph(n3)
+
+qw1 = QWAK(graph=graph1)
+qw2 = QWAK(graph=graph2)
+qw3 = QWAK(graph=graph3)
+
+print(f'Cycle PST: {qw1.checkPST(0,2)}')
+print(f'Path PST: {qw2.checkPST(0,2)}')
+print(f'Cube PST: {qw3.checkPST(0,3)}')

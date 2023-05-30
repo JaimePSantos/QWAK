@@ -207,7 +207,7 @@ def checkRoots(A, a, eigenvec, eigenval):
                 quadRoots += 1
                 deltaTmp = deltaS
             q += 1
-
+    print(quadRoots < k, intRoots < k)
     if quadRoots > 0:
         delta = deltaTmp
     if quadRoots < k and intRoots < k:
