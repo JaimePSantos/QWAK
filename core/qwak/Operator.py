@@ -10,7 +10,7 @@ from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 import json
 
 from qwak.Errors import MissingNodeInput
-from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
+from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal, checkRoots_sympy
 
 class Operator:
     def __init__(
@@ -379,7 +379,7 @@ class Operator:
             if nodeA > nodeB:
                 nodeA, nodeB = swapNodes(nodeA, nodeB)
 
-            symAdj = sp.Matrix(self._adjacency.real)
+            symAdj = sp.Matrix(self._adjacency)
             # Isto já foi calculado.
             M = np.array(symAdj.tolist()).astype(np.float64)
             P = self._eigenvectors
@@ -387,8 +387,48 @@ class Operator:
             D = np.matmul(P_inv, np.matmul(M, P))
             isCospec = isStrCospec(symAdj, nodeA, nodeB)
             chRoots, g, delta = checkRoots(
-                symAdj, nodeA, sp.ImmutableMatrix(self._eigenvectors), self._eigenvalues
+                symAdj, nodeA, self._eigenvectors, self._eigenvalues
                 )
+            if isCospec and chRoots:
+                result = pi / (g * np.sqrt(delta))
+            else:
+                result = -1
+            return result
+        except ValueError:
+            raise MissingNodeInput(
+                f"A node number is missing: nodeA = {nodeA}; nodeB = {nodeB}")
+
+    def checkPST_sympy(self, nodeA, nodeB):
+        """Algorithm to check PST based on the article https://arxiv.org/abs/1606.02264 authored by Rodrigo Chaves.
+        Checks if all the conditions are true and return the **VALUE** if the graph
+        has PST and False otherwise.
+
+        Parameters
+        ----------
+        nodeA : _type_
+            Input node.
+        nodeB : _type_
+            Output node.
+
+        Returns
+        -------
+        Float/Bool
+            Either returns the time value of PST or False.
+        """
+        # TODO: Check if numpy is faster for eigenvecs and vals.
+        try:
+            nodeA = int(nodeA)
+            nodeB = int(nodeB)
+            if nodeA > nodeB:
+                nodeA, nodeB = swapNodes(nodeA, nodeB)
+
+            symAdj = sp.Matrix(self._hamiltonian.tolist())
+            # Isto já foi calculado.
+            eigenVec, D = symAdj.diagonalize()
+            eigenVal = getEigenVal(D)
+            isCospec = isStrCospec(symAdj, nodeA, nodeB)
+            chRoots, g, delta = checkRoots_sympy(
+                symAdj, nodeA, eigenVec, eigenVal)
             if isCospec and chRoots:
                 result = pi / (g * np.sqrt(delta))
             else:
