@@ -121,34 +121,7 @@ def getSquareFree(n):
             sqrFreeList.append(i + 1)
     return sqrFreeList
 
-
 def getEigenSupp(a, eigenvec, eigenval):
-    """EigenSupp is responsible for getting the eigenvalue support of the vertice a. The eigenvalue support of the vertice a is
-    all the eigenvalues such that Er a != 0, where a is vector with 1 in the a-th entry and zero in all others and Er is the
-    projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,
-    because we do not need to check for eigenvalues that are not in the eigenvalue support.
-
-    Parameters
-    ----------
-    a : _type_
-        _description_
-    eigenvec : _type_
-        _description_
-    eigenval : _type_
-        _description_
-
-    Returns
-    -------
-    _type_
-        _description_
-    """
-    supp = []
-    for i in range(len(eigenval)):
-        if eigenvec.col(i)[a] != 0:
-            supp.append(eigenval[i])
-    return supp
-
-def getEigenSupp2(a, eigenvec, eigenval):
     """Returns the eigenvalue support of the vertex a.
 
     The eigenvalue support of the vertex a is the set of all eigenvalues such that
@@ -176,80 +149,6 @@ def getEigenSupp2(a, eigenvec, eigenval):
     return supp
 
 def checkRoots(A, a, eigenvec, eigenval):
-    """CheckRoots is responsible for checking the second condition for PST which is that all eigenvalues is the eigenvalue support
-    of a must be all integers or all quadratic integers with the format p+qr*Sqrt(delta)/2, with qr changing from eigenvalue to
-    to eigenvalue. The frist step is to define h(x) = phi/gcd(phi,phia) that have all its roots in the eigenvalue support of a,
-    then its degree k will be crucial.
-    First, we check for integer roots in the interval [-n^4,n^4] that the eigenvalues should be. We check by putting the
-    value in the loop, i, direct into h(i) and we see if it is equal to zero. If it is, then we check if i is in the
-    eigenvalue support of a. With both conditions satisfied, it stores 1 to delta and sum one to intRoots.
-    Then we check if all roots are quadratic integers p+qr*Sqrt(delta)/2. We know that p will be equal to the coefficient
-    of the second bigest power of h(x). Then, all we need to do is loop through the values of delta in the list of square-free
-    integers. Then, we loop qr until it is bigger than Sqrt(Tr(A²)) and check if is a root of h(x) and it is also in the
-    eigenvalue support of a. In case it is true, we store the value of delta and sum one to quadRoots.
-    Here we check if quadRoots or intRoots are bigger than k, which is the degree of our polynomial h(x). If none of them is
-    then we know that PST is not possible and we return False.
-    The time that PST occurs is just pi/g*Sqrt(delta) where g = gcd(theta0 - thetar), i.e. the gcd between all the differences
-    of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.
-
-    Parameters
-    ----------
-    A : _type_
-        _description_
-    a : _type_
-        _description_
-    eigenvec : _type_
-        _description_
-    eigenval : _type_
-        _description_
-
-    Returns
-    -------
-    _type_
-        _description_
-    """
-    supp = getEigenSupp2(a, eigenvec, eigenval)
-    Ma = Ma = A.minor_submatrix(a, a)
-    phi = A.charpoly()
-    phia = Ma.charpoly()
-    h, r = div(phi, gcd(phi, phia))
-    k = h.degree()
-    intRoots = 0
-    for i in range(-len(eigenval) ** 4, len(eigenval) ** 4 + 1):
-        if h(i) == 0 and i in supp:
-            delta = 1
-            intRoots += 1
-    quadRoots = 0
-    sqrtFreeInt = getSquareFree(int((4 * A**2).trace()))
-    p = h.all_coeffs()[1]
-    deltaTmp = 0
-    for deltaS in sqrtFreeInt:
-        q = 0
-        while (p + q * sqrt(deltaS) / 2) <= sqrt(int(((A**2).trace()))):
-            # print(f'\np + q * sqrt(deltaS) / 2 = {Float(p + q * sqrt(deltaS) / 2, 3)}\nsupp = {supp}\nCondition: {Float(p + q * sqrt(deltaS) / 2, 3) in supp}\n')
-            if (
-                h(p + q * sqrt(deltaS) / 2) == 0
-                and Float(p + q * sqrt(deltaS) / 2, 3) in supp
-            ):
-                quadRoots += 1
-                deltaTmp = deltaS
-            q += 1
-    # print(quadRoots < k, intRoots < k)
-    if quadRoots > 0:
-        delta = deltaTmp
-    if quadRoots < k and intRoots < k:
-        return False, 0, 0
-    diffs = []
-    for i in range(len(supp)):
-        diffs.append((max(supp) - supp[i]) / np.sqrt(delta))
-
-    g = 0
-    for diff in diffs:
-        # print(f'g = {g}, diff = {diff}')
-        g = np.gcd(Float(g), Float(diff))
-    return True, g, delta
-
-def checkRoots_sympy(A, a, eigenvec, eigenval):
     """CheckRoots is responsible for checking the second condition for PST which is that all eigenvalues is the eigenvalue support
     of a must be all integers or all quadratic integers with the format p+qr*Sqrt(delta)/2, with qr changing from eigenvalue to
     to eigenvalue. The frist step is to define h(x) = phi/gcd(phi,phia) that have all its roots in the eigenvalue support of a,
@@ -319,10 +218,10 @@ def checkRoots_sympy(A, a, eigenvec, eigenval):
 
     g = 0
     for diff in diffs:
-        print(f'g = {g} \t\t\t diff = {diff}')
-        print(f'type g = {type(g)} \t type diff = {type(diff)}')
-        g = np.gcd(g, diff)
+        # print(f'g = {g}, diff = {diff}')
+        g = np.gcd(Float(g), Float(diff))
     return True, g, delta
+
 
 def swapNodes(nodeA, nodeB):
     """_summary_
