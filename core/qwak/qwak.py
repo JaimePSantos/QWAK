@@ -836,6 +836,31 @@ class QWAK:
         except MissingNodeInput as err:
             raise err
 
+    def checkPST_sympy(self, fromNode, toNode) -> Union[str, bool]:
+        """Checks if a structure allows for PST between certain nodes.
+
+        Parameters
+        ----------
+        fromNode : _type_
+            Starting node.
+        toNode : _type_
+            Ending node.
+        Returns
+        -------
+        Union([str,bool])
+            _description_
+
+        Raises
+        ------
+        MissingNodeInput
+            Missing input node error.
+
+        """
+        try:
+            return self._operator.checkPST_sympy(fromNode, toNode)
+        except MissingNodeInput as err:
+            raise err
+
     def getTransportEfficiency(self) -> float:
         """Gets the transport efficiency of the quantum walk.
 

@@ -121,33 +121,32 @@ def getSquareFree(n):
             sqrFreeList.append(i + 1)
     return sqrFreeList
 
-
 def getEigenSupp(a, eigenvec, eigenval):
-    """EigenSupp is responsible for getting the eigenvalue support of the vertice a. The eigenvalue support of the vertice a is
-    all the eigenvalues such that Er a != 0, where a is vector with 1 in the a-th entry and zero in all others and Er is the
-    projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,
-    because we do not need to check for eigenvalues that are not in the eigenvalue support.
+    """Returns the eigenvalue support of the vertex a.
+
+    The eigenvalue support of the vertex a is the set of all eigenvalues such that
+    the projection matrix of the eigenvalue r applied to the vector with 1 in the a-th
+    entry and zero in all others is not zero.
 
     Parameters
     ----------
-    a : _type_
-        _description_
-    eigenvec : _type_
-        _description_
-    eigenval : _type_
-        _description_
+    a : int
+        The index of the vertex.
+    eigenvec : numpy.ndarray
+        The eigenvectors of the graph.
+    eigenval : numpy.ndarray
+        The eigenvalues of the graph.
 
     Returns
     -------
-    _type_
-        _description_
+    list
+        The eigenvalues in the eigenvalue support of the vertex a.
     """
     supp = []
     for i in range(len(eigenval)):
-        if eigenvec.col(i)[a] != 0:
-            supp.append(eigenval[i])
+        if abs(eigenvec[a][i]) > 1e-10:
+            supp.append(round(eigenval[i],5))
     return supp
-
 
 def checkRoots(A, a, eigenvec, eigenval):
     """CheckRoots is responsible for checking the second condition for PST which is that all eigenvalues is the eigenvalue support
@@ -200,6 +199,7 @@ def checkRoots(A, a, eigenvec, eigenval):
     for deltaS in sqrtFreeInt:
         q = 0
         while (p + q * sqrt(deltaS) / 2) <= sqrt(int(((A**2).trace()))):
+            # print(f'\np + q * sqrt(deltaS) / 2 = {Float(p + q * sqrt(deltaS) / 2, 3)}\nsupp = {supp}\nCondition: {Float(p + q * sqrt(deltaS) / 2, 3) in supp}\n')
             if (
                 h(p + q * sqrt(deltaS) / 2) == 0
                 and Float(p + q * sqrt(deltaS) / 2, 3) in supp
@@ -207,7 +207,7 @@ def checkRoots(A, a, eigenvec, eigenval):
                 quadRoots += 1
                 deltaTmp = deltaS
             q += 1
-
+    # print(quadRoots < k, intRoots < k)
     if quadRoots > 0:
         delta = deltaTmp
     if quadRoots < k and intRoots < k:
@@ -218,7 +218,8 @@ def checkRoots(A, a, eigenvec, eigenval):
 
     g = 0
     for diff in diffs:
-        g = np.gcd(g, diff)
+        # print(f'g = {g}, diff = {diff}')
+        g = np.gcd(Float(g), Float(diff))
     return True, g, delta
 
 
