@@ -43,6 +43,7 @@ export async function setStaticGraph(newDim,newGraph) {
             return myGraph;
         }
     });
+    console.log(myGraph)
     return myGraph;
 }
 

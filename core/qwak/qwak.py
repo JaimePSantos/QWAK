@@ -304,7 +304,8 @@ class QWAK:
         """
         self._graph = newGraph
         self._n = len(self._graph)
-        self.setDim(self._n, graph=self._graph)
+        print('hi')
+        # self.setDim(self._n, graph=self._graph)
 
     def getGraph(self) -> nx.Graph:
         """Gets the current graph.

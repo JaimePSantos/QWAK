@@ -77,9 +77,10 @@ def setStaticGraph():
     staticQWAK = QWAK.from_json(probDistSessionCollection.find_one({
                                 'qwakId': session['staticQwakId']}))
     newDim = int(request.form.get("newDim"))
-    newGraph = request.form.get("newGraph")
-    staticQWAK.setDim(newDim, graphStr=newGraph)
-    staticQWAK.setGraph(eval(f"{newGraph}({staticQWAK.getDim()})"))
+    newGraphStr = request.form.get("newGraph")
+    newGraph = eval(f"{newGraphStr}({newDim})")
+    staticQWAK.setDim(newDim, graphStr=newGraphStr)
+    staticQWAK.setGraph(newGraph)
     probDistSessionCollection.replace_one(
         {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
     return nx.cytoscape_data(staticQWAK.getGraph())
@@ -438,4 +439,19 @@ def getRunMultipleWalksDBTest():
         name = str(request.form.get("walkName"))
         prob = gQwak.getDynamicProbVecList().tolist()
     return prob
+
+@app.route('/testSetStaticGraph', methods=['GET', 'POST'])
+def testSetStaticGraph():
+    probDistSessionCollection = database[session['sessionId']]
+    staticQWAK = QWAK.from_json(probDistSessionCollection.find_one({
+                                'qwakId': session['staticQwakId']}))
+    newDim = int(request.form.get("newDim"))
+    newGraphStr = request.form.get("newGraph")
+    newGraph = eval(f"{newGraphStr}({newDim})")
+    staticQWAK.setDim(newDim, graphStr=newGraphStr)
+    staticQWAK.setGraph(newGraph)
+    print(f'NEW Dim \t->\t {newDim}\n\nStatic QWAK DIM \t->\t {staticQWAK.getDim()}\n\nAdjacency:\n{staticQWAK.getAdjacencyMatrix()}')
+    probDistSessionCollection.replace_one(
+        {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
+    return nx.cytoscape_data(staticQWAK.getGraph())
 

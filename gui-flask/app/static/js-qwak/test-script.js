@@ -29,6 +29,15 @@ let inputInit = () => {
 
 inputInit();
 
+$(async function () {
+    $('#testSetStaticGraphBut').on('click', async function (e) {
+        e.preventDefault();
+        console.log('hi')
+        let myGraph = await testSetStaticGraph(inputDim.value,inputGraph.value);
+        console.log(myGraph.elements)
+    });
+});
+
 
 $(function () {
     $('#testRunWalkBut').on('click', async function (e) {
@@ -130,4 +139,24 @@ async function setRunMultipleWalksDBTest(newDim,newGraph,newTime,newInitCond) {
             console.log('Runwalk error');
         }
     });
+}
+
+export async function testSetStaticGraph(newDim,newGraph) {
+    let myGraph;
+    await $.ajax({
+        type: 'POST',
+        url: `/testSetStaticGraph`,
+        data: {newDim:newDim,newGraph:newGraph},
+        success: function (response) {
+            console.log(`success - graph set to ${newGraph}:\n ${response}`)
+            // console.log(response);
+            myGraph = response;
+            return myGraph;
+        },
+        error: function (response) {
+            myGraph = response;
+            return myGraph;
+        }
+    });
+    return myGraph;
 }
