@@ -174,7 +174,7 @@ def setDynamicGraph():
     dynamicQWAK.setGraph(eval(f"{newGraph}({dynamicQWAK.getDim()})"))
     probDistSessionCollection.replace_one(
         {'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(isDynamic=True)))
-    return convert_binary_to_decimal(nx.cytoscape_data(dynamicQWAK.getGraph()))
+    return convert_cytoscape_to_decimal(nx.cytoscape_data(dynamicQWAK.getGraph()))
 
 
 @app.route('/getDynamicGraphToJson', methods=['GET', 'POST'])
