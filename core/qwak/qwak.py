@@ -304,7 +304,7 @@ class QWAK:
         """
         self._graph = newGraph
         self._n = len(self._graph)
-        self.setDim(self._n, graph=self._graph)
+        # self.setDim(self._n, graph=self._graph)
 
     def getGraph(self) -> nx.Graph:
         """Gets the current graph.
@@ -915,6 +915,16 @@ class QWAK:
         self.setOperator(newQWAK.getOperator())
         self.setWalk(newQWAK.getWalk())
         self.setProbDist(newQWAK.getProbDist())
+
+    def getQWAKId(self) -> str:
+        """Gets the QWAK instance's ID.
+
+        Returns
+        -------
+        str
+            QWAK instance's ID.
+        """
+        return self._qwakId
 
     def to_json(self, isDynamic=False) -> str:
         """Returns a JSON representation of the QWAK instance
