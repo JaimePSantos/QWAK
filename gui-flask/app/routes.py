@@ -13,6 +13,7 @@ from qwak.Errors import StateOutOfBounds, UndefinedTimeList, EmptyProbDistList, 
 from dotenv import load_dotenv
 import os
 import random
+from utils.jsonTools import convert_cytoscape_to_decimal
 resultRounding = 3
 
 load_dotenv()
@@ -70,38 +71,6 @@ def dynamicQW():
             json.loads(dynamicQwak.to_json(isDynamic=True)))
     return render_template('dynamicQW.html')
 
-def convert_binary_to_decimal(graph_data):
-    decimal_graph = graph_data.copy()
-
-    node_id_map = {}  # To store the mapping of original binary node IDs to decimal node IDs
-
-    for node in decimal_graph['elements']['nodes']:
-        node_id = node['data']['id']
-        node_id = tuple(map(int, node_id.strip('()').split(', ')))
-        decimal_id = sum(bit << i for i, bit in enumerate(reversed(node_id)))
-        node['data']['id'] = str(decimal_id)
-        node_id_map[node_id] = decimal_id
-
-        node_value = node['data']['value']
-        node_value = tuple(map(int, node_value))
-        decimal_value = sum(bit << i for i, bit in enumerate(reversed(node_value)))
-        node['data']['value'] = decimal_value
-
-        node_name = node['data']['name']
-        node_name = tuple(map(int, node_name.strip('()').split(', ')))
-        decimal_name = str(sum(bit << i for i, bit in enumerate(reversed(node_name))))
-        node['data']['name'] = decimal_name
-
-    for edge in decimal_graph['elements']['edges']:
-        source = edge['data']['source']
-        target = edge['data']['target']
-        decimal_source = node_id_map[source]
-        decimal_target = node_id_map[target]
-        edge['data']['source'] = decimal_source
-        edge['data']['target'] = decimal_target
-
-    return decimal_graph
-
 @app.route('/setStaticGraph', methods=['GET', 'POST'])
 def setStaticGraph():
     probDistSessionCollection = database[session['sessionId']]
@@ -114,7 +83,7 @@ def setStaticGraph():
     staticQWAK.setGraph(newGraph)
     probDistSessionCollection.replace_one(
         {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
-    return convert_binary_to_decimal(nx.cytoscape_data(staticQWAK.getGraph()))
+    return convert_cytoscape_to_decimal(nx.cytoscape_data(staticQWAK.getGraph()))
 
 
 @app.route('/getStaticGraphToJson', methods=['GET', 'POST'])
@@ -180,9 +149,9 @@ def getStaticSurvivalProb():
     except MissingNodeInput as err:
         return [True, str(err)]
 
-
 @app.route('/checkPST', methods=['GET', 'POST'])
 def checkPST():
+    print(request.method)
     probDistSessionCollection = database[session['sessionId']]
     staticQWAK = QWAK.from_json(probDistSessionCollection.find_one({
                                 'qwakId': session['staticQwakId']}))
@@ -205,7 +174,7 @@ def setDynamicGraph():
     dynamicQWAK.setGraph(eval(f"{newGraph}({dynamicQWAK.getDim()})"))
     probDistSessionCollection.replace_one(
         {'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(isDynamic=True)))
-    return nx.cytoscape_data(dynamicQWAK.getGraph())
+    return convert_binary_to_decimal(nx.cytoscape_data(dynamicQWAK.getGraph()))
 
 
 @app.route('/getDynamicGraphToJson', methods=['GET', 'POST'])
@@ -242,7 +211,6 @@ def getRunMultipleWalksDB():
             return [True, str(err)]
         return [False, resultDict]
 
-
 @app.route('/setRunMultipleWalksDB', methods=['POST'])
 def setRunMultipleWalksDB():
     print(request.method)
@@ -261,7 +229,6 @@ def setRunMultipleWalksDB():
             return [True, str(err)]
     return [False, resultDict]
 
-
 @app.route('/runMultipleWalks', methods=['GET', 'POST'])
 def runMultipleWalks():
     probDistSessionCollection = database[session['sessionId']]
@@ -269,7 +236,6 @@ def runMultipleWalks():
     gQwak = GraphicalQWAK.from_json(
         probDistSessionCollection.find_one({'qwakId': sessionId}))
     return gQwak.runMultipleWalks()
-
 
 @app.route('/getDynamicMean', methods=['GET', 'POST'])
 def getDynamicMean():
@@ -279,7 +245,6 @@ def getDynamicMean():
     meanList = dynamicQWAK.getMeanList(resultRounding)
     return meanList
 
-
 @app.route('/getDynamicStDev', methods=['GET', 'POST'])
 def getDynamicStDev():
     probDistSessionCollection = database[session['sessionId']]
@@ -288,7 +253,6 @@ def getDynamicStDev():
     stDevList = dynamicQWAK.getStDevList(resultRounding)
     return stDevList
 
-
 @app.route('/getDynamicInvPartRatio', methods=['GET', 'POST'])
 def getDynamicInvPartRatio():
     probDistSessionCollection = database[session['sessionId']]
@@ -296,7 +260,6 @@ def getDynamicInvPartRatio():
         {'qwakId': session['dynamicQwakId']}), isDynamic=True)
     stDevList = dynamicQWAK.getInversePartRatioList(resultRounding)
     return stDevList
-
 
 @app.route('/getDynamicSurvivalProb', methods=['GET', 'POST'])
 def getDynamicSurvivalProb():
@@ -312,7 +275,6 @@ def getDynamicSurvivalProb():
     except MissingNodeInput as err:
         return [True, str(err)]
 
-
 @app.route('/setDynamicCustomGraph', methods=['GET', 'POST'])
 def setDynamicCustomGraph():
     probDistSessionCollection = database[session['sessionId']]
@@ -325,14 +287,11 @@ def setDynamicCustomGraph():
         {'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(isDynamic=True)))
     return ("nothing")
 
-
 ################## TEST ##################
-
 
 @app.route("/test")
 def test():
     return render_template('test.html')
-
 
 @app.route("/reset", methods=['GET', 'POST'])
 def reset():
