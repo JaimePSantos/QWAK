@@ -70,6 +70,37 @@ def dynamicQW():
             json.loads(dynamicQwak.to_json(isDynamic=True)))
     return render_template('dynamicQW.html')
 
+def convert_binary_to_decimal(graph_data):
+    decimal_graph = graph_data.copy()
+
+    node_id_map = {}  # To store the mapping of original binary node IDs to decimal node IDs
+
+    for node in decimal_graph['elements']['nodes']:
+        node_id = node['data']['id']
+        node_id = tuple(map(int, node_id.strip('()').split(', ')))
+        decimal_id = sum(bit << i for i, bit in enumerate(reversed(node_id)))
+        node['data']['id'] = str(decimal_id)
+        node_id_map[node_id] = decimal_id
+
+        node_value = node['data']['value']
+        node_value = tuple(map(int, node_value))
+        decimal_value = sum(bit << i for i, bit in enumerate(reversed(node_value)))
+        node['data']['value'] = decimal_value
+
+        node_name = node['data']['name']
+        node_name = tuple(map(int, node_name.strip('()').split(', ')))
+        decimal_name = str(sum(bit << i for i, bit in enumerate(reversed(node_name))))
+        node['data']['name'] = decimal_name
+
+    for edge in decimal_graph['elements']['edges']:
+        source = edge['data']['source']
+        target = edge['data']['target']
+        decimal_source = node_id_map[source]
+        decimal_target = node_id_map[target]
+        edge['data']['source'] = decimal_source
+        edge['data']['target'] = decimal_target
+
+    return decimal_graph
 
 @app.route('/setStaticGraph', methods=['GET', 'POST'])
 def setStaticGraph():
@@ -83,7 +114,7 @@ def setStaticGraph():
     staticQWAK.setGraph(newGraph)
     probDistSessionCollection.replace_one(
         {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
-    return nx.cytoscape_data(staticQWAK.getGraph())
+    return convert_binary_to_decimal(nx.cytoscape_data(staticQWAK.getGraph()))
 
 
 @app.route('/getStaticGraphToJson', methods=['GET', 'POST'])
