@@ -38,6 +38,13 @@ def plot_qwak(
         v_line_list_index=None,
         v_line_colors=None,
         x_lim=None,
+        title_font_size=None,
+        xlabel_font_size=None,
+        ylabel_font_size=None,
+        legend_font_size=None,
+        legend_title_font_size=None,
+        tick_font_size=None,
+        cbar_label_font_size=None,
         **kwargs):
     """
     Plots data from a matrix of x values and a matrix of y values.
@@ -192,79 +199,29 @@ def plot_qwak(
                 linestyle=v_line_style,
                 linewidth=1.5)
         axis_matrix_counter += 1
-
-    # set the axis labels
     if x_label is not None:
-        ax.set_xlabel(x_label, fontsize=font_size + 2)
+        ax.set_xlabel(x_label, fontsize=xlabel_font_size if xlabel_font_size else font_size + 2)
     if y_label is not None:
-        ax.set_ylabel(y_label, fontsize=font_size + 2)
+        ax.set_ylabel(y_label, fontsize=ylabel_font_size if ylabel_font_size else font_size + 2)
 
-    # set the plot plot_title
+    # set the plot title
     if plot_title is not None:
-        ax.set_title(plot_title, fontsize=font_size + 4)
+        ax.set_title(plot_title, fontsize=title_font_size if title_font_size else font_size + 4)
 
     # set the legend
     if legend_labels is not None:
         legend = ax.legend(
             loc=legend_loc,
             ncol=legend_ncol,
-            fontsize=font_size - 1)
+            fontsize=legend_font_size if legend_font_size else font_size - 1)
         if legend_title is not None:
-            legend.set_title(legend_title, prop={'size': font_size - 1})
+            legend.set_title(legend_title, prop={'size': legend_title_font_size if legend_title_font_size else font_size - 1})
 
     # set font size for ticks
-    ax.tick_params(axis='both', labelsize=font_size)
-    min_x_value_matrix = np.min(x_value_matrix)
-    max_x_value_matrix = np.max(x_value_matrix)
-    min_y_value_matrix = np.min(y_value_matrix)
-    max_y_value_matrix = np.max(y_value_matrix)
-
-    # set tick labels
-    if x_num_ticks is not None:
-        num_x_ticks = min(x_num_ticks, len(x_value_matrix[0]))
-        x_tick_labels = np.round(
-            np.linspace(
-                min_x_value_matrix,
-                max_x_value_matrix,
-                num_x_ticks),
-            x_round_val)
-        ax.set_xticks(
-            np.linspace(
-                min_x_value_matrix,
-                max_x_value_matrix,
-                num_x_ticks))
-        ax.set_xticklabels(x_tick_labels)
-
-    if y_num_ticks is not None:
-        num_y_ticks = min(y_num_ticks, len(y_value_matrix[0]))
-        y_tick_labels = np.round(
-            np.linspace(
-                min_y_value_matrix,
-                max_y_value_matrix,
-                num_y_ticks),
-            y_round_val)
-        ax.set_yticks(
-            np.linspace(
-                min_y_value_matrix,
-                max_y_value_matrix,
-                num_y_ticks))
-        ax.set_yticklabels(y_tick_labels)
+    ax.tick_params(axis='both', labelsize=tick_font_size if tick_font_size else font_size)
 
     # add colorbar
     if use_cbar:
-        if cbar_ticks_generator is None:
-            cbar_ticks = np.linspace(
-                min_y_value_matrix,
-                max_y_value_matrix,
-                cbar_num_ticks)
-        else:
-            cbar_ticks = cbar_ticks_generator
-        colors = color_list
-        cmap = LinearSegmentedColormap.from_list(
-            'custom_cmap', colors, N=len(colors))
-        # norm = BoundaryNorm(cbar_ticks, len(cbar_ticks)-1)
-        norm = Normalize(vmin=cbar_ticks[0], vmax=cbar_ticks[-1])
-
         cbar = plt.colorbar(
             plt.cm.ScalarMappable(
                 norm=norm,
@@ -272,8 +229,8 @@ def plot_qwak(
             ax=ax,
             ticks=cbar_ticks)
         if cbar_label is not None:
-            cbar.set_label(cbar_label, fontsize=font_size + 2)
-        cbar.ax.tick_params(labelsize=font_size)
+            cbar.set_label(cbar_label, fontsize=cbar_label_font_size if cbar_label_font_size else font_size + 2)
+        cbar.ax.tick_params(labelsize=tick_font_size if tick_font_size else font_size)
 
     if cbar_tick_labels is not None:
         cbar.ax.set_yticklabels(cbar_tick_labels)
