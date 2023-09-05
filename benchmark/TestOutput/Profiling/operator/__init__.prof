@@ -15,3 +15,39 @@ ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
 55/53,0.000,0.000,0.134,0.003,{built-in method numpy.core._multiarray_umath.implement_array_function}
 500,0.000,0.000,0.000,0.000,reportviews.py:778(<lambda>)
 Next Entry
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.088,0.088,0.089,0.089,linalg.py:1324(eigh)
+8,0.001,0.000,0.001,0.000,{method 'astype' of 'numpy.ndarray' objects}
+2,0.000,0.000,0.000,0.000,{built-in method numpy.zeros}
+501,0.000,0.000,0.000,0.000,reportviews.py:845(__iter__)
+1,0.000,0.000,0.002,0.002,convert_matrix.py:466(to_scipy_sparse_array)
+500,0.000,0.000,0.000,0.000,_collections_abc.py:828(__contains__)
+500,0.000,0.000,0.000,0.000,coreviews.py:80(__getitem__)
+1,0.000,0.000,0.001,0.001,function.py:1189(<genexpr>)
+18,0.000,0.000,0.000,0.000,{built-in method numpy.array}
+501,0.000,0.000,0.001,0.000,convert_matrix.py:570(<genexpr>)
+501,0.000,0.000,0.000,0.000,_collections_abc.py:909(__iter__)
+16,0.000,0.000,0.000,0.000,_sputils.py:147(get_index_dtype)
+500,0.000,0.000,0.000,0.000,coreviews.py:52(__getitem__)
+55/53,0.000,0.000,0.089,0.002,{built-in method numpy.core._multiarray_umath.implement_array_function}
+500,0.000,0.000,0.000,0.000,reportviews.py:779(<lambda>)
+Next Entry
+
+ncalls,tottime,percall,cumtime,percall,filename:lineno(function)
+1,0.220,0.220,0.220,0.220,linalg.py:1324(eigh)
+8,0.002,0.000,0.002,0.000,{method 'astype' of 'numpy.ndarray' objects}
+2,0.001,0.000,0.001,0.000,{built-in method numpy.zeros}
+501,0.000,0.000,0.001,0.000,reportviews.py:845(__iter__)
+18,0.000,0.000,0.000,0.000,{built-in method numpy.array}
+1,0.000,0.000,0.004,0.004,convert_matrix.py:466(to_scipy_sparse_array)
+500,0.000,0.000,0.000,0.000,_collections_abc.py:828(__contains__)
+500,0.000,0.000,0.000,0.000,coreviews.py:80(__getitem__)
+16,0.000,0.000,0.000,0.000,_sputils.py:147(get_index_dtype)
+1,0.000,0.000,0.001,0.001,function.py:1189(<genexpr>)
+501,0.000,0.000,0.000,0.000,_collections_abc.py:909(__iter__)
+55/53,0.000,0.000,0.221,0.004,{built-in method numpy.core._multiarray_umath.implement_array_function}
+500,0.000,0.000,0.000,0.000,coreviews.py:52(__getitem__)
+501,0.000,0.000,0.001,0.000,convert_matrix.py:570(<genexpr>)
+1,0.000,0.000,0.000,0.000,{built-in method builtins.compile}
+Next Entry
+
