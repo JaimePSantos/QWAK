@@ -45,6 +45,8 @@ def plot_qwak(
         legend_title_font_size=None,
         tick_font_size=None,
         cbar_label_font_size=None,
+        use_grid=False,
+        marker_list=None,
         **kwargs):
     """
     Plots data from a matrix of x values and a matrix of y values.
@@ -141,6 +143,8 @@ def plot_qwak(
     x_lim = kwargs.get('x_lim', x_lim)
     v_line_list_index = kwargs.get(
         'v_line_list_index', v_line_list_index)
+    use_grid = kwargs.get('use_grid', use_grid)
+    marker_list = kwargs.get('marker_list', marker_list)
 
     if not isinstance(
             x_value_matrix[0],
@@ -163,6 +167,9 @@ def plot_qwak(
     fig, ax = plt.subplots(figsize=figsize)
     if use_loglog:
         ax.loglog()
+    if use_grid:
+        ax.grid(True)
+
     axis_matrix_counter = 0
     color_matrix_counter = 0
     for xvalues, yvalues in zip(x_value_matrix, y_value_matrix):
@@ -173,10 +180,12 @@ def plot_qwak(
             color = color_list[axis_matrix_counter]
         if line_style_list is not None:
             line_style = line_style_list[axis_matrix_counter]
+        if marker_list is not None:
+            marker = marker_list[axis_matrix_counter] 
         if legend_labels is not None:
             label = legend_labels[axis_matrix_counter]
         ax.plot(xvalues, yvalues, label=label,
-                color=color, linestyle=line_style)
+                color=color, linestyle=line_style, marker=marker)
         if v_line_values is not None and axis_matrix_counter == v_line_list_index:
             if v_line_colors is None:
                 v_line_colors = ['k'] * len(v_line_values)
