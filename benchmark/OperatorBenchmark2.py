@@ -2,20 +2,13 @@ import networkx as nx
 from scipy import linalg as ln
 import numpy as np
 
-from Profiler import profile
 from qwak.Operator import Operator
-
-linesToPrint = 15
-sortBy = "tottime"
-outPath = "operator/"
-stripDirs = True
-csv = True
-
 
 class OperatorBenchmark2:
     def __init__(
         self,
-        graph
+        graph,
+        eigen=False,
     ) -> None:
         """_summary_
 
@@ -36,8 +29,8 @@ class OperatorBenchmark2:
         self._adjacencyMatrix = np.asarray(
             nx.laplacian_matrix(graph).todense().astype(complex))
         self._eigenvalues, self._eigenvectors = np.linalg.eigh(
-            self._adjacencyMatrix
-        )
+                self._adjacencyMatrix
+            )
 
     def buildDiagonalOperatorEig(
             self,
@@ -68,6 +61,16 @@ class OperatorBenchmark2:
         )
 
     def buildSlowDiagonalOperator(
+            self,
+            graph: nx.Graph,
+            laplacian: bool = False,
+            markedSearch=None,
+            time: float = 0) -> None:
+        self._adjacencyMatrix = np.asarray(
+             nx.laplacian_matrix(graph).todense().astype(complex))
+        self.slowperator = ln.expm(-1j * self._adjacencyMatrix * time)
+
+    def buildSlowDiagonalOperatorNoAdj(
             self,
             graph: nx.Graph,
             laplacian: bool = False,
