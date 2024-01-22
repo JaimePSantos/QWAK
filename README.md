@@ -14,6 +14,7 @@ Additionally, a fullstack web app built with Flask and PyMongo is available on [
 ## Funding
 
 This work is financed by National Funds through the Portuguese funding agency, FCT - Fundação para a Ciência e a Tecnologia, within project UIDB/50014/2020.
+The project was also partially supported by Next Generation EU, in the context of the National Recovery and Resilience Plan, M4C2 investment 1.2. Project SOE0000098-ThermoQT.
 
 <div style="display: flex; flex-direction: row;vertical-align: center;justify-content: center">
 
