@@ -1,9 +1,10 @@
 class Error(BaseException):
     def __init__(self, error_name: str, details: str):
-        """Initialize the error instance with error name and details
+        """
+        Base class for custom exceptions in the application.
 
-        Parameters
-        ----------
+        Attributes:
+        -----------
         error_name : str
             Name of the error.
         details : str
@@ -27,6 +28,7 @@ class StateOutOfBounds(Error):
     def __init__(self, details: str) -> None:
         """This exception is raised when the state is out of the expected bounds.
         Initialize the error instance with error name and details.
+        Inherits from Error class.
 
         Parameters
         ----------

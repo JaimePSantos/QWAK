@@ -108,7 +108,6 @@ class StochasticOperator(object):
                 for j in range(self.n)
                 if self._laplacian[i, j] > 0
             ]
-            # transition matrix to the sink
             S = np.zeros([self.n + 1, self.n + 1])
             S[self.n, self._sinkNode] = np.sqrt(2 * self._sinkRate)
             L.append(Qobj(S))

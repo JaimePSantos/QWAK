@@ -52,11 +52,6 @@ class StochasticQuantumWalk(object):
         opts : _type_, optional
             _description_, by default Options(store_states=True, store_final_state=True)
         """
-        # TODO: Can we move the time dependency to the StochasticOperator class?
-        # TODO: Can we make the time evolution low cost?
-        # TODO: Is there a way to obtain amplitudes?
-        # TODO: The final state is a of the Qobj class. Find a way to
-        # make it State class.
         self._time = np.arange(0, time + 1)
         if self._operator.getSinkNode() is not None:
             self._initQutipState = Qobj(
@@ -70,8 +65,6 @@ class StochasticQuantumWalk(object):
             observables,
             options=opts,
         ).final_state.full()
-        # if you want the full list of states, keep option store_states=True and instead
-        # of final_state.full() use states.full()
 
     def getFinalState(self) -> Qobj:
         """_summary_

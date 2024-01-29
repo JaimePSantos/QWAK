@@ -11,7 +11,6 @@ class StochasticProbabilityDistribution(object):
         _description_
     """
 
-    # TODO: Figure out why we need the object.
     def __init__(self, state: Qobj) -> None:
         """_summary_
 

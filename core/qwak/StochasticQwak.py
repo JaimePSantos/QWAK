@@ -94,7 +94,6 @@ class StochasticQWAK:
         nUErr
             _description_
         """
-        # TODO: Move the constructors to the constructor method.
         try:
             self._initState.buildState(
                 nodeList=initStateList, customStateList=customStateList
