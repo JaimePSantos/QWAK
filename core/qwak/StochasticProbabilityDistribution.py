@@ -18,7 +18,7 @@ class StochasticProbabilityDistribution(object):
         self._n = state.getDim()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self, state=None) -> None:
+    def buildProbDist(self, state: Qobj = None) -> None:
         """ Builds or updates the probability distribution of the system based on the given quantum state.
 
         Parameters
@@ -41,7 +41,7 @@ class StochasticProbabilityDistribution(object):
          """
         return self._probVec.flatten()
 
-    def setProbVec(self, newFinalState) -> None:
+    def setProbVec(self, newFinalState: np.ndarray) -> None:
         """Sets a new final state for the probability distribution.
 
          Parameters
