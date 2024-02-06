@@ -26,50 +26,8 @@ class ProbabilityDistribution:
         self._n = state.getDim()
         self._probVec = np.zeros(self._n, dtype=float)
 
-    def to_json(self) -> str:
-        """
-            Converts the ProbabilityDistribution object to a JSON string.
-
-        Returns
-        -------
-        str
-            JSON string of the ProbabilityDistribution object.
-        """
-        return json.dumps({
-            'state': json.loads(self._state.to_json()),
-            'dim': self._n,
-            'prob_vec': self._probVec.tolist()
-        })
-
-    @classmethod
-    def from_json(cls,
-                  json_var: Union[str,
-                                  dict]) -> ProbabilityDistribution:
-        """Converts a JSON string to a ProbabilityDistribution object.
-
-        Parameters
-        ----------
-        json_var : Union[str, dict]
-            JSON string or dictionary to be converted to a ProbabilityDistribution object.
-
-        Returns
-        -------
-        ProbabilityDistribution
-            ProbabilityDistribution object converted from JSON.
-        """
-        if isinstance(json_var, str):
-            json_dict = json.loads(json_var)
-        elif isinstance(json_var, dict):
-            json_dict = json_var
-        state = State.from_json(json_dict['state'])
-        prob_vec = np.array(json_dict['prob_vec'])
-        probDist = cls(state)
-        probDist.setProbVec(prob_vec)
-        return probDist
-
     def resetProbDist(self) -> None:
         """Resets the ProbabilityDistribution object."""
-        # TODO: Rethink state attribute
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
         self._probVec = np.zeros(self._n, dtype=float)
 
@@ -269,6 +227,47 @@ class ProbabilityDistribution:
             Probability of the searched node.
         """
         return self._probVec.item(searchNode)
+
+    def to_json(self) -> str:
+        """
+            Converts the ProbabilityDistribution object to a JSON string.
+
+        Returns
+        -------
+        str
+            JSON string of the ProbabilityDistribution object.
+        """
+        return json.dumps({
+            'state': json.loads(self._state.to_json()),
+            'dim': self._n,
+            'prob_vec': self._probVec.tolist()
+        })
+
+    @classmethod
+    def from_json(cls,
+                  json_var: Union[str,
+                                  dict]) -> ProbabilityDistribution:
+        """Converts a JSON string to a ProbabilityDistribution object.
+
+        Parameters
+        ----------
+        json_var : Union[str, dict]
+            JSON string or dictionary to be converted to a ProbabilityDistribution object.
+
+        Returns
+        -------
+        ProbabilityDistribution
+            ProbabilityDistribution object converted from JSON.
+        """
+        if isinstance(json_var, str):
+            json_dict = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            json_dict = json_var
+        state = State.from_json(json_dict['state'])
+        prob_vec = np.array(json_dict['prob_vec'])
+        probDist = cls(state)
+        probDist.setProbVec(prob_vec)
+        return probDist
     def __str__(self) -> str:
         """String representation of the ProbabilityDistribution object.
 

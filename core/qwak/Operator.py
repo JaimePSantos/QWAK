@@ -242,11 +242,9 @@ class Operator:
         self._n = newDim
         self._operator = np.zeros((self._n, self._n), dtype=complex)
         self._graph = graph
-        #TODO: We might need to make a laplacian check here.
         self._hamiltonian = (
             nx.adjacency_matrix(self._graph).todense().astype(complex)
         )
-        #TODO: This function and setAdjacencyMatrix need to be reworked.
         self._adjacency = self._hamiltonian
         self.setAdjacencyMatrix(self._hamiltonian)
 
@@ -290,8 +288,6 @@ class Operator:
         adjacencyMatrix : np.ndarray
             New adjacency matrix.
         """
-        #TODO: Laplacian check here aswell.
-        #TODO: Inconsistentcy with adjaceny matrix.
         self._hamiltonian = adjacencyMatrix.astype(complex)
         self._adjacency = self._hamiltonian
         self._n = len(self._hamiltonian)
@@ -372,7 +368,6 @@ class Operator:
         Float/Bool
             Either returns the time value of PST or False.
         """
-        # TODO: Check if numpy is faster for eigenvecs and vals.
         try:
             nodeA = int(nodeA)
             nodeB = int(nodeB)
@@ -533,19 +528,4 @@ class Operator:
                f"Time: {self._time}\n" \
                f"Graph: {nx.to_dict_of_dicts(self._graph)}\n" \
                f"Operator:\n\t{self._operator}"
-
-    # def transportEfficiency(self,initState):
-    #     """
-    #     Under Construction.
-    #     @param initState:
-    #     @return:
-    #     """
-    #     ef = 0
-    #     print(f"init: {initState}")
-    #     print(f"Eigenvectors {self._eigenvectors}")
-    #     for i in range(len(self._eigenvectors)):
-    #         eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()
-    #         ef += np.absolute(np.matmul(eigenVec,initState))**2
-    #         print(f"eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n")
-    #     return ef
     

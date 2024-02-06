@@ -7,7 +7,6 @@ from qwak.State import State
 
 
 class StochasticQuantumWalk(object):
-    """_summary_"""
 
     def __init__(
             self,
@@ -37,26 +36,21 @@ class StochasticQuantumWalk(object):
 
     def buildWalk(
         self,
-        time,
-        observables=[],
-        opts=Options(store_states=True, store_final_state=True),
+        time: float,
+        observables: list = [],
+        opts: Options = Options(store_states=True, store_final_state=True)
     ) -> None:
-        """_summary_
+        """Constructs the quantum walk over a specified time frame.
 
         Parameters
         ----------
-        time : _type_
-            _description_
+        time : float
+            The time over which the walk is to be simulated.
         observables : list, optional
-            _description_, by default []
-        opts : _type_, optional
-            _description_, by default Options(store_states=True, store_final_state=True)
+            A list of observables to monitor during the walk. Defaults to an empty list.
+        opts : Options, optional
+            QuTiP options for the simulation. Defaults to storing states and the final state.
         """
-        # TODO: Can we move the time dependency to the StochasticOperator class?
-        # TODO: Can we make the time evolution low cost?
-        # TODO: Is there a way to obtain amplitudes?
-        # TODO: The final state is a of the Qobj class. Find a way to
-        # make it State class.
         self._time = np.arange(0, time + 1)
         if self._operator.getSinkNode() is not None:
             self._initQutipState = Qobj(
@@ -70,35 +64,33 @@ class StochasticQuantumWalk(object):
             observables,
             options=opts,
         ).final_state.full()
-        # if you want the full list of states, keep option store_states=True and instead
-        # of final_state.full() use states.full()
 
     def getFinalState(self) -> Qobj:
-        """_summary_
+        """Returns the final quantum state after the completion of the walk.
 
         Returns
         -------
         Qobj
-            _description_
+            The final state of the quantum walk.
         """
         return self._finalState
 
-    def setFinalState(self, newFinalState) -> None:
-        """_summary_
+    def setFinalState(self, newFinalState: Qobj) -> None:
+        """Sets a new final state for the quantum walk.
 
         Parameters
         ----------
-        newFinalState : _type_
-            _description_
+        newFinalState : Qobj
+            The new final state to be set for the quantum walk.
         """
         self._finalState = newFinalState
 
     def getDim(self) -> int:
-        """_summary_
+        """Returns the dimension of the quantum walk's state space.
 
         Returns
         -------
         int
-            _description_
+            The dimension of the quantum walk.
         """
         return self._n
