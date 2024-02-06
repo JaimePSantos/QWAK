@@ -12,6 +12,14 @@ qwak.Errors module
    :undoc-members:
    :show-inheritance:
 
+qwak.GraphicalQWAK module
+-------------------------
+
+.. automodule:: qwak.GraphicalQWAK
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 qwak.Operator module
 --------------------
 
@@ -40,14 +48,6 @@ qwak.State module
 -----------------
 
 .. automodule:: qwak.State
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-qwak.qwak module
-----------------
-
-.. automodule:: qwak.qwak
    :members:
    :undoc-members:
    :show-inheritance:
@@ -84,10 +84,10 @@ qwak.StochasticQwak module
    :undoc-members:
    :show-inheritance:
 
-qwak.GraphicalQWAK module
--------------------------
+qwak.qwak module
+----------------
 
-.. automodule:: qwak.GraphicalQWAK
+.. automodule:: qwak.qwak
    :members:
    :undoc-members:
    :show-inheritance:

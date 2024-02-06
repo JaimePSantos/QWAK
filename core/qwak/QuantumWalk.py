@@ -248,6 +248,6 @@ class QuantumWalk:
             String of the ProbabilityDistribution object.
         """
         return f"N: {self._n}\n" \
-               f"Init State:\n\t {self._initState}\n" \
-               f"Operator:\n\t{self._operator}\n"\
-               f"Final State:\n\t{self._finalState}"
+            f"Init State:\n\t {self._initState}\n" \
+            f"Operator:\n\t{self._operator}\n"\
+            f"Final State:\n\t{self._finalState}"

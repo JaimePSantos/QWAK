@@ -82,9 +82,8 @@ class State:
             Out of bounds exception.
         """
         if node >= self._n:
-            raise StateOutOfBounds(
-                f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}])."
-            )
+            raise StateOutOfBounds(f"State {node} is out of bounds for system of size {
+                self._n} ([0-{self._n - 1}]).")
 
     def _checkUnitaryStateList(self, customStateList) -> None:
         """Checks if the sum of the square of the amplitudes is 1.
@@ -105,8 +104,7 @@ class State:
         unitaryState = round(unitaryState, 5)
         if unitaryState != float(1):
             raise NonUnitaryState(
-                f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1."
-            )
+                f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1.")
 
     def herm(self) -> np.ndarray:
         """Returns the Hermitian conjugate of the state vector.
@@ -330,6 +328,6 @@ class State:
             State string.
         """
         return f"N: {self._n}\n" \
-               f"Node list: {self._nodeList}\n" \
-               f"Custom Node list: {self._customStateList}\n" \
-               f"State:\n\t{self._stateVec}"
+            f"Node list: {self._nodeList}\n" \
+            f"Custom Node list: {self._customStateList}\n" \
+            f"State:\n\t{self._stateVec}"

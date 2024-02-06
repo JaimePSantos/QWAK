@@ -38,8 +38,9 @@ class StochasticQuantumWalk(object):
         self,
         time: float,
         observables: list = [],
-        opts: Options = Options(store_states=True, store_final_state=True)
-    ) -> None:
+        opts: Options = Options(
+            store_states=True,
+            store_final_state=True)) -> None:
         """Constructs the quantum walk over a specified time frame.
 
         Parameters

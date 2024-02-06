@@ -194,7 +194,9 @@ class GraphicalQWAK:
         try:
             # self._staticQWAK.resetWalk()
             self._staticQWAK.runWalk(
-                time=self._staticTime,gamma=self._staticGamma,initStateList=self._staticStateList)
+                time=self._staticTime,
+                gamma=self._staticGamma,
+                initStateList=self._staticStateList)
             self._staticProbDist = self._staticQWAK.getProbDist()
             qwProbVec = self._staticProbDist.getProbVec().tolist()
             return [False, qwProbVec]

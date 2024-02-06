@@ -10,7 +10,7 @@ class StochasticOperator(object):
     def __init__(
             self,
             graph: nx.Graph,
-            noiseParam: float =None,
+            noiseParam: float = None,
             sinkNode: int = None,
             sinkRate: float = None) -> None:
         """
