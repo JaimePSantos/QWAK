@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>utils.PerfectStateTransfer - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
@@ -180,7 +180,7 @@
   <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -233,8 +233,10 @@
 <span class="kn">from</span> <span class="nn">sympy</span> <span class="kn">import</span> <span class="n">gcd</span><span class="p">,</span> <span class="n">div</span><span class="p">,</span> <span class="n">Float</span>
 
 
-<div class="viewcode-block" id="isStrCospec"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.isStrCospec">[docs]</a><span class="k">def</span> <span class="nf">isStrCospec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;For a graph to have PST it needs to obey numerous rules and the first one is that the vertices with PST must be</span>
+<div class="viewcode-block" id="isStrCospec">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.isStrCospec">[docs]</a>
+<span class="k">def</span> <span class="nf">isStrCospec</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;For a graph to have PST it needs to obey numerous rules and the first one is that the vertices with PST must be</span>
 <span class="sd">    strongly cospectral. Two vertices a and b are strong cospectral if the characteristic polynomial of the matrix Ma, that has</span>
 <span class="sd">    the colum and row a removed, is equal to the characteristic polynomial of the matrix Mb, that has the column and row b</span>
 <span class="sd">    removed. This is easily checked using SymPy and it is what the function StrCospec does.</span>
@@ -268,8 +270,11 @@
         <span class="k">return</span> <span class="kc">True</span></div>
 
 
-<div class="viewcode-block" id="isSimplePoles"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.isSimplePoles">[docs]</a><span class="k">def</span> <span class="nf">isSimplePoles</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">phiab</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The second condition for strong cospectral is that the poles of phiab/phi must be simple. This is trickier to check and</span>
+
+<div class="viewcode-block" id="isSimplePoles">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.isSimplePoles">[docs]</a>
+<span class="k">def</span> <span class="nf">isSimplePoles</span><span class="p">(</span><span class="n">phi</span><span class="p">,</span> <span class="n">phiab</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The second condition for strong cospectral is that the poles of phiab/phi must be simple. This is trickier to check and</span>
 <span class="sd">    it starts by defning a polynomial g(x)=gcd(phi,phiab). Then, there will be no poles if f(x) = phi/g(x) is a polynomial</span>
 <span class="sd">    without repeated roots. This occurs when gcd(f(x),f&#39;(x)) is a constant, then we only need to check the coeeficients and</span>
 <span class="sd">    see if all of them is zero except the last one. This is done by the function SimplePoles.</span>
@@ -298,8 +303,11 @@
     <span class="k">return</span> <span class="kc">True</span></div>
 
 
-<div class="viewcode-block" id="sieveEratosthenes"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.sieveEratosthenes">[docs]</a><span class="k">def</span> <span class="nf">sieveEratosthenes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;One of the steps requires that we find square-free numbers, that is, numbers that have a prime decomposition with all</span>
+
+<div class="viewcode-block" id="sieveEratosthenes">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.sieveEratosthenes">[docs]</a>
+<span class="k">def</span> <span class="nf">sieveEratosthenes</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;One of the steps requires that we find square-free numbers, that is, numbers that have a prime decomposition with all</span>
 <span class="sd">    primes being unique. Fist we use the Sieve of Eratosthenes, and the corresponding function, to find all primes from 1 to n.</span>
 <span class="sd">    It works by choosing the first prime in the list, in this case 2, then squareing it and removing all its multiples from the</span>
 <span class="sd">    list. The algorithm then choose the next prime and does the same procedure. At the end, we have a list with True at position</span>
@@ -323,8 +331,11 @@
     <span class="k">return</span> <span class="n">isPrime</span></div>
 
 
-<div class="viewcode-block" id="getSquareFree"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getSquareFree">[docs]</a><span class="k">def</span> <span class="nf">getSquareFree</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;The function SquareFree gives a list of square-free number from 1 to n in a similar way that we found all primes. The</span>
+
+<div class="viewcode-block" id="getSquareFree">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getSquareFree">[docs]</a>
+<span class="k">def</span> <span class="nf">getSquareFree</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The function SquareFree gives a list of square-free number from 1 to n in a similar way that we found all primes. The</span>
 <span class="sd">    algorithm get the list of primes from 1 to n, then it start a loop of integers from 2 to n, when i is prime the algorithm</span>
 <span class="sd">    associates False to all multiples of i^2. It returns a list with True (False) in the entry i if i-1 is (not) square free.</span>
 
@@ -351,35 +362,40 @@
     <span class="k">return</span> <span class="n">sqrFreeList</span></div>
 
 
-<div class="viewcode-block" id="getEigenSupp"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getEigenSupp">[docs]</a><span class="k">def</span> <span class="nf">getEigenSupp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">eigenvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;EigenSupp is responsible for getting the eigenvalue support of the vertice a. The eigenvalue support of the vertice a is</span>
-<span class="sd">    all the eigenvalues such that Er a != 0, where a is vector with 1 in the a-th entry and zero in all others and Er is the</span>
-<span class="sd">    projection matrix of the eigenvalue r. It returns a list with all those eigenavlues. This is one of the conditions for PST,</span>
-<span class="sd">    because we do not need to check for eigenvalues that are not in the eigenvalue support.</span>
+<div class="viewcode-block" id="getEigenSupp">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getEigenSupp">[docs]</a>
+<span class="k">def</span> <span class="nf">getEigenSupp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">eigenvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the eigenvalue support of the vertex a.</span>
+
+<span class="sd">    The eigenvalue support of the vertex a is the set of all eigenvalues such that</span>
+<span class="sd">    the projection matrix of the eigenvalue r applied to the vector with 1 in the a-th</span>
+<span class="sd">    entry and zero in all others is not zero.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    a : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    eigenvec : _type_</span>
-<span class="sd">        _description_</span>
-<span class="sd">    eigenval : _type_</span>
-<span class="sd">        _description_</span>
+<span class="sd">    a : int</span>
+<span class="sd">        The index of the vertex.</span>
+<span class="sd">    eigenvec : numpy.ndarray</span>
+<span class="sd">        The eigenvectors of the graph.</span>
+<span class="sd">    eigenval : numpy.ndarray</span>
+<span class="sd">        The eigenvalues of the graph.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    _type_</span>
-<span class="sd">        _description_</span>
+<span class="sd">    list</span>
+<span class="sd">        The eigenvalues in the eigenvalue support of the vertex a.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">supp</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">eigenval</span><span class="p">)):</span>
-        <span class="k">if</span> <span class="n">eigenvec</span><span class="o">.</span><span class="n">col</span><span class="p">(</span><span class="n">i</span><span class="p">)[</span><span class="n">a</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">supp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eigenval</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">eigenvec</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">i</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mf">1e-10</span><span class="p">:</span>
+            <span class="n">supp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">eigenval</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="mi">5</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">supp</span></div>
 
 
-<div class="viewcode-block" id="checkRoots"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.checkRoots">[docs]</a><span class="k">def</span> <span class="nf">checkRoots</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">eigenvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;CheckRoots is responsible for checking the second condition for PST which is that all eigenvalues is the eigenvalue support</span>
+<div class="viewcode-block" id="checkRoots">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.checkRoots">[docs]</a>
+<span class="k">def</span> <span class="nf">checkRoots</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">eigenvec</span><span class="p">,</span> <span class="n">eigenval</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;CheckRoots is responsible for checking the second condition for PST which is that all eigenvalues is the eigenvalue support</span>
 <span class="sd">    of a must be all integers or all quadratic integers with the format p+qr*Sqrt(delta)/2, with qr changing from eigenvalue to</span>
 <span class="sd">    to eigenvalue. The frist step is to define h(x) = phi/gcd(phi,phia) that have all its roots in the eigenvalue support of a,</span>
 <span class="sd">    then its degree k will be crucial.</span>
@@ -429,6 +445,7 @@
     <span class="k">for</span> <span class="n">deltaS</span> <span class="ow">in</span> <span class="n">sqrtFreeInt</span><span class="p">:</span>
         <span class="n">q</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">while</span> <span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">deltaS</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">sqrt</span><span class="p">(</span><span class="nb">int</span><span class="p">(((</span><span class="n">A</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">trace</span><span class="p">()))):</span>
+            <span class="c1"># print(f&#39;\np + q * sqrt(deltaS) / 2 = {Float(p + q * sqrt(deltaS) / 2, 3)}\nsupp = {supp}\nCondition: {Float(p + q * sqrt(deltaS) / 2, 3) in supp}\n&#39;)</span>
             <span class="k">if</span> <span class="p">(</span>
                 <span class="n">h</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">deltaS</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
                 <span class="ow">and</span> <span class="n">Float</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="n">q</span> <span class="o">*</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">deltaS</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="ow">in</span> <span class="n">supp</span>
@@ -436,7 +453,7 @@
                 <span class="n">quadRoots</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="n">deltaTmp</span> <span class="o">=</span> <span class="n">deltaS</span>
             <span class="n">q</span> <span class="o">+=</span> <span class="mi">1</span>
-
+    <span class="c1"># print(quadRoots &lt; k, intRoots &lt; k)</span>
     <span class="k">if</span> <span class="n">quadRoots</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">delta</span> <span class="o">=</span> <span class="n">deltaTmp</span>
     <span class="k">if</span> <span class="n">quadRoots</span> <span class="o">&lt;</span> <span class="n">k</span> <span class="ow">and</span> <span class="n">intRoots</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">:</span>
@@ -447,12 +464,16 @@
 
     <span class="n">g</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">diff</span> <span class="ow">in</span> <span class="n">diffs</span><span class="p">:</span>
-        <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">diff</span><span class="p">)</span>
+        <span class="c1"># print(f&#39;g = {g}, diff = {diff}&#39;)</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">Float</span><span class="p">(</span><span class="n">g</span><span class="p">),</span> <span class="n">Float</span><span class="p">(</span><span class="n">diff</span><span class="p">))</span>
     <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">delta</span></div>
 
 
-<div class="viewcode-block" id="swapNodes"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.swapNodes">[docs]</a><span class="k">def</span> <span class="nf">swapNodes</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="swapNodes">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.swapNodes">[docs]</a>
+<span class="k">def</span> <span class="nf">swapNodes</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_summary_</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -472,8 +493,11 @@
     <span class="k">return</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span></div>
 
 
-<div class="viewcode-block" id="getEigenVal"><a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getEigenVal">[docs]</a><span class="k">def</span> <span class="nf">getEigenVal</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="getEigenVal">
+<a class="viewcode-back" href="../../utils.html#utils.PerfectStateTransfer.getEigenVal">[docs]</a>
+<span class="k">def</span> <span class="nf">getEigenVal</span><span class="p">(</span><span class="n">D</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;_summary_</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -492,6 +516,7 @@
             <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">eigenVal</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">eigenVal</span></div>
+
 </pre></div>
         </article>
       </div>
@@ -512,9 +537,7 @@
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -526,14 +549,12 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/scripts/furo.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
+</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/responsiveSvg.js"></script>
     </body>
 </html>

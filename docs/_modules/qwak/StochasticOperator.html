@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" data-content_root="../../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>qwak.StochasticOperator - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
@@ -180,7 +180,7 @@
   <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -234,37 +234,36 @@
 <span class="kn">from</span> <span class="nn">qutip</span> <span class="kn">import</span> <span class="n">Qobj</span><span class="p">,</span> <span class="n">basis</span>
 
 
-<div class="viewcode-block" id="StochasticOperator"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator">[docs]</a><span class="k">class</span> <span class="nc">StochasticOperator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Stochastic quantum walker on QuTip.</span>
-<span class="sd">    Class containing an open quantum system described by a Lindblad equation obtained from the adjacency matrix.</span>
-
-<span class="sd">    Theoretical model:</span>
-<span class="sd">    Whitfield, J. D., Rodríguez-Rosario, C. A., &amp; Aspuru-Guzik, A. (2010).</span>
-<span class="sd">    Quantum stochastic walks: A generalization of classical random walks and quantum walks.</span>
-<span class="sd">    Physical Review A, 81(2), 022323.</span>
-
-<span class="sd">    @author: Lorenzo Buffoni</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<div class="viewcode-block" id="StochasticOperator">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator">[docs]</a>
+<span class="k">class</span> <span class="nc">StochasticOperator</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
-            <span class="n">graph</span><span class="p">,</span>
-            <span class="n">noiseParam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">sinkNode</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-            <span class="n">sinkRate</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+            <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
+            <span class="n">noiseParam</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">sinkNode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">sinkRate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stochastic quantum walker on QuTip.</span>
+<span class="sd">        Class containing an open quantum system described by a Lindblad equation obtained from the adjacency matrix.</span>
+
+<span class="sd">        Theoretical model:</span>
+<span class="sd">        Whitfield, J. D. et al.</span>
+<span class="sd">        Quantum stochastic walks: A generalization of classical random walks and quantum walks.</span>
+
+<span class="sd">        @author: Lorenzo Buffoni</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        graph : _type_</span>
-<span class="sd">            _description_</span>
-<span class="sd">        noiseParam : _type_, optional</span>
-<span class="sd">            _description_, by default None</span>
-<span class="sd">        sinkNode : _type_, optional</span>
-<span class="sd">            _description_, by default None</span>
-<span class="sd">        sinkRate : _type_, optional</span>
-<span class="sd">            _description_, by default None</span>
+<span class="sd">        graph : networkx.Graph</span>
+<span class="sd">            The graph representing the quantum walk space.</span>
+<span class="sd">        noiseParam : float, optional</span>
+<span class="sd">            The noise parameter controlling the quantum-classical mix (default is 0 for a fully quantum system).</span>
+<span class="sd">        sinkNode : int, optional</span>
+<span class="sd">            The index of the sink node in the graph (default is None, indicating no sink node).</span>
+<span class="sd">        sinkRate : float, optional</span>
+<span class="sd">            The rate at which probability is transferred to the sink node (default is 1).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span>
@@ -284,22 +283,25 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="p">[]</span>
 
-<div class="viewcode-block" id="StochasticOperator.buildStochasticOperator"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.buildStochasticOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildStochasticOperator</span><span class="p">(</span>
+<div class="viewcode-block" id="StochasticOperator.buildStochasticOperator">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.buildStochasticOperator">[docs]</a>
+    <span class="k">def</span> <span class="nf">buildStochasticOperator</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">noiseParam</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">sinkNode</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">sinkRate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix</span>
 <span class="sd">        and other parameters.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        noiseParam : float, optional</span>
-<span class="sd">            Parameter controlling the &#39;quantumness&#39; of the system (0 is fully quantum, 1 is fully classical), by default None.</span>
+<span class="sd">            The noise parameter controlling the quantum-classical mix (default is 0 for a fully quantum system).</span>
 <span class="sd">        sinkNode : int, optional</span>
-<span class="sd">            _description_, by default None</span>
+<span class="sd">            The index of the sink node in the graph (default is None, indicating no sink node).</span>
 <span class="sd">        sinkRate : float, optional</span>
-<span class="sd">            If a sink is present the trasfer rate from the sink_node to the sink , by default None.</span>
+<span class="sd">            The rate at which probability is transferred to the sink node (default is 1).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">noiseParam</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_p</span> <span class="o">=</span> <span class="n">noiseParam</span>
@@ -310,14 +312,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildQuantumHamiltonian</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_buildClassicalHamiltonian</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="StochasticOperator._buildLaplacian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator._buildLaplacian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StochasticOperator._buildLaplacian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator._buildLaplacian">[docs]</a>
+    <span class="k">def</span> <span class="nf">_buildLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal method to build the Laplacian matrix from the adjacency matrix of the graph.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">degree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">flat</span>
         <span class="n">degree</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span> <span class="n">degree</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span> <span class="n">degree</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="StochasticOperator._buildQuantumHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator._buildQuantumHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StochasticOperator._buildQuantumHamiltonian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator._buildQuantumHamiltonian">[docs]</a>
+    <span class="k">def</span> <span class="nf">_buildQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal method to build the quantum Hamiltonian from the graph&#39;s adjacency matrix.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">H</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">(</span>
                 <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p</span><span class="p">)</span>
@@ -327,8 +339,13 @@
             <span class="n">H</span> <span class="o">=</span> <span class="n">Qobj</span><span class="p">((</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_p</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">H</span></div>
 
-<div class="viewcode-block" id="StochasticOperator._buildClassicalHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator._buildClassicalHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">_buildClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StochasticOperator._buildClassicalHamiltonian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator._buildClassicalHamiltonian">[docs]</a>
+    <span class="k">def</span> <span class="nf">_buildClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Internal method to build the classical Hamiltonian (Lindblad operators).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">L</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
@@ -337,7 +354,6 @@
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="p">]</span>
-            <span class="c1"># transition matrix to the sink</span>
             <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
             <span class="n">S</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkRate</span><span class="p">)</span>
             <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Qobj</span><span class="p">(</span><span class="n">S</span><span class="p">))</span>
@@ -351,75 +367,106 @@
             <span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="n">L</span></div>
 
-<div class="viewcode-block" id="StochasticOperator.getClassicalHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getClassicalHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">getClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="StochasticOperator.getClassicalHamiltonian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getClassicalHamiltonian">[docs]</a>
+    <span class="k">def</span> <span class="nf">getClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the classical Hamiltonian (Lindblad operators) of the system.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            _description_</span>
+<span class="sd">        list[Qobj]</span>
+<span class="sd">            A list of Qobj representing the Lindblad operators.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span></div>
 
-<div class="viewcode-block" id="StochasticOperator.setClassicalHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.setClassicalHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">setClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newClassicalHamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="StochasticOperator.setClassicalHamiltonian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.setClassicalHamiltonian">[docs]</a>
+    <span class="k">def</span> <span class="nf">setClassicalHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newClassicalHamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets a new classical Hamiltonian for the system.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        newClassicalHamiltonian : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        newClassicalHamiltonian : list of Qobj</span>
+<span class="sd">            The new list of Lindblad operators to set as the classical Hamiltonian.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="n">newClassicalHamiltonian</span></div>
 
-<div class="viewcode-block" id="StochasticOperator.getQuantumHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getQuantumHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">getQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qobj</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="StochasticOperator.getQuantumHamiltonian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getQuantumHamiltonian">[docs]</a>
+    <span class="k">def</span> <span class="nf">getQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Qobj</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the quantum Hamiltonian of the system.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Qobj</span>
-<span class="sd">            _description_</span>
+<span class="sd">            The quantum Hamiltonian as a QuTiP object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span></div>
 
-<div class="viewcode-block" id="StochasticOperator.setQuantumHamiltonian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.setQuantumHamiltonian">[docs]</a>    <span class="k">def</span> <span class="nf">setQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newQuantumHamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="StochasticOperator.setQuantumHamiltonian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.setQuantumHamiltonian">[docs]</a>
+    <span class="k">def</span> <span class="nf">setQuantumHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newQuantumHamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets a new quantum Hamiltonian for the system.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        newQuantumHamiltonian : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        newQuantumHamiltonian : Qobj</span>
+<span class="sd">            The new quantum Hamiltonian as a QuTiP object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_quantumHamiltonian</span> <span class="o">=</span> <span class="n">newQuantumHamiltonian</span></div>
 
-<div class="viewcode-block" id="StochasticOperator.setSinkNode"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.setSinkNode">[docs]</a>    <span class="k">def</span> <span class="nf">setSinkNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newSinkNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="StochasticOperator.setSinkNode">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.setSinkNode">[docs]</a>
+    <span class="k">def</span> <span class="nf">setSinkNode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newSinkNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets a new sink node for the system.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        newSinkNode : _type_</span>
-<span class="sd">            _description_</span>
+<span class="sd">        newSinkNode : int</span>
+<span class="sd">            The index of the new sink node in the graph.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="o">=</span> <span class="n">newSinkNode</span></div>
 
-<div class="viewcode-block" id="StochasticOperator.getSinkNode"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getSinkNode">[docs]</a>    <span class="k">def</span> <span class="nf">getSinkNode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="StochasticOperator.getSinkNode">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getSinkNode">[docs]</a>
+    <span class="k">def</span> <span class="nf">getSinkNode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the index of the current sink node in the graph.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        int</span>
-<span class="sd">            _description_</span>
+<span class="sd">            The index of the sink node.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span></div>
 
-<div class="viewcode-block" id="StochasticOperator.getLaplacian"><a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getLaplacian">[docs]</a>    <span class="k">def</span> <span class="nf">getLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;_summary_</span>
+
+<div class="viewcode-block" id="StochasticOperator.getLaplacian">
+<a class="viewcode-back" href="../../qwak.html#qwak.StochasticOperator.StochasticOperator.getLaplacian">[docs]</a>
+    <span class="k">def</span> <span class="nf">getLaplacian</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the Laplacian matrix of the graph.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
-<span class="sd">            _description_</span>
+<span class="sd">            The Laplacian matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span></div>
+</div>
+
 </pre></div>
         </article>
       </div>
@@ -440,9 +487,7 @@
             
           </div>
           <div class="right-details">
-            <div class="icons">
-              
-            </div>
+            
           </div>
         </div>
         
@@ -454,14 +499,12 @@
       
     </aside>
   </div>
-</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-    <script src="../../_static/jquery.js"></script>
-    <script src="../../_static/underscore.js"></script>
-    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../_static/doctools.js"></script>
-    <script src="../../_static/scripts/furo.js"></script>
-    <script src="../../_static/clipboard.min.js"></script>
-    <script src="../../_static/copybutton.js"></script>
+</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/responsiveSvg.js"></script>
     </body>
 </html>
