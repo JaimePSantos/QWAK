@@ -147,7 +147,7 @@ class StochasticQWAK:
         """
         return self._operator.getQuantumHamiltonian()
 
-    def getClassicalHamiltonian(self) -> list[Qobj]:
+    def getClassicalHamiltonian(self) -> list:
         """Retrieves the classical Hamiltonian (Lindblad operators) of the stochastic operator.
 
         Returns
