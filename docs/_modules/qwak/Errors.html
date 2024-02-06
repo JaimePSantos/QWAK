@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="../../">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>qwak.Errors - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
@@ -180,7 +180,7 @@
   <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -227,15 +227,12 @@
         </div>
         <article role="main">
           <h1>Source code for qwak.Errors</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="Error">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error">[docs]</a>
-<span></span><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+<div class="viewcode-block" id="Error"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error">[docs]</a><span></span><span class="k">class</span> <span class="nc">Error</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Base class for custom exceptions in the application.</span>
+        <span class="sd">&quot;&quot;&quot;Initialize the error instance with error name and details</span>
 
-<span class="sd">        Attributes:</span>
-<span class="sd">        -----------</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
 <span class="sd">        error_name : str</span>
 <span class="sd">            Name of the error.</span>
 <span class="sd">        details : str</span>
@@ -244,28 +241,21 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">error_name</span> <span class="o">=</span> <span class="n">error_name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">details</span> <span class="o">=</span> <span class="n">details</span>
 
-<div class="viewcode-block" id="Error.as_string">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error.as_string">[docs]</a>
-    <span class="k">def</span> <span class="nf">as_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return a string representation of the error message</span>
+<div class="viewcode-block" id="Error.as_string"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.Error.as_string">[docs]</a>    <span class="k">def</span> <span class="nf">as_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Return a string representation of the error message</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        str</span>
 <span class="sd">            String representation of the error message.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></div>
-</div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">error_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">details</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span></div></div>
 
 
-
-<div class="viewcode-block" id="StateOutOfBounds">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.StateOutOfBounds">[docs]</a>
-<span class="k">class</span> <span class="nc">StateOutOfBounds</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="StateOutOfBounds"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.StateOutOfBounds">[docs]</a><span class="k">class</span> <span class="nc">StateOutOfBounds</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This exception is raised when the state is out of the expected bounds.</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the state is out of the expected bounds.</span>
 <span class="sd">        Initialize the error instance with error name and details.</span>
-<span class="sd">        Inherits from Error class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -275,12 +265,9 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Condition out of bounds: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="NonUnitaryState">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.NonUnitaryState">[docs]</a>
-<span class="k">class</span> <span class="nc">NonUnitaryState</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="NonUnitaryState"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.NonUnitaryState">[docs]</a><span class="k">class</span> <span class="nc">NonUnitaryState</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This exception is raised when the state is not unitary.</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the state is not unitary.</span>
 <span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
@@ -291,12 +278,9 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;State is not unitary: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="UndefinedTimeList">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.UndefinedTimeList">[docs]</a>
-<span class="k">class</span> <span class="nc">UndefinedTimeList</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="UndefinedTimeList"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.UndefinedTimeList">[docs]</a><span class="k">class</span> <span class="nc">UndefinedTimeList</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This exception is raised when the time interval for multiple walks is undefined.</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the time interval for multiple walks is undefined.</span>
 <span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
@@ -307,12 +291,9 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Time interval for multiple walks is undefined: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="EmptyProbDistList">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.EmptyProbDistList">[docs]</a>
-<span class="k">class</span> <span class="nc">EmptyProbDistList</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="EmptyProbDistList"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.EmptyProbDistList">[docs]</a><span class="k">class</span> <span class="nc">EmptyProbDistList</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This exception is raised when the probability distribution list is empty.</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when the probability distribution list is empty.</span>
 <span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
@@ -323,12 +304,9 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Probability distribution list is empty: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="MissingNodeInput">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.MissingNodeInput">[docs]</a>
-<span class="k">class</span> <span class="nc">MissingNodeInput</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="MissingNodeInput"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.MissingNodeInput">[docs]</a><span class="k">class</span> <span class="nc">MissingNodeInput</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This exception is raised when input nodes are required but not provided.</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when input nodes are required but not provided.</span>
 <span class="sd">        Initialize the error instance with error name and details.</span>
 
 <span class="sd">        Parameters</span>
@@ -339,12 +317,9 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Input nodes required: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
 
 
-
-<div class="viewcode-block" id="MissingGraphInput">
-<a class="viewcode-back" href="../../qwak.html#qwak.Errors.MissingGraphInput">[docs]</a>
-<span class="k">class</span> <span class="nc">MissingGraphInput</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
+<div class="viewcode-block" id="MissingGraphInput"><a class="viewcode-back" href="../../qwak.html#qwak.Errors.MissingGraphInput">[docs]</a><span class="k">class</span> <span class="nc">MissingGraphInput</span><span class="p">(</span><span class="n">Error</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">details</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This exception is raised when a graph is required but not provided.</span>
+        <span class="sd">&quot;&quot;&quot;This exception is raised when a graph is required but not provided.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -352,7 +327,6 @@
 <span class="sd">            Additional details about the error.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Graph required: &quot;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span></div>
-
 </pre></div>
         </article>
       </div>
@@ -373,7 +347,9 @@
             
           </div>
           <div class="right-details">
-            
+            <div class="icons">
+              
+            </div>
           </div>
         </div>
         
@@ -385,12 +361,14 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
-    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../../_static/copybutton.js?v=f281be69"></script>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/responsiveSvg.js"></script>
     </body>
 </html>

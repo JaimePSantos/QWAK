@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="../../">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>qwak.QuantumWalk - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
@@ -180,7 +180,7 @@
   <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -232,7 +232,7 @@
 <span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">utils.jsonTools</span> <span class="kn">import</span> <span class="n">json_matrix_to_complex</span><span class="p">,</span> <span class="n">complex_matrix_to_json</span>
+<span class="kn">from</span> <span class="nn">utils.jsonMethods</span> <span class="kn">import</span> <span class="n">json_matrix_to_complex</span><span class="p">,</span> <span class="n">complex_matrix_to_json</span>
 
 <span class="kn">from</span> <span class="nn">qwak.Operator</span> <span class="kn">import</span> <span class="n">Operator</span>
 <span class="kn">from</span> <span class="nn">qwak.State</span> <span class="kn">import</span> <span class="n">State</span>
@@ -241,11 +241,9 @@
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="QuantumWalk">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk">[docs]</a>
-<span class="k">class</span> <span class="nc">QuantumWalk</span><span class="p">:</span>
+<div class="viewcode-block" id="QuantumWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk">[docs]</a><span class="k">class</span> <span class="nc">QuantumWalk</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="n">State</span><span class="p">,</span> <span class="n">operator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;This object is initialized with a user inputted initial state and</span>
+        <span class="sd">&quot;&quot;&quot;This object is initialized with a user inputted initial state and</span>
 <span class="sd">        operator.</span>
 <span class="sd">        The dimension of the quantum walk will then be loaded from the initial</span>
 <span class="sd">        state.</span>
@@ -265,207 +263,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">operator</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span>
 
-<div class="viewcode-block" id="QuantumWalk.buildWalk">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.buildWalk">[docs]</a>
-    <span class="k">def</span> <span class="nf">buildWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initState</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                  <span class="n">operator</span><span class="p">:</span> <span class="n">Operator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds the final state of the quantum walk by setting it to the matrix</span>
-<span class="sd">        multiplication of the operator by the initial state.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        initState : State, optional</span>
-<span class="sd">            Initial state which will be the basis of the time dependant evolution, by default None.</span>
-<span class="sd">        operator : Operator, optional</span>
-<span class="sd">            Operator which will evolve the initial state, by default None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">initState</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">initState</span>
-        <span class="k">if</span> <span class="n">operator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">operator</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setStateVec</span><span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getOperator</span><span class="p">(),</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()))</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.resetWalk">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.resetWalk">[docs]</a>
-    <span class="k">def</span> <span class="nf">resetWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets the components of the QuantumWalk object.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.setInitState">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setInitState">[docs]</a>
-    <span class="k">def</span> <span class="nf">setInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newInitState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the initial state of the quantum walk to a new user inputted one.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newInitState : State</span>
-<span class="sd">            New initial state for the quantum walk.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newInitState</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.getInitState">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getInitState">[docs]</a>
-    <span class="k">def</span> <span class="nf">getInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the initial state of the quantum walk.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        State</span>
-<span class="sd">            Initial state of the quantum walk.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.setDim">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setDim">[docs]</a>
-    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the current quantum walk dimension to a user defined one.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newDim : int</span>
-<span class="sd">            New QuantumWalk dimension.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.getDim">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getDim">[docs]</a>
-    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current state dimension.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            QuantumWalk dimension.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.setOperator">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setOperator">[docs]</a>
-    <span class="k">def</span> <span class="nf">setOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the current operator to a user defined one.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newOperator : Operator</span>
-<span class="sd">            New quantum walk operator.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setOperator</span><span class="p">(</span><span class="n">newOperator</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.getOperator">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getOperator">[docs]</a>
-    <span class="k">def</span> <span class="nf">getOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Operator</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current operator.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Operator</span>
-<span class="sd">            Current QuantumWalk Operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.setWalk">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setWalk">[docs]</a>
-    <span class="k">def</span> <span class="nf">setWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newWalk</span><span class="p">:</span> <span class="n">QuantumWalk</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets all the parameters of the current quantum walk to user defined ones.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newWalk : QuantumWalk</span>
-<span class="sd">            New quantum walk.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newWalk</span><span class="o">.</span><span class="n">getInitState</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setOperator</span><span class="p">(</span><span class="n">newWalk</span><span class="o">.</span><span class="n">getOperator</span><span class="p">())</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">())</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.getFinalState">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getFinalState">[docs]</a>
-    <span class="k">def</span> <span class="nf">getFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the final state of the QuantumWalk.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        State</span>
-<span class="sd">            Final state of the QuantumWalk.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.setFinalState">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setFinalState">[docs]</a>
-    <span class="k">def</span> <span class="nf">setFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the final state of the QuantumWalk.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        -------</span>
-<span class="sd">        finalState: State</span>
-<span class="sd">            Final state of the QuantumWalk.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newFinalState</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.getAmpVec">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getAmpVec">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAmpVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the vector of the final state amplitudes of the  QuantumWalk.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Vector of the final state.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.searchNodeAmplitude">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.searchNodeAmplitude">[docs]</a>
-    <span class="k">def</span> <span class="nf">searchNodeAmplitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searchNode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Searches and gets the amplitude associated with a given node.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        searchNode : int</span>
-<span class="sd">            User inputted node for the search.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        complex</span>
-<span class="sd">            Amplitude of the search node.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">searchNode</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.transportEfficiency">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.transportEfficiency">[docs]</a>
-    <span class="k">def</span> <span class="nf">transportEfficiency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculates the transport efficiency of the quantum walk.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        float</span>
-<span class="sd">            Transport efficiency of the quantum walk.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">herm</span><span class="p">())</span></div>
-
-
-<div class="viewcode-block" id="QuantumWalk.to_json">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.to_json">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Serializes the QuantumWalk object to JSON format.</span>
+<div class="viewcode-block" id="QuantumWalk.to_json"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Serializes the QuantumWalk object to JSON format.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -479,12 +278,9 @@
             <span class="s2">&quot;finalState&quot;</span><span class="p">:</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">to_json</span><span class="p">())</span>
         <span class="p">})</span></div>
 
-
-<div class="viewcode-block" id="QuantumWalk.from_json">
-<a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.from_json">[docs]</a>
-    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="QuantumWalk.from_json"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.from_json">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json_var</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QuantumWalk</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Deserializes a JSON string to a QuantumWalk object.</span>
+        <span class="sd">&quot;&quot;&quot;Deserializes a JSON string to a QuantumWalk object.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -507,9 +303,165 @@
         <span class="n">walk</span><span class="o">.</span><span class="n">setFinalState</span><span class="p">(</span><span class="n">finalState</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">walk</span></div>
 
+<div class="viewcode-block" id="QuantumWalk.buildWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.buildWalk">[docs]</a>    <span class="k">def</span> <span class="nf">buildWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initState</span><span class="p">:</span> <span class="n">State</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                  <span class="n">operator</span><span class="p">:</span> <span class="n">Operator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds the final state of the quantum walk by setting it to the matrix</span>
+<span class="sd">        multiplication of the operator by the initial state.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        initState : State, optional</span>
+<span class="sd">            Initial state which will be the basis of the time dependant evolution, by default None.</span>
+<span class="sd">        operator : Operator, optional</span>
+<span class="sd">            Operator which will evolve the initial state, by default None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Name of init state variable not in line with class init.</span>
+        <span class="k">if</span> <span class="n">initState</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span> <span class="o">=</span> <span class="n">initState</span>
+        <span class="k">if</span> <span class="n">operator</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">operator</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setStateVec</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">getOperator</span><span class="p">(),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()))</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.resetWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.resetWalk">[docs]</a>    <span class="k">def</span> <span class="nf">resetWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Resets the components of the QuantumWalk object.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.setInitState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setInitState">[docs]</a>    <span class="k">def</span> <span class="nf">setInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newInitState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the initial state of the quantum walk to a new user inputted one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newInitState : State</span>
+<span class="sd">            New initial state for the quantum walk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newInitState</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.getInitState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getInitState">[docs]</a>    <span class="k">def</span> <span class="nf">getInitState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the initial state of the quantum walk.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        State</span>
+<span class="sd">            Initial state of the quantum walk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current quantum walk dimension to a user defined one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newDim : int</span>
+<span class="sd">            New QuantumWalk dimension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setDim</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current state dimension.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            QuantumWalk dimension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.setOperator"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setOperator">[docs]</a>    <span class="k">def</span> <span class="nf">setOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current operator to a user defined one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newOperator : Operator</span>
+<span class="sd">            New quantum walk operator.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setOperator</span><span class="p">(</span><span class="n">newOperator</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.getOperator"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getOperator">[docs]</a>    <span class="k">def</span> <span class="nf">getOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Operator</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current operator.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Operator</span>
+<span class="sd">            Current QuantumWalk Operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.setWalk"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setWalk">[docs]</a>    <span class="k">def</span> <span class="nf">setWalk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newWalk</span><span class="p">:</span> <span class="n">QuantumWalk</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets all the parameters of the current quantum walk to user defined ones.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newWalk : QuantumWalk</span>
+<span class="sd">            New quantum walk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newWalk</span><span class="o">.</span><span class="n">getInitState</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="o">.</span><span class="n">setOperator</span><span class="p">(</span><span class="n">newWalk</span><span class="o">.</span><span class="n">getOperator</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newWalk</span><span class="o">.</span><span class="n">getFinalState</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.getFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">getFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">State</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the final state of the QuantumWalk.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        State</span>
+<span class="sd">            Final state of the QuantumWalk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.setFinalState"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.setFinalState">[docs]</a>    <span class="k">def</span> <span class="nf">setFinalState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newFinalState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the final state of the QuantumWalk.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        -------</span>
+<span class="sd">        finalState: State</span>
+<span class="sd">            Final state of the QuantumWalk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">setState</span><span class="p">(</span><span class="n">newFinalState</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.getAmpVec"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.getAmpVec">[docs]</a>    <span class="k">def</span> <span class="nf">getAmpVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the vector of the final state amplitudes of the  QuantumWalk.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Vector of the final state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: This function name is not in line with getFinalState.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.searchNodeAmplitude"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.searchNodeAmplitude">[docs]</a>    <span class="k">def</span> <span class="nf">searchNodeAmplitude</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">searchNode</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">complex</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Searches and gets the amplitude associated with a given node.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        searchNode : int</span>
+<span class="sd">            User inputted node for the search.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        complex</span>
+<span class="sd">            Amplitude of the search node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">searchNode</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="QuantumWalk.transportEfficiency"><a class="viewcode-back" href="../../qwak.html#qwak.QuantumWalk.QuantumWalk.transportEfficiency">[docs]</a>    <span class="k">def</span> <span class="nf">transportEfficiency</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Calculates the transport efficiency of the quantum walk.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            Transport efficiency of the quantum walk.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span> <span class="o">@</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">herm</span><span class="p">())</span></div>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;String representation of the StaticQuantumwalk class.</span>
+        <span class="sd">&quot;&quot;&quot;String representation of the StaticQuantumwalk class.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -519,7 +471,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representation of the ProbabilityDistribution object.</span>
+        <span class="sd">&quot;&quot;&quot;Representation of the ProbabilityDistribution object.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -527,10 +479,9 @@
 <span class="sd">            String of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;N: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;Init State:</span><span class="se">\n\t</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;Operator:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>\
-            <span class="sa">f</span><span class="s2">&quot;Final State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="si">}</span><span class="s2">&quot;</span></div>
-
+               <span class="sa">f</span><span class="s2">&quot;Init State:</span><span class="se">\n\t</span><span class="s2"> </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_initState</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;Operator:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>\
+               <span class="sa">f</span><span class="s2">&quot;Final State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_finalState</span><span class="si">}</span><span class="s2">&quot;</span></div>
 </pre></div>
         </article>
       </div>
@@ -551,7 +502,9 @@
             
           </div>
           <div class="right-details">
-            
+            <div class="icons">
+              
+            </div>
           </div>
         </div>
         
@@ -563,12 +516,14 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
-    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../../_static/copybutton.js?v=f281be69"></script>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/responsiveSvg.js"></script>
     </body>
 </html>

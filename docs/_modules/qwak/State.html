@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="../../">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>qwak.State - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
@@ -180,7 +180,7 @@
   <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -235,15 +235,13 @@
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">StateOutOfBounds</span><span class="p">,</span> <span class="n">NonUnitaryState</span>
-<span class="kn">from</span> <span class="nn">utils.jsonTools</span> <span class="kn">import</span> <span class="n">json_matrix_to_complex</span><span class="p">,</span> <span class="n">complex_matrix_to_json</span>
+<span class="kn">from</span> <span class="nn">utils.jsonMethods</span> <span class="kn">import</span> <span class="n">json_matrix_to_complex</span><span class="p">,</span> <span class="n">complex_matrix_to_json</span>
 
 
-<div class="viewcode-block" id="State">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State">[docs]</a>
-<span class="k">class</span> <span class="nc">State</span><span class="p">:</span>
+<div class="viewcode-block" id="State"><a class="viewcode-back" href="../../qwak.html#qwak.State.State">[docs]</a><span class="k">class</span> <span class="nc">State</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nodeList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">customStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Object is initialized with a mandatory user inputted dimension, an optional</span>
+        <span class="sd">&quot;&quot;&quot;Object is initialized with a mandatory user inputted dimension, an optional</span>
 <span class="sd">        stateList parameter which will be used to create the amplitudes for each node in the state</span>
 <span class="sd">        and an internal stateVec which will be a Numpy ndarray representing the column vector.</span>
 
@@ -267,220 +265,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span> <span class="o">=</span> <span class="n">customStateList</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
 
-<div class="viewcode-block" id="State.buildState">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.buildState">[docs]</a>
-    <span class="k">def</span> <span class="nf">buildState</span><span class="p">(</span>
-            <span class="bp">self</span><span class="p">,</span>
-            <span class="n">nodeList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="n">customStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds state vector from state list, by creating a balanced superposition of all</span>
-<span class="sd">        nodes in the nodeList.</span>
-<span class="sd">        This will be changed in the future to make nodeList make more sense.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        nodeList : list, optional</span>
-<span class="sd">            List containing what nodes will have uniform superposition in the state, by default None.</span>
-<span class="sd">        customStateList : list, optional</span>
-<span class="sd">            Custom amplitudes for the state, by default None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">nodeList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">nodeList</span>
-        <span class="k">if</span> <span class="n">customStateList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span> <span class="o">=</span> <span class="n">customStateList</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_checkUnitaryStateList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">customState</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_checkStateOutOfBounds</span><span class="p">(</span><span class="n">customState</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">[</span><span class="n">customState</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">customState</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">nodeAmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span><span class="p">))</span>
-            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_checkStateOutOfBounds</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">nodeAmp</span></div>
-
-
-<div class="viewcode-block" id="State._checkStateOutOfBounds">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State._checkStateOutOfBounds">[docs]</a>
-    <span class="k">def</span> <span class="nf">_checkStateOutOfBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if the state is out of bounds for the system.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        node : int</span>
-<span class="sd">            Node to check.</span>
-
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        StateOutOfBounds</span>
-<span class="sd">            Out of bounds exception.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">node</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="n">StateOutOfBounds</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;State </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2"> is out of bounds for system of size </span><span class="si">{</span>
-<span class="w">                </span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2"> ([0-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">]).&quot;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="State._checkUnitaryStateList">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State._checkUnitaryStateList">[docs]</a>
-    <span class="k">def</span> <span class="nf">_checkUnitaryStateList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customStateList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if the sum of the square of the amplitudes is 1.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        customStateList : list</span>
-<span class="sd">            Custom state list.</span>
-
-<span class="sd">        Raises</span>
-<span class="sd">        ------</span>
-<span class="sd">        NonUnitaryState</span>
-<span class="sd">            Non unitary state exception.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">unitaryState</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">customStateList</span><span class="p">:</span>
-            <span class="n">unitaryState</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-        <span class="n">unitaryState</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">unitaryState</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">unitaryState</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="n">NonUnitaryState</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;The sum of the square of the amplitudes is -- </span><span class="si">{</span><span class="n">unitaryState</span><span class="si">}</span><span class="s2"> -- instead of 1.&quot;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="State.herm">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.herm">[docs]</a>
-    <span class="k">def</span> <span class="nf">herm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the Hermitian conjugate of the state vector.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Hermitian conjugate of the state vector.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="o">.</span><span class="n">H</span></div>
-
-
-<div class="viewcode-block" id="State.inv">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.inv">[docs]</a>
-    <span class="k">def</span> <span class="nf">inv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the inverse of the state vector.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Inverse of the state vector.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="State.resetState">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.resetState">[docs]</a>
-    <span class="k">def</span> <span class="nf">resetState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets the components of the State.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="State.setDim">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.setDim">[docs]</a>
-    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">newNodeList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the current state dimension to a user defined one.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newDim : int</span>
-<span class="sd">            New state dimension.</span>
-<span class="sd">        newNodeList : list, optional</span>
-<span class="sd">            List containing the new nodes, by default None.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">newNodeList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">newNodeList</span></div>
-
-
-<div class="viewcode-block" id="State.getDim">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.getDim">[docs]</a>
-    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current state dimension.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            State dimension.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
-
-
-<div class="viewcode-block" id="State.setNodeList">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.setNodeList">[docs]</a>
-    <span class="k">def</span> <span class="nf">setNodeList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newNodeList</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets current node list to a user inputted one.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newNodeList : list</span>
-<span class="sd">            List containing the new nodes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">newNodeList</span></div>
-
-
-<div class="viewcode-block" id="State.getNodeList">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.getNodeList">[docs]</a>
-    <span class="k">def</span> <span class="nf">getNodeList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current list of nodes.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            Current list of nodes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span></div>
-
-
-<div class="viewcode-block" id="State.setStateVec">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.setStateVec">[docs]</a>
-    <span class="k">def</span> <span class="nf">setStateVec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newVec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the column vector associated with the state to a user defined one.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newVec : np.ndarray</span>
-<span class="sd">            New column vector for the state.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">newVec</span></div>
-
-
-<div class="viewcode-block" id="State.getStateVec">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.getStateVec">[docs]</a>
-    <span class="k">def</span> <span class="nf">getStateVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the column vector associated with the state.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Vector of the State.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span></div>
-
-
-<div class="viewcode-block" id="State.setState">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.setState">[docs]</a>
-    <span class="k">def</span> <span class="nf">setState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets all the parameters of the current state to user defined ones.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        newState : State</span>
-<span class="sd">            New state.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newState</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">newState</span><span class="o">.</span><span class="n">getNodeList</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">newState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="State.to_json">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.to_json">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;In contrast, the to_json method is not marked with the @classmethod decorator because</span>
+<div class="viewcode-block" id="State.to_json"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;In contrast, the to_json method is not marked with the @classmethod decorator because</span>
 <span class="sd">        it is a method that is called on an instance of the Operator class.</span>
 
 <span class="sd">        This means that it can access the attributes of the instance on which it is called, and it</span>
@@ -503,12 +289,9 @@
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">state_dict</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="State.from_json">
-<a class="viewcode-back" href="../../qwak.html#qwak.State.State.from_json">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json_var</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself,</span>
+<div class="viewcode-block" id="State.from_json"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json_var</span><span class="p">:</span> <span class="n">Union</span><span class="p">([</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])):</span>
+        <span class="sd">&quot;&quot;&quot;The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself,</span>
 <span class="sd">        rather than on an instance of the class.</span>
 
 <span class="sd">        This is necessary because it is used to create a new instance of the Operator class from a JSON string,</span>
@@ -539,9 +322,184 @@
         <span class="n">state</span><span class="o">.</span><span class="n">setStateVec</span><span class="p">(</span><span class="n">state_vec</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">state</span></div>
 
+<div class="viewcode-block" id="State.buildState"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.buildState">[docs]</a>    <span class="k">def</span> <span class="nf">buildState</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">nodeList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">customStateList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds state vector from state list, by creating a balanced superposition of all</span>
+<span class="sd">        nodes in the nodeList.</span>
+<span class="sd">        This will be changed in the future to make nodeList make more sense.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        nodeList : list, optional</span>
+<span class="sd">            List containing what nodes will have uniform superposition in the state, by default None.</span>
+<span class="sd">        customStateList : list, optional</span>
+<span class="sd">            Custom amplitudes for the state, by default None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: We can probably find a better way to build this</span>
+        <span class="c1"># function.\</span>
+        <span class="k">if</span> <span class="n">nodeList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">nodeList</span>
+        <span class="k">if</span> <span class="n">customStateList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">resetState</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span> <span class="o">=</span> <span class="n">customStateList</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_checkUnitaryStateList</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">customState</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_checkStateOutOfBounds</span><span class="p">(</span><span class="n">customState</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">[</span><span class="n">customState</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">customState</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">nodeAmp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_checkStateOutOfBounds</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">[</span><span class="n">state</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">nodeAmp</span></div>
+
+<div class="viewcode-block" id="State._checkStateOutOfBounds"><a class="viewcode-back" href="../../qwak.html#qwak.State.State._checkStateOutOfBounds">[docs]</a>    <span class="k">def</span> <span class="nf">_checkStateOutOfBounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Checks if the state is out of bounds for the system.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        node : int</span>
+<span class="sd">            Node to check.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        StateOutOfBounds</span>
+<span class="sd">            Out of bounds exception.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">node</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">StateOutOfBounds</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;State </span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2"> is out of bounds for system of size </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="s2"> ([0-</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">-</span> <span class="mi">1</span><span class="si">}</span><span class="s2">]).&quot;</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="State._checkUnitaryStateList"><a class="viewcode-back" href="../../qwak.html#qwak.State.State._checkUnitaryStateList">[docs]</a>    <span class="k">def</span> <span class="nf">_checkUnitaryStateList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">customStateList</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Checks if the sum of the square of the amplitudes is 1.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        customStateList : list</span>
+<span class="sd">            Custom state list.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        NonUnitaryState</span>
+<span class="sd">            Non unitary state exception.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">unitaryState</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">state</span> <span class="ow">in</span> <span class="n">customStateList</span><span class="p">:</span>
+            <span class="n">unitaryState</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="n">unitaryState</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">unitaryState</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">unitaryState</span> <span class="o">!=</span> <span class="nb">float</span><span class="p">(</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">NonUnitaryState</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The sum of the square of the amplitudes is -- </span><span class="si">{</span><span class="n">unitaryState</span><span class="si">}</span><span class="s2"> -- instead of 1.&quot;</span>
+            <span class="p">)</span></div>
+
+<div class="viewcode-block" id="State.herm"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.herm">[docs]</a>    <span class="k">def</span> <span class="nf">herm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the Hermitian conjugate of the state vector.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Hermitian conjugate of the state vector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="o">.</span><span class="n">H</span></div>
+
+<div class="viewcode-block" id="State.inv"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.inv">[docs]</a>    <span class="k">def</span> <span class="nf">inv</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the inverse of the state vector.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Inverse of the state vector.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">inv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="State.resetState"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.resetState">[docs]</a>    <span class="k">def</span> <span class="nf">resetState</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Resets the components of the State.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="State.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">newNodeList</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current state dimension to a user defined one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newDim : int</span>
+<span class="sd">            New state dimension.</span>
+<span class="sd">        newNodeList : list, optional</span>
+<span class="sd">            List containing the new nodes, by default None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">newNodeList</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">newNodeList</span></div>
+
+<div class="viewcode-block" id="State.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current state dimension.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            State dimension.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
+
+<div class="viewcode-block" id="State.setNodeList"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.setNodeList">[docs]</a>    <span class="k">def</span> <span class="nf">setNodeList</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newNodeList</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets current node list to a user inputted one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newNodeList : list</span>
+<span class="sd">            List containing the new nodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Do we need this?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">newNodeList</span></div>
+
+<div class="viewcode-block" id="State.getNodeList"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.getNodeList">[docs]</a>    <span class="k">def</span> <span class="nf">getNodeList</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current list of nodes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            Current list of nodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span></div>
+
+<div class="viewcode-block" id="State.setStateVec"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.setStateVec">[docs]</a>    <span class="k">def</span> <span class="nf">setStateVec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newVec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the column vector associated with the state to a user defined one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newVec : np.ndarray</span>
+<span class="sd">            New column vector for the state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">newVec</span></div>
+
+<div class="viewcode-block" id="State.getStateVec"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.getStateVec">[docs]</a>    <span class="k">def</span> <span class="nf">getStateVec</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the column vector associated with the state.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        np.ndarray</span>
+<span class="sd">            Vector of the State.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span></div>
+
+<div class="viewcode-block" id="State.setState"><a class="viewcode-back" href="../../qwak.html#qwak.State.State.setState">[docs]</a>    <span class="k">def</span> <span class="nf">setState</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newState</span><span class="p">:</span> <span class="n">State</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets all the parameters of the current state to user defined ones.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        newState : State</span>
+<span class="sd">            New state.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newState</span><span class="o">.</span><span class="n">getDim</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span> <span class="o">=</span> <span class="n">newState</span><span class="o">.</span><span class="n">getNodeList</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">=</span> <span class="n">newState</span><span class="o">.</span><span class="n">getStateVec</span><span class="p">()</span></div>
 
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Left-side multiplication for the State class.</span>
+        <span class="sd">&quot;&quot;&quot;Left-side multiplication for the State class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -556,7 +514,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">*</span> <span class="n">other</span>
 
     <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Left-side multiplication for the State class.</span>
+        <span class="sd">&quot;&quot;&quot;Left-side multiplication for the State class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -571,7 +529,7 @@
         <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span>
 
     <span class="k">def</span> <span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Matrix multiplication for the State class.</span>
+        <span class="sd">&quot;&quot;&quot;Matrix multiplication for the State class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -586,7 +544,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span> <span class="o">@</span> <span class="n">other</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;String representation of the State class.</span>
+        <span class="sd">&quot;&quot;&quot;String representation of the State class.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -596,7 +554,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;String representation of the State class.</span>
+        <span class="sd">&quot;&quot;&quot;String representation of the State class.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -604,10 +562,9 @@
 <span class="sd">            State string.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;N: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;Node list: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;Custom Node list: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="si">}</span><span class="s2">&quot;</span></div>
-
+               <span class="sa">f</span><span class="s2">&quot;Node list: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_nodeList</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;Custom Node list: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_customStateList</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;State:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_stateVec</span><span class="si">}</span><span class="s2">&quot;</span></div>
 </pre></div>
         </article>
       </div>
@@ -628,7 +585,9 @@
             
           </div>
           <div class="right-details">
-            
+            <div class="icons">
+              
+            </div>
           </div>
         </div>
         
@@ -640,12 +599,14 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
-    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../../_static/copybutton.js?v=f281be69"></script>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/responsiveSvg.js"></script>
     </body>
 </html>

@@ -34,6 +34,46 @@ class QuantumWalk:
         self._operator = operator
         self._finalState = State(self._n)
 
+    def to_json(self) -> str:
+        """Serializes the QuantumWalk object to JSON format.
+
+        Returns
+        -------
+        str
+            JSON string representation of the QuantumWalk object.
+        """
+        return json.dumps({
+            "n": self._n,
+            "initState": json.loads(self._initState.to_json()),
+            "operator": json.loads(self._operator.to_json()),
+            "finalState": json.loads(self._finalState.to_json())
+        })
+
+    @classmethod
+    def from_json(cls, json_var: str) -> QuantumWalk:
+        """Deserializes a JSON string to a QuantumWalk object.
+
+        Parameters
+        ----------
+        json_str : str
+            JSON string representation of the QuantumWalk object.
+
+        Returns
+        -------
+        QuantumWalk
+            Deserialized QuantumWalk object.
+        """
+        if isinstance(json_var, str):
+            data = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            data = json_var
+        initState = State.from_json(data["initState"])
+        operator = Operator.from_json(data["operator"])
+        finalState = State.from_json(data["finalState"])
+        walk = cls(initState, operator)
+        walk.setFinalState(finalState)
+        return walk
+
     def buildWalk(self, initState: State = None,
                   operator: Operator = None) -> None:
         """Builds the final state of the quantum walk by setting it to the matrix
@@ -46,6 +86,7 @@ class QuantumWalk:
         operator : Operator, optional
             Operator which will evolve the initial state, by default None.
         """
+        # TODO: Name of init state variable not in line with class init.
         if initState is not None:
             self._initState = initState
         if operator is not None:
@@ -162,6 +203,7 @@ class QuantumWalk:
         np.ndarray
             Vector of the final state.
         """
+        # TODO: This function name is not in line with getFinalState.
         return self._finalState.getStateVec()
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:
@@ -189,46 +231,6 @@ class QuantumWalk:
         """
         return 1 - np.trace(self._finalState @ self._finalState.herm())
 
-    def to_json(self) -> str:
-        """Serializes the QuantumWalk object to JSON format.
-
-        Returns
-        -------
-        str
-            JSON string representation of the QuantumWalk object.
-        """
-        return json.dumps({
-            "n": self._n,
-            "initState": json.loads(self._initState.to_json()),
-            "operator": json.loads(self._operator.to_json()),
-            "finalState": json.loads(self._finalState.to_json())
-        })
-
-    @classmethod
-    def from_json(cls, json_var: str) -> QuantumWalk:
-        """Deserializes a JSON string to a QuantumWalk object.
-
-        Parameters
-        ----------
-        json_str : str
-            JSON string representation of the QuantumWalk object.
-
-        Returns
-        -------
-        QuantumWalk
-            Deserialized QuantumWalk object.
-        """
-        if isinstance(json_var, str):
-            data = json.loads(json_var)
-        elif isinstance(json_var, dict):
-            data = json_var
-        initState = State.from_json(data["initState"])
-        operator = Operator.from_json(data["operator"])
-        finalState = State.from_json(data["finalState"])
-        walk = cls(initState, operator)
-        walk.setFinalState(finalState)
-        return walk
-
     def __str__(self) -> str:
         """String representation of the StaticQuantumwalk class.
 
@@ -248,6 +250,6 @@ class QuantumWalk:
             String of the ProbabilityDistribution object.
         """
         return f"N: {self._n}\n" \
-            f"Init State:\n\t {self._initState}\n" \
-            f"Operator:\n\t{self._operator}\n"\
-            f"Final State:\n\t{self._finalState}"
+               f"Init State:\n\t {self._initState}\n" \
+               f"Operator:\n\t{self._operator}\n"\
+               f"Final State:\n\t{self._finalState}"

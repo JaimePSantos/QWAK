@@ -36,6 +36,63 @@ class State:
             self._customStateList = customStateList
         self._stateVec = np.zeros((self._n, 1), dtype=complex)
 
+    def to_json(self) -> str:
+        """In contrast, the to_json method is not marked with the @classmethod decorator because
+        it is a method that is called on an instance of the Operator class.
+
+        This means that it can access the attributes of the instance on which it is called, and it
+        uses these attributes to generate the JSON string representation of the Operator instance.
+
+        Since it requires access to the attributes of a specific Operator instance, it cannot be
+        called on the Operator class itself.
+
+        Returns
+        -------
+        str
+            JSON string representation of the Operator instance.
+        """
+        state_dict = {
+            "n": self._n,
+            "node_list": self._nodeList,
+            "custom_state_list": self._customStateList,
+            "state_vec": complex_matrix_to_json(
+                self._stateVec.tolist()),
+        }
+        return json.dumps(state_dict)
+
+    @classmethod
+    def from_json(cls, json_var: Union[str, dict]):
+        """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself,
+        rather than on an instance of the class.
+
+        This is necessary because it is used to create a new instance of the Operator class from a JSON string,
+        and it does not require an instance of the Operator class to do so.
+
+        Parameters
+        ----------
+        json_var : Union([str, dict])
+            JSON string or dictionary representation of the Operator instance.
+
+        Returns
+        -------
+        Operator
+            Operator instance from JSON string or dictionary representation.
+        """
+        if isinstance(json_var, str):
+            state_dict = json.loads(json_var)
+        elif isinstance(json_var, dict):
+            state_dict = json_var
+        n = state_dict["n"]
+        node_list = state_dict["node_list"]
+        custom_state_list = state_dict["custom_state_list"]
+        state_vec = np.array(
+            json_matrix_to_complex(
+                state_dict["state_vec"]),
+            dtype=complex)
+        state = cls(n, node_list, custom_state_list)
+        state.setStateVec(state_vec)
+        return state
+
     def buildState(
             self,
             nodeList: list = None,
@@ -51,6 +108,8 @@ class State:
         customStateList : list, optional
             Custom amplitudes for the state, by default None.
         """
+        # TODO: We can probably find a better way to build this
+        # function.\
         if nodeList is not None:
             self.resetState()
             self._nodeList = nodeList
@@ -82,8 +141,9 @@ class State:
             Out of bounds exception.
         """
         if node >= self._n:
-            raise StateOutOfBounds(f"State {node} is out of bounds for system of size {
-                self._n} ([0-{self._n - 1}]).")
+            raise StateOutOfBounds(
+                f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}])."
+            )
 
     def _checkUnitaryStateList(self, customStateList) -> None:
         """Checks if the sum of the square of the amplitudes is 1.
@@ -104,7 +164,8 @@ class State:
         unitaryState = round(unitaryState, 5)
         if unitaryState != float(1):
             raise NonUnitaryState(
-                f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1.")
+                f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1."
+            )
 
     def herm(self) -> np.ndarray:
         """Returns the Hermitian conjugate of the state vector.
@@ -163,6 +224,7 @@ class State:
         newNodeList : list
             List containing the new nodes.
         """
+        # TODO: Do we need this?
         self._nodeList = newNodeList
 
     def getNodeList(self) -> list:
@@ -206,63 +268,6 @@ class State:
         self._n = newState.getDim()
         self._nodeList = newState.getNodeList()
         self._stateVec = newState.getStateVec()
-
-    def to_json(self) -> str:
-        """In contrast, the to_json method is not marked with the @classmethod decorator because
-        it is a method that is called on an instance of the Operator class.
-
-        This means that it can access the attributes of the instance on which it is called, and it
-        uses these attributes to generate the JSON string representation of the Operator instance.
-
-        Since it requires access to the attributes of a specific Operator instance, it cannot be
-        called on the Operator class itself.
-
-        Returns
-        -------
-        str
-            JSON string representation of the Operator instance.
-        """
-        state_dict = {
-            "n": self._n,
-            "node_list": self._nodeList,
-            "custom_state_list": self._customStateList,
-            "state_vec": complex_matrix_to_json(
-                self._stateVec.tolist()),
-        }
-        return json.dumps(state_dict)
-
-    @classmethod
-    def from_json(cls, json_var: Union[str, dict]):
-        """The from_json method is marked with the @classmethod decorator because it is a method that is called on the class itself,
-        rather than on an instance of the class.
-
-        This is necessary because it is used to create a new instance of the Operator class from a JSON string,
-        and it does not require an instance of the Operator class to do so.
-
-        Parameters
-        ----------
-        json_var : Union([str, dict])
-            JSON string or dictionary representation of the Operator instance.
-
-        Returns
-        -------
-        Operator
-            Operator instance from JSON string or dictionary representation.
-        """
-        if isinstance(json_var, str):
-            state_dict = json.loads(json_var)
-        elif isinstance(json_var, dict):
-            state_dict = json_var
-        n = state_dict["n"]
-        node_list = state_dict["node_list"]
-        custom_state_list = state_dict["custom_state_list"]
-        state_vec = np.array(
-            json_matrix_to_complex(
-                state_dict["state_vec"]),
-            dtype=complex)
-        state = cls(n, node_list, custom_state_list)
-        state.setStateVec(state_vec)
-        return state
 
     def __mul__(self, other: np.ndarray) -> np.ndarray:
         """Left-side multiplication for the State class.
@@ -328,6 +333,6 @@ class State:
             State string.
         """
         return f"N: {self._n}\n" \
-            f"Node list: {self._nodeList}\n" \
-            f"Custom Node list: {self._customStateList}\n" \
-            f"State:\n\t{self._stateVec}"
+               f"Node list: {self._nodeList}\n" \
+               f"Custom Node list: {self._customStateList}\n" \
+               f"State:\n\t{self._stateVec}"

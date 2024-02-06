@@ -1,16 +1,16 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="./">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="utils" href="modules.html" /><link rel="prev" title="Usage" href="usage.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="qwak" href="modules.html" /><link rel="prev" title="Usage" href="usage.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>Contributing - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css" />
     
     
@@ -181,7 +181,7 @@
   <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -190,7 +190,11 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">qwak</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html#utils">utils</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
 </li>
@@ -213,8 +217,7 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          
-<div class="theme-toggle-container theme-toggle-content">
+          <div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -229,12 +232,12 @@
         </div>
         <article role="main">
           <section id="contributing">
-<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h1>
+<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this heading">#</a></h1>
 <p>Contributing has a few additional steps that may require some explanation for first-time users.
 Here, we’ll give you step-by-step instructions on how to setup github for contributing to this project,
 how to format your code changes and how to generate updated documentation.</p>
 <p>A few extra packages are required when contributing to QWAK:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>autopep8<span class="w"> </span>pytest<span class="w"> </span>bumpver
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install autopep8 pytest bumpver
 </pre></div>
 </div>
 <p><a class="reference external" href="https://pypi.org/project/autopep8/">Autopep8</a> formats code according to the PEP 8 style.
@@ -242,27 +245,27 @@ how to format your code changes and how to generate updated documentation.</p>
 working correctly after a change.
 <a class="reference external" href="https://github.com/mbarkhau/bumpver/">Bumpver</a> manages package versioning.</p>
 <section id="setting-up-the-repo-for-contributing">
-<h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Link to this heading">#</a></h2>
+<h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
 <li><p>Install <a class="reference external" href="https://git-scm.com/.">git</a>.</p></li>
 <li><p>Fork the <a class="reference external" href="https://github.com/JaimePSantos/QWAK">QWAK</a> repository to your account so you can work on own copy. This will allow you to open Pull Requests later.</p></li>
 <li><p>Add the upstream repository:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>upstream<span class="w"> </span>https://github.com/JaimePSantos/QWAK.git
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git remote add upstream https://github.com/JaimePSantos/QWAK.git
 </pre></div>
 </div>
 </li>
 <li><p>Update your fork with:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>main
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
 </pre></div>
 </div>
 <p>Followed by:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull<span class="w"> </span>--rebase<span class="w"> </span>upstream<span class="w"> </span>main
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git pull --rebase upstream main
 </pre></div>
 </div>
 <p>This should be done somewhat regularly to ensure your fork is up-to-date with the most recent QWAK version.</p>
 </li>
 <li><p>Follow QWAK’s <a class="reference external" href="https://jaimepsantos.github.io/QWAK/installation.html">installation instructions</a> in case you haven’t installed the package yet.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install -e .
 </pre></div>
 </div>
 <p>This should be used to install your package in editable mode.</p>
@@ -270,54 +273,54 @@ working correctly after a change.
 </ol>
 </section>
 <section id="making-your-changes">
-<h2>Making your changes<a class="headerlink" href="#making-your-changes" title="Link to this heading">#</a></h2>
+<h2>Making your changes<a class="headerlink" href="#making-your-changes" title="Permalink to this heading">#</a></h2>
 <ol class="arabic">
 <li><p>Checkout and sync your main branch with the upstream to reflect the newest version:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>main
-git<span class="w"> </span>pull<span class="w"> </span>--rebase<span class="w"> </span>upstream<span class="w"> </span>main
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout main
+git pull --rebase upstream main
 </pre></div>
 </div>
 </li>
 <li><p>Create a new branch to work on instead of main:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>&lt;new_branch_name&gt;<span class="w"> </span>upstream/main
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git checkout -b &lt;new_branch_name&gt; upstream/main
 </pre></div>
 </div>
 </li>
 <li><p>If this is the first time you’re building the package:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>build
-python<span class="w"> </span>-m<span class="w"> </span>build
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m pip install --upgrade build
+python -m build
 </pre></div>
 </div>
 <p>This might not be needed, will test in the future and update the docs accordingly.</p>
 </li>
 <li><p>Make your changes.</p></li>
 <li><p>Ensure your changes does not break the existing code by running the following command inside the main project folder:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pytest<span class="w"> </span>-v<span class="w"> </span>tests/
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pytest -v tests/
 </pre></div>
 </div>
 </li>
 <li><p>If all the tests are successfull, format your changed files with:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8<span class="w"> </span>--in-place<span class="w"> </span>--aggressive<span class="w"> </span>--aggressive<span class="w"> </span>--max-line-length<span class="w"> </span><span class="m">72</span><span class="w"> </span>&lt;path_to_file&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_file&gt;
 </pre></div>
 </div>
 <p>Or, alternatively an entire folder with:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8<span class="w"> </span>--recursive<span class="w"> </span>--in-place<span class="w"> </span>--aggressive<span class="w"> </span>--aggressive<span class="w"> </span>--max-line-length<span class="w"> </span><span class="m">72</span><span class="w"> </span>&lt;path_to_folder&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>autopep8 --recursive --in-place --aggressive --aggressive --max-line-length <span class="m">72</span> &lt;path_to_folder&gt;
 </pre></div>
 </div>
 </li>
 <li><p>In case a version bump is required:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bumpver<span class="w"> </span>update<span class="w"> </span>--patch
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bumpver update --patch
 </pre></div>
 </div>
 </li>
 <li><p>Commit your changes:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>-am<span class="w"> </span>&lt;commit<span class="w"> </span>message&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git commit -am &lt;commit message&gt;
 </pre></div>
 </div>
 <p>Make sure you write a short descriptive message so that the changes on the commit can be easily identified.</p>
 </li>
 <li><p>Push your changes to your fork:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span>&lt;branch<span class="w"> </span>name&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git push -u origin &lt;branch name&gt;
 </pre></div>
 </div>
 </li>
@@ -325,38 +328,38 @@ python<span class="w"> </span>-m<span class="w"> </span>build
 </ol>
 </section>
 <section id="generating-documentation">
-<h2>Generating Documentation<a class="headerlink" href="#generating-documentation" title="Link to this heading">#</a></h2>
+<h2>Generating Documentation<a class="headerlink" href="#generating-documentation" title="Permalink to this heading">#</a></h2>
 <p>If you’ve added a new feature, or if you want to contribute to the documentation directly,
 you will need to install <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> automates the process of creating
 documentation pages:</p>
 <ul class="simple">
 <li><p>Via pip:</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>sphinx<span class="w"> </span>sphinx_autodoc_typehints<span class="w"> </span>sphinx_copybutton<span class="w"> </span>sphinxcontrib.programoutput<span class="w"> </span>myst_parser<span class="w"> </span>furo
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip install sphinx sphinx_autodoc_typehints sphinx_copybutton sphinxcontrib.programoutput myst_parser furo
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>On linux:</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get<span class="w"> </span>install<span class="w"> </span>python3-sphinx
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>apt-get install python3-sphinx
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>On windows, you can install it via conda  (or <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/installation.html#windows-other-method">manually</a>):</p></li>
 </ul>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda<span class="w"> </span>install<span class="w"> </span>sphinx
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>conda install sphinx
 </pre></div>
 </div>
 <p>After the dependency is taken care of:</p>
 <ol class="arabic">
 <li><p>Generate basic documentation files for the package (probably already present in the repo so just skip):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-quickstart<span class="w"> </span>docs/
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-quickstart docs/
 </pre></div>
 </div>
 </li>
 <li><p>From the main folder, navigate to the <code class="code docutils literal notranslate"><span class="pre">documentation</span></code> folder using <code class="code docutils literal notranslate"><span class="pre">cd</span> <span class="pre">documentation</span></code>.</p></li>
 <li><p>If you’ve changed documentation of the Python code in the <code class="code docutils literal notranslate"><span class="pre">core</span></code> folder,run autodoc so these changes are compiled by Sphinx:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-apidoc<span class="w"> </span>-f<span class="w"> </span>-o<span class="w"> </span>source/<span class="w"> </span>../core/&lt;modules&gt;
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sphinx-apidoc -f -o source/ ../core/&lt;modules&gt;
 </pre></div>
 </div>
 </li>
@@ -367,11 +370,11 @@ documentation pages:</p>
 </ol>
 </section>
 <section id="updating-pypi-package">
-<h2>Updating PyPi package<a class="headerlink" href="#updating-pypi-package" title="Link to this heading">#</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>build
-python<span class="w"> </span>-m<span class="w"> </span>build
-python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>twine
-twine<span class="w"> </span>upload<span class="w"> </span>dist/*
+<h2>Updating PyPi package<a class="headerlink" href="#updating-pypi-package" title="Permalink to this heading">#</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python -m pip install --upgrade build
+python -m build
+python -m pip install --upgrade twine
+twine upload dist/*
 </pre></div>
 </div>
 </section>
@@ -387,12 +390,12 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">utils</div>
+                <div class="title">qwak</div>
               </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <svg><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="usage.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <svg><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -414,7 +417,9 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*
             
           </div>
           <div class="right-details">
-            
+            <div class="icons">
+              
+            </div>
           </div>
         </div>
         
@@ -426,7 +431,7 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            On this page
+            Contents
           </span>
         </div>
         <div class="toc-tree-container">
@@ -448,12 +453,14 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*
       
     </aside>
   </div>
-</div><script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/furo.js?v=32e29ea5"></script>
-    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="_static/copybutton.js?v=f281be69"></script>
+</div><script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/scripts/furo.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
     <script src="_static/responsiveSvg.js"></script>
     </body>
 </html>

@@ -6,33 +6,36 @@ from qutip import Qobj, basis
 
 
 class StochasticOperator(object):
+    """
+    Stochastic quantum walker on QuTip.
+    Class containing an open quantum system described by a Lindblad equation obtained from the adjacency matrix.
+
+    Theoretical model:
+    Whitfield, J. D., Rodríguez-Rosario, C. A., & Aspuru-Guzik, A. (2010).
+    Quantum stochastic walks: A generalization of classical random walks and quantum walks.
+    Physical Review A, 81(2), 022323.
+
+    @author: Lorenzo Buffoni
+    """
 
     def __init__(
             self,
-            graph: nx.Graph,
-            noiseParam: float = None,
-            sinkNode: int = None,
-            sinkRate: float = None) -> None:
-        """
-        Stochastic quantum walker on QuTip.
-        Class containing an open quantum system described by a Lindblad equation obtained from the adjacency matrix.
-
-        Theoretical model:
-        Whitfield, J. D. et al.
-        Quantum stochastic walks: A generalization of classical random walks and quantum walks.
-
-        @author: Lorenzo Buffoni
+            graph,
+            noiseParam=None,
+            sinkNode=None,
+            sinkRate=None) -> None:
+        """_summary_
 
         Parameters
         ----------
-        graph : networkx.Graph
-            The graph representing the quantum walk space.
-        noiseParam : float, optional
-            The noise parameter controlling the quantum-classical mix (default is 0 for a fully quantum system).
-        sinkNode : int, optional
-            The index of the sink node in the graph (default is None, indicating no sink node).
-        sinkRate : float, optional
-            The rate at which probability is transferred to the sink node (default is 1).
+        graph : _type_
+            _description_
+        noiseParam : _type_, optional
+            _description_, by default None
+        sinkNode : _type_, optional
+            _description_, by default None
+        sinkRate : _type_, optional
+            _description_, by default None
         """
         self._graph = graph
         self.n = len(self._graph)
@@ -57,18 +60,17 @@ class StochasticOperator(object):
             noiseParam: float = None,
             sinkNode: int = None,
             sinkRate: float = None) -> None:
-        """
-        Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
+        """Creates the Hamiltonian and the Lindblad operators for the walker given an adjacency matrix
         and other parameters.
 
         Parameters
         ----------
         noiseParam : float, optional
-            The noise parameter controlling the quantum-classical mix (default is 0 for a fully quantum system).
+            Parameter controlling the 'quantumness' of the system (0 is fully quantum, 1 is fully classical), by default None.
         sinkNode : int, optional
-            The index of the sink node in the graph (default is None, indicating no sink node).
+            _description_, by default None
         sinkRate : float, optional
-            The rate at which probability is transferred to the sink node (default is 1).
+            If a sink is present the trasfer rate from the sink_node to the sink , by default None.
         """
         if noiseParam is not None:
             self._p = noiseParam
@@ -80,17 +82,13 @@ class StochasticOperator(object):
         self._buildClassicalHamiltonian()
 
     def _buildLaplacian(self) -> None:
-        """
-        Internal method to build the Laplacian matrix from the adjacency matrix of the graph.
-        """
+        """_summary_"""
         degree = np.sum(self._adjacencyMatrix, axis=0).flat
         degree = list(map(lambda x: 1 / x if x > 0 else 0, degree))
         self._laplacian = np.multiply(self._adjacencyMatrix, degree)
 
     def _buildQuantumHamiltonian(self) -> None:
-        """
-        Internal method to build the quantum Hamiltonian from the graph's adjacency matrix.
-        """
+        """_summary_"""
         if self._sinkNode is not None:
             H = Qobj(
                 (1 - self._p)
@@ -101,9 +99,7 @@ class StochasticOperator(object):
         self._quantumHamiltonian = H
 
     def _buildClassicalHamiltonian(self) -> None:
-        """
-        Internal method to build the classical Hamiltonian (Lindblad operators).
-        """
+        """_summary_"""
         if self._sinkNode is not None:
             L = [
                 np.sqrt(self._p * self._laplacian[i, j])
@@ -112,6 +108,7 @@ class StochasticOperator(object):
                 for j in range(self.n)
                 if self._laplacian[i, j] > 0
             ]
+            # transition matrix to the sink
             S = np.zeros([self.n + 1, self.n + 1])
             S[self.n, self._sinkNode] = np.sqrt(2 * self._sinkRate)
             L.append(Qobj(S))
@@ -126,79 +123,71 @@ class StochasticOperator(object):
         self._classicalHamiltonian = L
 
     def getClassicalHamiltonian(self) -> list:
-        """
-        Returns the classical Hamiltonian (Lindblad operators) of the system.
+        """_summary_
 
         Returns
         -------
-        list[Qobj]
-            A list of Qobj representing the Lindblad operators.
+        list
+            _description_
         """
-
         return self._classicalHamiltonian
 
     def setClassicalHamiltonian(self, newClassicalHamiltonian) -> None:
-        """
-        Sets a new classical Hamiltonian for the system.
+        """_summary_
 
         Parameters
         ----------
-        newClassicalHamiltonian : list of Qobj
-            The new list of Lindblad operators to set as the classical Hamiltonian.
+        newClassicalHamiltonian : _type_
+            _description_
         """
         self._classicalHamiltonian = newClassicalHamiltonian
 
     def getQuantumHamiltonian(self) -> Qobj:
-        """
-        Returns the quantum Hamiltonian of the system.
+        """_summary_
 
         Returns
         -------
         Qobj
-            The quantum Hamiltonian as a QuTiP object.
+            _description_
         """
         return self._quantumHamiltonian
 
     def setQuantumHamiltonian(self, newQuantumHamiltonian) -> None:
-        """
-        Sets a new quantum Hamiltonian for the system.
+        """_summary_
 
         Parameters
         ----------
-        newQuantumHamiltonian : Qobj
-            The new quantum Hamiltonian as a QuTiP object.
+        newQuantumHamiltonian : _type_
+            _description_
         """
         self._quantumHamiltonian = newQuantumHamiltonian
 
     def setSinkNode(self, newSinkNode) -> None:
-        """
-        Sets a new sink node for the system.
+        """_summary_
 
         Parameters
         ----------
-        newSinkNode : int
-            The index of the new sink node in the graph.
+        newSinkNode : _type_
+            _description_
         """
         self._sinkNode = newSinkNode
 
     def getSinkNode(self) -> int:
-        """
-        Returns the index of the current sink node in the graph.
+        """_summary_
 
         Returns
         -------
         int
-            The index of the sink node.
+            _description_
         """
         return self._sinkNode
 
     def getLaplacian(self) -> np.ndarray:
-        """
-        Returns the Laplacian matrix of the graph.
+        """_summary_
 
         Returns
         -------
         np.ndarray
-            The Laplacian matrix.
+            _description_
         """
         return self._laplacian

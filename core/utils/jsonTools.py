@@ -36,12 +36,10 @@ def json_matrix_to_complex(json_matrix):
         listComplexAux = []
     return listComplex
 
-
 def convert_cytoscape_to_decimal(graph_data):
     def convert_to_decimal(binary_tuple):
         # converts binary tuple to decimal
-        return str(sum(bit << i for i,
-                       bit in enumerate(reversed(binary_tuple))))
+        return str(sum(bit << i for i, bit in enumerate(reversed(binary_tuple))))
 
     decimal_graph = graph_data.copy()
 
@@ -54,13 +52,10 @@ def convert_cytoscape_to_decimal(graph_data):
         # If the data is already in decimal format, return it as it is
         return decimal_graph
 
-    # To store the mapping of original binary node IDs to decimal node
-    # IDs
-    node_id_map = {}
+    node_id_map = {}  # To store the mapping of original binary node IDs to decimal node IDs
 
     for node in decimal_graph['elements']['nodes']:
-        node_id = tuple(
-            map(int, node['data']['id'].strip('()').split(', ')))
+        node_id = tuple(map(int, node['data']['id'].strip('()').split(', ')))
         decimal_id = convert_to_decimal(node_id)
         node['data']['id'] = decimal_id
         node_id_map[node_id] = decimal_id
@@ -69,8 +64,7 @@ def convert_cytoscape_to_decimal(graph_data):
         decimal_value = convert_to_decimal(node_value)
         node['data']['value'] = decimal_value
 
-        node_name = tuple(
-            map(int, node['data']['name'].strip('()').split(', ')))
+        node_name = tuple(map(int, node['data']['name'].strip('()').split(', ')))
         decimal_name = convert_to_decimal(node_name)
         node['data']['name'] = decimal_name
 

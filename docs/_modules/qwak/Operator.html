@@ -1,15 +1,15 @@
 <!doctype html>
-<html class="no-js" lang="en" data-content_root="../../">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <meta name="generator" content="sphinx-5.1.1, furo 2022.06.21"/>
         <title>qwak.Operator - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
-    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?digest=40978830699223671f4072448e654b5958f38b89" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
     
     
@@ -180,7 +180,7 @@
   <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
   
 </a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
-  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -189,7 +189,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../usage.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of utils</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">utils</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -232,28 +232,25 @@
 
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">sympy</span> <span class="k">as</span> <span class="nn">sp</span>
-<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">inv</span><span class="p">,</span> <span class="n">expm</span>
+<span class="kn">from</span> <span class="nn">scipy.linalg</span> <span class="kn">import</span> <span class="n">inv</span>
 <span class="kn">from</span> <span class="nn">sympy.abc</span> <span class="kn">import</span> <span class="n">pi</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">utils.jsonTools</span> <span class="kn">import</span> <span class="n">json_matrix_to_complex</span><span class="p">,</span> <span class="n">complex_matrix_to_json</span>
+<span class="kn">from</span> <span class="nn">utils.jsonMethods</span> <span class="kn">import</span> <span class="n">json_matrix_to_complex</span><span class="p">,</span> <span class="n">complex_matrix_to_json</span>
 <span class="kn">import</span> <span class="nn">json</span>
 
 <span class="kn">from</span> <span class="nn">qwak.Errors</span> <span class="kn">import</span> <span class="n">MissingNodeInput</span>
 <span class="kn">from</span> <span class="nn">utils.PerfectStateTransfer</span> <span class="kn">import</span> <span class="n">isStrCospec</span><span class="p">,</span> <span class="n">checkRoots</span><span class="p">,</span> <span class="n">swapNodes</span><span class="p">,</span> <span class="n">getEigenVal</span>
 
 
-<div class="viewcode-block" id="Operator">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator">[docs]</a>
-<span class="k">class</span> <span class="nc">Operator</span><span class="p">:</span>
+<div class="viewcode-block" id="Operator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator">[docs]</a><span class="k">class</span> <span class="nc">Operator</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">,</span>
-            <span class="n">gamma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-            <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
             <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-            <span class="n">markedElements</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[],</span>
+            <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Class for the quantum walk operator.</span>
 
 <span class="sd">        This object is initialized with a user inputted graph, which is then used to</span>
@@ -271,37 +268,95 @@
 <span class="sd">        ----------</span>
 <span class="sd">        graph : nx.Graph</span>
 <span class="sd">            Graph where the walk will be performed.</span>
-<span class="sd">        gamma : float</span>
-<span class="sd">            Needs Completion.</span>
 <span class="sd">        time: float, optional</span>
 <span class="sd">            Time for which to calculate the operator, by default None.</span>
 <span class="sd">        laplacian : bool, optional</span>
 <span class="sd">            Allows the user to choose whether to use the Laplacian or simple adjacency matrix, by default False.</span>
-<span class="sd">        markedElements : list, optional</span>
+<span class="sd">        markedSearch : list, optional</span>
 <span class="sd">            List with marked elements for search, by default None.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_gamma</span> <span class="o">=</span> <span class="n">gamma</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span> <span class="o">=</span> <span class="n">laplacian</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_markedElements</span> <span class="o">=</span> <span class="n">markedElements</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="n">laplacian</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span> <span class="o">=</span> <span class="n">laplacian</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">markedSearch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_markedSearch</span> <span class="o">=</span> <span class="n">markedSearch</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_markedSearch</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buildAdjacency</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_markedSearch</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildHamiltonian</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">)</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_markedElements</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildSearchHamiltonian</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_markedElements</span><span class="p">)</span>
+<div class="viewcode-block" id="Operator.to_json"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.to_json">[docs]</a>    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Converts the operator object to a JSON string.</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hermitianTest</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">)</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            JSON string of the operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
+            <span class="s1">&#39;graph&#39;</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">node_link_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">),</span>
+            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">,</span>
+            <span class="s1">&#39;laplacian&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">,</span>
+            <span class="s1">&#39;markedSearch&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_markedSearch</span><span class="p">,</span>
+            <span class="s1">&#39;adjacencyMatrix&#39;</span><span class="p">:</span> <span class="n">complex_matrix_to_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">),</span>
+            <span class="s1">&#39;eigenvalues&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
+            <span class="s1">&#39;eigenvectors&#39;</span><span class="p">:</span> <span class="n">complex_matrix_to_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">),</span>
+            <span class="s1">&#39;operator&#39;</span><span class="p">:</span> <span class="n">complex_matrix_to_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">),</span>
+        <span class="p">})</span></div>
 
-<div class="viewcode-block" id="Operator.buildDiagonalOperator">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.buildDiagonalOperator">[docs]</a>
-    <span class="k">def</span> <span class="nf">buildDiagonalOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds operator matrix from optional time and transition rate parameters, defined by user.</span>
+<div class="viewcode-block" id="Operator.from_json"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.from_json">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json_var</span><span class="p">:</span> <span class="n">Union</span><span class="p">([</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]))</span> <span class="o">-&gt;</span> <span class="n">Operator</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Converts a JSON string to an operator object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        json_str : str</span>
+<span class="sd">            JSON string of the operator object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Operator</span>
+<span class="sd">            Operator object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">json_var</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_var</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">json_var</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json_var</span>
+        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">node_link_graph</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">])</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
+        <span class="n">laplacian</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;laplacian&#39;</span><span class="p">]</span>
+        <span class="n">markedSearch</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;markedSearch&#39;</span><span class="p">]</span>
+        <span class="n">adjacencyMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="n">json_matrix_to_complex</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;adjacencyMatrix&#39;</span><span class="p">]))</span>
+        <span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;eigenvalues&#39;</span><span class="p">])</span>
+
+        <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="n">json_matrix_to_complex</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;eigenvectors&#39;</span><span class="p">]))</span>
+        <span class="n">operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">json_matrix_to_complex</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;operator&#39;</span><span class="p">]))</span>
+
+        <span class="n">newOp</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">,</span> <span class="n">markedSearch</span><span class="p">)</span>
+        <span class="n">newOp</span><span class="o">.</span><span class="n">_setAdjacencyMatrixOnly</span><span class="p">(</span><span class="n">adjacencyMatrix</span><span class="p">)</span>
+        <span class="n">newOp</span><span class="o">.</span><span class="n">_setEigenValues</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>
+        <span class="n">newOp</span><span class="o">.</span><span class="n">_setEigenVectors</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">)</span>
+        <span class="n">newOp</span><span class="o">.</span><span class="n">_setOperatorVec</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">newOp</span></div>
+
+<div class="viewcode-block" id="Operator.buildDiagonalOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.buildDiagonalOperator">[docs]</a>    <span class="k">def</span> <span class="nf">buildDiagonalOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds operator matrix from optional time and transition rate parameters, defined by user.</span>
 
 <span class="sd">        The first step is to calculate the diagonal matrix that takes in time, transition rate and</span>
 <span class="sd">        eigenvalues and convert it to a list of the diagonal entries.</span>
@@ -314,114 +369,63 @@
 <span class="sd">        ----------</span>
 <span class="sd">        time : float, optional</span>
 <span class="sd">            Time for which to calculate the operator, by default 0.</span>
-<span class="sd">        gamma : float, optional</span>
-<span class="sd">            Needs completion.</span>
-<span class="sd">        round : int, optional</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
+        <span class="k">if</span> <span class="n">time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
         <span class="n">diag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span>
             <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">))</span><span class="o">.</span><span class="n">diagonal</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">,</span> <span class="n">diag</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span><span class="o">.</span><span class="n">transpose</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">,</span> <span class="n">inv</span><span class="p">(</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">))</span></div>
 
-
-<div class="viewcode-block" id="Operator.buildExpmOperator">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.buildExpmOperator">[docs]</a>
-    <span class="k">def</span> <span class="nf">buildExpmOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds operator matrix from optional time and transition rate parameters, defined by user.</span>
-
-<span class="sd">        Uses the scipy function expm to calculate the matrix exponential of the adjacency matrix.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        time : float, optional</span>
-<span class="sd">            Time for which to calculate the operator, by default 0.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">time</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">expm</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Operator._buildHamiltonian">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildHamiltonian">[docs]</a>
-    <span class="k">def</span> <span class="nf">_buildHamiltonian</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">graph</span><span class="p">,</span>
-        <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds the hamiltonian of the graph, which is either the Laplacian or the simple matrix.</span>
+<div class="viewcode-block" id="Operator._buildAdjacency"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildAdjacency">[docs]</a>    <span class="k">def</span> <span class="nf">_buildAdjacency</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">laplacian</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+            <span class="n">markedSearch</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds the adjacency matrix of the graph, which is either the Laplacian or the simple matrix.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        laplacian : bool</span>
 <span class="sd">            Allows the user to choose whether to use the Laplacian or simple adjacency matrix.</span>
-<span class="sd">        markedElements : list</span>
+<span class="sd">        markedSearch : list</span>
 <span class="sd">            List of elements for the search.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span>
-            <span class="n">graph</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">laplacian</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span> <span class="o">-</span> \
-                <span class="bp">self</span><span class="o">.</span><span class="n">_degreeDiagonalMatrix</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
-        <span class="k">return</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_gamma</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span>
+                <span class="n">nx</span><span class="o">.</span><span class="n">laplacian_matrix</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">to_numpy_array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">markedSearch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">marked</span> <span class="ow">in</span> <span class="n">markedSearch</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">[</span><span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">marked</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span></div>
 
-
-<div class="viewcode-block" id="Operator._buildSearchHamiltonian">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildSearchHamiltonian">[docs]</a>
-    <span class="k">def</span> <span class="nf">_buildSearchHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="p">,</span> <span class="n">markedElements</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">marked</span> <span class="ow">in</span> <span class="n">markedElements</span><span class="p">:</span>
-            <span class="n">hamiltonian</span><span class="p">[</span><span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marked</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">+=</span> <span class="n">marked</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">hamiltonian</span></div>
-
-
-<div class="viewcode-block" id="Operator._buildEigenValues">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildEigenValues">[docs]</a>
-    <span class="k">def</span> <span class="nf">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Builds the eigenvalues and eigenvectors of the adjacency matrix.</span>
+<div class="viewcode-block" id="Operator._buildEigenValues"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._buildEigenValues">[docs]</a>    <span class="k">def</span> <span class="nf">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">isHermitian</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Builds the eigenvalues and eigenvectors of the adjacency matrix.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        isHermitian : bool</span>
 <span class="sd">            Checks if the adjacency matrix is Hermitian.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">:</span>
-            <span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span>
-                <span class="n">hamiltonian</span>
+        <span class="k">if</span> <span class="n">isHermitian</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span>
             <span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span>
-                <span class="n">hamiltonian</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="Operator._hermitianTest">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._hermitianTest">[docs]</a>
-    <span class="k">def</span> <span class="nf">_hermitianTest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Checks if the adjacency matrix is Hermitian.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        hamiltonian : np.ndarray</span>
-<span class="sd">            Adjacency matrix.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        bool</span>
-<span class="sd">            True if Hermitian, False otherwise.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">hamiltonian</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Operator.getEigenValues">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getEigenValues">[docs]</a>
-    <span class="k">def</span> <span class="nf">getEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the eigenvalues of the adjacency matrix.</span>
+<div class="viewcode-block" id="Operator.getEigenValues"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getEigenValues">[docs]</a>    <span class="k">def</span> <span class="nf">getEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the eigenvalues of the adjacency matrix.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -430,11 +434,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span></div>
 
-
-<div class="viewcode-block" id="Operator._setEigenValues">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setEigenValues">[docs]</a>
-    <span class="k">def</span> <span class="nf">_setEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eigenValues</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the eigenvalues of the adjacency matrix.</span>
+<div class="viewcode-block" id="Operator._setEigenValues"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setEigenValues">[docs]</a>    <span class="k">def</span> <span class="nf">_setEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eigenValues</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the eigenvalues of the adjacency matrix.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -443,24 +444,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span> <span class="o">=</span> <span class="n">eigenValues</span></div>
 
-
-<div class="viewcode-block" id="Operator.getEigenVectors">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getEigenVectors">[docs]</a>
-    <span class="k">def</span> <span class="nf">getEigenVectors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the eigenvectors of the adjacency matrix.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            List of eigenvectors.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span></div>
-
-
-<div class="viewcode-block" id="Operator._setEigenVectors">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setEigenVectors">[docs]</a>
-    <span class="k">def</span> <span class="nf">_setEigenVectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eigenVectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the eigenvectors of the adjacency matrix.</span>
+<div class="viewcode-block" id="Operator._setEigenVectors"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setEigenVectors">[docs]</a>    <span class="k">def</span> <span class="nf">_setEigenVectors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">eigenVectors</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the eigenvectors of the adjacency matrix.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -469,46 +454,22 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="n">eigenVectors</span></div>
 
-
-<div class="viewcode-block" id="Operator.getHamiltonian">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getHamiltonian">[docs]</a>
-    <span class="k">def</span> <span class="nf">getHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the hamiltonian of the graph, which is either the Laplacian or the simple matrix.</span>
+<div class="viewcode-block" id="Operator.getEigenVectors"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getEigenVectors">[docs]</a>    <span class="k">def</span> <span class="nf">getEigenVectors</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns the eigenvectors of the adjacency matrix.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        np.ndarray</span>
-<span class="sd">            Hamiltonian of the graph.</span>
+<span class="sd">        list</span>
+<span class="sd">            List of eigenvectors.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span></div>
 
-
-<div class="viewcode-block" id="Operator.setHamiltonian">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setHamiltonian">[docs]</a>
-    <span class="k">def</span> <span class="nf">setHamiltonian</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hamiltonian</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the hamiltonian for the walk.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        hamiltonian : np.ndarray</span>
-<span class="sd">            Hamiltonian of the graph.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">=</span> <span class="n">hamiltonian</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Operator.resetOperator">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.resetOperator">[docs]</a>
-    <span class="k">def</span> <span class="nf">resetOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Resets Operator object.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Operator.resetOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.resetOperator">[docs]</a>    <span class="k">def</span> <span class="nf">resetOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Resets Operator object.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="Operator.setDim">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setDim">[docs]</a>
-    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the current Operator objects dimension to a user defined one.</span>
+<div class="viewcode-block" id="Operator.setDim"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setDim">[docs]</a>    <span class="k">def</span> <span class="nf">setDim</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newDim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">graph</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current Operator objects dimension to a user defined one.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -520,17 +481,13 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="n">newDim</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_graph</span> <span class="o">=</span> <span class="n">graph</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="p">(</span>
             <span class="n">nx</span><span class="o">.</span><span class="n">adjacency_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="Operator.getDim">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getDim">[docs]</a>
-    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current graph dimension.</span>
+<div class="viewcode-block" id="Operator.getDim"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getDim">[docs]</a>    <span class="k">def</span> <span class="nf">getDim</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current graph dimension.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -539,11 +496,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_n</span></div>
 
-
-<div class="viewcode-block" id="Operator.setTime">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setTime">[docs]</a>
-    <span class="k">def</span> <span class="nf">setTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newTime</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the current operator time to a user defined one.</span>
+<div class="viewcode-block" id="Operator.setTime"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setTime">[docs]</a>    <span class="k">def</span> <span class="nf">setTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newTime</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the current operator time to a user defined one.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -552,11 +506,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">newTime</span></div>
 
-
-<div class="viewcode-block" id="Operator.getTime">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getTime">[docs]</a>
-    <span class="k">def</span> <span class="nf">getTime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current operator time.</span>
+<div class="viewcode-block" id="Operator.getTime"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getTime">[docs]</a>    <span class="k">def</span> <span class="nf">getTime</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current operator time.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -565,11 +516,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span></div>
 
-
-<div class="viewcode-block" id="Operator.setAdjacencyMatrix">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setAdjacencyMatrix">[docs]</a>
-    <span class="k">def</span> <span class="nf">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adjacencyMatrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the adjacency matrix of the operator to a user defined one.</span>
+<div class="viewcode-block" id="Operator.setAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">setAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">adjacencyMatrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the adjacency matrix of the operator to a user defined one.</span>
 <span class="sd">        Might make more sense to not give the user control over this parameter, and make</span>
 <span class="sd">        them instead change the graph entirely.</span>
 
@@ -578,19 +526,14 @@
 <span class="sd">        adjacencyMatrix : np.ndarray</span>
 <span class="sd">            New adjacency matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">=</span> <span class="n">adjacencyMatrix</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">adjacencyMatrix</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_buildEigenValues</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_isHermitian</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="Operator._setAdjacencyMatrixOnly">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setAdjacencyMatrixOnly">[docs]</a>
-    <span class="k">def</span> <span class="nf">_setAdjacencyMatrixOnly</span><span class="p">(</span>
+<div class="viewcode-block" id="Operator._setAdjacencyMatrixOnly"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setAdjacencyMatrixOnly">[docs]</a>    <span class="k">def</span> <span class="nf">_setAdjacencyMatrixOnly</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span> <span class="n">adjacencyMatrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the adjacency matrix of the operator to a user defined one.</span>
+        <span class="sd">&quot;&quot;&quot;Sets the adjacency matrix of the operator to a user defined one.</span>
 <span class="sd">        Might make more sense to not give the user control over this parameter, and make</span>
 <span class="sd">        them instead change the graph entirely.</span>
 
@@ -599,28 +542,22 @@
 <span class="sd">        adjacencyMatrix : np.ndarray</span>
 <span class="sd">            New adjacency matrix.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span> <span class="o">=</span> <span class="n">adjacencyMatrix</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span> <span class="o">=</span> <span class="n">adjacencyMatrix</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">complex</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">resetOperator</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="Operator.getAdjacencyMatrix">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getAdjacencyMatrix">[docs]</a>
-    <span class="k">def</span> <span class="nf">getAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the current adjacency matrix of the Operator.</span>
+<div class="viewcode-block" id="Operator.getAdjacencyMatrix"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getAdjacencyMatrix">[docs]</a>    <span class="k">def</span> <span class="nf">getAdjacencyMatrix</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the current adjacency matrix of the Operator.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        np.ndarray</span>
 <span class="sd">            Adjacency matrix of the Operator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span></div>
 
-
-<div class="viewcode-block" id="Operator._setOperatorVec">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setOperatorVec">[docs]</a>
-    <span class="k">def</span> <span class="nf">_setOperatorVec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets all the parameters of the current operator to user defined ones.</span>
+<div class="viewcode-block" id="Operator._setOperatorVec"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._setOperatorVec">[docs]</a>    <span class="k">def</span> <span class="nf">_setOperatorVec</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets all the parameters of the current operator to user defined ones.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -629,11 +566,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">newOperator</span></div>
 
-
-<div class="viewcode-block" id="Operator.setOperator">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setOperator">[docs]</a>
-    <span class="k">def</span> <span class="nf">setOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets all the parameters of the current operator to user defined ones.</span>
+<div class="viewcode-block" id="Operator.setOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setOperator">[docs]</a>    <span class="k">def</span> <span class="nf">setOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newOperator</span><span class="p">:</span> <span class="n">Operator</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets all the parameters of the current operator to user defined ones.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -644,11 +578,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getTime</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">=</span> <span class="n">newOperator</span><span class="o">.</span><span class="n">getOperator</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="Operator.getOperator">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getOperator">[docs]</a>
-    <span class="k">def</span> <span class="nf">getOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Gets the numpy matrix associated with the current operator.</span>
+<div class="viewcode-block" id="Operator.getOperator"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getOperator">[docs]</a>    <span class="k">def</span> <span class="nf">getOperator</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">matrix</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Gets the numpy matrix associated with the current operator.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -657,11 +588,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span></div>
 
-
-<div class="viewcode-block" id="Operator.checkPST">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.checkPST">[docs]</a>
-    <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Algorithm to check PST based on the article https://arxiv.org/abs/1606.02264 authored by Rodrigo Chaves.</span>
+<div class="viewcode-block" id="Operator.checkPST"><a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.checkPST">[docs]</a>    <span class="k">def</span> <span class="nf">checkPST</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Algorithm to check PST based on the article https://arxiv.org/abs/1606.02264 authored by Rodrigo Chaves.</span>
 <span class="sd">        Checks if all the conditions are true and return the **VALUE** if the graph</span>
 <span class="sd">        has PST and False otherwise.</span>
 
@@ -677,21 +605,20 @@
 <span class="sd">        Float/Bool</span>
 <span class="sd">            Either returns the time value of PST or False.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: Check if numpy is faster for eigenvecs and vals.</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">nodeA</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeA</span><span class="p">)</span>
             <span class="n">nodeB</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">nodeB</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">nodeA</span> <span class="o">&gt;</span> <span class="n">nodeB</span><span class="p">:</span>
                 <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span> <span class="o">=</span> <span class="n">swapNodes</span><span class="p">(</span><span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
 
-            <span class="n">symAdj</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span><span class="p">)</span>
-            <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_adjacency</span>
-            <span class="n">P</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span>
-            <span class="n">P_inv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
-            <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">P_inv</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">matmul</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">P</span><span class="p">))</span>
+            <span class="n">symAdj</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">Matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_adjacencyMatrix</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+            <span class="c1"># Isto já foi calculado.</span>
+            <span class="n">eigenVec</span><span class="p">,</span> <span class="n">D</span> <span class="o">=</span> <span class="n">symAdj</span><span class="o">.</span><span class="n">diagonalize</span><span class="p">()</span>
+            <span class="n">eigenVal</span> <span class="o">=</span> <span class="n">getEigenVal</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
             <span class="n">isCospec</span> <span class="o">=</span> <span class="n">isStrCospec</span><span class="p">(</span><span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">nodeB</span><span class="p">)</span>
             <span class="n">chRoots</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">delta</span> <span class="o">=</span> <span class="n">checkRoots</span><span class="p">(</span>
-                <span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span>
-            <span class="p">)</span>
+                <span class="n">symAdj</span><span class="p">,</span> <span class="n">nodeA</span><span class="p">,</span> <span class="n">eigenVec</span><span class="p">,</span> <span class="n">eigenVal</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">isCospec</span> <span class="ow">and</span> <span class="n">chRoots</span><span class="p">:</span>
                 <span class="n">result</span> <span class="o">=</span> <span class="n">pi</span> <span class="o">/</span> <span class="p">(</span><span class="n">g</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>
@@ -701,108 +628,8 @@
             <span class="k">raise</span> <span class="n">MissingNodeInput</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;A node number is missing: nodeA = </span><span class="si">{</span><span class="n">nodeA</span><span class="si">}</span><span class="s2">; nodeB = </span><span class="si">{</span><span class="n">nodeB</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
-
-<div class="viewcode-block" id="Operator.getMarkedElements">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.getMarkedElements">[docs]</a>
-    <span class="k">def</span> <span class="nf">getMarkedElements</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the marked elements of the operator.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            List of marked elements.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_markedElements</span></div>
-
-
-<div class="viewcode-block" id="Operator.setMarkedElements">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.setMarkedElements">[docs]</a>
-    <span class="k">def</span> <span class="nf">setMarkedElements</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">markedElements</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Sets the marked elements of the operator.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        markedElements : list</span>
-<span class="sd">            List of marked elements.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_markedElements</span> <span class="o">=</span> <span class="n">markedElements</span></div>
-
-
-<div class="viewcode-block" id="Operator.to_json">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.to_json">[docs]</a>
-    <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">            Converts the operator object to a JSON string.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        str</span>
-<span class="sd">            JSON string of the operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span>
-            <span class="s1">&#39;graph&#39;</span><span class="p">:</span> <span class="n">nx</span><span class="o">.</span><span class="n">node_link_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">),</span>
-            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="p">,</span>
-            <span class="s1">&#39;laplacian&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">,</span>
-            <span class="s1">&#39;markedElements&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_markedElements</span><span class="p">,</span>
-            <span class="s1">&#39;adjacencyMatrix&#39;</span><span class="p">:</span> <span class="n">complex_matrix_to_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_hamiltonian</span><span class="p">),</span>
-            <span class="s1">&#39;eigenvalues&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eigenvalues</span><span class="o">.</span><span class="n">tolist</span><span class="p">(),</span>
-            <span class="s1">&#39;eigenvectors&#39;</span><span class="p">:</span> <span class="n">complex_matrix_to_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eigenvectors</span><span class="p">),</span>
-            <span class="s1">&#39;operator&#39;</span><span class="p">:</span> <span class="n">complex_matrix_to_json</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="p">),</span>
-        <span class="p">})</span></div>
-
-
-<div class="viewcode-block" id="Operator.from_json">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator.from_json">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">json_var</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Operator</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Converts a JSON string to an operator object.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        json_var : str, dict</span>
-<span class="sd">            JSON string of the operator object.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Operator</span>
-<span class="sd">            Operator object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">json_var</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_var</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">json_var</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="n">json_var</span>
-        <span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">node_link_graph</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">])</span>
-        <span class="n">time</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span>
-        <span class="n">laplacian</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;laplacian&#39;</span><span class="p">]</span>
-        <span class="n">markedElements</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;markedElements&#39;</span><span class="p">]</span>
-        <span class="n">adjacencyMatrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="n">json_matrix_to_complex</span><span class="p">(</span>
-                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;adjacencyMatrix&#39;</span><span class="p">]))</span>
-        <span class="n">eigenvalues</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;eigenvalues&#39;</span><span class="p">])</span>
-
-        <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="n">json_matrix_to_complex</span><span class="p">(</span>
-                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;eigenvectors&#39;</span><span class="p">]))</span>
-        <span class="n">operator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">json_matrix_to_complex</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;operator&#39;</span><span class="p">]))</span>
-
-        <span class="n">newOp</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">laplacian</span><span class="p">,</span> <span class="n">markedElements</span><span class="p">)</span>
-        <span class="n">newOp</span><span class="o">.</span><span class="n">_setAdjacencyMatrixOnly</span><span class="p">(</span><span class="n">adjacencyMatrix</span><span class="p">)</span>
-        <span class="n">newOp</span><span class="o">.</span><span class="n">_setEigenValues</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>
-        <span class="n">newOp</span><span class="o">.</span><span class="n">_setEigenVectors</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">)</span>
-        <span class="n">newOp</span><span class="o">.</span><span class="n">_setOperatorVec</span><span class="p">(</span><span class="n">operator</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">newOp</span></div>
-
-
-<div class="viewcode-block" id="Operator._degreeDiagonalMatrix">
-<a class="viewcode-back" href="../../qwak.html#qwak.Operator.Operator._degreeDiagonalMatrix">[docs]</a>
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">_degreeDiagonalMatrix</span><span class="p">(</span><span class="n">G</span><span class="p">):</span>
-        <span class="n">degrees</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">degree</span><span class="p">())</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">degrees</span><span class="p">)</span></div>
-
-
     <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Left-side multiplication for the Operator class.</span>
+        <span class="sd">&quot;&quot;&quot;Left-side multiplication for the Operator class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -817,7 +644,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span> <span class="o">*</span> <span class="n">other</span>
 
     <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Right-side multiplication for the Operator class.</span>
+        <span class="sd">&quot;&quot;&quot;Right-side multiplication for the Operator class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -832,7 +659,7 @@
         <span class="k">return</span> <span class="n">other</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_operator</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;String representation of the State class.</span>
+        <span class="sd">&quot;&quot;&quot;String representation of the State class.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -842,7 +669,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Representation of the ProbabilityDistribution object.</span>
+        <span class="sd">&quot;&quot;&quot;Representation of the ProbabilityDistribution object.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -850,10 +677,24 @@
 <span class="sd">            String of the ProbabilityDistribution object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;N: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_n</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;Graph: </span><span class="si">{</span><span class="n">nx</span><span class="o">.</span><span class="n">to_dict_of_dicts</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
-            <span class="sa">f</span><span class="s2">&quot;Operator:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span></div>
+               <span class="sa">f</span><span class="s2">&quot;Time: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_time</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;Graph: </span><span class="si">{</span><span class="n">nx</span><span class="o">.</span><span class="n">to_dict_of_dicts</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_graph</span><span class="p">)</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span> \
+               <span class="sa">f</span><span class="s2">&quot;Operator:</span><span class="se">\n\t</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_operator</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
+    <span class="c1"># def transportEfficiency(self,initState):</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     Under Construction.</span>
+    <span class="c1">#     @param initState:</span>
+    <span class="c1">#     @return:</span>
+    <span class="c1">#     &quot;&quot;&quot;</span>
+    <span class="c1">#     ef = 0</span>
+    <span class="c1">#     print(f&quot;init: {initState}&quot;)</span>
+    <span class="c1">#     print(f&quot;Eigenvectors {self._eigenvectors}&quot;)</span>
+    <span class="c1">#     for i in range(len(self._eigenvectors)):</span>
+    <span class="c1">#         eigenVec = np.transpose(self._eigenvectors[:,i]).conjugate()</span>
+    <span class="c1">#         ef += np.absolute(np.matmul(eigenVec,initState))**2</span>
+    <span class="c1">#         print(f&quot;eigenVec: {eigenVec}\t\t eigenVec norm: {np.linalg.norm(eigenVec)}\t\tef : {ef}\n&quot;)</span>
+    <span class="c1">#     return ef</span>
 </pre></div>
         </article>
       </div>
@@ -874,7 +715,9 @@
             
           </div>
           <div class="right-details">
-            
+            <div class="icons">
+              
+            </div>
           </div>
         </div>
         
@@ -886,12 +729,14 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
-    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
-    <script src="../../_static/copybutton.js?v=f281be69"></script>
+</div><script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/scripts/furo.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/responsiveSvg.js"></script>
     </body>
 </html>
