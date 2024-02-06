@@ -268,8 +268,6 @@ class QWAK:
         self._n = newDim
         if graphStr is not None:
             self._graph = eval(f"{graphStr}({self._n})")
-            # We need a reassignment here since certain graphs have
-            # different length than the number inputted.
             self._n = len(self._graph)
         elif graph is not None:
             self._graph = graph
@@ -304,7 +302,6 @@ class QWAK:
         """
         self._graph = newGraph
         self._n = len(self._graph)
-        # self.setDim(self._n, graph=self._graph)
 
     def getGraph(self) -> nx.Graph:
         """Gets the current graph.
@@ -534,9 +531,6 @@ class QWAK:
         list
             List of ProbabilityDistribution objects.
         """
-        # if not self._probDistList:
-        #     raise EmptyProbDistList(
-        #         f"Prob. dist. list is {self._probDistList}. Perhaps you didnt run multiple walks?")
         return self._probDistList
 
     def setProbDistList(self, newProbDistList: list) -> None:

@@ -3,17 +3,11 @@ from qutip import Qobj
 
 
 class StochasticProbabilityDistribution(object):
-    """_summary_
 
-    Parameters
-    ----------
-    object : _type_
-        _description_
-    """
-
-    # TODO: Figure out why we need the object.
     def __init__(self, state: Qobj) -> None:
-        """_summary_
+        """ A class to represent the probability distribution of a quantum state in a stochastic system.
+
+        Initializes the probability distribution with a given quantum state.
 
         Parameters
         ----------
@@ -24,34 +18,35 @@ class StochasticProbabilityDistribution(object):
         self._n = state.getDim()
         self._probVec = np.zeros((self._n, 1))
 
-    def buildProbDist(self, state=None) -> None:
-        """_summary_
+    def buildProbDist(self, state: Qobj = None) -> None:
+        """ Builds or updates the probability distribution of the system based on the given quantum state.
 
         Parameters
         ----------
-        state : _type_, optional
-            _description_, by default None
+        state : Qobj, optional
+            The quantum state to be used for updating the probability distribution.
+            If None, the existing final state is used. Default is None.
         """
         if state is not None:
             self._finalState = state.getFinalState()
         self._probVec = np.diagonal(self._finalState)
 
     def getProbVec(self) -> np.ndarray:
-        """_summary_
+        """Returns the probability vector representing the distribution of the current state.
 
-        Returns
-        -------
-        np.ndarray
-            _description_
-        """
+         Returns
+         -------
+         np.ndarray
+             The probability vector of the current state, flattened.
+         """
         return self._probVec.flatten()
 
-    def setProbVec(self, newFinalState) -> None:
-        """_summary_
+    def setProbVec(self, newFinalState: np.ndarray) -> None:
+        """Sets a new final state for the probability distribution.
 
-        Parameters
-        ----------
-        newFinalState : _type_
-            _description_
-        """
+         Parameters
+         ----------
+         newFinalState : np.ndarray
+             The new final state to be set for the probability distribution.
+         """
         self._finalState = newFinalState

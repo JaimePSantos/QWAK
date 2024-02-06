@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from qutip import Options
+from qutip import Options,Qobj
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
@@ -10,33 +10,35 @@ from qwak.StochasticQuantumWalk import StochasticQuantumWalk
 
 
 class StochasticQWAK:
-    """_summary_"""
 
     def __init__(
         self,
         graph: nx.Graph,
-        initStateList=None,
-        customStateList=None,
-        noiseParam=None,
-        sinkNode=None,
-        sinkRate=None,
+        initStateList: list = None,
+        customStateList: list = None,
+        noiseParam: float = None,
+        sinkNode: int = None,
+        sinkRate: float = None,
     ) -> None:
-        """_summary_
+        """  This class integrates the components of a stochastic quantum walk including
+        the graph, initial state, stochastic operator, quantum walk dynamics, and
+        probability distribution.
+        Initializes a StochasticQWAK instance with a graph and optional parameters.
 
         Parameters
         ----------
         graph : nx.Graph
-            _description_
-        initStateList : _type_, optional
-            _description_, by default None
-        customStateList : _type_, optional
-            _description_, by default None
-        noiseParam : _type_, optional
-            _description_, by default None
-        sinkNode : _type_, optional
-            _description_, by default None
-        sinkRate : _type_, optional
-            _description_, by default None
+            The graph over which the quantum walk is performed.
+        initStateList : list, optional
+            List of nodes to initialize the quantum state.
+        customStateList : list, optional
+            Custom states for the quantum walk.
+        noiseParam : float, optional
+            Parameter controlling noise in the stochastic operator.
+        sinkNode : int, optional
+            Node acting as a sink in the quantum walk.
+        sinkRate : float, optional
+            Rate of transfer to the sink node.
         """
         self._graph = graph
         self._n = len(self._graph)
@@ -59,42 +61,34 @@ class StochasticQWAK:
         self,
         time: float = 0,
         initStateList: list = None,
-        customStateList=None,
-        noiseParam=None,
-        sinkNode=None,
-        sinkRate=None,
-        observables=[],
-        opts=Options(store_states=True, store_final_state=True),
+        customStateList: list = None,
+        noiseParam: float = None,
+        sinkNode: int = None,
+        sinkRate: float = None,
+        observables: list = [],
+        opts: Options = Options(store_states=True, store_final_state=True),
     ) -> None:
-        """_summary_
+        """Executes the stochastic quantum walk.
 
         Parameters
         ----------
         time : float, optional
-            _description_, by default 0
+            Duration of the quantum walk.
         initStateList : list, optional
-            _description_, by default None
-        customStateList : _type_, optional
-            _description_, by default None
-        noiseParam : _type_, optional
-            _description_, by default None
-        sinkNode : _type_, optional
-            _description_, by default None
-        sinkRate : _type_, optional
-            _description_, by default None
+            Initial state list for the quantum walk.
+        customStateList : list, optional
+            Custom state list for the quantum walk.
+        noiseParam : float, optional
+            Noise parameter for the operator.
+        sinkNode : int, optional
+            Sink node index in the graph.
+        sinkRate : float, optional
+            Rate of transfer to the sink node.
         observables : list, optional
-            _description_, by default []
-        opts : _type_, optional
-            _description_, by default Options(store_states=True, store_final_state=True)
-
-        Raises
-        ------
-        stOBErr
-            _description_
-        nUErr
-            _description_
+            List of observables to monitor during the walk.
+        opts : Options, optional
+            QuTiP options for the simulation.
         """
-        # TODO: Move the constructors to the constructor method.
         try:
             self._initState.buildState(
                 nodeList=initStateList, customStateList=customStateList
@@ -113,62 +107,62 @@ class StochasticQWAK:
             self._quantumWalk)
         self._probDist.buildProbDist()
 
-    def setProbDist(self, newProbDist: object) -> None:
-        """_summary_
+    def setProbDist(self, newProbDist: StochasticProbabilityDistribution) -> None:
+        """Sets a new probability distribution for the quantum walk.
 
         Parameters
         ----------
-        newProbDist : object
-            _description_
+        newProbDist : StochasticProbabilityDistribution
+            The new probability distribution to set.
         """
         self._probDist = newProbDist
 
     def getProbDist(self) -> StochasticProbabilityDistribution:
-        """_summary_
+        """Returns the current probability distribution of the quantum walk.
 
         Returns
         -------
-        ProbabilityDistribution
-            _description_
+        StochasticProbabilityDistribution
+            The current probability distribution.
         """
         return self._probDist
 
     def getProbVec(self) -> np.ndarray:
-        """_summary_
+        """Returns the probability vector of the current quantum state.
 
         Returns
         -------
-        ProbabilityDistribution
-            _description_
+        np.ndarray
+            The probability vector.
         """
         return self._probDist.getProbVec()
 
-    def getQuantumHamiltonian(self):
-        """_summary_
+    def getQuantumHamiltonian(self) -> Qobj:
+        """Retrieves the quantum Hamiltonian of the stochastic operator.
 
         Returns
         -------
-        _type_
-            _description_
+        Qobj
+            The quantum Hamiltonian governing the evolution of the quantum walk.
         """
         return self._operator.getQuantumHamiltonian()
 
-    def getClassicalHamiltonian(self):
-        """_summary_
+    def getClassicalHamiltonian(self) -> list[Qobj]:
+        """Retrieves the classical Hamiltonian (Lindblad operators) of the stochastic operator.
 
         Returns
         -------
-        _type_
-            _description_
+        list[Qobj]
+            A list of Lindblad operators representing the classical component of the quantum walk.
         """
         return self._operator.getClassicalHamiltonian()
 
-    def getLaplacian(self):
-        """_summary_
+    def getLaplacian(self) -> np.ndarray:
+        """Retrieves the Laplacian matrix of the graph associated with the stochastic operator.
 
         Returns
         -------
-        _type_
-            _description_
+        np.ndarray
+            The Laplacian matrix of the graph.
         """
         return self._operator.getLaplacian()
