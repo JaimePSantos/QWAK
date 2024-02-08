@@ -6,4 +6,3 @@ Modules
 
    qwak
    utils
-   utils/modules

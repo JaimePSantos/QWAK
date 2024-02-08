@@ -40,6 +40,8 @@ extensions = [
     "sphinx.ext.doctest",
     "sphinx.ext.extlinks",
     "sphinx.ext.viewcode",
+    "sphinx.ext.mathjax",
+    "sphinx-mathjax-offline",
     "sphinxcontrib.programoutput",
     "myst_parser",
 ]
@@ -164,3 +166,12 @@ html_js_files = [
 ]
 
 graphviz_output_format = "svg"
+
+mathjax3_config = {
+    'TeX': {
+        'Macros': {
+            'ket': ['{\\left|#1\\right\\rangle}', 1],
+            'bra': ['{\\left\\langle#1\\right|}', 1],
+        }
+    }
+}
