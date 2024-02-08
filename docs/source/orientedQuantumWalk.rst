@@ -1,5 +1,5 @@
 Oriented Quantum Walk
 =====================
 
-Page under construction.
+.. WARNING:: This page is under construction.
 

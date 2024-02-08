@@ -1,5 +1,5 @@
 Perfect State Transfer
 =======================
 
-Page under construction.
+.. WARNING:: This page is under construction.
 

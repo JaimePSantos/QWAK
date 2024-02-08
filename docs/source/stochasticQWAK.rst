@@ -1,5 +1,5 @@
 Stochastic Qwak on a Maze
 =========================
 
-Page under construction.
+.. WARNING:: This page is under construction.
 
