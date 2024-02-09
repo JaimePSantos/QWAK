@@ -242,8 +242,8 @@
 <p>This page is under construction.</p>
 </div>
 <p>Here, we will go over the searching algorithm using QWAK for several different structures.</p>
-<section id="complete-graph">
-<h2>Complete Graph<a class="headerlink" href="#complete-graph" title="Link to this heading">#</a></h2>
+<section id="complete-graph-single-element">
+<h2>Complete Graph - Single Element<a class="headerlink" href="#complete-graph-single-element" title="Link to this heading">#</a></h2>
 <p>To use QWAK for searching, we need to define a graph for the search space, and
 the targets are marked elements, specified as a list of weighted node indices.
 For a complete graph, the optimal transition rate is <span class="math notranslate nohighlight">\(\gamma = \frac{1}{n}\)</span>,
@@ -267,6 +267,25 @@ of the method will be described as:</p>
 <div class="math notranslate nohighlight">
 \[H^\prime = -\gamma A - \sum_{x \in M} \ket{x}\bra{x}\]</div>
 </div>
+<p><a class="reference internal" href="_images/completePlot_N512_NWALKS3_S200.png"><img alt="completeGraphSearching" class="align-middle" src="_images/completePlot_N512_NWALKS3_S200.png" style="width: 50%;" /></a></p>
+<p>The optimal time for the search problem also depends on the number of solutions
+cite{boyer1996,Lugao2022}, and the previous figure presents the evolution of the
+sum probability of all the marked elements. The utility functions needed to plot this
+figure are available in the package.</p>
+<section id="multiple-elements">
+<h3>Multiple Elements<a class="headerlink" href="#multiple-elements" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">markedElements</span> <span class="o">=</span> <span class="p">[(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="linenos">2</span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">markedElements</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To search for multiple elements, we simply extend the <code class="docutils literal notranslate"><span class="pre">markedElements</span></code>
+list and fine-tune the optimal evolution time. The aforementioned figure
+demonstrates that as the number of marked elements increases, the time required
+to reach maximum probability decreases. Specifically, when we mark
+<span class="math notranslate nohighlight">\(\frac{1}{4}\)</span> of the total elements, the walk evolves optimally in time <span class="math notranslate nohighlight">\(\pi\)</span>.
+This scenario is analogous to the <em>single-shot Grover algorithm</em>, where
+the highest probability for finding the solution is achieved in just one step.</p>
+</section>
 </section>
 </section>
 
@@ -326,7 +345,10 @@ of the method will be described as:</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Searching With QWAK</a><ul>
-<li><a class="reference internal" href="#complete-graph">Complete Graph</a></li>
+<li><a class="reference internal" href="#complete-graph-single-element">Complete Graph - Single Element</a><ul>
+<li><a class="reference internal" href="#multiple-elements">Multiple Elements</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
