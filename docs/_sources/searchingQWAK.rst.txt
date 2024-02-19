@@ -119,3 +119,66 @@ available in the notebook.
 We can see from the plot that despite having a very narrow range of transition
 rate values, :math:`\gamma_{\text{opt}}` does indeed reach maximum probability within time
 that scales with :math:`\mathcal{O}\sqrt{N}`.
+
+
+Erdős-Rényi model
+-----------------
+
+As a final example, we will examine the search problem on a more general
+collection of random graphs. In the Erdős-Rényi (ER) model, a graph is
+constructed by starting with a fixed number of nodes and then connecting each
+pair of nodes with a fixed probability :math:`p`. As a consequence, the model produces
+graphs with varying degrees of connectivity and randomness, depending on the
+chosen value of :math:`p`.
+
+However, it has been shown that search by CTQW is optimal for almost all graphs,
+given the correct conditions. To explore the behavior
+of the search process in these structures, we will perform a series of simulations
+with varying parameters. First, we create a list of ER graphs with different
+connection probabilities.
+
+.. code-block:: python
+
+   N = 500
+   t = (np.pi/2) * np.sqrt(N)
+   samples = 200
+   pList = np.linspace(0.01, 0.5, samples)
+   graphList = [nx.erdos_renyi_graph(N, p) for p in pList]
+
+Next, we initialize a QWAK object for each graph in the list and set a
+transition rate of :math:`\gamma = \frac{1}{N p}`. We will store the probability
+distributions in a matrix for further analysis.
+
+.. code-block:: python
+
+   initSL = list(range(0, N))
+   tList = np.linspace(0, 100, samples)
+   mElem = [(N//2, -1)]
+   probDistMat = []
+
+   for graph, pVal in zip(graphList, pList):
+       gamma = 1/(N*pVal)
+       qw = QWAK(graph=graph, gamma=gamma,
+                 initStateList=initSL, markedElements=mElem)
+       qw.runMultipleWalks(timeList=tList)
+       probDistMat.append(qw.getProbDistList())
+
+Finally, we can visualize the results in the following figure by
+generating a heatmap plot, with the connection probabilities on the x-axis as a
+function of time in the y-axis. The color intensity represents the
+maximum probability of finding the marked element at each combination of
+parameters.
+
+.. |erdosRenyiSearching| image:: ../../Images/SoftwareUsage/Searching/heatMapPlot_N512_NGRAPHS40_S200_PMAX0.5.png
+   :width: 50 %
+   :align: middle
+
+|erdosRenyiSearching|
+
+When the value of :math:`p` in a graph exceeds the percolation threshold of
+:math:`p=\frac{\log{N}}{N}`, the graph is almost certainly connected. The figure highlights
+this threshold with a vertical line and shows that the search process achieves high solution
+probabilities above it, in time :math:`\mathcal{O}(\sqrt{N})`. For each value of :math:`p`, `40`
+different graphs were generated in order to calculate the average solution
+probability.
+

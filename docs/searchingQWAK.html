@@ -332,6 +332,55 @@ available in the notebook.</p>
 rate values, <span class="math notranslate nohighlight">\(\gamma_{\text{opt}}\)</span> does indeed reach maximum probability within time
 that scales with <span class="math notranslate nohighlight">\(\mathcal{O}\sqrt{N}\)</span>.</p>
 </section>
+<section id="erdos-renyi-model">
+<h2>Erdős-Rényi model<a class="headerlink" href="#erdos-renyi-model" title="Link to this heading">#</a></h2>
+<p>As a final example, we will examine the search problem on a more general
+collection of random graphs. In the Erdős-Rényi (ER) model, a graph is
+constructed by starting with a fixed number of nodes and then connecting each
+pair of nodes with a fixed probability <span class="math notranslate nohighlight">\(p\)</span>. As a consequence, the model produces
+graphs with varying degrees of connectivity and randomness, depending on the
+chosen value of <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p>However, it has been shown that search by CTQW is optimal for almost all graphs,
+given the correct conditions. To explore the behavior
+of the search process in these structures, we will perform a series of simulations
+with varying parameters. First, we create a list of ER graphs with different
+connection probabilities.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">pList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+<span class="n">graphList</span> <span class="o">=</span> <span class="p">[</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pList</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Next, we initialize a QWAK object for each graph in the list and set a
+transition rate of <span class="math notranslate nohighlight">\(\gamma = \frac{1}{N p}\)</span>. We will store the probability
+distributions in a matrix for further analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">initSL</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="n">tList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+<span class="n">mElem</span> <span class="o">=</span> <span class="p">[(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">probDistMat</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">graph</span><span class="p">,</span> <span class="n">pVal</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">graphList</span><span class="p">,</span> <span class="n">pList</span><span class="p">):</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="n">pVal</span><span class="p">)</span>
+    <span class="n">qw</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+              <span class="n">initStateList</span><span class="o">=</span><span class="n">initSL</span><span class="p">,</span> <span class="n">markedElements</span><span class="o">=</span><span class="n">mElem</span><span class="p">)</span>
+    <span class="n">qw</span><span class="o">.</span><span class="n">runMultipleWalks</span><span class="p">(</span><span class="n">timeList</span><span class="o">=</span><span class="n">tList</span><span class="p">)</span>
+    <span class="n">probDistMat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qw</span><span class="o">.</span><span class="n">getProbDistList</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Finally, we can visualize the results in the following figure by
+generating a heatmap plot, with the connection probabilities on the x-axis as a
+function of time in the y-axis. The color intensity represents the
+maximum probability of finding the marked element at each combination of
+parameters.</p>
+<p><a class="reference internal" href="_images/heatMapPlot_N512_NGRAPHS40_S200_PMAX0.5.png"><img alt="erdosRenyiSearching" class="align-middle" src="_images/heatMapPlot_N512_NGRAPHS40_S200_PMAX0.5.png" style="width: 50%;" /></a></p>
+<p>When the value of <span class="math notranslate nohighlight">\(p\)</span> in a graph exceeds the percolation threshold of
+<span class="math notranslate nohighlight">\(p=\frac{\log{N}}{N}\)</span>, the graph is almost certainly connected. The figure highlights
+this threshold with a vertical line and shows that the search process achieves high solution
+probabilities above it, in time <span class="math notranslate nohighlight">\(\mathcal{O}(\sqrt{N})\)</span>. For each value of <span class="math notranslate nohighlight">\(p\)</span>, <cite>40</cite>
+different graphs were generated in order to calculate the average solution
+probability.</p>
+</section>
 </section>
 
         </article>
@@ -396,6 +445,7 @@ that scales with <span class="math notranslate nohighlight">\(\mathcal{O}\sqrt{N
 </ul>
 </li>
 <li><a class="reference internal" href="#hypercube">Hypercube</a></li>
+<li><a class="reference internal" href="#erdos-renyi-model">Erdős-Rényi model</a></li>
 </ul>
 </li>
 </ul>
