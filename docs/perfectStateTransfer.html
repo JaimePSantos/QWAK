@@ -241,6 +241,44 @@
 <p class="admonition-title">Warning</p>
 <p>This page is under construction.</p>
 </div>
+<p>To showcase the capabilities of the perfect state transfer (PST) functionality
+within QWAK, we present a hands-on example featuring a quantum walk on a
+4-dimensional hypercube graph. This choice of graph is particularly instructive
+because hypercube graphs are a well-studied class of graphs with interesting
+topological properties. For this demonstration, we initialize the quantum walk
+at vertex 0. This choice of initial vertex serves as the starting point for
+the state transfer process.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">n</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="linenos">2</span><span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">hypercube_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">initcond</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">qw</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">t</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">qw</span><span class="o">.</span><span class="n">checkPST</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">)))</span>
+<span class="linenos">7</span><span class="n">qw</span><span class="o">.</span><span class="n">runWalk</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">initStateList</span><span class="o">=</span><span class="n">initcond</span><span class="p">)</span>
+<span class="linenos">8</span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">qw</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>In the above code, a 4-dimensional hypercube with 16 nodes is created using
+<code class="docutils literal notranslate"><span class="pre">NetworkX</span></code>. The walker starts at vertex 0, and the <code class="docutils literal notranslate"><span class="pre">checkPST</span></code>
+function returns the time value for which PST occurs between the antipodal
+vertices, or <cite>-1</cite> if it does not. For this hypercube, PST happens at <span class="math notranslate nohighlight">\(t =
+\frac{\pi}{2}\)</span>, consistent with all <cite>N</cite>-dimensional hypercubes. This can be confirmed by iteratively
+running the <code class="docutils literal notranslate"><span class="pre">checkPST</span></code> function for all antipodal vertex pairs contained
+in the structure. The quantum walk is then executed for this time duration via
+<code class="docutils literal notranslate"><span class="pre">runWalk</span></code>, and <code class="docutils literal notranslate"><span class="pre">Matplotlib</span></code> is used to plot the resulting
+probability vector, showing complete transfer from vertex 0 to 15.</p>
+<p><a class="reference internal" href="_images/Hypercube_N16_T6.28_FROM0_TO15.png"><img alt="hypercubePST" class="align-middle" src="_images/Hypercube_N16_T6.28_FROM0_TO15.png" style="width: 50%;" /></a></p>
+<p>The previous figure was plotted using an utility function present in
+the notebook, illustrating the evolution of the probability of finding a walker
+between the vertices we expect PST to occur. PST is a cyclic phenomenon that
+occurs every <span class="math notranslate nohighlight">\(2\tau\)</span>, being <span class="math notranslate nohighlight">\(\tau\)</span> the initial PST time (in this case <span class="math notranslate nohighlight">\(\pi/2\)</span>).
+This is a direct consequence of the fact that there is PST from vertex <span class="math notranslate nohighlight">\(a\)</span> to
+<span class="math notranslate nohighlight">\(b\)</span>, then there is also from <span class="math notranslate nohighlight">\(b\)</span> to <span class="math notranslate nohighlight">\(a\)</span>. This can all be observed in the figure
+with the blue lines indicating the evolution for the initial vertex and the
+green line for the final vertex. Notice that PST return to the original vertex
+every <span class="math notranslate nohighlight">\(t=\pi\)</span>, since PST occurred at time <span class="math notranslate nohighlight">\(\pi/2\)</span> from vertex 0 to vertex 15,
+then at time <span class="math notranslate nohighlight">\(\pi/2 + \pi\)</span> the walker returns to vertex 15. PST is successfully
+achieved, confirming the efficacy of the algorithm.</p>
 </section>
 
         </article>
@@ -298,6 +336,8 @@
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"ket": ["{\\left|#1\\right\\rangle}", 1], "bra": ["{\\left\\langle#1\\right|}", 1]}}}</script>
+    <script defer="defer" src="_static/mathjax/tex-chtml.js?v=20daa33d"></script>
     <script src="_static/responsiveSvg.js"></script>
     </body>
 </html>
