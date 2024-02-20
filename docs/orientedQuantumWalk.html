@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Stochastic Qwak on a Maze" href="stochasticQWAK.html" /><link rel="prev" title="Perfect State Transfer" href="perfectStateTransfer.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Oriented Quantum Walk - QWAK - Quantum Walk Analysis Kit</title>
+        <title>Directed Quantum Walk - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -166,7 +166,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -191,7 +191,7 @@
 <li class="toctree-l1 current has-children"><a class="reference internal" href="usage.html">Usage</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
-<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Oriented Quantum Walk</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Directed Quantum Walk</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
 </ul>
 </li>
@@ -229,18 +229,134 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <section id="oriented-quantum-walk">
-<h1>Oriented Quantum Walk<a class="headerlink" href="#oriented-quantum-walk" title="Link to this heading">#</a></h1>
+          <section id="directed-quantum-walk">
+<h1>Directed Quantum Walk<a class="headerlink" href="#directed-quantum-walk" title="Link to this heading">#</a></h1>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This page is under construction.</p>
 </div>
+<p>A directed graph <span class="math notranslate nohighlight">\(G=(V,E)\)</span> differs from its undirected counterpart by having
+ordered vertex pairs in <span class="math notranslate nohighlight">\(E\)</span>. Early work established <em>strong
+quadrangularity</em> and <em>graph reversibility</em> as prerequisites for coined
+quantum walks (CQWs) on such graphs. Recent
+studies show performance gains in centrality ranking via CTQWs, with applications like PageRank.
+Other models, like <em>staggered quantum walks</em>, have also been defined in these structures.</p>
+<p>Directed graphs exhibit distinct transport properties, requiring different
+methods to characterize state transfer. Additionally,
+these graphs can exhibit new phenomena, such as zero state transfer.</p>
+<p>In the subsequent sections, we will demonstrate how to use <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> for
+simulating CTQWs on directed infinite lines and explore the <em>enhanced
+decay rate</em> of the survival probability in more general
+structures.</p>
+<section id="dynamics">
+<h2>Dynamics<a class="headerlink" href="#dynamics" title="Link to this heading">#</a></h2>
+<p>To define a directed infinite line, as shown in the figure below,
+we use the Hamiltonian <span class="math notranslate nohighlight">\(H\)</span> given by equation</p>
+<div class="math-wrapper docutils container" id="equation-hamiltonian">
+<div class="math notranslate nohighlight" id="equation-hamiltonian">
+<span class="eqno">(1)<a class="headerlink" href="#equation-hamiltonian" title="Link to this equation">#</a></span>\[H = \sum_{x = L}^{R}e^{i\alpha}\ket{x+1}\bra{x}+e^{-i\alpha}\ket{x-1}\bra{x},\]</div>
+</div>
+<p>where <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(R\)</span> are the left and right borders of
+the line, respectively. We can obtain an infinite path graph by setting
+<span class="math notranslate nohighlight">\(R\rightarrow\infty\)</span> and <span class="math notranslate nohighlight">\(L\rightarrow -\infty\)</span>.</p>
+<p><a class="reference internal" href="_images/oriented_infinite_line.png"><img alt="orientedLineGraph" class="align-middle" src="_images/oriented_infinite_line.png" style="width: 60%;" /></a></p>
+<p>We implement the <em>finite</em> line using the <code class="docutils literal notranslate"><span class="pre">path_graph</span></code> function and add direction to it using
+the <code class="docutils literal notranslate"><span class="pre">getWeightedGraph</span></code> function available in the notebook.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="linenos">2</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span>
+<span class="linenos">3</span><span class="n">weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">alpha</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">baseGraph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">path_graph</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">create_using</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">)</span>
+<span class="linenos">5</span><span class="n">graph</span> <span class="o">=</span> <span class="n">getWeightedGraph</span><span class="p">(</span><span class="n">baseGraph</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Inspired by previous work, we choose a non-localized
+initial condition given by equation</p>
+<div class="math-wrapper docutils container" id="equation-eq-survprobinitcond">
+<div class="math notranslate nohighlight" id="equation-eq-survprobinitcond">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-survprobinitcond" title="Link to this equation">#</a></span>\[\ket{\psi(0)} = \cos(\theta)\ket{-k} + e^{i\gamma}\sin(\theta)\ket{k},\]</div>
+</div>
+<p>which can be easily implemented in Python.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">k</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="linenos">2</span><span class="n">theta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">4</span>
+<span class="linenos">3</span><span class="n">l</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="linenos">4</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">l</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="n">initCond</span> <span class="o">=</span> <span class="p">[(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="o">-</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)),</span> <span class="p">(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="o">+</span><span class="n">k</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span><span class="o">*</span><span class="n">gamma</span><span class="p">)</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">))]</span>
+</pre></div>
+</div>
+<p>After initializing the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> object, we
+compute the walk using the <code class="docutils literal notranslate"><span class="pre">runWalk</span></code> method. To specify a
+non-localized initial condition, we pass the <code class="docutils literal notranslate"><span class="pre">customStateList</span></code> parameter
+to provide both the node and its corresponding amplitude.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">t</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="linenos">2</span>
+<span class="linenos">3</span><span class="n">qw</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="linenos">4</span><span class="n">qw</span><span class="o">.</span><span class="n">runWalk</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="n">t</span><span class="p">,</span> <span class="n">customStateList</span> <span class="o">=</span> <span class="n">initCond</span><span class="p">)</span>
+<span class="linenos">5</span>
+<span class="linenos">6</span><span class="n">probVec</span> <span class="o">=</span> <span class="n">qw</span><span class="o">.</span><span class="n">getProbVec</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The probability distribution is obtained using the <code class="docutils literal notranslate"><span class="pre">getProbVec</span></code> method. To
+study how the evolution of the probability distribution changes with different
+graph weights, the following figure displays the CTQW
+for multiple values of <span class="math notranslate nohighlight">\(\alpha\)</span>.</p>
+<p><a class="reference internal" href="_images/orDynN512NW3Alpha0.79-1.57TMAX110.png"><img alt="orientedDynamicsPath" class="align-middle" src="_images/orDynN512NW3Alpha0.79-1.57TMAX110.png" style="width: 50%;" /></a></p>
+<p>Indeed, the value of <span class="math notranslate nohighlight">\(\alpha\)</span> has a severe impact on the dynamics of the walk.
+In the case of an undirected graph (<span class="math notranslate nohighlight">\(\alpha = 0\)</span>), symmetry is expected around
+the center node; however, varying values of <span class="math notranslate nohighlight">\(\alpha\)</span> can alter the shape of the
+distribution, presenting a method of controlling how the walker propagates
+throughout the structure.</p>
+</section>
+<section id="survival-probability">
+<h2>Survival Probability<a class="headerlink" href="#survival-probability" title="Link to this heading">#</a></h2>
+<p>The survival probability of a quantum walk can be characterized as the mean
+probability of finding the walker in a certain location after some time <span class="math notranslate nohighlight">\(t\)</span>.
+Considering the symmetric position range of <span class="math notranslate nohighlight">\([k_0,k_1]\)</span>, this
+quantity will be</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[P_{[k_0,k_1]}(t)=\sum_{i=k_0}^{k_1} P_{i}(t).\]</div>
+</div>
+<p>Here, we will use <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> to run the walk for an interval using multiple
+values of <span class="math notranslate nohighlight">\(\alpha\)</span>. Classically, the survival probability decays at a rate
+proportionate to <span class="math notranslate nohighlight">\(t^{-\frac{1}{2}}\)</span>, while a quantum walk typically decays
+quadratically faster at a rate of <span class="math notranslate nohighlight">\(t^{-1}\)</span>. It is known, however, that certain
+initial conditions can achieve <em>enhanced decay rate</em>, scaling with <span class="math notranslate nohighlight">\(t^{-3}\)</span>.</p>
+<p><a class="reference internal" href="_images/decMatrix512NW3_Alpha1.05-1.57S500TMAX100.png"><img alt="decRateOriented" class="align-middle" src="_images/decMatrix512NW3_Alpha1.05-1.57S500TMAX100.png" style="width: 50%;" /></a></p>
+<p>Using the previously defined directed graph and the chosen initial condition, we
+can analyze the impact of varying <span class="math notranslate nohighlight">\(\alpha\)</span> values on the decay rate of the
+survival probability:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">timeList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
+<span class="linenos"> 2</span><span class="n">alphaList</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">]</span>
+<span class="linenos"> 3</span><span class="n">decayRateMatrix</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos"> 4</span><span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="n">alphaList</span><span class="p">:</span>
+<span class="linenos"> 5</span>    <span class="n">weight</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">)</span>
+<span class="linenos"> 6</span>    <span class="n">graph</span> <span class="o">=</span> <span class="n">getWeightedGraph</span><span class="p">(</span><span class="n">baseGraph</span><span class="p">,</span> <span class="n">weight</span><span class="p">)</span>
+<span class="linenos"> 7</span>    <span class="n">qw</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+<span class="linenos"> 8</span>    <span class="n">qw</span><span class="o">.</span><span class="n">runMultipleWalks</span><span class="p">(</span><span class="n">timeList</span><span class="p">,</span> <span class="n">customStateList</span><span class="o">=</span><span class="n">initCond</span><span class="p">)</span>
+<span class="linenos"> 9</span>    <span class="n">decayRateMatrix</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+<span class="linenos">10</span>                  <span class="n">qw</span><span class="o">.</span><span class="n">getSurvivalProbList</span><span class="p">(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span> <span class="o">-</span> <span class="n">k</span><span class="p">,</span> <span class="n">N</span><span class="o">//</span><span class="mi">2</span> <span class="o">+</span> <span class="n">k</span><span class="p">))</span>
+<span class="linenos">11</span>
+<span class="linenos">12</span><span class="n">plt</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+<span class="linenos">13</span><span class="k">for</span> <span class="n">decayRate</span> <span class="ow">in</span> <span class="n">decayRateMatrix</span><span class="p">:</span>
+<span class="linenos">14</span>    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">survProbList</span><span class="p">)</span>
+<span class="linenos">15</span><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The code iterates through a list of <span class="math notranslate nohighlight">\(\alpha\)</span> values, generating a directed
+graph for each and computing the corresponding survival probabilities over
+time. These are stored in a decay rate matrix for log-log plotting, as shown in the previous figure.</p>
+<p>Directional line graphs enable more effective control of interference effects in quantum walks. This
+allows for both normal and enhanced decay rates under broader initial
+conditions. The figure shows that an optimal <span class="math notranslate nohighlight">\(\alpha\)</span> value can be chosen to
+accelerate decay, irrespective of <span class="math notranslate nohighlight">\(k\)</span>’s parity.</p>
+</section>
 </section>
 
         </article>
@@ -286,8 +402,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Directed Quantum Walk</a><ul>
+<li><a class="reference internal" href="#dynamics">Dynamics</a></li>
+<li><a class="reference internal" href="#survival-probability">Survival Probability</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>
@@ -298,6 +434,8 @@
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"ket": ["{\\left|#1\\right\\rangle}", 1], "bra": ["{\\left\\langle#1\\right|}", 1]}}}</script>
+    <script defer="defer" src="_static/mathjax/tex-chtml.js?v=20daa33d"></script>
     <script src="_static/responsiveSvg.js"></script>
     </body>
 </html>
