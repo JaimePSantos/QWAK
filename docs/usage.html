@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Searching With QWAK" href="searchingQWAK.html" /><link rel="prev" title="Installation" href="installation.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Perfect State Transfer" href="perfectStateTransfer.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Usage - QWAK - Quantum Walk Analysis Kit</title>
@@ -166,7 +166,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -189,9 +189,9 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Usage</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Oriented Quantum Walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Directed Quantum Walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a></li>
 <li class="toctree-l2"><a class="reference internal" href="stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
 </ul>
 </li>
@@ -229,7 +229,7 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
@@ -237,21 +237,37 @@
         <article role="main">
           <section id="usage">
 <h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h1>
-<section id="creating-walks">
-<span id="walks"></span><h2>Creating Walks<a class="headerlink" href="#creating-walks" title="Link to this heading">#</a></h2>
-<p>Page under construction.</p>
+<p id="walks">This section outlines the capabilities of the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> package through
+specific use cases. Firstly, we examine PST in 4D hypercube graphs. Secondly,
+we focus on the transport properties of CTQWs in directed graphs. Further, we
+discuss how <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> can be employed for quantum search algorithms on
+various graph types, namely complete graphs, hypercubes, and the Erdős-Rényi
+model. Lastly, we look at stochastic quantum walks for navigating perfect mazes
+and examine the impact of noise. Each subsection provides hands-on examples,
+demonstrating how to leverage the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> package for these
+applications.</p>
+<p>Note that all of the following examples can be found in the Notebook directory
+of the <code class="docutils literal notranslate"><span class="pre">GitHub</span></code> repository
+<a class="reference external" href="https://github.com/JaimePSantos/QWAK/tree/main/Notebook">here</a>, and the
+code examples assume the user has <code class="docutils literal notranslate"><span class="pre">NumPy</span></code> and <code class="docutils literal notranslate"><span class="pre">NetworkX</span></code>
+imported.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html#complete-graph">Complete Graph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="orientedQuantumWalk.html">Directed Quantum Walk</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html#dynamics">Dynamics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html#survival-probability">Survival Probability</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
-<li class="toctree-l1"><a class="reference internal" href="orientedQuantumWalk.html">Oriented Quantum Walk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html#complete-graph">Complete Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html#hypercube">Hypercube</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html#erdos-renyi-model">Erdős-Rényi model</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
 </ul>
 </div>
-</section>
 </section>
 
         </article>
@@ -259,12 +275,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="searchingQWAK.html">
+          <a class="next-page" href="perfectStateTransfer.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Searching With QWAK</div>
+                <div class="title">Perfect State Transfer</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -297,27 +313,8 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#">Usage</a><ul>
-<li><a class="reference internal" href="#creating-walks">Creating Walks</a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

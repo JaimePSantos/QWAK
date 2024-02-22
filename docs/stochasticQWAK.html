@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="Oriented Quantum Walk" href="orientedQuantumWalk.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Contributing" href="contributing.html" /><link rel="prev" title="Searching With QWAK" href="searchingQWAK.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
         <title>Stochastic Qwak on a Maze - QWAK - Quantum Walk Analysis Kit</title>
@@ -189,9 +189,9 @@
   <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current has-children"><a class="reference internal" href="usage.html">Usage</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a></li>
 <li class="toctree-l2"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Oriented Quantum Walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Directed Quantum Walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Stochastic Qwak on a Maze</a></li>
 </ul>
 </li>
@@ -237,10 +237,44 @@
         <article role="main">
           <section id="stochastic-qwak-on-a-maze">
 <h1>Stochastic Qwak on a Maze<a class="headerlink" href="#stochastic-qwak-on-a-maze" title="Link to this heading">#</a></h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This page is under construction.</p>
+<p>Models of Stochastic Quantum Walks on different kinds of
+graphs have been used in the literature to model the remarkably efficient
+energy transport phenomena in light-harvesting complexes, in
+which the external noisy environment plays a fundamental role. Here, we will show how
+to run a Stochastic Quantum Walk on a particular kind of graph, the perfect maze,
+by using the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> package.</p>
+<p>A perfect maze is defined to be a maze with one and only one path connecting
+the entrance with the exit. For example, one can observe, in the random maze in
+the following figure that there is only one path connecting the maze
+entrance (blue node) to the exit (red node). We can generate a random perfect
+maze, by looking at earlier works in the literature
+that worked with quantum walks on mazes and then just extract their adjacency
+matrix in order to define our Stochastic Quantum Walker on <code class="docutils literal notranslate"><span class="pre">QWAK</span></code>. To
+properly define the walker we need to specify some additional parameters with
+respect to the CTQW case. First, the noise parameter <span class="math notranslate nohighlight">\(p \in [0,1]\)</span>, that
+specifies the amount of noise that our SQW has. If a sink node (or exit node)
+is present we also need to specify its index <span class="math notranslate nohighlight">\(n\)</span> and the sink rate <span class="math notranslate nohighlight">\(\Gamma\)</span> of
+the corresponding Linblad operator. We can thus simply instantiate our SQW
+object as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="linenos">2</span><span class="n">n</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="linenos">3</span><span class="n">Gamma</span> <span class="o">=</span> <span class="mf">0.99</span>
+<span class="linenos">4</span>
+<span class="linenos">5</span><span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">maze_graph</span><span class="o">.</span><span class="n">adjacency</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">qwak</span> <span class="o">=</span> <span class="n">StochasticQWAK</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">noiseParam</span><span class="o">=</span><span class="n">p</span><span class="p">,</span>
+<span class="linenos">7</span>                      <span class="n">sinkNode</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">sinkRate</span><span class="o">=</span><span class="n">Gamma</span><span class="p">)</span>
+</pre></div>
 </div>
+<p><a class="reference internal" href="_images/mazewalker.png"><img alt="stochasticMazeWalker" class="align-middle" src="_images/mazewalker.png" style="width: 50%;" /></a></p>
+<p>Now that we have instantiated our <code class="docutils literal notranslate"><span class="pre">StochasticQWAK</span></code> object, we can make it
+evolve by the usual <code class="docutils literal notranslate"><span class="pre">runWalk</span></code> command. For example, we can see that if
+we run SQWs with different noise parameters <span class="math notranslate nohighlight">\(p\)</span> and plot the exit probability
+from the sink node as a function of time as reported in the previous figure,
+we obtain that the <span class="math notranslate nohighlight">\(p=0.1\)</span> walker has a much higher
+exit rate than both the purely quantum and purely classical walker (<span class="math notranslate nohighlight">\(p=0\)</span> and
+<span class="math notranslate nohighlight">\(p=1\)</span> respectively). This is a result analogous to well-known noise-assisted
+transport phenomena on networks that we were able
+to reproduce in just a few lines of code with the <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> package.</p>
 </section>
 
         </article>
@@ -257,14 +291,14 @@
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
-          <a class="prev-page" href="orientedQuantumWalk.html">
+          <a class="prev-page" href="searchingQWAK.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
                 </div>
                 
-                <div class="title">Oriented Quantum Walk</div>
+                <div class="title">Searching With QWAK</div>
                 
               </div>
             </a>
@@ -298,6 +332,8 @@
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
     <script src="_static/copybutton.js?v=f281be69"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"ket": ["{\\left|#1\\right\\rangle}", 1], "bra": ["{\\left\\langle#1\\right|}", 1]}}}</script>
+    <script defer="defer" src="_static/mathjax/tex-chtml.js"></script>
     <script src="_static/responsiveSvg.js"></script>
     </body>
 </html>
