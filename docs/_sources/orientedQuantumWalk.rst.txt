@@ -1,8 +1,6 @@
 Directed Quantum Walk
 =====================
 
-.. WARNING:: This page is under construction.
-
 A directed graph :math:`G=(V,E)` differs from its undirected counterpart by having
 ordered vertex pairs in :math:`E`. Early work established *strong
 quadrangularity* and *graph reversibility* as prerequisites for coined

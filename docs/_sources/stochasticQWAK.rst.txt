@@ -1,8 +1,6 @@
 Stochastic Qwak on a Maze
 =========================
 
-.. WARNING:: This page is under construction.
-
 Models of Stochastic Quantum Walks on different kinds of
 graphs have been used in the literature to model the remarkably efficient
 energy transport phenomena in light-harvesting complexes, in

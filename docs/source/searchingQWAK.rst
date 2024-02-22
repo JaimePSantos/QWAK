@@ -1,8 +1,6 @@
 Searching With QWAK
 ===================
 
-.. WARNING:: This page is under construction.
-
 Here, we will go over the searching algorithm using QWAK for several different structures.
 
 Complete Graph

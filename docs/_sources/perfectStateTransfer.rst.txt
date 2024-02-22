@@ -1,8 +1,6 @@
 Perfect State Transfer
 =======================
 
-.. WARNING:: This page is under construction.
-
 To showcase the capabilities of the perfect state transfer (PST) functionality
 within QWAK, we present a hands-on example featuring a quantum walk on a
 4-dimensional hypercube graph. This choice of graph is particularly instructive
