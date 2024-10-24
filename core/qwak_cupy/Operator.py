@@ -9,7 +9,7 @@ import cupy as cp
 from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 import json
 
-from qwak.Errors import MissingNodeInput
+from qwak_cupy.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
 
