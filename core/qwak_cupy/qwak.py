@@ -21,7 +21,7 @@ from qwak_cupy.ProbabilityDistribution import (
 )
 
 
-class CupyQWAK:
+class QWAK:
     def __init__(
             self,
             graph: nx.Graph,
@@ -41,18 +41,18 @@ class CupyQWAK:
         else:
             self._timeList = [0] * self._n
         self._qwakId = qwakId
-        self._operator = CupyOperator(
+        self._operator = Operator(
             self._graph,
             time=time,
             gamma=gamma,
             laplacian=laplacian,
             markedElements=markedElements)
-        self._initState = CupyState(
+        self._initState = State(
             self._n,
             nodeList=initStateList,
             customStateList=customStateList)
-        self._quantumWalk = CupyQuantumWalk(self._initState, self._operator)
-        self._probDist = CupyProbabilityDistribution(
+        self._quantumWalk = QuantumWalk(self._initState, self._operator)
+        self._probDist = ProbabilityDistribution(
             self._quantumWalk.getFinalState())
         self._probDistList = cp.array([])
 
@@ -314,7 +314,6 @@ class CupyQWAK:
         return self._graph
 
     def getDim(self) -> int:
-
         return self._n
 
     def setGraph(self, newGraph: nx.Graph, initStateList=None) -> None:
