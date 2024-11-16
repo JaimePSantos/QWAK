@@ -420,3 +420,102 @@ class QWAK:
                 resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
+
+    def getInversePartRatioList(
+            self, resultRounding: int = None) -> list:
+        """Gets the inverse participation ratio of the probability distribution list.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of inverse participation ratios of the probability distributions.
+        """
+        return [
+            probDist.invPartRatio() for probDist in self._probDistList] if (
+                resultRounding is None) else [
+            round(
+                probDist.invPartRatio(),
+                resultRounding) for probDist in self._probDistList]
+
+    def getSurvivalProb(
+            self,
+            fromNode,
+            toNode,
+            resultRounding: int = None) -> float:
+        """Gets the survival probability of the probability distribution.
+
+        Parameters
+        ----------
+        fromNode : _type_
+            Starting node.
+        toNode : _type_
+            Ending node.
+        resultRounding : int, optional
+            Rounding of the result, by default None.
+
+        Returns
+        -------
+        float
+            Survival probability of the probability distribution.
+
+        Raises
+        ------
+        MissingNodeInput
+            Missing input node error.
+        """
+        try:
+            return self._probDist.survivalProb(
+                fromNode,
+                toNode) if (
+                    resultRounding is None) else round(
+                self._probDist.survivalProb(
+                    fromNode,
+                    toNode),
+                resultRounding)
+        except MissingNodeInput as err:
+            raise err
+
+    def getSurvivalProbList(
+            self,
+            fromNode,
+            toNode,
+            resultRounding: int = None) -> list:
+        """Gets the survival probability of the probability distribution list.
+
+        Parameters
+        ----------
+        fromNode : _type_
+            Starting node.
+        toNode : _type_
+            Ending node.
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of survival probabilities of the probability distributions.
+
+        Raises
+        ------
+        MissingNodeInput
+            Missing input node error.
+        """
+        try:
+            return [
+                probDist.survivalProb(
+                    fromNode,
+                    toNode) for probDist in self._probDistList] if (
+                    resultRounding is None) else [
+                round(
+                    probDist.survivalProb(
+                        fromNode,
+                        toNode),
+                    resultRounding) for probDist in self._probDistList]
+        except MissingNodeInput as err:
+            raise err
