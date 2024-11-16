@@ -69,7 +69,7 @@ class QuantumWalk:
         return self._finalState.getStateVec()
 
     def searchNodeAmplitude(self, searchNode: int) -> complex:
-        return self._finalState.getStateVec().item(searchNode)
+        return self._finalState.getStateVec()[searchNode][0]
 
     def transportEfficiency(self) -> float:
         return 1 - cp.trace(self._finalState @ self._finalState.herm())

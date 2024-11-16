@@ -279,4 +279,34 @@ class QWAK:
         self.setWalk(newQWAK.getWalk())
         self.setProbDist(newQWAK.getProbDist())
 
+    def searchNodeAmplitude(self, searchNode: int) -> complex:
+        """User inputted node for search
+
+        Parameters
+        ----------
+        searchNode : int
+            User inputted node for the search.
+
+        Returns
+        -------
+        complex
+            Amplitude associated with the search node.
+        """
+        return self._quantumWalk.searchNodeAmplitude(searchNode)
+
+    def searchNodeProbability(self, searchNode: int) -> float:
+        """Searches and gets the probability associated with a given node.
+
+        Parameters
+        ----------
+        searchNode : int
+            User inputted node for the search.
+
+        Returns
+        -------
+        float
+            Probability associated with the search node.
+        """
+        return self._probDist.searchNodeProbability(searchNode)
+
 

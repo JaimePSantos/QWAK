@@ -58,7 +58,7 @@ class ProbabilityDistribution:
         return self._probVec
 
     def searchNodeProbability(self, searchNode: int) -> float:
-        return self._probVec.item(searchNode)
+        return self._probVec[searchNode]
 
     def moment(self, k: int) -> float:
         pos = cp.arange(0, self._n)
@@ -86,9 +86,6 @@ class ProbabilityDistribution:
         except ValueError:
             raise MissingNodeInput(
                 f"A node number is missing: fromNode = {fromNode}; toNode={toNode}")
-
-    def searchNodeProbability(self, searchNode: int) -> float:
-        return self._probVec.item(searchNode)
 
     def __str__(self) -> str:
         return f"{self._probVec}"
