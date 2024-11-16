@@ -59,7 +59,7 @@ class QuantumWalk:
         self._operator.setOperator(newWalk.getOperator())
         self._finalState.setState(newWalk.getFinalState())
 
-    def xz(self) -> State:
+    def getFinalState(self) -> State:
         return self._finalState
 
     def setFinalState(self, newFinalState: State) -> None:

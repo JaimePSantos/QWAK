@@ -5,7 +5,7 @@ import networkx as nx
 import cupy as cp
 import copy
 import json
-from qwak.Errors import (
+from qwak_cupy.Errors import (
     StateOutOfBounds,
     NonUnitaryState,
     UndefinedTimeList,
@@ -253,4 +253,30 @@ class QWAK:
 
     def getAmpVec(self) -> cp.ndarray:
         return self._quantumWalk.getAmpVec()
+
+    # def getQWAK(self) :
+    #     """Gets the QWAK instance.
+    #
+    #     Returns
+    #     -------
+    #     QWAK
+    #         QWAK instance.
+    #     """
+    #     return self._qwak
+
+    def setQWAK(self, newQWAK: QWAK) -> None:
+        """Sets the QWAK instance's attributes to the ones of the given QWAK instance.
+
+        Parameters
+        ----------
+        newQWAK : QWAK
+            QWAK instance to copy the attributes from.
+        """
+        self.setGraph(newQWAK.getGraph())
+        self.setDim(newQWAK.getDim(), graph=self._graph)
+        self.setInitState(newQWAK.getInitState())
+        self.setOperator(newQWAK.getOperator())
+        self.setWalk(newQWAK.getWalk())
+        self.setProbDist(newQWAK.getProbDist())
+
 
