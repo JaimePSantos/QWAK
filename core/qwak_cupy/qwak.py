@@ -309,4 +309,114 @@ class QWAK:
         """
         return self._probDist.searchNodeProbability(searchNode)
 
+    def getMean(self, resultRounding: int = None) -> float:
+        """Gets the mean of the probability distribution.
 
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
+
+        Returns
+        -------
+        float
+            Mean of the probability distribution.
+        """
+        return self._probDist.moment(1) if (
+                resultRounding is None) \
+            else round(self._probDist.moment(1), resultRounding)
+
+    def getMeanList(self, resultRounding: int = None) -> list:
+        """Gets the mean of the probability distribution list.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of means of the probability distributions.
+        """
+        return [
+            probDist.moment(1) for probDist in self._probDistList] if (
+                resultRounding is None) \
+            else [
+            round(
+                probDist.moment(1),
+                resultRounding) for probDist in self._probDistList]
+
+    def getSndMoment(self, resultRounding: int = None) -> float:
+        """Gets the second moment of the probability distribution.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
+
+        Returns
+        -------
+        float
+            Second moment of the probability distribution.
+        """
+        return self._probDist.moment(2) if (resultRounding is None) \
+            else round(
+            self._probDist.moment(2), resultRounding)
+
+    def getStDev(self, resultRounding: int = None) -> float:
+        """Gets the standard deviation of the probability distribution.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
+
+        Returns
+        -------
+        float
+            Standard deviation of the probability distribution.
+        """
+        return self._probDist.stDev() if (resultRounding is None) \
+            else round(
+            self._probDist.stDev(),
+            resultRounding)
+
+    def getStDevList(self, resultRounding: int = None) -> list:
+        """Gets the standard deviation of the probability distribution list.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the results, by default None.
+
+        Returns
+        -------
+        list
+            List of standard deviations of the probability distributions.
+        """
+        return [
+            probDist.stDev() for probDist in self._probDistList] if (
+                resultRounding is None) \
+            else [
+            round(
+                probDist.stDev(),
+                resultRounding) for probDist in self._probDistList]
+
+    def getInversePartRatio(self, resultRounding: int = None) -> float:
+        """Gets the inverse participation ratio of the probability distribution.
+
+        Parameters
+        ----------
+        resultRounding : int, optional
+            Rounding of the result, by default None.
+
+        Returns
+        -------
+        float
+            Inverse participation ratio of the probability distribution.
+        """
+        return self._probDist.invPartRatio() if (
+                resultRounding is None) \
+            else round(
+            self._probDist.invPartRatio(), resultRounding)
