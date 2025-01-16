@@ -113,7 +113,7 @@ if os.path.exists(qwak_times_file_cupy):
     qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
     print('File Exists!')
 else:
-    qwak_times_cupy ,qw = runMultipleSimpleQWAK_cupy2(nList,t,samples)
+    qwak_times_cupy = runMultipleSimpleQWAK_cupy2(nList,t,samples)
     write_list_to_file(qwak_times_file_cupy,qwak_times)
 
 
