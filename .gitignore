@@ -30,6 +30,7 @@ qwak_sim.egg-info
 venv
 activate
 qwakEnv/
+QwakEnv/
 node_modules/
 python/
 html5up-hyperspace/
