@@ -150,7 +150,7 @@ if os.path.exists(qwak_times_file_cupy):
     print('File Exists!')
 else:
     qwak_times_cupy = runMultipleSimpleQWAK_cupy2(nList,t,samples)
-    write_list_to_file(qwak_times_file_cupy,qwak_times)
+    write_list_to_file(qwak_times_file_cupy,qwak_times_cupy)
 
 
 plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
