@@ -109,7 +109,7 @@ def runMultipleSimpleQWAK2(nList,t,samples):
     for n in nList:
         for sample in range(1,samples+1):
             print(f"----> Calculating NP QWAK for n = {n} \t Sample #{sample}",end='\r')
-            qwak_time = runTimedQWAK(n,t)
+            qwak_time = runTimedQWAK2(n,t)
             qwak_time_average += qwak_time 
         qwak_time_average = qwak_time_average / samples
 #        qwList.append(qw)
@@ -131,9 +131,9 @@ def write_list_to_file(file_path, data):
         file.write('\n'.join(data_str))
 t = 50
 nMin = 3
-nMax = 601
-nList = list(range(nMin,nMax,5))
-samples = 5
+nMax = 1000
+nList = list(range(nMin,nMax,1))
+samples = 100
 
 qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_Cycle/LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_T{t}_S{samples}.txt'
 qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_Cycle/LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_T{t}_S{samples}.txt'
@@ -142,7 +142,7 @@ if os.path.exists(qwak_times_file):
      qwak_times = load_list_from_file(qwak_times_file)
      print('File Exists!')
 else:
-     qwak_times,qw = runMultipleSimpleQWAK(nList,t,samples)
+     qwak_times = runMultipleSimpleQWAK2(nList,t,samples)
      write_list_to_file(qwak_times_file,qwak_times)
 
 if os.path.exists(qwak_times_file_cupy):
