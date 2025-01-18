@@ -41,6 +41,7 @@ generatingVariables.py
 Executable
 docs/build
 gui-flask/flask_session
+benchmark/CuPy/Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices/
 
 package.json
 package-lock.json
