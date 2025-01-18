@@ -10,6 +10,7 @@ import os
 import json
 import pickle
 from tqdm import tqdm
+import subprocess
 
 
 from qwak_cupy.qwak import QWAK as CQWAK
@@ -113,14 +114,14 @@ def create_or_load_adjacency_matrices(base_dir, n_values, pVal, samples):
                 with open(sample_file, 'wb') as f:
                     pickle.dump(adjacency_matrix, f)
 
-            adjacency_matrix_list.append(adjacency_matrix)
+#            adjacency_matrix_list.append(adjacency_matrix)
+#
+#        adjacency_matrix_dict[n] = adjacency_matrix_list
+#
+#    return adjacency_matrix_dict
 
-        adjacency_matrix_dict[n] = adjacency_matrix_list
-
-    return adjacency_matrix_dict
-
-nMin = 100
-nMax = 300
+nMin = 300
+nMax = 500
 nList = list(range(nMin,nMax,1))
 pVal = 0.8
 samples = 100 
@@ -137,7 +138,8 @@ qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filenam
 base_dir = "Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices"
 
 # Generate or load the adjacency matrix dictionary
-adjacency_matrix_dict = list(create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values())
+#adjacency_matrix_dict = list(create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values())
+create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values()
 
 if os.path.exists(qwak_times_file):
      qwak_times = load_list_from_file(qwak_times_file)
@@ -153,6 +155,57 @@ else:
     qwak_times_cupy,qw_cupy = runMultipleSimpleQWAK_cupy(nList,t,samples,adjacency_matrix_dict)
     write_list_to_file(qwak_times_file_cupy,qwak_times_cupy)
 
+def git_branch_commit_push(branch_name, commit_message):
+    """
+    Creates a new git branch, adds changes, commits, and pushes to remote.
+    
+    :param branch_name: The name of the new branch to create.
+    :param commit_message: The commit message to use.
+    """
+    try:
+        # Check current branch
+        current_branch = subprocess.check_output(['git', 'branch', '--show-current'], text=True).strip()
+        print(f"Current branch: {current_branch}")
+        
+        status_output = subprocess.check_output(['git', 'status', '--porcelain'], text=True).strip()
+        if not status_output:
+            print("No changes to commit. Exiting.")
+            return
+
+        subprocess.check_call(['git', 'add', '.'])
+        print("PRE-Added changes to staging area.")
+        subprocess.check_call(['git', 'commit', '-m', "PYTHON: In case there are uncommited changes before running the script."])
+        print(f"PRE-Committed changes with message: {commit_message}")
+
+        # Create and switch to the new branch
+        subprocess.check_call(['git', 'checkout', '-b', branch_name])
+        print(f"Switched to new branch: {branch_name}")
+        
+        # Add changes
+        subprocess.check_call(['git', 'add', '.'])
+        print("Added changes to staging area.")
+        
+        # Commit changes
+        subprocess.check_call(['git', 'commit', '-m', "PYTHON:"+commit_message])
+        print(f"Committed changes with message: {commit_message}")
+        
+        # Push branch to remote
+        subprocess.check_call(['git', 'push', '-u', 'origin', branch_name])
+        print(f"Pushed branch '{branch_name}' to remote.")
+    
+    except subprocess.CalledProcessError as e:
+        print(f"Error occurred while executing git command: {e}")
+    except Exception as ex:
+        print(f"An unexpected error occurred: {ex}")
+
+# Example usage
+git_branch_commit_push("new-feature-branch", "Initial commit for the new feature")
+
+
+plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
+plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
+plt.legend()
+plt.show()
 plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
 plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
 plt.legend()
