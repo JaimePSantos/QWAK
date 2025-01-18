@@ -198,7 +198,6 @@ def git_branch_commit_push(branch_name, commit_message):
     except Exception as ex:
         print(f"An unexpected error occurred: {ex}")
 
-# Example usage
 git_branch_commit_push("new-feature-branch", "Initial commit for the new feature")
 
 plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
