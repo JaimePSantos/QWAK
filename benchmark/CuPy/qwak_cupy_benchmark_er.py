@@ -11,6 +11,7 @@ import json
 import pickle
 from tqdm import tqdm
 import subprocess
+import random
 
 
 from qwak_cupy.qwak import QWAK as CQWAK
@@ -233,13 +234,167 @@ def runMultipleSimpleQWAK_cupy2(nList, t, samples, adjList_paths):
 
     return tList, qwList
 
+#nMin = 300
+#nMax = 302
+#nList = list(range(nMin,nMax,1))
+#pVal = 0.8
+#samples = 100 
+#
+#t = 10
+#
+#qwak_times_filename = f'LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+#qwak_times_filename_cupy = f'LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+#
+#qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
+#qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy
+#
+## Base directory
+#base_dir = "Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices"
+#
+## Generate or load the adjacency matrix dictionary
+##adjacency_matrix_dict = list(create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values())
+##create_or_load_adjacency_matrices(base_dir, nList, pVal, samples)
+#adjacency_matrix_dict = create_or_generate_adjacency_matrices(base_dir, nList, pVal, samples)
+#
+#if os.path.exists(qwak_times_file):
+#     qwak_times = load_list_from_file(qwak_times_file)
+#     print('File Exists!')
+#else:
+#     qwak_times,qw = runMultipleSimpleQWAK2(nList,t,samples,adjacency_matrix_dict )
+#     write_list_to_file(qwak_times_file,qwak_times)
+#
+#if os.path.exists(qwak_times_file_cupy):
+#    qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
+#    print('File Exists!')
+#else:
+#    qwak_times_cupy,qw_cupy = runMultipleSimpleQWAK_cupy2(nList,t,samples,adjacency_matrix_dict)
+#    write_list_to_file(qwak_times_file_cupy,qwak_times_cupy)
+#
+#git_branch_commit_push("new-feature-branch", "Initial commit for the new feature")
+#
+#plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
+#plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
+#plt.legend()
+#plt.show()
+
+def create_er_seed(base_dir, n_values, pVal, samples):
+    graph_seed_dict = {}
+
+    for n in tqdm(n_values, desc="Processing seed sizes"):
+        n_dir = os.path.join(base_dir, f"N{n}")  # Directory for this n value
+        os.makedirs(n_dir, exist_ok=True)
+
+        graph_seed_list = []
+        for sample in tqdm(range(samples), desc=f"Samples for N={n}", leave=False):
+            sample_file = os.path.join(n_dir, f"GraphSeed_N{n}_P{pVal}_Sample{sample}.pkl")
+            if os.path.exists(sample_file):
+                print('File Exists!')
+                continue
+            else:
+                # Generate and save a new adjacency matrix
+                random.seed(sample)
+                seed = random.random()
+                print(seed)
+                with open(sample_file, 'wb') as f:
+                    pickle.dump(seed, f)
+
+def load_er_seed(base_dir, n_values, pVal, samples):
+    graph_seed_dict = {}
+
+    for n in tqdm(n_values, desc="Processing seed sizes"):
+        n_dir = os.path.join(base_dir, f"N{n}")  # Directory for this n value
+        os.makedirs(n_dir, exist_ok=True)
+
+        graph_seed_list = []
+        for sample in tqdm(range(samples), desc=f"Samples for N={n}", leave=False):
+            sample_file = os.path.join(n_dir, f"GraphSeed_N{n}_P{pVal}_Sample{sample}.pkl")
+            if os.path.exists(sample_file):
+               # Load existing adjacency matrix
+               with open(sample_file, 'rb') as f:
+                   seed = pickle.load(f)
+
+            else:
+                print('File not found!\nRun create_er_seed first.')
+                return
+
+            graph_seed_list.append(seed)
+
+        graph_seed_dict[n] = graph_seed_list
+
+    return graph_seed_dict
+
+def runTimedQWAK2(n,pVal,t,seed):
+    start_time = time.time()
+    initNodes = [n//2]
+    graph = nx.erdos_renyi_graph(n,pVal,seed=seed) 
+    qw = QWAK(graph)
+    qw.runWalk(t, initNodes)
+    end_time = time.time()
+    qwak_time = end_time - start_time
+    return qw, qwak_time
+
+def runTimedQWAK2_cupy(n,pVal,t,seed):
+    start_time = time.time()
+    initNodes = [n//2]
+    graph = nx.erdos_renyi_graph(n,pVal,seed=seed) 
+    qw = CQWAK(graph)
+    qw.runWalk(t, initNodes)
+    end_time = time.time()
+    qwak_time = end_time - start_time
+    return qw, qwak_time
+
+def runMultipleSimpleQWAK3(nList, pVal, t, samples, seed_list_dict):
+    qwList = []
+    tList = []
+    qwak_time = 0
+    qwak_time_average = 0
+
+    for n in tqdm(nList, desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
+        # Access the corresponding seed list for the current `n`
+        seed_list = seed_list_dict.get(n, [])
+        if not isinstance(seed_list, list):
+            raise ValueError(f"Expected a list of seeds for n={n}, but got {type(seed_list)}.")
+
+        for sample, seed in tqdm(zip(range(1, samples + 1), seed_list), desc=f"Samples for N = {n}"):
+            qw, qwak_time = runTimedQWAK2(n, pVal, t, 10)
+            qwak_time_average += qwak_time
+
+        qwak_time_average = qwak_time_average / samples
+        qwList.append(qw)
+        tList.append(qwak_time_average)
+        qwak_time_average = 0
+
+    return tList, qwList
+
+def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, seed_list_dict):
+    qwList = []
+    tList = []
+    qwak_time = 0
+    qwak_time_average = 0
+
+    for n in tqdm(nList, desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
+        # Access the corresponding seed list for the current `n`
+        seed_list = seed_list_dict.get(n, [])
+        if not isinstance(seed_list, list):
+            raise ValueError(f"Expected a list of seeds for n={n}, but got {type(seed_list)}.")
+
+        for sample, seed in tqdm(zip(range(1, samples + 1), seed_list), desc=f"Samples for N = {n}"):
+            qw, qwak_time = runTimedQWAK2_cupy(n, pVal, t, 10)
+            qwak_time_average += qwak_time
+
+        qwak_time_average = qwak_time_average / samples
+        qwList.append(qw)
+        tList.append(qwak_time_average)
+        qwak_time_average = 0
+
+    return tList, qwList
 
 
-nMin = 300
-nMax = 302
+nMin = 3
+nMax = 5
 nList = list(range(nMin,nMax,1))
 pVal = 0.8
-samples = 100 
+samples = 1 
 
 t = 10
 
@@ -250,28 +405,36 @@ qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
 qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy
 
 # Base directory
-base_dir = "Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices"
+base_dir = "Datasets/Benchmark-SimpleQWAK_ER/GraphSeedFiles"
 
-# Generate or load the adjacency matrix dictionary
-#adjacency_matrix_dict = list(create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values())
-#create_or_load_adjacency_matrices(base_dir, nList, pVal, samples)
-adjacency_matrix_dict = create_or_generate_adjacency_matrices(base_dir, nList, pVal, samples)
+create_er_seed(base_dir, nList, pVal, samples)
+
+graph_seed_dict = load_er_seed(base_dir, nList, pVal, samples)
+
+#print(graph_seed_dict)
 
 if os.path.exists(qwak_times_file):
      qwak_times = load_list_from_file(qwak_times_file)
      print('File Exists!')
 else:
-     qwak_times,qw = runMultipleSimpleQWAK2(nList,t,samples,adjacency_matrix_dict )
+     qwak_times,qw = runMultipleSimpleQWAK3(nList,pVal,t,samples,graph_seed_dict)
      write_list_to_file(qwak_times_file,qwak_times)
 
 if os.path.exists(qwak_times_file_cupy):
     qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
     print('File Exists!')
 else:
-    qwak_times_cupy,qw_cupy = runMultipleSimpleQWAK_cupy2(nList,t,samples,adjacency_matrix_dict)
+    qwak_times_cupy,qw_cupy = runMultipleSimpleQWAK3_cupy(nList,pVal,t,samples,graph_seed_dict)
     write_list_to_file(qwak_times_file_cupy,qwak_times_cupy)
 
 git_branch_commit_push("new-feature-branch", "Initial commit for the new feature")
+
+for q, qcp in zip(qw,qw_cupy):
+    # Compare the two arrays using np.allclose
+    are_close = np.allclose(q.getProbVec(), qcp.getProbVec(), atol=1e-5)
+
+    # Print the result of the comparison
+    print(f"Are the two arrays approximately equal? {are_close}")
 
 plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
 plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
