@@ -114,46 +114,11 @@ def create_or_load_adjacency_matrices(base_dir, n_values, pVal, samples):
                 with open(sample_file, 'wb') as f:
                     pickle.dump(adjacency_matrix, f)
 
-#            adjacency_matrix_list.append(adjacency_matrix)
-#
-#        adjacency_matrix_dict[n] = adjacency_matrix_list
-#
-#    return adjacency_matrix_dict
+            adjacency_matrix_list.append(adjacency_matrix)
 
-nMin = 300
-nMax = 500
-nList = list(range(nMin,nMax,1))
-pVal = 0.8
-samples = 100 
+        adjacency_matrix_dict[n] = adjacency_matrix_list
 
-t = 10
-
-qwak_times_filename = f'LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
-qwak_times_filename_cupy = f'LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
-
-qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
-qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy
-
-# Base directory
-base_dir = "Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices"
-
-# Generate or load the adjacency matrix dictionary
-#adjacency_matrix_dict = list(create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values())
-create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values()
-
-if os.path.exists(qwak_times_file):
-     qwak_times = load_list_from_file(qwak_times_file)
-     print('File Exists!')
-else:
-     qwak_times,qw = runMultipleSimpleQWAK(nList,t,samples,adjacency_matrix_dict )
-     write_list_to_file(qwak_times_file,qwak_times)
-
-if os.path.exists(qwak_times_file_cupy):
-    qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
-    print('File Exists!')
-else:
-    qwak_times_cupy,qw_cupy = runMultipleSimpleQWAK_cupy(nList,t,samples,adjacency_matrix_dict)
-    write_list_to_file(qwak_times_file_cupy,qwak_times_cupy)
+    return adjacency_matrix_dict
 
 def git_branch_commit_push(branch_name, commit_message):
     """
@@ -198,13 +163,116 @@ def git_branch_commit_push(branch_name, commit_message):
     except Exception as ex:
         print(f"An unexpected error occurred: {ex}")
 
+def create_or_generate_adjacency_matrices(base_dir, n_values, pVal, samples):
+    """
+    Ensures adjacency matrix files exist for each size `n` and each sample. Creates new matrices if files are missing.
+
+    Parameters:
+        base_dir (str): The base directory to save/load the adjacency matrices.
+        n_values (list of int): A list of n values (graph sizes).
+        pVal (float): The probability for edge creation in the Erdos-Renyi model.
+        samples (int): The number of adjacency matrices to generate for each n value.
+
+    Returns:
+        dict: A dictionary where keys are `n` values and values are lists of paths to adjacency matrices.
+    """
+    adjacency_matrix_paths = {}
+
+    for n in tqdm(n_values, desc="Processing graph sizes"):
+        n_dir = os.path.join(base_dir, f"N{n}")  # Directory for this n value
+        os.makedirs(n_dir, exist_ok=True)
+
+        matrix_paths = []
+        for sample in range(samples):
+            sample_file = os.path.join(n_dir, f"AdjMatrix_N{n}_P{pVal}_Sample{sample}.pkl")
+
+            if not os.path.exists(sample_file):
+                # Generate and save a new adjacency matrix if it does not exist
+                graph = nx.erdos_renyi_graph(n, pVal)
+                adjacency_matrix = nx.to_numpy_array(graph)
+                with open(sample_file, 'wb') as f:
+                    pickle.dump(adjacency_matrix, f)
+
+            # Add the path to the list (only paths are stored in memory here)
+            matrix_paths.append(sample_file)
+
+        adjacency_matrix_paths[n] = matrix_paths
+
+    return adjacency_matrix_paths
+
+
+def runMultipleSimpleQWAK2(nList, t, samples, adjList_paths):
+    qwList = []
+    tList = []
+    
+    for n, adj_paths in tqdm(zip(nList, adjList_paths.values()), desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
+        for sample_idx, adj_path in tqdm(enumerate(adj_paths, start=1), desc=f"Samples for N = {n}", leave=False):
+            # Load adjacency matrix only when needed
+            with open(adj_path, 'rb') as f:
+                adj = pickle.load(f)
+
+            qw, qwak_time = runTimedQWAK(n, t, adj)
+            tList.append(qwak_time)
+            qwList.append(qw)
+
+    return tList, qwList
+
+def runMultipleSimpleQWAK_cupy2(nList, t, samples, adjList_paths):
+    qwList = []
+    tList = []
+
+    for n, adj_paths in tqdm(zip(nList, adjList_paths.values()), desc=f"CPQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
+        for sample_idx, adj_path in tqdm(enumerate(adj_paths, start=1), desc=f"Samples for N = {n}", leave=False):
+            # Load adjacency matrix only when needed
+            with open(adj_path, 'rb') as f:
+                adj = pickle.load(f)
+
+            qw, qwak_time = runTimedQWAK_cupy(n, t, adj)
+            tList.append(qwak_time)
+            qwList.append(qw)
+
+    return tList, qwList
+
+
+
+nMin = 300
+nMax = 302
+nList = list(range(nMin,nMax,1))
+pVal = 0.8
+samples = 100 
+
+t = 10
+
+qwak_times_filename = f'LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+qwak_times_filename_cupy = f'LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+
+qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
+qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy
+
+# Base directory
+base_dir = "Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices"
+
+# Generate or load the adjacency matrix dictionary
+#adjacency_matrix_dict = list(create_or_load_adjacency_matrices(base_dir, nList, pVal, samples).values())
+#create_or_load_adjacency_matrices(base_dir, nList, pVal, samples)
+adjacency_matrix_dict = create_or_generate_adjacency_matrices(base_dir, nList, pVal, samples)
+
+if os.path.exists(qwak_times_file):
+     qwak_times = load_list_from_file(qwak_times_file)
+     print('File Exists!')
+else:
+     qwak_times,qw = runMultipleSimpleQWAK2(nList,t,samples,adjacency_matrix_dict )
+     write_list_to_file(qwak_times_file,qwak_times)
+
+if os.path.exists(qwak_times_file_cupy):
+    qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
+    print('File Exists!')
+else:
+    qwak_times_cupy,qw_cupy = runMultipleSimpleQWAK_cupy2(nList,t,samples,adjacency_matrix_dict)
+    write_list_to_file(qwak_times_file_cupy,qwak_times_cupy)
+
 git_branch_commit_push("new-feature-branch", "Initial commit for the new feature")
 
-
-plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
-plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
-plt.legend()
-plt.show()
 plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
 plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
 plt.legend()
