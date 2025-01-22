@@ -331,7 +331,8 @@ def runTimedQWAK2(n,pVal,t,seed):
     qw.runWalk(t, initNodes)
     end_time = time.time()
     qwak_time = end_time - start_time
-    return qw, qwak_time
+    final_state = qw.getProbVec()
+    return final_state, qwak_time
 
 def runTimedQWAK2_cupy(n,pVal,t,seed):
     start_time = time.time()
@@ -341,7 +342,8 @@ def runTimedQWAK2_cupy(n,pVal,t,seed):
     qw.runWalk(t, initNodes)
     end_time = time.time()
     qwak_time = end_time - start_time
-    return qw, qwak_time
+    final_state = qw.getProbVec()
+    return final_state, qwak_time
 
 def runMultipleSimpleQWAK3(nList, pVal, t, samples, seed_list_dict):
     qwList = []
@@ -391,7 +393,7 @@ def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, seed_list_dict):
 
 
 nMin = 3
-nMax = 100 
+nMax = 1000
 nList = list(range(nMin,nMax,1))
 pVal = 0.8
 samples = 1 
@@ -431,7 +433,7 @@ git_branch_commit_push("new-feature-branch", "Initial commit for the new feature
 
 for q, qcp in zip(qw,qw_cupy):
     # Compare the two arrays using np.allclose
-    are_close = np.allclose(q.getProbVec(), qcp.getProbVec(), atol=1e-5)
+    are_close = np.allclose(q, qcp, atol=1e-5)
 
     # Print the result of the comparison
     print(f"Are the two arrays approximately equal? {are_close}")
