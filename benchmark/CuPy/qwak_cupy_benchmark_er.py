@@ -391,14 +391,16 @@ def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, seed_list_dict):
 
     return tList, qwList
 
+import os
+from datetime import datetime
 
 nMin = 3
 nMax = 1000
-nList = list(range(nMin,nMax,1))
+nList = list(range(nMin, nMax, 1))
 pVal = 0.8
-samples = 1 
+samples = 100
 
-t = 10
+t = 50
 
 qwak_times_filename = f'LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
 qwak_times_filename_cupy = f'LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
@@ -409,6 +411,10 @@ qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filenam
 # Base directory
 base_dir = "Datasets/Benchmark-SimpleQWAK_ER/GraphSeedFiles"
 
+# Record start datetime
+start_datetime = datetime.now()
+
+# Function calls
 create_er_seed(base_dir, nList, pVal, samples)
 
 graph_seed_dict = load_er_seed(base_dir, nList, pVal, samples)
@@ -416,20 +422,32 @@ graph_seed_dict = load_er_seed(base_dir, nList, pVal, samples)
 #print(graph_seed_dict)
 
 if os.path.exists(qwak_times_file):
-     qwak_times = load_list_from_file(qwak_times_file)
-     print('File Exists!')
+    qwak_times = load_list_from_file(qwak_times_file)
+    print('File Exists!')
 else:
-     qwak_times,qw = runMultipleSimpleQWAK3(nList,pVal,t,samples,graph_seed_dict)
-     write_list_to_file(qwak_times_file,qwak_times)
+    qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples, graph_seed_dict)
+    write_list_to_file(qwak_times_file, qwak_times)
 
 if os.path.exists(qwak_times_file_cupy):
     qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
     print('File Exists!')
 else:
-    qwak_times_cupy,qw_cupy = runMultipleSimpleQWAK3_cupy(nList,pVal,t,samples,graph_seed_dict)
-    write_list_to_file(qwak_times_file_cupy,qwak_times_cupy)
+    qwak_times_cupy, qw_cupy = runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, graph_seed_dict)
+    write_list_to_file(qwak_times_file_cupy, qwak_times_cupy)
 
-git_branch_commit_push("new-feature-branch", "Initial commit for the new feature")
+# Record end datetime and calculate execution time
+end_datetime = datetime.now()
+execution_time = (end_datetime - start_datetime).total_seconds()/60
+
+# Get current date and time
+current_datetime = end_datetime.strftime('%Y-%m-%d_%H-%M-%S')
+execution_time_str = f'{execution_time:.2f}m'
+
+# Combine current date, time, and execution time for the branch name
+branch_name = f'{current_datetime}_{execution_time_str}'
+
+git_branch_commit_push(branch_name, f'simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}')
+
 
 for q, qcp in zip(qw,qw_cupy):
     # Compare the two arrays using np.allclose
