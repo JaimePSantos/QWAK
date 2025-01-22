@@ -400,7 +400,7 @@ nList = list(range(nMin, nMax, 1))
 pVal = 0.8
 samples = 100
 
-t = 50
+t = 100
 
 qwak_times_filename = f'LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
 qwak_times_filename_cupy = f'LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
@@ -437,7 +437,7 @@ else:
 
 # Record end datetime and calculate execution time
 end_datetime = datetime.now()
-execution_time = (end_datetime - start_datetime).total_seconds()/60
+execution_time = (end_datetime - start_datetime).total_seconds() / 60
 
 # Get current date and time
 current_datetime = end_datetime.strftime('%Y-%m-%d_%H-%M-%S')
@@ -447,7 +447,6 @@ execution_time_str = f'{execution_time:.2f}m'
 branch_name = f'{current_datetime}_{execution_time_str}'
 
 git_branch_commit_push(branch_name, f'simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}')
-
 
 for q, qcp in zip(qw,qw_cupy):
     # Compare the two arrays using np.allclose
