@@ -391,7 +391,7 @@ def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, seed_list_dict):
 
 
 nMin = 3
-nMax = 5
+nMax = 100 
 nList = list(range(nMin,nMax,1))
 pVal = 0.8
 samples = 1 
