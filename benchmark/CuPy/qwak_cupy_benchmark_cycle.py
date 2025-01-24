@@ -134,7 +134,6 @@ nMin = 3
 nMax = 1000
 nList = list(range(nMin,nMax,1))
 samples = 100
-
 qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_Cycle/LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_T{t}_S{samples}.txt'
 qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_Cycle/LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_T{t}_S{samples}.txt'
 
