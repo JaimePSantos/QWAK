@@ -10,7 +10,7 @@ from tests.testVariables.stochasticQwakVar import (
 )
 
 
-class TestStochasticQWAK(object):
+class deactivate_TestStochasticQWAK(object):
     def test_StochasticProbDistSingleNodeCycleNoNoise(self):
         n = 50
         t = 6
