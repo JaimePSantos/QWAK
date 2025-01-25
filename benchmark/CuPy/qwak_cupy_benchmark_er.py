@@ -345,19 +345,14 @@ def runTimedQWAK2_cupy(n,pVal,t,seed):
     final_state = qw.getProbVec()
     return final_state, qwak_time
 
-def runMultipleSimpleQWAK3(nList, pVal, t, samples, seed_list_dict):
+def runMultipleSimpleQWAK3(nList, pVal, t, samples):#, seed_list_dict):
     qwList = []
     tList = []
     qwak_time = 0
     qwak_time_average = 0
 
     for n in tqdm(nList, desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
-        # Access the corresponding seed list for the current `n`
-        seed_list = seed_list_dict.get(n, [])
-        if not isinstance(seed_list, list):
-            raise ValueError(f"Expected a list of seeds for n={n}, but got {type(seed_list)}.")
-
-        for sample, seed in tqdm(zip(range(1, samples + 1), seed_list), desc=f"Samples for N = {n}"):
+        for sample in tqdm(range(1, samples + 1), desc=f"Samples for N = {n}"):
             qw, qwak_time = runTimedQWAK2(n, pVal, t, 10)
             qwak_time_average += qwak_time
 
@@ -368,7 +363,7 @@ def runMultipleSimpleQWAK3(nList, pVal, t, samples, seed_list_dict):
 
     return tList, qwList
 
-def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, seed_list_dict):
+def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples):#, seed_list_dict):
     qwList = []
     tList = []
     qwak_time = 0
@@ -376,11 +371,7 @@ def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, seed_list_dict):
 
     for n in tqdm(nList, desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
         # Access the corresponding seed list for the current `n`
-        seed_list = seed_list_dict.get(n, [])
-        if not isinstance(seed_list, list):
-            raise ValueError(f"Expected a list of seeds for n={n}, but got {type(seed_list)}.")
-
-        for sample, seed in tqdm(zip(range(1, samples + 1), seed_list), desc=f"Samples for N = {n}"):
+        for sample in tqdm(range(1, samples + 1), desc=f"Samples for N = {n}"):
             qw, qwak_time = runTimedQWAK2_cupy(n, pVal, t, 10)
             qwak_time_average += qwak_time
 
@@ -415,9 +406,9 @@ base_dir = "Datasets/Benchmark-SimpleQWAK_ER/GraphSeedFiles"
 start_datetime = datetime.now()
 
 # Function calls
-create_er_seed(base_dir, nList, pVal, samples)
-
-graph_seed_dict = load_er_seed(base_dir, nList, pVal, samples)
+#create_er_seed(base_dir, nList, pVal, samples)
+#
+#graph_seed_dict = load_er_seed(base_dir, nList, pVal, samples)
 
 #print(graph_seed_dict)
 
@@ -425,14 +416,14 @@ if os.path.exists(qwak_times_file):
     qwak_times = load_list_from_file(qwak_times_file)
     print('File Exists!')
 else:
-    qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples, graph_seed_dict)
+    qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples)#, graph_seed_dict)
     write_list_to_file(qwak_times_file, qwak_times)
 
 if os.path.exists(qwak_times_file_cupy):
     qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
     print('File Exists!')
 else:
-    qwak_times_cupy, qw_cupy = runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples, graph_seed_dict)
+    qwak_times_cupy, qw_cupy = runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples)#, graph_seed_dict)
     write_list_to_file(qwak_times_file_cupy, qwak_times_cupy)
 
 # Record end datetime and calculate execution time
