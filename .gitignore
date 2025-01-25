@@ -30,6 +30,7 @@ qwak_sim.egg-info
 venv
 activate
 qwakEnv/
+QwakEnv/
 node_modules/
 python/
 html5up-hyperspace/
@@ -40,6 +41,7 @@ generatingVariables.py
 Executable
 docs/build
 gui-flask/flask_session
+benchmark/CuPy/Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices/
 
 package.json
 package-lock.json
