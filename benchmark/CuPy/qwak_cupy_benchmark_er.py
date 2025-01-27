@@ -399,25 +399,15 @@ qwak_times_filename_cupy = f'3070-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T
 qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
 qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy
 
-# Base directory
-base_dir = "Datasets/Benchmark-SimpleQWAK_ER/GraphSeedFiles"
-
 # Record start datetime
 start_datetime = datetime.now()
 
-# Function calls
-#create_er_seed(base_dir, nList, pVal, samples)
-#
-#graph_seed_dict = load_er_seed(base_dir, nList, pVal, samples)
-
-#print(graph_seed_dict)
-
-# if os.path.exists(qwak_times_file):
-#     qwak_times = load_list_from_file(qwak_times_file)
-#     print('File Exists!')
-# else:
-#     qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples)#, graph_seed_dict)
-#     write_list_to_file(qwak_times_file, qwak_times)
+if os.path.exists(qwak_times_file):
+    qwak_times = load_list_from_file(qwak_times_file)
+    print('File Exists!')
+else:
+    qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples)#, graph_seed_dict)
+    write_list_to_file(qwak_times_file, qwak_times)
 
 if os.path.exists(qwak_times_file_cupy):
     qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
@@ -446,7 +436,7 @@ git_branch_commit_push(branch_name, f'simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{
 #     # Print the result of the comparison
 #     print(f"Are the two arrays approximately equal? {are_close}")
 
-plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
+# plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
 plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
 plt.legend()
 plt.show()
