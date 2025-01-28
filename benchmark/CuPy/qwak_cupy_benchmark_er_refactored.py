@@ -101,24 +101,24 @@ def load_runMultipleSimpleQWAK(nList, pVal, t, base_dir):
 
 # Parameters
 nMin = 3
-nMax = 300
+nMax = 1000
 nList = list(range(nMin, nMax, 1))
 pVal = 0.8
-samples = 1
+samples = 100
 t = 100
 
 # base_dir = 'Datasets/Benchmark-SimpleQWAK-Test_ER2'
 base_dir = 'benchmark/CuPy/Datasets/Benchmark-SimpleQWAK-Test_ER2'
-base_dir_cupy = 'benchmark/CuPy/Datasets/Benchmark-SimpleQWAK_ER2_CuPy'
+base_dir_cupy = 'benchmark/CuPy/Datasets/Benchmark-SimpleQWAK_ER2_CuPy_3070'
 
 # Record start datetime
 start_datetime = datetime.now()
 
 
-runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir, hpc = False)
-tList, qwList, avg_list = load_runMultipleSimpleQWAK(nList, pVal, t, base_dir)
-print('Standard QWAK results computed and saved.')
-print(avg_list)
+# runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir, hpc = False)
+# tList, qwList, avg_list = load_runMultipleSimpleQWAK(nList, pVal, t, base_dir)
+# print('Standard QWAK results computed and saved.')
+# print(avg_list)
     
 runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir_cupy, hpc = True)
 tList_cupy, qwList_cupy,avg_list_cupy = load_runMultipleSimpleQWAK(nList, pVal, t, base_dir_cupy)
@@ -130,7 +130,7 @@ print('CuPy QWAK results computed and saved.')
 elapsed_time = datetime.now() - start_datetime
 print(f"Elapsed time: {elapsed_time}")
 
-plt.plot(nList,avg_list,label='QWAK CPU_NumPy')
-plt.plot(nList,avg_list_cupy,label='QWAK GPU_CuPy')
-plt.legend()
-plt.show()
+# plt.plot(nList,avg_list,label='QWAK CPU_NumPy')
+# plt.plot(nList,avg_list_cupy,label='QWAK GPU_CuPy')
+# plt.legend()
+# plt.show()
