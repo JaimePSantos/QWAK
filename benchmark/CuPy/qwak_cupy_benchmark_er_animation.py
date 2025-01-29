@@ -5,11 +5,13 @@ import networkx as nx
 import time
 import cupyx.scipy.linalg as cpx_scipy
 from cupyx.profiler import benchmark
-from matplotlib import pyplot as plt
 import os
 import pickle
 from tqdm import tqdm
 from datetime import datetime
+import matplotlib
+matplotlib.use('Qt5Agg')
+import matplotlib.pyplot as plt
 
 from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
@@ -25,112 +27,115 @@ def runTimedQWAK(n,pVal,t,seed, hpc = False):
     final_state = qw.getProbVec()
     return final_state, qwak_time
 
-def runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir, hpc=False):
+def runTimedQWAK_anim(qwak,t, hpc = False):
+    start_time = time.time()
+    qwak.runWalk(t)
+    end_time = time.time()
+    qwak_time = end_time - start_time
+    final_state = qwak.getProbVec()
+    return final_state, qwak_time
+
+def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
     qwList = []
-    tList = []
+    tList_storage = []
     qw = 0
 
-    for n in tqdm(nList, desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}" if not hpc else f"CuPyQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
-        n_dir = os.path.join(base_dir, f"N{n}")
-        os.makedirs(n_dir, exist_ok=True)
-        avg_file = os.path.join(n_dir, f"AVG-t_P{pVal}_T{t}_sample{samples}.pkl")
+    initNodes = [n//2]
+    graph = nx.erdos_renyi_graph(n, pVal, seed=seed)
+    qwak = QWAK(graph, initStateList=initNodes)
+
+    for t in tqdm(tList, desc=f"NPQWAK {len(tList)}:{tList[0]}->{tList[-1]}" if not hpc else f"CuPyQWAK {len(tList)}:{tList[0]}->{tList[-1]}", leave=False):
+        t_dir = os.path.join(base_dir, f"t{t}")
+        os.makedirs(t_dir, exist_ok=True)
+        avg_file = os.path.join(t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")
         qwak_time_average = 0
-        for sample in tqdm(range(1, samples + 1), desc=f"Samples for N = {n}", leave=False):
-            t_file = os.path.join(n_dir, f"t_P{pVal}_T{t}_sample{sample}.pkl")
-            qw_file = os.path.join(n_dir, f"qw_P{pVal}_T{t}_sample{sample}.pkl")
+        for sample in tqdm(range(1, samples + 1), desc=f"Samples for t = {t}", leave=False):
+            t_file = os.path.join(t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
+            qw_file = os.path.join(t_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
 
             if os.path.exists(t_file) and os.path.exists(qw_file):
+                # Skip existing samples but continue processing others
                 # print(f"Files for N={n}, Sample={sample} already exist. Skipping.")
-                break
+                continue  # Changed from break to continue
             
-            qw, qwak_time = runTimedQWAK(n, pVal, t, 10, hpc = hpc)
+            qw, qwak_time = runTimedQWAK_anim(qwak, t, hpc=hpc)
             qwak_time_average += qwak_time
 
             # Save t and qw for the current sample
             with open(t_file, 'wb') as f:
                 pickle.dump(qwak_time, f)
+            with open(qw_file, 'wb') as f:
+                pickle.dump(qw, f)
 
-        qwak_time_average = qwak_time_average/samples
+        qwak_time_average = qwak_time_average / samples
 
         with open(avg_file, 'wb') as f:
             pickle.dump(qwak_time_average, f)
-        with open(qw_file, 'wb') as f:
-            pickle.dump(qw, f)
 
     return
 
-def load_runMultipleSimpleQWAK(nList, pVal, t, base_dir):
+def load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir):  # Added samples parameter
     qwList = []
-    tList = []
+    tList_storage = []
     avgList = []
 
-    for n in tqdm(nList, desc="Loading NPQWAK data"):
-        n_dir = os.path.join(base_dir, f"N{n}")
+    for t in tqdm(tList, desc="Loading NPQWAK data"):
+        t_dir = os.path.join(base_dir, f"t{t}")
 
         qwList_n = []
         tList_n = []
-        avg_file = os.path.join(n_dir, f"AVG-t_P{pVal}_T{t}_sample{samples}.pkl")
+        avg_file = os.path.join(t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")  # Now uses samples parameter
 
         if os.path.exists(avg_file):
             with open(avg_file, 'rb') as f:
                 avgList.append(pickle.load(f))
         else:
-            avgList.append(None)  # Handle missing averages gracefully
+            avgList.append(None)
 
         sample = 1
         while True:
-            t_file = os.path.join(n_dir, f"t_P{pVal}_T{t}_sample{sample}.pkl")
-            qw_file = os.path.join(n_dir, f"qw_P{pVal}_T{t}_sample{sample}.pkl")
-
+            t_file = os.path.join(t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
+            qw_file = os.path.join(t_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
             if os.path.exists(t_file) and os.path.exists(qw_file):
                 with open(t_file, 'rb') as f:
                     tList_n.append(pickle.load(f))
-
                 with open(qw_file, 'rb') as f:
                     qwList_n.append(pickle.load(f))
+                sample += 1
             else:
                 break
 
-            sample += 1
-
         if qwList_n and tList_n:
-            tList.append(tList_n)
+            tList_storage.append(tList_n)
             qwList.append(qwList_n)
 
-    return tList, qwList, avgList
+    return tList_storage, qwList, avgList
 
 # Parameters
-nMin = 3
-nMax = 300
-nList = list(range(nMin, nMax, 1))
+n = 600
+tMin = 1
+tMax = 100
+tList = list(range(tMin, tMax, 1))
 pVal = 0.8
-samples = 1
-t = 100
+samples = 10
+seed = 10
 
-# base_dir = 'Datasets/Benchmark-SimpleQWAK-Test_ER2'
-base_dir = 'benchmark/CuPy/Datasets/Benchmark-SimpleQWAK-Test_ER2'
-base_dir_cupy = 'benchmark/CuPy/Datasets/Benchmark-SimpleQWAK_ER2_CuPy'
+base_dir_cupy_970 = f'Datasets/Benchmark-AnimQWAK_ER_N{n}-CuPy_970'
+base_dir = f'Datasets/Benchmark-AnimQWAK_ER_N{n}-NumPy'
 
-# Record start datetime
 start_datetime = datetime.now()
 
+runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False)
+tBenchList, qwList, avg_list = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir)  # Passed samples
 
-runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir, hpc = False)
-tList, qwList, avg_list = load_runMultipleSimpleQWAK(nList, pVal, t, base_dir)
-print('Standard QWAK results computed and saved.')
-print(avg_list)
-    
-runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir_cupy, hpc = True)
-tList_cupy, qwList_cupy,avg_list_cupy = load_runMultipleSimpleQWAK(nList, pVal, t, base_dir_cupy)
-print(avg_list_cupy)
+runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir_cupy_970, hpc=True)
+tBenchList_cupy_970, qwList_cupy_970, avg_list_cupy_970 = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir_cupy_970)  # Passed samples
 
 print('CuPy QWAK results computed and saved.')
-
-# Print elapsed time
 elapsed_time = datetime.now() - start_datetime
 print(f"Elapsed time: {elapsed_time}")
 
-plt.plot(nList,avg_list,label='QWAK CPU_NumPy')
-plt.plot(nList,avg_list_cupy,label='QWAK GPU_CuPy')
+plt.plot(tList, avg_list, label='QWAK CPU_NumPy')
+plt.plot(tList, avg_list_cupy_970, label='QWAK GPU_CuPy970')  # Use tList for x-axis
 plt.legend()
 plt.show()
