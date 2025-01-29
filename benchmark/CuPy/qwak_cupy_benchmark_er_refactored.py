@@ -123,7 +123,7 @@ def load_runMultipleSimpleQWAK2(nList, pVal, t, base_dir):
     return avgList
 # Parameters
 nMin = 3
-nMax = 1000
+nMax = 750
 nList = list(range(nMin, nMax, 1))
 pVal = 0.8
 samples = 100
@@ -136,6 +136,7 @@ base_dir_cupy_970 = 'Datasets/Benchmark-SimpleQWAK_ER-CuPy_970'
 base_dir_cupy_3070 = 'Datasets/Benchmark-SimpleQWAK_ER2_CuPy_3070'
 base_dir_cupy_3070_2 = 'Datasets/Benchmark-SimpleQWAK_ER2_CuPy_3070_2'
 base_dir = 'Datasets/Benchmark-SimpleQWAK_ER-NumPy'
+base_dir_cupy_integrated = 'Datasets/Benchmark-SimpleQWAK_ER-CuPy_Integrated'
 
 
 # # Record start datetime
@@ -147,10 +148,13 @@ avg_list = load_runMultipleSimpleQWAK2(nList, pVal, t, base_dir)
 
 avg_list_cupy_970 = load_runMultipleSimpleQWAK2(nList, pVal, t, base_dir_cupy_970)
 
-avg_list_cupy_3070_2 = load_runMultipleSimpleQWAK2(nList, pVal, t, base_dir_cupy_3070_2)
+# avg_list_cupy_3070_2 = load_runMultipleSimpleQWAK2(nList, pVal, t, base_dir_cupy_3070_2)
     
 # runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir_cupy_3070, hpc = True)
 tList_cupy_3070, qwList_cupy_3070,avg_list_cupy_3070 = load_runMultipleSimpleQWAK(nList, pVal, t, base_dir_cupy_3070)
+
+runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir_cupy_3070, hpc = True)
+tList_cupy_integrated, qwList_cupy_integrated,avg_list_cupy_integrated = load_runMultipleSimpleQWAK(nList, pVal, t, base_dir_cupy_integrated)
 
 print('CuPy QWAK results computed and saved.')
 
@@ -164,8 +168,9 @@ print(f"Elapsed time: {elapsed_time}")
 
 plt.plot(nList,avg_list,label='QWAK CPU_NumPy')
 plt.plot(nList,avg_list_cupy_3070,label='QWAK GPU_CuPy3070')
-plt.plot(nList,avg_list_cupy_3070_2,label='QWAK GPU_CuPy3070_2')
+# plt.plot(nList,avg_list_cupy_3070_2,label='QWAK GPU_CuPy3070_2')
 plt.plot(nList,avg_list_cupy_970,label='QWAK GPU_CuPy970')
+plt.plot(nList,avg_list_cupy_integrated,label='QWAK GPU_CuPyIntegrated')
 plt.legend()
 plt.show()
 
