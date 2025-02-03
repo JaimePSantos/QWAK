@@ -53,3 +53,5 @@ Notebook/Datasets/SpinGlass*
 flask_session/
 .Deprecated
 QWAKEnv/
+Notebook/CuPy/Datasets/*
+Benchmark/CuPy/Datasets/*

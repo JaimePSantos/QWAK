@@ -16,7 +16,6 @@ from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
 
 
-
 def runTimedQWAK(n,pVal,tList,seed, hpc = False):
     initNodes = [n//2]
     graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
@@ -146,7 +145,7 @@ def load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False):  #
 
     for t in tqdm(tList, desc="Loading NPQWAK data"):
         t_dir = os.path.join(base_dir, f"t{t}")
-        # print(t_dir)
+        print(t_dir)
 
         qwList_n = []
         tList_n = []
@@ -181,12 +180,12 @@ def load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False):  #
 
     return tList_storage, qwList, avgList
 
-n = 600
+n = 1000
 tMin = 1
-tMax = 100
+tMax = 30
 tList = list(range(tMin, tMax, 1))
 pVal = 0.8
-samples = 10
+samples = 5
 seed = 1
 
 base_dir_cupy_970 = f'Datasets/Benchmark-AnimQWAK_ER_N{n}-CuPy_970_2'
@@ -194,12 +193,18 @@ base_dir = f'Datasets/Benchmark-AnimQWAK_ER_N{n}-NumPy_2'
 
 start_datetime = datetime.now()
 
-runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False)
+# runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False)
 tBenchList, qwList, avg_list = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir)  # Passed samples
 # print(avg_list)
-runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir_cupy_970, hpc=True)
+
+# runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir_cupy_970, hpc=True)
 tBenchList_cupy_970, qwList_cupy_970, avg_list_cupy_970 = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir_cupy_970)  # Passed samples
+
 print('CuPy QWAK results computed and saved.')
 elapsed_time = datetime.now() - start_datetime
 print(f"Elapsed time: {elapsed_time}")
 
+plt.plot(tList, avg_list, label='QWAK CPU_NumPy')
+plt.plot(tList, avg_list_cupy_970, label='QWAK GPU_CuPy970')  # Use tList for x-axis
+plt.legend()
+plt.show()
