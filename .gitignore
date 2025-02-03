@@ -55,3 +55,4 @@ flask_session/
 QWAKEnv/
 Notebook/CuPy/Datasets/*
 Benchmark/CuPy/Datasets/*
+./
