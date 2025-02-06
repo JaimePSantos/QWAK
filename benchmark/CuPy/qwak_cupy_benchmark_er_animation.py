@@ -48,6 +48,7 @@ def runInitTimedQWAK(n,pVal,tList, seed,base_dir, hpc = False):
         qwak_init_end_time = time.time()
         qwak_init_time = qwak_init_end_time - qwak_init_start_time
         qwak_init_average += qwak_init_time
+        print(f"QWAK INIT {qwak_init_time}",end='\r')
         
         with open(qwak_init_t_file, 'wb') as f:
                 pickle.dump(qwak_init_time, f)
@@ -69,6 +70,7 @@ def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
         t_dir = os.path.join(base_dir, f"t{t}")
         os.makedirs(t_dir, exist_ok=True)
         avg_file = os.path.join(t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")
+        print(qwak_time_average)
         qwak_time_average = 0
         for sample in tqdm(range(1, samples + 1), desc=f"Samples for t = {t}", leave=False):
             t_file = os.path.join(t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
@@ -82,6 +84,7 @@ def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
             qw_init.runExpmWalk(t)
             end_time = time.time()
             qwak_time = end_time - start_time
+            print(f"QWAK TIME {qwak_time}",end='\r')
             
             # qw, qwak_time = runTimedQWAK_anim(qwak, t, hpc=hpc)
             qwak_time_average += qwak_time
@@ -92,6 +95,7 @@ def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
             with open(qw_file, 'wb') as f:
                 pickle.dump(qw_init.getProbVec(), f)
 
+        print(qwak_time_average)
         qwak_time_average = qwak_time_average / samples
 
         with open(avg_file, 'wb') as f:
@@ -151,39 +155,41 @@ def load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False):  #
         qwList_n = []
         tList_n = []
         avg_file = os.path.join(t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")  # Now uses samples parameter
+        with open(avg_file, 'rb') as f:
+            print(pickle.load(f))  # Should show ~0.1-1.0s for GPU
+    #     if os.path.exists(avg_file):
+    #         with open(avg_file, 'rb') as f:
+    #             avg_time = pickle.load(f)
+    #             # print(avg_time)
+    #             # if t == tList[0]:
+    #             #     avg_time += init_avg_list[0]
+    #             avgList.append(avg_time)
+    #             # avgList.append(pickle.load(f))
+    #     else:
+    #         avgList.append(None)
 
-        if os.path.exists(avg_file):
-            with open(avg_file, 'rb') as f:
-                avg_time = pickle.load(f)
-                if t == tList[0]:
-                    avg_time += init_avg_list[0]
-                avgList.append(avg_time)
-                # avgList.append(pickle.load(f))
-        else:
-            avgList.append(None)
+    #     sample = 1
+    #     while True:
+    #         t_file = os.path.join(t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
+    #         qw_file = os.path.join(t_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
+    #         if os.path.exists(t_file) and os.path.exists(qw_file):
+    #             with open(t_file, 'rb') as f:
+    #                 tList_n.append(pickle.load(f))
+    #             with open(qw_file, 'rb') as f:
+    #                 qwList_n.append(pickle.load(f))
+    #             sample += 1
+    #         else:
+    #             break
 
-        sample = 1
-        while True:
-            t_file = os.path.join(t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
-            qw_file = os.path.join(t_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
-            if os.path.exists(t_file) and os.path.exists(qw_file):
-                with open(t_file, 'rb') as f:
-                    tList_n.append(pickle.load(f))
-                with open(qw_file, 'rb') as f:
-                    qwList_n.append(pickle.load(f))
-                sample += 1
-            else:
-                break
+    #     if qwList_n and tList_n:
+    #         tList_storage.append(tList_n)
+    #         qwList.append(qwList_n)
 
-        if qwList_n and tList_n:
-            tList_storage.append(tList_n)
-            qwList.append(qwList_n)
-
-    return tList_storage, qwList, avgList
+    # return tList_storage, qwList, avgList
 
 n = 600
 tMin = 1
-tMax = 100
+tMax = 30
 tList = list(range(tMin, tMax, 1))
 pVal = 0.8
 samples = 10
@@ -193,20 +199,24 @@ base_dir_cupy_970 = f'Datasets/Benchmark-AnimQWAK_ER_N{n}-CuPy_970_2'
 base_dir = f'Datasets/Benchmark-AnimQWAK_ER_N{n}-NumPy_2'
 
 start_datetime = datetime.now()
-
+# load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir)
 runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False)
-tBenchList, qwList, avg_list = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir)  # Passed samples
-# print(avg_list)
-runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir_cupy_970, hpc=True)
-tBenchList_cupy_970, qwList_cupy_970, avg_list_cupy_970 = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir_cupy_970)  # Passed samples
-print('CuPy QWAK results computed and saved.')
-elapsed_time = datetime.now() - start_datetime
-print(f"Elapsed time: {elapsed_time}")
+# tBenchList, qwList, avg_list = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir)  # Passed samples
+# # print(avg_list)
+# runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir_cupy_970, hpc=True)
+# tBenchList_cupy_970, qwList_cupy_970, avg_list_cupy_970 = load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir_cupy_970)  # Passed samples
+# print('CuPy QWAK results computed and saved.')
+# elapsed_time = datetime.now() - start_datetime
+# print(f"Elapsed time: {elapsed_time}")
 
 # print(avg_list[1:])
 # print(avg_list_cupy_970[1:])
 
-plt.plot(tList[1:], avg_list[1:], label='QWAK CPU_NumPy')
-plt.plot(tList[1:], avg_list_cupy_970[1:], label='QWAK GPU_CuPy970')
-plt.legend()
-plt.show()
+# plt.plot(tList, avg_list, label='QWAK CPU_NumPy')
+# plt.plot(tList, avg_list_cupy_970, label='QWAK GPU_CuPy970')
+# plt.legend()
+# plt.show()
+
+# Load a sample file to verify non-zero values
+# with open(f"Datasets/Benchmark-AnimQWAK_ER_N600-CuPy_970_2/t1/t_P0.8_N600_sample1.pkl", 'rb') as f:
+#     print(pickle.load(f))  # Should show ~0.1-1.0s for GPU
