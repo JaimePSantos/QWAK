@@ -20,4 +20,6 @@ if __name__ == "__main__":
     qwOperator = OperatorBenchmark(graph)
     # qwOperator.buildDiagonalOperator(graph, time=t)
     # qwOperator.buildSlowDiagonalOperator(graph, time=t)
-    qwOperator.init_operator(graph)
+    # qwOperator.init_operator(graph)
+    # qwOperator.load_init_time()
+    # print(qwOperator.get_init_time())
