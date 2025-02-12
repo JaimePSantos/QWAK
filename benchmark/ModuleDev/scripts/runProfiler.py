@@ -6,6 +6,7 @@ if __name__ == "__main__":
     n = 1000
     t = 10
     graph = nx.cycle_graph(n)
+    print(nx.cycle_graph.__name__)
     marked = [20]
 
     # qwController = QWAKBenchmark(graph, laplacian=False)

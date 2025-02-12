@@ -4,7 +4,8 @@ import numpy as np
 import os
 
 from Profiler import profile
-from qwak.Operator import Operator
+from qwak.Operator import Operator as Operator
+from qwak_cupy.Operator import Operator as COperator
 from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
 
@@ -22,6 +23,7 @@ class OperatorBenchmark:
         self.init_time = 0
         self.walk_time = 0
         self.time_list = []
+        self.n = 1
 
     @profile(
         output_path="operator_results",
@@ -29,16 +31,17 @@ class OperatorBenchmark:
         lines_to_print=None,
         strip_dirs=False,
         csv=False,
-        time_attributes=['init_time', 'walk_time']  # Attributes to use in path/name
+        time_attributes=['init_time', 'walk_time','n']  # Attributes to use in path/name
     )
     def init_operator(self, graph, hpc=False):
         # Your initialization logic
         self.init_time = 1.2345  # Example value
         self.walk_time = 6.7890  # Example value
+        self.n = 30
         if hpc:
-            self.operator = CQWAK(graph)
+            self.operator = COperator(graph)
         else:
-            self.operator = QWAK(graph)
+            self.operator = Operator(graph)
 
     def load_operator():
         pass

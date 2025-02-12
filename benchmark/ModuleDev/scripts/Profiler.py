@@ -44,15 +44,18 @@ def profile(
             # Create dynamic output structure
             walk_time = f"walk_{time_data.get('walk_time', 0):.4f}".replace('.', '_')
             init_time = f"init_{time_data.get('init_time', 0):.4f}".replace('.', '_')
+            n_dim = f"N_{time_data.get('n', 0)}".replace('.', '_')
             
-            final_output_path = os.path.join(base_path, output_path, walk_time)
+            final_output_path = os.path.join(base_path, output_path,n_dim)
             os.makedirs(final_output_path, exist_ok=True)
 
             # Create filename
             if output_file:
-                filename = f"{init_time}_{output_file}"
+                # filename = f"{init_time}_{output_file}"
+                filename = f"{output_file}_{walk_time}"
             else:
-                filename = f"{init_time}_{func.__name__}.prof"
+                # filename = f"{init_time}_{func.__name__}.prof"
+                filename = f"{func.__name__}_{walk_time}_.prof"
 
             full_path = os.path.join(final_output_path, filename)
 
