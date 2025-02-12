@@ -16,6 +16,7 @@ if __name__ == "__main__":
     # qwController.getSurvivalProb(19, 21)
     # qwController.getInversePartRatio()
 
-    qwOperator = OperatorBenchmark()
-    qwOperator.buildDiagonalOperator(graph, time=t)
-    qwOperator.buildSlowDiagonalOperator(graph, time=t)
+    qwOperator = OperatorBenchmark(graph)
+    # qwOperator.buildDiagonalOperator(graph, time=t)
+    # qwOperator.buildSlowDiagonalOperator(graph, time=t)
+    qwOperator.init_operator(graph)
