@@ -4,8 +4,9 @@ import pstats
 from functools import wraps
 from io import StringIO
 from tqdm import tqdm
-from typing import Callable, List
 import inspect
+from typing import Callable, List
+import re
 
 global benchmark
 benchmark = True
@@ -17,16 +18,15 @@ def profile(
     lines_to_print=None,
     strip_dirs=False,
     csv=False,
-    tracked_attributes=None,
-    benchmark=True  # ✅ Ensure profiling runs
+    tracked_attributes=None
 ):
+    
     def noop_decorator(func):
         return func
 
     def inner(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
-            # Ensure base path exists
             base_path = os.path.join(os.path.dirname(__file__), "TestOutput", "Profiling")
             os.makedirs(base_path, exist_ok=True)
             
@@ -37,7 +37,6 @@ def profile(
                 pr.disable()
                 pbar.update(1)
 
-            # Process tracked attributes
             time_data = {}
             if tracked_attributes:
                 sig = inspect.signature(func)
@@ -47,7 +46,8 @@ def profile(
                     arguments = bound_args.arguments
                 except:
                     arguments = {}
-
+                
+                # Check if function is a method
                 instance = None
                 params = list(sig.parameters.values())
                 if params and params[0].name == 'self' and args:
@@ -60,9 +60,13 @@ def profile(
                     elif instance and hasattr(instance, attr):
                         value = getattr(instance, attr, None)
                     if value is not None:
-                        formatted_value = f"{value:.4f}".replace('.', '_') if isinstance(value, float) else str(value).replace('.', '_')
+                        if isinstance(value, float):
+                            formatted_value = f"{value:.4f}".replace('.', '_')
+                        else:
+                            formatted_value = str(value).replace('.', '_')
                         time_data[attr] = formatted_value
 
+            # Path uses only first tracked attribute
             first_attr_part = ""
             if tracked_attributes and time_data:
                 first_attr_name = tracked_attributes[0]
@@ -73,13 +77,14 @@ def profile(
             final_output_path = os.path.join(base_path, output_path, first_attr_part)
             os.makedirs(final_output_path, exist_ok=True)
 
+            # Filename uses all tracked attributes
             attr_parts = [f"{k}_{v}" for k, v in time_data.items()]
             combined_attrs = '_'.join(attr_parts) if attr_parts else ''
             
             if output_file:
                 filename = f"{output_file}-{combined_attrs}.prof"
             else:
-                filename = f"{func.__name__}-{combined_attrs}.prof"
+                filename = f"{func.__name__}-{combined_attrs}_.prof"
 
             full_path = os.path.join(final_output_path, filename)
 
@@ -95,18 +100,15 @@ def profile(
                     ps.print_stats(lines_to_print)
 
             return result
-
-        # ✅ Ensure the decorated function has the profiling config
+        # Optionally, you could store configuration info on the function:
         wrapper._profile_config = {
             'output_path': output_path,
             'output_file': output_file,
             'tracked_attributes': tracked_attributes,
         }
-        print(f"Profiling applied to {func.__name__}, config: {wrapper._profile_config}")  # Debug print
         return wrapper
 
     return inner if benchmark else noop_decorator
-
 
 def prof_to_csv(prof, sort_by, lines_to_print, strip_dirs):
     out_stream = StringIO()
@@ -116,75 +118,116 @@ def prof_to_csv(prof, sort_by, lines_to_print, strip_dirs):
     ps.sort_stats(sort_by).print_stats(lines_to_print)
     result = out_stream.getvalue()
     result = "ncalls" + result.split("ncalls")[-1]
-    return "\n".join([",".join(line.rstrip().split(None,5)) for line in result.split("\n") if line])
+    return "\n".join([",".join(line.rstrip().split(None, 5)) for line in result.split("\n") if line])
 
-def find_exact_profiling_file(instance, method: Callable) -> str:
+def get_profiling_path(instance, method: Callable) -> str:
     """
-    Reconstructs the exact profiling file path based on how the profiler creates
-    its folder structure and filename (using tracked attributes) and returns it if found.
-
+    Generates the expected profiling path for a @profile-decorated method
+    and verifies file existence.
+    
     Usage:
-        try:
-            exact_path = find_exact_profiling_file(benchmark_instance, benchmark_instance.init_operator)
-        except FileNotFoundError as e:
-            print(e)
+    try:
+        path = get_profiling_path(benchmark_instance, benchmark_instance.init_operator)
+    except FileNotFoundError as e:
+        print(e)
     """
-    # Get the original function from the method.
+    # Get original decorated function
     if inspect.ismethod(method):
         func = method.__func__
     else:
         func = method
 
-    # Ensure the function was decorated.
+    # Verify profiling was configured
     if not hasattr(func, '_profile_config'):
         raise ValueError(f"Method {func.__name__} was not decorated with @profile")
+
     config = func._profile_config
 
-    # Determine which tracked attributes to use.
+    # Determine tracked attributes to use
     tracked_attrs = config.get('tracked_attributes')
     if tracked_attrs is None:
         tracked_attrs = getattr(instance, 'tracked_attributes', None)
         if tracked_attrs is None:
             raise ValueError("No tracked_attributes defined in decorator or instance")
 
-    # Gather and format values from the instance.
+    # Collect and format values from instance
     formatted_values = {}
     for attr in tracked_attrs:
         value = getattr(instance, attr, None)
         if value is None:
             raise ValueError(f"Missing required attribute: {attr}")
+        
+        # Match profiler's formatting exactly
         if isinstance(value, float):
             formatted = f"{value:.4f}".replace('.', '_')
         else:
             formatted = str(value).replace('.', '_')
         formatted_values[attr] = formatted
 
-    # Rebuild the directory path (which uses the first tracked attribute).
+    # Build directory structure
     first_attr = tracked_attrs[0]
     dir_structure = os.path.join(
-        os.path.dirname(__file__),
+        os.path.dirname(__file__),  # Same base as profiler
         "TestOutput",
         "Profiling",
         config['output_path'],
         f"{first_attr}_{formatted_values[first_attr]}"
     )
 
-    # Rebuild the filename exactly as the profiler does.
+    # Build filename
     filename_base = config['output_file'] or func.__name__
     attr_str = '_'.join([f"{k}_{v}" for k, v in formatted_values.items()])
-    if config['output_file']:
-        filename = f"{filename_base}-{attr_str}.prof"
-    else:
-        filename = f"{filename_base}-{attr_str}_.prof"
+    filename = f"{filename_base}-{attr_str}.prof"
 
     full_path = os.path.join(dir_structure, filename)
 
+    # Verify file existence
     if not os.path.exists(full_path):
         raise FileNotFoundError(
-            f"Profiling file not found at:\n{full_path}\n"
-            f"Expected tracked attributes: {tracked_attrs}\n"
-            f"Current attribute values: {formatted_values}\n"
-            "Make sure to run profiling before searching for the file."
+            f"Profiling data missing for {func.__name__} with parameters:\n"
+            f"Tracked attributes: {tracked_attrs}\n"
+            f"Current values: {formatted_values}\n\n"
+            "Run profiling first with:\n"
+            f"{instance.__class__.__name__}.{func.__name__}()"
         )
 
     return full_path
+
+def find_profiling_files_by_identifier(identifier: str) -> List[str]:
+    """
+    Searches the profiling output directory for all profiling files whose names 
+    start with the given identifier. Since the file name is built as:
+    
+        <identifier>-<tracked_attributes>.prof
+    
+    where <identifier> is either the method name (if output_file is not provided)
+    or the explicit output_file string, this function uses a regex to match files 
+    regardless of how the tracked attributes portion may vary.
+    
+    Parameters:
+        identifier (str): The method name or output_file identifier to search for.
+    
+    Returns:
+        List[str]: A list of full file paths to matching profiling data files.
+    
+    Example:
+        # If your method was decorated without an output_file argument, then use:
+        files = find_profiling_files_by_identifier("init_operator")
+        # If you provided an output_file parameter (e.g., output_file="custom_init"),
+        # then use:
+        files = find_profiling_files_by_identifier("custom_init")
+    """
+    base_dir = os.path.join(os.path.dirname(__file__), "TestOutput", "Profiling")
+    matching_files = []
+    # The pattern matches:
+    #   ^{identifier}-  : must start with the given identifier followed by a dash
+    #   .*             : any sequence of characters (the tracked attributes part)
+    #   \.prof$        : ending with the ".prof" extension.
+    pattern = re.compile(rf"^{re.escape(identifier)}-.*\.prof$")
+    
+    for root, dirs, files in os.walk(base_dir):
+        for file in files:
+            if pattern.match(file):
+                matching_files.append(os.path.join(root, file))
+    return matching_files
+

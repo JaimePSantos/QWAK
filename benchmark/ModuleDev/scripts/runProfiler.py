@@ -9,17 +9,11 @@ if __name__ == "__main__":
     print(nx.cycle_graph.__name__)
     marked = [20]
 
-    # qwController = QWAKBenchmark(graph, laplacian=False)
-    # qwController.runWalk(t, marked)
-    # qwController.getMean()
-    # qwController.getSndMoment()
-    # qwController.getStDev()
-    # qwController.getSurvivalProb(19, 21)
-    # qwController.getInversePartRatio()
+    # Initialize benchmark
+    graph = nx.cycle_graph(n)
+    bench = OperatorBenchmark(graph, tracked_attributes=['n'])
 
-    qwOperator = OperatorBenchmark(graph)
-    # qwOperator.buildDiagonalOperator(graph, time=t)
-    # qwOperator.buildSlowDiagonalOperator(graph, time=t)
-    # qwOperator.init_operator(graph)
-    # qwOperator.load_init_time()
-    # print(qwOperator.get_init_time())
+    # Run profiling
+    bench.init_operator()
+
+    print(bench.load_files('init_operator'))
