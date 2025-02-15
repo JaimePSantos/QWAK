@@ -169,13 +169,11 @@ def find_exact_profiling_file(instance, method: Callable) -> str:
         f"{first_attr}_{formatted_values[first_attr]}"
     )
 
-    # Rebuild the filename exactly as the profiler does.
+     # Rebuild the filename exactly as the profiler does.
     filename_base = config['output_file'] or func.__name__
     attr_str = '_'.join([f"{k}_{v}" for k, v in formatted_values.items()])
-    if config['output_file']:
-        filename = f"{filename_base}-{attr_str}.prof"
-    else:
-        filename = f"{filename_base}-{attr_str}_.prof"
+    # Remove the extra underscore here for consistency
+    filename = f"{filename_base}-{attr_str}.prof"
 
     full_path = os.path.join(dir_structure, filename)
 

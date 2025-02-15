@@ -11,9 +11,12 @@ if __name__ == "__main__":
 
     # Initialize benchmark
     graph = nx.cycle_graph(n)
-    bench = OperatorBenchmark(graph, tracked_attributes=['n'])
+    bench = OperatorBenchmark(graph,t, tracked_attributes=['n'])
 
     # Run profiling
     bench.init_operator()
 
+    bench.build_operator(time=t)
+
     print(bench.load_files('init_operator'))
+    print(bench.load_files('build_operator'))
