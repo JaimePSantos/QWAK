@@ -186,3 +186,58 @@ def find_exact_profiling_file(instance, method: Callable) -> str:
         )
 
     return full_path
+
+def find_all_profiling_files(instance, method: Callable) -> List[str]:
+    """
+    Finds all profiling files for the given method, returning a list of paths.
+    
+    Usage:
+        try:
+            profiling_files = find_all_profiling_files(benchmark_instance, benchmark_instance.init_operator)
+        except FileNotFoundError as e:
+            print(e)
+    """
+    if inspect.ismethod(method):
+        func = method.__func__
+    else:
+        func = method
+
+    if not hasattr(func, '_profile_config'):
+        raise ValueError(f"Method {func.__name__} was not decorated with @profile")
+    config = func._profile_config
+
+    tracked_attrs = config.get('tracked_attributes')
+    if tracked_attrs is None:
+        tracked_attrs = getattr(instance, 'tracked_attributes', None)
+        if tracked_attrs is None:
+            raise ValueError("No tracked_attributes defined in decorator or instance")
+
+    base_path = os.path.join(
+        os.path.dirname(__file__),
+        "TestOutput",
+        "Profiling",
+        config['output_path']
+    )
+
+    if not os.path.exists(base_path):
+        raise FileNotFoundError(f"Profiling directory not found: {base_path}")
+
+    first_attr = tracked_attrs[0]
+    matching_dirs = [d for d in os.listdir(base_path) if d.startswith(f"{first_attr}_")]
+    
+    profiling_files = []
+    for directory in matching_dirs:
+        full_dir_path = os.path.join(base_path, directory)
+        if os.path.isdir(full_dir_path):
+            for file in os.listdir(full_dir_path):
+                if file.startswith(config['output_file'] or func.__name__) and file.endswith(".prof"):
+                    profiling_files.append(os.path.join(full_dir_path, file))
+
+    if not profiling_files:
+        raise FileNotFoundError(
+            f"No profiling files found for method {func.__name__} in {base_path}.\n"
+            f"Tracked attributes: {tracked_attrs}\n"
+            "Make sure profiling has been run before searching for the files."
+        )
+    
+    return profiling_files
