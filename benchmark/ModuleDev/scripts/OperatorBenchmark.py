@@ -54,7 +54,7 @@ class OperatorBenchmark:
         self.operator.buildDiagonalOperator(time=time)
 
 
-    def load_files(self, method_name: str):
+    def load_files2(self, method_name: str):
         """Finds the profiling file for the given method dynamically."""
         if not hasattr(self, method_name):
             raise AttributeError(f"Method {method_name} not found in {self.__class__.__name__}")
@@ -74,7 +74,7 @@ class OperatorBenchmark:
             print(e)
             return None
         
-    def load_files2(self, method_name: str):
+    def load_files(self, method_name: str):
         """Loads the profiling data for all the files associated with the given method."""
         if not hasattr(self, method_name):
             raise AttributeError(f"Method {method_name} not found in {self.__class__.__name__}")
@@ -97,35 +97,3 @@ class OperatorBenchmark:
         except FileNotFoundError as e:
             print(e)
             return None
-
-    @profile(
-    output_path="operator_results",
-    sort_by="cumulative",
-    lines_to_print=None,
-    strip_dirs=False,
-    csv=False,
-    tracked_attributes=["n", "sample"],  # ✅ Ensure tracking
-    benchmark=True  # ✅ Ensure profiling decorator runs
-)
-    def init_operator2(self, graph, sample=None, hpc=False):
-        # Update tracked attributes based on the current call.
-        self.n = len(graph)
-        if sample is not None:
-            self.sample = sample
-
-        # Check if the corresponding profiling file already exists.
-        try:
-            existing_file = find_exact_profiling_file(self, self.init_operator)
-            print(f"Profiling file '{existing_file}' already exists for sample {self.sample}. Skipping execution.")
-            return  # Skip execution if the file exists.
-        except FileNotFoundError:
-            # If no profiling file exists, proceed with running the function.
-            print("Files not Found.")
-            pass
-
-        # Continue with the function's main work.
-        self.graph = graph
-        if hpc:
-            self.operator = COperator(self.graph)
-        else:
-            self.operator = Operator(self.graph)
