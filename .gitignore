@@ -56,3 +56,4 @@ QWAKEnv/
 Notebook/CuPy/Datasets/*
 Benchmark/CuPy/Datasets/*
 ./
+benchmark/ModuleDev/scripts/TestOutput
