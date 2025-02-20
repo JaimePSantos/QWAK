@@ -7,6 +7,7 @@ from tqdm import tqdm
 from typing import Callable, List
 import inspect
 
+
 global benchmark
 benchmark = True
 
@@ -118,74 +119,6 @@ def prof_to_csv(prof, sort_by, lines_to_print, strip_dirs):
     result = "ncalls" + result.split("ncalls")[-1]
     return "\n".join([",".join(line.rstrip().split(None,5)) for line in result.split("\n") if line])
 
-def find_exact_profiling_file2(instance, method: Callable) -> str:
-    """
-    Reconstructs the exact profiling file path based on how the profiler creates
-    its folder structure and filename (using tracked attributes) and returns it if found.
-
-    Usage:
-        try:
-            exact_path = find_exact_profiling_file(benchmark_instance, benchmark_instance.init_operator)
-        except FileNotFoundError as e:
-            print(e)
-    """
-    # Get the original function from the method.
-    if inspect.ismethod(method):
-        func = method.__func__
-    else:
-        func = method
-
-    # Ensure the function was decorated.
-    if not hasattr(func, '_profile_config'):
-        raise ValueError(f"Method {func.__name__} was not decorated with @profile")
-    config = func._profile_config
-
-    # Determine which tracked attributes to use.
-    tracked_attrs = config.get('tracked_attributes')
-    if tracked_attrs is None:
-        tracked_attrs = getattr(instance, 'tracked_attributes', None)
-        if tracked_attrs is None:
-            raise ValueError("No tracked_attributes defined in decorator or instance")
-
-    # Gather and format values from the instance.
-    formatted_values = {}
-    for attr in tracked_attrs:
-        value = getattr(instance, attr, None)
-        if value is None:
-            raise ValueError(f"Missing required attribute: {attr}")
-        if isinstance(value, float):
-            formatted = f"{value:.4f}".replace('.', '_')
-        else:
-            formatted = str(value).replace('.', '_')
-        formatted_values[attr] = formatted
-
-    # Rebuild the directory path (which uses the first tracked attribute).
-    first_attr = tracked_attrs[0]
-    dir_structure = os.path.join(
-        os.path.dirname(__file__),
-        "TestOutput",
-        "Profiling",
-        config['output_path'],
-        f"{first_attr}_{formatted_values[first_attr]}"
-    )
-
-     # Rebuild the filename exactly as the profiler does.
-    filename_base = config['output_file'] or func.__name__
-    attr_str = '_'.join([f"{k}_{v}" for k, v in formatted_values.items()])
-    # Remove the extra underscore here for consistency
-    filename = f"{filename_base}-{attr_str}.prof"
-
-    full_path = os.path.join(dir_structure, filename)
-
-    if not os.path.exists(full_path):
-        raise FileNotFoundError(
-            f"Profiling file not found at:\n{full_path}\n"
-            f"Expected tracked attributes: {tracked_attrs}\n"
-            f"Current attribute values: {formatted_values}\n"
-            "Make sure to run profiling before searching for the file."
-        )
-
-    return full_path
 
 def find_all_profiling_files(instance, method: Callable) -> List[str]:
     """
@@ -242,9 +175,6 @@ def find_all_profiling_files(instance, method: Callable) -> List[str]:
     
     return profiling_files
 
-import os
-import inspect
-from typing import Callable
 
 def find_exact_profiling_file(instance, method: Callable) -> str:
     """

@@ -4,7 +4,7 @@ import numpy as np
 import os
 import pstats
 
-from Profiler import profile,find_exact_profiling_file,find_all_profiling_files
+from Profiler import profile,find_all_profiling_files
 from qwak.Operator import Operator as Operator
 from qwak_cupy.Operator import Operator as COperator
 from qwak_cupy.qwak import QWAK as CQWAK
