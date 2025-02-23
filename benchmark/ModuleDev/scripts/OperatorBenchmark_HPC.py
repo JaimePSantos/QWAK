@@ -10,7 +10,7 @@ from qwak_cupy.Operator import Operator as COperator
 from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
 
-class OperatorBenchmark:
+class OperatorBenchmark_HPC:
     def __init__(self,  tracked_attributes=None):
         self.time = 0
         self.graph = nx.cycle_graph(1)
@@ -21,7 +21,7 @@ class OperatorBenchmark:
         self.n = 0
 
     @profile(
-        output_path="operator_results",
+        output_path="operator_results_hpc",
         sort_by="cumulative",
         lines_to_print=None,
         strip_dirs=False,
@@ -34,13 +34,10 @@ class OperatorBenchmark:
         self.n = len(graph)
         if sample is not None:
             self.sample = sample
-        if hpc:
-            self.operator = COperator(self.graph)
-        else:
-            self.operator = Operator(self.graph)
+        self.operator = COperator(self.graph)
 
     @profile(
-        output_path="operator_results",
+        output_path="operator_results_hpc",
         sort_by="cumulative",
         lines_to_print=None,
         strip_dirs=False,
@@ -52,7 +49,7 @@ class OperatorBenchmark:
         if sample is not None:
             self.sample = sample
         self.operator.buildDiagonalOperator(time=time)
-        
+
     @profile(
         output_path="operator_results_hpc",
         sort_by="cumulative",

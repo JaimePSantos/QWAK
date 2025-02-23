@@ -138,11 +138,6 @@ def git_branch_commit_push(branch_name, commit_message):
             print("No changes to commit. Exiting.")
             return
 
-        subprocess.check_call(['git', 'add', '.'])
-        print("PRE-Added changes to staging area.")
-        subprocess.check_call(['git', 'commit', '-m', "PYTHON: In case there are uncommited changes before running the script."])
-        print(f"PRE-Committed changes with message: {commit_message}")
-
         # Create and switch to the new branch
         subprocess.check_call(['git', 'checkout', '-b', branch_name])
         print(f"Switched to new branch: {branch_name}")
