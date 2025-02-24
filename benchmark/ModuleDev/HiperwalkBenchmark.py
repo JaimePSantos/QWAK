@@ -28,14 +28,13 @@ class HiperwalkBenchmark:
         tracked_attributes=['n', 'sample', 'pVal', 'seed'],  # ✅ Ensure tracking
         benchmark=True  # ✅ Ensure profiling decorator runs
     )
-    def init_hiperwalk(self,graph,vertex,gamma,time,sample=None, hpc=False,pVal=0.8,seed=10):
+    def init_hiperwalk(self,graph,time,sample=None, hpc=False,pVal=0.8,seed=10):
         self.graph = hpw.Graph(nx.to_numpy_array(graph))
         self.n = len(graph)
         if sample is not None:
             self.sample = sample
-        self.hiperwalk = hpw.ContinuousTime(graph=self.graph, gamma=gamma,time=time)
-
-        self.state = self.hiperwalk.ket(vertex)
+        self.hiperwalk = hpw.ContinuousTime(graph=self.graph, gamma=1/(2*np.sqrt(2)),time=time)
+        self.state = self.hiperwalk.ket(self.n//2)
 
     @profile(
         output_path="hiperwalk_results",
@@ -46,10 +45,10 @@ class HiperwalkBenchmark:
         tracked_attributes=['n', 'sample', 'pVal', 'seed'],  # ✅ Ensure tracking
         benchmark=True  # ✅ Ensure profiling decorator runs
     )
-    def simulate(self, range,sample=None,pVal=0.8,seed=10):
+    def simulate(self,time=0,sample=None,pVal=0.8,seed=10):
         if sample is not None:
             self.sample = sample
-        self.final_state = self.hiperwalk.simulate(range=range, state=self.state)
+        self.final_state = self.hiperwalk.simulate(range=(self.n//2,(self.n//2)+1), state=self.state)
         
         
     def load_files(self, method_name: str):
