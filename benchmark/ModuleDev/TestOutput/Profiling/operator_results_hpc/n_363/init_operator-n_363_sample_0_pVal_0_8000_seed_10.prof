@@ -1,0 +1,76 @@
+         264689 function calls (264686 primitive calls) in 0.096 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.096    0.096 c:\Users\jaime\Documents\GitHub\QWAK\benchmark\ModuleDev\scripts\OperatorBenchmark_HPC.py:23(init_operator)
+        1    0.000    0.000    0.096    0.096 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:17(__init__)
+        1    0.000    0.000    0.093    0.093 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:113(_buildHamiltonian)
+        1    0.000    0.000    0.091    0.091 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\utils\backends.py:409(__call__)
+        1    0.044    0.044    0.091    0.091 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\convert_matrix.py:783(to_numpy_array)
+    52626    0.021    0.000    0.026    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:845(__iter__)
+   157875    0.020    0.000    0.020    0.000 {method 'append' of 'list' objects}
+    52625    0.005    0.000    0.005    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:779(<lambda>)
+        1    0.000    0.000    0.003    0.003 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:138(_buildEigenValues)
+        1    0.000    0.000    0.003    0.003 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_eigenvalue.py:94(eigh)
+        1    0.000    0.000    0.003    0.003 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_eigenvalue.py:10(_syevd)
+        1    0.003    0.003    0.003    0.003 {built-in method cupy_backends.cuda.libs.cusolver.xsyevd}
+        1    0.000    0.000    0.001    0.001 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\from_data.py:7(array)
+        3    0.001    0.000    0.001    0.000 {built-in method cupy._core.core.array}
+        1    0.001    0.001    0.001    0.001 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:290(full)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1912(number_of_edges)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1869(size)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.sum}
+      364    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1905(<genexpr>)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:156(_hermitianTest)
+        3    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\basic.py:12(empty)
+      364    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:527(__iter__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_logic\comparison.py:71(allclose)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\basic.py:229(zeros)
+        1    0.000    0.000    0.000    0.000 {method 'all' of 'cupy._core.core._ndarray_base' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_logic\comparison.py:100(isclose)
+        3    0.000    0.000    0.000    0.000 {method 'astype' of 'cupy._core.core._ndarray_base' objects}
+        1    0.000    0.000    0.000    0.000 {method 'memset_async' of 'cupy.cuda.memory.MemoryPointer' objects}
+      364    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'conj' of 'cupy._core.core._ndarray_base' objects}
+  373/370    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        2    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\functools.py:979(__get__)
+        3    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_internal.py:262(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:60(linalg_common_type)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.cusolver.xsyevd_bufferSize}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1481(degree)
+        3    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1390(_handle_fromlist)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\from_data.py:91(asanyarray)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:1088(__call__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:109(_check_cusolver_dev_info_if_synchronization_allowed)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:102(_common_type_internal)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1358(edges)
+        2    0.000    0.000    0.000    0.000 {built-in method cupy._core._dtype.to_cuda_dtype}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:417(__init__)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.cusolver.createParams}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:435(__iter__)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:467(__len__)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.cusolver.destroyParams}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:1056(__init__)
+        6    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        3    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_internal.py:316(data)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_core\syncdetect.py:36(_declare_synchronize)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:760(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:40(_assert_stacked_square)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupyx\_ufunc_config.py:40(get_config_linalg)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_core\syncdetect.py:27(_is_allowed)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:32(_assert_stacked_2d)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:642(min_scalar_type)
+        2    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1557(is_directed)
+        2    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:424(__call__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:1098(copyto)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1553(is_multigraph)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:690(result_type)
+
+

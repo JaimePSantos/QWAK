@@ -1,0 +1,228 @@
+         2176 function calls (2165 primitive calls) in 0.229 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.229    0.229 c:\Users\jaime\Documents\GitHub\QWAK\benchmark\ModuleDev\scripts\OperatorBenchmark_HPC.py:23(init_operator)
+        1    0.000    0.000    0.229    0.229 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:17(__init__)
+        1    0.121    0.121    0.121    0.121 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\basic.py:229(zeros)
+        1    0.000    0.000    0.056    0.056 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:138(_buildEigenValues)
+        1    0.000    0.000    0.056    0.056 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_eigenvalue.py:94(eigh)
+        1    0.011    0.011    0.048    0.048 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:113(_buildHamiltonian)
+        1    0.029    0.029    0.041    0.041 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_eigenvalue.py:10(_syevd)
+        6    0.000    0.000    0.036    0.006 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:473(_compile_module_with_cache)
+        6    0.000    0.000    0.036    0.006 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:504(_compile_with_cache_cuda)
+        1    0.000    0.000    0.030    0.030 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:429(_preprocess)
+        1    0.000    0.000    0.030    0.030 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:687(compile)
+        1    0.030    0.030    0.030    0.030 {built-in method cupy_backends.cuda.libs.nvrtc.compileProgram}
+      2/1    0.000    0.000    0.015    0.015 <frozen importlib._bootstrap>:1349(_find_and_load)
+      2/1    0.000    0.000    0.015    0.015 <frozen importlib._bootstrap>:1304(_find_and_load_unlocked)
+      2/1    0.000    0.000    0.014    0.014 <frozen importlib._bootstrap>:911(_load_unlocked)
+      6/3    0.000    0.000    0.014    0.005 <frozen importlib._bootstrap>:480(_call_with_frames_removed)
+        2    0.000    0.000    0.013    0.007 <frozen importlib._bootstrap>:806(module_from_spec)
+        2    0.000    0.000    0.013    0.007 <frozen importlib._bootstrap_external>:1287(create_module)
+        2    0.013    0.007    0.013    0.007 {built-in method _imp.create_dynamic}
+        1    0.011    0.011    0.011    0.011 {built-in method cupy_backends.cuda.libs.cusolver.xsyevd}
+      2/1    0.000    0.000    0.003    0.003 <frozen importlib._bootstrap_external>:1295(exec_module)
+      2/1    0.001    0.000    0.003    0.003 {built-in method _imp.exec_dynamic}
+        1    0.000    0.000    0.003    0.003 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak_cupy\Operator.py:156(_hermitianTest)
+        2    0.000    0.000    0.003    0.001 C:\Users\jaime\anaconda3\envs\QWAK\Lib\ctypes\__init__.py:343(__init__)
+        2    0.003    0.001    0.003    0.001 {built-in method _ctypes.LoadLibrary}
+        1    0.000    0.000    0.002    0.002 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_logic\comparison.py:71(allclose)
+        6    0.002    0.000    0.002    0.000 {method 'load' of 'cupy.cuda.function.Module' objects}
+        1    0.000    0.000    0.001    0.001 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_logic\comparison.py:100(isclose)
+        3    0.000    0.000    0.001    0.000 {method 'astype' of 'cupy._core.core._ndarray_base' objects}
+        1    0.000    0.000    0.001    0.001 {method 'all' of 'cupy._core.core._ndarray_base' objects}
+        1    0.000    0.000    0.001    0.001 {method 'conj' of 'cupy._core.core._ndarray_base' objects}
+        3    0.001    0.000    0.001    0.000 {built-in method cupy._core.core.array}
+        1    0.000    0.000    0.001    0.001 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\from_data.py:7(array)
+        2    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap>:1240(_find_spec)
+       12    0.000    0.000    0.001    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:280(_hash_hexdigest)
+        2    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:1517(find_spec)
+        2    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:1488(_get_spec)
+       12    0.001    0.000    0.001    0.000 {built-in method _hashlib.openssl_sha1}
+        2    0.000    0.000    0.001    0.000 <frozen importlib._bootstrap_external>:1590(find_spec)
+        6    0.001    0.000    0.001    0.000 {built-in method nt._path_isdir}
+        6    0.001    0.000    0.001    0.000 {built-in method _io.open}
+        4    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:140(_path_stat)
+        4    0.000    0.000    0.000    0.000 {built-in method nt.stat}
+        6    0.000    0.000    0.000    0.000 {built-in method nt._path_exists}
+       45    0.000    0.000    0.000    0.000 <frozen ntpath>:107(join)
+        6    0.000    0.000    0.000    0.000 {method 'read' of '_io.BufferedReader' objects}
+       24    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\encodings\cp1252.py:22(decode)
+       24    0.000    0.000    0.000    0.000 {built-in method _codecs.charmap_decode}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\utils\backends.py:409(__call__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\convert_matrix.py:783(to_numpy_array)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:159(_path_isfile)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:150(_path_is_mode_type)
+       20    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_dtype.py:34(__str__)
+      105    0.000    0.000    0.000    0.000 <frozen ntpath>:179(splitroot)
+       42    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\ctypes\__init__.py:389(__getattr__)
+        7    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\string.py:104(substitute)
+        7    0.000    0.000    0.000    0.000 {method 'sub' of 're.Pattern' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:416(__enter__)
+       20    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_dtype.py:350(_name_get)
+       44    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_environment.py:69(_log)
+       12    0.000    0.000    0.000    0.000 {method 'encode' of 'str' objects}
+       19    0.000    0.000    0.000    0.000 <frozen _collections_abc>:804(get)
+       42    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\ctypes\__init__.py:396(__getitem__)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:304(acquire)
+       19    0.000    0.000    0.000    0.000 <frozen os>:680(__getitem__)
+        3    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\basic.py:12(empty)
+        6    0.000    0.000    0.000    0.000 {method '__exit__' of '_io._IOBase' objects}
+       63    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\string.py:110(convert)
+       12    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:226(_get_bool_env_variable)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.__build_class__}
+       20    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_dtype.py:334(_name_includes_bit_suffix)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:426(_get_module_lock)
+       18    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numerictypes.py:471(issubdtype)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1912(number_of_edges)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:162(__enter__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1869(size)
+      228    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+      107    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+       19    0.000    0.000    0.000    0.000 <frozen os>:754(encodekey)
+        1    0.000    0.000    0.000    0.000 {method 'memset_async' of 'cupy.cuda.memory.MemoryPointer' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:124(setdefault)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1585(_get_spec)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.cusolver.xsyevd_bufferSize}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:158(_get_arch)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:290(full)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:733(_init_module_attrs)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\functools.py:979(__get__)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:96(_path_join)
+      126    0.000    0.000    0.000    0.000 {method 'group' of 're.Match' objects}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_environment.py:455(_get_include_dir_from_conda_or_wheel)
+       36    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numerictypes.py:289(issubclass_)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       12    0.000    0.000    0.000    0.000 {method 'hexdigest' of '_hashlib.HASH' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:802(spec_from_file_location)
+       48    0.000    0.000    0.000    0.000 {built-in method builtins.setattr}
+       70    0.000    0.000    0.000    0.000 {method 'startswith' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:232(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:109(_check_cusolver_dev_info_if_synchronization_allowed)
+      156    0.000    0.000    0.000    0.000 {built-in method nt.fspath}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:60(linalg_common_type)
+        6    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:466(get_cache_dir)
+       94    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+        1    0.000    0.000    0.000    0.000 <frozen ntpath>:275(dirname)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:147(_get_extra_include_dir_opts)
+        1    0.000    0.000    0.000    0.000 <frozen ntpath>:236(split)
+        3    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_internal.py:262(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:666(__init__)
+        3    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:632(cached)
+       19    0.000    0.000    0.000    0.000 {method 'format' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:74(__new__)
+       24    0.000    0.000    0.000    0.000 <frozen codecs>:260(__init__)
+        2    0.000    0.000    0.000    0.000 {built-in method cupy._core._dtype.to_cuda_dtype}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:185(_path_abspath)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_creation\from_data.py:91(asanyarray)
+        2    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+    32/29    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\functools.py:35(update_wrapper)
+       19    0.000    0.000    0.000    0.000 <frozen os>:748(check_str)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupyx\_ufunc_config.py:40(get_config_linalg)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:845(__iter__)
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.sum}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:982(find_spec)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:172(_path_isabs)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:435(__iter__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1481(degree)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:611(_get_cached)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.nvrtc.createProgram}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:420(__exit__)
+        2    0.000    0.000    0.000    0.000 {built-in method _imp.is_builtin}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:102(_common_type_internal)
+       20    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        9    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1390(_handle_fromlist)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:1088(__call__)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1905(<genexpr>)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1358(edges)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1128(find_spec)
+       14    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:645(parent)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.cusolver.destroyParams}
+        1    0.000    0.000    0.000    0.000 <frozen ntpath>:596(abspath)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:372(release)
+        8    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:459(<genexpr>)
+       16    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:82(remove)
+       12    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:417(__init__)
+       20    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_dtype.py:24(_kind_name)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_core\syncdetect.py:36(_declare_synchronize)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:79(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:681(__del__)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1466(_path_importer_cache)
+       71    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:580(can_cast)
+       19    0.000    0.000    0.000    0.000 {method 'upper' of 'str' objects}
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:527(__iter__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:760(__init__)
+       17    0.000    0.000    0.000    0.000 {method 'append' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:173(__exit__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_core\syncdetect.py:27(_is_allowed)
+        2    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:127(_get_max_compute_capability)
+        8    0.000    0.000    0.000    0.000 {method 'rpartition' of 'str' objects}
+        8    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:491(_verbose_message)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\_distutils_hack\__init__.py:89(find_spec)
+        8    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:115(_get_nvrtc_version)
+        2    0.000    0.000    0.000    0.000 {built-in method _imp.find_frozen}
+       12    0.000    0.000    0.000    0.000 {built-in method _imp.acquire_lock}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:1056(__init__)
+        3    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_internal.py:316(data)
+        8    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1226(__exit__)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:467(__len__)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:445(cb)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.nvrtc.getPTX}
+        2    0.000    0.000    0.000    0.000 {built-in method nt._path_splitroot}
+        1    0.000    0.000    0.000    0.000 <frozen ntpath>:564(normpath)
+        8    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:1222(__enter__)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:67(_relax_case)
+        1    0.000    0.000    0.000    0.000 {built-in method nt._getfullpathname}
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.cusolver.createParams}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:40(_assert_stacked_square)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\ctypes\__init__.py:373(_FuncPtr)
+        7    0.000    0.000    0.000    0.000 {method 'rstrip' of 'str' objects}
+        2    0.000    0.000    0.000    0.000 {built-in method _weakref._remove_dead_weakref}
+        1    0.000    0.000    0.000    0.000 {method 'splitlines' of 'str' objects}
+       12    0.000    0.000    0.000    0.000 {built-in method _imp.release_lock}
+        7    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\string.py:87(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\functools.py:65(wraps)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\linalg\_util.py:32(_assert_stacked_2d)
+        2    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x00007FF9F9F926E0}
+        1    0.000    0.000    0.000    0.000 {built-in method builtins.min}
+        1    0.000    0.000    0.000    0.000 {method 'decode' of 'bytes' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:171(_get_arch_for_options_for_nvrtc)
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.nvrtc.destroyProgram}
+        4    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method nt._path_normpath}
+        1    0.000    0.000    0.000    0.000 {cupy._util.is_shutting_down}
+        4    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.RLock' objects}
+        4    0.000    0.000    0.000    0.000 {built-in method _thread.get_ident}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        2    0.000    0.000    0.000    0.000 {method 'pop' of 'dict' objects}
+        4    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\cuda\compiler.py:150(<genexpr>)
+        1    0.000    0.000    0.000    0.000 {method 'update' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:599(__init__)
+        2    0.000    0.000    0.000    0.000 {method 'remove' of 'list' objects}
+        1    0.000    0.000    0.000    0.000 <frozen ntpath>:35(_get_bothseps)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_environment.py:75(get_cuda_path)
+        3    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:779(<lambda>)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:642(min_scalar_type)
+        2    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method cupy_backends.cuda.libs.nvrtc.getVersion}
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:412(__init__)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\cupy\_environment.py:271(get_preload_config)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:424(__call__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1557(is_directed)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap_external>:1276(__init__)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:690(result_type)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:653(has_location)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1553(is_multigraph)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:1098(copyto)
+        2    0.000    0.000    0.000    0.000 <frozen importlib._bootstrap>:158(__init__)
+
+

@@ -1,0 +1,118 @@
+         1896317 function calls (1896314 primitive calls) in 2.856 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    1.539    1.539    2.118    2.118 c:\Users\jaime\Documents\GitHub\QWAK\benchmark\ModuleDev\scripts\OperatorBenchmark.py:23(init_operator)
+        1    0.012    0.012    0.689    0.689 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak\Operator.py:109(_buildHamiltonian)
+        1    0.002    0.002    0.677    0.677 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\utils\backends.py:409(__call__)
+        1    0.319    0.319    0.675    0.675 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\convert_matrix.py:783(to_numpy_array)
+        1    0.000    0.000    0.579    0.579 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak\Operator.py:16(__init__)
+        1    0.000    0.000    0.579    0.579 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak\Operator.py:134(_buildEigenValues)
+        1    0.579    0.579    0.579    0.579 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:1485(eigh)
+   378447    0.169    0.000    0.207    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:845(__iter__)
+  1135338    0.145    0.000    0.145    0.000 {method 'append' of 'list' objects}
+        1    0.001    0.001    0.049    0.049 C:\Users\jaime\Documents\GitHub\QWAK\core\qwak\Operator.py:152(_hermitianTest)
+        1    0.000    0.000    0.044    0.044 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:2243(allclose)
+        1    0.038    0.038    0.044    0.044 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:2337(isclose)
+   378446    0.037    0.000    0.037    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:779(<lambda>)
+        2    0.006    0.003    0.006    0.003 {built-in method builtins.abs}
+        1    0.004    0.004    0.004    0.004 {method 'conj' of 'numpy.ndarray' objects}
+        1    0.004    0.004    0.004    0.004 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:290(full)
+        1    0.000    0.000    0.001    0.001 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1912(number_of_edges)
+        1    0.000    0.000    0.001    0.001 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1869(size)
+        1    0.000    0.000    0.001    0.001 {built-in method builtins.sum}
+      974    0.000    0.000    0.001    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1905(<genexpr>)
+      974    0.001    0.000    0.001    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:527(__iter__)
+      975    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\tqdm\_monitor.py:47(get_instances)
+  983/980    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:95(copy)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\fromnumeric.py:2589(all)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:37(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\fromnumeric.py:89(_wrapreduction_any_all)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:120(update)
+        1    0.000    0.000    0.000    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+        8    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:63(__iter__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\functools.py:979(__get__)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:27(__exit__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\threading.py:311(_acquire_restore)
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_ufunc_config.py:456(__exit__)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_ufunc_config.py:440(__enter__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\tqdm\std.py:110(__enter__)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:53(_commit_removals)
+        5    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:2429(<genexpr>)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\tqdm\std.py:102(acquire)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:85(add)
+        6    0.000    0.000    0.000    0.000 {method 'add' of 'set' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\tqdm\std.py:113(__exit__)
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+        1    0.000    0.000    0.000    0.000 <string>:1(<lambda>)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1481(degree)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\tqdm\std.py:106(release)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:148(_commonType)
+        3    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.lock' objects}
+        2    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method _thread.allocate_lock}
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:21(__enter__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\threading.py:302(__exit__)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\tqdm\std.py:1157(__hash__)
+        2    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:417(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:123(_makearray)
+        2    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1358(edges)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:142(_realType)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:1088(__call__)
+        4    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+        4    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        2    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:435(__iter__)
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:467(__len__)
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\threading.py:299(__enter__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:192(_assert_stacked_2d)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:198(_assert_stacked_square)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\tqdm\std.py:760(get_lock)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\threading.py:314(_is_owned)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.id}
+        3    0.000    0.000    0.000    0.000 {built-in method numpy.asanyarray}
+        4    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\_weakrefset.py:17(__init__)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:1056(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'acquire' of '_multiprocessing.SemLock' objects}
+        1    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {method 'release' of '_multiprocessing.SemLock' objects}
+        1    0.000    0.000    0.000    0.000 {method 'remove' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x00007FF9F9F926E0}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:760(__init__)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\threading.py:308(_release_save)
+        1    0.000    0.000    0.000    0.000 {built-in method time.time}
+        4    0.000    0.000    0.000    0.000 {method 'remove' of 'set' objects}
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:2239(_allclose_dispatcher)
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\_ufunc_config.py:430(__init__)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:128(isComplexType)
+        1    0.000    0.000    0.000    0.000 {method '__exit__' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 {method 'upper' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1557(is_directed)
+        1    0.000    0.000    0.000    0.000 {method '__enter__' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 {method 'acquire' of '_thread.RLock' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\reportviews.py:424(__call__)
+        2    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\threading.py:601(is_set)
+        1    0.000    0.000    0.000    0.000 {method 'release' of '_thread.RLock' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\linalg\_linalg.py:1225(_eigvalsh_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'append' of 'collections.deque' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\networkx\classes\graph.py:1553(is_multigraph)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\fromnumeric.py:2584(_all_dispatcher)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:1098(copyto)
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\numeric.py:2333(_isclose_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'release' of '_thread.lock' objects}
+        1    0.000    0.000    0.000    0.000 C:\Users\jaime\anaconda3\envs\QWAK\Lib\site-packages\numpy\_core\multiarray.py:690(result_type)
+
+
