@@ -54,6 +54,8 @@ flask_session/
 .Deprecated
 QWAKEnv/
 Notebook/CuPy/Datasets/*
+Notebook/CuPy/Datasets2/*
+Notebook/Datasets/*
 Benchmark/CuPy/Datasets/*
 ./
 benchmark/ModuleDev/TestOutput/*

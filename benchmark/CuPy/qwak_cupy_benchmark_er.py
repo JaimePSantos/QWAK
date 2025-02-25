@@ -422,7 +422,7 @@ execution_time_str = f'{execution_time:.2f}m'
 # Combine current date, time, and execution time for the branch name
 branch_name = f'{current_datetime}_{execution_time_str}'
 
-git_branch_commit_push(branch_name, f'simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}')
+# git_branch_commit_push(branch_name, f'simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}')
 
 # for q, qcp in zip(qw,qw_cupy):
 #     # Compare the two arrays using np.allclose
