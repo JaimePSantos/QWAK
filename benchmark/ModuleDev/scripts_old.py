@@ -5,140 +5,119 @@ import networkx as nx
 import time
 import cupyx.scipy.linalg as cpx_scipy
 from cupyx.profiler import benchmark
-from matplotlib import pyplot as plt
 import os
-import json
 import pickle
 from tqdm import tqdm
-import subprocess
-import random
-import datetime
+from datetime import datetime
+import matplotlib
+matplotlib.use('Qt5Agg')
+import matplotlib.pyplot as plt
+
 from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
 
-def load_list_from_file(file_path):
-    with open(file_path, 'r') as file:
-        data_str = file.read()
-    data = [json.loads(line) for line in data_str.splitlines()]
-    return data
-
-def write_list_to_file(file_path, data):
-    data_str = [str(item) for item in data]  # Convert float values to strings
-    with open(file_path, 'w') as file:
-        file.write('\n'.join(data_str))
-
-def runTimedQWAK(n,pVal,t,seed):
-    start_time = time.time()
+def runTimedQWAK(n,pVal,t,seed, hpc = False):
     initNodes = [n//2]
-    graph = nx.erdos_renyi_graph(n,pVal,seed=seed) 
-    qw = QWAK(graph)
+    graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
+    start_time = time.time()
+    qw = QWAK(graph) if not hpc else CQWAK(graph)
     qw.runWalk(t, initNodes)
     end_time = time.time()
     qwak_time = end_time - start_time
     final_state = qw.getProbVec()
     return final_state, qwak_time
 
-def runTimedQWAK_cupy(n,pVal,t,seed):
-    start_time = time.time()
-    initNodes = [n//2]
-    graph = nx.erdos_renyi_graph(n,pVal,seed=seed) 
-    qw = CQWAK(graph)
-    qw.runWalk(t, initNodes)
-    end_time = time.time()
-    qwak_time = end_time - start_time
-    final_state = qw.getProbVec()
-    return final_state, qwak_time
-
-def runMultipleSimpleQWAK(nList, pVal, t, samples):#, seed_list_dict):
+def runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir, hpc=False):
     qwList = []
     tList = []
-    qwak_time = 0
-    qwak_time_average = 0
+    qw = 0
 
-    for n in tqdm(nList, desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
-        for sample in tqdm(range(1, samples + 1), desc=f"Samples for N = {n}"):
-            qw, qwak_time = runTimedQWAK(n, pVal, t, 10)
+    for n in tqdm(nList, desc=f"NPQWAK {len(nList)}:{nList[0]}->{nList[-1]}" if not hpc else f"CuPyQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
+        n_dir = os.path.join(base_dir, f"N{n}")
+        os.makedirs(n_dir, exist_ok=True)
+        avg_file = os.path.join(n_dir, f"AVG-t_P{pVal}_T{t}_sample{samples}.pkl")
+        qwak_time_average = 0
+        for sample in tqdm(range(1, samples + 1), desc=f"Samples for N = {n}", leave=False):
+            t_file = os.path.join(n_dir, f"t_P{pVal}_T{t}_sample{sample}.pkl")
+            qw_file = os.path.join(n_dir, f"qw_P{pVal}_T{t}_sample{sample}.pkl")
+
+            if os.path.exists(t_file) and os.path.exists(qw_file):
+                # print(f"Files for N={n}, Sample={sample} already exist. Skipping.")
+                break
+            
+            qw, qwak_time = runTimedQWAK(n, pVal, t, 10, hpc = hpc)
             qwak_time_average += qwak_time
 
-        qwak_time_average = qwak_time_average / samples
-        qwList.append(qw)
-        tList.append(qwak_time_average)
-        qwak_time_average = 0
+            # Save t and qw for the current sample
+            with open(t_file, 'wb') as f:
+                pickle.dump(qwak_time, f)
 
-    return tList, qwList
+        qwak_time_average = qwak_time_average/samples
 
-def runMultipleSimpleQWAK_cupy(nList, pVal, t, samples):#, seed_list_dict):
+        with open(avg_file, 'wb') as f:
+            pickle.dump(qwak_time_average, f)
+        with open(qw_file, 'wb') as f:
+            pickle.dump(qw, f)
+
+    return
+
+def load_runMultipleSimpleQWAK(nList, pVal, t, base_dir):
     qwList = []
     tList = []
-    qwak_time = 0
-    qwak_time_average = 0
+    avgList = []
 
-    for n in tqdm(nList, desc=f"CuPyQWAK {len(nList)}:{nList[0]}->{nList[-1]}", leave=False):
-        # Access the corresponding seed list for the current `n`
-        for sample in tqdm(range(1, samples + 1), desc=f"Samples for N = {n}"):
-            qw, qwak_time = runTimedQWAK_cupy(n, pVal, t, 10)
-            qwak_time_average += qwak_time
-        qwak_time_average = qwak_time_average / samples
-        qwList.append(qw)
-        tList.append(qwak_time_average)
-        qwak_time_average = 0
+    for n in tqdm(nList, desc="Loading NPQWAK data"):
+        n_dir = os.path.join(base_dir, f"N{n}")
 
-    return tList, qwList
+        qwList_n = []
+        tList_n = []
+        avg_file = os.path.join(n_dir, f"AVG-t_P{pVal}_T{t}_sample{samples}.pkl")
 
-nMin = 3
-nMax = 1000
-nList = list(range(nMin, nMax, 1))
-pVal = 0.8
-samples = 100
+        if os.path.exists(avg_file):
+            with open(avg_file, 'rb') as f:
+                avgList.append(pickle.load(f))
+        else:
+            avgList.append(None)  # Handle missing averages gracefully
 
-t = 100
+        sample = 1
+        while True:
+            t_file = os.path.join(n_dir, f"t_P{pVal}_T{t}_sample{sample}.pkl")
+            qw_file = os.path.join(n_dir, f"qw_P{pVal}_T{t}_sample{sample}.pkl")
 
-qwak_times_filename = f'simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
-qwak_times_filename_cupy = f'3070-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+            if os.path.exists(t_file) and os.path.exists(qw_file):
+                with open(t_file, 'rb') as f:
+                    tList_n.append(pickle.load(f))
 
-qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
-qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy
+                with open(qw_file, 'rb') as f:
+                    qwList_n.append(pickle.load(f))
+            else:
+                break
 
-# Record start datetime
-start_datetime = datetime.now()
+            sample += 1
 
-if os.path.exists(qwak_times_file):
-    qwak_times = load_list_from_file(qwak_times_file)
-    print('File Exists!')
-else:
-    # qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples)#, graph_seed_dict)
-    # write_list_to_file(qwak_times_file, qwak_times)
-    print('File not found!')
+        if qwList_n and tList_n:
+            tList.append(tList_n)
+            qwList.append(qwList_n)
 
-if os.path.exists(qwak_times_file_cupy):
-    qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
-    print('File Exists!')
-else:
-    # qwak_times_cupy, qw_cupy = runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples)#, graph_seed_dict)
-    # write_list_to_file(qwak_times_file_cupy, qwak_times_cupy)
-    print('File not found!')
+    return tList, qwList, avgList
 
-# Record end datetime and calculate execution time
-end_datetime = datetime.now()
-execution_time = (end_datetime - start_datetime).total_seconds() / 60
+def load_runMultipleSimpleQWAK_legacy(nList, pVal, t, base_dir):
+    qwList = []
+    tList = []
+    avgList = []
 
-# Get current date and time
-current_datetime = end_datetime.strftime('%Y-%m-%d_%H-%M-%S')
-execution_time_str = f'{execution_time:.2f}m'
+    for n in tqdm(nList, desc="Loading NPQWAK data"):
+        n_dir = os.path.join(base_dir, f"N{n}")
 
-# Combine current date, time, and execution time for the branch name
-branch_name = f'{current_datetime}_{execution_time_str}'
+        qwList_n = []
+        tList_n = []
+        avg_file = os.path.join(n_dir, f"AVG-t_P{pVal}_T{t}_sample{samples}.pkl")
 
-# git_branch_commit_push(branch_name, f'simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}')
+        if os.path.exists(avg_file):
+            with open(avg_file, 'rb') as f:
+                avgList.append(pickle.load(f))
+        else:
+            print(f"{avg_file} not found.")
+            avgList.append(None)  # Handle missing averages gracefully
 
-# for q, qcp in zip(qw,qw_cupy):
-#     # Compare the two arrays using np.allclose
-#     are_close = np.allclose(q, qcp, atol=1e-5)
-
-#     # Print the result of the comparison
-#     print(f"Are the two arrays approximately equal? {are_close}")
-
-plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
-plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
-plt.legend()
-plt.show()
+    return avgList
