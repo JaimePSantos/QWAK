@@ -124,7 +124,7 @@ def create_profiling_data_hiperwalk(n_values: List[int], sample_range=range(0, 3
 
 def load_profiling_data(path, method_name, nrange, sample_range,pVal=None,seed=None):
     results = {}
-    for n in nrange:
+    for n in tqdm(nrange, desc="Processing n-values"):
         cumtimes = []
         for sample in sample_range:
             filename = f"{method_name}-n_{n}_sample_{sample}_pVal_0_8000_seed_{seed}.prof"

@@ -369,7 +369,6 @@ def runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples):#, seed_list_dict):
         for sample in tqdm(range(1, samples + 1), desc=f"Samples for N = {n}"):
             qw, qwak_time = runTimedQWAK2_cupy(n, pVal, t, 10)
             qwak_time_average += qwak_time
-
         qwak_time_average = qwak_time_average / samples
         qwList.append(qw)
         tList.append(qwak_time_average)
@@ -401,15 +400,17 @@ if os.path.exists(qwak_times_file):
     qwak_times = load_list_from_file(qwak_times_file)
     print('File Exists!')
 else:
-    qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples)#, graph_seed_dict)
-    write_list_to_file(qwak_times_file, qwak_times)
+    # qwak_times, qw = runMultipleSimpleQWAK3(nList, pVal, t, samples)#, graph_seed_dict)
+    # write_list_to_file(qwak_times_file, qwak_times)
+    print('File not found!')
 
 if os.path.exists(qwak_times_file_cupy):
-    qwak_times_cupy = load_list_from_file(qwak_times_file_cupy)
+    qwakTimesCuPy = load_list_from_file(qwak_times_file_cupy)
     print('File Exists!')
 else:
-    qwak_times_cupy, qw_cupy = runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples)#, graph_seed_dict)
-    write_list_to_file(qwak_times_file_cupy, qwak_times_cupy)
+    # qwak_times_cupy, qw_cupy = runMultipleSimpleQWAK3_cupy(nList, pVal, t, samples)#, graph_seed_dict)
+    # write_list_to_file(qwak_times_file_cupy, qwak_times_cupy)
+    print('File not found!')
 
 # Record end datetime and calculate execution time
 end_datetime = datetime.now()
