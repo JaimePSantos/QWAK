@@ -13,10 +13,19 @@ from tqdm import tqdm
 import subprocess
 import random
 import datetime
-
-
 from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
+
+def load_list_from_file(file_path):
+    with open(file_path, 'r') as file:
+        data_str = file.read()
+    data = [json.loads(line) for line in data_str.splitlines()]
+    return data
+
+def write_list_to_file(file_path, data):
+    data_str = [str(item) for item in data]  # Convert float values to strings
+    with open(file_path, 'w') as file:
+        file.write('\n'.join(data_str))
 
 def runTimedQWAK(n,pVal,t,seed):
     start_time = time.time()
