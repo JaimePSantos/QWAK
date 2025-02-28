@@ -61,7 +61,7 @@ def runMultipleSimpleQWAK(nList, pVal, t, samples, base_dir, hpc=False):
 
     return
 
-def load_runMultipleSimpleQWAK(nList, pVal, t, base_dir):
+def load_runMultipleSimpleQWAK(nList, pVal,samples, t, base_dir):
     qwList = []
     tList = []
     avgList = []
@@ -101,7 +101,7 @@ def load_runMultipleSimpleQWAK(nList, pVal, t, base_dir):
 
     return tList, qwList, avgList
 
-def load_runMultipleSimpleQWAK_legacy(nList, pVal, t, base_dir):
+def load_runMultipleSimpleQWAK_legacy(nList, pVal,samples, t, base_dir):
     qwList = []
     tList = []
     avgList = []
