@@ -121,3 +121,66 @@ def load_runMultipleSimpleQWAK_legacy(nList, pVal,samples, t, base_dir):
             avgList.append(None)  # Handle missing averages gracefully
 
     return avgList
+
+def save_time_averages_from_txt(txt_file, nList, pVal, t, base_dir,samples):
+    """
+    Reads time averages from a text file and saves them in .pkl files, one per N.
+
+    Parameters:
+    - txt_file: Path to the text file containing time averages.
+    - nList: List of values for N.
+    - pVal: Value of p.
+    - t: Value of t.
+    - base_dir: Base directory where the folders and files will be saved.
+    """
+    # Read time averages from the text file
+    with open(txt_file, 'r') as file:
+        time_averages = [float(line.strip()) for line in file]
+
+    # Ensure the number of time averages matches the number of N values
+    if len(time_averages) != len(nList):
+        raise ValueError("The number of time averages in the text file does not match the number of N values.")
+
+    # Iterate over each value of N
+    for idx, n in enumerate(tqdm(nList, desc=f"Processing N values {len(nList)}:{nList[0]}->{nList[-1]}", leave=False)):
+        n_dir = os.path.join(base_dir, f"N{n}")
+        os.makedirs(n_dir, exist_ok=True)
+
+        # Create the average file path
+        avg_file = os.path.join(n_dir, f"AVG-t_P{pVal}_T{t}_sample{samples}.pkl")
+
+        # Save the time average for the current N
+        with open(avg_file, 'wb') as f:
+            pickle.dump(time_averages[idx], f)
+
+    print("Time averages have been saved successfully.")
+
+
+# base_dir = 'Datasets/Benchmark-SimpleQWAK_ER-NumPy'
+
+# qwak_times_filename = f'LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+# qwak_times_filename_cupy = f'3070-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+
+# qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
+# qwak_times_file_cupy = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy
+
+# # Example usage:
+# save_time_averages_from_txt(qwak_times_file, nList=nList, pVal=pVal, t=t, samples=samples, base_dir=base_dir)
+
+# qwak_times_filename = f'LINUX-simpleQWAKTime_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+# qwak_times_file = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename
+
+# qwak_times_filename_cupy_970 = f'LINUX-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+# qwak_times_file_cupy_970 = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy_970
+
+# qwak_times_filename_cupy_3070_2 = f'3070-simpleQWAKTime_CuPy_N{nMin}-{nMax-1}_P{pVal}_T{t}_S{samples}.txt'
+# qwak_times_file_cupy_3070_2 = f'Datasets/Benchmark-SimpleQWAK_ER/' + qwak_times_filename_cupy_3070_2
+
+
+# directory = 'Datasets/Benchmark-SimpleQWAK_ER/'
+# files = os.listdir(directory)
+# print(qwak_times_filename_cupy_3070_2)
+# print(files)
+
+# Example usage:
+# save_time_averages_from_txt(qwak_times_file_cupy_3070_2, nList=nList, pVal=pVal, t=t, base_dir=base_dir_cupy_3070_2,samples=samples)
