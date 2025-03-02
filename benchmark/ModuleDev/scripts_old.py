@@ -155,6 +155,51 @@ def save_time_averages_from_txt(txt_file, nList, pVal, t, base_dir,samples):
 
     print("Time averages have been saved successfully.")
 
+# import numpy as np
+# import matplotlib.pyplot as plt
+
+# # If you don't have statsmodels installed, do:
+# #   pip install statsmodels
+# from statsmodels.nonparametric.smoothers_lowess import lowess
+
+# def smooth_data_lowess(x, y, frac=0.05):
+#     """
+#     Smooth data using a LOESS (Locally Weighted Scatterplot Smoothing) approach.
+#     LOESS fits simple models to localized subsets of the data to capture
+#     the overall trend while reducing noise or bumps.
+
+#     :param x: 1D array-like of x data
+#     :param y: 1D array-like of y data
+#     :param frac: Between 0 and 1; the fraction of data used when estimating each y value.
+#                  Smaller values of frac create a tighter fit (less smoothing),
+#                  while larger values create a smoother curve.
+#     :return: (x_smooth, y_smooth)
+#     """
+#     # lowess returns an Nx2 array where:
+#     #   first column is the sorted x,
+#     #   second column is the corresponding smoothed y.
+#     smoothed = lowess(y, x, frac=frac)
+#     x_smooth = smoothed[:, 0]
+#     y_smooth = smoothed[:, 1]
+#     return x_smooth, y_smooth
+
+# # ------------------------------------------
+# # Example usage within your code:
+# # ------------------------------------------
+# # Assume you have nList, avg_list, avg_list_cupy_970, and params from before.
+
+# # 1) Smooth each data series using LOESS:
+# x_smooth_0, y_smooth_0 = smooth_data_lowess(nList, avg_list, frac=0.05)
+# x_smooth_1, y_smooth_1 = smooth_data_lowess(nList, avg_list_cupy_970, frac=0.05)
+
+# # 2) Use these smoothed data arrays when calling plot_qwak:
+# x_value_matrix_smooth = [x_smooth_0, x_smooth_1]
+# y_value_matrix_smooth = [y_smooth_0, y_smooth_1]
+
+# plot_qwak(x_value_matrix=x_value_matrix_smooth,
+#           y_value_matrix=y_value_matrix_smooth,
+#           **params)
+# plt.show()
 
 # base_dir = 'Datasets/Benchmark-SimpleQWAK_ER-NumPy'
 
