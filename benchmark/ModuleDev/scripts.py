@@ -3,6 +3,7 @@ import networkx as nx
 from OperatorBenchmark import OperatorBenchmark
 from OperatorBenchmark_HPC import OperatorBenchmark_HPC
 from HiperwalkBenchmark import HiperwalkBenchmark
+from HiperwalkBenchmark_HPC import HiperwalkBenchmark_HPC
 
 from typing import List, Dict
 
@@ -58,7 +59,7 @@ def create_profiling_data_cycle(n_values: List[int], sample_range=range(0, 3), t
         t (int, optional): The time parameter to pass to build_operator. Defaults to 10.
     """
     for n in n_values:
-        print(f"Creating profiling data for n = {n}")
+        print(f"Hiperwalk HPC Creating profiling data for n = {n}")
         bench = OperatorBenchmark(tracked_attributes=['n', 'sample'])
         graph = nx.cycle_graph(n)
 
@@ -121,6 +122,25 @@ def create_profiling_data_hiperwalk(n_values: List[int], sample_range=range(0, 3
         for sample in sample_range:
             run_if_not_profiled(bench, "init_hiperwalk", graph=graph,time=t, sample=sample,pVal=pVal,seed=seed)
             run_if_not_profiled(bench, "simulate", time=t, sample=sample,pVal=pVal,seed=seed)
+
+def create_profiling_data_hiperwalk_hpc(n_values: List[int], sample_range=range(0, 3), t: int = 10, pVal=0.8, seed = 10):
+    """
+    Runs profiling for a variable number of n's, ensuring that profiling files are created if they do not exist.
+    
+    Args:
+        n_values (List[int]): List of n values (graph sizes) to run profiling for.
+        sample_range (iterable, optional): Range of sample indices to run. Defaults to range(0, 3).
+        t (int, optional): The time parameter to pass to build_operator. Defaults to 10.
+    """
+    for n in n_values:
+        print(f"Creating profiling data for n = {n}")
+        bench = HiperwalkBenchmark_HPC(tracked_attributes=['n', 'sample', 'pVal', 'seed'])
+        graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
+
+        for sample in sample_range:
+            run_if_not_profiled(bench, "init_hiperwalk", graph=graph,time=t, sample=sample,pVal=pVal,seed=seed)
+            run_if_not_profiled(bench, "simulate", time=t, sample=sample,pVal=pVal,seed=seed)
+
 
 def load_profiling_data(path, method_name, nrange, sample_range,pVal=None,seed=None):
     results = {}

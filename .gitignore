@@ -59,3 +59,4 @@ Notebook/Datasets/*
 Benchmark/CuPy/Datasets/*
 ./
 benchmark/ModuleDev/TestOutput/*
+EnvQWAK/
