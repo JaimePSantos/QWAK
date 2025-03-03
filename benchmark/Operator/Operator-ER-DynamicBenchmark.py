@@ -137,3 +137,4 @@ eig_runTime, expm_runTime = benchmark_operations(n, tList, filename, samples)
 y_values = [eig_runTime, expm_runTime]
 x_values = [tList]*2
 plot_qwak(x_value_matrix = x_values, y_value_matrix = y_values,**params)
+plt.show()
