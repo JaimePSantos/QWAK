@@ -119,11 +119,11 @@ process_profiling_data(
     seed=seed
 )
 
-process_profiling_data(
-    path=path,
-    method_name="simulate",
-    nrange=n_values,
-    sample_range=sample_range,  # Assuming samples 0-9
-    seed=seed
-)
+# process_profiling_data(
+#     path=path,
+#     method_name="simulate",
+#     nrange=n_values,
+#     sample_range=sample_range,  # Assuming samples 0-9
+#     seed=seed
+# )
 
