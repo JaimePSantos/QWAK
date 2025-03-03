@@ -19,6 +19,17 @@ class OperatorBenchmark:
         self.walk_duration = 0.0
         self.sample=0
         self.n = 0
+        self.time_range = []
+        self.pVal = 0.8
+        self.seed = 10
+
+    def init_operator_untimed(self,graph, hpc=False,pVal=0.8,seed=10):
+        self.graph = graph
+        self.n = len(graph)
+        if hpc:
+            self.operator = COperator(self.graph)
+        else:
+            self.operator = Operator(self.graph)
 
     @profile(
         output_path="operator_results",
@@ -54,7 +65,7 @@ class OperatorBenchmark:
         self.operator.buildDiagonalOperator(time=time)
         
     @profile(
-        output_path="operator_results_hpc",
+        output_path="operator_results",
         sort_by="cumulative",
         lines_to_print=None,
         strip_dirs=False,
@@ -66,6 +77,39 @@ class OperatorBenchmark:
         if sample is not None:
             self.sample = sample
         self.operator.buildExpmOperator(time=time)
+
+    @profile(
+        output_path="operator_anim_results",
+        sort_by="cumulative",
+        lines_to_print=None,
+        strip_dirs=False,
+        csv=False,
+        tracked_attributes=['time_range', 'sample', 'pVal', 'seed'],  # ✅ Ensure tracking
+        benchmark=True  # ✅ Ensure profiling decorator runs
+    )
+    def  build_multiple_operators(self, time_range,sample=None,pVal=0.8,seed=10):
+        dummyOperator = Operator(self.graph)
+        self.time_range = time_range
+
+        if sample is not None:
+            self.sample = sample
+        for time in time_range:
+            self.operator.buildDiagonalOperator(time=time)
+
+    @profile(
+        output_path="operator_anim_results",
+        sort_by="cumulative",
+        lines_to_print=None,
+        strip_dirs=False,
+        csv=False,
+        tracked_attributes=['time_range', 'sample', 'pVal', 'seed'],  # ✅ Ensure tracking
+        benchmark=True  # ✅ Ensure profiling decorator runs
+    )
+    def  build_multiple_expm_operator(self, time_range,sample=None,pVal=0.8,seed=10):
+        if sample is not None:
+            self.sample = sample
+        for time in time_range:
+            self.operator.buildExpmOperator(time=time)
 
     def load_files2(self, method_name: str):
         """Finds the profiling file for the given method dynamically."""
