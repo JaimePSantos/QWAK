@@ -122,6 +122,53 @@ def create_profiling_data_hiperwalk(n_values: List[int], sample_range=range(0, 3
             run_if_not_profiled(bench, "init_hiperwalk", graph=graph,time=t, sample=sample,pVal=pVal,seed=seed)
             run_if_not_profiled(bench, "simulate", time=t, sample=sample,pVal=pVal,seed=seed)
 
+def run_if_not_profiled_time_range(instance, method_name: str, time_range: List[int], **kwargs):
+    """
+    Checks if a profiling file exists for a given time value (using the current tracked attributes)
+    and if not, runs the method with the provided kwargs for each time value in time_range.
+    
+    Args:
+        instance: The instance containing the method.
+        method_name (str): Name of the method to run.
+        time_range (List[int]): List of time values to iterate over.
+        **kwargs: Additional keyword arguments passed to the method.
+    """
+    for t in time_range:
+        # Set the instance's time attribute and ensure it's in kwargs.
+        setattr(instance, 't', t)
+        kwargs['time'] = t
+        
+        # If 'graph' is provided, update 'n' accordingly since 'n' is used in the filename.
+        if 'graph' in kwargs:
+            setattr(instance, 'n', len(kwargs['graph']))
+        
+        method = getattr(instance, method_name)
+        try:
+            existing_file = find_exact_profiling_file(instance, method)
+            print(f"Profiling file '{existing_file}' already exists for method '{method_name}' with time {t} and sample {instance.sample}. Skipping execution.")
+        except FileNotFoundError:
+            print(f"Profiling file not found for method '{method_name}' with time {t} and sample {instance.sample}. Running execution.")
+            method(**kwargs)
+
+def create_profiling_data_animation(time_range: List[int], sample_range=range(0, 3), n: int = 10, pVal=0.8, seed = 10):
+    """
+    Runs profiling for a variable number of n's, ensuring that profiling files are created if they do not exist.
+    
+    Args:
+        n_values (List[int]): List of n values (graph sizes) to run profiling for.
+        sample_range (iterable, optional): Range of sample indices to run. Defaults to range(0, 3).
+        t (int, optional): The time parameter to pass to build_operator. Defaults to 10.
+    """
+
+    for t in time_range:
+        print(f"Creating profiling data for t = {t}")
+        bench = OperatorBenchmark(tracked_attributes=['t', 'sample', 'pVal', 'seed'])
+        graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
+        bench.init_operator_untimed(graph=graph,pVal=pVal,seed=seed)
+        for sample in sample_range:
+            run_if_not_profiled(bench, "build_multiple_operators", time_range=time_range, sample=sample,pVal=pVal,seed=seed)
+            run_if_not_profiled(bench, "build_multiple_expm_operator", time_range=time_range, sample=sample,pVal=pVal,seed=seed)
+
 def load_profiling_data(path, method_name, nrange, sample_range,pVal=None,seed=None):
     results = {}
     for n in tqdm(nrange, desc="Processing n-values"):
