@@ -12,8 +12,8 @@ from utils.plotTools import plot_qwak
 
 from OperatorBenchmark3 import OperatorBenchmark3
 
-def benchmark_operations(n, tList, base_filename, samples):
-    graph = nx.cycle_graph(n)
+def benchmark_operations(n, tList, base_filename, samples,pVal=0.8,seed=10):
+    graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
     eig_runTime = []
     expm_runTime = []
     eig_filename = f"{base_filename}_eig.csv"
@@ -103,7 +103,7 @@ params = {
     # 'color_list' : ['#0000FF', '#008000', '#525252'],
     'color_list' : ['b','g','r'],
     # 'line_style_list' : ['--', '-','-.' ],
-    'save_path' : f'img/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}.png',
+    'save_path' : f'img/ER/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}.png',
     'use_loglog': False,
     'use_cbar' : False,
     'cbar_label' : None, 
@@ -130,7 +130,7 @@ params = {
 
 tList = list(range(start, stop, step))
 
-filename = f'Datasets/OperatorBenchmark/Dynamic/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}'
+filename = f'Datasets/OperatorBenchmark/Dynamic-ER/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}'
 
 eig_runTime, expm_runTime = benchmark_operations(n, tList, filename, samples)
 
