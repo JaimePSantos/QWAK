@@ -31,7 +31,7 @@ class StochasticQuantumWalk(object):
         self._initState = state
         self._initQutipState = Qobj(state.getStateVec())
         self._operator = operator
-        self._finalState = Qobj(State(self._n))
+        self._finalState = Qobj(State(self._n).getStateVec())
         self._time = 0
 
     def buildWalk(
@@ -51,23 +51,11 @@ class StochasticQuantumWalk(object):
         opts : Options, optional
             QuTiP options for the simulation. Defaults to storing states and the final state.
         """
-        print("\t\t\tBefore calling self._time")
         self._time = np.arange(0, time + 1)
-        print("\t\t\tAfter calling self._time")
         if self._operator.getSinkNode() is not None:
-            print("\t\t\tBefore calling Qobj")
             self._initQutipState = Qobj(
                 np.vstack([self._initState.getStateVec(), [0.0]])
             )
-            print("\t\t\tAfter calling Qobj")
-        print("\t\t\tBefore calling mesolve")
-        print("\t\t\t\tType of self._operator.getQuantumHamiltonian():", type(self._operator.getQuantumHamiltonian()))
-        print("\t\t\t\tType of self._initQutipState:", type(self._initQutipState))
-        print("\t\t\t\tType of self._time:", type(self._time))
-        print("\t\t\t\tType of self._operator.getClassicalHamiltonian():", type(self._operator.getClassicalHamiltonian()))
-        print("\t\t\t\tType of observables:", type(observables))
-        print("\t\t\t\tType of opts:", type(opts))
-        print(f"\t\t\t\tself._operator.getQuantumHamiltonian() hermitian:{self._operator.getQuantumHamiltonian().isherm}")
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
@@ -76,7 +64,6 @@ class StochasticQuantumWalk(object):
             observables,
             options=opts,
         ).final_state.full()
-        print("\t\t\tAfter calling mesolve")
 
     def getFinalState(self) -> Qobj:
         """Returns the final quantum state after the completion of the walk.

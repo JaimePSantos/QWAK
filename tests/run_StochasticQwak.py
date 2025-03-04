@@ -2,9 +2,9 @@ import networkx as nx
 import numpy as np
 
 from qwak.StochasticQwak import StochasticQWAK
-from tests.stubs.StochasticQWAKTestStub import StochasticQWAKTestStub
+from stubs.StochasticQWAKTestStub import StochasticQWAKTestStub
 
-from tests.testVariables.stochasticQwakVar import (
+from testVariables.stochasticQwakVar import (
     stochasticProbDistSingleNodeCycleNoise,
     stochasticProbDistSingleNodeCycleNoNoise,
 )
