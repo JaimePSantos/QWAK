@@ -2,12 +2,12 @@
 <html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Modules" href="modules.html" /><link rel="prev" title="Stochastic Qwak on a Maze" href="stochasticQWAK.html" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="core" href="modules.html" /><link rel="prev" title="Stochastic Qwak on a Maze" href="stochasticQWAK.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
         <title>Contributing - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -186,8 +186,12 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda_setup.html">Installing QWAK locally with Anaconda (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">Installing QWAK locally with Venv</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Directed Quantum Walk</a></li>
@@ -196,8 +200,9 @@
 </ul>
 </li>
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html">qwak_cupy package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
 </li>
@@ -236,7 +241,7 @@
         </div>
         <article role="main">
           <section id="contributing">
-<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h1>
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h1>
 <p>Contributing has a few additional steps that may require some explanation for first-time users.
 Here, we’ll give you step-by-step instructions on how to setup github for contributing to this project,
 how to format your code changes and how to generate updated documentation.</p>
@@ -249,7 +254,7 @@ how to format your code changes and how to generate updated documentation.</p>
 working correctly after a change.
 <a class="reference external" href="https://github.com/mbarkhau/bumpver/">Bumpver</a> manages package versioning.</p>
 <section id="setting-up-the-repo-for-contributing">
-<h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Link to this heading">#</a></h2>
+<h2>Setting up the repo for contributing<a class="headerlink" href="#setting-up-the-repo-for-contributing" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Install <a class="reference external" href="https://git-scm.com/.">git</a>.</p></li>
 <li><p>Fork the <a class="reference external" href="https://github.com/JaimePSantos/QWAK">QWAK</a> repository to your account so you can work on own copy. This will allow you to open Pull Requests later.</p></li>
@@ -277,7 +282,7 @@ working correctly after a change.
 </ol>
 </section>
 <section id="making-your-changes">
-<h2>Making your changes<a class="headerlink" href="#making-your-changes" title="Link to this heading">#</a></h2>
+<h2>Making your changes<a class="headerlink" href="#making-your-changes" title="Link to this heading">¶</a></h2>
 <ol class="arabic">
 <li><p>Checkout and sync your main branch with the upstream to reflect the newest version:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>checkout<span class="w"> </span>main
@@ -332,7 +337,7 @@ python<span class="w"> </span>-m<span class="w"> </span>build
 </ol>
 </section>
 <section id="generating-documentation">
-<h2>Generating Documentation<a class="headerlink" href="#generating-documentation" title="Link to this heading">#</a></h2>
+<h2>Generating Documentation<a class="headerlink" href="#generating-documentation" title="Link to this heading">¶</a></h2>
 <p>If you’ve added a new feature, or if you want to contribute to the documentation directly,
 you will need to install <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> automates the process of creating
 documentation pages:</p>
@@ -374,7 +379,7 @@ documentation pages:</p>
 </ol>
 </section>
 <section id="updating-pypi-package">
-<h2>Updating PyPi package<a class="headerlink" href="#updating-pypi-package" title="Link to this heading">#</a></h2>
+<h2>Updating PyPi package<a class="headerlink" href="#updating-pypi-package" title="Link to this heading">¶</a></h2>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>build
 python<span class="w"> </span>-m<span class="w"> </span>build
 python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>twine
@@ -394,7 +399,7 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Modules</div>
+                <div class="title">core</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -456,7 +461,7 @@ twine<span class="w"> </span>upload<span class="w"> </span>dist/*
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>

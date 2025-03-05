@@ -51,25 +51,36 @@ class StochasticQuantumWalk(object):
         opts : Options, optional
             QuTiP options for the simulation. Defaults to storing states and the final state.
         """
+        # print("\t\t\tBefore calling self._time")
         self._time = np.arange(0, time + 1)
+        # print("\t\t\tAfter calling self._time")
         if self._operator.getSinkNode() is not None:
+            # print("\t\t\tBefore calling Qobj")
             self._initQutipState = Qobj(
                 np.vstack([self._initState.getStateVec(), [0.0]])
             )
+            # print("\t\t\tAfter calling Qobj")
+        # print("\t\t\tBefore calling mesolve")
+        collapse_ops = self._operator.getClassicalHamiltonian()
+        if collapse_ops and all((op.full() == 0).all() for op in collapse_ops):
+            # print("\t\t\tAll collapse operators are zero. Setting collapse_ops to None.")
+            collapse_ops = None
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
             self._time,
-            c_ops = self._operator.getClassicalHamiltonian(),
-            e_ops=observables,
-            options=None,
+            collapse_ops,
+            observables,
+            options=opts,
         ).final_state.full()
+        # print("\t\t\tAfter calling mesolve")
 
     def getFinalState(self) -> Qobj:
         """Returns the final quantum state after the completion of the walk.
 
         Returns
         -------
+
         Qobj
             The final state of the quantum walk.
         """

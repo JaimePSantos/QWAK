@@ -20,9 +20,7 @@ class TestStochasticQWAK(object):
             np.zeros(n),
             err_msg="Probability distribution before running should be 0.",
         )
-        print("Before calling buildWalk")
         qwak.buildWalk(t)
-        print("After calling buildWalk")
 
 
     # def test_StochasticProbDistSingleNodeCycleNoise(self):

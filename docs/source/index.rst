@@ -43,8 +43,12 @@ Contents
 --------
 .. toctree::
    :maxdepth: 2
+   :caption: Contents:
 
    installation
+   dependencies
+   conda_setup
+   venv_setup
    usage
    contributing
    modules

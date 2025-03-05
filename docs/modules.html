@@ -2,12 +2,12 @@
 <html class="no-js" lang="en" data-content_root="./">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="qwak package" href="qwak.html" /><link rel="prev" title="Contributing" href="contributing.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
-        <title>Modules - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=362ab14a" />
+    <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
+        <title>core - QWAK - Quantum Walk Analysis Kit</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -186,8 +186,12 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda_setup.html">Installing QWAK locally with Anaconda (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">Installing QWAK locally with Venv</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Directed Quantum Walk</a></li>
@@ -196,8 +200,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Modules</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">core</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html">qwak_cupy package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
 </ul>
 </li>
@@ -235,235 +240,37 @@
           </label>
         </div>
         <article role="main">
-          <section id="modules">
-<h1>Modules<a class="headerlink" href="#modules" title="Link to this heading">#</a></h1>
+          <section id="core">
+<h1>core<a class="headerlink" href="#core" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="qwak.html">qwak package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="qwak.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.Errors">qwak.Errors module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Errors.Error"><code class="docutils literal notranslate"><span class="pre">Error</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Errors.Error.as_string"><code class="docutils literal notranslate"><span class="pre">Error.as_string()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-errors-module">qwak.Errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-graphicalqwak-module">qwak.GraphicalQWAK module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-operator-module">qwak.Operator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-probabilitydistribution-module">qwak.ProbabilityDistribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-quantumwalk-module">qwak.QuantumWalk module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-state-module">qwak.State module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-stochasticoperator-module">qwak.StochasticOperator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-stochasticprobabilitydistribution-module">qwak.StochasticProbabilityDistribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-stochasticquantumwalk-module">qwak.StochasticQuantumWalk module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-stochasticquantumwalkcopy-module">qwak.StochasticQuantumWalkCopy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-stochasticqwak-module">qwak.StochasticQwak module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#qwak-qwak-module">qwak.qwak module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-contents">Module contents</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Errors.StateOutOfBounds"><code class="docutils literal notranslate"><span class="pre">StateOutOfBounds</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Errors.NonUnitaryState"><code class="docutils literal notranslate"><span class="pre">NonUnitaryState</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Errors.UndefinedTimeList"><code class="docutils literal notranslate"><span class="pre">UndefinedTimeList</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Errors.EmptyProbDistList"><code class="docutils literal notranslate"><span class="pre">EmptyProbDistList</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Errors.MissingNodeInput"><code class="docutils literal notranslate"><span class="pre">MissingNodeInput</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Errors.MissingGraphInput"><code class="docutils literal notranslate"><span class="pre">MissingGraphInput</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.Operator">qwak.Operator module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.Operator.Operator"><code class="docutils literal notranslate"><span class="pre">Operator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.buildDiagonalOperator"><code class="docutils literal notranslate"><span class="pre">Operator.buildDiagonalOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.buildExpmOperator"><code class="docutils literal notranslate"><span class="pre">Operator.buildExpmOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._buildHamiltonian"><code class="docutils literal notranslate"><span class="pre">Operator._buildHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._buildSearchHamiltonian"><code class="docutils literal notranslate"><span class="pre">Operator._buildSearchHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._buildEigenValues"><code class="docutils literal notranslate"><span class="pre">Operator._buildEigenValues()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._hermitianTest"><code class="docutils literal notranslate"><span class="pre">Operator._hermitianTest()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getEigenValues"><code class="docutils literal notranslate"><span class="pre">Operator.getEigenValues()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._setEigenValues"><code class="docutils literal notranslate"><span class="pre">Operator._setEigenValues()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getEigenVectors"><code class="docutils literal notranslate"><span class="pre">Operator.getEigenVectors()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._setEigenVectors"><code class="docutils literal notranslate"><span class="pre">Operator._setEigenVectors()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getHamiltonian"><code class="docutils literal notranslate"><span class="pre">Operator.getHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.setHamiltonian"><code class="docutils literal notranslate"><span class="pre">Operator.setHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.resetOperator"><code class="docutils literal notranslate"><span class="pre">Operator.resetOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.setDim"><code class="docutils literal notranslate"><span class="pre">Operator.setDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getDim"><code class="docutils literal notranslate"><span class="pre">Operator.getDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.setTime"><code class="docutils literal notranslate"><span class="pre">Operator.setTime()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getTime"><code class="docutils literal notranslate"><span class="pre">Operator.getTime()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.setAdjacencyMatrix"><code class="docutils literal notranslate"><span class="pre">Operator.setAdjacencyMatrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._setAdjacencyMatrixOnly"><code class="docutils literal notranslate"><span class="pre">Operator._setAdjacencyMatrixOnly()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getAdjacencyMatrix"><code class="docutils literal notranslate"><span class="pre">Operator.getAdjacencyMatrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._setOperatorVec"><code class="docutils literal notranslate"><span class="pre">Operator._setOperatorVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.setOperator"><code class="docutils literal notranslate"><span class="pre">Operator.setOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getOperator"><code class="docutils literal notranslate"><span class="pre">Operator.getOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.checkPST"><code class="docutils literal notranslate"><span class="pre">Operator.checkPST()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.getMarkedElements"><code class="docutils literal notranslate"><span class="pre">Operator.getMarkedElements()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.setMarkedElements"><code class="docutils literal notranslate"><span class="pre">Operator.setMarkedElements()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.to_json"><code class="docutils literal notranslate"><span class="pre">Operator.to_json()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator.from_json"><code class="docutils literal notranslate"><span class="pre">Operator.from_json()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.Operator.Operator._degreeDiagonalMatrix"><code class="docutils literal notranslate"><span class="pre">Operator._degreeDiagonalMatrix()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.ProbabilityDistribution">qwak.ProbabilityDistribution module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.resetProbDist"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.resetProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.buildProbDist"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.buildProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbDist"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.setProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getStateVec"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.getStateVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getState"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.getState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setState"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.setState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setDim"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.setDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getDim"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.getDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.setProbVec"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.setProbVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.getProbVec"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.getProbVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.moment"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.moment()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.invPartRatio"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.invPartRatio()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.stDev"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.stDev()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.survivalProb"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.survivalProb()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.searchNodeProbability"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.searchNodeProbability()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.to_json"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.to_json()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.ProbabilityDistribution.ProbabilityDistribution.from_json"><code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution.from_json()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.QuantumWalk">qwak.QuantumWalk module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk"><code class="docutils literal notranslate"><span class="pre">QuantumWalk</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.buildWalk"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.buildWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.resetWalk"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.resetWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.setInitState"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.setInitState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.getInitState"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.getInitState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.setDim"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.setDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.getDim"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.getDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.setOperator"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.setOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.getOperator"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.getOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.setWalk"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.setWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.getFinalState"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.getFinalState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.setFinalState"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.setFinalState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.getAmpVec"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.getAmpVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.searchNodeAmplitude"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.searchNodeAmplitude()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.transportEfficiency"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.transportEfficiency()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.to_json"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.to_json()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.QuantumWalk.QuantumWalk.from_json"><code class="docutils literal notranslate"><span class="pre">QuantumWalk.from_json()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.State">qwak.State module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.State.State"><code class="docutils literal notranslate"><span class="pre">State</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.buildState"><code class="docutils literal notranslate"><span class="pre">State.buildState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State._checkStateOutOfBounds"><code class="docutils literal notranslate"><span class="pre">State._checkStateOutOfBounds()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State._checkUnitaryStateList"><code class="docutils literal notranslate"><span class="pre">State._checkUnitaryStateList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.herm"><code class="docutils literal notranslate"><span class="pre">State.herm()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.inv"><code class="docutils literal notranslate"><span class="pre">State.inv()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.resetState"><code class="docutils literal notranslate"><span class="pre">State.resetState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.setDim"><code class="docutils literal notranslate"><span class="pre">State.setDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.getDim"><code class="docutils literal notranslate"><span class="pre">State.getDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.setNodeList"><code class="docutils literal notranslate"><span class="pre">State.setNodeList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.getNodeList"><code class="docutils literal notranslate"><span class="pre">State.getNodeList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.setStateVec"><code class="docutils literal notranslate"><span class="pre">State.setStateVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.getStateVec"><code class="docutils literal notranslate"><span class="pre">State.getStateVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.setState"><code class="docutils literal notranslate"><span class="pre">State.setState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.to_json"><code class="docutils literal notranslate"><span class="pre">State.to_json()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.State.State.from_json"><code class="docutils literal notranslate"><span class="pre">State.from_json()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.StochasticOperator">qwak.StochasticOperator module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator"><code class="docutils literal notranslate"><span class="pre">StochasticOperator</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.buildStochasticOperator"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.buildStochasticOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator._buildLaplacian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator._buildLaplacian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator._buildQuantumHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator._buildQuantumHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator._buildClassicalHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator._buildClassicalHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.getClassicalHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.getClassicalHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.setClassicalHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.setClassicalHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.getQuantumHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.getQuantumHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.setQuantumHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.setQuantumHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.setSinkNode"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.setSinkNode()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.getSinkNode"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.getSinkNode()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticOperator.StochasticOperator.getLaplacian"><code class="docutils literal notranslate"><span class="pre">StochasticOperator.getLaplacian()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.StochasticProbabilityDistribution">qwak.StochasticProbabilityDistribution module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.StochasticProbabilityDistribution.StochasticProbabilityDistribution"><code class="docutils literal notranslate"><span class="pre">StochasticProbabilityDistribution</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticProbabilityDistribution.StochasticProbabilityDistribution.buildProbDist"><code class="docutils literal notranslate"><span class="pre">StochasticProbabilityDistribution.buildProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticProbabilityDistribution.StochasticProbabilityDistribution.getProbVec"><code class="docutils literal notranslate"><span class="pre">StochasticProbabilityDistribution.getProbVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticProbabilityDistribution.StochasticProbabilityDistribution.setProbVec"><code class="docutils literal notranslate"><span class="pre">StochasticProbabilityDistribution.setProbVec()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.StochasticQuantumWalk">qwak.StochasticQuantumWalk module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.StochasticQuantumWalk.StochasticQuantumWalk"><code class="docutils literal notranslate"><span class="pre">StochasticQuantumWalk</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQuantumWalk.StochasticQuantumWalk.buildWalk"><code class="docutils literal notranslate"><span class="pre">StochasticQuantumWalk.buildWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQuantumWalk.StochasticQuantumWalk.getFinalState"><code class="docutils literal notranslate"><span class="pre">StochasticQuantumWalk.getFinalState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQuantumWalk.StochasticQuantumWalk.setFinalState"><code class="docutils literal notranslate"><span class="pre">StochasticQuantumWalk.setFinalState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQuantumWalk.StochasticQuantumWalk.getDim"><code class="docutils literal notranslate"><span class="pre">StochasticQuantumWalk.getDim()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.StochasticQwak">qwak.StochasticQwak module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK.runWalk"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK.runWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK.setProbDist"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK.setProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK.getProbDist"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK.getProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK.getProbVec"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK.getProbVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK.getQuantumHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK.getQuantumHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK.getClassicalHamiltonian"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK.getClassicalHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.StochasticQwak.StochasticQWAK.getLaplacian"><code class="docutils literal notranslate"><span class="pre">StochasticQWAK.getLaplacian()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak.qwak">qwak.qwak module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK"><code class="docutils literal notranslate"><span class="pre">QWAK</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.runWalk"><code class="docutils literal notranslate"><span class="pre">QWAK.runWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.runExpmWalk"><code class="docutils literal notranslate"><span class="pre">QWAK.runExpmWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.runMultipleWalks"><code class="docutils literal notranslate"><span class="pre">QWAK.runMultipleWalks()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.runMultipleExpmWalks"><code class="docutils literal notranslate"><span class="pre">QWAK.runMultipleExpmWalks()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.resetWalk"><code class="docutils literal notranslate"><span class="pre">QWAK.resetWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setDim"><code class="docutils literal notranslate"><span class="pre">QWAK.setDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getDim"><code class="docutils literal notranslate"><span class="pre">QWAK.getDim()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setGraph"><code class="docutils literal notranslate"><span class="pre">QWAK.setGraph()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getGraph"><code class="docutils literal notranslate"><span class="pre">QWAK.getGraph()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setCustomGraph"><code class="docutils literal notranslate"><span class="pre">QWAK.setCustomGraph()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setInitState"><code class="docutils literal notranslate"><span class="pre">QWAK.setInitState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getInitState"><code class="docutils literal notranslate"><span class="pre">QWAK.getInitState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setTime"><code class="docutils literal notranslate"><span class="pre">QWAK.setTime()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setTimeList"><code class="docutils literal notranslate"><span class="pre">QWAK.setTimeList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getTime"><code class="docutils literal notranslate"><span class="pre">QWAK.getTime()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getTimeList"><code class="docutils literal notranslate"><span class="pre">QWAK.getTimeList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setAdjacencyMatrix"><code class="docutils literal notranslate"><span class="pre">QWAK.setAdjacencyMatrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getAdjacencyMatrix"><code class="docutils literal notranslate"><span class="pre">QWAK.getAdjacencyMatrix()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setHamiltonian"><code class="docutils literal notranslate"><span class="pre">QWAK.setHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getHamiltonian"><code class="docutils literal notranslate"><span class="pre">QWAK.getHamiltonian()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setOperator"><code class="docutils literal notranslate"><span class="pre">QWAK.setOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getOperator"><code class="docutils literal notranslate"><span class="pre">QWAK.getOperator()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setWalk"><code class="docutils literal notranslate"><span class="pre">QWAK.setWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getWalk"><code class="docutils literal notranslate"><span class="pre">QWAK.getWalk()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getFinalState"><code class="docutils literal notranslate"><span class="pre">QWAK.getFinalState()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getAmpVec"><code class="docutils literal notranslate"><span class="pre">QWAK.getAmpVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setProbDist"><code class="docutils literal notranslate"><span class="pre">QWAK.setProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getProbDist"><code class="docutils literal notranslate"><span class="pre">QWAK.getProbDist()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getProbDistList"><code class="docutils literal notranslate"><span class="pre">QWAK.getProbDistList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setProbDistList"><code class="docutils literal notranslate"><span class="pre">QWAK.setProbDistList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getProbVec"><code class="docutils literal notranslate"><span class="pre">QWAK.getProbVec()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getProbVecList"><code class="docutils literal notranslate"><span class="pre">QWAK.getProbVecList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.searchNodeAmplitude"><code class="docutils literal notranslate"><span class="pre">QWAK.searchNodeAmplitude()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.searchNodeProbability"><code class="docutils literal notranslate"><span class="pre">QWAK.searchNodeProbability()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getMean"><code class="docutils literal notranslate"><span class="pre">QWAK.getMean()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getMeanList"><code class="docutils literal notranslate"><span class="pre">QWAK.getMeanList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getSndMoment"><code class="docutils literal notranslate"><span class="pre">QWAK.getSndMoment()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getStDev"><code class="docutils literal notranslate"><span class="pre">QWAK.getStDev()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getStDevList"><code class="docutils literal notranslate"><span class="pre">QWAK.getStDevList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getInversePartRatio"><code class="docutils literal notranslate"><span class="pre">QWAK.getInversePartRatio()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getInversePartRatioList"><code class="docutils literal notranslate"><span class="pre">QWAK.getInversePartRatioList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getSurvivalProb"><code class="docutils literal notranslate"><span class="pre">QWAK.getSurvivalProb()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getSurvivalProbList"><code class="docutils literal notranslate"><span class="pre">QWAK.getSurvivalProbList()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.checkPST"><code class="docutils literal notranslate"><span class="pre">QWAK.checkPST()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.checkPST_sympy"><code class="docutils literal notranslate"><span class="pre">QWAK.checkPST_sympy()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getTransportEfficiency"><code class="docutils literal notranslate"><span class="pre">QWAK.getTransportEfficiency()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getMarkedElements"><code class="docutils literal notranslate"><span class="pre">QWAK.getMarkedElements()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setMarkedElements"><code class="docutils literal notranslate"><span class="pre">QWAK.setMarkedElements()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getQWAK"><code class="docutils literal notranslate"><span class="pre">QWAK.getQWAK()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.setQWAK"><code class="docutils literal notranslate"><span class="pre">QWAK.setQWAK()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.getQWAKId"><code class="docutils literal notranslate"><span class="pre">QWAK.getQWAKId()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.to_json"><code class="docutils literal notranslate"><span class="pre">QWAK.to_json()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="qwak.html#qwak.qwak.QWAK.from_json"><code class="docutils literal notranslate"><span class="pre">QWAK.from_json()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html#module-qwak">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qwak_cupy.html">qwak_cupy package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-errors-module">qwak_cupy.Errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-operator-module">qwak_cupy.Operator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-probabilitydistribution-module">qwak_cupy.ProbabilityDistribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-quantumwalk-module">qwak_cupy.QuantumWalk module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-state-module">qwak_cupy.State module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-state-copy-module">qwak_cupy.State copy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-qwak-module">qwak_cupy.qwak module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="utils.html">utils package</a><ul>
@@ -487,11 +294,7 @@
 <li class="toctree-l3"><a class="reference internal" href="utils.html#utils.jsonTools.convert_cytoscape_to_decimal"><code class="docutils literal notranslate"><span class="pre">convert_cytoscape_to_decimal()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils.plotTools">utils.plotTools module</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.plotTools.plot_qwak"><code class="docutils literal notranslate"><span class="pre">plot_qwak()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#utils.plotTools.plot_qwak_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_qwak_heatmap()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html#utils-plottools-module">utils.plotTools module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html#module-utils">Module contents</a></li>
 </ul>
 </li>
@@ -549,7 +352,7 @@
     </aside>
   </div>
 </div><script src="_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="_static/clipboard.min.js?v=a7894cd8"></script>
