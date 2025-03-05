@@ -12,27 +12,58 @@ from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 class State:
     def __init__(self, n: int, nodeList: list = None,
                  customStateList: list = None) -> None:
+        """Object is initialized with a mandatory user-inputted dimension, an optional
+        stateList parameter which will be used to create the amplitudes for each node in the state
+        and an internal stateVec which will be a cupy ndarray representing the column vector.
+
+        Parameters
+        ----------
+        n : int
+            Desired dimension of the state.
+        nodeList : list, optional
+            List containing what nodes will have uniform superposition in the state, by default None.
+        customStateList : list, optional
+            Custom amplitudes for the state, by default None.
+        """
         self._n = n
-        self._nodeList = cp.asarray(nodeList) if nodeList else cp.array([])
-        self._customStateList = [(node, cp.asarray(amplitude)) for node, amplitude in customStateList] if customStateList else []
-        self._stateVec = cp.zeros((self._n, 1), dtype=complex)
+        if nodeList is None:
+            self._nodeList = cp.array([])  # Use cupy array
+        else:
+            self._nodeList = cp.array(nodeList)  # Ensure it's a cupy array
+
+        if customStateList is None:
+            self._customStateList = cp.array([])  # Use cupy array
+        else:
+            self._customStateList = cp.array(customStateList)  # Ensure it's a cupy array
+
+        self._stateVec = cp.zeros((self._n, 1), dtype=complex)  # Create a cupy array with zeros
 
     def buildState(
             self,
             nodeList: list = None,
             customStateList: list = None) -> None:
+        """Builds state vector from state list, by creating a balanced superposition of all
+        nodes in the nodeList.
+        This will be changed in the future to make nodeList make more sense.
+
+        Parameters
+        ----------
+        nodeList : list, optional
+            List containing what nodes will have uniform superposition in the state, by default None.
+        customStateList : list, optional
+            Custom amplitudes for the state, by default None.
+        """
         if nodeList is not None:
             self.resetState()
-            self._nodeList = cp.asarray(nodeList)
+            self._nodeList = cp.array(nodeList)#, dtype=complex)  # Ensure it's a cupy array
         if customStateList is not None:
             self.resetState()
-            self._customStateList = [(node, cp.asarray(amplitude)) for node, amplitude in customStateList]
-        
+            self._customStateList = cp.array(customStateList, dtype=complex)  # Ensure it's a cupy array
         if self._customStateList:
             self._checkUnitaryStateList(self._customStateList)
-            for node, amplitude in self._customStateList:
-                self._checkStateOutOfBounds(node)
-                self._stateVec[node] = amplitude
+            for customState in self._customStateList:
+                self._checkStateOutOfBounds(customState[0])
+                self._stateVec[customState[0]] = customState[1]
         else:
             nodeAmp = cp.sqrt(len(self._nodeList))
             for state in self._nodeList:
@@ -41,15 +72,41 @@ class State:
                 self._stateVec[state] = 1 / nodeAmp
 
     def _checkStateOutOfBounds(self, node: int) -> None:
+        """Checks if the state is out of bounds for the system.
+
+        Parameters
+        ----------
+        node : int
+            Node to check.
+
+        Raises
+        ------
+        StateOutOfBounds
+            Out of bounds exception.
+        """
         if node >= self._n:
             raise StateOutOfBounds(
                 f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}])."
             )
 
     def _checkUnitaryStateList(self, customStateList) -> None:
-        unitaryState = sum(cp.abs(amplitude) ** 2 for _, amplitude in customStateList)
-        unitaryState = float(cp.round(unitaryState, 5))
-        if unitaryState != 1.0:
+        """Checks if the sum of the square of the amplitudes is 1.
+
+        Parameters
+        ----------
+        customStateList : list
+            Custom state list.
+
+        Raises
+        ------
+        NonUnitaryState
+            Non unitary state exception.
+        """
+        unitaryState = 0
+        for state in customStateList:
+            unitaryState += cp.abs(state[1]) ** 2
+        unitaryState = round(unitaryState, 5)
+        if unitaryState != float(1):
             raise NonUnitaryState(
                 f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1."
             )
