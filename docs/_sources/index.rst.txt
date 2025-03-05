@@ -46,6 +46,7 @@ Contents
    :caption: Contents:
 
    installation
+   installcheck
    dependencies
    conda_setup
    venv_setup

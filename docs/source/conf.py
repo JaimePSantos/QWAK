@@ -10,6 +10,7 @@ import os
 import sys
 from pathlib import Path
 
+sys.path.insert(0, os.path.abspath('../../'))
 
 # -- Path setup --------------------------------------------------------------
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -44,7 +45,12 @@ extensions = [
     "sphinx-mathjax-offline",
     "sphinxcontrib.programoutput",
     "myst_parser",
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
 ]
+
+# Add the following lines to include the installcheck module
+autodoc_mock_imports = ["tests"]
 
 # Automatically generate stub pages when using the .. autosummary directive
 autosummary_generate = True

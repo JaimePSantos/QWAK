@@ -187,6 +187,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda_setup.html">Installing QWAK locally with Anaconda (recommended)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="venv_setup.html">Installing QWAK locally with Venv</a></li>
@@ -198,10 +199,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html">qwak_cupy package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">QWAK</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of QWAK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of tests package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.stubs.html">tests.stubs package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.testVariables.html">tests.testVariables package</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -240,7 +245,7 @@
           
 <section class="genindex-section">
   <h1 id="index">Index</h1>
-  <div class="genindex-jumpbox"><a href="#C"><strong>C</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#J"><strong>J</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#U"><strong>U</strong></a></div>
+  <div class="genindex-jumpbox"><a href="#C"><strong>C</strong></a> | <a href="#G"><strong>G</strong></a> | <a href="#I"><strong>I</strong></a> | <a href="#J"><strong>J</strong></a> | <a href="#M"><strong>M</strong></a> | <a href="#R"><strong>R</strong></a> | <a href="#S"><strong>S</strong></a> | <a href="#T"><strong>T</strong></a> | <a href="#U"><strong>U</strong></a></div>
 </section>
 <section id="C" class="genindex-section">
   <h2>C</h2>
@@ -248,10 +253,12 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="utils.html#utils.PerfectStateTransfer.checkRoots">checkRoots() (in module utils.PerfectStateTransfer)</a>
 </li>
-        <li><a href="utils.html#utils.jsonTools.complex_matrix_to_json">complex_matrix_to_json() (in module utils.jsonTools)</a>
+        <li><a href="installcheck.html#installcheck.color_text">color_text() (in module installcheck)</a>
 </li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="utils.html#utils.jsonTools.complex_matrix_to_json">complex_matrix_to_json() (in module utils.jsonTools)</a>
+</li>
         <li><a href="utils.html#utils.jsonTools.complex_to_json">complex_to_json() (in module utils.jsonTools)</a>
 </li>
         <li><a href="utils.html#utils.jsonTools.convert_cytoscape_to_decimal">convert_cytoscape_to_decimal() (in module utils.jsonTools)</a>
@@ -280,10 +287,17 @@
   <h2>I</h2>
   <table style="width: 100%" class="indextable genindextable"><tr>
     <td style="width: 33%; vertical-align: top;"><ul>
-        <li><a href="utils.html#utils.PerfectStateTransfer.isSimplePoles">isSimplePoles() (in module utils.PerfectStateTransfer)</a>
+        <li>
+    installcheck
+
+        <ul>
+          <li><a href="installcheck.html#module-installcheck">module</a>
 </li>
+        </ul></li>
     </ul></td>
     <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="utils.html#utils.PerfectStateTransfer.isSimplePoles">isSimplePoles() (in module utils.PerfectStateTransfer)</a>
+</li>
         <li><a href="utils.html#utils.PerfectStateTransfer.isStrCospec">isStrCospec() (in module utils.PerfectStateTransfer)</a>
 </li>
     </ul></td>
@@ -312,6 +326,42 @@
     module
 
         <ul>
+          <li><a href="installcheck.html#module-installcheck">installcheck</a>
+</li>
+          <li><a href="tests.html#module-tests">tests</a>
+</li>
+          <li><a href="tests.html#module-tests.run_StochasticQwak">tests.run_StochasticQwak</a>
+</li>
+          <li><a href="tests.stubs.html#module-tests.stubs">tests.stubs</a>
+</li>
+          <li><a href="tests.stubs.html#module-tests.stubs.CQWAKTestStub">tests.stubs.CQWAKTestStub</a>
+</li>
+          <li><a href="tests.stubs.html#module-tests.stubs.GraphicalQWAKTestStub">tests.stubs.GraphicalQWAKTestStub</a>
+</li>
+          <li><a href="tests.stubs.html#module-tests.stubs.QWAKTestStub">tests.stubs.QWAKTestStub</a>
+</li>
+          <li><a href="tests.stubs.html#module-tests.stubs.StochasticQWAKTestStub">tests.stubs.StochasticQWAKTestStub</a>
+</li>
+          <li><a href="tests.html#module-tests.test_QwakComplete">tests.test_QwakComplete</a>
+</li>
+          <li><a href="tests.html#module-tests.test_QwakCupyCycle">tests.test_QwakCupyCycle</a>
+</li>
+          <li><a href="tests.html#module-tests.test_QwakCycle">tests.test_QwakCycle</a>
+</li>
+          <li><a href="tests.html#module-tests.test_QwakPath">tests.test_QwakPath</a>
+</li>
+          <li><a href="tests.html#module-tests.test_StochasticQwak">tests.test_StochasticQwak</a>
+</li>
+          <li><a href="tests.testVariables.html#module-tests.testVariables">tests.testVariables</a>
+</li>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.customGraphs">tests.testVariables.customGraphs</a>
+</li>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.graphicalQwakVar">tests.testVariables.graphicalQwakVar</a>
+</li>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.qwakVar">tests.testVariables.qwakVar</a>
+</li>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.stochasticQwakVar">tests.testVariables.stochasticQwakVar</a>
+</li>
           <li><a href="utils.html#module-utils">utils</a>
 </li>
           <li><a href="utils.html#module-utils.jsonTools">utils.jsonTools</a>
@@ -319,6 +369,28 @@
           <li><a href="utils.html#module-utils.PerfectStateTransfer">utils.PerfectStateTransfer</a>
 </li>
         </ul></li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="R" class="genindex-section">
+  <h2>R</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="installcheck.html#installcheck.run_complete_tests">run_complete_tests() (in module installcheck)</a>
+</li>
+        <li><a href="installcheck.html#installcheck.run_cupy_tests">run_cupy_tests() (in module installcheck)</a>
+</li>
+        <li><a href="installcheck.html#installcheck.run_cycle_tests">run_cycle_tests() (in module installcheck)</a>
+</li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li><a href="installcheck.html#installcheck.run_qwakpath_tests">run_qwakpath_tests() (in module installcheck)</a>
+</li>
+        <li><a href="installcheck.html#installcheck.run_stochastic_tests">run_stochastic_tests() (in module installcheck)</a>
+</li>
+        <li><a href="installcheck.html#installcheck.run_tests">run_tests() (in module installcheck)</a>
+</li>
     </ul></td>
   </tr></table>
 </section>
@@ -333,6 +405,135 @@
     <td style="width: 33%; vertical-align: top;"><ul>
         <li><a href="utils.html#utils.PerfectStateTransfer.swapNodes">swapNodes() (in module utils.PerfectStateTransfer)</a>
 </li>
+    </ul></td>
+  </tr></table>
+</section>
+
+<section id="T" class="genindex-section">
+  <h2>T</h2>
+  <table style="width: 100%" class="indextable genindextable"><tr>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    tests
+
+        <ul>
+          <li><a href="tests.html#module-tests">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.run_StochasticQwak
+
+        <ul>
+          <li><a href="tests.html#module-tests.run_StochasticQwak">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.stubs
+
+        <ul>
+          <li><a href="tests.stubs.html#module-tests.stubs">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.stubs.CQWAKTestStub
+
+        <ul>
+          <li><a href="tests.stubs.html#module-tests.stubs.CQWAKTestStub">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.stubs.GraphicalQWAKTestStub
+
+        <ul>
+          <li><a href="tests.stubs.html#module-tests.stubs.GraphicalQWAKTestStub">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.stubs.QWAKTestStub
+
+        <ul>
+          <li><a href="tests.stubs.html#module-tests.stubs.QWAKTestStub">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.stubs.StochasticQWAKTestStub
+
+        <ul>
+          <li><a href="tests.stubs.html#module-tests.stubs.StochasticQWAKTestStub">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.test_QwakComplete
+
+        <ul>
+          <li><a href="tests.html#module-tests.test_QwakComplete">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.test_QwakCupyCycle
+
+        <ul>
+          <li><a href="tests.html#module-tests.test_QwakCupyCycle">module</a>
+</li>
+        </ul></li>
+    </ul></td>
+    <td style="width: 33%; vertical-align: top;"><ul>
+        <li>
+    tests.test_QwakCycle
+
+        <ul>
+          <li><a href="tests.html#module-tests.test_QwakCycle">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.test_QwakPath
+
+        <ul>
+          <li><a href="tests.html#module-tests.test_QwakPath">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.test_StochasticQwak
+
+        <ul>
+          <li><a href="tests.html#module-tests.test_StochasticQwak">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.testVariables
+
+        <ul>
+          <li><a href="tests.testVariables.html#module-tests.testVariables">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.testVariables.customGraphs
+
+        <ul>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.customGraphs">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.testVariables.graphicalQwakVar
+
+        <ul>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.graphicalQwakVar">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.testVariables.qwakVar
+
+        <ul>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.qwakVar">module</a>
+</li>
+        </ul></li>
+        <li>
+    tests.testVariables.stochasticQwakVar
+
+        <ul>
+          <li><a href="tests.testVariables.html#module-tests.testVariables.stochasticQwakVar">module</a>
+</li>
+        </ul></li>
     </ul></td>
   </tr></table>
 </section>

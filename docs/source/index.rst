@@ -1,5 +1,5 @@
 QWAK - Quantum Walk Analysis Kit
-=================================
+================================
 
 :py:class:`.QWAK` is an object-oriented Python package for the realization of
 continuous-time quantum walks. With this package you have the ability to perform both
@@ -46,6 +46,7 @@ Contents
    :caption: Contents:
 
    installation
+   installcheck
    dependencies
    conda_setup
    venv_setup

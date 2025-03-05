@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Dependencies" href="dependencies.html" /><link rel="prev" title="QWAK - Quantum Walk Analysis Kit" href="index.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="installcheck module" href="installcheck.html" /><link rel="prev" title="QWAK - Quantum Walk Analysis Kit" href="index.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
         <title>Installation - QWAK - Quantum Walk Analysis Kit</title>
@@ -189,6 +189,7 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda_setup.html">Installing QWAK locally with Anaconda (recommended)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="venv_setup.html">Installing QWAK locally with Venv</a></li>
@@ -200,10 +201,14 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">core</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="qwak.html">qwak package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html">qwak_cupy package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="utils.html">utils package</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">QWAK</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of QWAK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of tests package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.stubs.html">tests.stubs package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.testVariables.html">tests.testVariables package</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -242,33 +247,67 @@
         <article role="main">
           <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
-<p>QWAK is not yet hosted on PiPy, so you will need to install it locally preferably with a virtual environment.
-You can find instructions for setting up the environment with conda <a class="reference internal" href="conda_setup.html#conda-installation"><span class="std std-ref">here</span></a> and with venv <a class="reference internal" href="venv_setup.html#venv-installation"><span class="std std-ref">here</span></a>.
-You can also find all the dependencies <a class="reference internal" href="dependencies.html#dependencies"><span class="std std-ref">here</span></a>.
-After you are done setting up your environment, and all the required dependencies are met (GPU users specifically) the package can be installed via PyPi:
-.. code-block:: console</p>
+<p>To install QWAK, follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Set up your environment:</p></li>
+</ol>
 <blockquote>
-<div><p>pip install qwak-sim</p>
+<div><ul class="simple">
+<li><p>You can find instructions for setting up the environment with conda <a class="reference internal" href="conda_setup.html#conda-installation"><span class="std std-ref">here</span></a> and with venv <a class="reference internal" href="venv_setup.html#venv-installation"><span class="std std-ref">here</span></a>.</p></li>
+<li><p>You can also find all the dependencies.</p></li>
+</ul>
 </div></blockquote>
-<section id="testing-the-installation">
-<h2>Testing the installation<a class="headerlink" href="#testing-the-installation" title="Link to this heading">¶</a></h2>
-<p>The first step will be to clone the repository:</p>
+<ol class="arabic simple" start="2">
+<li><p>Ensure all required <a class="reference internal" href="dependencies.html#dependencies"><span class="std std-ref">dependencies</span></a> are met. GPU users can refer to the <a class="reference external" href="https://docs.cupy.dev/en/stable/install.html">CuPy installation guide</a> which requires the <a class="reference external" href="https://developer.nvidia.com/cuda-toolkit">CUDA Toolkit</a>.</p></li>
+<li><p>Install the package via PyPi:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install qwak-sim</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install qwak-sim</span>
+</pre></div>
+</div>
+<section id="local-installation">
+<h2>Local Installation<a class="headerlink" href="#local-installation" title="Link to this heading">¶</a></h2>
+<p>To install QWAK locally, follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Clone the repository:</p></li>
+</ol>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/JaimePSantos/QWAK.git</span>
 </pre></div>
 </div>
-</section>
-<section id="testing-installation">
-<span id="id1"></span><h2>Testing the installation<a class="headerlink" href="#testing-installation" title="Link to this heading">¶</a></h2>
-<p>The basic testing script can be run by:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python installCheck.py</span>
+<ol class="arabic simple" start="2">
+<li><p>Navigate to the cloned repository:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd QWAK</span>
 </pre></div>
 </div>
-<p>If no errors are thrown and you end up with some plots opened, then the installation was successful.</p>
-<p>However, we recommend running the package’s unit tests via pytest:</p>
+<ol class="arabic simple" start="3">
+<li><p>Install the package:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install .</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to contribute to the development of QWAK, you can install it in edit mode by using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install -e .</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="testing-the-installation">
+<span id="testing-installation"></span><h2>Testing the installation<a class="headerlink" href="#testing-the-installation" title="Link to this heading">¶</a></h2>
+<p>The preferred way to check the installation is by running the package’s unit tests via pytest:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install pytest</span>
 <span class="go">pytest -v tests/</span>
 </pre></div>
 </div>
+<p>An update to the installation check script is coming soon. For now, you can also run the basic testing script:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python installCheck.py</span>
+</pre></div>
+</div>
+<p>If no errors are thrown and you end up with some plots opened, then the installation was successful. For more detailed testing, refer to the <a class="reference internal" href="installcheck.html"><span class="doc">installcheck</span></a> module documentation.</p>
 </section>
 </section>
 
@@ -277,12 +316,12 @@ After you are done setting up your environment, and all the required dependencie
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="dependencies.html">
+          <a class="next-page" href="installcheck.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">Dependencies</div>
+                <div class="title">installcheck module</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -328,8 +367,8 @@ After you are done setting up your environment, and all the required dependencie
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#local-installation">Local Installation</a></li>
 <li><a class="reference internal" href="#testing-the-installation">Testing the installation</a></li>
-<li><a class="reference internal" href="#testing-installation">Testing the installation</a></li>
 </ul>
 </li>
 </ul>

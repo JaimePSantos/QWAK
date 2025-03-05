@@ -17,8 +17,6 @@ A few extra packages are required when contributing to QWAK:
 working correctly after a change.
 `Bumpver <https://github.com/mbarkhau/bumpver/>`_ manages package versioning.
 
-
-
 Setting up the repo for contributing
 ------------------------------------
 
@@ -45,7 +43,6 @@ Setting up the repo for contributing
       git pull --rebase upstream main
 
    This should be done somewhat regularly to ensure your fork is up-to-date with the most recent QWAK version.
-
 
 #. Follow QWAK's `installation instructions <https://jaimepsantos.github.io/QWAK/installation.html>`_ in case you haven't installed the package yet.
 
@@ -88,7 +85,7 @@ Making your changes
 
       pytest -v tests/
 
-#. If all the tests are successfull, format your changed files with:
+#. If all the tests are successful, format your changed files with:
 
    .. code-block:: shell
 
@@ -121,9 +118,6 @@ Making your changes
       git push -u origin <branch name>
 
 #. Visit your repo on github and create a pull request to the main repo!
-
-
-
 
 Generating Documentation
 ------------------------
@@ -160,7 +154,7 @@ After the dependency is taken care of:
 
 #. From the main folder, navigate to the :code:`documentation` folder using :code:`cd documentation`.
 
-#. If you've changed documentation of the Python code in the :code:`core` folder,run autodoc so these changes are compiled by Sphinx:
+#. If you've changed documentation of the Python code in the :code:`core` folder, run autodoc so these changes are compiled by Sphinx:
 
    .. code-block:: shell
 

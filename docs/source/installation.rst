@@ -4,7 +4,7 @@ To install QWAK, follow these steps:
 
 1. Set up your environment:
   - You can find instructions for setting up the environment with conda :ref:`here <conda-installation>` and with venv :ref:`here <venv-installation>`.
-  - You can also find all the dependencies .
+  - You can also find all the dependencies.
 
 2. Ensure all required :ref:`dependencies <dependencies>` are met. GPU users can refer to the `CuPy installation guide <https://docs.cupy.dev/en/stable/install.html>`_ which requires the `CUDA Toolkit <https://developer.nvidia.com/cuda-toolkit>`_.
 
@@ -13,11 +13,6 @@ To install QWAK, follow these steps:
 .. code-block:: console
 
   pip install qwak-sim
-
-.. code-block:: console
-
-  pip install qwak-sim
-
 
 Local Installation
 ******************
@@ -67,4 +62,4 @@ An update to the installation check script is coming soon. For now, you can also
 
   python installCheck.py
 
-If no errors are thrown and you end up with some plots opened, then the installation was successful.
+If no errors are thrown and you end up with some plots opened, then the installation was successful. For more detailed testing, refer to the :doc:`installcheck <installcheck>` module documentation.
