@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="main module" href="main.html" /><link rel="prev" title="Contributing" href="contributing.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="qwak_cupy package" href="qwak_cupy.html" /><link rel="prev" title="Contributing" href="contributing.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
-        <title>QWAK - QWAK - Quantum Walk Analysis Kit</title>
+        <title>qwak_cupy - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -188,12 +188,12 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
-<li class="toctree-l1"><a class="reference internal" href="conda_setup.html">Installing QWAK locally with Anaconda (recommended)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">Installing QWAK locally with Venv</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="installation/index.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation/dependencies.html">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation/installcheck.html">installcheck module</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
 <li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Directed Quantum Walk</a></li>
 <li class="toctree-l2"><a class="reference internal" href="searchingQWAK.html">Searching With QWAK</a></li>
@@ -201,14 +201,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
-<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">QWAK</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of QWAK</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="main.html">main module</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of tests package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="tests.stubs.html">tests.stubs package</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests.testVariables.html">tests.testVariables package</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">qwak_cupy</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of qwak_cupy</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html">qwak_cupy package</a></li>
 </ul>
 </li>
 </ul>
@@ -245,51 +239,20 @@
           </label>
         </div>
         <article role="main">
-          <section id="qwak">
-<h1>QWAK<a class="headerlink" href="#qwak" title="Link to this heading">¶</a></h1>
+          <section id="qwak-cupy">
+<h1>qwak_cupy<a class="headerlink" href="#qwak-cupy" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="installcheck.html">installcheck module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.color_text"><code class="docutils literal notranslate"><span class="pre">color_text()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_tests"><code class="docutils literal notranslate"><span class="pre">run_tests()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_qwakpath_tests"><code class="docutils literal notranslate"><span class="pre">run_qwakpath_tests()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_stochastic_tests"><code class="docutils literal notranslate"><span class="pre">run_stochastic_tests()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_cupy_tests"><code class="docutils literal notranslate"><span class="pre">run_cupy_tests()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_cycle_tests"><code class="docutils literal notranslate"><span class="pre">run_cycle_tests()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_complete_tests"><code class="docutils literal notranslate"><span class="pre">run_complete_tests()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tests.html">tests package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tests.stubs.html">tests.stubs package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tests.stubs.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.stubs.html#module-tests.stubs.CQWAKTestStub">tests.stubs.CQWAKTestStub module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.stubs.html#module-tests.stubs.GraphicalQWAKTestStub">tests.stubs.GraphicalQWAKTestStub module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.stubs.html#module-tests.stubs.QWAKTestStub">tests.stubs.QWAKTestStub module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.stubs.html#module-tests.stubs.StochasticQWAKTestStub">tests.stubs.StochasticQWAKTestStub module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.stubs.html#module-tests.stubs">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="tests.testVariables.html">tests.testVariables package</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tests.testVariables.html#submodules">Submodules</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.testVariables.html#module-tests.testVariables.customGraphs">tests.testVariables.customGraphs module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.testVariables.html#module-tests.testVariables.graphicalQwakVar">tests.testVariables.graphicalQwakVar module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.testVariables.html#module-tests.testVariables.qwakVar">tests.testVariables.qwakVar module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.testVariables.html#module-tests.testVariables.stochasticQwakVar">tests.testVariables.stochasticQwakVar module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.testVariables.html#module-tests.testVariables">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.run_StochasticQwak">tests.run_StochasticQwak module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_QwakComplete">tests.test_QwakComplete module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_QwakCupyCycle">tests.test_QwakCupyCycle module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_QwakCycle">tests.test_QwakCycle module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_QwakPath">tests.test_QwakPath module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests.test_StochasticQwak">tests.test_StochasticQwak module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tests.html#module-tests">Module contents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qwak_cupy.html">qwak_cupy package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-errors-module">qwak_cupy.Errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-operator-module">qwak_cupy.Operator module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-probabilitydistribution-module">qwak_cupy.ProbabilityDistribution module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-quantumwalk-module">qwak_cupy.QuantumWalk module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-state-module">qwak_cupy.State module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-state-copy-module">qwak_cupy.State copy module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#qwak-cupy-qwak-module">qwak_cupy.qwak module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qwak_cupy.html#module-contents">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -301,12 +264,12 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="main.html">
+          <a class="next-page" href="qwak_cupy.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">main module</div>
+                <div class="title">qwak_cupy package</div>
               </div>
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>

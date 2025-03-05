@@ -2,10 +2,11 @@
 <html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Usage" href="../usage.html" /><link rel="prev" title="Dependencies" href="dependencies.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
-        <title>Overview: module code - QWAK - Quantum Walk Analysis Kit</title>
+        <title>installcheck module - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -165,7 +166,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -186,10 +187,10 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../installation/index.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation/dependencies.html">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installcheck.html">installcheck module</a></li>
+<ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Installation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">installcheck module</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -223,7 +224,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -231,24 +233,108 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <h1>All modules for which code is available</h1>
-<ul><li><a href="installcheck.html">installcheck</a></li>
-<li><a href="utils/PerfectStateTransfer.html">utils.PerfectStateTransfer</a></li>
-<li><a href="utils/jsonTools.html">utils.jsonTools</a></li>
+          <section id="module-installcheck">
+<span id="installcheck-module"></span><h1>installcheck module<a class="headerlink" href="#module-installcheck" title="Link to this heading">¶</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="installcheck.color_text">
+<span class="sig-name descname"><span class="pre">color_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/installcheck.html#color_text"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#installcheck.color_text" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the text wrapped in ANSI color codes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em>) – The text to be colored.</p></li>
+<li><p><strong>color</strong> (<em>str</em>) – The color to apply. Options are ‘green’, ‘red’, ‘cyan’, ‘yellow’.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The colored text.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="installcheck.run_tests">
+<span class="sig-name descname"><span class="pre">run_tests</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_pattern</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/installcheck.html#run_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#installcheck.run_tests" title="Link to this definition">¶</a></dt>
+<dd><p>Discovers and runs unittests matching the given pattern.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>test_pattern</strong> (<em>str</em>) – The pattern to match test files.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if all tests pass, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="installcheck.run_qwakpath_tests">
+<span class="sig-name descname"><span class="pre">run_qwakpath_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/installcheck.html#run_qwakpath_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#installcheck.run_qwakpath_tests" title="Link to this definition">¶</a></dt>
+<dd><p>Runs the tests in the test_QwakPath file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="installcheck.run_stochastic_tests">
+<span class="sig-name descname"><span class="pre">run_stochastic_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/installcheck.html#run_stochastic_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#installcheck.run_stochastic_tests" title="Link to this definition">¶</a></dt>
+<dd><p>Runs the tests in the test_StochasticQwak file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="installcheck.run_cupy_tests">
+<span class="sig-name descname"><span class="pre">run_cupy_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/installcheck.html#run_cupy_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#installcheck.run_cupy_tests" title="Link to this definition">¶</a></dt>
+<dd><p>Runs the tests in the test_QwakCupyCycle file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="installcheck.run_cycle_tests">
+<span class="sig-name descname"><span class="pre">run_cycle_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/installcheck.html#run_cycle_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#installcheck.run_cycle_tests" title="Link to this definition">¶</a></dt>
+<dd><p>Runs the tests in the test_QwakCycle file.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="installcheck.run_complete_tests">
+<span class="sig-name descname"><span class="pre">run_complete_tests</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/installcheck.html#run_complete_tests"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#installcheck.run_complete_tests" title="Link to this definition">¶</a></dt>
+<dd><p>Runs the tests in the test_QwakComplete file.</p>
+</dd></dl>
+
+</section>
+
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="../usage.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Usage</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="dependencies.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Dependencies</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -267,8 +353,33 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">installcheck module</a><ul>
+<li><a class="reference internal" href="#installcheck.color_text"><code class="docutils literal notranslate"><span class="pre">color_text()</span></code></a></li>
+<li><a class="reference internal" href="#installcheck.run_tests"><code class="docutils literal notranslate"><span class="pre">run_tests()</span></code></a></li>
+<li><a class="reference internal" href="#installcheck.run_qwakpath_tests"><code class="docutils literal notranslate"><span class="pre">run_qwakpath_tests()</span></code></a></li>
+<li><a class="reference internal" href="#installcheck.run_stochastic_tests"><code class="docutils literal notranslate"><span class="pre">run_stochastic_tests()</span></code></a></li>
+<li><a class="reference internal" href="#installcheck.run_cupy_tests"><code class="docutils literal notranslate"><span class="pre">run_cupy_tests()</span></code></a></li>
+<li><a class="reference internal" href="#installcheck.run_cycle_tests"><code class="docutils literal notranslate"><span class="pre">run_cycle_tests()</span></code></a></li>
+<li><a class="reference internal" href="#installcheck.run_complete_tests"><code class="docutils literal notranslate"><span class="pre">run_complete_tests()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

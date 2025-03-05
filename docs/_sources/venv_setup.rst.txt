@@ -19,6 +19,6 @@ And activate the environment with:
 
 .. code-block:: console
 
-    source <name_of_env>
+    source <name_of_env>/bin/activate
 
 Then you will need to install the dependencies and the package itself using pip as described above.

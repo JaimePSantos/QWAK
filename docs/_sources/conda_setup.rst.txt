@@ -32,7 +32,7 @@ After the dependencies are met, you will only need to assure you navigated to th
 
 .. code-block:: console
 
-  cd <path-to-cloned-folders>/QWAK/
+  cd <path-to-cloned-folder>/QWAK/
 
 And then install the package via PyPi:
 

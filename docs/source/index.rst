@@ -45,11 +45,7 @@ Contents
    :maxdepth: 2
    :caption: Contents:
 
-   installation
-   installcheck
-   dependencies
-   conda_setup
-   venv_setup
+   installation/index
    usage
    contributing
    modules

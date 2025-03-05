@@ -16,7 +16,7 @@ with open(modules_rst_path, 'w') as f:
 # Function to append module documentation to 'modules.rst'
 def append_to_modules_rst(module_name):
     with open(modules_rst_path, 'a') as f:
-        f.write(f'   {module_name}/modules\n')
+        f.write(f'   {module_name}\n')
 
 # Function to run sphinx-apidoc on a module
 def generate_module_docs(module_path):

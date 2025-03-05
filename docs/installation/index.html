@@ -2,10 +2,11 @@
 <html class="no-js" lang="en" data-content_root="../">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Dependencies" href="dependencies.html" /><link rel="prev" title="QWAK - Quantum Walk Analysis Kit" href="../index.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
-        <title>Overview: module code - QWAK - Quantum Walk Analysis Kit</title>
+        <title>Installation - QWAK - Quantum Walk Analysis Kit</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -165,7 +166,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -186,10 +187,10 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../installation/index.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../installation/dependencies.html">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../installation/installcheck.html">installcheck module</a></li>
+<ul class="current">
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Installation</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
 </ul>
 </li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -223,7 +224,8 @@
           <span>Back to top</span>
         </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -231,24 +233,115 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <h1>All modules for which code is available</h1>
-<ul><li><a href="installcheck.html">installcheck</a></li>
-<li><a href="utils/PerfectStateTransfer.html">utils.PerfectStateTransfer</a></li>
-<li><a href="utils/jsonTools.html">utils.jsonTools</a></li>
+          <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h1>
+<p>To install QWAK, follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Set up your environment:</p></li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li><p>You can find instructions for setting up the environment with conda <a class="reference internal" href="../conda_setup.html#conda-installation"><span class="std std-ref">here</span></a> and with venv <a class="reference internal" href="../venv_setup.html#venv-installation"><span class="std std-ref">here</span></a>.</p></li>
+<li><p>You can also find all the dependencies.</p></li>
 </ul>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>Ensure all required <a class="reference internal" href="dependencies.html#dependencies"><span class="std std-ref">dependencies</span></a> are met. GPU users can refer to the <a class="reference external" href="https://docs.cupy.dev/en/stable/install.html">CuPy installation guide</a> which requires the <a class="reference external" href="https://developer.nvidia.com/cuda-toolkit">CUDA Toolkit</a>.</p></li>
+<li><p>Install the package via PyPi:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install qwak-sim</span>
+</pre></div>
+</div>
+<section id="local-installation">
+<h2>Local Installation<a class="headerlink" href="#local-installation" title="Link to this heading">¶</a></h2>
+<p>To install QWAK locally, follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Clone the repository:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/JaimePSantos/QWAK.git</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Navigate to the cloned repository:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd QWAK</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Install the package:</p></li>
+</ol>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install .</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to contribute to the development of QWAK, you can install it in edit mode by using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install -e .</span>
+</pre></div>
+</div>
+</div>
+</section>
+<section id="testing-the-installation">
+<span id="testing-installation"></span><h2>Testing the installation<a class="headerlink" href="#testing-the-installation" title="Link to this heading">¶</a></h2>
+<p>The preferred way to check the installation is by running the package’s unit tests via pytest:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">pip install pytest</span>
+<span class="go">pytest -v tests/</span>
+</pre></div>
+</div>
+<p>An update to the installation check script is coming soon. For now, you can also run the basic testing script:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python installCheck.py</span>
+</pre></div>
+</div>
+<p>If no errors are thrown and you end up with some plots opened, then the installation was successful. For more detailed testing, refer to the <a class="reference internal" href="installcheck.html"><span class="doc">installcheck</span></a> module documentation.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installcheck.html">installcheck module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.color_text"><code class="docutils literal notranslate"><span class="pre">color_text()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_tests"><code class="docutils literal notranslate"><span class="pre">run_tests()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_qwakpath_tests"><code class="docutils literal notranslate"><span class="pre">run_qwakpath_tests()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_stochastic_tests"><code class="docutils literal notranslate"><span class="pre">run_stochastic_tests()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_cupy_tests"><code class="docutils literal notranslate"><span class="pre">run_cupy_tests()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_cycle_tests"><code class="docutils literal notranslate"><span class="pre">run_cycle_tests()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="installcheck.html#installcheck.run_complete_tests"><code class="docutils literal notranslate"><span class="pre">run_complete_tests()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+</section>
+
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          
-          
+          <a class="next-page" href="dependencies.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Dependencies</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Home</div>
+                
+              </div>
+            </a>
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -267,8 +360,28 @@
         
       </footer>
     </div>
-    <aside class="toc-drawer no-toc">
+    <aside class="toc-drawer">
       
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#local-installation">Local Installation</a></li>
+<li><a class="reference internal" href="#testing-the-installation">Testing the installation</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
       
       
     </aside>

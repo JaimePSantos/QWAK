@@ -1,9 +1,7 @@
-QWAK
-====
+qwak_cupy
+=========
 
 .. toctree::
    :maxdepth: 4
 
-   installcheck
-   main
-   tests
+   qwak_cupy

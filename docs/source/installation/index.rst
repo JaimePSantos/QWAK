@@ -63,3 +63,9 @@ An update to the installation check script is coming soon. For now, you can also
   python installCheck.py
 
 If no errors are thrown and you end up with some plots opened, then the installation was successful. For more detailed testing, refer to the :doc:`installcheck <installcheck>` module documentation.
+
+.. toctree::
+   :maxdepth: 2
+
+   dependencies
+   installcheck
