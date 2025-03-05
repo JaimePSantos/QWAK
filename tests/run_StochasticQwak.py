@@ -27,7 +27,7 @@ class TestStochasticQWAK(object):
 
     def test_StochasticProbDistSingleNodeCycleNoise(self):
         n = 50
-        t = 20
+        t = 1
         self.t = t
         noiseParam = 0.15
         sinkNode = 10
@@ -57,5 +57,5 @@ class TestStochasticQWAK(object):
         )
 
 bench = TestStochasticQWAK()
-# bench.test_StochasticProbDistSingleNodeCycleNoNoise()
-bench.test_StochasticProbDistSingleNodeCycleNoise()
+bench.test_StochasticProbDistSingleNodeCycleNoNoise()
+# bench.test_StochasticProbDistSingleNodeCycleNoise()

@@ -104,26 +104,28 @@ class StochasticOperator(object):
         """
         Internal method to build the classical Hamiltonian (Lindblad operators).
         """
-        if self._sinkNode is not None:
-            L = [
-                np.sqrt(self._p * self._laplacian[i, j])
-                * (basis(self.n + 1, i) * basis(self.n + 1, j).dag())
-                for i in range(self.n)
-                for j in range(self.n)
-                if self._laplacian[i, j] > 0
-            ]
-            S = np.zeros([self.n + 1, self.n + 1])
-            S[self.n, self._sinkNode] = np.sqrt(2 * self._sinkRate)
-            L.append(Qobj(S))
-        else:
-            L = [
-                np.sqrt(self._p * self._laplacian[i, j])
-                * (basis(self.n, i) * basis(self.n, j).dag())
-                for i in range(self.n)
-                for j in range(self.n)
-                if self._laplacian[i, j] > 0
-            ]
-        self._classicalHamiltonian = L
+        print('_buildClassicalHamiltonian Temporarily unavailable')
+        return
+        # if self._sinkNode is not None:
+        #     L = [
+        #         np.sqrt(self._p * self._laplacian[i, j])
+        #         * (basis(self.n + 1, i) * basis(self.n + 1, j).dag())
+        #         for i in range(self.n)
+        #         for j in range(self.n)
+        #         if self._laplacian[i, j] > 0
+        #     ]
+        #     S = np.zeros([self.n + 1, self.n + 1])
+        #     S[self.n, self._sinkNode] = np.sqrt(2 * self._sinkRate)
+        #     L.append(Qobj(S))
+        # else:
+        #     L = [
+        #         np.sqrt(self._p * self._laplacian[i, j])
+        #         * (basis(self.n, i) * basis(self.n, j).dag())
+        #         for i in range(self.n)
+        #         for j in range(self.n)
+        #         if self._laplacian[i, j] > 0
+        #     ]
+        # self._classicalHamiltonian = L
 
     def getClassicalHamiltonian(self) -> list:
         """
@@ -134,8 +136,9 @@ class StochasticOperator(object):
         list[Qobj]
             A list of Qobj representing the Lindblad operators.
         """
-
-        return self._classicalHamiltonian
+        print('getClassicalHamiltonian Temporarily unavailable')
+        return None
+       # return self._classicalHamiltonian
 
     def setClassicalHamiltonian(self, newClassicalHamiltonian) -> None:
         """

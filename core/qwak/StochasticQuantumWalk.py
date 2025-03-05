@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
-from qutip import Qobj, Options, mesolve
+from qutip import Qobj, Options, mesolve, QobjEvo
 from qwak.StochasticOperator import StochasticOperator
 from qwak.State import State
 
@@ -51,46 +51,19 @@ class StochasticQuantumWalk(object):
         opts : Options, optional
             QuTiP options for the simulation. Defaults to storing states and the final state.
         """
-        print("\t\t\tBefore calling self._time")
         self._time = np.arange(0, time + 1)
-        print("\t\t\tAfter calling self._time")
         if self._operator.getSinkNode() is not None:
-            print("\t\t\tBefore calling Qobj")
             self._initQutipState = Qobj(
                 np.vstack([self._initState.getStateVec(), [0.0]])
             )
-            print("\t\t\tAfter calling Qobj")
-        print("\t\t\tBefore calling mesolve")
-        print("\t\t\t\tType of self._operator.getQuantumHamiltonian():", type(self._operator.getQuantumHamiltonian()))
-        print("\t\t\t\tType of self._initQutipState:", type(self._initQutipState))
-        print("\t\t\t\tType of self._time:", type(self._time))
-        print("\t\t\t\tType of self._operator.getClassicalHamiltonian():", type(self._operator.getClassicalHamiltonian()))
-        print("\t\t\t\tType of observables:", type(observables))
-        print("\t\t\t\tType of opts:", type(opts))
-        print(f"\t\t\t\tself._operator.getQuantumHamiltonian() hermitian:{self._operator.getQuantumHamiltonian().isherm}")
-        # print("Classical Hamiltonian contents:", self._operator.getClassicalHamiltonian())
-        print("\t\t\tBefore calling mesolve")
-        collapse_ops = self._operator.getClassicalHamiltonian()
-        # If all classical Hamiltonians are zero, set collapse_ops to None
-        if collapse_ops and all((op.full() == 0).all() for op in collapse_ops):
-            print("\t\t\tAll collapse operators are zero. Setting collapse_ops to None.")
-            collapse_ops = None
-
-        # Debugging print to confirm final collapse operators before calling mesolve
-        print("\t\t\tFinal collapse operators:", collapse_ops)
-        print(f"self._time size: {self._time.shape}, values: {self._time[:10]} ... {self._time[-10:]}")
-        print("Quantum Hamiltonian matrix:\n", self._operator.getQuantumHamiltonian().full())
-        print("Initial Qutip State (self._initQutipState):\n", self._initQutipState.full())
-
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
             self._time,
-            collapse_ops,
-            observables,
-            options=opts,
+            c_ops = self._operator.getClassicalHamiltonian(),
+            e_ops=observables,
+            options=None,
         ).final_state.full()
-        print("\t\t\tAfter calling mesolve")
 
     def getFinalState(self) -> Qobj:
         """Returns the final quantum state after the completion of the walk.
