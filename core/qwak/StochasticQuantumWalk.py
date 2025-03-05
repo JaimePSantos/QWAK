@@ -31,7 +31,7 @@ class StochasticQuantumWalk(object):
         self._initState = state
         self._initQutipState = Qobj(state.getStateVec())
         self._operator = operator
-        self._finalState = Qobj(State(self._n))
+        self._finalState = Qobj(State(self._n).getStateVec())
         self._time = 0
 
     def buildWalk(
@@ -68,11 +68,25 @@ class StochasticQuantumWalk(object):
         print("\t\t\t\tType of observables:", type(observables))
         print("\t\t\t\tType of opts:", type(opts))
         print(f"\t\t\t\tself._operator.getQuantumHamiltonian() hermitian:{self._operator.getQuantumHamiltonian().isherm}")
+        # print("Classical Hamiltonian contents:", self._operator.getClassicalHamiltonian())
+        print("\t\t\tBefore calling mesolve")
+        collapse_ops = self._operator.getClassicalHamiltonian()
+        # If all classical Hamiltonians are zero, set collapse_ops to None
+        if collapse_ops and all((op.full() == 0).all() for op in collapse_ops):
+            print("\t\t\tAll collapse operators are zero. Setting collapse_ops to None.")
+            collapse_ops = None
+
+        # Debugging print to confirm final collapse operators before calling mesolve
+        print("\t\t\tFinal collapse operators:", collapse_ops)
+        print(f"self._time size: {self._time.shape}, values: {self._time[:10]} ... {self._time[-10:]}")
+        print("Quantum Hamiltonian matrix:\n", self._operator.getQuantumHamiltonian().full())
+        print("Initial Qutip State (self._initQutipState):\n", self._initQutipState.full())
+
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
             self._time,
-            self._operator.getClassicalHamiltonian(),
+            collapse_ops,
             observables,
             options=opts,
         ).final_state.full()

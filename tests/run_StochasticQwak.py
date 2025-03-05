@@ -57,4 +57,5 @@ class TestStochasticQWAK(object):
         )
 
 bench = TestStochasticQWAK()
-bench.test_StochasticProbDistSingleNodeCycleNoNoise()
+# bench.test_StochasticProbDistSingleNodeCycleNoNoise()
+bench.test_StochasticProbDistSingleNodeCycleNoise()

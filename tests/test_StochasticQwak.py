@@ -55,6 +55,3 @@ class TestStochasticQWAK(object):
             stochasticProbDistSingleNodeCycleNoise,
             err_msg=f"Probability Distribution does not match expected for n = {n} and t = {t}",
         )
-
-bench = TestStochasticQWAK()
-bench.test_StochasticProbDistSingleNodeCycleNoNoise()
