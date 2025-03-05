@@ -27,6 +27,7 @@ class StochasticQWAK:
 
         Parameters
         ----------
+
         graph : nx.Graph
             The graph over which the quantum walk is performed.
         initStateList : list, optional
@@ -72,6 +73,7 @@ class StochasticQWAK:
 
         Parameters
         ----------
+
         time : float, optional
             Duration of the quantum walk.
         initStateList : list, optional
@@ -90,34 +92,34 @@ class StochasticQWAK:
             QuTiP options for the simulation.
         """
         try:
-            print("\t\tBefore calling buildState")
+            # print("\t\tBefore calling buildState")
             self._initState.buildState(
                 nodeList=initStateList, customStateList=customStateList
             )
-            print("\t\tAfter calling buildState")
+            # print("\t\tAfter calling buildState")
         except StateOutOfBounds as stOBErr:
             raise stOBErr
         except NonUnitaryState as nUErr:
             raise nUErr
-        print("\t\tBefore calling buildStochasticOperator")
+        # print("\t\tBefore calling buildStochasticOperator")
         self._operator.buildStochasticOperator(
             noiseParam=noiseParam, sinkNode=sinkNode, sinkRate=sinkRate
         )
-        print("\t\tAfter calling buildStochasticOperator")
-        print("\t\tBefore calling StochasticQuantumWalk")
+        # print("\t\tAfter calling buildStochasticOperator")
+        # print("\t\tBefore calling StochasticQuantumWalk")
         self._quantumWalk = StochasticQuantumWalk(
             self._initState, self._operator)
-        print("\t\tAfter calling StochasticQuantumWalk")
-        print("\t\tBefore calling buildWalk")
+        # print("\t\tAfter calling StochasticQuantumWalk")
+        # print("\t\tBefore calling buildWalk")
         self._quantumWalk.buildWalk(time, observables, opts)
-        print("\t\tAfter calling buildWalk")
-        print("\t\tBefore calling StochasticProbabilityDistribution")
+        # print("\t\tAfter calling buildWalk")
+        # print("\t\tBefore calling StochasticProbabilityDistribution")
         self._probDist = StochasticProbabilityDistribution(
             self._quantumWalk)
-        print("\t\tAfter calling StochasticProbabilityDistribution")
-        print("\t\tBefore calling buildProbDist")
+        # print("\t\tAfter calling StochasticProbabilityDistribution")
+        # print("\t\tBefore calling buildProbDist")
         self._probDist.buildProbDist()
-        print("\t\tAfter calling buildProbDist")
+        # print("\t\tAfter calling buildProbDist")
 
     def setProbDist(self, newProbDist: StochasticProbabilityDistribution) -> None:
         """Sets a new probability distribution for the quantum walk.

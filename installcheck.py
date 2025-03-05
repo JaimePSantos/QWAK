@@ -20,7 +20,7 @@ def run_qwakpath_tests():
         except Exception as e:
             print(colored(f"ERR: {method}", "red"))
         finally:
-            print(colored(f"END - {method}", "yellow"))
+            print(colored(f"END - {method}", "cyan"))
 
 def run_stochastic_tests():
     from tests.test_StochasticQwak import TestStochasticQWAK
@@ -33,7 +33,7 @@ def run_stochastic_tests():
         except Exception as e:
             print(colored(f"ERR: {method}", "red"))
         finally:
-            print(colored(f"END - {method}", "yellow"))
+            print(colored(f"END - {method}", "cyan"))
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
