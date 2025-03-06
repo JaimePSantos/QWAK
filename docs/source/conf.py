@@ -11,6 +11,11 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, os.path.abspath('../../'))
+sys.path.insert(0, os.path.abspath('../../core'))
+sys.path.insert(0, os.path.abspath('../../core/qwak'))
+sys.path.insert(0, os.path.abspath('../../core/utils'))
+sys.path.insert(0, os.path.abspath('../../core/tests'))
+sys.path.insert(0, os.path.abspath('../../core/qwak_cupy'))
 
 # -- Path setup --------------------------------------------------------------
 # If extensions (or modules to document with autodoc) are in another directory,
@@ -50,7 +55,7 @@ extensions = [
 ]
 
 # Add the following lines to include the installcheck module
-autodoc_mock_imports = ["tests"]
+autodoc_mock_imports = ["tests", "charset_normalizer", "qwak", "qwak_cupy"]
 
 # Automatically generate stub pages when using the .. autosummary directive
 autosummary_generate = True
@@ -105,7 +110,7 @@ html_theme = "furo"
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
+html_static_path = []
 
 html_theme_options = {
     "light_css_variables": {

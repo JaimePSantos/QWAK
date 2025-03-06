@@ -325,3 +325,7 @@ class State:
                f"Node list: {self._nodeList}\n" \
                f"Custom Node list: {self._customStateList}\n" \
                f"State:\n\t{self._stateVec}"
+
+def some_function():
+    from . import State  # Local import to avoid circular import issues
+    # ...existing code...

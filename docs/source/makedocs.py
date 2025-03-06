@@ -2,7 +2,7 @@ import subprocess
 import os
 
 # Define the modules and the source directory
-modules = ['../core/qwak/', '../core/utils/']
+modules = ['../../core/qwak/', '../../core/utils/', '../../core/tests/', '../../core/qwak_cupy/']
 source_dir = 'source/'
 
 # Ensure the source directory exists

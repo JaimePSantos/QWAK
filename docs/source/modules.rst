@@ -7,3 +7,4 @@ core
    qwak
    qwak_cupy
    utils
+   tests

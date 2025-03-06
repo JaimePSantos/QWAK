@@ -3,8 +3,8 @@ Installation
 To install QWAK, follow these steps:
 
 1. Set up your environment:
-  - You can find instructions for setting up the environment with conda :ref:`here <conda-installation>` and with venv :ref:`here <venv-installation>`.
-  - You can also find all the dependencies.
+   - You can find instructions for setting up the environment with conda :ref:`here <conda-installation>` and with venv :ref:`here <venv-installation>`.
+   - You can also find all the dependencies.
 
 2. Ensure all required :ref:`dependencies <dependencies>` are met. GPU users can refer to the `CuPy installation guide <https://docs.cupy.dev/en/stable/install.html>`_ which requires the `CUDA Toolkit <https://developer.nvidia.com/cuda-toolkit>`_.
 

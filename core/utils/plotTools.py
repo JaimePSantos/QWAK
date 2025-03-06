@@ -414,3 +414,7 @@ def plot_qwak_heatmap(
         plt.show()
     else:
         plt.show()
+
+def searchProbStepsPlotting():
+    # Define the function here
+    pass

@@ -49,3 +49,9 @@ Contents
    usage
    contributing
    modules
+   conda_setup
+   dependencies
+   installcheck
+   main
+   tests
+   venv_setup

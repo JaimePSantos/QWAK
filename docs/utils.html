@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="qwak_cupy package" href="qwak_cupy.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Installing QWAK locally with Anaconda (recommended)" href="conda_setup.html" /><link rel="prev" title="qwak_cupy package" href="qwak_cupy.html" />
 
     <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
         <title>utils package - QWAK - Quantum Walk Analysis Kit</title>
@@ -207,6 +207,16 @@
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">utils package</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="conda_setup.html">Installing QWAK locally with Anaconda (recommended)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dependencies.html">Dependencies</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installcheck.html">installcheck module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html">main module</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="tests.html">tests package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of tests package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests.stubs.html">tests.stubs package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tests.testVariables.html">tests.testVariables package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="venv_setup.html">Installing QWAK locally with Venv</a></li>
 </ul>
 
 </div>
@@ -461,8 +471,84 @@ of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p
 <dd></dd></dl>
 
 </section>
-<section id="utils-plottools-module">
-<h2>utils.plotTools module<a class="headerlink" href="#utils-plottools-module" title="Link to this heading">¶</a></h2>
+<section id="module-utils.plotTools">
+<span id="utils-plottools-module"></span><h2>utils.plotTools module<a class="headerlink" href="#module-utils.plotTools" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.plotTools.plot_qwak">
+<span class="sig-name descname"><span class="pre">plot_qwak</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_value_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_value_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plot_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_ncol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">legend_loc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'best'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(10,</span> <span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">color_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">line_style_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_loglog</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_ticks_generator</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_tick_labels</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">['a',</span> <span class="pre">'b',</span> <span class="pre">'c']</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_round_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_round_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_line_values</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_line_style</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'--'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_line_list_index</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_line_colors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_lim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/plotTools.html#plot_qwak"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.plotTools.plot_qwak" title="Link to this definition">¶</a></dt>
+<dd><p>Plots data from a matrix of x values and a matrix of y values.
+Note that all parameters can be passed via a dictionary using the <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs syntax.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x_value_matrix</strong> (<em>array_like</em>) – A matrix of x values. Each row is a set of x values for a single line.</p></li>
+<li><p><strong>y_value_matrix</strong> (<em>array_like</em>) – A matrix of y values. Each row is a set of y values for a single line.</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – The label for the x-axis. The default is None.</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – The label for the y-axis. The default is None.</p></li>
+<li><p><strong>plot_title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the plot. The default is None.</p></li>
+<li><p><strong>legend_labels</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of strings to be used as labels for the legend. The default is None.</p></li>
+<li><p><strong>legend_title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the legend. The default is None.</p></li>
+<li><p><strong>legend_ncol</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of columns in the legend. The default is 3.</p></li>
+<li><p><strong>legend_loc</strong> (<em>str</em><em>, </em><em>optional</em>) – The location of the legend. The default is ‘best’.</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em>, </em><em>optional</em>) – The path to save the plot to. The default is None.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – The font size of the plot. The default is 12.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>optional</em>) – The size of the figure. The default is (10,6).</p></li>
+<li><p><strong>color_list</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of colors to be used for the lines. The default is None.</p></li>
+<li><p><strong>line_style_list</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of line styles to be used for the lines. The default is None.</p></li>
+<li><p><strong>use_loglog</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use a log-log plot. The default is False.</p></li>
+<li><p><strong>use_cbar</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to use a colorbar. The default is False.</p></li>
+<li><p><strong>cbar_label</strong> (<em>str</em><em>, </em><em>optional</em>) – The label for the colorbar. The default is None.</p></li>
+<li><p><strong>cbar_ticks_generator</strong> (<em>function</em><em>, </em><em>optional</em>) – A function that generates the ticks for the colorbar. The default is None.</p></li>
+<li><p><strong>cbar_num_ticks</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of ticks for the colorbar. The default is 3.</p></li>
+<li><p><strong>cbar_tick_labels</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of strings to be used as labels for the colorbar ticks. The default is [‘a’,’b’,’c’].</p></li>
+<li><p><strong>x_num_ticks</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of ticks for the x-axis. The default is None.</p></li>
+<li><p><strong>y_num_ticks</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of ticks for the y-axis. The default is None.</p></li>
+<li><p><strong>x_round_val</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of decimal places to round the x-axis ticks to. The default is 3.</p></li>
+<li><p><strong>y_round_val</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of decimal places to round the y-axis ticks to. The default is 3.</p></li>
+<li><p><strong>v_line_values</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of values to plot vertical lines at. The default is None.</p></li>
+<li><p><strong>v_line_style</strong> (<em>str</em><em>, </em><em>optional</em>) – The style of the vertical lines. The default is ‘–‘.</p></li>
+<li><p><strong>v_line_list_index</strong> (<em>int</em><em>, </em><em>optional</em>) – The index of the line to plot the vertical lines on. The default is None.</p></li>
+<li><p><strong>v_line_colors</strong> (<em>list</em><em>, </em><em>optional</em>) – A list of colors to be used for the vertical lines. The default is None.</p></li>
+<li><p><strong>x_lim</strong> (<em>tuple</em><em>, </em><em>optional</em>) – The limits of the x-axis. The default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.plotTools.plot_qwak_heatmap">
+<span class="sig-name descname"><span class="pre">plot_qwak_heatmap</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prob_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_num_ticks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_round_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_round_val</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xlabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ylabel</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cbar_label</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">font_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">figsize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(8,</span> <span class="pre">6)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmap</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'coolwarm'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_vline_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_hline_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/plotTools.html#plot_qwak_heatmap"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.plotTools.plot_qwak_heatmap" title="Link to this definition">¶</a></dt>
+<dd><p>Plot a heatmap of the probability of a given p and t value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p_values</strong> (<em>list</em><em> of </em><em>lists</em>) – List of lists of p values.</p></li>
+<li><p><strong>t_values</strong> (<em>list</em><em> of </em><em>lists</em>) – List of lists of t values.</p></li>
+<li><p><strong>prob_values</strong> (<em>list</em><em> of </em><em>lists</em>) – List of lists of probability values.</p></li>
+<li><p><strong>x_num_ticks</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of x-axis ticks. The default is 5.</p></li>
+<li><p><strong>y_num_ticks</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of y-axis ticks. The default is 5.</p></li>
+<li><p><strong>x_round_val</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimal places to round x-axis tick labels. The default is 3.</p></li>
+<li><p><strong>y_round_val</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of decimal places to round y-axis tick labels. The default is 3.</p></li>
+<li><p><strong>filepath</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the plot. The default is None.</p></li>
+<li><p><strong>N</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of samples. The default is None.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the x-axis. The default is None.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the y-axis. The default is None.</p></li>
+<li><p><strong>cbar_label</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for the colorbar. The default is None.</p></li>
+<li><p><strong>font_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Font size for the plot. The default is 12.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Size of the plot. The default is (8, 6).</p></li>
+<li><p><strong>cmap</strong> (<em>str</em><em>, </em><em>optional</em>) – Colormap for the plot. The default is ‘coolwarm’.</p></li>
+<li><p><strong>x_vline_value</strong> (<em>float</em><em>, </em><em>optional</em>) – Value to draw a vertical line at. The default is None.</p></li>
+<li><p><strong>y_hline_value</strong> (<em>float</em><em>, </em><em>optional</em>) – Value to draw a horizontal line at. The default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="utils.plotTools.searchProbStepsPlotting">
+<span class="sig-name descname"><span class="pre">searchProbStepsPlotting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/utils/plotTools.html#searchProbStepsPlotting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#utils.plotTools.searchProbStepsPlotting" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </section>
 <section id="module-utils">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-utils" title="Link to this heading">¶</a></h2>
@@ -474,7 +560,15 @@ of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="conda_setup.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Installing QWAK locally with Anaconda (recommended)</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="qwak_cupy.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -537,7 +631,12 @@ of the eigenvalue theta0 (the biggest eigenvalue) and all others eigenvalues.</p
 <li><a class="reference internal" href="#utils.jsonTools.convert_cytoscape_to_decimal"><code class="docutils literal notranslate"><span class="pre">convert_cytoscape_to_decimal()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#utils-plottools-module">utils.plotTools module</a></li>
+<li><a class="reference internal" href="#module-utils.plotTools">utils.plotTools module</a><ul>
+<li><a class="reference internal" href="#utils.plotTools.plot_qwak"><code class="docutils literal notranslate"><span class="pre">plot_qwak()</span></code></a></li>
+<li><a class="reference internal" href="#utils.plotTools.plot_qwak_heatmap"><code class="docutils literal notranslate"><span class="pre">plot_qwak_heatmap()</span></code></a></li>
+<li><a class="reference internal" href="#utils.plotTools.searchProbStepsPlotting"><code class="docutils literal notranslate"><span class="pre">searchProbStepsPlotting()</span></code></a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#module-utils">Module contents</a></li>
 </ul>
 </li>
