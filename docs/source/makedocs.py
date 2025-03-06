@@ -2,7 +2,7 @@ import subprocess
 import os
 
 # Define the modules and the source directory
-modules = ['../../core/qwak/', '../../core/utils/', '../../core/tests/', '../../core/qwak_cupy/']
+modules = ['../core/qwak/', '../core/utils/']
 source_dir = 'source/'
 
 # Ensure the source directory exists
@@ -16,7 +16,7 @@ with open(modules_rst_path, 'w') as f:
 # Function to append module documentation to 'modules.rst'
 def append_to_modules_rst(module_name):
     with open(modules_rst_path, 'a') as f:
-        f.write(f'   {module_name}\n')
+        f.write(f'   {module_name}/modules\n')
 
 # Function to run sphinx-apidoc on a module
 def generate_module_docs(module_path):

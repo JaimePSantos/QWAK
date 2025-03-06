@@ -1,65 +1,113 @@
 Installation
 ============
-To install QWAK, follow these steps:
 
-1. Set up your environment:
-   - You can find instructions for setting up the environment with conda :ref:`here <conda-installation>` and with venv :ref:`here <venv-installation>`.
-   - You can also find all the dependencies.
-
-2. Ensure all required :ref:`dependencies <dependencies>` are met. GPU users can refer to the `CuPy installation guide <https://docs.cupy.dev/en/stable/install.html>`_ which requires the `CUDA Toolkit <https://developer.nvidia.com/cuda-toolkit>`_.
-
-3. Install the package via PyPi:
-
-.. code-block:: console
-
-  pip install qwak-sim
-
-Local Installation
-******************
-To install QWAK locally, follow these steps:
-
-1. Clone the repository:
+QWAK is not yet hosted on PiPy, so you will need to install it locally preferably with a virtual environment.
+The first step will be to clone the repository:
 
 .. code-block:: console
 
   git clone https://github.com/JaimePSantos/QWAK.git
 
-2. Navigate to the cloned repository:
+.. _conda-installation:
+
+Installing QWAK locally with Anaconda (recommended)
+***************************************************
+Download and install `Anaconda <https://www.anaconda.com/>`_.
+
+Create a conda environment using:
 
 .. code-block:: console
 
-  cd QWAK
+  conda create -n <name_of_env>
 
-3. Install the package:
+Activate the virtual environment:
+
+.. code-block:: console
+
+  conda activate <name_of_env>
+
+After the environment is setup, you will need to install the core dependencies:
+
+.. code-block:: console
+
+  pip install numpy scipy sympy matplotlib networkx qutip
+
+And if you're interested in using the GUI you will also need:
+
+.. code-block:: console
+
+  pip install eel
+
+After the dependencies are met, you will only need to assure you navigated to the cloned directory:
+
+.. code-block:: console
+
+  cd <path-to-cloned-folders>/QWAK/
+
+
+And then install the package via PyPi:
+
+.. code-block:: console
+
+  pip install qwak-sim
+
+Or locally through:
 
 .. code-block:: console
 
   pip install .
 
-.. note::
+.. note:: If you're installing the package for development purposes run
 
-  If you want to contribute to the development of QWAK, you can install it in edit mode by using the following command:
+            pip install -e .
 
-  .. code-block:: console
+          This allows for code changes that do not require re-installation of the package.
 
-    pip install -e .
+.. WARNING:: The GUI was migrated to a fullstack web app and some changes were made to the GraphicalQWAK class.
+
+             For this reason, the local eel GUI might be temporarily unavailable.
+
+.. _venv-installation:
+
+Installing QWAK locally with Venv
+*********************************
+
+After navigating to the cloned repository, create a python virtual environment:
+
+.. code-block:: console
+
+  python3 -m venv <name_of_env>
+
+Optionally, create a shortcut for the activation executable. If you're on linux simply:
+
+.. code-block:: console
+
+    ln -s /qwakEnv/bin/activate <name_of_env>
+
+And activate the environment with:
+
+.. code-block:: console
+
+    source <name_of_env>
+
+Then you will need to install the dependencies and the package itself using pip as described above.
 
 .. _testing-installation:
 
 Testing the installation
 ************************
 
-The preferred way to check the installation is by running the package's unit tests via pytest:
+The basic testing script can be run by:
 
 .. code-block:: console
 
-  pip install pytest
-  pytest -v tests/
+    python installCheck.py
 
-An update to the installation check script is coming soon. For now, you can also run the basic testing script:
+If no errors are thrown and you end up with some plots opened, then the installation was successful.
+
+However, we recommend running the package's unit tests via pytest:
 
 .. code-block:: console
 
-  python installCheck.py
-
-If no errors are thrown and you end up with some plots opened, then the installation was successful. For more detailed testing, refer to the :doc:`installcheck <installcheck>` module documentation.
+    pip install pytest
+    pytest -v tests/

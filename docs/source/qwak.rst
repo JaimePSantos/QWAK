@@ -12,14 +12,6 @@ qwak.Errors module
    :undoc-members:
    :show-inheritance:
 
-qwak.GraphicalQWAK module
--------------------------
-
-.. automodule:: qwak.GraphicalQWAK
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 qwak.Operator module
 --------------------
 
@@ -72,14 +64,6 @@ qwak.StochasticQuantumWalk module
 ---------------------------------
 
 .. automodule:: qwak.StochasticQuantumWalk
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-qwak.StochasticQuantumWalkCopy module
--------------------------------------
-
-.. automodule:: qwak.StochasticQuantumWalkCopy
    :members:
    :undoc-members:
    :show-inheritance:
