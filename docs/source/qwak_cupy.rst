@@ -44,14 +44,6 @@ qwak\_cupy.State module
    :undoc-members:
    :show-inheritance:
 
-qwak\_cupy.State copy module
-----------------------------
-
-.. automodule:: qwak_cupy.State copy
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 qwak\_cupy.qwak module
 ----------------------
 
