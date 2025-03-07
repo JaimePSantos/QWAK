@@ -91,7 +91,7 @@ nMin = 3
 nMax = 1000 
 n_values = list(range(nMin, nMax, 1))
 pVal = 0.8
-sample_range = range(0, 35, 1)
+sample_range = range(0, 100, 1)
 seed = 10
 
 
@@ -103,21 +103,22 @@ path = os.path.normpath(os.path.join(
 
 
 
-# def delete_n_folders(path, nrange):
-#     for n in tqdm(nrange, desc="Deleting n_x folders"):
-#         folder_path = os.path.join(path, f"n_{n}_avg")
-#         if os.path.exists(folder_path) and os.path.isdir(folder_path):
-#             shutil.rmtree(folder_path)
-# delete_n_folders(path,n_values)
-# print(f"Using base path: {path}")
+def delete_n_folders(path, nrange):
+    for n in tqdm(nrange, desc="Deleting n_x folders"):
+        folder_path = os.path.join(path, f"n_{n}")
+        if os.path.exists(folder_path) and os.path.isdir(folder_path):
+            shutil.rmtree(folder_path)
 
-process_profiling_data(
-    path=path,
-    method_name="init_hiperwalk",
-    nrange=n_values,
-    sample_range=sample_range,  # Assuming samples 0-9
-    seed=seed
-)
+delete_n_folders(path,n_values)
+print(f"Using base path: {path}")
+
+# process_profiling_data(
+#     path=path,
+#     method_name="init_hiperwalk",
+#     nrange=n_values,
+#     sample_range=sample_range,  # Assuming samples 0-9
+#     seed=seed
+# )
 
 # process_profiling_data(
 #     path=path,
