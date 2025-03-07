@@ -9,6 +9,7 @@ import math
 import copy
 import os
 from utils.plotTools import plot_qwak
+import shutil
 
 def write_nested_list_to_file(file_path, nested_lst):
     """
@@ -34,6 +35,27 @@ def load_nested_list_from_file(file_path):
             lst = [float(item) for item in line.strip().split()]
             nested_lst.append(lst)
     return nested_lst
+
+def write_list_to_file(file_path, lst):
+    """
+    Write a list of elements to a text file.
+    
+    :param file_path: the file path where to write the list
+    :param lst: the list of elements to write
+    """
+    with open(file_path, 'w') as f:
+        f.write(" ".join(map(str, lst)) + "\n")
+
+def load_list_from_file(file_path):
+    """
+    Load a list of float elements from a text file.
+    
+    :param file_path: the file path to load the list from
+    :return: the list of float elements loaded from the file
+    """
+    with open(file_path, 'r') as f:
+        line = f.readline()
+        return [float(item) for item in line.strip().split()]
 
 def gamma_hypercube(n):
     total = 0
@@ -105,14 +127,14 @@ time_file = os.path.join(dataset_dir, f'timeMatrix_N{N}_S{samples}_GMIN{round(ga
 marked_prob_file = os.path.join(dataset_dir, f'markedProbMatrix_N{N}_S{samples}_GMIN{round(gammaMin, 3)}_TMAX{round(maxTime)}.txt')
 
 if os.path.exists(time_file) and os.path.exists(marked_prob_file):
-    timeMatrix = load_nested_list_from_file(time_file)
+    timeList = load_list_from_file(time_file)
     markedProbMatrix = load_nested_list_from_file(marked_prob_file)
     print('File exists!')
 else:
     print('File Doesnt Exist!')
     markedProbMatrix = multiple_hypercube_qwak(N, gammaList, timeList, markedElements, initCond)
     if not os.path.exists(time_file):
-        write_nested_list_to_file(time_file, timeList)
+        write_list_to_file(time_file, timeList)
     if not os.path.exists(marked_prob_file):
         write_nested_list_to_file(marked_prob_file, markedProbMatrix)
 
@@ -127,8 +149,8 @@ print(v_line_values)
 
 cbar_num_ticks = 10
 params = {
-    'font_size': 14,
-    'figsize': (12, 8),
+    'font_size': 24,  # Increased font size
+    'figsize': (16, 10),  # Increased figure size
     'plot_title': f'Hypercube N={N}',
     'x_label': 'Time',
     'y_label': 'Probability',
@@ -152,13 +174,26 @@ params = {
     'v_line_values': v_line_values,
     'v_line_style': '--',
     'v_line_list_index': len(gammaList) - 1,
-    'title_font_size': 20,
-    'xlabel_font_size': 22,
-    'ylabel_font_size': 22,
-    'legend_font_size': 14,
-    'legend_title_font_size': 14,
-    'tick_font_size': 18,
+    'title_font_size': 44,  # Increased font size
+    'xlabel_font_size': 38,  # Increased font size
+    'ylabel_font_size': 38,  # Increased font size
+    'legend_font_size': 34,  # Increased font size
+    'legend_title_font_size': 36,  # Increased font size
+    'tick_font_size': 34,  # Increased font size
 }
 
-plot_qwak(x_value_matrix=timeList, y_value_matrix=markedProbMatrix, **params)
-plt.plot()
+plot_qwak(x_value_matrix=[timeList]*len(markedProbMatrix), y_value_matrix=markedProbMatrix, **params)
+
+# plt.savefig(params['save_path'], bbox_inches='tight')
+plt.show()
+
+copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+if copy_to_latex == 'y':
+    latex_project_path = os.path.normpath(os.path.join(
+        SCRIPT_DIR,
+        "../QWAK-Paper_Revised/img/newFigures"
+    ))
+    shutil.copy(params['save_path'], latex_project_path)
+    print(f"Image copied to {latex_project_path}")
+else:
+    print("Image not copied.")

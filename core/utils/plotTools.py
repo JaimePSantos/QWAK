@@ -239,7 +239,7 @@ def plot_qwak(
                 min_x_value_matrix,
                 max_x_value_matrix,
                 num_x_ticks))
-        ax.set_xticklabels(x_tick_labels)
+        ax.set_xticklabels(x_tick_labels, fontsize=font_size + 2)
 
     if y_num_ticks is not None:
         num_y_ticks = min(y_num_ticks, len(y_value_matrix[0]))
@@ -254,7 +254,7 @@ def plot_qwak(
                 min_y_value_matrix,
                 max_y_value_matrix,
                 num_y_ticks))
-        ax.set_yticklabels(y_tick_labels)
+        ax.set_yticklabels(y_tick_labels, fontsize=font_size + 2)
 
     # add colorbar
     if use_cbar:
@@ -279,10 +279,10 @@ def plot_qwak(
             ticks=cbar_ticks)
         if cbar_label is not None:
             cbar.set_label(cbar_label, fontsize=font_size + 2)
-        cbar.ax.tick_params(labelsize=font_size)
+        cbar.ax.tick_params(labelsize=font_size + 2)
 
     if cbar_tick_labels is not None:
-        cbar.ax.set_yticklabels(cbar_tick_labels)
+        cbar.ax.set_yticklabels(cbar_tick_labels, fontsize=font_size + 2)
 
     if x_lim is not None:
         ax.set_xlim(x_lim)

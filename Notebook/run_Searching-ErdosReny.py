@@ -12,6 +12,7 @@ import copy
 import os
 import seaborn as sns
 import pandas as pd
+import shutil
 
 def write_nested_list_to_file(file_path, nested_lst):
     """
@@ -142,7 +143,8 @@ y_vline_value = t
 
 heatMapPlotFile = os.path.join(output_dir, f'heatMapPlot_N{N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.png')
 params = {
-    'figsize': (14, 8),
+    'font_size': 18,  # Decreased font size
+    'figsize': (16, 10),  # Increased figure size
     'x_num_ticks': x_num_ticks,
     'y_num_ticks': y_num_ticks,
     'x_round_val': x_round_val,
@@ -152,16 +154,31 @@ params = {
     'xlabel': xlabel,
     'ylabel': ylabel,
     'cbar_label': cbar_label,
-    'font_size': font_size,
     'cmap': colormap,
     'x_vline_value': x_vline_value,
     'y_hline_value': y_vline_value,
-    'title_font_size': 34,  # Increased font size
-    'xlabel_font_size': 28,  # Increased font size
-    'ylabel_font_size': 28,  # Increased font size
-    'legend_font_size': 24,  # Increased font size
-    'legend_title_font_size': 26,  # Increased font size
-    'tick_font_size': 24,  # Increased font size
+    'title_font_size': 34,  # Decreased font size
+    'xlabel_font_size': 28,  # Decreased font size
+    'ylabel_font_size': 28,  # Decreased font size
+    'legend_font_size': 28,  # Decreased font size
+    'legend_title_font_size': 30,  # Decreased font size
+    'tick_font_size': 26,  # Decreased font size
+    'cbar_label_font_size': 44,  # Kept font size for "Solution Probability"
 }
 
 plot_qwak_heatmap(p_values=x, t_values=y, prob_values=z, **params)
+
+# Save the plot using the filepath in params
+# plt.savefig(params['filepath'], bbox_inches='tight')
+plt.show()
+
+copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+if copy_to_latex == 'y':
+    latex_project_path = os.path.normpath(os.path.join(
+        SCRIPT_DIR,
+        "../QWAK-Paper_Revised/img/newFigures"
+    ))
+    shutil.copy(params['filepath'], latex_project_path)
+    print(f"Image copied to {latex_project_path}")
+else:
+    print("Image not copied.")
