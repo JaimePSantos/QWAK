@@ -19,8 +19,8 @@ def plot_qwak(
         legend_ncol=3,
         legend_loc='best',
         save_path=None,
-        font_size=12,
-        figsize=(10, 6),
+        font_size=16,  # Increased font size
+        figsize=(12, 8),  # Adjusted figure size
         color_list=None,
         line_style_list=None,
         use_loglog=False,
@@ -38,6 +38,7 @@ def plot_qwak(
         v_line_list_index=None,
         v_line_colors=None,
         x_lim=None,
+        use_grid=False,  # Added use_grid parameter
         **kwargs):
     """
     Plots data from a matrix of x values and a matrix of y values.
@@ -103,6 +104,8 @@ def plot_qwak(
         A list of colors to be used for the vertical lines. The default is None.
     x_lim : tuple, optional
         The limits of the x-axis. The default is None.
+    use_grid : bool, optional
+        Whether to use a grid. The default is False.
     """
 
     # Unpack optional parameters
@@ -134,6 +137,7 @@ def plot_qwak(
     x_lim = kwargs.get('x_lim', x_lim)
     v_line_list_index = kwargs.get(
         'v_line_list_index', v_line_list_index)
+    use_grid = kwargs.get('use_grid', use_grid)
 
     if not isinstance(
             x_value_matrix[0],
@@ -156,6 +160,8 @@ def plot_qwak(
     fig, ax = plt.subplots(figsize=figsize)
     if use_loglog:
         ax.loglog()
+    if use_grid:  # Apply grid option
+        ax.grid(True)
     axis_matrix_counter = 0
     color_matrix_counter = 0
     for xvalues, yvalues in zip(x_value_matrix, y_value_matrix):
@@ -195,25 +201,25 @@ def plot_qwak(
 
     # set the axis labels
     if x_label is not None:
-        ax.set_xlabel(x_label, fontsize=font_size + 2)
+        ax.set_xlabel(x_label, fontsize=font_size + 4)
     if y_label is not None:
-        ax.set_ylabel(y_label, fontsize=font_size + 2)
+        ax.set_ylabel(y_label, fontsize=font_size + 4)
 
     # set the plot plot_title
     if plot_title is not None:
-        ax.set_title(plot_title, fontsize=font_size + 4)
+        ax.set_title(plot_title, fontsize=font_size + 6)
 
     # set the legend
     if legend_labels is not None:
         legend = ax.legend(
             loc=legend_loc,
             ncol=legend_ncol,
-            fontsize=font_size - 1)
+            fontsize=font_size)
         if legend_title is not None:
-            legend.set_title(legend_title, prop={'size': font_size - 1})
+            legend.set_title(legend_title, prop={'size': font_size + 2})
 
     # set font size for ticks
-    ax.tick_params(axis='both', labelsize=font_size)
+    ax.tick_params(axis='both', labelsize=font_size + 2)
     min_x_value_matrix = np.min(x_value_matrix)
     max_x_value_matrix = np.max(x_value_matrix)
     min_y_value_matrix = np.min(y_value_matrix)
@@ -283,7 +289,7 @@ def plot_qwak(
 
     # save or show the plot
     if save_path is not None:
-        plt.savefig(save_path)
+        plt.savefig(save_path, bbox_inches='tight')
         plt.show()
     else:
         plt.show()

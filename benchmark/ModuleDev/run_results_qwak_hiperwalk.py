@@ -90,62 +90,106 @@ def merge_by_sum(dict_a, dict_b):
         merged[key] = dict_a[key] + dict_b[key]
     return merged
 
+def smooth_data(data, window_size=10):
+    """
+    Smooth the data using a simple moving average.
+    """
+    smoothed = np.convolve(data, np.ones(window_size)/window_size, mode='valid')
+    return np.concatenate((data[:window_size-1], smoothed))
 
 
 nMin = 3
 nMax = 1000 
 n_values = list(range(nMin, nMax, 1))
 pVal = 0.8
-sample_range = range(0, 100, 1)
+samples = 100
+sample_range = range(0, samples, 1)
 seed = 10
-
-
-
+t = 100
 SCRIPT_DIR = os.getcwd()
+
+### Hiperwalk
+
 path = os.path.normpath(os.path.join(
     SCRIPT_DIR,
-    "benchmark/ModuleDev/Profiling/operator_results"
+    "benchmark/ModuleDev/Profiling/hiperwalk_results"
 ))
 
-### Operator Benchmark
 
-results_init_avg = load_profiling_averages(
+results_init_hiperwalk_avg = load_profiling_averages(
     path=path,
-    method_name="init_operator",
+    method_name="init_hiperwalk",
     nrange=n_values,
     seed=seed
 )
 
-results_build_avg = load_profiling_averages(
+results_build_hiperwalk_avg = load_profiling_averages(
     path=path,
-    method_name="build_operator",
+    method_name="simulate",
     nrange=n_values,
     seed=seed
 )
 
-results_expm_avg = load_profiling_averages(
-    path=path,
-    method_name="build_expm_operator",
+results_hiperwalk = merge_by_sum(results_init_hiperwalk_avg, results_build_hiperwalk_avg)
+
+### Hiperwalk HPC
+
+path_hpc = os.path.normpath(os.path.join(
+    SCRIPT_DIR,
+    "benchmark/ModuleDev/Profiling/hiperwalk_results_hpc"
+))
+
+
+results_init_hiperwalk_hpc_avg = load_profiling_averages(
+    path=path_hpc,
+    method_name="init_hiperwalk",
     nrange=n_values,
     seed=seed
 )
 
+results_build_hiperwalk_hpc_avg = load_profiling_averages(
+    path=path_hpc,
+    method_name="simulate",
+    nrange=n_values,
+    seed=seed
+)
 
-init_build_merged_result = merge_by_sum(results_init_avg, results_build_avg)
+results_hiperwalk_hpc = merge_by_sum(results_init_hiperwalk_hpc_avg, results_build_hiperwalk_hpc_avg)
+
+results_hiperwalk_hpc_smooth = smooth_data(list(results_hiperwalk_hpc.values()), window_size=30)
+
+# QWAK with old method
+
+base_dir = os.path.normpath(os.path.join(
+    SCRIPT_DIR,
+    "benchmark/ModuleDev/Profiling/Old/Benchmark-SimpleQWAK_ER-NumPy"
+))
+base_dir_cupy_970 = os.path.normpath(os.path.join(
+    SCRIPT_DIR,
+    "benchmark/ModuleDev/Profiling/Old/Benchmark-SimpleQWAK_ER-CuPy_970"
+))
+
+avg_list = load_runMultipleSimpleQWAK_legacy(n_values, pVal, samples, t, base_dir)
+
+avg_list_cupy_970 = load_runMultipleSimpleQWAK_legacy(n_values, pVal, samples, t, base_dir_cupy_970)
+
+print('CuPy QWAK results computed and saved.')
+
 
 params = {
     'figsize': (12, 8),  # Adjusted figure size
-    'plot_title': 'Spectral Decomposition vs Matrix Exponential',
-    'x_label': 'Graph Size (N)',
-    'y_label': 'Execution Time (seconds)',
-    'legend_labels': ['Spectral Decomposition', 'Matrix Exponential'],
+    'plot_title': 'QWAK NumPy vs CuPy vs Hiperwalk',
+    'x_label': 'Graph Size N',
+    'y_label': 'Time (s)',
+    'legend_labels': ['Hiperwalk', 'Hiperwalk HPC', 'QWAK NumPy', 'QWAK CuPy'],
     'legend_loc': 'best',
+    # 'legend_title': 'Solutions',
     'legend_ncol': 1,
-    'color_list': ['b', 'g'],
-    'line_style_list': ['--', '-'],
+    'color_list': ['b', 'g', 'r', 'y'],
+    'line_style_list': ['--', '-', '-.', ':'],
     'save_path': os.path.normpath(os.path.join(
         SCRIPT_DIR,
-        "benchmark/ModuleDev/ImgOutput/benchmark-operator.png"
+        "benchmark/ModuleDev/ImgOutput/benchmark-hiperwalk_hpwhpcStub_numpy_cupy_.png"
     )),
     'use_loglog': False,
     'use_cbar': False,
@@ -159,15 +203,14 @@ params = {
     'title_font_size': 28,  # Reduced font size
     'xlabel_font_size': 22,  # Reduced font size
     'ylabel_font_size': 22,  # Reduced font size
-    'legend_font_size': 18,  # Reduced font size
+    'legend_font_size': 16,  # Reduced font size
     'legend_title_font_size': 20,  # Reduced font size
     'tick_font_size': 18,  # Reduced font size
     'marker_list': ['x', 'o']
 }
 
-x_value_matrix = [list(init_build_merged_result.keys()),list(results_expm_avg.keys())]
-y_value_matrix = [list(init_build_merged_result.values()),list(results_expm_avg.values())]
+x_value_matrix = [list(results_hiperwalk.keys()), list(results_hiperwalk_hpc.keys()), n_values, n_values]
+y_value_matrix = [list(results_hiperwalk.values()), results_hiperwalk_hpc_smooth, avg_list, avg_list_cupy_970]
 
-plot_qwak(x_value_matrix = x_value_matrix, y_value_matrix = y_value_matrix,**params)
-
+plot_qwak(x_value_matrix=x_value_matrix, y_value_matrix=y_value_matrix, **params)
 plt.show()
