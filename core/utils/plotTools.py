@@ -313,6 +313,10 @@ def plot_qwak_heatmap(
         cmap='coolwarm',
         x_vline_value=None,
         y_hline_value=None,
+        title_font_size=16,  # Added title_font_size parameter
+        xlabel_font_size=14,  # Added xlabel_font_size parameter
+        ylabel_font_size=14,  # Added ylabel_font_size parameter
+        tick_font_size=12,  # Added tick_font_size parameter
         **kwargs):
     """
     Plot a heatmap of the probability of a given p and t value.
@@ -353,6 +357,14 @@ def plot_qwak_heatmap(
         Value to draw a vertical line at. The default is None.
     y_hline_value : float, optional
         Value to draw a horizontal line at. The default is None.
+    title_font_size : int, optional
+        Font size for the title. The default is 16.
+    xlabel_font_size : int, optional
+        Font size for the x-axis label. The default is 14.
+    ylabel_font_size : int, optional
+        Font size for the y-axis label. The default is 14.
+    tick_font_size : int, optional
+        Font size for the tick labels. The default is 12.
     """
     # Get parameters from kwargs with their default values
     x_num_ticks = kwargs.get('x_num_ticks', x_num_ticks)
@@ -369,22 +381,26 @@ def plot_qwak_heatmap(
     cmap = kwargs.get('cmap', cmap)
     x_vline_value = kwargs.get('x_vline_value', x_vline_value)
     y_hline_value = kwargs.get('y_hline_value', y_hline_value)
+    title_font_size = kwargs.get('title_font_size', title_font_size)
+    xlabel_font_size = kwargs.get('xlabel_font_size', xlabel_font_size)
+    ylabel_font_size = kwargs.get('ylabel_font_size', ylabel_font_size)
+    tick_font_size = kwargs.get('tick_font_size', tick_font_size)
 
     flat_p = [item for sublist in p_values for item in sublist]
     flat_t = [item for sublist in t_values for item in sublist]
     flat_prob = [item for sublist in prob_values for item in sublist]
     data = {'p': flat_p, 't': flat_t, 'prob': flat_prob}
     df = pd.DataFrame(data)
-    pivot = df.pivot('t', 'p', 'prob')
+    pivot = df.pivot(index='t', columns='p', values='prob')
 
     fig, ax = plt.subplots(figsize=figsize)
-    sns.heatmap(pivot, cmap=cmap, vmin=0, vmax=1, cbar_kws={'label': cbar_label}, linewidths=0, **kwargs)
+    sns.heatmap(pivot, cmap=cmap, vmin=0, vmax=1, cbar_kws={'label': cbar_label}, linewidths=0)
 
     # set customizations
     ax.invert_yaxis()
-    ax.tick_params(axis='both', which='major', labelsize=font_size)
+    ax.tick_params(axis='both', which='major', labelsize=tick_font_size)
     cbar = ax.collections[0].colorbar
-    cbar.ax.tick_params(labelsize=font_size)
+    cbar.ax.tick_params(labelsize=tick_font_size)
     cbar.ax.set_ylabel(cbar_label, fontsize=font_size + 2)
 
     # generate tick labels based on p and t values
@@ -400,20 +416,20 @@ def plot_qwak_heatmap(
     ax.set_yticklabels(t_tick_labels)
     if x_vline_value is not None:
         x_tick_value = (x_vline_value - min(flat_p)) / (max(flat_p) - min(flat_p)) * len(p_values[0])
-        ax.axvline(x=x_tick_value, linestyle=':',marker='D',markersize=5, linewidth=1, color='white')
+        ax.axvline(x=x_tick_value, linestyle=':', marker='D', markersize=5, linewidth=1, color='white')
     if y_hline_value is not None:
         y_tick_value = (y_hline_value - min(flat_t)) / (max(flat_t) - min(flat_t)) * len(t_values[0])
-        ax.axhline(y=y_tick_value, linestyle=':',marker='D',markersize=5, linewidth=1, color='white')
+        ax.axhline(y=y_tick_value, linestyle=':', marker='D', markersize=5, linewidth=1, color='white')
 
     # add title to the plot if N is provided
     if N is not None:
-        plt.title(f'N={N}', fontsize=font_size + 4)
+        plt.title(f'N={N}', fontsize=title_font_size)
 
     # add x and y axis labels
     if xlabel is not None:
-        ax.set_xlabel(xlabel, fontsize=font_size + 2)
+        ax.set_xlabel(xlabel, fontsize=xlabel_font_size)
     if ylabel is not None:
-        ax.set_ylabel(ylabel, fontsize=font_size + 2)
+        ax.set_ylabel(ylabel, fontsize=ylabel_font_size)
 
     if filepath is not None:
         plt.savefig(filepath, bbox_inches='tight')

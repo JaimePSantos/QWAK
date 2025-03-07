@@ -31,6 +31,7 @@ import random
 from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
 from datetime import datetime
+import shutil
 
 def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
     for n in tqdm(nrange, desc="Processing n-values"):
@@ -154,14 +155,13 @@ params = {
     'cbar_tick_labels': None,
     'x_lim': None,
     'y_num_ticks': 5,
-    'x_round_val': 2,
     'y_round_val': 3,
-    'title_font_size': 28,  # Reduced font size
-    'xlabel_font_size': 22,  # Reduced font size
-    'ylabel_font_size': 22,  # Reduced font size
-    'legend_font_size': 18,  # Reduced font size
-    'legend_title_font_size': 20,  # Reduced font size
-    'tick_font_size': 18,  # Reduced font size
+    'title_font_size': 34,  # Increased font size
+    'xlabel_font_size': 28,  # Increased font size
+    'ylabel_font_size': 28,  # Increased font size
+    'legend_font_size': 24,  # Increased font size
+    'legend_title_font_size': 26,  # Increased font size
+    'tick_font_size': 24,  # Increased font size
     'marker_list': ['x', 'o']
 }
 
@@ -171,3 +171,15 @@ y_value_matrix = [list(init_build_merged_result.values()),list(results_expm_avg.
 plot_qwak(x_value_matrix = x_value_matrix, y_value_matrix = y_value_matrix,**params)
 
 plt.show()
+
+# Prompt user to copy the image to the LaTeX project
+copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+if copy_to_latex == 'y':
+    latex_project_path = os.path.normpath(os.path.join(
+        SCRIPT_DIR,
+        "../QWAK-Paper_Revised/img/NewBenchmark"
+    ))
+    shutil.copy(params['save_path'], latex_project_path)
+    print(f"Image copied to {latex_project_path}")
+else:
+    print("Image not copied.")
