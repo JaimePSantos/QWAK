@@ -162,7 +162,8 @@ params = {
     'legend_font_size': 24,  # Increased font size
     'legend_title_font_size': 26,  # Increased font size
     'tick_font_size': 24,  # Increased font size
-    'marker_list': ['x', 'o']
+    'marker_list': ['x', 'o'],
+    'grid': True  # Add gridlines
 }
 
 x_value_matrix = [list(init_build_merged_result.keys()),list(results_expm_avg.keys())]
