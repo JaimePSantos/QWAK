@@ -122,7 +122,7 @@ params = {
     'legend_ncol': 1,
     'color_list': ['b', 'g', 'r'],
     'line_style_list': ['--', '-', '-.'],
-    'save_path': os.path.join(output_dir, f'completePlot_N{N}_NWALKS{numberOfWalks}_S{samples}.png'),
+    'save_path': os.path.join(SCRIPT_DIR, 'Output', 'CompleteSearch', f'completePlot_N{N}_NWALKS{numberOfWalks}_S{samples}.png'),
     'use_loglog': False,
     'use_cbar': False,
     'cbar_label': None,
