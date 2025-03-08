@@ -50,3 +50,6 @@ Notebook/Datasets/SpinGlass*
 
 flask_session/
 .Deprecated
+**/Datasets/
+**/Profiling/
+**/TestOutput

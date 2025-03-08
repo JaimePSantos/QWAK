@@ -1,3 +1,5 @@
+> **Warning:** A big update is coming in the next few days.
+
 # QWAK
 Quantum Walk Analysis Kit - A Python package for continuous-time quantum walk (CTQW) simulation.
 
