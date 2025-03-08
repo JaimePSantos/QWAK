@@ -8,6 +8,8 @@ import os
 import copy
 import shutil
 
+SCRIPT_DIR = os.getcwd()
+
 def write_nested_list_to_file(file_path, nested_lst):
     """
     Write a nested list of elements to a text file.
@@ -84,7 +86,6 @@ markedElementsMatrix = [
     [(x, -1) for x in range(0, N//4)]
 ]
 
-SCRIPT_DIR = os.getcwd()
 dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Datasets", "CompleteSearch"))
 output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Output", "CompleteSearch"))
 

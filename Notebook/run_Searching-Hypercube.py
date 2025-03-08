@@ -167,7 +167,7 @@ params = {
     'cbar_tick_labels': [r' $\gamma = \frac{10}{11}\gamma_{opt}$'] + [f'{round(x, 3)}' for x in np.linspace(gammaMin, gamma, cbar_num_ticks - 2).tolist()] + [r' $\gamma = \gamma_{opt}$'],
     'cbar_num_ticks': cbar_num_ticks,
     'x_lim': None,
-    'x_num_ticks': 7,
+    # 'x_num_ticks': 7,
     'y_num_ticks': 7,
     'x_round_val': 1,
     'y_round_val': 3,
