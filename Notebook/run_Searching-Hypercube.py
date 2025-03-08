@@ -197,3 +197,6 @@ if copy_to_latex == 'y':
     print(f"Image copied to {latex_project_path}")
 else:
     print("Image not copied.")
+
+
+    
