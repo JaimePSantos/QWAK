@@ -86,53 +86,52 @@ def benchmark_operations(n, tList, base_filename, samples,pVal=0.8,seed=10):
 
 
 # Example usage
-n = 100
+n = 30
 start = 1
 stop = 30
 step = 1
-samples = 100
+samples = 200
 legend_labels = ['Diagonal', 'Expm']
+
+SCRIPT_DIR = os.getcwd()
 
 params = {
     'figsize': (12, 8),
-    'plot_title' : f'Benchmark N={n}',
-    'x_label' : 'Number of Walks',
-    'y_label' : "Time",
-    'legend_labels' : legend_labels,
-    'legend_loc': "best",
-    # 'legend_title' : 'Solutions',
-    'legend_ncol' : 1,
-    # 'color_list' : ['#0000FF', '#008000', '#525252'],
-    'color_list' : ['b','g','r'],
-    # 'line_style_list' : ['--', '-','-.' ],
-    # 'save_path' : f'img/ER/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}.png',
+    'plot_title': 'Benchmark N=30',
+    'x_label': 'Number of time steps',
+    'y_label': 'Execution Time (seconds)',
+    'legend_labels': ['Spectral Decomposition', 'Matrix Exponential'],
+    'legend_loc': 'best',
+    'legend_ncol': 1,
+    'color_list': ['b', 'g'],
+    'line_style_list': ['--', '-'],
+    'save_path': os.path.normpath(os.path.join(
+        SCRIPT_DIR,
+        "benchmark/ModuleDev/ImgOutput/benchmark-dynamic-operator.png"
+    )),
     'use_loglog': False,
-    'use_cbar' : False,
-    'cbar_label' : None, 
-    'cbar_ticks' : None,
-    'cbar_tick_labels' : None,
-    'x_lim' : None,
-    'x_num_ticks' : 10,
-    'y_num_ticks' : 5,
-    'x_round_val' : 2,
-    'y_round_val' : 3,
-    # 'v_line_values' : v_line_values,
-    # 'v_line_style': '--',
-    'title_font_size': 20,
-    'xlabel_font_size': 22,
-    'ylabel_font_size': 22,
-    'legend_font_size': 14,
-    'legend_title_font_size': 14,
-    'tick_font_size': 18,
-    # 'cbar_label_font_size': 16,
-    'use_grid':True,
-    'marker_list': ['x', 'o']
+    'use_cbar': False,
+    'cbar_label': None,
+    'cbar_ticks': None,
+    'cbar_tick_labels': None,
+    'x_lim': None,
+    'y_num_ticks': 5,
+    'y_round_val': 3,
+    'title_font_size': 34,
+    'xlabel_font_size': 28,
+    'ylabel_font_size': 28,
+    'legend_font_size': 24,
+    'legend_title_font_size': 26,
+    'tick_font_size': 24,
+    'marker_list': ['x', 'o'],  # Add markers for data points
+    'marker_interval': 1,  # Set marker interval
+    'use_grid': True  # Ensure grid is enabled
 }
 
 
 tList = list(range(start, stop, step))
 
-filename = f'Datasets/OperatorBenchmark/Dynamic-ER/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}'
+filename = f'benchmark/Operator/Dynamic-ER/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}'
 
 eig_runTime, expm_runTime = benchmark_operations(n, tList, filename, samples)
 

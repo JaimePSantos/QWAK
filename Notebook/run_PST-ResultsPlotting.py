@@ -88,6 +88,7 @@ def plot_dual_y_axis(params):
     legend_font_size = params.get('legend_font_size', 14)
     legend_title_font_size = params.get('legend_title_font_size', 14)
     tick_font_size = params.get('tick_font_size', 18)
+    max_label_font_size = params.get('max_label_font_size', 24)  # Default font size for max_labels
     
     # Create figure and axis objects
     fig, ax1 = plt.subplots(figsize=figsize)
@@ -123,8 +124,7 @@ def plot_dual_y_axis(params):
             # Add text annotation near the vertical line at the bottom
             ax1.annotate(label, xy=(max_x_value, ax1.get_ylim()[0]), xycoords='data',
                          xytext=(0, -28), textcoords='offset points',
-                         arrowprops=dict(arrowstyle="->"),
-                         horizontalalignment='center', fontsize=12)
+                         horizontalalignment='center', fontsize=max_label_font_size)  # Removed arrowprops
         
     ax1.set_xlabel("Time", fontsize=xlabel_font_size)
     ax1.set_ylabel("Initial Vertex", color='blue', fontsize=ylabel_font_size)
@@ -177,6 +177,7 @@ params = {
     'legend_font_size': 28,  # Decreased font size
     'legend_title_font_size': 30,  # Decreased font size
     'tick_font_size': 26,  # Decreased font size
+    'max_label_font_size': 20,  # New parameter to control max_labels font size
 }
 
 plot_dual_y_axis(params)

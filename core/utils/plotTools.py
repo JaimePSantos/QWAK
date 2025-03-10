@@ -106,6 +106,10 @@ def plot_qwak(
         The limits of the x-axis. The default is None.
     use_grid : bool, optional
         Whether to use a grid. The default is False.
+    marker_list : list, optional
+        A list of markers to be used for the lines. The default is None.
+    marker_interval : int, optional
+        Interval at which markers should be placed. The default is None.
     """
 
     # Unpack optional parameters
@@ -138,6 +142,8 @@ def plot_qwak(
     v_line_list_index = kwargs.get(
         'v_line_list_index', v_line_list_index)
     use_grid = kwargs.get('use_grid', use_grid)
+    marker_list = kwargs.get('marker_list', None)
+    marker_interval = kwargs.get('marker_interval', None)
 
     if not isinstance(
             x_value_matrix[0],
@@ -168,14 +174,20 @@ def plot_qwak(
         color = None
         line_style = None
         label = None
+        marker = None
+        markevery = None
         if color_list is not None:
             color = color_list[axis_matrix_counter]
         if line_style_list is not None:
             line_style = line_style_list[axis_matrix_counter]
         if legend_labels is not None:
             label = legend_labels[axis_matrix_counter]
+        if marker_list is not None:
+            marker = marker_list[axis_matrix_counter]
+        if marker_interval is not None:
+            markevery = marker_interval
         ax.plot(xvalues, yvalues, label=label,
-                color=color, linestyle=line_style)
+                color=color, linestyle=line_style, marker=marker, markevery=markevery)
         if v_line_values is not None and axis_matrix_counter == v_line_list_index:
             if v_line_colors is None:
                 v_line_colors = ['k'] * len(v_line_values)
