@@ -52,7 +52,7 @@ class StochasticQuantumWalk(object):
             QuTiP options for the simulation. Defaults to storing states and the final state.
         """
         # print("\t\t\tBefore calling self._time")
-        self._time = np.arange(0, time + 1)
+        self._time = list(np.arange(0, time + 1))
         # print("\t\t\tAfter calling self._time")
         if self._operator.getSinkNode() is not None:
             # print("\t\t\tBefore calling Qobj")

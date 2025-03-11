@@ -7,12 +7,12 @@ import os
 import shutil
 from utils.plotTools import plot_qwak  # Import plot_qwak
 
-maze_graph = Maze(maze_size=(10,10))
+maze_graph = Maze(maze_size=(7,7))
 maze_graph.plot_maze()
 plt.show()
 
 graph = nx.from_numpy_array(maze_graph.adjacency)
-qwak = StochasticQWAK(graph, noiseParam=0.1, sinkNode=99, sinkRate=0.99)
+qwak = StochasticQWAK(graph, noiseParam=0.1, sinkNode=48, sinkRate=0.99)
 
 exit_prob = []
 exit_prob_opt = []
