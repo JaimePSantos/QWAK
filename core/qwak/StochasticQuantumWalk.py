@@ -38,7 +38,7 @@ class StochasticQuantumWalk(object):
         self,
         time: float,
         observables: list = [],
-        opts: Options = Options(store_states=True, store_final_state=True)
+        opts: Options = Options(store_states=False, store_final_state=True)
     ) -> None:
         """Constructs the quantum walk over a specified time frame.
 
@@ -69,9 +69,9 @@ class StochasticQuantumWalk(object):
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
             self._time,
-            collapse_ops,
-            observables,
-            options=opts,
+            c_ops=collapse_ops,
+            # #observables,
+            # options=opts,
         ).final_state.full()
         # print("\t\t\tAfter calling mesolve")
 
