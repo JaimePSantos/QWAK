@@ -433,6 +433,6 @@ branch_name = f'{current_datetime}_{execution_time_str}'
 #     print(f"Are the two arrays approximately equal? {are_close}")
 
 # plt.plot(nList,qwak_times,label='QWAK CPU_NumPy')
-plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
-plt.legend()
-plt.show()
+# plt.plot(nList,qwak_times_cupy,label='QWAK GPU_CuPy')
+# plt.legend()
+# plt.show()
