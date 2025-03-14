@@ -33,8 +33,9 @@ jobs:
     - name: Install CUDA Toolkit
       uses: Jimver/cuda-toolkit@v0.2.22
       with:
-        sub-packages: '["nvcc", "cudnn"]' 
-
+        method: 'network'  # Fix: Use network installation instead of local
+        sub-packages: '["nvcc", "cudnn"]'
+        
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
