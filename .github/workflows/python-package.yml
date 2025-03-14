@@ -54,4 +54,59 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -v tests/
-        
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Python package
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install CUDA
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y gnupg2 curl
+        curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub | sudo gpg --dearmor -o /usr/share/keyrings/cuda-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/cuda-archive-keyring.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" | sudo tee /etc/apt/sources.list.d/cuda.list
+        sudo apt-get update
+        sudo apt-get -y install cuda
+        sudo apt-get -y install libncurses5
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install flake8 pytest
+        if [ ${{ matrix.python-version }} == "3.8" ]; then
+          python -m pip install numpy==1.24.4 scipy==1.10.1 sympy==1.12 matplotlib==3.7.4 networkx==3.1 qutip==4.7.4
+        elif [ ${{ matrix.python-version }} == "3.9" ]; then
+          python -m pip install numpy==1.26.3 scipy==1.11.4 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==4.7.4
+        elif [ ${{ matrix.python-version }} == "3.10" ]; then
+          python -m pip install numpy==1.26.3 scipy==1.11.4 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==4.7.4
+        fi
+        python -m pip install cupy
+        python -m pip install .
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Lint with flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Test with pytest
+      run: |
+        pytest -v tests/
