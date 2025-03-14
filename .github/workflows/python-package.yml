@@ -24,18 +24,23 @@ jobs:
         sudo rm -rf /opt/ghc
         sudo rm -rf /usr/local/lib/android
         docker system prune -a -f
+    
+    - name: Remove duplicate CUDA repositories
+      run: |
+        sudo rm -f /etc/apt/sources.list.d/cuda-ubuntu2404-x86_64.list
+        sudo apt-get update
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install CUDA Toolkit
-      uses: Jimver/cuda-toolkit@v0.2.22
-      with:
-        method: 'network'  # Fix: Use network installation instead of local
-        sub-packages: '["nvcc", "cudnn"]'
-        
+    - name: Install CUDA and CuDNN
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y cuda-nvcc-12-8
+        sudo apt-get install -y libcudnn8
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
