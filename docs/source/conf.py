@@ -16,7 +16,6 @@ from pathlib import Path
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 
-
 sys.path.insert(0, os.path.abspath(""))
 
 
@@ -29,8 +28,7 @@ author = "Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni"
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
+# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx_autodoc_typehints",
@@ -49,7 +47,7 @@ extensions = [
 # Automatically generate stub pages when using the .. autosummary directive
 autosummary_generate = True
 
-# generate documentation from type hints
+# Generate documentation from type hints
 autodoc_member_order = "bysource"
 autodoc_typehints = "description"
 autoclass_content = "both"
@@ -59,7 +57,7 @@ autodoc_default_options = {
     "private-members": True,
 }
 
-# controls whether functions documented by the autofunction directive
+# Controls whether functions documented by the autofunction directive
 # appear with their full module names
 add_module_names = False
 
@@ -72,8 +70,6 @@ napoleon_custom_sections = ["Tests", ("Test", "Tests")]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-# html_extra_path = ["robots.txt"]
-
 exclude_patterns: list[str] = []
 
 # -- Options for internationalization ----------------------------------------
@@ -91,7 +87,6 @@ gettext_language_team = ""
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
 
 html_theme = "furo"
 # html_favicon = str(Path("_static/favicon.ico"))
@@ -126,21 +121,28 @@ html_theme_options = {
         "color-inline-code-background": "#262626",
         "color-foreground-secondary": "#ffffffd9",
     },
+    "sidebar_hide_name": False,
+    "navigation_with_keys": True,
+    "toc_title": "Contents",
+    "toc_sections": [
+        "installation/index",
+        "usage",
+        "contributing",
+        "modules"
+    ],
 }
 html_title = f"QWAK - Quantum Walk Analysis Kit"
 
 # This specifies any additional css files that will override the theme's
 html_css_files = ["custom.css"]
 
-
-# external links
+# External links
 extlinks = {
     "issue": ("https://github.com/JaimePSantos/QWAK/issues/%s", "#"),
     "pr": ("https://github.com/JaimePSantos/QWAK/pulls/%s", "#"),
 }
 
-
-# inheritance_graph settings
+# Inheritance graph settings
 inheritance_graph_attrs = {
     "concentrate": True,
     "size": '""',

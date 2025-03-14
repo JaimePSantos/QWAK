@@ -1,0 +1,70 @@
+name: Python package
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Free disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet
+        sudo rm -rf /opt/ghc
+        sudo rm -rf /usr/local/lib/android
+        docker system prune -a -f
+    
+    - name: Remove duplicate CUDA repositories
+      run: |
+        sudo rm -f /etc/apt/sources.list.d/cuda-ubuntu2404-x86_64.list
+        sudo apt-get update
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install CUDA toolkit
+      uses: Jimver/cuda-toolkit@v0.2.22
+
+    - name: Install CuPy
+      run: |
+        python -m pip install cupy-cuda12x
+
+    - name: Verify CuPy/CUDA installation
+      run: |
+        python -c "import cupy;print(f'CuPy:{cupy.__version__}'); print(cupy.cuda.runtime.getDeviceCount())"
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install flake8 pytest
+        if [ ${{ matrix.python-version }} == "3.8" ]; then
+          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.2.0 
+        elif [ ${{ matrix.python-version }} == "3.9" ]; then
+          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.2.0
+        elif [ ${{ matrix.python-version }} == "3.10" ]; then
+          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.2.0
+        fi
+        python -m pip install .
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Lint with flake8
+      run: |
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+    - name: Test with pytest
+      run: |
+        pytest -v tests/
