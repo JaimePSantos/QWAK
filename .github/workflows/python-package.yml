@@ -29,11 +29,11 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
         if [ ${{ matrix.python-version }} == "3.8" ]; then
-          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.2.0 
+          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.1.1 
         elif [ ${{ matrix.python-version }} == "3.9" ]; then
-          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.2.0
+          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.1.1
         elif [ ${{ matrix.python-version }} == "3.10" ]; then
-          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.2.0
+          python -m pip install numpy==1.26.4 scipy==1.15.2 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==5.1.1
         fi
         python -m pip install .
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
