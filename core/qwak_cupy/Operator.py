@@ -94,7 +94,7 @@ class Operator:
                 self._operator, self._eigenvectors.conjugate().transpose())
         else:
             self._operator = cp.matmul(
-                self._operator, inv(
+                self._operator, cpx_scipy.inv(
                     self._eigenvectors))
 
     def buildExpmOperator(self, time: float = 0) -> None:
