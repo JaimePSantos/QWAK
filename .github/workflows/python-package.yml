@@ -44,13 +44,16 @@ jobs:
 
     - name: Install CUDA Toolkit and CuPy
       run: |
-        # Add NVIDIA package repositories
+        # Add NVIDIA package repositories for Ubuntu 22.04 (compatible with Ubuntu 24.04)
         wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
         sudo dpkg -i cuda-keyring_1.0-1_all.deb
         sudo apt-get update
 
-        # Install CUDA 11.8 manually
-        sudo apt-get install -y cuda-toolkit-11-8
+        # Manually install required dependencies
+        sudo apt-get install -y libtinfo5
+
+        # Install CUDA 11.8 but exclude nsight-systems to avoid dependency issues
+        sudo apt-get install -y --no-install-recommends cuda-toolkit-11-8
 
         # Set CUDA environment variables
         echo "export CUDA_HOME=/usr/local/cuda-11.8" >> ~/.bashrc
