@@ -34,12 +34,9 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-
-    - name: Install CUDA and CuDNN
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y cuda-nvcc-12-8
-        sudo apt-get install -y libcudnn8
+        
+    - name: cuda-toolkit
+      uses: Jimver/cuda-toolkit@v0.2.22
 
     - name: Install dependencies
       run: |
