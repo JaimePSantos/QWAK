@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import networkx as nx
 import numpy as np
-from qutip import Qobj, basis
+from qutip import Qobj, basis, lindblad_dissipator
 
 
 class StochasticOperator(object):
@@ -124,7 +124,11 @@ class StochasticOperator(object):
                 for j in range(self.n)
                 if self._laplacian[i, j] > 0
             ]
-        self._classicalHamiltonian = L
+        # Compute superoperator from list of Lindblad operators
+        superop = lindblad_dissipator(L[0])
+        for i in range(len(L)-1):
+          superop += lindblad_dissipator(L[i+1])
+        self._classicalHamiltonian = superop
 
     def getClassicalHamiltonian(self) -> list:
         """
