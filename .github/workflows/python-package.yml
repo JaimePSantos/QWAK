@@ -34,7 +34,6 @@ jobs:
       uses: Jimver/cuda-toolkit@v0.2.22
       with:
         sub-packages: '["nvcc", "cudnn"]' 
-        use-cached: true 
 
     - name: Install dependencies
       run: |
@@ -58,9 +57,3 @@ jobs:
     - name: Test with pytest
       run: |
         pytest -v tests/
-
-    - name: Upload Test Results
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results-${{ github.run_id }}
-        path: ./test-reports/
