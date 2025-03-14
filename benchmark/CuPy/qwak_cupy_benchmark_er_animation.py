@@ -70,7 +70,7 @@ def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
         t_dir = os.path.join(base_dir, f"t{t}")
         os.makedirs(t_dir, exist_ok=True)
         avg_file = os.path.join(t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")
-        print(qwak_time_average)
+        # print(qwak_time_average)
         qwak_time_average = 0
         for sample in tqdm(range(1, samples + 1), desc=f"Samples for t = {t}", leave=False):
             t_file = os.path.join(t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
@@ -95,7 +95,7 @@ def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
             with open(qw_file, 'wb') as f:
                 pickle.dump(qw_init.getProbVec(), f)
 
-        print(qwak_time_average)
+        # print(qwak_time_average)
         qwak_time_average = qwak_time_average / samples
 
         with open(avg_file, 'wb') as f:
