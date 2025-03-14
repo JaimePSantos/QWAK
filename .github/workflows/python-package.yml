@@ -42,7 +42,7 @@ jobs:
 
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Install CUDA Toolkit and CuPy
+    - name: Install CUDA Toolkit and CuPy 12.x
       run: |
         # Add NVIDIA package repositories for Ubuntu 22.04 (compatible with Ubuntu 24.04)
         wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.0-1_all.deb
@@ -52,19 +52,19 @@ jobs:
         # Manually install required dependencies
         sudo apt-get install -y libtinfo5
 
-        # Install CUDA 11.8 but exclude nsight-systems to avoid dependency issues
-        sudo apt-get install -y --no-install-recommends cuda-toolkit-11-8
+        # Install CUDA 12.x (latest available version)
+        sudo apt-get install -y --no-install-recommends cuda-toolkit-12-2
 
         # Set CUDA environment variables
-        echo "export CUDA_HOME=/usr/local/cuda-11.8" >> ~/.bashrc
-        echo "export PATH=/usr/local/cuda-11.8/bin:$PATH" >> ~/.bashrc
-        echo "export LD_LIBRARY_PATH=/usr/local/cuda-11.8/lib64:$LD_LIBRARY_PATH" >> ~/.bashrc
+        echo "export CUDA_HOME=/usr/local/cuda-12.2" >> ~/.bashrc
+        echo "export PATH=/usr/local/cuda-12.2/bin:$PATH" >> ~/.bashrc
+        echo "export LD_LIBRARY_PATH=/usr/local/cuda-12.2/lib64:$LD_LIBRARY_PATH" >> ~/.bashrc
         source ~/.bashrc
 
-        # Install CuPy with CUDA 11.x support
-        python -m pip install cupy-cuda11x
+        # Install CuPy 12.x with CUDA 12 support
+        python -m pip install cupy-cuda12x
 
-    - name: Verify CuPy Installation
+    - name: Verify CuPy 12.x Installation
       run: |
         python -c "import cupy; print('CuPy version:', cupy.__version__); print('CUDA available:', cupy.is_available())"
 
