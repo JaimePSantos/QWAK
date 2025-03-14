@@ -61,7 +61,7 @@ def run_qwakpath_tests():
 
 def run_stochastic_tests():
     """Runs the tests in the test_StochasticQwak file."""
-    from tests.test_StochasticQwak import TestStochasticQWAK
+    from tests.deactivate_test_StochasticQwak import TestStochasticQWAK
     test_instance = TestStochasticQWAK()
     methods = [method for method in dir(test_instance) if method.startswith('test_')]
     print(color_text("run_stochastic_tests", "yellow"))
