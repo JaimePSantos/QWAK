@@ -25,20 +25,7 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-<<<<<<< Updated upstream
-    - name: Install CUDA
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y gnupg2 curl
-        curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/3bf863cc.pub | sudo gpg --dearmor -o /usr/share/keyrings/cuda-archive-keyring.gpg
-        echo "deb [signed-by=/usr/share/keyrings/cuda-archive-keyring.gpg] https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" | sudo tee /etc/apt/sources.list.d/cuda.list
-        sudo apt-get update
-        sudo apt-get -y install cuda
-        sudo apt-get -y install libncurses5
-        sudo apt-get -y install libtinfo5
-=======
 
->>>>>>> Stashed changes
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -50,11 +37,7 @@ jobs:
         elif [ ${{ matrix.python-version }} == "3.9" ] || [ ${{ matrix.python-version }} == "3.10" ]; then
           python -m pip install numpy==1.26.3 scipy==1.11.4 sympy==1.12 matplotlib==3.8.2 networkx==3.2.1 qutip==4.7.4
         fi
-<<<<<<< Updated upstream
-        python -m pip install cupy
-=======
 
->>>>>>> Stashed changes
         python -m pip install .
 
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
