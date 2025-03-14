@@ -76,7 +76,7 @@ def run_stochastic_tests():
 
 def run_cupy_tests():
     """Runs the tests in the test_QwakCupyCycle file."""
-    from tests.test_QwakCupyCycle import TestQWAKCupyCycle
+    from tests.deactivate_test_QwakCupyCycle import TestQWAKCupyCycle
     test_instance = TestQWAKCupyCycle()
     methods = [method for method in dir(test_instance) if method.startswith('test_')]
     print(color_text("run_cupy_tests", "yellow"))
