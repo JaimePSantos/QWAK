@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from qutip import Options,Qobj
+from qutip import Options, Qobj, spre, spost, mesolve
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
@@ -36,3 +36,13 @@ operator.buildStochasticOperator(
 print(operator.getClassicalHamiltonian())
 
 quantumWalk.buildWalk(t)
+
+# Build the superoperator
+superoperator = spre(operator.getQuantumHamiltonian()) + spost(operator.getQuantumHamiltonian().dag())
+
+
+# Use mesolve with the superoperator
+result = mesolve(superoperator, initState.toQobj(), np.linspace(0, t, 100), [], [], options=Options(store_states=True))
+
+# Print the final state
+print(result.states[-1])
