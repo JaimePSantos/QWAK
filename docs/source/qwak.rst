@@ -76,13 +76,6 @@ qwak.StochasticQuantumWalk module
    :undoc-members:
    :show-inheritance:
 
-qwak.StochasticQuantumWalkCopy module
--------------------------------------
-
-.. automodule:: qwak.StochasticQuantumWalkCopy
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 qwak.StochasticQwak module
 --------------------------
