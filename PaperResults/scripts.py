@@ -3,7 +3,7 @@ import networkx as nx
 from OperatorBenchmark import OperatorBenchmark
 from OperatorBenchmark_HPC import OperatorBenchmark_HPC
 from HiperwalkBenchmark import HiperwalkBenchmark
-from HiperwalkBenchmark_HPC import HiperwalkBenchmark_HPCS
+from HiperwalkBenchmark_HPC import HiperwalkBenchmark_HPC
 
 from typing import List, Dict
 
@@ -19,6 +19,9 @@ from tqdm import tqdm
 from typing import Callable, List
 import inspect
 import subprocess
+
+
+
 
 def run_if_not_profiled(instance, method_name: str, **kwargs):
     """
@@ -137,7 +140,7 @@ def run_if_not_profiled_time_range(instance, method_name: str, time_range: List[
         kwargs['time'] = t
         
         # If 'graph' is provided, update 'n' accordingly since 'n' is used in the filename.
-        if 'graph' is provided:
+        if 'graph' in kwargs:
             setattr(instance, 'n', len(kwargs['graph']))
         
         method = getattr(instance, method_name)
@@ -192,7 +195,7 @@ def load_profiling_data(path, method_name, nrange, sample_range,pVal=None,seed=N
                     except (IndexError, ValueError):
                         continue
                     func_part = ' '.join(parts[5:])
-                    if ('(' in func_part and ')' in func_part):
+                    if '(' in func_part and ')' in func_part:
                         func_name = func_part.split('(')[-1].split(')')[0]
                         if func_name == method_name:
                             cumtimes.append(cumtime)
