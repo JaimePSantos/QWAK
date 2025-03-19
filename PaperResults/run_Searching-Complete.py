@@ -86,8 +86,8 @@ markedElementsMatrix = [
     [(x, -1) for x in range(0, N//4)]
 ]
 
-dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Datasets", "CompleteSearch"))
-output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Output", "CompleteSearch"))
+dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR, "Datasets", "CompleteSearch"))
+output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, "Output", "CompleteSearch"))
 
 timeMatrix_file = os.path.join(dataset_dir, f'timeMatrix_N{N}_NWALKS{numberOfWalks}_S{samples}.txt')
 markedProbMatrix_file = os.path.join(dataset_dir, f'markedProbMatrix_N{N}_NWALKS{numberOfWalks}_S{samples}.txt')
@@ -122,7 +122,7 @@ params = {
     'legend_ncol': 1,
     'color_list': ['b', 'g', 'r'],
     'line_style_list': ['--', '-', '-.'],
-    'save_path': os.path.join(SCRIPT_DIR, 'Output', 'CompleteSearch', f'completePlot_N{N}_NWALKS{numberOfWalks}_S{samples}.png'),
+    'save_path': os.path.join(output_dir, f'completePlot_N{N}_NWALKS{numberOfWalks}_S{samples}.png'),
     'use_loglog': False,
     'use_cbar': False,
     'cbar_label': None,

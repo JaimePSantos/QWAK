@@ -161,7 +161,7 @@ time_list = t2
 value_pairs = [(select_elements(qw2.getProbVecList(),init),select_elements(qw2.getProbVecList(),target))]#,(select_elements(qw2.getProbVecList(),0),select_elements(qw2.getProbVecList(),3))]
 # value_pairs = [(select_elements(qw1.getProbVecList(),0),select_elements(qw1.getProbVecList(),2))]
 
-save_file = os.path.join(SCRIPT_DIR,'Notebook', 'Output', 'PerfectStateTransfer', f'Hypercube_N{len(graph2)}_T{round(t2[-1],2)}_FROM{init}_TO{target}.png')
+save_file = os.path.join(SCRIPT_DIR, 'Output', 'PerfectStateTransfer', f'Hypercube_N{len(graph2)}_T{round(t2[-1],2)}_FROM{init}_TO{target}.png')
 figsize = (8, 6)
 
 params = {
