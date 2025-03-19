@@ -14,6 +14,9 @@ built using Flask and PyMongo. The Flask server generates a session for each use
 for each session. The collection will be made of static and dynamic QWAK JSON objects, which will be converted to
 a Python class instance in Flask.
 
+This package supports python 3.10 or newer.
+
+
 Gallery
 -------
 

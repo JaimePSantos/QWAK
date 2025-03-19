@@ -1,12 +1,11 @@
 Installation
 ============
 
-To install QWAK, follow these steps:
+To install QWAK you require python 3.10 or newer.
 
 1. Set up your environment:
    - Instructions for setting up the environment with conda can be found :ref:`here <conda-setup>`.
    - Instructions for setting up the environment with venv can be found :ref:`here <venv-setup>`.
-   - Ensure all required dependencies are met.
 
 2. Ensure all required :ref:`dependencies <dependencies>` are met. GPU users can refer to the `CuPy installation guide <https://docs.cupy.dev/en/stable/install.html>`_, which requires the `CUDA Toolkit <https://developer.nvidia.com/cuda-toolkit>`_.
 
