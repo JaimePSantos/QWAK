@@ -61,15 +61,15 @@ class StochasticQuantumWalk(object):
             )
             # print("\t\t\tAfter calling Qobj")
         # print("\t\t\tBefore calling mesolve")
-        collapse_ops = self._operator.getClassicalHamiltonian()
-        if collapse_ops and all((op.full() == 0).all() for op in collapse_ops):
-            # print("\t\t\tAll collapse operators are zero. Setting collapse_ops to None.")
-            collapse_ops = None
+        # collapse_ops = self._operator.getClassicalHamiltonian()
+        # if collapse_ops and all((op.full() == 0).all() for op in collapse_ops):
+        #     # print("\t\t\tAll collapse operators are zero. Setting collapse_ops to None.")
+        #     collapse_ops = None
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
             self._time,
-            c_ops=collapse_ops,
+            c_ops=self._operator.getClassicalHamiltonian(),
             # #observables,
             # options=opts,
         ).final_state.full()

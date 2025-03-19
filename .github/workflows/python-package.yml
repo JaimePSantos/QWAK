@@ -43,4 +43,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest -v tests/ --ignore=tests/test_QwakCupyCycle.py --ignore=tests/test_StochasticQwak.py
+        pytest -v tests/ --ignore=tests/test_QwakCupyCycle.py

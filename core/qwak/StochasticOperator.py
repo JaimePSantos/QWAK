@@ -22,6 +22,7 @@ class StochasticOperator(object):
         Quantum stochastic walks: A generalization of classical random walks and quantum walks.
 
         @author: Lorenzo Buffoni
+        @github: https://github.com/Buffoni
 
         Parameters
         ----------
