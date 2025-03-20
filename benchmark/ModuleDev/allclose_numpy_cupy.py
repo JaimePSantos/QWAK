@@ -6,26 +6,28 @@ from tqdm import tqdm
 import os
 import matplotlib.pyplot as plt
 
-def run_qwak_walk_numpy_mode(graph_size):
+def run_qwak_walk_numpy_mode(graph_size,time):
     graph = nx.erdos_renyi_graph(graph_size, p=0.8, seed=10)
+    # graph = nx.cycle_graph(graph_size)
     qwak_instance = QWAK_numpy(graph)
-    qwak_instance.runWalk(time=50.0, initStateList=[graph_size//2])
+    qwak_instance.runWalk(time=time, initStateList=[graph_size//2])
     final_state_numpy = qwak_instance.getProbVec()
     return final_state_numpy
 
-def run_qwak_walk_cupy_mode(graph_size):
+def run_qwak_walk_cupy_mode(graph_size,time):
     graph = nx.erdos_renyi_graph(graph_size, p=0.8, seed=10)
+    # graph = nx.cycle_graph(graph_size)
     qwak_instance = QWAK_cupy(graph)
-    qwak_instance.runWalk(time=50.0, initStateList=[graph_size//2])
+    qwak_instance.runWalk(time=time, initStateList=[graph_size//2])
     final_state_cupy = qwak_instance.getProbVec()
     return final_state_cupy
 
 def compare_final_states(state1, state2):
     return np.allclose(state1, state2)
 
-def create_results_folder(nlist):
+def create_results_folder(nlist, time):
     path = os.path.dirname(os.path.abspath(__file__))
-    folder_name = f"AllCloseDatasets_Numpy-Cupy_n{min(nlist)}-{max(nlist)}"
+    folder_name = f"AllCloseDatasets_Numpy-Cupy_n{min(nlist)}-{max(nlist)}_t{time:.1f}"
     results_folder = os.path.join(path, folder_name)
     os.makedirs(results_folder, exist_ok=True)
     return results_folder
@@ -47,8 +49,8 @@ def plot_final_states(n, results_folder):
     plt.legend()
     plt.show()
 
-def main(nlist):
-    results_folder = create_results_folder(nlist)
+def main(nlist, time):
+    results_folder = create_results_folder(nlist, time)
     allclose_list = []
     for n in tqdm(nlist, desc="Processing graph sizes"):
         n_folder = os.path.join(results_folder, f"n{n}")
@@ -58,13 +60,13 @@ def main(nlist):
         cupy_prob_vec_file = os.path.join(n_folder, f"cupy_prob_vec_n{n}.txt")
         
         if not os.path.exists(numpy_prob_vec_file):
-            final_state_numpy = run_qwak_walk_numpy_mode(n)
+            final_state_numpy = run_qwak_walk_numpy_mode(n,time)
             np.savetxt(numpy_prob_vec_file, final_state_numpy)
         else:
             final_state_numpy = np.loadtxt(numpy_prob_vec_file)
         
         if not os.path.exists(cupy_prob_vec_file):
-            final_state_cupy = run_qwak_walk_cupy_mode(n)
+            final_state_cupy = run_qwak_walk_cupy_mode(n,time)
             np.savetxt(cupy_prob_vec_file, final_state_cupy)
         else:
             final_state_cupy = np.loadtxt(cupy_prob_vec_file)
@@ -86,4 +88,5 @@ def main(nlist):
 
 if __name__ == "__main__":
     nlist = range(3, 1000)  # Graph sizes from 3 to 1000
-    main(nlist)
+    time = 100 # Default time parameter
+    main(nlist, time)
