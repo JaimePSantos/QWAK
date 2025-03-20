@@ -8,22 +8,21 @@ import matplotlib.pyplot as plt
 # 
 
 
-def run_qwak_walk(graph_size, time):
-    graph = nx.cycle_graph(graph_size)
-    gamma = 1/(2*np.sqrt(2))  # Ensure gamma is consistent
+def run_qwak_walk(graph, time, gamma):
+    vertex = len(graph) // 2
     qwak_instance = QWAK(graph, gamma=gamma)
-    qwak_instance.runExpmWalk(time=time, initStateList=[graph_size // 2])
+    qwak_instance.runExpmWalk(time=time, initStateList=[vertex])
     final_state_qwak = qwak_instance.getProbVec()
     return final_state_qwak
 
-def run_hiperwalk(graph_size, time):
-    graph = nx.cycle_graph(graph_size)
-    graph = hpw.Graph(nx.to_numpy_array(graph))
-    vertex = graph_size // 2
-    gamma = 1/(2*np.sqrt(2))  # Ensure gamma is consistent
-    hiperwalk = hpw.ContinuousTime(graph=graph, gamma=gamma, time=time)
+def run_hiperwalk(graph, time, gamma):
+    numpy_graph = nx.to_numpy_array(graph)
+    graph = hpw.Graph(graph)
+    vertex = len(numpy_graph) // 2
+    time = time*10
+    hiperwalk = hpw.ContinuousTime(graph=graph, gamma=gamma, time=time*10)
     state = hiperwalk.ket(vertex)
-    final_state = hiperwalk.simulate(range=(graph_size // 2, (graph_size // 2) + 1), state=state)
+    final_state = hiperwalk.simulate(range=2, state=state)
     prob_vec = hiperwalk.probability_distribution(final_state)
     return prob_vec
 
@@ -65,13 +64,15 @@ def main(nlist, time):
         hiperwalk_prob_vec_file = os.path.join(n_folder, f"hiperwalk_prob_vec_n{n}.txt")
         
         if not os.path.exists(qwak_prob_vec_file):
-            final_state_qwak = run_qwak_walk(n, time)
+            graph = nx.cycle_graph(n)
+            final_state_qwak = run_qwak_walk(graph, time, gamma=1/(2*np.sqrt(2)))
             np.savetxt(qwak_prob_vec_file, final_state_qwak)
         else:
             final_state_qwak = np.loadtxt(qwak_prob_vec_file)
         
         if not os.path.exists(hiperwalk_prob_vec_file):
-            final_state_hiperwalk = run_hiperwalk(n, time)
+            graph = nx.cycle_graph(n)
+            final_state_hiperwalk = run_hiperwalk(graph, time, gamma=1/(2*np.sqrt(2)))
             np.savetxt(hiperwalk_prob_vec_file, final_state_hiperwalk)
         else:
             final_state_hiperwalk = np.loadtxt(hiperwalk_prob_vec_file)
@@ -92,6 +93,6 @@ def main(nlist, time):
             print(f"Graph size {graph_size} is not in the provided range.")
 
 if __name__ == "__main__":
-    nlist = range(3, 100)  # Graph sizes from 3 to 1000
+    nlist = range(3, 100)  # Graph sizes from 3 to 100
     time = 1  # Default time parameter
     main(nlist, time)
