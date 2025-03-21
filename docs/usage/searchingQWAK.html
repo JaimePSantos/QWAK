@@ -1,0 +1,477 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="Stochastic Qwak on a Maze" href="stochasticQWAK.html" /><link rel="prev" title="Directed Quantum Walk" href="orientedQuantumWalk.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
+        <title>Searching With QWAK - QWAK - Quantum Walk Analysis Kit</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-content-foreground: #000000;
+  --color-background-primary: #ffffff;
+  --color-background-border: #ffffff;
+  --color-sidebar-background: #f8f9fb;
+  --color-brand-content: #1c00e3;
+  --color-brand-primary: #192bd0;
+  --color-link: #c93434;
+  --color-link--hover: #5b0000;
+  --color-inline-code-background: #f6f6f6;;
+  --color-foreground-secondary: #000;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-content-foreground: #ffffffd9;
+  --color-background-primary: #131416;
+  --color-background-border: #303335;
+  --color-sidebar-background: #1a1c1e;
+  --color-brand-content: #2196f3;
+  --color-brand-primary: #007fff;
+  --color-link: #51ba86;
+  --color-link--hover: #9cefc6;
+  --color-inline-code-background: #262626;
+  --color-foreground-secondary: #ffffffd9;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-content-foreground: #ffffffd9;
+  --color-background-primary: #131416;
+  --color-background-border: #303335;
+  --color-sidebar-background: #1a1c1e;
+  --color-brand-content: #2196f3;
+  --color-brand-primary: #007fff;
+  --color-link: #51ba86;
+  --color-link--hover: #9cefc6;
+  --color-inline-code-background: #262626;
+  --color-foreground-secondary: #ffffffd9;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">QWAK - Quantum Walk Analysis Kit</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../installation/index.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation/conda-setup.html">Setting up QWAK with Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/venv-setup.html">Setting up QWAK with Venv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/dependencies.html">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation/localGUI.html">Running the Graphical Interface using Flask</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="index.html">Usage</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="perfectStateTransfer.html">Perfect State Transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="orientedQuantumWalk.html">Directed Quantum Walk</a></li>
+<li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Searching With QWAK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../contributing/index.html">Contributing</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Contributing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/genDoc.html">Generating Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing/pypi.html">Updating PyPi package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../modules.html">core</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../qwak.html">qwak package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../qwak_cupy.html">qwak_cupy package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../utils.html">utils package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="searching-with-qwak">
+<h1>Searching With QWAK<a class="headerlink" href="#searching-with-qwak" title="Link to this heading">¶</a></h1>
+<p>Here, we will go over the searching algorithm using QWAK for several different structures.</p>
+<section id="complete-graph">
+<h2>Complete Graph<a class="headerlink" href="#complete-graph" title="Link to this heading">¶</a></h2>
+<section id="single-element">
+<h3>Single Element<a class="headerlink" href="#single-element" title="Link to this heading">¶</a></h3>
+<p>To use QWAK for searching, we need to define a graph for the search space, and
+the targets are marked elements, specified as a list of weighted node indices.
+For a complete graph, the optimal transition rate is <span class="math notranslate nohighlight">\(\gamma = \frac{1}{n}\)</span>,
+resulting in a search time of <span class="math notranslate nohighlight">\(\mathcal{O}(\sqrt{N})\)</span>, comparable to Grover’s
+algorithm.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="linenos">2</span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">3</span><span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">n</span>
+<span class="linenos">4</span><span class="n">init</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+<span class="linenos">5</span><span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">complete_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos">6</span><span class="n">qw</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span> <span class="n">markedElements</span><span class="o">=</span><span class="p">[(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)],</span>
+<span class="linenos">7</span>          <span class="n">laplacian</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">8</span><span class="n">qw</span><span class="o">.</span><span class="n">runWalk</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">initStateList</span><span class="o">=</span><span class="n">init</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Firstly, we initialize <code class="docutils literal notranslate"><span class="pre">QWAK</span></code> with the desired simulation parameters,
+so that we can calculate the search problem via the <code class="docutils literal notranslate"><span class="pre">runWalk</span></code> method.
+Because we created the object with a list of marked elements, the Hamiltonian
+of the method will be described as:</p>
+<div class="math-wrapper docutils container">
+<div class="math notranslate nohighlight">
+\[H^\prime = -\gamma A - \sum_{x \in M} \ket{x}\bra{x}\]</div>
+</div>
+<p><a class="reference internal" href="../Images/SoftwareUsage/Searching/completePlot_N512_NWALKS3_S200.png"><img alt="completeGraphSearching" class="align-middle" src="../Images/SoftwareUsage/Searching/completePlot_N512_NWALKS3_S200.png" style="width: 50%;" /></a></p>
+<p>The optimal time for the search problem also depends on the number of solutions,
+and the previous figure presents the evolution of the sum probability of all the
+marked elements. The utility functions needed to plot this figure are available
+in the package.</p>
+</section>
+<section id="multiple-elements">
+<h3>Multiple Elements<a class="headerlink" href="#multiple-elements" title="Link to this heading">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="n">markedElements</span> <span class="o">=</span> <span class="p">[(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">n</span><span class="o">//</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="linenos">2</span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">markedElements</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>To search for multiple elements, we simply extend the <code class="docutils literal notranslate"><span class="pre">markedElements</span></code>
+list and fine-tune the optimal evolution time. The aforementioned figure
+demonstrates that as the number of marked elements increases, the time required
+to reach maximum probability decreases. Specifically, when we mark
+<span class="math notranslate nohighlight">\(\frac{1}{4}\)</span> of the total elements, the walk evolves optimally in time <span class="math notranslate nohighlight">\(\pi\)</span>.
+This scenario is analogous to the <em>single-shot Grover algorithm</em>, where
+the highest probability for finding the solution is achieved in just one step.</p>
+</section>
+</section>
+<section id="hypercube">
+<h2>Hypercube<a class="headerlink" href="#hypercube" title="Link to this heading">¶</a></h2>
+<p>The <span class="math notranslate nohighlight">\(n\)</span>-dimensional hypercube is a graph of <span class="math notranslate nohighlight">\(N=2^n\)</span> vertices, where two vertices
+will be connected if one differs only in a single bit from the other.</p>
+<p>The evolution of the search problem over this structure presents a sharp
+transition at a critical value of <span class="math notranslate nohighlight">\(\gamma\)</span>, given by</p>
+<div class="math-wrapper docutils container" id="equation-gamma-opt">
+<div class="math notranslate nohighlight" id="equation-gamma-opt">
+<span class="eqno">(1)<a class="headerlink" href="#equation-gamma-opt" title="Link to this equation">¶</a></span>\[\gamma_{\text{opt}} = \frac{1}{2^n} \sum_{r=1}^n \binom{n}{r} \frac{1}{r} = \frac{2}{n} + O\left(n^{-2}\right)\]</div>
+</div>
+<p>Here, we attempt to showcase that the maximum probability of the solution is
+indeed sensitive to the transition rate. For this purpose, we create a
+<code class="docutils literal notranslate"><span class="pre">QWAK</span></code> object for each value of <span class="math notranslate nohighlight">\(\gamma\)</span>, and then we evolve the walk in
+a time interval with the <code class="docutils literal notranslate"><span class="pre">runMultipleWalks</span></code> function.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="n">n</span> <span class="o">=</span> <span class="mi">9</span>
+<span class="linenos"> 2</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma_hypercube</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="n">graph</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">hypercube_graph</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="linenos"> 4</span>
+<span class="linenos"> 5</span><span class="n">N</span> <span class="o">=</span> <span class="mi">2</span><span class="o">**</span><span class="n">n</span>
+<span class="linenos"> 6</span><span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="linenos"> 7</span><span class="n">mElem</span> <span class="o">=</span> <span class="p">[(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="linenos"> 8</span><span class="n">initSL</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">))</span>
+<span class="linenos"> 9</span><span class="n">probDistMat</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span><span class="k">for</span> <span class="n">gamma</span> <span class="ow">in</span> <span class="n">gammaList</span><span class="p">:</span>
+<span class="linenos">12</span>    <span class="n">qw</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+<span class="linenos">13</span>              <span class="n">initStateList</span><span class="o">=</span><span class="n">initSL</span><span class="p">,</span> <span class="n">markedElements</span><span class="o">=</span><span class="n">mElem</span><span class="p">)</span>
+<span class="linenos">14</span>    <span class="n">qw</span><span class="o">.</span><span class="n">runMultipleWalks</span><span class="p">(</span><span class="n">timeList</span><span class="o">=</span><span class="n">tList</span><span class="p">)</span>
+<span class="linenos">15</span>    <span class="n">probDistMat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qw</span><span class="o">.</span><span class="n">getProbDistList</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The probability distribution matrix is composed of lists of
+<code class="docutils literal notranslate"><span class="pre">ProbabilityDistribution</span></code> objects, for each value of <span class="math notranslate nohighlight">\(\gamma\)</span>. We now
+generate a plot to visualize the search process and the effect of different
+values of <span class="math notranslate nohighlight">\(\gamma\)</span> on the probability of finding the marked element. The plot
+is shown in the following figure, obtained with auxiliary functions
+available in the notebook.</p>
+<p><a class="reference internal" href="../Images/SoftwareUsage/Searching/hypercubePlot_N512_S200_GMIN0.117_TMAX78.png"><img alt="hypercubeGraphSearching" class="align-middle" src="../Images/SoftwareUsage/Searching/hypercubePlot_N512_S200_GMIN0.117_TMAX78.png" style="width: 50%;" /></a></p>
+<p>We can see from the plot that despite having a very narrow range of transition
+rate values, <span class="math notranslate nohighlight">\(\gamma_{\text{opt}}\)</span> does indeed reach maximum probability within time
+that scales with <span class="math notranslate nohighlight">\(\mathcal{O}\sqrt{N}\)</span>.</p>
+</section>
+<section id="erdos-renyi-model">
+<h2>Erdős-Rényi model<a class="headerlink" href="#erdos-renyi-model" title="Link to this heading">¶</a></h2>
+<p>As a final example, we will examine the search problem on a more general
+collection of random graphs. In the Erdős-Rényi (ER) model, a graph is
+constructed by starting with a fixed number of nodes and then connecting each
+pair of nodes with a fixed probability <span class="math notranslate nohighlight">\(p\)</span>. As a consequence, the model produces
+graphs with varying degrees of connectivity and randomness, depending on the
+chosen value of <span class="math notranslate nohighlight">\(p\)</span>.</p>
+<p>However, it has been shown that search by CTQW is optimal for almost all graphs,
+given the correct conditions. To explore the behavior
+of the search process in these structures, we will perform a series of simulations
+with varying parameters. First, we create a list of ER graphs with different
+connection probabilities.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+<span class="n">samples</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">pList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+<span class="n">graphList</span> <span class="o">=</span> <span class="p">[</span><span class="n">nx</span><span class="o">.</span><span class="n">erdos_renyi_graph</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">pList</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Next, we initialize a QWAK object for each graph in the list and set a
+transition rate of <span class="math notranslate nohighlight">\(\gamma = \frac{1}{N p}\)</span>. We will store the probability
+distributions in a matrix for further analysis.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">initSL</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="n">tList</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">samples</span><span class="p">)</span>
+<span class="n">mElem</span> <span class="o">=</span> <span class="p">[(</span><span class="n">N</span><span class="o">//</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+<span class="n">probDistMat</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">graph</span><span class="p">,</span> <span class="n">pVal</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">graphList</span><span class="p">,</span> <span class="n">pList</span><span class="p">):</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">N</span><span class="o">*</span><span class="n">pVal</span><span class="p">)</span>
+    <span class="n">qw</span> <span class="o">=</span> <span class="n">QWAK</span><span class="p">(</span><span class="n">graph</span><span class="o">=</span><span class="n">graph</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="n">gamma</span><span class="p">,</span>
+              <span class="n">initStateList</span><span class="o">=</span><span class="n">initSL</span><span class="p">,</span> <span class="n">markedElements</span><span class="o">=</span><span class="n">mElem</span><span class="p">)</span>
+    <span class="n">qw</span><span class="o">.</span><span class="n">runMultipleWalks</span><span class="p">(</span><span class="n">timeList</span><span class="o">=</span><span class="n">tList</span><span class="p">)</span>
+    <span class="n">probDistMat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">qw</span><span class="o">.</span><span class="n">getProbDistList</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Finally, we can visualize the results in the following figure by
+generating a heatmap plot, with the connection probabilities on the x-axis as a
+function of time in the y-axis. The color intensity represents the
+maximum probability of finding the marked element at each combination of
+parameters.</p>
+<p><a class="reference internal" href="../Images/SoftwareUsage/Searching/heatMapPlot_N512_NGRAPHS40_S200_PMAX0.5.png"><img alt="erdosRenyiSearching" class="align-middle" src="../Images/SoftwareUsage/Searching/heatMapPlot_N512_NGRAPHS40_S200_PMAX0.5.png" style="width: 50%;" /></a></p>
+<p>When the value of <span class="math notranslate nohighlight">\(p\)</span> in a graph exceeds the percolation threshold of
+<span class="math notranslate nohighlight">\(p=\frac{\log{N}}{N}\)</span>, the graph is almost certainly connected. The figure highlights
+this threshold with a vertical line and shows that the search process achieves high solution
+probabilities above it, in time <span class="math notranslate nohighlight">\(\mathcal{O}(\sqrt{N})\)</span>. For each value of <span class="math notranslate nohighlight">\(p\)</span>, <cite>40</cite>
+different graphs were generated in order to calculate the average solution
+probability.</p>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="stochasticQWAK.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Stochastic Qwak on a Maze</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="orientedQuantumWalk.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Directed Quantum Walk</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Searching With QWAK</a><ul>
+<li><a class="reference internal" href="#complete-graph">Complete Graph</a><ul>
+<li><a class="reference internal" href="#single-element">Single Element</a></li>
+<li><a class="reference internal" href="#multiple-elements">Multiple Elements</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#hypercube">Hypercube</a></li>
+<li><a class="reference internal" href="#erdos-renyi-model">Erdős-Rényi model</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>window.MathJax = {"TeX": {"Macros": {"ket": ["{\\left|#1\\right\\rangle}", 1], "bra": ["{\\left\\langle#1\\right|}", 1]}}}</script>
+    <script defer="defer" src="../_static/mathjax/tex-chtml.js?v=20daa33d"></script>
+    <script src="../_static/responsiveSvg.js"></script>
+    </body>
+</html>
