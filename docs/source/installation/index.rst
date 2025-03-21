@@ -50,18 +50,28 @@ To install QWAK locally, follow these steps:
 Testing the installation
 ************************
 
-The preferred way to check the installation is by running the package's unit tests via pytest:
+The preferred way to check the installation is by running the `installcheck.py` script. This script provides several options for running different sets of tests.
+
+To use the script, run the following command:
 
 .. code-block:: console
 
-  pip install pytest
-  pytest -v tests/
+  python installcheck.py [option]
 
-An update to the installation check script is coming soon. For now, you can also run the basic testing script:
+Available options are:
+- `full`: Runs all tests.
+- `cupy`: Runs tests related to CuPy.
+- `Stochastic`: Runs stochastic tests.
+- `qwakpath`: Runs QWAK path tests.
+- `stochasticQwak`: Runs stochastic QWAK tests.
+- `cycle`: Runs cycle tests.
+- `complete`: Runs complete tests.
+
+For example, to run all tests, use:
 
 .. code-block:: console
 
-  python installCheck.py
+  python installcheck.py full
 
 If no errors are thrown and you end up with some plots opened, then the installation was successful. For more detailed testing, refer to the :doc:`installcheck <installcheck>` module documentation.
 
@@ -71,3 +81,4 @@ If no errors are thrown and you end up with some plots opened, then the installa
    conda-setup
    venv-setup
    dependencies
+   localGUI
