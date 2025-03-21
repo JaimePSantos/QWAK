@@ -7,27 +7,25 @@ import os
 import matplotlib.pyplot as plt
 # 
 
-
-def run_qwak_walk(graph, time, gamma):
+def run_qwak_walk(graph, time,gamma):
     vertex = len(graph) // 2
     qwak_instance = QWAK(graph, gamma=gamma)
     qwak_instance.runExpmWalk(time=time, initStateList=[vertex])
     final_state_qwak = qwak_instance.getProbVec()
     return final_state_qwak
 
-def run_hiperwalk(graph, time, gamma):
+def run_hiperwalk(graph, time_hiperwalk, gamma):
     numpy_graph = nx.to_numpy_array(graph)
-    graph = hpw.Graph(graph)
+    graph = hpw.Graph(numpy_graph)
     vertex = len(numpy_graph) // 2
-    time = time*10
-    hiperwalk = hpw.ContinuousTime(graph=graph, gamma=gamma, time=time*10)
+    hiperwalk = hpw.ContinuousTime(graph=graph, gamma=gamma, time=time_hiperwalk)
     state = hiperwalk.ket(vertex)
     final_state = hiperwalk.simulate(range=2, state=state)
     prob_vec = hiperwalk.probability_distribution(final_state)
-    return prob_vec
+    return prob_vec[-1]
 
 def compare_final_states(state1, state2):
-    return np.allclose(state1, state2,atol=1e-01)
+    return np.allclose(state1, state2,atol=1e-03)
 
 def create_results_folder(nlist, time):
     path = os.path.dirname(os.path.abspath(__file__))
@@ -53,7 +51,7 @@ def plot_final_states(n, results_folder):
     plt.legend()
     plt.show()
 
-def main(nlist, time):
+def main(nlist, time,time_hiperwalk):
     results_folder = create_results_folder(nlist, time)
     allclose_list = []
     for n in tqdm(nlist, desc="Processing graph sizes"):
@@ -72,7 +70,7 @@ def main(nlist, time):
         
         if not os.path.exists(hiperwalk_prob_vec_file):
             graph = nx.cycle_graph(n)
-            final_state_hiperwalk = run_hiperwalk(graph, time, gamma=1/(2*np.sqrt(2)))
+            final_state_hiperwalk = run_hiperwalk(graph, time_hiperwalk, gamma=1/(2*np.sqrt(2)))
             np.savetxt(hiperwalk_prob_vec_file, final_state_hiperwalk)
         else:
             final_state_hiperwalk = np.loadtxt(hiperwalk_prob_vec_file)
@@ -94,5 +92,6 @@ def main(nlist, time):
 
 if __name__ == "__main__":
     nlist = range(3, 100)  # Graph sizes from 3 to 100
-    time = 1  # Default time parameter
-    main(nlist, time)
+    time = 10  # Default time parameter
+    time_hiperwalk = 100
+    main(nlist, time, time_hiperwalk)
