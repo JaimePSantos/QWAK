@@ -115,7 +115,7 @@ params = {
     'tick_font_size': 36,
 }
 
-output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Output", "OrientedDynamics"))
+output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, "Output", "OrientedDynamics"))
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 

@@ -120,8 +120,8 @@ gammaList = np.linspace(gammaMin, gamma, samples).tolist()
 markedElements = [(N // 2, -1)]
 
 SCRIPT_DIR = os.getcwd()
-dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Datasets", "HypercubeSearch"))
-output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Output", "HypercubeSearch"))
+dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR, "Datasets", "HypercubeSearch"))
+output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, "Output", "HypercubeSearch"))
 
 time_file = os.path.join(dataset_dir, f'timeMatrix_N{N}_S{samples}_GMIN{round(gammaMin, 3)}_TMAX{round(maxTime)}.txt')
 marked_prob_file = os.path.join(dataset_dir, f'markedProbMatrix_N{N}_S{samples}_GMIN{round(gammaMin, 3)}_TMAX{round(maxTime)}.txt')
@@ -199,4 +199,4 @@ else:
     print("Image not copied.")
 
 
-    
+

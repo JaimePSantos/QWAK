@@ -86,7 +86,7 @@ toNode = N // 2 + k + 1
 
 SCRIPT_DIR = os.getcwd()
 
-decayRateMatrix_file = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', 'Datasets', 'OrientedDecayRate', 
+decayRateMatrix_file = os.path.normpath(os.path.join(SCRIPT_DIR, 'Datasets', 'OrientedDecayRate', 
     f'decayRateMatrix{N}_NWALKS{len(alphaList)}_Alphas{str([round(a, 2) for a in alphaList]).replace(", ", "-").replace("[", "").replace("]", "")}_S{samples}_TMAX{t}_FROM{fromNode}_TO{toNode}.txt'))
 
 if os.path.exists(decayRateMatrix_file):
@@ -98,7 +98,7 @@ else:
     if not os.path.exists(decayRateMatrix_file):
         write_nested_list_to_file(decayRateMatrix_file, decayRateMatrix)
 
-output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', 'Output', 'OrientedDecayRate'))
+output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Output', 'OrientedDecayRate'))
 if not os.path.exists(output_dir):
     os.makedirs(output_dir)
 

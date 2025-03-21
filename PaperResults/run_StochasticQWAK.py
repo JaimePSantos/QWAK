@@ -43,7 +43,7 @@ params = {
     'legend_ncol': 1,
     'color_list': ['b', 'g', 'r'],
     'line_style_list': ['--', '-', '-.'],
-    'save_path': os.path.join('output_dir', 'stochasticPlot.png'),
+    'save_path': os.path.join('Output', 'stochasticPlot.png'),
     'use_loglog': False,
     'use_cbar': False,
     'cbar_label': None,

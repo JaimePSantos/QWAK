@@ -44,7 +44,7 @@ params = {
     'legend_ncol' : 1,
     'color_list': ['#0000FF', '#008000', '#525252'],
     'line_style_list': ['-', '-', '-.'],
-    'save_path': os.path.join(SCRIPT_DIR, 'Notebook', 'Output', 'UndirectedDynamics', f'cycleDynamics_N{n}_GAM{round(gamma,3)}_TMAX{str(tList).replace(", ", "-").replace("[", "").replace("]", "")}.png'),
+    'save_path': os.path.join(SCRIPT_DIR, 'Output', 'UndirectedDynamics', f'cycleDynamics_N{n}_GAM{round(gamma,3)}_TMAX{str(tList).replace(", ", "-").replace("[", "").replace("]", "")}.png'),
     'use_loglog': False,
     'use_cbar': False,
     'cbar_label': None,

@@ -37,7 +37,7 @@ params = {
     # 'legend_ncol': 3,
     'color_list': ['#0000FF', '#008000', '#525252'],
     'line_style_list': ['-', '-', '-.'],
-    'save_path': os.path.join(SCRIPT_DIR, 'Notebook', 'Output', 'UndirectedDynamics', f'circularLadderDynamics_N{n}_TMAX{round(t, 2)}.png'),
+    'save_path': os.path.join(SCRIPT_DIR, 'Output', 'UndirectedDynamics', f'circularLadderDynamics_N{n}_TMAX{round(t, 2)}.png'),
     'use_loglog': False,
     'use_cbar': False,
     'cbar_label': None,

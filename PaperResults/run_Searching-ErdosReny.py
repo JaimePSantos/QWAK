@@ -103,8 +103,8 @@ tAux = t / samples
 timeList = np.linspace(0, 2 * t, samples)
 
 SCRIPT_DIR = os.getcwd()
-dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR,'Notebook', "Datasets", "ERSearch"))
-output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook',"Output", "ERSearch"))
+dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR, "Datasets", "ERSearch"))
+output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, "Output", "ERSearch"))
 
 time_file = os.path.join(dataset_dir, f'timeMatrix_N{N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.txt')
 pval_file = os.path.join(dataset_dir, f'pValMatrix_N{N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.txt')

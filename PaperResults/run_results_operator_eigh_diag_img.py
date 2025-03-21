@@ -284,6 +284,7 @@ sample_range = range(0, 100, 1)
 seed = 10
 
 SCRIPT_DIR = os.getcwd()
+
 path = os.path.normpath(os.path.join(
     SCRIPT_DIR,
     "benchmark/ModuleDev/Profiling/operator_results"
