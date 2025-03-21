@@ -19,8 +19,8 @@ def plot_qwak(
         legend_ncol=3,
         legend_loc='best',
         save_path=None,
-        font_size=12,
-        figsize=(10, 6),
+        font_size=16,  # Increased font size
+        figsize=(12, 8),  # Adjusted figure size
         color_list=None,
         line_style_list=None,
         use_loglog=False,
@@ -38,6 +38,7 @@ def plot_qwak(
         v_line_list_index=None,
         v_line_colors=None,
         x_lim=None,
+        use_grid=False,  # Added use_grid parameter
         **kwargs):
     """
     Plots data from a matrix of x values and a matrix of y values.
@@ -103,6 +104,12 @@ def plot_qwak(
         A list of colors to be used for the vertical lines. The default is None.
     x_lim : tuple, optional
         The limits of the x-axis. The default is None.
+    use_grid : bool, optional
+        Whether to use a grid. The default is False.
+    marker_list : list, optional
+        A list of markers to be used for the lines. The default is None.
+    marker_interval : int, optional
+        Interval at which markers should be placed. The default is None.
     """
 
     # Unpack optional parameters
@@ -134,6 +141,9 @@ def plot_qwak(
     x_lim = kwargs.get('x_lim', x_lim)
     v_line_list_index = kwargs.get(
         'v_line_list_index', v_line_list_index)
+    use_grid = kwargs.get('use_grid', use_grid)
+    marker_list = kwargs.get('marker_list', None)
+    marker_interval = kwargs.get('marker_interval', None)
 
     if not isinstance(
             x_value_matrix[0],
@@ -156,20 +166,28 @@ def plot_qwak(
     fig, ax = plt.subplots(figsize=figsize)
     if use_loglog:
         ax.loglog()
+    if use_grid:  # Apply grid option
+        ax.grid(True)
     axis_matrix_counter = 0
     color_matrix_counter = 0
     for xvalues, yvalues in zip(x_value_matrix, y_value_matrix):
         color = None
         line_style = None
         label = None
+        marker = None
+        markevery = None
         if color_list is not None:
             color = color_list[axis_matrix_counter]
         if line_style_list is not None:
             line_style = line_style_list[axis_matrix_counter]
         if legend_labels is not None:
             label = legend_labels[axis_matrix_counter]
+        if marker_list is not None:
+            marker = marker_list[axis_matrix_counter]
+        if marker_interval is not None:
+            markevery = marker_interval
         ax.plot(xvalues, yvalues, label=label,
-                color=color, linestyle=line_style)
+                color=color, linestyle=line_style, marker=marker, markevery=markevery)
         if v_line_values is not None and axis_matrix_counter == v_line_list_index:
             if v_line_colors is None:
                 v_line_colors = ['k'] * len(v_line_values)
@@ -195,25 +213,25 @@ def plot_qwak(
 
     # set the axis labels
     if x_label is not None:
-        ax.set_xlabel(x_label, fontsize=font_size + 2)
+        ax.set_xlabel(x_label, fontsize=font_size + 4)
     if y_label is not None:
-        ax.set_ylabel(y_label, fontsize=font_size + 2)
+        ax.set_ylabel(y_label, fontsize=font_size + 4)
 
     # set the plot plot_title
     if plot_title is not None:
-        ax.set_title(plot_title, fontsize=font_size + 4)
+        ax.set_title(plot_title, fontsize=font_size + 6)
 
     # set the legend
     if legend_labels is not None:
         legend = ax.legend(
             loc=legend_loc,
             ncol=legend_ncol,
-            fontsize=font_size - 1)
+            fontsize=font_size)
         if legend_title is not None:
-            legend.set_title(legend_title, prop={'size': font_size - 1})
+            legend.set_title(legend_title, prop={'size': font_size + 2})
 
     # set font size for ticks
-    ax.tick_params(axis='both', labelsize=font_size)
+    ax.tick_params(axis='both', labelsize=font_size + 2)
     min_x_value_matrix = np.min(x_value_matrix)
     max_x_value_matrix = np.max(x_value_matrix)
     min_y_value_matrix = np.min(y_value_matrix)
@@ -233,7 +251,7 @@ def plot_qwak(
                 min_x_value_matrix,
                 max_x_value_matrix,
                 num_x_ticks))
-        ax.set_xticklabels(x_tick_labels)
+        ax.set_xticklabels(x_tick_labels, fontsize=font_size + 2)
 
     if y_num_ticks is not None:
         num_y_ticks = min(y_num_ticks, len(y_value_matrix[0]))
@@ -248,7 +266,7 @@ def plot_qwak(
                 min_y_value_matrix,
                 max_y_value_matrix,
                 num_y_ticks))
-        ax.set_yticklabels(y_tick_labels)
+        ax.set_yticklabels(y_tick_labels, fontsize=font_size + 2)
 
     # add colorbar
     if use_cbar:
@@ -273,17 +291,17 @@ def plot_qwak(
             ticks=cbar_ticks)
         if cbar_label is not None:
             cbar.set_label(cbar_label, fontsize=font_size + 2)
-        cbar.ax.tick_params(labelsize=font_size)
+        cbar.ax.tick_params(labelsize=font_size + 2)
 
     if cbar_tick_labels is not None:
-        cbar.ax.set_yticklabels(cbar_tick_labels)
+        cbar.ax.set_yticklabels(cbar_tick_labels, fontsize=font_size + 2)
 
     if x_lim is not None:
         ax.set_xlim(x_lim)
 
     # save or show the plot
     if save_path is not None:
-        plt.savefig(save_path)
+        plt.savefig(save_path, bbox_inches='tight')
         plt.show()
     else:
         plt.show()
@@ -307,6 +325,10 @@ def plot_qwak_heatmap(
         cmap='coolwarm',
         x_vline_value=None,
         y_hline_value=None,
+        title_font_size=16,  # Added title_font_size parameter
+        xlabel_font_size=14,  # Added xlabel_font_size parameter
+        ylabel_font_size=14,  # Added ylabel_font_size parameter
+        tick_font_size=12,  # Added tick_font_size parameter
         **kwargs):
     """
     Plot a heatmap of the probability of a given p and t value.
@@ -347,6 +369,14 @@ def plot_qwak_heatmap(
         Value to draw a vertical line at. The default is None.
     y_hline_value : float, optional
         Value to draw a horizontal line at. The default is None.
+    title_font_size : int, optional
+        Font size for the title. The default is 16.
+    xlabel_font_size : int, optional
+        Font size for the x-axis label. The default is 14.
+    ylabel_font_size : int, optional
+        Font size for the y-axis label. The default is 14.
+    tick_font_size : int, optional
+        Font size for the tick labels. The default is 12.
     """
     # Get parameters from kwargs with their default values
     x_num_ticks = kwargs.get('x_num_ticks', x_num_ticks)
@@ -363,22 +393,26 @@ def plot_qwak_heatmap(
     cmap = kwargs.get('cmap', cmap)
     x_vline_value = kwargs.get('x_vline_value', x_vline_value)
     y_hline_value = kwargs.get('y_hline_value', y_hline_value)
+    title_font_size = kwargs.get('title_font_size', title_font_size)
+    xlabel_font_size = kwargs.get('xlabel_font_size', xlabel_font_size)
+    ylabel_font_size = kwargs.get('ylabel_font_size', ylabel_font_size)
+    tick_font_size = kwargs.get('tick_font_size', tick_font_size)
 
     flat_p = [item for sublist in p_values for item in sublist]
     flat_t = [item for sublist in t_values for item in sublist]
     flat_prob = [item for sublist in prob_values for item in sublist]
     data = {'p': flat_p, 't': flat_t, 'prob': flat_prob}
     df = pd.DataFrame(data)
-    pivot = df.pivot('t', 'p', 'prob')
+    pivot = df.pivot(index='t', columns='p', values='prob')
 
     fig, ax = plt.subplots(figsize=figsize)
-    sns.heatmap(pivot, cmap=cmap, vmin=0, vmax=1, cbar_kws={'label': cbar_label}, linewidths=0, **kwargs)
+    sns.heatmap(pivot, cmap=cmap, vmin=0, vmax=1, cbar_kws={'label': cbar_label}, linewidths=0)
 
     # set customizations
     ax.invert_yaxis()
-    ax.tick_params(axis='both', which='major', labelsize=font_size)
+    ax.tick_params(axis='both', which='major', labelsize=tick_font_size)
     cbar = ax.collections[0].colorbar
-    cbar.ax.tick_params(labelsize=font_size)
+    cbar.ax.tick_params(labelsize=tick_font_size)
     cbar.ax.set_ylabel(cbar_label, fontsize=font_size + 2)
 
     # generate tick labels based on p and t values
@@ -394,23 +428,27 @@ def plot_qwak_heatmap(
     ax.set_yticklabels(t_tick_labels)
     if x_vline_value is not None:
         x_tick_value = (x_vline_value - min(flat_p)) / (max(flat_p) - min(flat_p)) * len(p_values[0])
-        ax.axvline(x=x_tick_value, linestyle=':',marker='D',markersize=5, linewidth=1, color='white')
+        ax.axvline(x=x_tick_value, linestyle=':', marker='D', markersize=5, linewidth=1, color='white')
     if y_hline_value is not None:
         y_tick_value = (y_hline_value - min(flat_t)) / (max(flat_t) - min(flat_t)) * len(t_values[0])
-        ax.axhline(y=y_tick_value, linestyle=':',marker='D',markersize=5, linewidth=1, color='white')
+        ax.axhline(y=y_tick_value, linestyle=':', marker='D', markersize=5, linewidth=1, color='white')
 
     # add title to the plot if N is provided
     if N is not None:
-        plt.title(f'N={N}', fontsize=font_size + 4)
+        plt.title(f'N={N}', fontsize=title_font_size)
 
     # add x and y axis labels
     if xlabel is not None:
-        ax.set_xlabel(xlabel, fontsize=font_size + 2)
+        ax.set_xlabel(xlabel, fontsize=xlabel_font_size)
     if ylabel is not None:
-        ax.set_ylabel(ylabel, fontsize=font_size + 2)
+        ax.set_ylabel(ylabel, fontsize=ylabel_font_size)
 
     if filepath is not None:
         plt.savefig(filepath, bbox_inches='tight')
         plt.show()
     else:
         plt.show()
+
+def searchProbStepsPlotting():
+    # Define the function here
+    pass

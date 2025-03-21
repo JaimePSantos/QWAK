@@ -36,7 +36,10 @@ class StochasticQWAKTestStub:
             sinkRate=None):
         if t is not None:
             self.t = t
-        self.qwak.runWalk(self.t)
+            # print("\tBefore calling runWalk")
+            self.qwak.runWalk(self.t)        
+            # print("\tAfter calling runWalk")
+        
 
     def getProbVec(self):
         return self.qwak.getProbVec()

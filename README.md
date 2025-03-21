@@ -5,6 +5,8 @@ Quantum Walk Analysis Kit - A Python package for continuous-time quantum walk (C
 
 Additionally, a fullstack web app built with Flask and PyMongo is available on [Heroku](https://qwak-sim.herokuapp.com/).
 
+This package supports python 3.10 or newer.
+
 
 ## Table of Contents:
 - [Funding](#funding)

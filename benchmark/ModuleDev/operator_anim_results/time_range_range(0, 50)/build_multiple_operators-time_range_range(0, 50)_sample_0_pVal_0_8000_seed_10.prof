@@ -1,0 +1,81 @@
+         501571 function calls (501569 primitive calls) in 2.123 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    2.123    2.123 /home/countersantos/Documents/QWAK/benchmark/ModuleDev/OperatorBenchmark.py:81(build_multiple_operators)
+       50    1.593    0.032    1.664    0.033 /home/countersantos/Documents/QWAK/core/qwak/Operator.py:66(buildDiagonalOperator)
+        1    0.000    0.000    0.459    0.459 /home/countersantos/Documents/QWAK/core/qwak/Operator.py:16(__init__)
+        1    0.001    0.001    0.302    0.302 /home/countersantos/Documents/QWAK/core/qwak/Operator.py:109(_buildHamiltonian)
+        1    0.000    0.000    0.301    0.301 <class 'networkx.utils.decorators.argmap'> compilation 25:1(argmap_to_numpy_array_22)
+        1    0.001    0.001    0.301    0.301 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/utils/backends.py:959(__call__)
+        1    0.143    0.143    0.300    0.300 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/convert_matrix.py:884(to_numpy_array)
+        1    0.000    0.000    0.144    0.144 /home/countersantos/Documents/QWAK/core/qwak/Operator.py:134(_buildEigenValues)
+        1    0.144    0.144    0.144    0.144 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:1485(eigh)
+    99795    0.066    0.000    0.083    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/reportviews.py:856(__iter__)
+   299382    0.070    0.000    0.070    0.000 {method 'append' of 'list' objects}
+       50    0.042    0.001    0.042    0.001 {method 'conjugate' of 'numpy.ndarray' objects}
+       50    0.001    0.000    0.029    0.001 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/lib/_twodim_base_impl.py:245(diag)
+       51    0.028    0.001    0.028    0.001 {built-in method numpy.zeros}
+    99794    0.017    0.000    0.017    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/reportviews.py:790(<lambda>)
+        1    0.000    0.000    0.012    0.012 /home/countersantos/Documents/QWAK/core/qwak/Operator.py:152(_hermitianTest)
+        1    0.000    0.000    0.011    0.011 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/numeric.py:2243(allclose)
+        1    0.007    0.007    0.011    0.011 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/numeric.py:2337(isclose)
+       52    0.003    0.000    0.003    0.000 {built-in method builtins.abs}
+        1    0.003    0.003    0.003    0.003 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/numeric.py:290(full)
+        1    0.002    0.002    0.002    0.002 {method 'conj' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.001    0.001 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/graph.py:1940(number_of_edges)
+        1    0.000    0.000    0.001    0.001 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/graph.py:1897(size)
+        1    0.000    0.000    0.001    0.001 {built-in method builtins.sum}
+      501    0.000    0.000    0.001    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/graph.py:1933(<genexpr>)
+      501    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/reportviews.py:531(__iter__)
+      502    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+       50    0.000    0.000    0.000    0.000 {method 'transpose' of 'numpy.ndarray' objects}
+       50    0.000    0.000    0.000    0.000 {method 'diagonal' of 'numpy.ndarray' objects}
+  558/556    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2589(all)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:89(_wrapreduction_any_all)
+       53    0.000    0.000    0.000    0.000 {built-in method numpy.asanyarray}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       50    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/lib/_twodim_base_impl.py:241(_diag_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+        2    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/_ufunc_config.py:456(__exit__)
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.empty}
+        2    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/_ufunc_config.py:440(__enter__)
+        5    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/numeric.py:2429(<genexpr>)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/reportviews.py:1102(__call__)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:148(_commonType)
+        1    0.000    0.000    0.000    0.000 <string>:1(<lambda>)
+        2    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+        2    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/graph.py:444(__iter__)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:123(_makearray)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/reportviews.py:771(__init__)
+        2    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:142(_realType)
+        2    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        3    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/graph.py:476(__len__)
+        2    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+        2    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.isinstance}
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:198(_assert_stacked_square)
+        2    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:192(_assert_stacked_2d)
+        1    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        2    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:128(isComplexType)
+        1    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0xa43b40}
+        2    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+        3    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/reportviews.py:428(__call__)
+        2    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/_ufunc_config.py:430(__init__)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/numeric.py:2239(_allclose_dispatcher)
+        1    0.000    0.000    0.000    0.000 {method 'upper' of 'str' objects}
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/graph.py:1577(is_directed)
+        1    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/fromnumeric.py:2584(_all_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/numeric.py:2333(_isclose_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/multiarray.py:1098(copyto)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/networkx/classes/graph.py:1573(is_multigraph)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/linalg/_linalg.py:1225(_eigvalsh_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/countersantos/Documents/QWAK/EnvQWAK/lib/python3.12/site-packages/numpy/_core/multiarray.py:690(result_type)
+
+

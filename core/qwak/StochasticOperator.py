@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import networkx as nx
 import numpy as np
-from qutip import Qobj, basis
+from qutip import Qobj, basis, lindblad_dissipator
 
 
 class StochasticOperator(object):
@@ -22,6 +22,7 @@ class StochasticOperator(object):
         Quantum stochastic walks: A generalization of classical random walks and quantum walks.
 
         @author: Lorenzo Buffoni
+        @github: https://github.com/Buffoni
 
         Parameters
         ----------
@@ -104,6 +105,7 @@ class StochasticOperator(object):
         """
         Internal method to build the classical Hamiltonian (Lindblad operators).
         """
+        # print('_buildClassicalHamiltonian Temporarily unavailable')
         if self._sinkNode is not None:
             L = [
                 np.sqrt(self._p * self._laplacian[i, j])
@@ -123,7 +125,11 @@ class StochasticOperator(object):
                 for j in range(self.n)
                 if self._laplacian[i, j] > 0
             ]
-        self._classicalHamiltonian = L
+        # Compute superoperator from list of Lindblad operators
+        superop = lindblad_dissipator(L[0])
+        for i in range(len(L)-1):
+          superop += lindblad_dissipator(L[i+1])
+        self._classicalHamiltonian = superop
 
     def getClassicalHamiltonian(self) -> list:
         """
@@ -134,7 +140,8 @@ class StochasticOperator(object):
         list[Qobj]
             A list of Qobj representing the Lindblad operators.
         """
-
+        # print('getClassicalHamiltonian Temporarily unavailable')
+        # return None
         return self._classicalHamiltonian
 
     def setClassicalHamiltonian(self, newClassicalHamiltonian) -> None:

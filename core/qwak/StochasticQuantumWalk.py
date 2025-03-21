@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import numpy as np
-from qutip import Qobj, Options, mesolve
+from qutip import Qobj, Options, mesolve, QobjEvo
 from qwak.StochasticOperator import StochasticOperator
 from qwak.State import State
 
@@ -31,14 +31,14 @@ class StochasticQuantumWalk(object):
         self._initState = state
         self._initQutipState = Qobj(state.getStateVec())
         self._operator = operator
-        self._finalState = Qobj(State(self._n))
+        self._finalState = Qobj(State(self._n).getStateVec())
         self._time = 0
 
     def buildWalk(
         self,
         time: float,
         observables: list = [],
-        opts: Options = Options(store_states=True, store_final_state=True)
+        opts: Options = Options(store_states=False, store_final_state=True)
     ) -> None:
         """Constructs the quantum walk over a specified time frame.
 
@@ -51,25 +51,36 @@ class StochasticQuantumWalk(object):
         opts : Options, optional
             QuTiP options for the simulation. Defaults to storing states and the final state.
         """
-        self._time = np.arange(0, time + 1)
+        # print("\t\t\tBefore calling self._time")
+        self._time = list(np.arange(0, time + 1))
+        # print("\t\t\tAfter calling self._time")
         if self._operator.getSinkNode() is not None:
+            # print("\t\t\tBefore calling Qobj")
             self._initQutipState = Qobj(
                 np.vstack([self._initState.getStateVec(), [0.0]])
             )
+            # print("\t\t\tAfter calling Qobj")
+        # print("\t\t\tBefore calling mesolve")
+        # collapse_ops = self._operator.getClassicalHamiltonian()
+        # if collapse_ops and all((op.full() == 0).all() for op in collapse_ops):
+        #     # print("\t\t\tAll collapse operators are zero. Setting collapse_ops to None.")
+        #     collapse_ops = None
         self._finalState = mesolve(
             self._operator.getQuantumHamiltonian(),
             self._initQutipState,
             self._time,
-            self._operator.getClassicalHamiltonian(),
-            observables,
-            options=opts,
+            c_ops=self._operator.getClassicalHamiltonian(),
+            # #observables,
+            # options=opts,
         ).final_state.full()
+        # print("\t\t\tAfter calling mesolve")
 
     def getFinalState(self) -> Qobj:
         """Returns the final quantum state after the completion of the walk.
 
         Returns
         -------
+
         Qobj
             The final state of the quantum walk.
         """
