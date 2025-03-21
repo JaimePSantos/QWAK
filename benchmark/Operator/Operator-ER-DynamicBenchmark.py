@@ -12,13 +12,20 @@ from utils.plotTools import plot_qwak
 
 from OperatorBenchmark3 import OperatorBenchmark3
 
-def benchmark_operations(n, tList, base_filename, samples,pVal=0.8,seed=10):
-    graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
+
+def benchmark_operations(
+        n,
+        tList,
+        base_filename,
+        samples,
+        pVal=0.8,
+        seed=10):
+    graph = nx.erdos_renyi_graph(n, pVal, seed=seed)
     eig_runTime = []
     expm_runTime = []
     eig_filename = f"{base_filename}_eig.csv"
     expm_filename = f"{base_filename}_expm.csv"
-    
+
     if os.path.exists(eig_filename) and os.path.exists(expm_filename):
         print('Files found!')
         with open(eig_filename, "r") as f:
@@ -26,63 +33,65 @@ def benchmark_operations(n, tList, base_filename, samples,pVal=0.8,seed=10):
             next(reader)  # Skip header
             eig_runTime = list(map(float, next(reader)))
             print(f'{eig_filename} exists!')
-                
+
         with open(expm_filename, "r") as f:
             reader = csv.reader(f)
             next(reader)  # Skip header
             expm_runTime = list(map(float, next(reader)))
             print(f'{expm_filename} exists!')
         return eig_runTime, expm_runTime
-    
+
     else:
-         print('Files not found!')
-         op = OperatorBenchmark3(graph)
-         opAdjTime = op.buildAdjacencyTimed()
-         opEigTime = op.buildEigenTimed()
-         op_init_run_time = opAdjTime + opEigTime
-     
-         for time in tList:
-             total_runOp_run_time = 0
-             for _ in range(samples):
-                 for t in range(0, time):
-                     runOp_run_time = op.buildDiagonalOperatorNoEigTimed(graph=graph, time=t)
-                     total_runOp_run_time += runOp_run_time
-             avg_runOp_run_time = total_runOp_run_time / samples
-             eig_runTime.append(avg_runOp_run_time + op_init_run_time)
-             op_init_run_time = 0
-     
-         # Time the buildDiagonalOperator method for expm
-         op2 = OperatorBenchmark3(graph)
-         op2AdjTime = op2.buildAdjacencyTimed()
-     
-         for time in tList:
-             print(f'Expm time: {time}')
-             total_runOp2_run_time = 0
-             for s in range(samples):
-                 if s % 20 == 0:
-                     print(f'\t----> Sample: {s}')
-                 for t in range(0, time):
-                     runOp2_run_time = op2.buildSlowDiagonalOperatorNoAdjTimed(graph=graph, time=t)
-                     total_runOp2_run_time += runOp2_run_time
-             avg_runOp2_run_time = total_runOp2_run_time / samples
-             expm_runTime.append(avg_runOp2_run_time + op2AdjTime)
-             op2AdjTime = 0
-     
-         # Create the directory if it doesn't exist
-         directory = os.path.dirname(eig_filename)
-         os.makedirs(directory, exist_ok=True)
-     
-         with open(eig_filename, "w", newline="") as f:
-             writer = csv.writer(f)
-             writer.writerow(["Eig RunTime"])
-             writer.writerow(eig_runTime)
-     
-         with open(expm_filename, "w", newline="") as f:
-             writer = csv.writer(f)
-             writer.writerow(["Expm RunTime"])
-             writer.writerow(expm_runTime)
-     
-         return eig_runTime, expm_runTime
+        print('Files not found!')
+        op = OperatorBenchmark3(graph)
+        opAdjTime = op.buildAdjacencyTimed()
+        opEigTime = op.buildEigenTimed()
+        op_init_run_time = opAdjTime + opEigTime
+
+        for time in tList:
+            total_runOp_run_time = 0
+            for _ in range(samples):
+                for t in range(0, time):
+                    runOp_run_time = op.buildDiagonalOperatorNoEigTimed(
+                        graph=graph, time=t)
+                    total_runOp_run_time += runOp_run_time
+            avg_runOp_run_time = total_runOp_run_time / samples
+            eig_runTime.append(avg_runOp_run_time + op_init_run_time)
+            op_init_run_time = 0
+
+        # Time the buildDiagonalOperator method for expm
+        op2 = OperatorBenchmark3(graph)
+        op2AdjTime = op2.buildAdjacencyTimed()
+
+        for time in tList:
+            print(f'Expm time: {time}')
+            total_runOp2_run_time = 0
+            for s in range(samples):
+                if s % 20 == 0:
+                    print(f'\t----> Sample: {s}')
+                for t in range(0, time):
+                    runOp2_run_time = op2.buildSlowDiagonalOperatorNoAdjTimed(
+                        graph=graph, time=t)
+                    total_runOp2_run_time += runOp2_run_time
+            avg_runOp2_run_time = total_runOp2_run_time / samples
+            expm_runTime.append(avg_runOp2_run_time + op2AdjTime)
+            op2AdjTime = 0
+
+        # Create the directory if it doesn't exist
+        directory = os.path.dirname(eig_filename)
+        os.makedirs(directory, exist_ok=True)
+
+        with open(eig_filename, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Eig RunTime"])
+            writer.writerow(eig_runTime)
+
+        with open(expm_filename, "w", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(["Expm RunTime"])
+            writer.writerow(expm_runTime)
+
+        return eig_runTime, expm_runTime
 
 
 # Example usage
@@ -131,11 +140,13 @@ params = {
 
 tList = list(range(start, stop, step))
 
-filename = f'benchmark/Operator/Dynamic-ER/dynamicBenchmark_WSTART{start}_WEND{stop}_WST{step}_SAMP{samples}'
+filename = f'benchmark/Operator/Dynamic-ER/dynamicBenchmark_WSTART{
+    start}_WEND{stop}_WST{step}_SAMP{samples}'
 
-eig_runTime, expm_runTime = benchmark_operations(n, tList, filename, samples)
+eig_runTime, expm_runTime = benchmark_operations(
+    n, tList, filename, samples)
 
 y_values = [eig_runTime, expm_runTime]
-x_values = [tList]*2
-plot_qwak(x_value_matrix = x_values, y_value_matrix = y_values,**params)
+x_values = [tList] * 2
+plot_qwak(x_value_matrix=x_values, y_value_matrix=y_values, **params)
 plt.show()

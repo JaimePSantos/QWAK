@@ -18,11 +18,12 @@ resultRounding = 3
 
 load_dotenv()
 
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home")
 def home():
     if not session.get('sessionId'):
-        sessionId = f'user{len(database.list_collection_names())+1}'
+        sessionId = f'user{len(database.list_collection_names()) + 1}'
         session['sessionId'] = sessionId
         probDistSessionCollection = database[sessionId]
         probDistSessionCollection.insert_one({'init': sessionId})
@@ -33,7 +34,7 @@ def home():
 @app.route("/staticQW")
 def staticQW():
     if not session.get('sessionId'):
-        sessionId = f'user{len(database.list_collection_names())+1}'
+        sessionId = f'user{len(database.list_collection_names()) + 1}'
         session['sessionId'] = sessionId
         probDistSessionCollection = database[sessionId]
         probDistSessionCollection.insert_one({'init': sessionId})
@@ -54,7 +55,7 @@ def staticQW():
 @app.route("/dynamicQW")
 def dynamicQW():
     if not session.get('sessionId'):
-        sessionId = f'user{len(database.list_collection_names())+1}'
+        sessionId = f'user{len(database.list_collection_names()) + 1}'
         session['sessionId'] = sessionId
         probDistSessionCollection = database[sessionId]
         probDistSessionCollection.insert_one({'init': sessionId})
@@ -71,6 +72,7 @@ def dynamicQW():
             json.loads(dynamicQwak.to_json(isDynamic=True)))
     return render_template('dynamicQW.html')
 
+
 @app.route('/setStaticGraph', methods=['GET', 'POST'])
 def setStaticGraph():
     probDistSessionCollection = database[session['sessionId']]
@@ -83,7 +85,8 @@ def setStaticGraph():
     staticQWAK.setGraph(newGraph)
     probDistSessionCollection.replace_one(
         {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
-    return convert_cytoscape_to_decimal(nx.cytoscape_data(staticQWAK.getGraph()))
+    return convert_cytoscape_to_decimal(
+        nx.cytoscape_data(staticQWAK.getGraph()))
 
 
 @app.route('/getStaticGraphToJson', methods=['GET', 'POST'])
@@ -144,10 +147,12 @@ def getStaticSurvivalProb():
                                     'qwakId': session['staticQwakId']}))
         fromNode = str(request.form.get("fromNode"))
         toNode = str(request.form.get("toNode"))
-        survProb = staticQWAK.getSurvivalProb(fromNode, toNode,resultRounding)
+        survProb = staticQWAK.getSurvivalProb(
+            fromNode, toNode, resultRounding)
         return [False, str(survProb)]
     except MissingNodeInput as err:
         return [True, str(err)]
+
 
 @app.route('/checkPST', methods=['GET', 'POST'])
 def checkPST():
@@ -159,9 +164,10 @@ def checkPST():
     nodeB = request.form.get("nodeB")
     try:
         pst = staticQWAK.checkPST(nodeA, nodeB)
-        return [False,str(pst)]
+        return [False, str(pst)]
     except MissingNodeInput as err:
-        return [True,str(err)]
+        return [True, str(err)]
+
 
 @app.route('/setDynamicGraph', methods=['GET', 'POST'])
 def setDynamicGraph():
@@ -174,7 +180,8 @@ def setDynamicGraph():
     dynamicQWAK.setGraph(eval(f"{newGraph}({dynamicQWAK.getDim()})"))
     probDistSessionCollection.replace_one(
         {'qwakId': session['dynamicQwakId']}, json.loads(dynamicQWAK.to_json(isDynamic=True)))
-    return convert_cytoscape_to_decimal(nx.cytoscape_data(dynamicQWAK.getGraph()))
+    return convert_cytoscape_to_decimal(
+        nx.cytoscape_data(dynamicQWAK.getGraph()))
 
 
 @app.route('/getDynamicGraphToJson', methods=['GET', 'POST'])
@@ -211,6 +218,7 @@ def getRunMultipleWalksDB():
             return [True, str(err)]
         return [False, resultDict]
 
+
 @app.route('/setRunMultipleWalksDB', methods=['POST'])
 def setRunMultipleWalksDB():
     print(request.method)
@@ -229,6 +237,7 @@ def setRunMultipleWalksDB():
             return [True, str(err)]
     return [False, resultDict]
 
+
 @app.route('/runMultipleWalks', methods=['GET', 'POST'])
 def runMultipleWalks():
     probDistSessionCollection = database[session['sessionId']]
@@ -236,6 +245,7 @@ def runMultipleWalks():
     gQwak = GraphicalQWAK.from_json(
         probDistSessionCollection.find_one({'qwakId': sessionId}))
     return gQwak.runMultipleWalks()
+
 
 @app.route('/getDynamicMean', methods=['GET', 'POST'])
 def getDynamicMean():
@@ -245,6 +255,7 @@ def getDynamicMean():
     meanList = dynamicQWAK.getMeanList(resultRounding)
     return meanList
 
+
 @app.route('/getDynamicStDev', methods=['GET', 'POST'])
 def getDynamicStDev():
     probDistSessionCollection = database[session['sessionId']]
@@ -253,6 +264,7 @@ def getDynamicStDev():
     stDevList = dynamicQWAK.getStDevList(resultRounding)
     return stDevList
 
+
 @app.route('/getDynamicInvPartRatio', methods=['GET', 'POST'])
 def getDynamicInvPartRatio():
     probDistSessionCollection = database[session['sessionId']]
@@ -260,6 +272,7 @@ def getDynamicInvPartRatio():
         {'qwakId': session['dynamicQwakId']}), isDynamic=True)
     stDevList = dynamicQWAK.getInversePartRatioList(resultRounding)
     return stDevList
+
 
 @app.route('/getDynamicSurvivalProb', methods=['GET', 'POST'])
 def getDynamicSurvivalProb():
@@ -275,6 +288,7 @@ def getDynamicSurvivalProb():
     except MissingNodeInput as err:
         return [True, str(err)]
 
+
 @app.route('/setDynamicCustomGraph', methods=['GET', 'POST'])
 def setDynamicCustomGraph():
     probDistSessionCollection = database[session['sessionId']]
@@ -289,9 +303,11 @@ def setDynamicCustomGraph():
 
 ################## TEST ##################
 
+
 @app.route("/test")
 def test():
     return render_template('test.html')
+
 
 @app.route("/reset", methods=['GET', 'POST'])
 def reset():
@@ -317,7 +333,7 @@ def reset():
 @app.route("/load", methods=['GET', 'POST'])
 def load():
     if not session.get('sessionId'):
-        sessionId = f'user{len(database.list_collection_names())+1}'
+        sessionId = f'user{len(database.list_collection_names()) + 1}'
         session['sessionId'] = sessionId
         probDistSessionCollection = database[sessionId]
         probDistSessionCollection.insert_one({'init': sessionId})
@@ -369,8 +385,13 @@ def setRunWalkDBTest():
         staticQWAK.setInitState(newState)
         staticQWAK.runWalk(newTime)
 
-        print(f'qwakId: {staticQWAK.getQWAKId()} \t dim: {staticQWAK.getDim()}\t time: {staticQWAK.getTime()} \t initCondList: {staticQWAK.getInitState().getStateVec()}')
-        
+        print(
+            f'qwakId: {
+                staticQWAK.getQWAKId()} \t dim: {
+                staticQWAK.getDim()}\t time: {
+                staticQWAK.getTime()} \t initCondList: {
+                    staticQWAK.getInitState().getStateVec()}')
+
         probDistSessionCollection.replace_one(
             {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
     return ("nothing")
@@ -381,10 +402,11 @@ def getRunWalkDBTest():
     probDistSessionCollection = database[session['sessionId']]
 
     staticQWAK = QWAK.from_json(probDistSessionCollection.find_one({
-                                    'qwakId': session['staticQwakId']}))
+        'qwakId': session['staticQwakId']}))
     print(staticQWAK.getProbDist().getProbVec())
-    
+
     return ("nothing")
+
 
 @app.route('/setRunMultipleWalksDBTest', methods=['POST', 'GET'])
 def setRunMultipleWalksDBTest():
@@ -430,6 +452,7 @@ def getRunMultipleWalksDBTest():
         prob = gQwak.getDynamicProbVecList().tolist()
     return prob
 
+
 @app.route('/testSetStaticGraph', methods=['GET', 'POST'])
 def testSetStaticGraph():
     probDistSessionCollection = database[session['sessionId']]
@@ -440,8 +463,10 @@ def testSetStaticGraph():
     newGraph = eval(f"{newGraphStr}({newDim})")
     staticQWAK.setDim(newDim, graphStr=newGraphStr)
     staticQWAK.setGraph(newGraph)
-    print(f'NEW Dim \t->\t {newDim}\n\nStatic QWAK DIM \t->\t {staticQWAK.getDim()}\n\nAdjacency:\n{staticQWAK.getAdjacencyMatrix()}')
+    print(
+        f'NEW Dim \t->\t {newDim}\n\nStatic QWAK DIM \t->\t {
+            staticQWAK.getDim()}\n\nAdjacency:\n{
+            staticQWAK.getAdjacencyMatrix()}')
     probDistSessionCollection.replace_one(
         {'qwakId': session['staticQwakId']}, json.loads(staticQWAK.to_json()))
     return nx.cytoscape_data(staticQWAK.getGraph())
-

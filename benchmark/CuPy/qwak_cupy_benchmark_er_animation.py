@@ -16,65 +16,92 @@ from qwak_cupy.qwak import QWAK as CQWAK
 from qwak.qwak import QWAK as QWAK
 
 
+def runTimedQWAK(n, pVal, tList, seed, hpc=False):
+    initNodes = [n // 2]
+    graph = nx.erdos_renyi_graph(n, pVal, seed=seed)
 
-def runTimedQWAK(n,pVal,tList,seed, hpc = False):
-    initNodes = [n//2]
-    graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
-    
     start_time = time.time()
     qw = QWAK(graph) if not hpc else CQWAK(graph)
-    for t in tqdm(tList, desc=f"NPQWAK {len(tList)}:{tList[0]}->{tList[-1]}" if not hpc else f"CuPyQWAK {len(tList)}:{tList[0]}->{tList[-1]}", leave=False):
+    for t in tqdm(tList, desc=f"NPQWAK {len(tList)}:{
+                  tList[0]}->{tList[-1]}" if not hpc else f"CuPyQWAK {len(tList)}:{tList[0]}->{tList[-1]}", leave=False):
         qw.runWalk(t, initNodes)
     end_time = time.time()
     qwak_time = end_time - start_time
     # final_state = qw.getProbVec()
-    
-    return qwak_time#final_state, qwak_time
 
-def runInitTimedQWAK(n,pVal,tList, seed,base_dir, hpc = False):
-    initNodes = [n//2]
-    graph = nx.erdos_renyi_graph(n,pVal,seed=seed)
+    return qwak_time  # final_state, qwak_time
+
+
+def runInitTimedQWAK(n, pVal, tList, seed, base_dir, hpc=False):
+    initNodes = [n // 2]
+    graph = nx.erdos_renyi_graph(n, pVal, seed=seed)
     qwak_init_average = 0
-    
+
     init_time_dir = os.path.join(base_dir, f"init_time_n{n}")
     os.makedirs(init_time_dir, exist_ok=True)
-    init_avg_file = os.path.join(init_time_dir, f"AVG-t_P{pVal}_N{n}_samples{samples}.pkl") 
-    for sample in tqdm(range(1, samples + 1), desc=f"QWAK Init for N={n}", leave=False):
-        qwak_init_t_file = os.path.join(init_time_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
-        qwak_init_qw_file = os.path.join(init_time_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
-        
+    init_avg_file = os.path.join(
+        init_time_dir,
+        f"AVG-t_P{pVal}_N{n}_samples{samples}.pkl")
+    for sample in tqdm(
+            range(
+                1,
+                samples + 1),
+            desc=f"QWAK Init for N={n}",
+            leave=False):
+        qwak_init_t_file = os.path.join(
+            init_time_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
+        qwak_init_qw_file = os.path.join(
+            init_time_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
+
         qwak_init_start_time = time.time()
         qw = QWAK(graph) if not hpc else CQWAK(graph)
         qwak_init_end_time = time.time()
         qwak_init_time = qwak_init_end_time - qwak_init_start_time
         qwak_init_average += qwak_init_time
-        print(f"QWAK INIT {qwak_init_time}",end='\r')
-        
+        print(f"QWAK INIT {qwak_init_time}", end='\r')
+
         with open(qwak_init_t_file, 'wb') as f:
-                pickle.dump(qwak_init_time, f)
+            pickle.dump(qwak_init_time, f)
         with open(qwak_init_qw_file, 'wb') as f:
-                pickle.dump(qw.getProbVec(), f)    
-            
+            pickle.dump(qw.getProbVec(), f)
+
     qwak_init_average = qwak_init_average / samples
     with open(init_avg_file, 'wb') as f:
-                pickle.dump(qwak_init_average, f)
-        
+        pickle.dump(qwak_init_average, f)
+
     return qwak_init_average, qw
-    
-def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
 
-    
-    qwak_init_average, qw_init = runInitTimedQWAK(n,pVal,tList, seed,base_dir, hpc = False)
 
-    for t in tqdm(tList, desc=f"NPQWAK {len(tList)}:{tList[0]}->{tList[-1]}" if not hpc else f"CuPyQWAK {len(tList)}:{tList[0]}->{tList[-1]}", leave=False):
+def runMultipleAnimQWAK(
+        n,
+        pVal,
+        tList,
+        samples,
+        seed,
+        base_dir,
+        hpc=False):
+
+    qwak_init_average, qw_init = runInitTimedQWAK(
+        n, pVal, tList, seed, base_dir, hpc=False)
+
+    for t in tqdm(tList, desc=f"NPQWAK {len(tList)}:{
+                  tList[0]}->{tList[-1]}" if not hpc else f"CuPyQWAK {len(tList)}:{tList[0]}->{tList[-1]}", leave=False):
         t_dir = os.path.join(base_dir, f"t{t}")
         os.makedirs(t_dir, exist_ok=True)
-        avg_file = os.path.join(t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")
+        avg_file = os.path.join(
+            t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")
         # print(qwak_time_average)
         qwak_time_average = 0
-        for sample in tqdm(range(1, samples + 1), desc=f"Samples for t = {t}", leave=False):
-            t_file = os.path.join(t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
-            qw_file = os.path.join(t_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
+        for sample in tqdm(
+                range(
+                    1,
+                    samples + 1),
+                desc=f"Samples for t = {t}",
+                leave=False):
+            t_file = os.path.join(
+                t_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
+            qw_file = os.path.join(
+                t_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
 
             if os.path.exists(t_file) and os.path.exists(qw_file):
                 # Skip existing samples but continue processing others
@@ -84,8 +111,8 @@ def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
             qw_init.runExpmWalk(t)
             end_time = time.time()
             qwak_time = end_time - start_time
-            print(f"QWAK TIME {qwak_time}",end='\r')
-            
+            print(f"QWAK TIME {qwak_time}", end='\r')
+
             # qw, qwak_time = runTimedQWAK_anim(qwak, t, hpc=hpc)
             qwak_time_average += qwak_time
 
@@ -99,31 +126,47 @@ def runMultipleAnimQWAK(n, pVal, tList, samples, seed, base_dir, hpc=False):
         qwak_time_average = qwak_time_average / samples
 
         with open(avg_file, 'wb') as f:
-            pickle.dump(qwak_time_average, f)# Parameters
+            pickle.dump(qwak_time_average, f)  # Parameters
 
     return
 
-def load_init_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False):  # Added samples parameter
+
+# Added samples parameter
+def load_init_runMultipleAnimQWAK(
+        n,
+        pVal,
+        tList,
+        samples,
+        base_dir,
+        hpc=False):
     qwList = []
     tList_storage = []
     avgList = []
-    
+
     init_dir = os.path.join(base_dir, f"init_time_n{n}")
-    
+
     init_tList_storage = []
     init_qwList = []
-    init_avg_file = os.path.join(init_dir, f"AVG-t_P{pVal}_N{n}_samples{samples}.pkl")
+    init_avg_file = os.path.join(
+        init_dir, f"AVG-t_P{pVal}_N{n}_samples{samples}.pkl")
     init_avg_list = []
-    
+
     if os.path.exists(init_avg_file):
-            with open(init_avg_file, 'rb') as f:
-                init_avg_list.append(pickle.load(f))
+        with open(init_avg_file, 'rb') as f:
+            init_avg_list.append(pickle.load(f))
     else:
         init_avg_list.append(None)
-    
-    for sample in tqdm(range(1, samples + 1), desc=f"QWAK Init for N={n}", leave=False):
-        init_t_file = os.path.join(init_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
-        init_qw_file = os.path.join(init_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
+
+    for sample in tqdm(
+            range(
+                1,
+                samples + 1),
+            desc=f"QWAK Init for N={n}",
+            leave=False):
+        init_t_file = os.path.join(
+            init_dir, f"t_P{pVal}_N{n}_sample{sample}.pkl")
+        init_qw_file = os.path.join(
+            init_dir, f"qw_P{pVal}_N{n}_sample{sample}.pkl")
 
         init_tList_n = []
         init_qwList_n = []
@@ -139,11 +182,20 @@ def load_init_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False
             init_tList_storage.append(init_tList_n)
             init_qwList.append(init_qwList_n)
 
-    return init_tList_storage,init_qwList,init_avg_list
+    return init_tList_storage, init_qwList, init_avg_list
 
-def load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False):  # Added samples parameter
-    init_tList_storage,init_qwList,init_avg_list = load_init_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir)  # Passed samples
-    
+
+# Added samples parameter
+def load_runMultipleAnimQWAK(
+        n,
+        pVal,
+        tList,
+        samples,
+        base_dir,
+        hpc=False):
+    init_tList_storage, init_qwList, init_avg_list = load_init_runMultipleAnimQWAK(
+        n, pVal, tList, samples, base_dir)  # Passed samples
+
     qwList = []
     tList_storage = []
     avgList = []
@@ -154,7 +206,9 @@ def load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False):  #
 
         qwList_n = []
         tList_n = []
-        avg_file = os.path.join(t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")  # Now uses samples parameter
+        # Now uses samples parameter
+        avg_file = os.path.join(
+            t_dir, f"AVG-t_P{pVal}_N{n}_sample{samples}.pkl")
         with open(avg_file, 'rb') as f:
             print(pickle.load(f))  # Should show ~0.1-1.0s for GPU
     #     if os.path.exists(avg_file):
@@ -186,6 +240,7 @@ def load_runMultipleAnimQWAK(n, pVal, tList, samples, base_dir, hpc = False):  #
     #         qwList.append(qwList_n)
 
     # return tList_storage, qwList, avgList
+
 
 n = 600
 tMin = 1

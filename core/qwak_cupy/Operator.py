@@ -60,12 +60,15 @@ class Operator:
         self._n = len(graph)
         self._operator = cp.zeros((self._n, self._n), dtype=complex)
 
-        self._hamiltonian = self._buildHamiltonian(self._graph, self._laplacian)
+        self._hamiltonian = self._buildHamiltonian(
+            self._graph, self._laplacian)
         if self._markedElements:
-            self._hamiltonian = self._buildSearchHamiltonian(self._hamiltonian, self._markedElements)
+            self._hamiltonian = self._buildSearchHamiltonian(
+                self._hamiltonian, self._markedElements)
 
         self._isHermitian = self._hermitianTest(self._hamiltonian)
-        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(
+            self._hamiltonian)
 
     def buildDiagonalOperator(self, time: float = 0) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
@@ -108,7 +111,8 @@ class Operator:
             Time for which to calculate the operator, by default 0.
         """
         self._time = time
-        self._operator = cpx_scipy.expm(-1j * self._hamiltonian * self._time)
+        self._operator = cpx_scipy.expm(-1j *
+                                        self._hamiltonian * self._time)
 
     def _buildHamiltonian(
             self,
@@ -127,7 +131,8 @@ class Operator:
         self._adjacency = cp.array(nx.to_numpy_array(
             graph, dtype=complex))
         if laplacian:
-            self._adjacency = self._adjacency - self._degreeDiagonalMatrix(graph)
+            self._adjacency = self._adjacency - \
+                self._degreeDiagonalMatrix(graph)
         return -self._adjacency * self._gamma
 
     def _buildSearchHamiltonian(self, hamiltonian, markedElements):
@@ -227,7 +232,8 @@ class Operator:
             Hamiltonian of the graph.
         """
         self._hamiltonian = hamiltonian
-        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(
+            self._hamiltonian)
 
     def resetOperator(self) -> None:
         """Resets Operator object."""
@@ -247,8 +253,10 @@ class Operator:
         self._operator = cp.zeros((self._n, self._n), dtype=complex)
         self._graph = graph
         self._hamiltonian = (
-            cp.array(nx.adjacency_matrix(self._graph).todense(), dtype=complex)
-        )
+            cp.array(
+                nx.adjacency_matrix(
+                    self._graph).todense(),
+                dtype=complex))
         self._adjacency = self._hamiltonian
         self.setAdjacencyMatrix(self._hamiltonian)
 
@@ -296,7 +304,8 @@ class Operator:
         self._adjacency = self._hamiltonian
         self._n = len(self._hamiltonian)
         self.resetOperator()
-        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(
+            self._hamiltonian)
 
     def _setAdjacencyMatrixOnly(
             self, adjacencyMatrix: cp.ndarray) -> None:
@@ -398,6 +407,6 @@ class Operator:
             String of the ProbabilityDistribution object.
         """
         return f"N: {self._n}\n" \
-               f"Time: {self._time}\n" \
-               f"Graph: {nx.to_dict_of_dicts(self._graph)}\n" \
-               f"Operator:\n\t{self._operator}"
+            f"Time: {self._time}\n" \
+            f"Graph: {nx.to_dict_of_dicts(self._graph)}\n" \
+            f"Operator:\n\t{self._operator}"

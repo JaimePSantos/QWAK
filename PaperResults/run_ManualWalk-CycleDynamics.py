@@ -16,12 +16,12 @@ import shutil
 
 SCRIPT_DIR = os.getcwd()
 
-tList = [40,80,120]
-gamma = 1/(2*np.sqrt(2))
+tList = [40, 80, 120]
+gamma = 1 / (2 * np.sqrt(2))
 n = 200
 graph = nx.cycle_graph(n)
-initNodes = [n//2,n//2 +1]
-quantum_walk = QWAK(graph,gamma=gamma)
+initNodes = [n // 2, n // 2 + 1]
+quantum_walk = QWAK(graph, gamma=gamma)
 
 probVecList = []
 
@@ -30,21 +30,21 @@ for t in tList:
     probVecList.append(quantum_walk.getProbVec())
 
 n = len(graph)
-nodeList = list(range(0,n))
+nodeList = list(range(0, n))
 
 params = {
     'font_size': 24,
     'figsize': (16, 10),
-    'plot_title' : f'Cycle Graph N={n}',
+    'plot_title': f'Cycle Graph N={n}',
     'x_label': 'Nodes',
     'y_label': "Probability",
-    'legend_labels' : tList,
+    'legend_labels': tList,
     'legend_loc': "best",
-    'legend_title' : r'Time Interval',
-    'legend_ncol' : 1,
+    'legend_title': r'Time Interval',
+    'legend_ncol': 1,
     'color_list': ['#0000FF', '#008000', '#525252'],
     'line_style_list': ['-', '-', '-.'],
-    'save_path': os.path.join(SCRIPT_DIR, 'Output', 'UndirectedDynamics', f'cycleDynamics_N{n}_GAM{round(gamma,3)}_TMAX{str(tList).replace(", ", "-").replace("[", "").replace("]", "")}.png'),
+    'save_path': os.path.join(SCRIPT_DIR, 'Output', 'UndirectedDynamics', f'cycleDynamics_N{n}_GAM{round(gamma, 3)}_TMAX{str(tList).replace(", ", "-").replace("[", "").replace("]", "")}.png'),
     'use_loglog': False,
     'use_cbar': False,
     'cbar_label': None,
@@ -63,10 +63,14 @@ params = {
     'tick_font_size': 34,
 }
 
-plot_qwak(x_value_matrix = [nodeList]*3, y_value_matrix = probVecList,**params)
+plot_qwak(
+    x_value_matrix=[nodeList] * 3,
+    y_value_matrix=probVecList,
+    **params)
 plt.show()
 
-copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+copy_to_latex = input(
+    "Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
 if copy_to_latex == 'y':
     latex_project_path = os.path.normpath(os.path.join(
         SCRIPT_DIR,

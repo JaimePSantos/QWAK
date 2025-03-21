@@ -14,10 +14,11 @@ import seaborn as sns
 import pandas as pd
 import shutil
 
+
 def write_nested_list_to_file(file_path, nested_lst):
     """
     Write a nested list of elements to a text file.
-    
+
     :param file_path: the file path where to write the nested list
     :param nested_lst: the nested list of elements to write
     """
@@ -25,10 +26,11 @@ def write_nested_list_to_file(file_path, nested_lst):
         for lst in nested_lst:
             f.write(" ".join(map(str, lst)) + "\n")
 
+
 def load_nested_list_from_file(file_path):
     """
     Load a nested list of float elements from a text file.
-    
+
     :param file_path: the file path to load the nested list from
     :return: the nested list of float elements loaded from the file
     """
@@ -38,6 +40,7 @@ def load_nested_list_from_file(file_path):
             lst = [float(item) for item in line.strip().split()]
             nested_lst.append(lst)
     return nested_lst
+
 
 def searchProbStepsPlotting2(qwak: QWAK, probDistList):
     """Plots the probability of finding the target as a function of the number of steps.
@@ -54,30 +57,47 @@ def searchProbStepsPlotting2(qwak: QWAK, probDistList):
         raise ValueError("The probability distribution list is empty.")
     for probDist in probDistList:
         for element in markdElements:
-            markedProbability += probDist.searchNodeProbability(element[0])
+            markedProbability += probDist.searchNodeProbability(
+                element[0])
         markedProbDistList.append(markedProbability)
         markedProbability = 0
     return markedProbDistList
 
-def multiple_erdos_renyi_qwak(N, pList, timeList, numberOfWalks, markedElements):
+
+def multiple_erdos_renyi_qwak(
+        N,
+        pList,
+        timeList,
+        numberOfWalks,
+        markedElements):
     markedProbMatrix = []
     markedProbList = [0] * len(timeList)
     probDistList = []
     pValMatrix = []
     sampleCounter = 1
     for pVal in pList:
-        print(f'PVAL {round(pVal, 4)}/{max(pList)} \t Sample {sampleCounter}/{len(pList)}')
+        print(f'PVAL {round(pVal, 4)}/{max(pList)
+                                       } \t Sample {sampleCounter}/{len(pList)}')
         sampleCounter += 1
         for i in range(numberOfWalks):
             graph = nx.erdos_renyi_graph(N, pVal)
             gamma = 1 / (N * pVal) if pVal <= 1 else 1 / N
             initCond = list(range(len(graph)))
-            qw = QWAK(graph=graph, gamma=gamma, markedElements=markedElements, laplacian=False)
+            qw = QWAK(
+                graph=graph,
+                gamma=gamma,
+                markedElements=markedElements,
+                laplacian=False)
             for t in timeList:
                 qw.runWalk(time=t, initStateList=initCond)
                 probDistList.append(copy.deepcopy(qw.getProbDist()))
-            markedElementList = searchProbStepsPlotting2(qw, probDistList)
-            markedProbList = [x + y for x, y in zip(markedProbList, markedElementList)]
+            markedElementList = searchProbStepsPlotting2(
+                qw, probDistList)
+            markedProbList = [
+                x + y for x,
+                y in zip(
+                    markedProbList,
+                    markedElementList)]
             probDistList = []
         pValMatrix.append([pVal] * len(timeList))
         timeMatrix = [timeList] * len(timeList)
@@ -87,9 +107,10 @@ def multiple_erdos_renyi_qwak(N, pList, timeList, numberOfWalks, markedElements)
 
     return pValMatrix, timeMatrix, markedProbMatrix
 
+
 n = 9
 N = 2**n
-p = math.log(N, 3/2) / N
+p = math.log(N, 3 / 2) / N
 pMax = 0.5
 samples = 200
 numberOfWalks = 40
@@ -103,20 +124,35 @@ tAux = t / samples
 timeList = np.linspace(0, 2 * t, samples)
 
 SCRIPT_DIR = os.getcwd()
-dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR,'Notebook', "Datasets", "ERSearch"))
-output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook',"Output", "ERSearch"))
+dataset_dir = os.path.normpath(
+    os.path.join(
+        SCRIPT_DIR,
+        'Notebook',
+        "Datasets",
+        "ERSearch"))
+output_dir = os.path.normpath(
+    os.path.join(
+        SCRIPT_DIR,
+        'Notebook',
+        "Output",
+        "ERSearch"))
 
-time_file = os.path.join(dataset_dir, f'timeMatrix_N{N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.txt')
-pval_file = os.path.join(dataset_dir, f'pValMatrix_N{N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.txt')
-marked_prob_file = os.path.join(dataset_dir, f'markedProbMatrix_N{N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.txt')
+time_file = os.path.join(dataset_dir, f'timeMatrix_N{N}_NGRAPHS{
+                         numberOfWalks}_S{samples}_PMAX{pMax}.txt')
+pval_file = os.path.join(dataset_dir, f'pValMatrix_N{N}_NGRAPHS{
+                         numberOfWalks}_S{samples}_PMAX{pMax}.txt')
+marked_prob_file = os.path.join(dataset_dir, f'markedProbMatrix_N{
+                                N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.txt')
 
-if os.path.exists(time_file) and os.path.exists(pval_file) and os.path.exists(marked_prob_file):
+if os.path.exists(time_file) and os.path.exists(
+        pval_file) and os.path.exists(marked_prob_file):
     x = load_nested_list_from_file(pval_file)
     y = load_nested_list_from_file(time_file)
     z = load_nested_list_from_file(marked_prob_file)
     print('File exists!')
 else:
-    x, y, z = multiple_erdos_renyi_qwak(N, pList, timeList, numberOfWalks, markedElements)
+    x, y, z = multiple_erdos_renyi_qwak(
+        N, pList, timeList, numberOfWalks, markedElements)
     if not os.path.exists(pval_file):
         write_nested_list_to_file(pval_file, x)
     if not os.path.exists(time_file):
@@ -141,7 +177,8 @@ colormap = sns.color_palette("icefire", as_cmap=True)
 x_vline_value = newP
 y_vline_value = t
 
-heatMapPlotFile = os.path.join(output_dir, f'heatMapPlot_N{N}_NGRAPHS{numberOfWalks}_S{samples}_PMAX{pMax}.png')
+heatMapPlotFile = os.path.join(output_dir, f'heatMapPlot_N{N}_NGRAPHS{
+                               numberOfWalks}_S{samples}_PMAX{pMax}.png')
 params = {
     'font_size': 18,  # Decreased font size
     'figsize': (16, 10),  # Increased figure size
@@ -172,7 +209,8 @@ plot_qwak_heatmap(p_values=x, t_values=y, prob_values=z, **params)
 # plt.savefig(params['filepath'], bbox_inches='tight')
 plt.show()
 
-copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+copy_to_latex = input(
+    "Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
 if copy_to_latex == 'y':
     latex_project_path = os.path.normpath(os.path.join(
         SCRIPT_DIR,

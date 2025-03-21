@@ -4,7 +4,7 @@ from OperatorBenchmark import OperatorBenchmark
 
 from typing import List, Dict
 
-from scripts import load_profiling_data,create_profiling_data_ER,separate_keys_and_values,git_branch_commit_push,create_profiling_data_ER_HPC
+from scripts import load_profiling_data, create_profiling_data_ER, separate_keys_and_values, git_branch_commit_push, create_profiling_data_ER_HPC
 
 from scripts_old import load_runMultipleSimpleQWAK, load_runMultipleSimpleQWAK_legacy
 from datetime import datetime
@@ -33,11 +33,18 @@ from qwak.qwak import QWAK as QWAK
 from datetime import datetime
 import shutil
 
-def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
+
+def process_profiling_data(
+        path,
+        method_name,
+        nrange,
+        sample_range,
+        seed=None):
     for n in tqdm(nrange, desc="Processing n-values"):
         cumtimes = []
         for sample in sample_range:
-            filename = f"{method_name}-n_{n}_sample_{sample}_pVal_0_8000_seed_{seed}.prof"
+            filename = f"{
+                method_name}-n_{n}_sample_{sample}_pVal_0_8000_seed_{seed}.prof"
             filepath = os.path.join(path, f"n_{n}", filename)
             with open(filepath, 'r') as f:
                 next(f)  # Skip the header line
@@ -54,11 +61,12 @@ def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
                         continue
                     func_part = ' '.join(parts[5:])
                     if '(' in func_part and ')' in func_part:
-                        func_name = func_part.split('(')[-1].split(')')[0]
+                        func_name = func_part.split(
+                            '(')[-1].split(')')[0]
                         if func_name == method_name:
                             cumtimes.append(cumtime)
                             break
-        
+
         if cumtimes:
             average_cumtime = sum(cumtimes) / len(cumtimes)
             avg_folder = os.path.join(path, f"n_{n}_avg")
@@ -67,6 +75,7 @@ def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
             avg_filepath = os.path.join(avg_folder, avg_filename)
             with open(avg_filepath, 'w') as avg_file:
                 avg_file.write(f"{average_cumtime}\n")
+
 
 def load_profiling_averages(path, method_name, nrange, seed=None):
     results = {}
@@ -78,8 +87,10 @@ def load_profiling_averages(path, method_name, nrange, seed=None):
             with open(avg_filepath, 'r') as avg_file:
                 results[n] = float(avg_file.readline().strip())
         except (FileNotFoundError, ValueError):
-            raise ValueError(f"Average file not found or invalid format: {avg_filepath}")
+            raise ValueError(
+                f"Average file not found or invalid format: {avg_filepath}")
     return results
+
 
 def merge_by_sum(dict_a, dict_b):
     """
@@ -91,16 +102,21 @@ def merge_by_sum(dict_a, dict_b):
         merged[key] = dict_a[key] + dict_b[key]
     return merged
 
+
 def smooth_data(data, window_size=10):
     """
     Smooth the data using a simple moving average.
     """
-    smoothed = np.convolve(data, np.ones(window_size)/window_size, mode='valid')
-    return np.concatenate((data[:window_size-1], smoothed))
+    smoothed = np.convolve(
+        data,
+        np.ones(window_size) /
+        window_size,
+        mode='valid')
+    return np.concatenate((data[:window_size - 1], smoothed))
 
 
 nMin = 3
-nMax = 1000 
+nMax = 1000
 n_values = list(range(nMin, nMax, 1))
 pVal = 0.8
 samples = 100
@@ -109,7 +125,7 @@ seed = 10
 t = 100
 SCRIPT_DIR = os.getcwd()
 
-### Hiperwalk
+# Hiperwalk
 
 path = os.path.normpath(os.path.join(
     SCRIPT_DIR,
@@ -131,9 +147,11 @@ results_build_hiperwalk_avg = load_profiling_averages(
     seed=seed
 )
 
-results_hiperwalk = merge_by_sum(results_init_hiperwalk_avg, results_build_hiperwalk_avg)
+results_hiperwalk = merge_by_sum(
+    results_init_hiperwalk_avg,
+    results_build_hiperwalk_avg)
 
-### Hiperwalk HPC
+# Hiperwalk HPC
 
 path_hpc = os.path.normpath(os.path.join(
     SCRIPT_DIR,
@@ -155,9 +173,12 @@ results_build_hiperwalk_hpc_avg = load_profiling_averages(
     seed=seed
 )
 
-results_hiperwalk_hpc = merge_by_sum(results_init_hiperwalk_hpc_avg, results_build_hiperwalk_hpc_avg)
+results_hiperwalk_hpc = merge_by_sum(
+    results_init_hiperwalk_hpc_avg,
+    results_build_hiperwalk_hpc_avg)
 
-results_hiperwalk_hpc_smooth = smooth_data(list(results_hiperwalk_hpc.values()), window_size=30)
+results_hiperwalk_hpc_smooth = smooth_data(
+    list(results_hiperwalk_hpc.values()), window_size=30)
 
 # QWAK with old method
 
@@ -170,9 +191,11 @@ base_dir_cupy_970 = os.path.normpath(os.path.join(
     "benchmark/ModuleDev/Profiling/Old/Benchmark-SimpleQWAK_ER-CuPy_970"
 ))
 
-avg_list = load_runMultipleSimpleQWAK_legacy(n_values, pVal, samples, t, base_dir)
+avg_list = load_runMultipleSimpleQWAK_legacy(
+    n_values, pVal, samples, t, base_dir)
 
-avg_list_cupy_970 = load_runMultipleSimpleQWAK_legacy(n_values, pVal, samples, t, base_dir_cupy_970)
+avg_list_cupy_970 = load_runMultipleSimpleQWAK_legacy(
+    n_values, pVal, samples, t, base_dir_cupy_970)
 
 print('CuPy QWAK results computed and saved.')
 
@@ -209,14 +232,24 @@ params = {
     'marker_list': ['x', 'o']
 }
 
-x_value_matrix = [list(results_hiperwalk.keys()), list(results_hiperwalk_hpc.keys()), n_values, n_values]
-y_value_matrix = [list(results_hiperwalk.values()), results_hiperwalk_hpc_smooth, avg_list, avg_list_cupy_970]
+x_value_matrix = [list(results_hiperwalk.keys()), list(
+    results_hiperwalk_hpc.keys()), n_values, n_values]
+y_value_matrix = [
+    list(
+        results_hiperwalk.values()),
+    results_hiperwalk_hpc_smooth,
+    avg_list,
+    avg_list_cupy_970]
 
-plot_qwak(x_value_matrix=x_value_matrix, y_value_matrix=y_value_matrix, **params)
+plot_qwak(
+    x_value_matrix=x_value_matrix,
+    y_value_matrix=y_value_matrix,
+    **params)
 plt.show()
 
 # Prompt user to copy the image to the LaTeX project
-copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+copy_to_latex = input(
+    "Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
 if copy_to_latex == 'y':
     latex_project_path = os.path.normpath(os.path.join(
         SCRIPT_DIR,

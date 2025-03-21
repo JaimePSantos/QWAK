@@ -1,6 +1,6 @@
 import networkx as nx
 import numpy as np
-from qutip import Options,Qobj
+from qutip import Options, Qobj
 
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from qwak.State import State
@@ -67,7 +67,9 @@ class StochasticQWAK:
         sinkNode: int = None,
         sinkRate: float = None,
         observables: list = [],
-        opts: Options = Options(store_states=True, store_final_state=True),
+        opts: Options = Options(
+            store_states=True,
+            store_final_state=True),
     ) -> None:
         """Executes the stochastic quantum walk.
 
@@ -121,7 +123,9 @@ class StochasticQWAK:
         self._probDist.buildProbDist()
         # print("\t\tAfter calling buildProbDist")
 
-    def setProbDist(self, newProbDist: StochasticProbabilityDistribution) -> None:
+    def setProbDist(
+            self,
+            newProbDist: StochasticProbabilityDistribution) -> None:
         """Sets a new probability distribution for the quantum walk.
 
         Parameters

@@ -14,18 +14,24 @@ with open(modules_rst_path, 'w') as f:
     f.write('Modules\n=======\n\n.. toctree::\n   :maxdepth: 4\n\n')
 
 # Function to append module documentation to 'modules.rst'
+
+
 def append_to_modules_rst(module_name):
     with open(modules_rst_path, 'a') as f:
         f.write(f'   {module_name}/modules\n')
 
 # Function to run sphinx-apidoc on a module
+
+
 def generate_module_docs(module_path):
     # Determine the module name from the path
     module_name = os.path.basename(os.path.normpath(module_path))
     # Run sphinx-apidoc for the module
-    subprocess.run(['sphinx-apidoc', '-f', '-o', source_dir, module_path], check=True)
+    subprocess.run(['sphinx-apidoc', '-f', '-o',
+                   source_dir, module_path], check=True)
     # Append the module's entry to 'modules.rst'
     append_to_modules_rst(module_name)
+
 
 # Generate documentation for each module
 for module in modules:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#Author: Nicola Dalla Pozza
+# Author: Nicola Dalla Pozza
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,13 +9,21 @@ from random import randrange, shuffle
 
 class Maze(object):
 
-    def __init__(self, adjacency=None, maze_size=(20, 20), startNode=0, sinkNode=None):
+    def __init__(
+            self,
+            adjacency=None,
+            maze_size=(
+                20,
+                20),
+            startNode=0,
+            sinkNode=None):
         self.maze_size = maze_size
         self.width = int(self.maze_size[0])
         self.height = int(self.maze_size[1])
 
         if adjacency is None:
-            self.adjacency = self.generate_adjacency_matrix(self.width, self.height)
+            self.adjacency = self.generate_adjacency_matrix(
+                self.width, self.height)
         else:
             assert self.maze_size == adjacency.shape
             self.adjacency = adjacency
@@ -106,20 +114,27 @@ class Maze(object):
             Matrix representing the maze as a pixel image. Value 1 represents a link, value 0 represents
             a wall. Size of the matrix (maze.height * 2 - 1, maze.width * 2 - 1).
         """
-        maze_map = np.zeros([2 * self.height - 1, 2 * self.width - 1], dtype='int')
-        for j in range(self.width - 1):  # defines the upper triangular part of the adjacency matrix
+        maze_map = np.zeros(
+            [2 * self.height - 1, 2 * self.width - 1], dtype='int')
+        for j in range(
+                self.width -
+                1):  # defines the upper triangular part of the adjacency matrix
             for i in range(self.height - 1):
-                if self.adjacency[j * self.height + i, j * self.height + i + 1] > 0:
+                if self.adjacency[j * self.height + i,
+                                  j * self.height + i + 1] > 0:
                     maze_map[2 * i + 1, 2 * j] = 1
-                if self.adjacency[j * self.height + i, (j + 1) * self.height + i] > 0:
+                if self.adjacency[j * self.height + i,
+                                  (j + 1) * self.height + i] > 0:
                     maze_map[2 * i, 2 * j + 1] = 1
             i = self.height - 1  # last node has no upper neighbour
-            if self.adjacency[j * self.height + i, (j + 1) * self.height + i] > 0:
+            if self.adjacency[j * self.height + i,
+                              (j + 1) * self.height + i] > 0:
                 maze_map[2 * i, 2 * j + 1] = 1
 
         j = self.width - 1  # last node has no right neighbour
         for i in range(self.height - 1):
-            if self.adjacency[j * self.height + i, j * self.height + i + 1] > 0:
+            if self.adjacency[j * self.height + i,
+                              j * self.height + i + 1] > 0:
                 maze_map[2 * i + 1, 2 * j] = 1
 
         for n in range(self.width * self.height):
@@ -128,7 +143,12 @@ class Maze(object):
 
         return maze_map
 
-    def plot_maze(self, show_nodes=False, show_links=False, show_ticks=False, show=True):
+    def plot_maze(
+            self,
+            show_nodes=False,
+            show_links=False,
+            show_ticks=False,
+            show=True):
         """Plot the map of the maze. White pixels (value 1) are paths while black pixels are walls.
         Plots a maze with different options, such as the possibility to plot the number corresponding to each link
         (in red) or node (in black bold) with the show_links and show_nodes option. Option startNode and
@@ -159,7 +179,8 @@ class Maze(object):
         if self.startNode is not None:
             x, y = self.node2xy(self.startNode)
             img[y, x, :3] = 0, 0, 1
-            # plt.text(x - xshift, y - yshift, str(self.startNode), fontweight='bold') # always print startNode
+            # plt.text(x - xshift, y - yshift, str(self.startNode),
+            # fontweight='bold') # always print startNode
 
         if self.sinkNode is not None:
             x, y = self.node2xy(self.sinkNode)
@@ -169,18 +190,32 @@ class Maze(object):
             if show_nodes:
                 for n in range(self.height * self.width):
                     x, y = self.node2xy(n)
-                    plt.text(x - xshift, y - yshift, str(n), fontweight='bold')
+                    plt.text(
+                        x - xshift,
+                        y - yshift,
+                        str(n),
+                        fontweight='bold')
 
             if show_links:
-                for n in range(1, (self.height - 1) * self.width + (self.width - 1) * self.height + 1):
+                for n in range(1, (self.height - 1) * self.width +
+                               (self.width - 1) * self.height + 1):
                     x, y = self.link2xy(n)
-                    plt.text(x, y - yshift, str(n), style='italic', color='red')
+                    plt.text(
+                        x,
+                        y - yshift,
+                        str(n),
+                        style='italic',
+                        color='red')
 
             if show_ticks:
-                plt.xticks(np.arange(0, img.shape[1], step=4),
-                           np.arange(0, (img.shape[1] - 1) / 2, step=2, dtype='int'))
-                plt.yticks(np.arange(0, img.shape[0], step=4),
-                           np.arange(0, (img.shape[0] - 1) / 2, step=2, dtype='int'))
+                plt.xticks(
+                    np.arange(
+                        0, img.shape[1], step=4), np.arange(
+                        0, (img.shape[1] - 1) / 2, step=2, dtype='int'))
+                plt.yticks(
+                    np.arange(
+                        0, img.shape[0], step=4), np.arange(
+                        0, (img.shape[0] - 1) / 2, step=2, dtype='int'))
             else:
                 plt.xticks([])
                 plt.yticks([])
@@ -211,8 +246,8 @@ class Maze(object):
         """
         assert 1 <= link <= self.total_links
         if 1 <= link <= self.vertical_links:
-            row = (link - 1) // (self.height - 1) * self.height + (link - 1) % (
-                    self.height - 1)
+            row = (link - 1) // (self.height - 1) * \
+                self.height + (link - 1) % (self.height - 1)
             col = row + 1
 
         elif self.vertical_links < link <= self.total_links:
@@ -238,8 +273,8 @@ class Maze(object):
         """
         assert 1 <= link <= self.total_links
         if 1 <= link <= self.vertical_links:
-            row = (link - 1) // (self.height - 1) * self.height + (link - 1) % (
-                    self.height - 1)
+            row = (link - 1) // (self.height - 1) * \
+                self.height + (link - 1) % (self.height - 1)
             col = row + 1
 
         elif self.vertical_links < link <= self.total_links:
@@ -306,11 +341,13 @@ class Maze(object):
             x and y coordinates of the link, or numpy.nan if the parameters are invalid
         """
         if 1 <= n <= self.vertical_links:  # vertical link
-            x, y = 2 * ((n - 1) // (self.height - 1)), 2 * ((n - 1) % (self.height - 1)) + 1
+            x, y = 2 * ((n - 1) // (self.height - 1)), 2 * \
+                ((n - 1) % (self.height - 1)) + 1
 
         elif self.vertical_links < n <= self.total_links:  # horizontal link
             n = n - self.vertical_links
-            x, y = 2 * ((n - 1) // self.height) + 1, 2 * ((n - 1) % self.height)
+            x, y = 2 * ((n - 1) // self.height) + \
+                1, 2 * ((n - 1) % self.height)
 
         else:  # invalid parameters
             x, y = np.nan, np.nan

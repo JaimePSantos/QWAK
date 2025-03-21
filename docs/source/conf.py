@@ -11,24 +11,26 @@ import sys
 from pathlib import Path
 
 
-# -- Path setup --------------------------------------------------------------
+# -- Path setup --------------------------------------------------------
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
+# documentation root, use os.path.abspath to make it absolute, like
+# shown here.
 
 sys.path.insert(0, os.path.abspath(""))
 
 
-# -- Project information -----------------------------------------------------
+# -- Project information -----------------------------------------------
 project = "QWAK"
 copyright = "2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni"
 author = "Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni"
 
 
-# -- General configuration ---------------------------------------------------
+# -- General configuration ---------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
+# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+# ones.
 extensions = [
     "sphinx.ext.autodoc",
     "sphinx_autodoc_typehints",
@@ -44,7 +46,8 @@ extensions = [
     "myst_parser",
 ]
 
-# Automatically generate stub pages when using the .. autosummary directive
+# Automatically generate stub pages when using the .. autosummary
+# directive
 autosummary_generate = True
 
 # Generate documentation from type hints
@@ -72,7 +75,7 @@ napoleon_custom_sections = ["Tests", ("Test", "Tests")]
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns: list[str] = []
 
-# -- Options for internationalization ----------------------------------------
+# -- Options for internationalization ----------------------------------
 # Set the destination directory of the localized po files
 locale_dirs = ["../i18n/"]
 
@@ -83,7 +86,7 @@ gettext_compact = False
 gettext_last_translator = ""
 gettext_language_team = ""
 
-# -- Options for HTML output -------------------------------------------------
+# -- Options for HTML output -------------------------------------------
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
@@ -93,7 +96,8 @@ html_theme = "furo"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
+# so a file named "default.css" will overwrite the builtin
+# "default.css".
 html_static_path = ["_static"]
 
 html_theme_options = {

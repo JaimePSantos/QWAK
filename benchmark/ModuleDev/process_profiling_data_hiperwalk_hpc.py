@@ -4,7 +4,7 @@ from OperatorBenchmark import OperatorBenchmark
 
 from typing import List, Dict
 
-from scripts import load_profiling_data,create_profiling_data_ER,separate_keys_and_values,git_branch_commit_push,create_profiling_data_ER_HPC
+from scripts import load_profiling_data, create_profiling_data_ER, separate_keys_and_values, git_branch_commit_push, create_profiling_data_ER_HPC
 
 from scripts_old import load_runMultipleSimpleQWAK, load_runMultipleSimpleQWAK_legacy
 from datetime import datetime
@@ -34,11 +34,17 @@ from datetime import datetime
 import shutil
 
 
-def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
+def process_profiling_data(
+        path,
+        method_name,
+        nrange,
+        sample_range,
+        seed=None):
     for n in tqdm(nrange, desc="Processing n-values"):
         cumtimes = []
         for sample in sample_range:
-            filename = f"{method_name}-n_{n}_sample_{sample}_pVal_0_8000_seed_{seed}.prof"
+            filename = f"{
+                method_name}-n_{n}_sample_{sample}_pVal_0_8000_seed_{seed}.prof"
             filepath = os.path.join(path, f"n_{n}", filename)
             print(f"Checking for file: {filepath}")
             if not os.path.exists(filepath):
@@ -59,11 +65,12 @@ def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
                         continue
                     func_part = ' '.join(parts[5:])
                     if '(' in func_part and ')' in func_part:
-                        func_name = func_part.split('(')[-1].split(')')[0]
+                        func_name = func_part.split(
+                            '(')[-1].split(')')[0]
                         if func_name == method_name:
                             cumtimes.append(cumtime)
                             break
-        
+
         if cumtimes:
             average_cumtime = sum(cumtimes) / len(cumtimes)
             avg_folder = os.path.join(path, f"n_{n}_avg")
@@ -72,6 +79,7 @@ def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
             avg_filepath = os.path.join(avg_folder, avg_filename)
             with open(avg_filepath, 'w') as avg_file:
                 avg_file.write(f"{average_cumtime}\n")
+
 
 def load_profiling_averages(path, method_name, nrange, seed=None):
     results = {}
@@ -83,12 +91,13 @@ def load_profiling_averages(path, method_name, nrange, seed=None):
             with open(avg_filepath, 'r') as avg_file:
                 results[n] = float(avg_file.readline().strip())
         except (FileNotFoundError, ValueError):
-            raise ValueError(f"Average file not found or invalid format: {avg_filepath}")
+            raise ValueError(
+                f"Average file not found or invalid format: {avg_filepath}")
     return results
 
 
 nMin = 3
-nMax = 1000 
+nMax = 1000
 n_values = list(range(nMin, nMax, 1))
 pVal = 0.8
 sample_range = range(0, 100, 1)
@@ -102,14 +111,14 @@ path = os.path.normpath(os.path.join(
 ))
 
 
-
 def delete_n_folders(path, nrange):
     for n in tqdm(nrange, desc="Deleting n_x folders"):
         folder_path = os.path.join(path, f"n_{n}")
         if os.path.exists(folder_path) and os.path.isdir(folder_path):
             shutil.rmtree(folder_path)
 
-delete_n_folders(path,n_values)
+
+delete_n_folders(path, n_values)
 print(f"Using base path: {path}")
 
 # process_profiling_data(
@@ -127,4 +136,3 @@ print(f"Using base path: {path}")
 #     sample_range=sample_range,  # Assuming samples 0-9
 #     seed=seed
 # )
-

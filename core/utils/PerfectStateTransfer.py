@@ -121,6 +121,7 @@ def getSquareFree(n):
             sqrFreeList.append(i + 1)
     return sqrFreeList
 
+
 def getEigenSupp(a, eigenvec, eigenval):
     """Returns the eigenvalue support of the vertex a.
 
@@ -145,8 +146,9 @@ def getEigenSupp(a, eigenvec, eigenval):
     supp = []
     for i in range(len(eigenval)):
         if abs(eigenvec[a][i]) > 1e-10:
-            supp.append(round(eigenval[i],5))
+            supp.append(round(eigenval[i], 5))
     return supp
+
 
 def checkRoots(A, a, eigenvec, eigenval):
     """CheckRoots is responsible for checking the second condition for PST which is that all eigenvalues is the eigenvalue support

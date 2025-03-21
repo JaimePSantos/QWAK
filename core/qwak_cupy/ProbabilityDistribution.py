@@ -84,13 +84,13 @@ class ProbabilityDistribution:
                     survProb += self._probVec[i]
             return survProb
         except ValueError:
-            raise MissingNodeInput(
-                f"A node number is missing: fromNode = {fromNode}; toNode={toNode}")
+            raise MissingNodeInput(f"A node number is missing: fromNode = {
+                fromNode}; toNode={toNode}")
 
     def __str__(self) -> str:
         return f"{self._probVec}"
 
     def __repr__(self) -> str:
         return f"N: {self._n}\n" \
-               f"State:\n\t{self._stateVec}\n" \
-               f"ProbDist:\n\t{self._probVec}"
+            f"State:\n\t{self._stateVec}\n" \
+            f"ProbDist:\n\t{self._probVec}"

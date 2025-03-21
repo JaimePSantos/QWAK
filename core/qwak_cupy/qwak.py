@@ -335,7 +335,8 @@ class QWAK:
             self._n = len(self._graph)
         else:
             raise MissingGraphInput(
-                f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
+                f"You tried to set QWAK dim without providing a graph with updated dimensions: {
+                    self._graph}")
 
         self._initState.setDim(newDim, newNodeList=initStateList)
         self._operator.setDim(newDim, self._graph)
@@ -656,7 +657,8 @@ class QWAK:
             self._n = len(self._graph)
         else:
             raise MissingGraphInput(
-                f"You tried to set QWAK dim without providing a graph with updated dimensions: {self._graph}")
+                f"You tried to set QWAK dim without providing a graph with updated dimensions: {
+                    self._graph}")
 
         self._initState.setDim(newDim, newNodeList=initStateList)
         self._operator.setDim(newDim, self._graph)
@@ -982,7 +984,7 @@ class QWAK:
             Mean of the probability distribution.
         """
         return self._probDist.moment(1) if (
-                resultRounding is None) \
+            resultRounding is None) \
             else round(self._probDist.moment(1), resultRounding)
 
     def getMeanList(self, resultRounding: int = None) -> list:
@@ -1076,7 +1078,7 @@ class QWAK:
             Inverse participation ratio of the probability distribution.
         """
         return self._probDist.invPartRatio() if (
-                resultRounding is None) \
+            resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
 
@@ -1170,7 +1172,7 @@ class QWAK:
                 probDist.survivalProb(
                     fromNode,
                     toNode) for probDist in self._probDistList] if (
-                    resultRounding is None) else [
+                resultRounding is None) else [
                 round(
                     probDist.survivalProb(
                         fromNode,
@@ -1238,7 +1240,7 @@ class QWAK:
             Mean of the probability distribution.
         """
         return self._probDist.moment(1) if (
-                resultRounding is None) \
+            resultRounding is None) \
             else round(self._probDist.moment(1), resultRounding)
 
     def getMeanList(self, resultRounding: int = None) -> list:
@@ -1332,7 +1334,7 @@ class QWAK:
             Inverse participation ratio of the probability distribution.
         """
         return self._probDist.invPartRatio() if (
-                resultRounding is None) \
+            resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
 
@@ -1426,7 +1428,7 @@ class QWAK:
                 probDist.survivalProb(
                     fromNode,
                     toNode) for probDist in self._probDistList] if (
-                    resultRounding is None) else [
+                resultRounding is None) else [
                 round(
                     probDist.survivalProb(
                         fromNode,
@@ -1494,7 +1496,7 @@ class QWAK:
             Mean of the probability distribution.
         """
         return self._probDist.moment(1) if (
-                resultRounding is None) \
+            resultRounding is None) \
             else round(self._probDist.moment(1), resultRounding)
 
     def getMeanList(self, resultRounding: int = None) -> list:
@@ -1588,7 +1590,7 @@ class QWAK:
             Inverse participation ratio of the probability distribution.
         """
         return self._probDist.invPartRatio() if (
-                resultRounding is None) \
+            resultRounding is None) \
             else round(
             self._probDist.invPartRatio(), resultRounding)
 
@@ -1682,7 +1684,7 @@ class QWAK:
                 probDist.survivalProb(
                     fromNode,
                     toNode) for probDist in self._probDistList] if (
-                    resultRounding is None) else [
+                resultRounding is None) else [
                 round(
                     probDist.survivalProb(
                         fromNode,

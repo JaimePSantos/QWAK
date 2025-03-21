@@ -10,7 +10,7 @@ class StochasticOperator(object):
     def __init__(
             self,
             graph: nx.Graph,
-            noiseParam: float =None,
+            noiseParam: float = None,
             sinkNode: int = None,
             sinkRate: float = None) -> None:
         """
@@ -127,8 +127,8 @@ class StochasticOperator(object):
             ]
         # Compute superoperator from list of Lindblad operators
         superop = lindblad_dissipator(L[0])
-        for i in range(len(L)-1):
-          superop += lindblad_dissipator(L[i+1])
+        for i in range(len(L) - 1):
+            superop += lindblad_dissipator(L[i + 1])
         self._classicalHamiltonian = superop
 
     def getClassicalHamiltonian(self) -> list:

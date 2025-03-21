@@ -12,6 +12,7 @@ import json
 from qwak.Errors import MissingNodeInput
 from utils.PerfectStateTransfer import isStrCospec, checkRoots, swapNodes, getEigenVal
 
+
 class Operator:
     def __init__(
             self,
@@ -56,12 +57,15 @@ class Operator:
         self._n = len(graph)
         self._operator = np.zeros((self._n, self._n), dtype=complex)
 
-        self._hamiltonian = self._buildHamiltonian(self._graph,self._laplacian)
+        self._hamiltonian = self._buildHamiltonian(
+            self._graph, self._laplacian)
         if self._markedElements:
-            self._hamiltonian = self._buildSearchHamiltonian(self._hamiltonian, self._markedElements)
+            self._hamiltonian = self._buildSearchHamiltonian(
+                self._hamiltonian, self._markedElements)
 
         self._isHermitian = self._hermitianTest(self._hamiltonian)
-        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(
+            self._hamiltonian)
 
     def buildDiagonalOperator(self, time: float = 0) -> None:
         """Builds operator matrix from optional time and transition rate parameters, defined by user.
@@ -87,10 +91,10 @@ class Operator:
         self._operator = np.multiply(self._eigenvectors, diag)
         if self._isHermitian:
             self._operator = np.matmul(
-                    self._operator, self._eigenvectors.conjugate().transpose())
+                self._operator, self._eigenvectors.conjugate().transpose())
         else:
             self._operator = np.matmul(
-                    self._operator, inv(
+                self._operator, inv(
                     self._eigenvectors))
 
     def buildExpmOperator(self, time: float = 0) -> None:
@@ -107,10 +111,10 @@ class Operator:
         self._operator = expm(-1j * self._hamiltonian * self._time)
 
     def _buildHamiltonian(
-            self,
-            graph,
-            laplacian: bool,
-                    ) -> np.ndarray:
+        self,
+        graph,
+        laplacian: bool,
+    ) -> np.ndarray:
         """Builds the hamiltonian of the graph, which is either the Laplacian or the simple matrix.
 
         Parameters
@@ -123,10 +127,11 @@ class Operator:
         self._adjacency = nx.to_numpy_array(
             graph, dtype=complex)
         if laplacian:
-            self._adjacency = self._adjacency - self._degreeDiagonalMatrix(graph)
+            self._adjacency = self._adjacency - \
+                self._degreeDiagonalMatrix(graph)
         return -self._adjacency * self._gamma
 
-    def _buildSearchHamiltonian(self,hamiltonian,markedElements):
+    def _buildSearchHamiltonian(self, hamiltonian, markedElements):
         for marked in markedElements:
             hamiltonian[marked[0], marked[0]] += marked[1]
         return hamiltonian
@@ -145,8 +150,8 @@ class Operator:
                 hamiltonian
             )
         else:
-            eigenvalues, eigenvectors  = np.linalg.eig(
-                hamiltonian )
+            eigenvalues, eigenvectors = np.linalg.eig(
+                hamiltonian)
         return eigenvalues, eigenvectors
 
     def _hermitianTest(self, hamiltonian) -> bool:
@@ -223,7 +228,8 @@ class Operator:
             Hamiltonian of the graph.
         """
         self._hamiltonian = hamiltonian
-        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(
+            self._hamiltonian)
 
     def resetOperator(self) -> None:
         """Resets Operator object."""
@@ -292,7 +298,8 @@ class Operator:
         self._adjacency = self._hamiltonian
         self._n = len(self._hamiltonian)
         self.resetOperator()
-        self._eigenvalues, self._eigenvectors = self._buildEigenValues(self._hamiltonian)
+        self._eigenvalues, self._eigenvectors = self._buildEigenValues(
+            self._hamiltonian)
 
     def _setAdjacencyMatrixOnly(
             self, adjacencyMatrix: np.ndarray) -> None:
@@ -382,7 +389,7 @@ class Operator:
             isCospec = isStrCospec(symAdj, nodeA, nodeB)
             chRoots, g, delta = checkRoots(
                 symAdj, nodeA, self._eigenvectors, self._eigenvalues
-                )
+            )
             if isCospec and chRoots:
                 result = pi / (g * np.sqrt(delta))
             else:
@@ -525,7 +532,6 @@ class Operator:
             String of the ProbabilityDistribution object.
         """
         return f"N: {self._n}\n" \
-               f"Time: {self._time}\n" \
-               f"Graph: {nx.to_dict_of_dicts(self._graph)}\n" \
-               f"Operator:\n\t{self._operator}"
-    
+            f"Time: {self._time}\n" \
+            f"Graph: {nx.to_dict_of_dicts(self._graph)}\n" \
+            f"Operator:\n\t{self._operator}"

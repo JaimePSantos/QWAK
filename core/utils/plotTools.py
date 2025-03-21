@@ -186,8 +186,14 @@ def plot_qwak(
             marker = marker_list[axis_matrix_counter]
         if marker_interval is not None:
             markevery = marker_interval
-        ax.plot(xvalues, yvalues, label=label,
-                color=color, linestyle=line_style, marker=marker, markevery=markevery)
+        ax.plot(
+            xvalues,
+            yvalues,
+            label=label,
+            color=color,
+            linestyle=line_style,
+            marker=marker,
+            markevery=markevery)
         if v_line_values is not None and axis_matrix_counter == v_line_list_index:
             if v_line_colors is None:
                 v_line_colors = ['k'] * len(v_line_values)
@@ -294,7 +300,9 @@ def plot_qwak(
         cbar.ax.tick_params(labelsize=font_size + 2)
 
     if cbar_tick_labels is not None:
-        cbar.ax.set_yticklabels(cbar_tick_labels, fontsize=font_size + 2)
+        cbar.ax.set_yticklabels(
+            cbar_tick_labels,
+            fontsize=font_size + 2)
 
     if x_lim is not None:
         ax.set_xlim(x_lim)
@@ -321,7 +329,7 @@ def plot_qwak_heatmap(
         ylabel=None,
         cbar_label=None,
         font_size=12,
-        figsize=(8,6),
+        figsize=(8, 6),
         cmap='coolwarm',
         x_vline_value=None,
         y_hline_value=None,
@@ -406,7 +414,14 @@ def plot_qwak_heatmap(
     pivot = df.pivot(index='t', columns='p', values='prob')
 
     fig, ax = plt.subplots(figsize=figsize)
-    sns.heatmap(pivot, cmap=cmap, vmin=0, vmax=1, cbar_kws={'label': cbar_label}, linewidths=0)
+    sns.heatmap(
+        pivot,
+        cmap=cmap,
+        vmin=0,
+        vmax=1,
+        cbar_kws={
+            'label': cbar_label},
+        linewidths=0)
 
     # set customizations
     ax.invert_yaxis()
@@ -418,8 +433,18 @@ def plot_qwak_heatmap(
     # generate tick labels based on p and t values
     num_p_ticks = min(x_num_ticks, len(p_values[0]))
     num_t_ticks = min(y_num_ticks, len(t_values[0]))
-    p_tick_labels = np.round(np.linspace(100 * min(flat_p), 100 * max(flat_p), num_p_ticks), x_round_val)
-    t_tick_labels = np.round(np.linspace(min(flat_t), max(flat_t), num_t_ticks), y_round_val)
+    p_tick_labels = np.round(
+        np.linspace(
+            100 * min(flat_p),
+            100 * max(flat_p),
+            num_p_ticks),
+        x_round_val)
+    t_tick_labels = np.round(
+        np.linspace(
+            min(flat_t),
+            max(flat_t),
+            num_t_ticks),
+        y_round_val)
 
     # set x and y tick labels
     ax.set_xticks(np.linspace(0, len(p_values[0]), num_p_ticks))
@@ -427,11 +452,25 @@ def plot_qwak_heatmap(
     ax.set_xticklabels(p_tick_labels, rotation=0)
     ax.set_yticklabels(t_tick_labels)
     if x_vline_value is not None:
-        x_tick_value = (x_vline_value - min(flat_p)) / (max(flat_p) - min(flat_p)) * len(p_values[0])
-        ax.axvline(x=x_tick_value, linestyle=':', marker='D', markersize=5, linewidth=1, color='white')
+        x_tick_value = (x_vline_value - min(flat_p)) / \
+            (max(flat_p) - min(flat_p)) * len(p_values[0])
+        ax.axvline(
+            x=x_tick_value,
+            linestyle=':',
+            marker='D',
+            markersize=5,
+            linewidth=1,
+            color='white')
     if y_hline_value is not None:
-        y_tick_value = (y_hline_value - min(flat_t)) / (max(flat_t) - min(flat_t)) * len(t_values[0])
-        ax.axhline(y=y_tick_value, linestyle=':', marker='D', markersize=5, linewidth=1, color='white')
+        y_tick_value = (y_hline_value - min(flat_t)) / \
+            (max(flat_t) - min(flat_t)) * len(t_values[0])
+        ax.axhline(
+            y=y_tick_value,
+            linestyle=':',
+            marker='D',
+            markersize=5,
+            linewidth=1,
+            color='white')
 
     # add title to the plot if N is provided
     if N is not None:
@@ -448,6 +487,7 @@ def plot_qwak_heatmap(
         plt.show()
     else:
         plt.show()
+
 
 def searchProbStepsPlotting():
     # Define the function here

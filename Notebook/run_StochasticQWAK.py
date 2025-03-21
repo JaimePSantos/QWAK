@@ -7,7 +7,7 @@ import os
 import shutil
 from utils.plotTools import plot_qwak  # Import plot_qwak
 
-maze_graph = Maze(maze_size=(7,7))
+maze_graph = Maze(maze_size=(7, 7))
 maze_graph.plot_maze()
 plt.show()
 
@@ -72,7 +72,8 @@ plot_qwak(
 )
 plt.show()
 
-copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+copy_to_latex = input(
+    "Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
 if copy_to_latex == 'y':
     latex_project_path = os.path.normpath(os.path.join(
         os.getcwd(),

@@ -5,7 +5,9 @@ import numpy as np
 from tqdm import tqdm
 import random
 
-def create_or_load_adjacency_matrices(base_dir, n_values, pVal, samples):
+
+def create_or_load_adjacency_matrices(
+        base_dir, n_values, pVal, samples):
     """
     Checks if adjacency matrix files exist for each size `n` and each sample. If not, generates and saves them.
 
@@ -21,12 +23,17 @@ def create_or_load_adjacency_matrices(base_dir, n_values, pVal, samples):
     adjacency_matrix_dict = {}
 
     for n in tqdm(n_values, desc="Processing graph sizes"):
-        n_dir = os.path.join(base_dir, f"N{n}")  # Directory for this n value
+        # Directory for this n value
+        n_dir = os.path.join(base_dir, f"N{n}")
         os.makedirs(n_dir, exist_ok=True)
 
         adjacency_matrix_list = []
-        for sample in tqdm(range(samples), desc=f"Samples for N={n}", leave=False):
-            sample_file = os.path.join(n_dir, f"AdjMatrix_N{n}_P{pVal}_Sample{sample}.pkl")
+        for sample in tqdm(
+                range(samples),
+                desc=f"Samples for N={n}",
+                leave=False):
+            sample_file = os.path.join(
+                n_dir, f"AdjMatrix_N{n}_P{pVal}_Sample{sample}.pkl")
 
             if os.path.exists(sample_file):
                 # Load existing adjacency matrix
@@ -46,32 +53,39 @@ def create_or_load_adjacency_matrices(base_dir, n_values, pVal, samples):
 
     return adjacency_matrix_dict
 
+
 # Configuration variables
-nMin = 3 
+nMin = 3
 nMax = 4
 nList = list(range(nMin, nMax, 1))  # List of n values
 pVal = 0.8
 samples = 100
 t = 50  # Assuming 't' is a given parameter for the filename
 
-## Base directory
-#base_dir = "Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices"
+# Base directory
+# base_dir = "Datasets/Benchmark-SimpleQWAK_ER/AdjacencyMatrices"
 #
-## Generate or load the adjacency matrix dictionary
-#adjacency_matrix_dict = create_or_load_adjacency_matrices(base_dir, nList, pVal, samples)
+# Generate or load the adjacency matrix dictionary
+# adjacency_matrix_dict = create_or_load_adjacency_matrices(base_dir, nList, pVal, samples)
 
-#print(list(adjacency_matrix_dict.values()))
+# print(list(adjacency_matrix_dict.values()))
+
 
 def create_er_seed(base_dir, n_values, pVal, samples):
     graph_seed_dict = {}
 
     for n in tqdm(n_values, desc="Processing seed sizes"):
-        n_dir = os.path.join(base_dir, f"N{n}")  # Directory for this n value
+        # Directory for this n value
+        n_dir = os.path.join(base_dir, f"N{n}")
         os.makedirs(n_dir, exist_ok=True)
 
         graph_seed_list = []
-        for sample in tqdm(range(samples), desc=f"Samples for N={n}", leave=False):
-            sample_file = os.path.join(n_dir, f"GraphSeed_N{n}_P{pVal}_Sample{sample}.pkl")
+        for sample in tqdm(
+                range(samples),
+                desc=f"Samples for N={n}",
+                leave=False):
+            sample_file = os.path.join(
+                n_dir, f"GraphSeed_N{n}_P{pVal}_Sample{sample}.pkl")
             if os.path.exists(sample_file):
                 print('File Exists!')
                 continue
@@ -83,20 +97,26 @@ def create_er_seed(base_dir, n_values, pVal, samples):
                 with open(sample_file, 'wb') as f:
                     pickle.dump(seed, f)
 
+
 def load_er_seed(base_dir, n_values, pVal, samples):
     graph_seed_dict = {}
 
     for n in tqdm(n_values, desc="Processing seed sizes"):
-        n_dir = os.path.join(base_dir, f"N{n}")  # Directory for this n value
+        # Directory for this n value
+        n_dir = os.path.join(base_dir, f"N{n}")
         os.makedirs(n_dir, exist_ok=True)
 
         graph_seed_list = []
-        for sample in tqdm(range(samples), desc=f"Samples for N={n}", leave=False):
-            sample_file = os.path.join(n_dir, f"GraphSeed_N{n}_P{pVal}_Sample{sample}.pkl")
+        for sample in tqdm(
+                range(samples),
+                desc=f"Samples for N={n}",
+                leave=False):
+            sample_file = os.path.join(
+                n_dir, f"GraphSeed_N{n}_P{pVal}_Sample{sample}.pkl")
             if os.path.exists(sample_file):
-               # Load existing adjacency matrix
-               with open(sample_file, 'rb') as f:
-                   seed = pickle.load(f)
+                # Load existing adjacency matrix
+                with open(sample_file, 'rb') as f:
+                    seed = pickle.load(f)
 
             else:
                 print('File not found!\nRun create_er_seed first.')
@@ -110,14 +130,14 @@ def load_er_seed(base_dir, n_values, pVal, samples):
 
 
 # Configuration variables
-nMin = 3 
+nMin = 3
 nMax = 1000
 nList = list(range(nMin, nMax, 1))  # List of n values
 pVal = 0.8
 samples = 100
 t = 50  # Assuming 't' is a given parameter for the filename
 
-## Base directory
+# Base directory
 base_dir = "Datasets/Benchmark-SimpleQWAK_ER/GraphSeedFiles4"
 
 create_er_seed(base_dir, nList, pVal, samples)

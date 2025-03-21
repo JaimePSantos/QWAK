@@ -8,6 +8,7 @@ import json
 from qwak.Errors import StateOutOfBounds, NonUnitaryState
 from utils.jsonTools import json_matrix_to_complex, complex_matrix_to_json
 
+
 class State:
     def __init__(self, n: int, nodeList: list = None,
                  customStateList: list = None) -> None:
@@ -25,8 +26,12 @@ class State:
             Custom amplitudes for the state, by default None.
         """
         self._n = n
-        self._nodeList = cp.asarray(nodeList) if nodeList else cp.array([])
-        self._customStateList = [(node, cp.asarray(amplitude)) for node, amplitude in customStateList] if customStateList else []
+        self._nodeList = cp.asarray(
+            nodeList) if nodeList else cp.array([])
+        self._customStateList = [
+            (node,
+             cp.asarray(amplitude)) for node,
+            amplitude in customStateList] if customStateList else []
         self._stateVec = cp.zeros((self._n, 1), dtype=complex)
 
     def buildState(
@@ -48,8 +53,9 @@ class State:
             self._nodeList = cp.asarray(nodeList)
         if customStateList is not None:
             self.resetState()
-            self._customStateList = [(node, cp.asarray(amplitude)) for node, amplitude in customStateList]
-        
+            self._customStateList = [
+                (node, cp.asarray(amplitude)) for node, amplitude in customStateList]
+
         if self._customStateList:
             self._checkUnitaryStateList(self._customStateList)
             for node, amplitude in self._customStateList:
@@ -76,9 +82,8 @@ class State:
             Out of bounds exception.
         """
         if node >= self._n:
-            raise StateOutOfBounds(
-                f"State {node} is out of bounds for system of size {self._n} ([0-{self._n - 1}])."
-            )
+            raise StateOutOfBounds(f"State {node} is out of bounds for system of size {
+                self._n} ([0-{self._n - 1}]).")
 
     def _checkUnitaryStateList(self, customStateList) -> None:
         """Checks if the sum of the square of the amplitudes is 1.
@@ -93,12 +98,13 @@ class State:
         NonUnitaryState
             Non unitary state exception.
         """
-        unitaryState = sum(cp.abs(amplitude) ** 2 for _, amplitude in customStateList)
+        unitaryState = sum(
+            cp.abs(amplitude) ** 2 for _,
+            amplitude in customStateList)
         unitaryState = float(cp.round(unitaryState, 5))
         if unitaryState != 1.0:
             raise NonUnitaryState(
-                f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1."
-            )
+                f"The sum of the square of the amplitudes is -- {unitaryState} -- instead of 1.")
 
     def herm(self) -> cp.ndarray:
         """Returns the Hermitian conjugate of the state vector.
@@ -322,9 +328,10 @@ class State:
             State string.
         """
         return f"N: {self._n}\n" \
-               f"Node list: {self._nodeList}\n" \
-               f"Custom Node list: {self._customStateList}\n" \
-               f"State:\n\t{self._stateVec}"
+            f"Node list: {self._nodeList}\n" \
+            f"Custom Node list: {self._customStateList}\n" \
+            f"State:\n\t{self._stateVec}"
+
 
 def some_function():
     from . import State  # Local import to avoid circular import issues

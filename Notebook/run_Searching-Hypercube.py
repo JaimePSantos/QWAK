@@ -11,10 +11,11 @@ import os
 from utils.plotTools import plot_qwak
 import shutil
 
+
 def write_nested_list_to_file(file_path, nested_lst):
     """
     Write a nested list of elements to a text file.
-    
+
     :param file_path: the file path where to write the nested list
     :param nested_lst: the nested list of elements to write
     """
@@ -22,10 +23,11 @@ def write_nested_list_to_file(file_path, nested_lst):
         for lst in nested_lst:
             f.write(" ".join(map(str, lst)) + "\n")
 
+
 def load_nested_list_from_file(file_path):
     """
     Load a nested list of float elements from a text file.
-    
+
     :param file_path: the file path to load the nested list from
     :return: the nested list of float elements loaded from the file
     """
@@ -36,20 +38,22 @@ def load_nested_list_from_file(file_path):
             nested_lst.append(lst)
     return nested_lst
 
+
 def write_list_to_file(file_path, lst):
     """
     Write a list of elements to a text file.
-    
+
     :param file_path: the file path where to write the list
     :param lst: the list of elements to write
     """
     with open(file_path, 'w') as f:
         f.write(" ".join(map(str, lst)) + "\n")
 
+
 def load_list_from_file(file_path):
     """
     Load a list of float elements from a text file.
-    
+
     :param file_path: the file path to load the list from
     :return: the list of float elements loaded from the file
     """
@@ -57,12 +61,14 @@ def load_list_from_file(file_path):
         line = f.readline()
         return [float(item) for item in line.strip().split()]
 
+
 def gamma_hypercube(n):
     total = 0
     for r in range(1, n + 1):
         binomial_coefficient = math.comb(n, r)
         total += binomial_coefficient * (1 / r)
     return ((1 / (2 ** n)) * total) / 2
+
 
 def searchProbStepsPlotting2(qwak: QWAK, probDistList):
     """Plots the probability of finding the target as a function of the number of steps.
@@ -79,17 +85,29 @@ def searchProbStepsPlotting2(qwak: QWAK, probDistList):
         raise ValueError("The probability distribution list is empty.")
     for probDist in probDistList:
         for element in markdElements:
-            markedProbability += probDist.searchNodeProbability(element[0])
+            markedProbability += probDist.searchNodeProbability(
+                element[0])
         markedProbDistList.append(markedProbability)
         markedProbability = 0
     return markedProbDistList
 
-def multiple_hypercube_qwak(N, gammaList, timeList, markedElements, initCond):
+
+def multiple_hypercube_qwak(
+        N,
+        gammaList,
+        timeList,
+        markedElements,
+        initCond):
     markedProbMatrix = []
     sampleCounter = 1
     for gamma in gammaList:
-        qw = QWAK(graph=graph, gamma=gamma, markedElements=markedElements, laplacian=False)
-        print(f'GAMMA {round(gamma, 4)}/{max(gammaList)} \t Sample {sampleCounter}/{len(gammaList)}')
+        qw = QWAK(
+            graph=graph,
+            gamma=gamma,
+            markedElements=markedElements,
+            laplacian=False)
+        print(f'GAMMA {round(gamma, 4)}/{max(gammaList)
+                                         } \t Sample {sampleCounter}/{len(gammaList)}')
         sampleCounter += 1
         probDistList = []
         for time in timeList:
@@ -98,6 +116,7 @@ def multiple_hypercube_qwak(N, gammaList, timeList, markedElements, initCond):
         markedProbList = searchProbStepsPlotting2(qw, probDistList)
         markedProbMatrix.append(markedProbList)
     return markedProbMatrix
+
 
 n = 9
 graph = nx.hypercube_graph(n)
@@ -120,11 +139,33 @@ gammaList = np.linspace(gammaMin, gamma, samples).tolist()
 markedElements = [(N // 2, -1)]
 
 SCRIPT_DIR = os.getcwd()
-dataset_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Datasets", "HypercubeSearch"))
-output_dir = os.path.normpath(os.path.join(SCRIPT_DIR, 'Notebook', "Output", "HypercubeSearch"))
+dataset_dir = os.path.normpath(
+    os.path.join(
+        SCRIPT_DIR,
+        'Notebook',
+        "Datasets",
+        "HypercubeSearch"))
+output_dir = os.path.normpath(
+    os.path.join(
+        SCRIPT_DIR,
+        'Notebook',
+        "Output",
+        "HypercubeSearch"))
 
-time_file = os.path.join(dataset_dir, f'timeMatrix_N{N}_S{samples}_GMIN{round(gammaMin, 3)}_TMAX{round(maxTime)}.txt')
-marked_prob_file = os.path.join(dataset_dir, f'markedProbMatrix_N{N}_S{samples}_GMIN{round(gammaMin, 3)}_TMAX{round(maxTime)}.txt')
+time_file = os.path.join(
+    dataset_dir,
+    f'timeMatrix_N{N}_S{samples}_GMIN{
+        round(
+            gammaMin,
+            3)}_TMAX{
+                round(maxTime)}.txt')
+marked_prob_file = os.path.join(
+    dataset_dir,
+    f'markedProbMatrix_N{N}_S{samples}_GMIN{
+        round(
+            gammaMin,
+            3)}_TMAX{
+                round(maxTime)}.txt')
 
 if os.path.exists(time_file) and os.path.exists(marked_prob_file):
     timeList = load_list_from_file(time_file)
@@ -132,7 +173,8 @@ if os.path.exists(time_file) and os.path.exists(marked_prob_file):
     print('File exists!')
 else:
     print('File Doesnt Exist!')
-    markedProbMatrix = multiple_hypercube_qwak(N, gammaList, timeList, markedElements, initCond)
+    markedProbMatrix = multiple_hypercube_qwak(
+        N, gammaList, timeList, markedElements, initCond)
     if not os.path.exists(time_file):
         write_list_to_file(time_file, timeList)
     if not os.path.exists(marked_prob_file):
@@ -144,7 +186,8 @@ configVec = list(zip(colors, lines))
 
 color_list = plt.cm.rainbow(np.linspace(0, 1, len(gammaList)))
 
-v_line_values = [(timeList[np.argmax(markedProbMatrix[-1])], np.max(markedProbMatrix[-1]))]
+v_line_values = [
+    (timeList[np.argmax(markedProbMatrix[-1])], np.max(markedProbMatrix[-1]))]
 print(v_line_values)
 
 cbar_num_ticks = 10
@@ -182,12 +225,17 @@ params = {
     'tick_font_size': 34,  # Increased font size
 }
 
-plot_qwak(x_value_matrix=[timeList]*len(markedProbMatrix), y_value_matrix=markedProbMatrix, **params)
+plot_qwak(
+    x_value_matrix=[timeList] *
+    len(markedProbMatrix),
+    y_value_matrix=markedProbMatrix,
+    **params)
 
 # plt.savefig(params['save_path'], bbox_inches='tight')
 plt.show()
 
-copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+copy_to_latex = input(
+    "Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
 if copy_to_latex == 'y':
     latex_project_path = os.path.normpath(os.path.join(
         SCRIPT_DIR,
@@ -197,6 +245,3 @@ if copy_to_latex == 'y':
     print(f"Image copied to {latex_project_path}")
 else:
     print("Image not copied.")
-
-
-    

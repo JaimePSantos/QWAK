@@ -56,10 +56,17 @@ params = {
     'tick_font_size': 34,
 }
 
-plot_qwak(x_value_matrix=list(range(0, n)), y_value_matrix=quantum_walk.getProbVec().get(), **params)
+plot_qwak(
+    x_value_matrix=list(
+        range(
+            0,
+            n)),
+    y_value_matrix=quantum_walk.getProbVec().get(),
+    **params)
 plt.show()
 
-copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+copy_to_latex = input(
+    "Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
 if copy_to_latex == 'y':
     latex_project_path = os.path.normpath(os.path.join(
         SCRIPT_DIR,

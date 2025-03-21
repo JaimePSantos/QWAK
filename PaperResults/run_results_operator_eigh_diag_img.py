@@ -6,11 +6,18 @@ import shutil
 from matplotlib.colors import LinearSegmentedColormap
 from matplotlib.colors import Normalize
 
-def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
+
+def process_profiling_data(
+        path,
+        method_name,
+        nrange,
+        sample_range,
+        seed=None):
     for n in tqdm(nrange, desc="Processing n-values"):
         cumtimes = []
         for sample in sample_range:
-            filename = f"{method_name}-n_{n}_sample_{sample}_pVal_0_8000_seed_{seed}.prof"
+            filename = f"{
+                method_name}-n_{n}_sample_{sample}_pVal_0_8000_seed_{seed}.prof"
             filepath = os.path.join(path, f"n_{n}", filename)
             with open(filepath, 'r') as f:
                 next(f)  # Skip the header line
@@ -27,11 +34,12 @@ def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
                         continue
                     func_part = ' '.join(parts[5:])
                     if '(' in func_part and ')' in func_part:
-                        func_name = func_part.split('(')[-1].split(')')[0]
+                        func_name = func_part.split(
+                            '(')[-1].split(')')[0]
                         if func_name == method_name:
                             cumtimes.append(cumtime)
                             break
-        
+
         if cumtimes:
             average_cumtime = sum(cumtimes) / len(cumtimes)
             avg_folder = os.path.join(path, f"n_{n}_avg")
@@ -40,6 +48,7 @@ def process_profiling_data(path, method_name, nrange, sample_range, seed=None):
             avg_filepath = os.path.join(avg_folder, avg_filename)
             with open(avg_filepath, 'w') as avg_file:
                 avg_file.write(f"{average_cumtime}\n")
+
 
 def load_profiling_averages(path, method_name, nrange, seed=None):
     results = {}
@@ -51,14 +60,17 @@ def load_profiling_averages(path, method_name, nrange, seed=None):
             with open(avg_filepath, 'r') as avg_file:
                 results[n] = float(avg_file.readline().strip())
         except (FileNotFoundError, ValueError):
-            raise ValueError(f"Average file not found or invalid format: {avg_filepath}")
+            raise ValueError(
+                f"Average file not found or invalid format: {avg_filepath}")
     return results
+
 
 def merge_by_sum(dict_a, dict_b):
     merged = {}
     for key in dict_a:
         merged[key] = dict_a[key] + dict_b[key]
     return merged
+
 
 def plot_qwak2(
         x_value_matrix,
@@ -163,9 +175,16 @@ def plot_qwak2(
         if legend_labels is not None:
             label = legend_labels[axis_matrix_counter]
         if marker_list is not None:
-            marker = marker_list[axis_matrix_counter]  # Assign marker from list
-        ax.plot(xvalues, yvalues, label=label,
-                color=color, linestyle=line_style, marker=marker, markevery=marker_interval)  # Add marker to plot with interval
+            # Assign marker from list
+            marker = marker_list[axis_matrix_counter]
+        ax.plot(
+            xvalues,
+            yvalues,
+            label=label,
+            color=color,
+            linestyle=line_style,
+            marker=marker,
+            markevery=marker_interval)  # Add marker to plot with interval
         if v_line_values is not None and axis_matrix_counter == v_line_list_index:
             if v_line_colors is None:
                 v_line_colors = ['k'] * len(v_line_values)
@@ -276,8 +295,9 @@ def plot_qwak2(
     else:
         plt.show()
 
+
 nMin = 3
-nMax = 1000 
+nMax = 1000
 n_values = list(range(nMin, nMax, 1))
 pVal = 0.8
 sample_range = range(0, 100, 1)
@@ -290,7 +310,7 @@ path = os.path.normpath(os.path.join(
     "benchmark/ModuleDev/Profiling/operator_results"
 ))
 
-### Operator Benchmark
+# Operator Benchmark
 
 results_init_avg = load_profiling_averages(
     path=path,
@@ -313,7 +333,8 @@ results_expm_avg = load_profiling_averages(
     seed=seed
 )
 
-init_build_merged_result = merge_by_sum(results_init_avg, results_build_avg)
+init_build_merged_result = merge_by_sum(
+    results_init_avg, results_build_avg)
 
 params = {
     'figsize': (12, 8),
@@ -348,15 +369,25 @@ params = {
     'use_grid': True  # Ensure grid is enabled
 }
 
-x_value_matrix = [list(init_build_merged_result.keys()), list(results_expm_avg.keys())]
-y_value_matrix = [list(init_build_merged_result.values()), list(results_expm_avg.values())]
+x_value_matrix = [
+    list(
+        init_build_merged_result.keys()), list(
+            results_expm_avg.keys())]
+y_value_matrix = [
+    list(
+        init_build_merged_result.values()), list(
+            results_expm_avg.values())]
 
-plot_qwak2(x_value_matrix=x_value_matrix, y_value_matrix=y_value_matrix, **params)
+plot_qwak2(
+    x_value_matrix=x_value_matrix,
+    y_value_matrix=y_value_matrix,
+    **params)
 
 plt.grid(True)  # Explicitly enable gridlines
 plt.show()
 
-copy_to_latex = input("Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
+copy_to_latex = input(
+    "Do you want to copy the generated image to the LaTeX project? (y/n): ").strip().lower()
 if copy_to_latex == 'y':
     latex_project_path = os.path.normpath(os.path.join(
         SCRIPT_DIR,

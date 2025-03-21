@@ -210,8 +210,8 @@ class ProbabilityDistribution:
                     survProb += self._probVec[i]
             return survProb
         except ValueError:
-            raise MissingNodeInput(
-                f"A node number is missing: fromNode = {fromNode}; toNode={toNode}")
+            raise MissingNodeInput(f"A node number is missing: fromNode = {
+                fromNode}; toNode={toNode}")
 
     def searchNodeProbability(self, searchNode: int) -> float:
         """Searches and gets the probability associated with a given node.
@@ -268,6 +268,7 @@ class ProbabilityDistribution:
         probDist = cls(state)
         probDist.setProbVec(prob_vec)
         return probDist
+
     def __str__(self) -> str:
         """String representation of the ProbabilityDistribution object.
 
@@ -287,7 +288,5 @@ class ProbabilityDistribution:
             String of the ProbabilityDistribution object.
         """
         return f"N: {self._n}\n" \
-               f"State:\n\t{self._stateVec}\n" \
-               f"ProbDist:\n\t{self._probVec}"
-
-
+            f"State:\n\t{self._stateVec}\n" \
+            f"ProbDist:\n\t{self._probVec}"

@@ -11,6 +11,7 @@ import inspect
 global benchmark
 benchmark = True
 
+
 def profile(
     output_path,
     output_file=None,
@@ -28,9 +29,12 @@ def profile(
         @wraps(func)
         def wrapper(*args, **kwargs):
             # Ensure base path exists
-            base_path = os.path.join(os.path.dirname(__file__), "TestOutput", "Profiling")
+            base_path = os.path.join(
+                os.path.dirname(__file__),
+                "TestOutput",
+                "Profiling")
             os.makedirs(base_path, exist_ok=True)
-            
+
             pr = cProfile.Profile()
             with tqdm(total=1, desc=f"Profiling {func.__name__}", unit="call") as pbar:
                 pr.enable()
@@ -46,14 +50,14 @@ def profile(
                     bound_args = sig.bind(*args, **kwargs)
                     bound_args.apply_defaults()
                     arguments = bound_args.arguments
-                except:
+                except BaseException:
                     arguments = {}
 
                 instance = None
                 params = list(sig.parameters.values())
                 if params and params[0].name == 'self' and args:
                     instance = args[0]
-                
+
                 for attr in tracked_attributes:
                     value = None
                     if attr in arguments:
@@ -61,7 +65,14 @@ def profile(
                     elif instance and hasattr(instance, attr):
                         value = getattr(instance, attr, None)
                     if value is not None:
-                        formatted_value = f"{value:.4f}".replace('.', '_') if isinstance(value, float) else str(value).replace('.', '_')
+                        formatted_value = f"{
+                            value:.4f}".replace(
+                            '.',
+                            '_') if isinstance(
+                            value,
+                            float) else str(value).replace(
+                            '.',
+                            '_')
                         time_data[attr] = formatted_value
 
             first_attr_part = ""
@@ -69,14 +80,16 @@ def profile(
                 first_attr_name = tracked_attributes[0]
                 first_attr_value = time_data.get(first_attr_name, "")
                 if first_attr_value:
-                    first_attr_part = f"{first_attr_name}_{first_attr_value}"
+                    first_attr_part = f"{first_attr_name}_{
+                        first_attr_value}"
 
-            final_output_path = os.path.join(base_path, output_path, first_attr_part)
+            final_output_path = os.path.join(
+                base_path, output_path, first_attr_part)
             os.makedirs(final_output_path, exist_ok=True)
 
             attr_parts = [f"{k}_{v}" for k, v in time_data.items()]
             combined_attrs = '_'.join(attr_parts) if attr_parts else ''
-            
+
             if output_file:
                 filename = f"{output_file}-{combined_attrs}.prof"
             else:
@@ -89,9 +102,14 @@ def profile(
                 if strip_dirs:
                     ps.strip_dirs()
                 ps.sort_stats(sort_by)
-                
+
                 if csv:
-                    f.write(prof_to_csv(pr, sort_by, lines_to_print, strip_dirs))
+                    f.write(
+                        prof_to_csv(
+                            pr,
+                            sort_by,
+                            lines_to_print,
+                            strip_dirs))
                 else:
                     ps.print_stats(lines_to_print)
 
@@ -103,7 +121,10 @@ def profile(
             'output_file': output_file,
             'tracked_attributes': tracked_attributes,
         }
-        print(f"Profiling applied to {func.__name__}, config: {wrapper._profile_config}")  # Debug print
+        print(
+            f"Profiling applied to {
+                func.__name__}, config: {
+                wrapper._profile_config}")  # Debug print
         return wrapper
 
     return inner if benchmark else noop_decorator
@@ -117,13 +138,14 @@ def prof_to_csv(prof, sort_by, lines_to_print, strip_dirs):
     ps.sort_stats(sort_by).print_stats(lines_to_print)
     result = out_stream.getvalue()
     result = "ncalls" + result.split("ncalls")[-1]
-    return "\n".join([",".join(line.rstrip().split(None,5)) for line in result.split("\n") if line])
+    return "\n".join([",".join(line.rstrip().split(None, 5))
+                     for line in result.split("\n") if line])
 
 
 def find_all_profiling_files(instance, method: Callable) -> List[str]:
     """
     Finds all profiling files for the given method, returning a list of paths.
-    
+
     Usage:
         try:
             profiling_files = find_all_profiling_files(benchmark_instance, benchmark_instance.init_operator)
@@ -136,14 +158,17 @@ def find_all_profiling_files(instance, method: Callable) -> List[str]:
         func = method
 
     if not hasattr(func, '_profile_config'):
-        raise ValueError(f"Method {func.__name__} was not decorated with @profile")
+        raise ValueError(
+            f"Method {
+                func.__name__} was not decorated with @profile")
     config = func._profile_config
 
     tracked_attrs = config.get('tracked_attributes')
     if tracked_attrs is None:
         tracked_attrs = getattr(instance, 'tracked_attributes', None)
         if tracked_attrs is None:
-            raise ValueError("No tracked_attributes defined in decorator or instance")
+            raise ValueError(
+                "No tracked_attributes defined in decorator or instance")
 
     base_path = os.path.join(
         os.path.dirname(__file__),
@@ -153,18 +178,23 @@ def find_all_profiling_files(instance, method: Callable) -> List[str]:
     )
 
     if not os.path.exists(base_path):
-        raise FileNotFoundError(f"Profiling directory not found: {base_path}")
+        raise FileNotFoundError(
+            f"Profiling directory not found: {base_path}")
 
     first_attr = tracked_attrs[0]
-    matching_dirs = [d for d in os.listdir(base_path) if d.startswith(f"{first_attr}_")]
-    
+    matching_dirs = [
+        d for d in os.listdir(base_path) if d.startswith(
+            f"{first_attr}_")]
+
     profiling_files = []
     for directory in matching_dirs:
         full_dir_path = os.path.join(base_path, directory)
         if os.path.isdir(full_dir_path):
             for file in os.listdir(full_dir_path):
-                if file.startswith(config['output_file'] or func.__name__) and file.endswith(".prof"):
-                    profiling_files.append(os.path.join(full_dir_path, file))
+                if file.startswith(
+                        config['output_file'] or func.__name__) and file.endswith(".prof"):
+                    profiling_files.append(
+                        os.path.join(full_dir_path, file))
 
     if not profiling_files:
         raise FileNotFoundError(
@@ -172,7 +202,7 @@ def find_all_profiling_files(instance, method: Callable) -> List[str]:
             f"Tracked attributes: {tracked_attrs}\n"
             "Make sure profiling has been run before searching for the files."
         )
-    
+
     return profiling_files
 
 
@@ -188,7 +218,9 @@ def find_exact_profiling_file(instance, method: Callable) -> str:
 
     # Ensure the function was decorated.
     if not hasattr(func, '_profile_config'):
-        raise ValueError(f"Method {func.__name__} was not decorated with @profile")
+        raise ValueError(
+            f"Method {
+                func.__name__} was not decorated with @profile")
     config = func._profile_config
 
     # Determine which tracked attributes to use.
@@ -196,7 +228,8 @@ def find_exact_profiling_file(instance, method: Callable) -> str:
     if tracked_attrs is None:
         tracked_attrs = getattr(instance, 'tracked_attributes', None)
         if tracked_attrs is None:
-            raise ValueError("No tracked_attributes defined in decorator or instance")
+            raise ValueError(
+                "No tracked_attributes defined in decorator or instance")
 
     # Gather and format values from the instance.
     formatted_values = {}
@@ -211,14 +244,22 @@ def find_exact_profiling_file(instance, method: Callable) -> str:
         formatted_values[attr] = formatted
 
     # Use an absolute base directory.
-    base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "TestOutput", "Profiling"))
-    # Rebuild the directory path (which uses the first tracked attribute).
+    base_dir = os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            "TestOutput",
+            "Profiling"))
+    # Rebuild the directory path (which uses the first tracked
+    # attribute).
     first_attr = tracked_attrs[0]
-    dir_structure = os.path.join(base_dir, config['output_path'], f"{first_attr}_{formatted_values[first_attr]}")
+    dir_structure = os.path.join(
+        base_dir, config['output_path'], f"{first_attr}_{
+            formatted_values[first_attr]}")
 
     # Rebuild the filename exactly as the profiler does.
     filename_base = config['output_file'] or func.__name__
-    attr_str = '_'.join([f"{k}_{v}" for k, v in formatted_values.items()])
+    attr_str = '_'.join(
+        [f"{k}_{v}" for k, v in formatted_values.items()])
     filename = f"{filename_base}-{attr_str}.prof"
 
     full_path = os.path.join(dir_structure, filename)
