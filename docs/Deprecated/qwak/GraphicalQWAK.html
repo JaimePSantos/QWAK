@@ -1,0 +1,996 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
+        <title>__init__ - QWAK - Quantum Walk Analysis Kit</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  --color-content-foreground: #000000;
+  --color-background-primary: #ffffff;
+  --color-background-border: #ffffff;
+  --color-sidebar-background: #f8f9fb;
+  --color-brand-content: #1c00e3;
+  --color-brand-primary: #192bd0;
+  --color-link: #c93434;
+  --color-link--hover: #5b0000;
+  --color-inline-code-background: #f6f6f6;;
+  --color-foreground-secondary: #000;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-content-foreground: #ffffffd9;
+  --color-background-primary: #131416;
+  --color-background-border: #303335;
+  --color-sidebar-background: #1a1c1e;
+  --color-brand-content: #2196f3;
+  --color-brand-primary: #007fff;
+  --color-link: #51ba86;
+  --color-link--hover: #9cefc6;
+  --color-inline-code-background: #262626;
+  --color-foreground-secondary: #ffffffd9;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  --color-content-foreground: #ffffffd9;
+  --color-background-primary: #131416;
+  --color-background-border: #303335;
+  --color-sidebar-background: #1a1c1e;
+  --color-brand-content: #2196f3;
+  --color-brand-primary: #007fff;
+  --color-link: #51ba86;
+  --color-link--hover: #9cefc6;
+  --color-inline-code-background: #262626;
+  --color-foreground-secondary: #ffffffd9;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">QWAK - Quantum Walk Analysis Kit</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">QWAK - Quantum Walk Analysis Kit</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../installation/index.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/conda-setup.html">Setting up QWAK with Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/venv-setup.html">Setting up QWAK with Venv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/dependencies.html">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/localGUI.html">Running the Graphical Interface using Flask</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../usage/index.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/perfectStateTransfer.html">Perfect State Transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/orientedQuantumWalk.html">Directed Quantum Walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/searchingQWAK.html">Searching With QWAK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributing/index.html">Contributing</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Contributing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/genDoc.html">Generating Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/pypi.html">Updating PyPi package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">core</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwak_cupy.html">qwak_cupy package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="init">
+<h1>__init__<a class="headerlink" href="#init" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="parameters">
+<h2>Parameters<a class="headerlink" href="#parameters" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>staticN<span class="classifier">int</span></dt><dd><p>_description_</p>
+</dd>
+<dt>dynamicN<span class="classifier">int</span></dt><dd><p>_description_</p>
+</dd>
+<dt>staticGraph<span class="classifier">nx.Graph</span></dt><dd><p>_description_</p>
+</dd>
+<dt>dynamicGraph<span class="classifier">nx.Graph</span></dt><dd><p>_description_</p>
+</dd>
+<dt>staticStateList<span class="classifier">list</span></dt><dd><p>_description_</p>
+</dd>
+<dt>dynamicStateList<span class="classifier">list</span></dt><dd><p>_description_</p>
+</dd>
+<dt>staticTime<span class="classifier">float</span></dt><dd><p>_description_</p>
+</dd>
+<dt>dynamicTimeList<span class="classifier">list</span></dt><dd><p>_description_</p>
+</dd>
+<dt>staticGamma<span class="classifier">float</span></dt><dd><p>_description_</p>
+</dd>
+<dt>dynamicGamma<span class="classifier">float</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="to-json">
+<h1>to_json<a class="headerlink" href="#to-json" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="returns">
+<h2>Returns<a class="headerlink" href="#returns" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>str</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="from-json">
+<h1>from_json<a class="headerlink" href="#from-json" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id1">
+<h2>Parameters<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>json_str<span class="classifier">str</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+<section id="id2">
+<h2>Returns<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>Operator</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="runwalk">
+<h1>runWalk<a class="headerlink" href="#runwalk" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id3">
+<h2>Returns<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="runmultiplewalks">
+<h1>runMultipleWalks<a class="headerlink" href="#runmultiplewalks" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id4">
+<h2>Returns<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setstaticdim">
+<h1>setStaticDim<a class="headerlink" href="#setstaticdim" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id5">
+<h2>Parameters<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>newDim<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+<dt>graphStr<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+<dt>initStateList<span class="classifier">_type_, optional</span></dt><dd><p>_description_, by default None</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setdynamicdim">
+<h1>setDynamicDim<a class="headerlink" href="#setdynamicdim" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id6">
+<h2>Parameters<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>newDim<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+<dt>graphStr<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticdim">
+<h1>getStaticDim<a class="headerlink" href="#getstaticdim" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id7">
+<h2>Returns<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicdim">
+<h1>getDynamicDim<a class="headerlink" href="#getdynamicdim" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id8">
+<h2>Returns<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setstaticgraph">
+<h1>setStaticGraph<a class="headerlink" href="#setstaticgraph" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id9">
+<h2>Parameters<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>newGraphStr<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setdynamicgraph">
+<h1>setDynamicGraph<a class="headerlink" href="#setdynamicgraph" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id10">
+<h2>Parameters<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>newGraphStr<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setstaticcustomgraph">
+<h1>setStaticCustomGraph<a class="headerlink" href="#setstaticcustomgraph" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id11">
+<h2>Parameters<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>customAdjacency<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setdynamiccustomgraph">
+<h1>setDynamicCustomGraph<a class="headerlink" href="#setdynamiccustomgraph" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id12">
+<h2>Parameters<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>customAdjacency<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticgraph">
+<h1>getStaticGraph<a class="headerlink" href="#getstaticgraph" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id13">
+<h2>Returns<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicgraph">
+<h1>getDynamicGraph<a class="headerlink" href="#getdynamicgraph" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id14">
+<h2>Returns<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticgraphtojson">
+<h1>getStaticGraphToJson<a class="headerlink" href="#getstaticgraphtojson" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id15">
+<h2>Returns<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicgraphtojson">
+<h1>getDynamicGraphToJson<a class="headerlink" href="#getdynamicgraphtojson" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id16">
+<h2>Returns<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticadjacencymatrix">
+<h1>getStaticAdjacencyMatrix<a class="headerlink" href="#getstaticadjacencymatrix" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id17">
+<h2>Returns<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicadjacencymatrix">
+<h1>getDynamicAdjacencyMatrix<a class="headerlink" href="#getdynamicadjacencymatrix" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id18">
+<h2>Returns<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setstatictime">
+<h1>setStaticTime<a class="headerlink" href="#setstatictime" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id19">
+<h2>Parameters<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>newTime<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstatictime">
+<h1>getStaticTime<a class="headerlink" href="#getstatictime" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id20">
+<h2>Returns<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setdynamictime">
+<h1>setDynamicTime<a class="headerlink" href="#setdynamictime" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id21">
+<h2>Parameters<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>newTimeList<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamictime">
+<h1>getDynamicTime<a class="headerlink" href="#getdynamictime" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id22">
+<h2>Returns<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setdynamicinitstatelist">
+<h1>setDynamicInitStateList<a class="headerlink" href="#setdynamicinitstatelist" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id23">
+<h2>Parameters<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>newInitStateList<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="setstaticinitstate">
+<h1>setStaticInitState<a class="headerlink" href="#setstaticinitstate" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id24">
+<h2>Parameters<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>initStateStr<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticinitstate">
+<h1>getStaticInitState<a class="headerlink" href="#getstaticinitstate" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id25">
+<h2>Returns<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicinitstatelist">
+<h1>getDynamicInitStateList<a class="headerlink" href="#getdynamicinitstatelist" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id26">
+<h2>Returns<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticprobdist">
+<h1>getStaticProbDist<a class="headerlink" href="#getstaticprobdist" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id27">
+<h2>Returns<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicprobdistlist">
+<h1>getDynamicProbDistList<a class="headerlink" href="#getdynamicprobdistlist" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id28">
+<h2>Returns<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticprobvec">
+<h1>getStaticProbVec<a class="headerlink" href="#getstaticprobvec" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id29">
+<h2>Returns<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicprobveclist">
+<h1>getDynamicProbVecList<a class="headerlink" href="#getdynamicprobveclist" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id30">
+<h2>Returns<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticmean">
+<h1>getStaticMean<a class="headerlink" href="#getstaticmean" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id31">
+<h2>Returns<a class="headerlink" href="#id31" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicmean">
+<h1>getDynamicMean<a class="headerlink" href="#getdynamicmean" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id32">
+<h2>Returns<a class="headerlink" href="#id32" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticsndmoment">
+<h1>getStaticSndMoment<a class="headerlink" href="#getstaticsndmoment" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id33">
+<h2>Returns<a class="headerlink" href="#id33" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicsndmoment">
+<h1>getDynamicSndMoment<a class="headerlink" href="#getdynamicsndmoment" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id34">
+<h2>Returns<a class="headerlink" href="#id34" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticstdev">
+<h1>getStaticStDev<a class="headerlink" href="#getstaticstdev" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id35">
+<h2>Returns<a class="headerlink" href="#id35" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicstdev">
+<h1>getDynamicStDev<a class="headerlink" href="#getdynamicstdev" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id36">
+<h2>Returns<a class="headerlink" href="#id36" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticsurvivalprob">
+<h1>getStaticSurvivalProb<a class="headerlink" href="#getstaticsurvivalprob" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id37">
+<h2>Parameters<a class="headerlink" href="#id37" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>k0<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+<dt>k1<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+<section id="id38">
+<h2>Returns<a class="headerlink" href="#id38" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicsurvivalprob">
+<h1>getDynamicSurvivalProb<a class="headerlink" href="#getdynamicsurvivalprob" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id39">
+<h2>Parameters<a class="headerlink" href="#id39" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>k0<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+<dt>k1<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+<section id="id40">
+<h2>Returns<a class="headerlink" href="#id40" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getstaticinversepartratio">
+<h1>getStaticInversePartRatio<a class="headerlink" href="#getstaticinversepartratio" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id41">
+<h2>Returns<a class="headerlink" href="#id41" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="getdynamicinvpartratio">
+<h1>getDynamicInvPartRatio<a class="headerlink" href="#getdynamicinvpartratio" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id42">
+<h2>Returns<a class="headerlink" href="#id42" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="checkpst">
+<h1>checkPST<a class="headerlink" href="#checkpst" title="Link to this heading">¶</a></h1>
+<p>_summary_</p>
+<section id="id43">
+<h2>Parameters<a class="headerlink" href="#id43" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>nodeA<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+<dt>nodeB<span class="classifier">_type_</span></dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+<section id="id44">
+<h2>Returns<a class="headerlink" href="#id44" title="Link to this heading">¶</a></h2>
+<dl class="simple">
+<dt>_type_</dt><dd><p>_description_</p>
+</dd>
+</dl>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2022, Jaime Santos, Bruno Chagas, Rodrigo Chaves, Lorenzo Buffoni
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">__init__</a><ul>
+<li><a class="reference internal" href="#parameters">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#to-json">to_json</a><ul>
+<li><a class="reference internal" href="#returns">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#from-json">from_json</a><ul>
+<li><a class="reference internal" href="#id1">Parameters</a></li>
+<li><a class="reference internal" href="#id2">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#runwalk">runWalk</a><ul>
+<li><a class="reference internal" href="#id3">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#runmultiplewalks">runMultipleWalks</a><ul>
+<li><a class="reference internal" href="#id4">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setstaticdim">setStaticDim</a><ul>
+<li><a class="reference internal" href="#id5">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setdynamicdim">setDynamicDim</a><ul>
+<li><a class="reference internal" href="#id6">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticdim">getStaticDim</a><ul>
+<li><a class="reference internal" href="#id7">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicdim">getDynamicDim</a><ul>
+<li><a class="reference internal" href="#id8">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setstaticgraph">setStaticGraph</a><ul>
+<li><a class="reference internal" href="#id9">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setdynamicgraph">setDynamicGraph</a><ul>
+<li><a class="reference internal" href="#id10">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setstaticcustomgraph">setStaticCustomGraph</a><ul>
+<li><a class="reference internal" href="#id11">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setdynamiccustomgraph">setDynamicCustomGraph</a><ul>
+<li><a class="reference internal" href="#id12">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticgraph">getStaticGraph</a><ul>
+<li><a class="reference internal" href="#id13">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicgraph">getDynamicGraph</a><ul>
+<li><a class="reference internal" href="#id14">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticgraphtojson">getStaticGraphToJson</a><ul>
+<li><a class="reference internal" href="#id15">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicgraphtojson">getDynamicGraphToJson</a><ul>
+<li><a class="reference internal" href="#id16">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticadjacencymatrix">getStaticAdjacencyMatrix</a><ul>
+<li><a class="reference internal" href="#id17">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicadjacencymatrix">getDynamicAdjacencyMatrix</a><ul>
+<li><a class="reference internal" href="#id18">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setstatictime">setStaticTime</a><ul>
+<li><a class="reference internal" href="#id19">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstatictime">getStaticTime</a><ul>
+<li><a class="reference internal" href="#id20">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setdynamictime">setDynamicTime</a><ul>
+<li><a class="reference internal" href="#id21">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamictime">getDynamicTime</a><ul>
+<li><a class="reference internal" href="#id22">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setdynamicinitstatelist">setDynamicInitStateList</a><ul>
+<li><a class="reference internal" href="#id23">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setstaticinitstate">setStaticInitState</a><ul>
+<li><a class="reference internal" href="#id24">Parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticinitstate">getStaticInitState</a><ul>
+<li><a class="reference internal" href="#id25">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicinitstatelist">getDynamicInitStateList</a><ul>
+<li><a class="reference internal" href="#id26">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticprobdist">getStaticProbDist</a><ul>
+<li><a class="reference internal" href="#id27">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicprobdistlist">getDynamicProbDistList</a><ul>
+<li><a class="reference internal" href="#id28">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticprobvec">getStaticProbVec</a><ul>
+<li><a class="reference internal" href="#id29">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicprobveclist">getDynamicProbVecList</a><ul>
+<li><a class="reference internal" href="#id30">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticmean">getStaticMean</a><ul>
+<li><a class="reference internal" href="#id31">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicmean">getDynamicMean</a><ul>
+<li><a class="reference internal" href="#id32">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticsndmoment">getStaticSndMoment</a><ul>
+<li><a class="reference internal" href="#id33">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicsndmoment">getDynamicSndMoment</a><ul>
+<li><a class="reference internal" href="#id34">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticstdev">getStaticStDev</a><ul>
+<li><a class="reference internal" href="#id35">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicstdev">getDynamicStDev</a><ul>
+<li><a class="reference internal" href="#id36">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticsurvivalprob">getStaticSurvivalProb</a><ul>
+<li><a class="reference internal" href="#id37">Parameters</a></li>
+<li><a class="reference internal" href="#id38">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicsurvivalprob">getDynamicSurvivalProb</a><ul>
+<li><a class="reference internal" href="#id39">Parameters</a></li>
+<li><a class="reference internal" href="#id40">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getstaticinversepartratio">getStaticInversePartRatio</a><ul>
+<li><a class="reference internal" href="#id41">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getdynamicinvpartratio">getDynamicInvPartRatio</a><ul>
+<li><a class="reference internal" href="#id42">Returns</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#checkpst">checkPST</a><ul>
+<li><a class="reference internal" href="#id43">Parameters</a></li>
+<li><a class="reference internal" href="#id44">Returns</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/responsiveSvg.js"></script>
+    </body>
+</html>

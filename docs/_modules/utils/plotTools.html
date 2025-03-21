@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
         <title>utils.plotTools - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -186,17 +186,28 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../perfectStateTransfer.html">Perfect State Transfer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../orientedQuantumWalk.html">Directed Quantum Walk</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../searchingQWAK.html">Searching With QWAK</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../installation/index.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/conda-setup.html">Setting up QWAK with Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/venv-setup.html">Setting up QWAK with Venv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/dependencies.html">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/localGUI.html">Running the Graphical Interface using Flask</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../usage/index.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/perfectStateTransfer.html">Perfect State Transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/orientedQuantumWalk.html">Directed Quantum Walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/searchingQWAK.html">Searching With QWAK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributing/index.html">Contributing</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Contributing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/genDoc.html">Generating Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/pypi.html">Updating PyPi package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">core</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwak_cupy.html">qwak_cupy package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -257,8 +268,8 @@
         <span class="n">legend_ncol</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
         <span class="n">legend_loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span>
         <span class="n">save_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-        <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
-        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="n">font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>  <span class="c1"># Increased font size</span>
+        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>  <span class="c1"># Adjusted figure size</span>
         <span class="n">color_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">line_style_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">use_loglog</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
@@ -276,6 +287,7 @@
         <span class="n">v_line_list_index</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">v_line_colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">x_lim</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">use_grid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>  <span class="c1"># Added use_grid parameter</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plots data from a matrix of x values and a matrix of y values.</span>
@@ -341,6 +353,12 @@
 <span class="sd">        A list of colors to be used for the vertical lines. The default is None.</span>
 <span class="sd">    x_lim : tuple, optional</span>
 <span class="sd">        The limits of the x-axis. The default is None.</span>
+<span class="sd">    use_grid : bool, optional</span>
+<span class="sd">        Whether to use a grid. The default is False.</span>
+<span class="sd">    marker_list : list, optional</span>
+<span class="sd">        A list of markers to be used for the lines. The default is None.</span>
+<span class="sd">    marker_interval : int, optional</span>
+<span class="sd">        Interval at which markers should be placed. The default is None.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Unpack optional parameters</span>
@@ -372,6 +390,9 @@
     <span class="n">x_lim</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x_lim&#39;</span><span class="p">,</span> <span class="n">x_lim</span><span class="p">)</span>
     <span class="n">v_line_list_index</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
         <span class="s1">&#39;v_line_list_index&#39;</span><span class="p">,</span> <span class="n">v_line_list_index</span><span class="p">)</span>
+    <span class="n">use_grid</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;use_grid&#39;</span><span class="p">,</span> <span class="n">use_grid</span><span class="p">)</span>
+    <span class="n">marker_list</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;marker_list&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">marker_interval</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;marker_interval&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
             <span class="n">x_value_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
@@ -394,20 +415,28 @@
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">use_loglog</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">loglog</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">use_grid</span><span class="p">:</span>  <span class="c1"># Apply grid option</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">axis_matrix_counter</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">color_matrix_counter</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="k">for</span> <span class="n">xvalues</span><span class="p">,</span> <span class="n">yvalues</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">x_value_matrix</span><span class="p">,</span> <span class="n">y_value_matrix</span><span class="p">):</span>
         <span class="n">color</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">line_style</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="n">label</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">marker</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">markevery</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="k">if</span> <span class="n">color_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">color</span> <span class="o">=</span> <span class="n">color_list</span><span class="p">[</span><span class="n">axis_matrix_counter</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">line_style_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">line_style</span> <span class="o">=</span> <span class="n">line_style_list</span><span class="p">[</span><span class="n">axis_matrix_counter</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">legend_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">label</span> <span class="o">=</span> <span class="n">legend_labels</span><span class="p">[</span><span class="n">axis_matrix_counter</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">marker_list</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">marker</span> <span class="o">=</span> <span class="n">marker_list</span><span class="p">[</span><span class="n">axis_matrix_counter</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">marker_interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">markevery</span> <span class="o">=</span> <span class="n">marker_interval</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xvalues</span><span class="p">,</span> <span class="n">yvalues</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span>
-                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">line_style</span><span class="p">)</span>
+                <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="n">line_style</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="n">marker</span><span class="p">,</span> <span class="n">markevery</span><span class="o">=</span><span class="n">markevery</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">v_line_values</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">axis_matrix_counter</span> <span class="o">==</span> <span class="n">v_line_list_index</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">v_line_colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">v_line_colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;k&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">v_line_values</span><span class="p">)</span>
@@ -433,25 +462,25 @@
 
     <span class="c1"># set the axis labels</span>
     <span class="k">if</span> <span class="n">x_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">x_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">x_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">y_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">y_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">y_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
 
     <span class="c1"># set the plot plot_title</span>
     <span class="k">if</span> <span class="n">plot_title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">plot_title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">plot_title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span>
 
     <span class="c1"># set the legend</span>
     <span class="k">if</span> <span class="n">legend_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">legend</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span>
             <span class="n">loc</span><span class="o">=</span><span class="n">legend_loc</span><span class="p">,</span>
             <span class="n">ncol</span><span class="o">=</span><span class="n">legend_ncol</span><span class="p">,</span>
-            <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">legend_title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">legend</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">legend_title</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">font_size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">})</span>
+            <span class="n">legend</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">legend_title</span><span class="p">,</span> <span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;size&#39;</span><span class="p">:</span> <span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">})</span>
 
     <span class="c1"># set font size for ticks</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">min_x_value_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">x_value_matrix</span><span class="p">)</span>
     <span class="n">max_x_value_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">x_value_matrix</span><span class="p">)</span>
     <span class="n">min_y_value_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">y_value_matrix</span><span class="p">)</span>
@@ -471,7 +500,7 @@
                 <span class="n">min_x_value_matrix</span><span class="p">,</span>
                 <span class="n">max_x_value_matrix</span><span class="p">,</span>
                 <span class="n">num_x_ticks</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">x_tick_labels</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">x_tick_labels</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">y_num_ticks</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">num_y_ticks</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y_num_ticks</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">y_value_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
@@ -486,7 +515,7 @@
                 <span class="n">min_y_value_matrix</span><span class="p">,</span>
                 <span class="n">max_y_value_matrix</span><span class="p">,</span>
                 <span class="n">num_y_ticks</span><span class="p">))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">y_tick_labels</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">y_tick_labels</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="c1"># add colorbar</span>
     <span class="k">if</span> <span class="n">use_cbar</span><span class="p">:</span>
@@ -511,17 +540,17 @@
             <span class="n">ticks</span><span class="o">=</span><span class="n">cbar_ticks</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">cbar_label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">cbar</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="n">cbar_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">cbar_tick_labels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">cbar_tick_labels</span><span class="p">)</span>
+        <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">cbar_tick_labels</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">x_lim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">x_lim</span><span class="p">)</span>
 
     <span class="c1"># save or show the plot</span>
     <span class="k">if</span> <span class="n">save_path</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
@@ -548,6 +577,10 @@
         <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span>
         <span class="n">x_vline_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="n">y_hline_value</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">title_font_size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>  <span class="c1"># Added title_font_size parameter</span>
+        <span class="n">xlabel_font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>  <span class="c1"># Added xlabel_font_size parameter</span>
+        <span class="n">ylabel_font_size</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span>  <span class="c1"># Added ylabel_font_size parameter</span>
+        <span class="n">tick_font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>  <span class="c1"># Added tick_font_size parameter</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plot a heatmap of the probability of a given p and t value.</span>
@@ -588,6 +621,14 @@
 <span class="sd">        Value to draw a vertical line at. The default is None.</span>
 <span class="sd">    y_hline_value : float, optional</span>
 <span class="sd">        Value to draw a horizontal line at. The default is None.</span>
+<span class="sd">    title_font_size : int, optional</span>
+<span class="sd">        Font size for the title. The default is 16.</span>
+<span class="sd">    xlabel_font_size : int, optional</span>
+<span class="sd">        Font size for the x-axis label. The default is 14.</span>
+<span class="sd">    ylabel_font_size : int, optional</span>
+<span class="sd">        Font size for the y-axis label. The default is 14.</span>
+<span class="sd">    tick_font_size : int, optional</span>
+<span class="sd">        Font size for the tick labels. The default is 12.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Get parameters from kwargs with their default values</span>
     <span class="n">x_num_ticks</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x_num_ticks&#39;</span><span class="p">,</span> <span class="n">x_num_ticks</span><span class="p">)</span>
@@ -604,22 +645,26 @@
     <span class="n">cmap</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cmap&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="p">)</span>
     <span class="n">x_vline_value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x_vline_value&#39;</span><span class="p">,</span> <span class="n">x_vline_value</span><span class="p">)</span>
     <span class="n">y_hline_value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;y_hline_value&#39;</span><span class="p">,</span> <span class="n">y_hline_value</span><span class="p">)</span>
+    <span class="n">title_font_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;title_font_size&#39;</span><span class="p">,</span> <span class="n">title_font_size</span><span class="p">)</span>
+    <span class="n">xlabel_font_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;xlabel_font_size&#39;</span><span class="p">,</span> <span class="n">xlabel_font_size</span><span class="p">)</span>
+    <span class="n">ylabel_font_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;ylabel_font_size&#39;</span><span class="p">,</span> <span class="n">ylabel_font_size</span><span class="p">)</span>
+    <span class="n">tick_font_size</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;tick_font_size&#39;</span><span class="p">,</span> <span class="n">tick_font_size</span><span class="p">)</span>
 
     <span class="n">flat_p</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">p_values</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
     <span class="n">flat_t</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">t_values</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
     <span class="n">flat_prob</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">prob_values</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sublist</span><span class="p">]</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;p&#39;</span><span class="p">:</span> <span class="n">flat_p</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">flat_t</span><span class="p">,</span> <span class="s1">&#39;prob&#39;</span><span class="p">:</span> <span class="n">flat_prob</span><span class="p">}</span>
     <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">pivot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;prob&#39;</span><span class="p">)</span>
+    <span class="n">pivot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;prob&#39;</span><span class="p">)</span>
 
     <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
-    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pivot</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">cbar_label</span><span class="p">},</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">pivot</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;label&#39;</span><span class="p">:</span> <span class="n">cbar_label</span><span class="p">},</span> <span class="n">linewidths</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="c1"># set customizations</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">,</span> <span class="n">which</span><span class="o">=</span><span class="s1">&#39;major&#39;</span><span class="p">,</span> <span class="n">labelsize</span><span class="o">=</span><span class="n">tick_font_size</span><span class="p">)</span>
     <span class="n">cbar</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">collections</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">colorbar</span>
-    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+    <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">labelsize</span><span class="o">=</span><span class="n">tick_font_size</span><span class="p">)</span>
     <span class="n">cbar</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">cbar_label</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="c1"># generate tick labels based on p and t values</span>
@@ -635,26 +680,33 @@
     <span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">t_tick_labels</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">x_vline_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">x_tick_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_vline_value</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">flat_p</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">flat_p</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">flat_p</span><span class="p">))</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">p_values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_tick_value</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">x_tick_value</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">y_hline_value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">y_tick_value</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_hline_value</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">flat_t</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">flat_t</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">flat_t</span><span class="p">))</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">t_values</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y_tick_value</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span><span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="n">y_tick_value</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
 
     <span class="c1"># add title to the plot if N is provided</span>
     <span class="k">if</span> <span class="n">N</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;N=</span><span class="si">{</span><span class="n">N</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">title_font_size</span><span class="p">)</span>
 
     <span class="c1"># add x and y axis labels</span>
     <span class="k">if</span> <span class="n">xlabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="n">xlabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">xlabel_font_size</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">ylabel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">font_size</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="n">ylabel_font_size</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">filepath</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="searchProbStepsPlotting">
+<a class="viewcode-back" href="../../utils.html#utils.plotTools.searchProbStepsPlotting">[docs]</a>
+<span class="k">def</span> <span class="nf">searchProbStepsPlotting</span><span class="p">():</span>
+    <span class="c1"># Define the function here</span>
+    <span class="k">pass</span></div>
 
 </pre></div>
         </article>
@@ -688,8 +740,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+</div><script src="../../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>

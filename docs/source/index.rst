@@ -16,7 +16,6 @@ a Python class instance in Flask.
 
 This package supports python 3.10 or newer.
 
-
 Gallery
 -------
 
@@ -47,6 +46,6 @@ Contents
    :maxdepth: 2
 
    installation/index
-   usage
-   contributing
+   usage/index
+   contributing/index
    modules

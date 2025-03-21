@@ -4,9 +4,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
 
-    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+    <!-- Generated with Sphinx 7.4.7 and Furo 2023.09.10 -->
         <title>qwak.StochasticOperator - QWAK - Quantum Walk Analysis Kit</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=362ab14a" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
     <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
@@ -186,17 +186,28 @@
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../usage.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../perfectStateTransfer.html">Perfect State Transfer</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../orientedQuantumWalk.html">Directed Quantum Walk</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../searchingQWAK.html">Searching With QWAK</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../installation/index.html">Installation</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of Installation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/conda-setup.html">Setting up QWAK with Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/venv-setup.html">Setting up QWAK with Venv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/dependencies.html">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../installation/localGUI.html">Running the Graphical Interface using Flask</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">Modules</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Modules</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../usage/index.html">Usage</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of Usage</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/perfectStateTransfer.html">Perfect State Transfer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/orientedQuantumWalk.html">Directed Quantum Walk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/searchingQWAK.html">Searching With QWAK</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../usage/stochasticQWAK.html">Stochastic Qwak on a Maze</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../contributing/index.html">Contributing</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of Contributing</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/genDoc.html">Generating Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../contributing/pypi.html">Updating PyPi package</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">core</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of core</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../qwak.html">qwak package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../qwak_cupy.html">qwak_cupy package</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../utils.html">utils package</a></li>
 </ul>
 </li>
@@ -238,7 +249,7 @@
 
 <span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">qutip</span> <span class="kn">import</span> <span class="n">Qobj</span><span class="p">,</span> <span class="n">basis</span>
+<span class="kn">from</span> <span class="nn">qutip</span> <span class="kn">import</span> <span class="n">Qobj</span><span class="p">,</span> <span class="n">basis</span><span class="p">,</span> <span class="n">lindblad_dissipator</span>
 
 
 <div class="viewcode-block" id="StochasticOperator">
@@ -260,6 +271,7 @@
 <span class="sd">        Quantum stochastic walks: A generalization of classical random walks and quantum walks.</span>
 
 <span class="sd">        @author: Lorenzo Buffoni</span>
+<span class="sd">        @github: https://github.com/Buffoni</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -353,6 +365,7 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Internal method to build the classical Hamiltonian (Lindblad operators).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># print(&#39;_buildClassicalHamiltonian Temporarily unavailable&#39;)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sinkNode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">L</span> <span class="o">=</span> <span class="p">[</span>
                 <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_p</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">])</span>
@@ -372,7 +385,11 @@
                 <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_laplacian</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span>
             <span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="n">L</span></div>
+        <span class="c1"># Compute superoperator from list of Lindblad operators</span>
+        <span class="n">superop</span> <span class="o">=</span> <span class="n">lindblad_dissipator</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">L</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+          <span class="n">superop</span> <span class="o">+=</span> <span class="n">lindblad_dissipator</span><span class="p">(</span><span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span> <span class="o">=</span> <span class="n">superop</span></div>
 
 
 <div class="viewcode-block" id="StochasticOperator.getClassicalHamiltonian">
@@ -386,7 +403,8 @@
 <span class="sd">        list[Qobj]</span>
 <span class="sd">            A list of Qobj representing the Lindblad operators.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
+        <span class="c1"># print(&#39;getClassicalHamiltonian Temporarily unavailable&#39;)</span>
+        <span class="c1"># return None</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_classicalHamiltonian</span></div>
 
 
@@ -506,8 +524,8 @@
       
     </aside>
   </div>
-</div><script src="../../_static/documentation_options.js?v=5929fcd5"></script>
-    <script src="../../_static/doctools.js?v=888ff710"></script>
+</div><script src="../../_static/documentation_options.js?v=8a448e45"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/furo.js?v=32e29ea5"></script>
     <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
