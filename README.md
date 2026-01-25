@@ -1,6 +1,6 @@
 # QWAK
 Quantum Walk Analysis Kit - A Python package for continuous-time quantum walk (CTQW) simulation.
-
+More details can be found in the peer reviewed scientific article published on [Computer Physics Communications.][(https://qwak-sim.herokuapp.com/](https://www.sciencedirect.com/science/article/pii/S001046552500178X)).
 Additionally, a fullstack web app built with Flask and PyMongo is available on [Heroku](https://qwak-sim.herokuapp.com/).
 
 This package supports python 3.10 or newer.
